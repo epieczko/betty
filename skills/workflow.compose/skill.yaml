@@ -1,0 +1,30 @@
+name: workflow.compose
+version: 0.1.0
+description: >
+  Executes multi-step Betty Framework workflows by chaining existing skills.
+  Enables declarative orchestration of skill pipelines.
+inputs:
+  - workflow.yaml
+outputs:
+  - workflow_history.json
+dependencies:
+  - skill.create
+  - skill.define
+  - registry.update
+status: active
+
+entrypoints:
+  - command: /workflow/compose
+    handler: workflow_compose.py
+    runtime: python
+    description: >
+      Execute a Betty workflow defined in a YAML file.
+    parameters:
+      - name: workflow.yaml
+        type: string
+        required: true
+        description: Path to a workflow YAML file to execute.
+    permissions:
+      - filesystem
+      - read
+      - write

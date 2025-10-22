@@ -1,0 +1,30 @@
+[
+  {
+    "workflow": "create_workflow_validate.yaml",
+    "timestamp": "2025-10-22T23:25:11.834841",
+    "steps": [
+      {
+        "skill": "skill.create",
+        "args": [
+          "workflow.validate",
+          "Validates workflow definitions"
+        ],
+        "output": ""
+      },
+      {
+        "skill": "skill.define",
+        "args": [
+          "skills/workflow.validate/skill.yaml"
+        ],
+        "output": ""
+      },
+      {
+        "skill": "registry.update",
+        "args": [
+          "skills/workflow.validate/skill.yaml"
+        ],
+        "output": "{\n  \"status\": \"success\",\n  \"updated\": \"workflow.validate\",\n  \"registry_path\": \"C:\\\\CoDE\\\\source\\\\betty\\\\registry\\\\skills.json\",\n  \"timestamp\": \"2025-10-22T23:25:12.156389+00:00\"\n}"
+      }
+    ]
+  }
+]

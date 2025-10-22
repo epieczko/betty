@@ -1,0 +1,47 @@
+name: skill.create
+version: 0.1.0
+description: >
+  Generates a new Betty Framework Skill directory and manifest.
+  Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.
+inputs:
+  - skill_name
+  - description
+  - inputs
+  - outputs
+outputs:
+  - skill_directory
+  - skill_manifest.yaml
+  - registration_record.json
+dependencies:
+  - skill.define
+  - context.schema
+status: active
+
+entrypoints:
+  - command: /skill/create
+    handler: skill_create.py
+    runtime: python
+    description: >
+      Scaffolds a new Betty Skill directory, generates its manifest,
+      validates it with skill.define, and updates the registry.
+    parameters:
+      - name: skill_name
+        type: string
+        description: Name of the new skill (e.g., runtime.execute)
+        required: true
+      - name: description
+        type: string
+        description: Description of what the skill will do
+        required: true
+      - name: inputs
+        type: string
+        description: Comma-separated list of input parameters (optional)
+        required: false
+      - name: outputs
+        type: string
+        description: Comma-separated list of output parameters (optional)
+        required: false
+    permissions:
+      - filesystem
+      - read
+      - write

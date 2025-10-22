@@ -1,0 +1,28 @@
+name: skill.define
+version: 0.1.0
+description: >
+  Validates and registers skill manifests (.skill.yaml) for the Betty Framework.
+  Ensures schema compliance and updates the Skill Registry.
+inputs:
+  - skill_manifest_path
+outputs:
+  - validation_result.json
+  - updated_registry.json
+dependencies: []
+status: active
+
+entrypoints:
+  - command: /skill/define
+    handler: skill_define.py
+    runtime: python
+    description: >
+      Validate a Claude Code skill manifest and register it in the Betty Skill Registry.
+    parameters:
+      - name: skill_manifest_path
+        type: string
+        required: true
+        description: Path to the skill.yaml file to validate.
+    permissions:
+      - filesystem
+      - read
+      - write

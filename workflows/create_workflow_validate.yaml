@@ -1,0 +1,7 @@
+steps:
+  - skill: skill.create
+    args: ["workflow.validate", "Validates workflow definitions"]
+  - skill: skill.define
+    args: ["skills/workflow.validate/skill.yaml"]
+  - skill: registry.update
+    args: ["skills/workflow.validate/skill.yaml"]

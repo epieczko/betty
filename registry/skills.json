@@ -1,0 +1,123 @@
+{
+  "registry_version": "1.0.0",
+  "generated_at": "2025-10-22T23:25:12.155644+00:00",
+  "skills": [
+    {
+      "name": "agent.define",
+      "version": "0.1.0",
+      "description": "Create and validate Claude Code agent manifests",
+      "inputs": [
+        "agent_manifest.yaml"
+      ],
+      "outputs": [
+        "validated_agent_manifest.json"
+      ],
+      "dependencies": [
+        "skill.define"
+      ],
+      "status": "draft"
+    },
+    {
+      "name": "skill.define",
+      "version": "0.1.0",
+      "description": "Validates and registers skill manifests for the Betty Framework",
+      "inputs": [
+        "skill_manifest_path"
+      ],
+      "outputs": [
+        "validation_result.json",
+        "updated_registry.json"
+      ],
+      "dependencies": [
+        "skill.define"
+      ],
+      "status": "draft"
+    },
+    {
+      "name": "skill.create",
+      "version": "0.1.0",
+      "description": "Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\n",
+      "inputs": [
+        "skill_name",
+        "description",
+        "inputs",
+        "outputs"
+      ],
+      "outputs": [
+        "skill_directory",
+        "skill_manifest.yaml",
+        "registration_record.json"
+      ],
+      "dependencies": [
+        "skill.define",
+        "context.schema"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/skill/create",
+          "handler": "skill_create.py",
+          "runtime": "python",
+          "description": "Scaffolds a new Betty Skill directory, generates its manifest, validates it with skill.define, and updates the registry.\n",
+          "parameters": [
+            {
+              "name": "skill_name",
+              "type": "string",
+              "description": "Name of the new skill (e.g., runtime.execute)",
+              "required": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "description": "Description of what the skill will do",
+              "required": true
+            },
+            {
+              "name": "inputs",
+              "type": "string",
+              "description": "Comma-separated list of input parameters (optional)",
+              "required": false
+            },
+            {
+              "name": "outputs",
+              "type": "string",
+              "description": "Comma-separated list of output parameters (optional)",
+              "required": false
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "registry.update",
+      "version": "0.1.0",
+      "description": "Updates the Betty Framework Skill Registry when new skills are validated",
+      "inputs": [
+        "skill_manifest.yaml"
+      ],
+      "outputs": [
+        "registry_update_result.json"
+      ],
+      "dependencies": [
+        "skill.define"
+      ],
+      "status": "draft"
+    },
+    {
+      "name": "workflow.validate",
+      "version": "0.1.0",
+      "description": "Validates workflow definitions",
+      "inputs": [],
+      "outputs": [],
+      "dependencies": [
+        "skill.define"
+      ],
+      "status": "draft"
+    }
+  ]
+}
