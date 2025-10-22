@@ -12,102 +12,347 @@ import sys
 import yaml
 import json
 import argparse
-from datetime import datetime, timezone
 import subprocess
+from typing import List, Dict, Any, Optional
+from datetime import datetime, timezone
 
-BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
-SKILLS_DIR = os.path.join(BASE_DIR, "skills")
-REGISTRY_FILE = os.path.join(BASE_DIR, "registry", "skills.json")
-VALIDATOR_PATH = os.path.join(BASE_DIR, "tools", "skill_define.py")
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
-def ensure_dirs():
-    os.makedirs(SKILLS_DIR, exist_ok=True)
-    os.makedirs(os.path.dirname(REGISTRY_FILE), exist_ok=True)
+from betty.config import (
+    BASE_DIR, SKILLS_DIR, get_skill_path, get_skill_manifest_path,
+    get_skill_handler_path, ensure_directories, SkillStatus
+)
+from betty.validation import validate_skill_name, ValidationError
+from betty.logging_utils import setup_logger
+from betty.errors import SkillNotFoundError, ManifestError, format_error_response
 
-def run_validator(skill_path):
-    """Run skill.define validator if available."""
-    if os.path.exists(VALIDATOR_PATH):
-        print(f"🔍 Validating new skill with {VALIDATOR_PATH}...")
-        subprocess.run([sys.executable, VALIDATOR_PATH, skill_path])
-    else:
-        print("⚠ skill_define.py not found — skipping validation.")
+logger = setup_logger(__name__)
 
-def update_registry(manifest):
-    """Add the new skill manifest to registry/skills.json."""
-    ensure_dirs()
-    registry = {"registry_version": "1.0.0", "generated_at": datetime.utcnow().isoformat(), "skills": []}
 
-    if os.path.exists(REGISTRY_FILE):
-        try:
-            with open(REGISTRY_FILE) as f:
-                registry = json.load(f)
-        except Exception:
-            pass
+def create_skill_manifest(
+    skill_name: str,
+    description: str,
+    inputs: List[str],
+    outputs: List[str]
+) -> Dict[str, Any]:
+    """
+    Create a skill manifest dictionary.
 
-    # Replace entry if skill already exists
-    registry["skills"] = [s for s in registry["skills"] if s.get("name") != manifest["name"]]
-    registry["skills"].append(manifest)
+    Args:
+        skill_name: Name of the skill
+        description: Description of what the skill does
+        inputs: List of input parameter names
+        outputs: List of output parameter names
 
-    with open(REGISTRY_FILE, "w") as f:
-        json.dump(registry, f, indent=2)
-
-def create_skill(skill_name, description, inputs, outputs):
-    """Scaffold a new skill directory and manifest."""
-    folder_path = os.path.join(SKILLS_DIR, skill_name)
-    if os.path.exists(folder_path):
-        print(f"⚠ Skill {skill_name} already exists.")
-        return
-
-    os.makedirs(folder_path, exist_ok=True)
-    manifest = {
+    Returns:
+        Skill manifest as dictionary
+    """
+    return {
         "name": skill_name,
         "version": "0.1.0",
         "description": description,
         "inputs": inputs,
         "outputs": outputs,
-        "dependencies": ["skill.define"],
-        "status": "draft",
+        "dependencies": [],
+        "status": SkillStatus.DRAFT.value,
     }
 
-    # Write skill.yaml
-    manifest_path = os.path.join(folder_path, "skill.yaml")
+
+def write_skill_yaml(manifest_path: str, manifest: Dict[str, Any]) -> None:
+    """
+    Write skill manifest to YAML file.
+
+    Args:
+        manifest_path: Path to skill.yaml file
+        manifest: Manifest dictionary
+    """
     with open(manifest_path, "w") as f:
         yaml.dump(manifest, f, sort_keys=False)
+    logger.info(f"Created manifest: {manifest_path}")
 
-    # Create minimal SKILL.md
-    skill_md = os.path.join(folder_path, "SKILL.md")
-    with open(skill_md, "w") as f:
-        f.write(f"---\nname: {skill_name}\ndescription: {description}\n---\n\n")
-        f.write(f"# {skill_name}\n\nAuto-generated via `skill.create`.\n")
 
-    print(f"✅ Created new skill: {skill_name}")
-    print(f"📄 Manifest: {manifest_path}")
+def write_skill_md(skill_path: str, skill_name: str, description: str) -> None:
+    """
+    Create minimal SKILL.md documentation file.
 
-    # Validate
-    run_validator(manifest_path)
+    Args:
+        skill_path: Path to skill directory
+        skill_name: Name of the skill
+        description: Description of the skill
+    """
+    skill_md_path = os.path.join(skill_path, "SKILL.md")
+    content = f"""---
+name: {skill_name}
+description: {description}
+---
 
-    # Update registry using registry.update skill
-    registry_updater = os.path.join(BASE_DIR, "skills", "registry.update", "registry_update.py")
-    if os.path.exists(registry_updater):
-        print("🔁 Updating registry via registry.update...")
-        subprocess.run([sys.executable, registry_updater, manifest_path])
-    else:
-        print("⚠ registry.update not found — writing directly as fallback.")
-        update_registry(manifest)
+# {skill_name}
+
+{description}
+
+## Status
+
+Auto-generated via `skill.create`.
+
+## Usage
+
+TODO: Add usage instructions
+
+## Inputs
+
+TODO: Document inputs
+
+## Outputs
+
+TODO: Document outputs
+
+## Dependencies
+
+TODO: List dependencies
+"""
+    with open(skill_md_path, "w") as f:
+        f.write(content)
+    logger.info(f"Created documentation: {skill_md_path}")
+
+
+def create_skill_handler(skill_path: str, skill_name: str) -> None:
+    """
+    Create a minimal skill handler Python script.
+
+    Args:
+        skill_path: Path to skill directory
+        skill_name: Name of the skill
+    """
+    handler_name = skill_name.replace('.', '_') + '.py'
+    handler_path = os.path.join(skill_path, handler_name)
+
+    content = f"""#!/usr/bin/env python3
+\"\"\"
+{skill_name} - Implementation Script
+Auto-generated by skill.create
+\"\"\"
+
+import os
+import sys
+import json
+import argparse
+
+# Add Betty framework to path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+
+from betty.logging_utils import setup_logger
+from betty.errors import format_error_response
+
+logger = setup_logger(__name__)
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Create a new Betty Framework Skill.")
-    parser.add_argument("skill_name", help="Name of the new skill (e.g., runtime.execute)")
-    parser.add_argument("description", help="Description of what the skill does.")
-    parser.add_argument("--inputs", help="Comma-separated list of inputs", default="")
-    parser.add_argument("--outputs", help="Comma-separated list of outputs", default="")
+    \"\"\"Main entry point for {skill_name}.\"\"\"
+    parser = argparse.ArgumentParser(description="{skill_name}")
+    # TODO: Add arguments
+    args = parser.parse_args()
+
+    try:
+        logger.info("Executing {skill_name}...")
+        # TODO: Implement skill logic
+        result = {{"status": "success", "message": "Not yet implemented"}}
+        print(json.dumps(result, indent=2))
+    except Exception as e:
+        logger.error(f"Error executing {skill_name}: {{e}}")
+        print(json.dumps(format_error_response(e), indent=2))
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
+"""
+    with open(handler_path, "w") as f:
+        f.write(content)
+    os.chmod(handler_path, 0o755)  # Make executable
+    logger.info(f"Created handler: {handler_path}")
+
+
+def run_validator(manifest_path: str) -> bool:
+    """
+    Run skill.define validator if available.
+
+    Args:
+        manifest_path: Path to skill manifest
+
+    Returns:
+        True if validation succeeded or validator not found, False if validation failed
+    """
+    validator_path = os.path.join(BASE_DIR, "skills", "skill.define", "skill_define.py")
+
+    if not os.path.exists(validator_path):
+        logger.warning("skill_define.py not found — skipping validation.")
+        return True
+
+    logger.info(f"Validating new skill with skill.define...")
+    result = subprocess.run(
+        [sys.executable, validator_path, manifest_path],
+        capture_output=True,
+        text=True
+    )
+
+    if result.returncode != 0:
+        logger.error(f"Validation failed: {result.stderr}")
+        return False
+
+    logger.info("Validation succeeded")
+    return True
+
+
+def update_registry(manifest_path: str) -> bool:
+    """
+    Update registry using registry.update skill.
+
+    Args:
+        manifest_path: Path to skill manifest
+
+    Returns:
+        True if registry update succeeded, False otherwise
+    """
+    registry_updater = os.path.join(BASE_DIR, "skills", "registry.update", "registry_update.py")
+
+    if not os.path.exists(registry_updater):
+        logger.warning("registry.update not found — skipping registry update.")
+        return False
+
+    logger.info("Updating registry via registry.update...")
+    result = subprocess.run(
+        [sys.executable, registry_updater, manifest_path],
+        capture_output=True,
+        text=True
+    )
+
+    if result.returncode != 0:
+        logger.error(f"Registry update failed: {result.stderr}")
+        return False
+
+    logger.info("Registry updated successfully")
+    return True
+
+
+def create_skill(
+    skill_name: str,
+    description: str,
+    inputs: List[str],
+    outputs: List[str]
+) -> Dict[str, Any]:
+    """
+    Scaffold a new skill directory and manifest.
+
+    Args:
+        skill_name: Name of the new skill
+        description: Description of what the skill does
+        inputs: List of input parameter names
+        outputs: List of output parameter names
+
+    Returns:
+        Result dictionary with status and created file paths
+
+    Raises:
+        ValidationError: If skill_name is invalid
+        ManifestError: If skill already exists or creation fails
+    """
+    # Validate skill name
+    validate_skill_name(skill_name)
+
+    # Ensure directories exist
+    ensure_directories()
+
+    # Check if skill already exists
+    skill_path = get_skill_path(skill_name)
+    if os.path.exists(skill_path):
+        raise ManifestError(
+            f"Skill '{skill_name}' already exists",
+            details={"skill_path": skill_path}
+        )
+
+    try:
+        # Create skill directory
+        os.makedirs(skill_path, exist_ok=True)
+        logger.info(f"Created skill directory: {skill_path}")
+
+        # Create manifest
+        manifest = create_skill_manifest(skill_name, description, inputs, outputs)
+        manifest_path = get_skill_manifest_path(skill_name)
+        write_skill_yaml(manifest_path, manifest)
+
+        # Create SKILL.md
+        write_skill_md(skill_path, skill_name, description)
+
+        # Create handler script
+        create_skill_handler(skill_path, skill_name)
+
+        # Validate
+        validation_success = run_validator(manifest_path)
+
+        # Update registry
+        registry_success = update_registry(manifest_path)
+
+        result = {
+            "status": "success",
+            "skill_name": skill_name,
+            "skill_path": skill_path,
+            "manifest_path": manifest_path,
+            "validation": "passed" if validation_success else "skipped",
+            "registry_updated": registry_success,
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+
+        logger.info(f"✅ Successfully created skill: {skill_name}")
+        return result
+
+    except Exception as e:
+        logger.error(f"Failed to create skill: {e}")
+        raise ManifestError(f"Failed to create skill: {e}")
+
+
+def main():
+    """Main CLI entry point."""
+    parser = argparse.ArgumentParser(
+        description="Create a new Betty Framework Skill.",
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument(
+        "skill_name",
+        help="Name of the new skill (e.g., runtime.execute)"
+    )
+    parser.add_argument(
+        "description",
+        help="Description of what the skill does."
+    )
+    parser.add_argument(
+        "--inputs",
+        help="Comma-separated list of inputs",
+        default=""
+    )
+    parser.add_argument(
+        "--outputs",
+        help="Comma-separated list of outputs",
+        default=""
+    )
+
     args = parser.parse_args()
 
     inputs = [i.strip() for i in args.inputs.split(",") if i.strip()]
     outputs = [o.strip() for o in args.outputs.split(",") if o.strip()]
 
-    create_skill(args.skill_name, args.description, inputs, outputs)
+    try:
+        result = create_skill(args.skill_name, args.description, inputs, outputs)
+        print(json.dumps(result, indent=2))
+    except (ValidationError, ManifestError) as e:
+        logger.error(str(e))
+        print(json.dumps(format_error_response(e), indent=2))
+        sys.exit(1)
+    except Exception as e:
+        logger.error(f"Unexpected error: {e}")
+        print(json.dumps(format_error_response(e, include_traceback=True), indent=2))
+        sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

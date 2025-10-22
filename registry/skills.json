@@ -28,10 +28,8 @@
         "validation_result.json",
         "updated_registry.json"
       ],
-      "dependencies": [
-        "skill.define"
-      ],
-      "status": "draft"
+      "dependencies": [],
+      "status": "active"
     },
     {
       "name": "skill.create",
