@@ -4,53 +4,151 @@ registry_update.py – Implementation of the registry.update Skill
 Adds, updates, or removes entries in the Betty Framework Skill Registry.
 """
 
-import os, sys, json, yaml
+import os
+import sys
+import json
+import yaml
+from typing import Dict, Any
 from datetime import datetime, timezone
 
-BASE = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
-REGISTRY = os.path.join(BASE, "registry", "skills.json")
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
-def load_manifest(path):
-    with open(path) as f:
-        return yaml.safe_load(f)
+from betty.config import BASE_DIR, REGISTRY_FILE, REGISTRY_VERSION
+from betty.file_utils import safe_update_json
+from betty.validation import validate_path
+from betty.logging_utils import setup_logger
+from betty.errors import RegistryError, format_error_response
 
-def load_registry():
-    if not os.path.exists(REGISTRY):
-        return {"registry_version": "1.0.0", "generated_at": datetime.now(timezone.utc).isoformat(), "skills": []}
-    with open(REGISTRY) as f:
-        return json.load(f)
+logger = setup_logger(__name__)
 
-def save_registry(registry):
-    registry["generated_at"] = datetime.now(timezone.utc).isoformat()
-    os.makedirs(os.path.dirname(REGISTRY), exist_ok=True)
-    with open(REGISTRY, "w") as f:
-        json.dump(registry, f, indent=2)
 
-def update_registry(manifest_path):
-    """Add or update a skill manifest in the registry."""
+def load_manifest(path: str) -> Dict[str, Any]:
+    """
+    Load a skill manifest from YAML file.
+
+    Args:
+        path: Path to skill manifest file
+
+    Returns:
+        Parsed manifest dictionary
+
+    Raises:
+        RegistryError: If manifest cannot be loaded
+    """
+    try:
+        with open(path) as f:
+            manifest = yaml.safe_load(f)
+        return manifest
+    except FileNotFoundError:
+        raise RegistryError(f"Manifest file not found: {path}")
+    except yaml.YAMLError as e:
+        raise RegistryError(f"Invalid YAML in manifest: {e}")
+
+
+def update_registry_data(manifest_path: str) -> Dict[str, Any]:
+    """
+    Update the registry with a skill manifest.
+
+    Uses file locking to ensure thread-safe updates.
+
+    Args:
+        manifest_path: Path to skill manifest file
+
+    Returns:
+        Result dictionary with update status
+
+    Raises:
+        RegistryError: If update fails
+    """
+    # Validate path
+    validate_path(manifest_path, must_exist=True)
+
+    # Load manifest
     manifest = load_manifest(manifest_path)
-    registry = load_registry()
 
-    # Replace or append entry
-    registry["skills"] = [s for s in registry["skills"] if s.get("name") != manifest["name"]]
-    registry["skills"].append(manifest)
-    save_registry(registry)
+    if not manifest.get("name"):
+        raise RegistryError("Manifest missing required 'name' field")
 
-    return {
-        "status": "success",
-        "updated": manifest["name"],
-        "registry_path": REGISTRY,
-        "timestamp": datetime.now(timezone.utc).isoformat()
+    skill_name = manifest["name"]
+    logger.info(f"Updating registry with skill: {skill_name}")
+
+    def update_fn(registry_data):
+        """Update function for safe_update_json."""
+        # Ensure registry has proper structure
+        if not registry_data or "skills" not in registry_data:
+            registry_data = {
+                "registry_version": REGISTRY_VERSION,
+                "generated_at": datetime.now(timezone.utc).isoformat(),
+                "skills": []
+            }
+
+        # Remove existing entry if present
+        registry_data["skills"] = [
+            s for s in registry_data["skills"]
+            if s.get("name") != skill_name
+        ]
+
+        # Add new entry
+        registry_data["skills"].append(manifest)
+
+        # Update timestamp
+        registry_data["generated_at"] = datetime.now(timezone.utc).isoformat()
+
+        return registry_data
+
+    # Default registry structure
+    default_registry = {
+        "registry_version": REGISTRY_VERSION,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "skills": []
     }
 
+    try:
+        # Use safe atomic update with file locking
+        updated_registry = safe_update_json(REGISTRY_FILE, update_fn, default=default_registry)
+
+        result = {
+            "status": "success",
+            "updated": skill_name,
+            "registry_path": REGISTRY_FILE,
+            "total_skills": len(updated_registry["skills"]),
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+
+        logger.info(f"✅ Successfully updated registry for: {skill_name}")
+        return result
+
+    except Exception as e:
+        logger.error(f"Failed to update registry: {e}")
+        raise RegistryError(f"Failed to update registry: {e}")
+
+
 def main():
+    """Main CLI entry point."""
     if len(sys.argv) < 2:
-        print(json.dumps({"error": "Usage: registry_update.py <path_to_skill.yaml>"}))
+        error = {
+            "error": "UsageError",
+            "message": "Usage: registry_update.py <path_to_skill.yaml>",
+            "details": {}
+        }
+        print(json.dumps(error, indent=2))
         sys.exit(1)
 
-    path = sys.argv[1]
-    result = update_registry(path)
-    print(json.dumps(result, indent=2))
+    manifest_path = sys.argv[1]
+
+    try:
+        result = update_registry_data(manifest_path)
+        print(json.dumps(result, indent=2))
+    except RegistryError as e:
+        logger.error(str(e))
+        print(json.dumps(format_error_response(e), indent=2))
+        sys.exit(1)
+    except Exception as e:
+        logger.error(f"Unexpected error: {e}")
+        print(json.dumps(format_error_response(e, include_traceback=True), indent=2))
+        sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

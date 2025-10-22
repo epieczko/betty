@@ -4,69 +4,167 @@ skill_define.py – Implementation of the skill.define Skill
 Validates skill manifests (.skill.yaml) and registers them in the Skill Registry.
 """
 
-import os, sys, json, yaml
+import os
+import sys
+import json
+import yaml
+import subprocess
+from typing import Dict, Any, List
 from datetime import datetime, timezone
 
-BASE = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
-REGISTRY = os.path.join(BASE, "registry", "skills.json")
-REQUIRED_FIELDS = ["name", "version", "description", "inputs", "outputs", "status"]
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
-def validate_manifest(path):
-    """Validate that required fields exist in a skill manifest."""
+from betty.config import BASE_DIR, REQUIRED_SKILL_FIELDS
+from betty.validation import validate_path, validate_manifest_fields
+from betty.logging_utils import setup_logger
+from betty.errors import SkillValidationError, format_error_response
+
+logger = setup_logger(__name__)
+
+
+def load_skill_manifest(path: str) -> Dict[str, Any]:
+    """
+    Load and parse a skill manifest from YAML file.
+
+    Args:
+        path: Path to skill manifest file
+
+    Returns:
+        Parsed manifest dictionary
+
+    Raises:
+        SkillValidationError: If manifest cannot be loaded or parsed
+    """
     try:
         with open(path) as f:
             manifest = yaml.safe_load(f)
-    except Exception as e:
-        return {"valid": False, "error": f"Failed to parse YAML: {e}"}
+        return manifest
+    except FileNotFoundError:
+        raise SkillValidationError(f"Manifest file not found: {path}")
+    except yaml.YAMLError as e:
+        raise SkillValidationError(f"Failed to parse YAML: {e}")
 
-    missing = [f for f in REQUIRED_FIELDS if f not in manifest]
-    valid = not missing
+
+def validate_manifest(path: str) -> Dict[str, Any]:
+    """
+    Validate that required fields exist in a skill manifest.
+
+    Args:
+        path: Path to skill manifest file
+
+    Returns:
+        Dictionary with validation results:
+        - valid: Boolean indicating if manifest is valid
+        - missing: List of missing required fields (if any)
+        - manifest: The parsed manifest (if valid)
+        - path: Path to the manifest file
+
+    Raises:
+        SkillValidationError: If validation fails
+    """
+    validate_path(path, must_exist=True)
+
+    logger.info(f"Validating manifest: {path}")
+
+    try:
+        manifest = load_skill_manifest(path)
+    except SkillValidationError as e:
+        return {
+            "valid": False,
+            "error": str(e),
+            "path": path
+        }
+
+    # Validate required fields
+    missing = validate_manifest_fields(manifest, REQUIRED_SKILL_FIELDS)
+
+    if missing:
+        logger.warning(f"Missing required fields: {missing}")
+        return {
+            "valid": False,
+            "missing": missing,
+            "path": path
+        }
+
+    logger.info("✅ Manifest validation passed")
     return {
-        "valid": valid,
-        "missing": missing,
+        "valid": True,
+        "missing": [],
         "path": path,
-        "manifest": manifest if valid else None
+        "manifest": manifest
     }
 
-def update_registry(manifest):
-    """Add or update the skill manifest in the registry."""
-    os.makedirs(os.path.dirname(REGISTRY), exist_ok=True)
-    registry = {"registry_version": "1.0.0", "generated_at": datetime.now(timezone.utc).isoformat(), "skills": []}
 
-    if os.path.exists(REGISTRY):
-        try:
-            with open(REGISTRY) as f:
-                registry = json.load(f)
-        except Exception:
-            pass
+def delegate_to_registry_update(manifest_path: str) -> bool:
+    """
+    Delegate registry update to registry.update skill.
 
-    # Replace or append entry
-    registry["skills"] = [s for s in registry["skills"] if s.get("name") != manifest["name"]]
-    registry["skills"].append(manifest)
+    Args:
+        manifest_path: Path to skill manifest
 
-    with open(REGISTRY, "w") as f:
-        json.dump(registry, f, indent=2)
+    Returns:
+        True if registry update succeeded, False otherwise
+    """
+    registry_updater = os.path.join(BASE_DIR, "skills", "registry.update", "registry_update.py")
+
+    if not os.path.exists(registry_updater):
+        logger.warning("registry.update skill not found - skipping registry update")
+        return False
+
+    logger.info("🔁 Delegating registry update to registry.update skill...")
+
+    result = subprocess.run(
+        [sys.executable, registry_updater, manifest_path],
+        capture_output=True,
+        text=True
+    )
+
+    if result.returncode != 0:
+        logger.error(f"Registry update failed: {result.stderr}")
+        return False
+
+    logger.info("Registry update succeeded")
+    return True
+
 
 def main():
+    """Main CLI entry point."""
     if len(sys.argv) < 2:
-        print(json.dumps({"error": "Usage: skill_define.py <path_to_skill.yaml>"}))
+        error = {
+            "error": "UsageError",
+            "message": "Usage: skill_define.py <path_to_skill.yaml>",
+            "details": {}
+        }
+        print(json.dumps(error, indent=2))
         sys.exit(1)
 
     path = sys.argv[1]
-    result = validate_manifest(path)
 
-    if result["valid"]:
-        registry_updater = os.path.join(BASE_DIR, "skills", "registry.update", "registry_update.py")
-        manifest_path = path
-        if os.path.exists(registry_updater):
-            print("🔁 Delegating registry update to registry.update skill...")
-            subprocess.run([sys.executable, registry_updater, manifest_path])
-        else:
-            update_registry(result["manifest"])
-        result["status"] = "registered"
-Hello.
+    try:
+        result = validate_manifest(path)
 
-    print(json.dumps(result, indent=2))
+        if result["valid"]:
+            # Delegate to registry.update
+            registry_updated = delegate_to_registry_update(path)
+            result["status"] = "registered" if registry_updated else "validated"
+            result["registry_updated"] = registry_updated
+
+        print(json.dumps(result, indent=2))
+
+        # Exit with error code if validation failed
+        if not result["valid"]:
+            sys.exit(1)
+
+    except SkillValidationError as e:
+        logger.error(str(e))
+        print(json.dumps(format_error_response(e), indent=2))
+        sys.exit(1)
+    except Exception as e:
+        logger.error(f"Unexpected error: {e}")
+        print(json.dumps(format_error_response(e, include_traceback=True), indent=2))
+        sys.exit(1)
+
 
 if __name__ == "__main__":
     main()
