@@ -1,0 +1,11 @@
+{
+  "skills_by_category": {
+    "foundation": 5,
+    "api": 4,
+    "infrastructure": 11,
+    "governance": 0
+  },
+  "total_skills": 20,
+  "agents_count": 2,
+  "timestamp": "2025-10-23T19:58:22.843605+00:00"
+}
