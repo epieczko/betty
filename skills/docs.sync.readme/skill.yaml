@@ -1,0 +1,31 @@
+name: docs.sync.readme
+version: 0.1.0
+description: >
+  Regenerate the top-level README.md to reflect all current registered skills and agents.
+  Pulls from registry/skills.json and registry/agents.json, groups by category, and updates
+  documentation sections while maintaining repo style and tone.
+inputs: []
+outputs:
+  - README.md
+  - sync_report.json
+dependencies:
+  - registry.update
+status: active
+
+entrypoints:
+  - command: /docs/sync/readme
+    handler: readme_sync.py
+    runtime: python
+    description: >
+      Sync README.md with current registry state. Updates skills tables, agents links,
+      and documentation map to reflect all registered skills and agents.
+    parameters: []
+    permissions:
+      - filesystem:read
+      - filesystem:write
+
+tags:
+  - documentation
+  - registry
+  - automation
+  - maintenance
