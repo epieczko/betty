@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-23T17:38:21.519547+00:00",
+  "generated_at": "2025-10-23T17:49:44.087670+00:00",
   "skills": [
     {
       "name": "workflow.validate",
@@ -854,6 +854,39 @@
             "write"
           ]
         }
+      ]
+    },
+    {
+      "name": "plugin.sync",
+      "version": "0.1.0",
+      "description": "Automatically generates plugin.yaml from Betty Framework registries. Reads skills.json, commands.json, and hooks.json to build a complete plugin configuration.\n",
+      "inputs": [],
+      "outputs": [
+        "plugin.yaml",
+        "generation_report.json"
+      ],
+      "dependencies": [
+        "registry.update"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/plugin/sync",
+          "handler": "plugin_sync.py",
+          "runtime": "python",
+          "description": "Generate plugin.yaml from registry files. Syncs active skills with entrypoints into plugin commands.\n",
+          "parameters": [],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "tags": [
+        "plugin",
+        "registry",
+        "automation",
+        "infrastructure"
       ]
     }
   ]
