@@ -1254,6 +1254,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#active" class="md-nav__link">
+    <span class="md-ellipsis">
+      Active
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#agent" class="md-nav__link">
     <span class="md-ellipsis">
       Agent
@@ -1389,6 +1398,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#draft" class="md-nav__link">
+    <span class="md-ellipsis">
+      Draft
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#dependency" class="md-nav__link">
     <span class="md-ellipsis">
       Dependency
@@ -1453,6 +1471,24 @@
   
     <nav class="md-nav" aria-label="F">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#filesystemread" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filesystem:Read
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filesystemwrite" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filesystem:Write
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#five-layer-model" class="md-nav__link">
@@ -1545,6 +1581,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#iterative" class="md-nav__link">
+    <span class="md-ellipsis">
+      Iterative
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#inputs" class="md-nav__link">
     <span class="md-ellipsis">
       Inputs
@@ -1635,6 +1680,42 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#on_compilation_failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      On_Compilation_Failure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on_generation_failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      On_Generation_Failure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on_validation_failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      On_Validation_Failure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oneshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Oneshot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#oneshot-agent" class="md-nav__link">
     <span class="md-ellipsis">
       Oneshot Agent
@@ -1675,6 +1756,24 @@
   
     <nav class="md-nav" aria-label="P">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#processexecute" class="md-nav__link">
+    <span class="md-ellipsis">
+      Process:Execute
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#policy-enforcement" class="md-nav__link">
@@ -1961,6 +2060,8 @@
 <h1 id="betty-framework-glossary">Betty Framework Glossary<a class="headerlink" href="#betty-framework-glossary" title="Permanent link">&para;</a></h1>
 <p>This glossary defines key terms used throughout the Betty Framework documentation.</p>
 <h2 id="a">A<a class="headerlink" href="#a" title="Permanent link">&para;</a></h2>
+<h3 id="active">Active<a class="headerlink" href="#active" title="Permanent link">&para;</a></h3>
+<p>A status indicating that a component is production-ready and available for use in workflows and operations.</p>
 <h3 id="agent">Agent<a class="headerlink" href="#agent" title="Permanent link">&para;</a></h3>
 <p>An intelligent orchestrator with reasoning capabilities that can iteratively execute skills based on context and feedback. Agents operate at Layer 2 of Betty's architecture and can be either <strong>iterative</strong> (retry on failure) or <strong>oneshot</strong> (single execution). Defined by <code>agent.yaml</code> manifests.</p>
 <p><strong>Example</strong>: The <code>api.designer</code> agent uses <code>api.define</code>, <code>api.validate</code>, and <code>api.generate-models</code> skills iteratively to create compliant API specifications.</p>
@@ -1985,6 +2086,8 @@
 <h3 id="claude-code">Claude Code<a class="headerlink" href="#claude-code" title="Permanent link">&para;</a></h3>
 <p>Anthropic's official CLI for Claude - the runtime environment in which Betty operates. Betty extends Claude Code with structured workflows and governance.</p>
 <h2 id="d">D<a class="headerlink" href="#d" title="Permanent link">&para;</a></h2>
+<h3 id="draft">Draft<a class="headerlink" href="#draft" title="Permanent link">&para;</a></h3>
+<p>A status indicating that a component is under development and not yet production-ready. Draft components are excluded from production operations.</p>
 <h3 id="dependency">Dependency<a class="headerlink" href="#dependency" title="Permanent link">&para;</a></h3>
 <p>A required skill or external resource that another skill needs to function. Listed in skill manifests under the <code>dependencies</code> field.</p>
 <h3 id="draft-status">Draft Status<a class="headerlink" href="#draft-status" title="Permanent link">&para;</a></h3>
@@ -1995,6 +2098,10 @@
 <h3 id="event">Event<a class="headerlink" href="#event" title="Permanent link">&para;</a></h3>
 <p>A trigger point for hooks, such as <code>on_file_edit</code>, <code>on_commit</code>, or <code>on_push</code>. Hooks execute automatically when their associated event occurs.</p>
 <h2 id="f">F<a class="headerlink" href="#f" title="Permanent link">&para;</a></h2>
+<h3 id="filesystemread">Filesystem:Read<a class="headerlink" href="#filesystemread" title="Permanent link">&para;</a></h3>
+<p>Permission to read files and directories from the filesystem.</p>
+<h3 id="filesystemwrite">Filesystem:Write<a class="headerlink" href="#filesystemwrite" title="Permanent link">&para;</a></h3>
+<p>Permission to write, modify, or delete files and directories.</p>
 <h3 id="five-layer-model">Five-Layer Model<a class="headerlink" href="#five-layer-model" title="Permanent link">&para;</a></h3>
 <p>Betty's architectural pattern consisting of: (1) Commands, (2) Agents, (3) Workflows, (4) Skills, and (5) Hooks. Each layer serves a distinct purpose and delegates to the layer below.</p>
 <h2 id="g">G<a class="headerlink" href="#g" title="Permanent link">&para;</a></h2>
@@ -2008,6 +2115,8 @@
 <h3 id="hook-registry">Hook Registry<a class="headerlink" href="#hook-registry" title="Permanent link">&para;</a></h3>
 <p>A JSON file (<code>/registry/hooks.json</code>) that tracks formalized hook manifests for version control and review. Different from <code>.claude/hooks.yaml</code> which is the live configuration.</p>
 <h2 id="i">I<a class="headerlink" href="#i" title="Permanent link">&para;</a></h2>
+<h3 id="iterative">Iterative<a class="headerlink" href="#iterative" title="Permanent link">&para;</a></h3>
+<p>A reasoning mode where an agent can retry operations based on feedback, useful for tasks requiring refinement.</p>
 <h3 id="inputs">Inputs<a class="headerlink" href="#inputs" title="Permanent link">&para;</a></h3>
 <p>Parameters that a skill accepts. Defined in skill manifests with name, type, required status, and description.</p>
 <h3 id="iterative-agent">Iterative Agent<a class="headerlink" href="#iterative-agent" title="Permanent link">&para;</a></h3>
@@ -2021,6 +2130,14 @@
 <h3 id="modelina">Modelina<a class="headerlink" href="#modelina" title="Permanent link">&para;</a></h3>
 <p>An AsyncAPI code generator used by the <code>api.generate-models</code> skill to create type-safe models from API specifications in multiple languages.</p>
 <h2 id="o">O<a class="headerlink" href="#o" title="Permanent link">&para;</a></h2>
+<h3 id="on_compilation_failure">On_Compilation_Failure<a class="headerlink" href="#on_compilation_failure" title="Permanent link">&para;</a></h3>
+<p>Error handling strategy that defines actions to take when compilation fails.</p>
+<h3 id="on_generation_failure">On_Generation_Failure<a class="headerlink" href="#on_generation_failure" title="Permanent link">&para;</a></h3>
+<p>Error handling strategy that defines actions to take when generation fails.</p>
+<h3 id="on_validation_failure">On_Validation_Failure<a class="headerlink" href="#on_validation_failure" title="Permanent link">&para;</a></h3>
+<p>Error handling strategy that defines actions to take when validation fails.</p>
+<h3 id="oneshot">Oneshot<a class="headerlink" href="#oneshot" title="Permanent link">&para;</a></h3>
+<p>A reasoning mode where an agent executes once without retries, suitable for deterministic tasks.</p>
 <h3 id="oneshot-agent">Oneshot Agent<a class="headerlink" href="#oneshot-agent" title="Permanent link">&para;</a></h3>
 <p>An agent with <code>reasoning_mode: oneshot</code> that executes once without retries. Suitable for simple, deterministic tasks.</p>
 <h3 id="openapi">OpenAPI<a class="headerlink" href="#openapi" title="Permanent link">&para;</a></h3>
@@ -2028,6 +2145,10 @@
 <h3 id="outputs">Outputs<a class="headerlink" href="#outputs" title="Permanent link">&para;</a></h3>
 <p>Artifacts produced by a skill execution. Defined in skill manifests with name, type, and description.</p>
 <h2 id="p">P<a class="headerlink" href="#p" title="Permanent link">&para;</a></h2>
+<h3 id="processexecute">Process:Execute<a class="headerlink" href="#processexecute" title="Permanent link">&para;</a></h3>
+<p>Permission to execute process resources.</p>
+<h3 id="python">Python<a class="headerlink" href="#python" title="Permanent link">&para;</a></h3>
+<p>A runtime environment for executing Python-based skills and operations.</p>
 <h3 id="policy-enforcement">Policy Enforcement<a class="headerlink" href="#policy-enforcement" title="Permanent link">&para;</a></h3>
 <p>The process of validating operations against organizational rules before execution. Implemented by the <code>policy.enforce</code> skill and run automatically by <code>registry.update</code>.</p>
 <h3 id="plugin">Plugin<a class="headerlink" href="#plugin" title="Permanent link">&para;</a></h3>
@@ -2102,7 +2223,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 23, 2025 04:25:22 UTC">October 23, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 23, 2025 19:59:56 UTC">October 23, 2025</span>
   </span>
 
     
