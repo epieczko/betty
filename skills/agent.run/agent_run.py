@@ -608,37 +608,48 @@ def main():
     try:
         result = run_agent(agent_path, task_context, save_log)
 
-        # Pretty print for CLI usage
-        print("\n" + "="*80)
-        print(f"AGENT EXECUTION: {result['details']['agent']['name']}")
-        print("="*80)
+        # Check if execution was successful
+        if result['ok'] and 'details' in result and 'agent' in result['details']:
+            # Pretty print for CLI usage
+            print("\n" + "="*80)
+            print(f"AGENT EXECUTION: {result['details']['agent']['name']}")
+            print("="*80)
 
-        agent_info = result['details']['agent']
-        print(f"\nAgent: {agent_info['name']} v{agent_info['version']}")
-        print(f"Mode: {agent_info['reasoning_mode']}")
-        print(f"Status: {agent_info['status']}")
+            agent_info = result['details']['agent']
+            print(f"\nAgent: {agent_info['name']} v{agent_info['version']}")
+            print(f"Mode: {agent_info['reasoning_mode']}")
+            print(f"Status: {agent_info['status']}")
 
-        print(f"\nTask: {result['details']['task_context']}")
+            print(f"\nTask: {result['details']['task_context']}")
 
-        print("\n" + "-"*80)
-        print("CLAUDE RESPONSE:")
-        print("-"*80)
-        print(json.dumps(result['details']['claude_response'], indent=2))
+            print("\n" + "-"*80)
+            print("CLAUDE RESPONSE:")
+            print("-"*80)
+            print(json.dumps(result['details']['claude_response'], indent=2))
 
-        print("\n" + "-"*80)
-        print("EXECUTION RESULTS:")
-        print("-"*80)
-        for exec_result in result['details']['execution_results']:
-            print(f"\n  ✓ {exec_result['skill']}")
-            print(f"    Purpose: {exec_result['purpose']}")
-            print(f"    Status: {exec_result['status']}")
+            print("\n" + "-"*80)
+            print("EXECUTION RESULTS:")
+            print("-"*80)
+            for exec_result in result['details']['execution_results']:
+                print(f"\n  ✓ {exec_result['skill']}")
+                print(f"    Purpose: {exec_result['purpose']}")
+                print(f"    Status: {exec_result['status']}")
 
-        if 'log_path' in result['details']:
-            print(f"\n📝 Log saved to: {result['details']['log_path']}")
+            if 'log_path' in result['details']:
+                print(f"\n📝 Log saved to: {result['details']['log_path']}")
 
-        print("\n" + "="*80)
-        print("EXECUTION COMPLETE")
-        print("="*80 + "\n")
+            print("\n" + "="*80)
+            print("EXECUTION COMPLETE")
+            print("="*80 + "\n")
+        else:
+            # Execution failed - print error details
+            print("\n" + "="*80)
+            print("AGENT EXECUTION FAILED")
+            print("="*80)
+            print(f"\nErrors:")
+            for error in result.get('errors', ['Unknown error']):
+                print(f"  ✗ {error}")
+            print()
 
         # Also output full JSON for programmatic use
         print(json.dumps(result, indent=2))
