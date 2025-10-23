@@ -25,10 +25,10 @@ metadata:
   - enterprise
   - skills
   - agents
-  generated_at: '2025-10-23T19:22:34.459260+00:00'
+  generated_at: '2025-10-23T20:00:01.127365+00:00'
   generated_by: plugin.sync skill
-  skill_count: 19
-  command_count: 18
+  skill_count: 20
+  command_count: 19
 requirements:
   python: '>=3.11'
   packages:
@@ -297,6 +297,16 @@ commands:
     type: string
     required: false
     description: Output directory (defaults to ./dist)
+  permissions:
+  - filesystem:read
+  - filesystem:write
+- name: docs/sync/plugin-manifest
+  description: Reconcile plugin.yaml with registry files. Identifies discrepancies
+    and generates plugin.preview.yaml with suggested updates and a detailed diff report.
+  handler:
+    runtime: python
+    script: skills/docs.sync.plugin_manifest/plugin_manifest_sync.py
+  parameters: []
   permissions:
   - filesystem:read
   - filesystem:write

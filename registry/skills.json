@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-23T19:21:49.834015+00:00",
+  "generated_at": "2025-10-23T19:59:00.000000+00:00",
   "skills": [
     {
       "name": "workflow.validate",
@@ -1100,6 +1100,42 @@
         "build",
         "deployment",
         "distribution"
+      ]
+    },
+    {
+      "name": "docs.sync.plugin_manifest",
+      "version": "0.1.0",
+      "description": "Reconciles plugin.yaml with Betty Framework registries to ensure consistency. Identifies missing, orphaned, and mismatched command entries and suggests corrections.",
+      "inputs": [],
+      "outputs": [
+        "plugin.preview.yaml",
+        "plugin_manifest_diff.md"
+      ],
+      "dependencies": [
+        "plugin.sync",
+        "registry.update"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/docs/sync/plugin-manifest",
+          "handler": "plugin_manifest_sync.py",
+          "runtime": "python",
+          "description": "Reconcile plugin.yaml with registry files. Identifies discrepancies and generates plugin.preview.yaml with suggested updates and a detailed diff report.",
+          "parameters": [],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "tags": [
+        "docs",
+        "plugin",
+        "registry",
+        "validation",
+        "reconciliation",
+        "infrastructure"
       ]
     }
   ]
