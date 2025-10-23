@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-22T23:25:12.155644+00:00",
+  "generated_at": "2025-10-23T00:19:01.605907+00:00",
   "skills": [
     {
       "name": "agent.define",
@@ -30,6 +30,147 @@
       ],
       "dependencies": [],
       "status": "active"
+    },
+    {
+      "name": "workflow.validate",
+      "version": "0.1.0",
+      "description": "Validates Betty workflow YAML definitions to ensure correct structure and required fields.\n",
+      "inputs": [
+        "workflow.yaml"
+      ],
+      "outputs": [
+        "validation_result.json"
+      ],
+      "dependencies": [
+        "context.schema"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/workflow/validate",
+          "handler": "workflow_validate.py",
+          "runtime": "python",
+          "description": "Validate the structure of a workflow YAML file before execution.\n",
+          "parameters": [
+            {
+              "name": "workflow.yaml",
+              "type": "string",
+              "required": true,
+              "description": "Path to the workflow YAML file."
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "registry.update",
+      "version": "0.1.0",
+      "description": "Updates the Betty Framework Skill Registry by adding or modifying entries based on validated skill manifests.\n",
+      "inputs": [
+        "skill_manifest.yaml"
+      ],
+      "outputs": [
+        "registry_update_result.json"
+      ],
+      "dependencies": [
+        "skill.define"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/registry/update",
+          "handler": "registry_update.py",
+          "runtime": "python",
+          "description": "Add or update entries in the Skill Registry.\n",
+          "parameters": [
+            {
+              "name": "skill_manifest.yaml",
+              "type": "string",
+              "required": true,
+              "description": "Path to the skill manifest (.skill.yaml) being added or updated."
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "test.hello",
+      "version": "0.1.0",
+      "description": "A simple test skill that prints hello world",
+      "inputs": [],
+      "outputs": [],
+      "dependencies": [],
+      "status": "draft"
+    },
+    {
+      "name": "test.example",
+      "version": "0.1.0",
+      "description": "Example skill for testing workflow orchestration",
+      "inputs": [],
+      "outputs": [],
+      "dependencies": [],
+      "status": "draft"
+    },
+    {
+      "name": "test.integration.temp",
+      "version": "0.1.0",
+      "description": "Test skill with IO",
+      "inputs": [
+        "input1",
+        "input2"
+      ],
+      "outputs": [
+        "output1"
+      ],
+      "dependencies": [],
+      "status": "draft"
+    },
+    {
+      "name": "workflow.compose",
+      "version": "0.1.0",
+      "description": "Executes multi-step Betty Framework workflows by chaining existing skills. Enables declarative orchestration of skill pipelines.\n",
+      "inputs": [
+        "workflow.yaml"
+      ],
+      "outputs": [
+        "workflow_history.json"
+      ],
+      "dependencies": [
+        "skill.create",
+        "skill.define",
+        "registry.update"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/workflow/compose",
+          "handler": "workflow_compose.py",
+          "runtime": "python",
+          "description": "Execute a Betty workflow defined in a YAML file.\n",
+          "parameters": [
+            {
+              "name": "workflow.yaml",
+              "type": "string",
+              "required": true,
+              "description": "Path to a workflow YAML file to execute."
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ]
     },
     {
       "name": "skill.create",
@@ -92,29 +233,12 @@
       ]
     },
     {
-      "name": "registry.update",
+      "name": "test.lifecycle.complete",
       "version": "0.1.0",
-      "description": "Updates the Betty Framework Skill Registry when new skills are validated",
-      "inputs": [
-        "skill_manifest.yaml"
-      ],
-      "outputs": [
-        "registry_update_result.json"
-      ],
-      "dependencies": [
-        "skill.define"
-      ],
-      "status": "draft"
-    },
-    {
-      "name": "workflow.validate",
-      "version": "0.1.0",
-      "description": "Validates workflow definitions",
+      "description": "Lifecycle test skill",
       "inputs": [],
       "outputs": [],
-      "dependencies": [
-        "skill.define"
-      ],
+      "dependencies": [],
       "status": "draft"
     }
   ]

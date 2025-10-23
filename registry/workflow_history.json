@@ -26,5 +26,176 @@
         "output": "{\n  \"status\": \"success\",\n  \"updated\": \"workflow.validate\",\n  \"registry_path\": \"C:\\\\CoDE\\\\source\\\\betty\\\\registry\\\\skills.json\",\n  \"timestamp\": \"2025-10-22T23:25:12.156389+00:00\"\n}"
       }
     ]
+  },
+  {
+    "workflow": "test_lifecycle.yaml",
+    "workflow_path": "workflows/test_lifecycle.yaml",
+    "timestamp": "2025-10-23T00:13:56.319229+00:00",
+    "steps": [
+      {
+        "step_number": 1,
+        "skill": "skill.create",
+        "args": [
+          "test.example",
+          "Example skill for testing workflow orchestration"
+        ],
+        "output": "2025-10-23 00:13:56 - __main__ - INFO - Created skill directory: /home/user/betty/skills/test.example\n2025-10-23 00:13:56 - __main__ - INFO - Created manifest: /home/user/betty/skills/test.example/skill.yaml\n2025-10-23 00:13:56 - __main__ - INFO - Created documentation: /home/user/betty/skills/test.example/SKILL.md\n2025-10-23 00:13:56 - __main__ - INFO - Created handler: /home/user/betty/skills/test.example/test_example.py\n2025-10-23 00:13:56 - __main__ - INFO - Validating new skill with skill.define...\n2025-10-23 00:13:56 - __main__ - INFO - Validation succeeded\n2025-10-23 00:13:56 - __main__ - INFO - Updating registry via registry.update...\n2025-10-23 00:13:56 - __main__ - INFO - Registry updated successfully\n2025-10-23 00:13:56 - __main__ - INFO - \u2705 Successfully created skill: test.example\n{\n  \"status\": \"success\",\n  \"skill_name\": \"test.example\",\n  \"skill_path\": \"/home/user/betty/skills/test.example\",\n  \"manifest_path\": \"/home/user/betty/skills/test.example/skill.yaml\",\n  \"validation\": \"passed\",\n  \"registry_updated\": true,\n  \"timestamp\": \"2025-10-23T00:13:56.634600+00:00\"\n}",
+        "stderr": null,
+        "returncode": 0,
+        "status": "success"
+      },
+      {
+        "step_number": 2,
+        "skill": "skill.define",
+        "args": [
+          "skills/test.example/skill.yaml"
+        ],
+        "output": "2025-10-23 00:13:56 - __main__ - INFO - Validating manifest: skills/test.example/skill.yaml\n2025-10-23 00:13:56 - __main__ - INFO - \u2705 Manifest validation passed\n2025-10-23 00:13:56 - __main__ - INFO - \ud83d\udd01 Delegating registry update to registry.update skill...\n2025-10-23 00:13:56 - __main__ - INFO - Registry update succeeded\n{\n  \"valid\": true,\n  \"missing\": [],\n  \"path\": \"skills/test.example/skill.yaml\",\n  \"manifest\": {\n    \"name\": \"test.example\",\n    \"version\": \"0.1.0\",\n    \"description\": \"Example skill for testing workflow orchestration\",\n    \"inputs\": [],\n    \"outputs\": [],\n    \"dependencies\": [],\n    \"status\": \"draft\"\n  },\n  \"status\": \"registered\",\n  \"registry_updated\": true\n}",
+        "stderr": null,
+        "returncode": 0,
+        "status": "success"
+      },
+      {
+        "step_number": 3,
+        "skill": "registry.update",
+        "args": [
+          "skills/test.example/skill.yaml"
+        ],
+        "output": "2025-10-23 00:13:56 - __main__ - INFO - Updating registry with skill: test.example\n2025-10-23 00:13:56 - __main__ - INFO - \u2705 Successfully updated registry for: test.example\n{\n  \"status\": \"success\",\n  \"updated\": \"test.example\",\n  \"registry_path\": \"/home/user/betty/registry/skills.json\",\n  \"total_skills\": 8,\n  \"timestamp\": \"2025-10-23T00:13:56.884105+00:00\"\n}",
+        "stderr": null,
+        "returncode": 0,
+        "status": "success"
+      }
+    ],
+    "status": "success",
+    "completed_at": "2025-10-23T00:13:56.891522+00:00"
+  },
+  {
+    "workflow": "tmpybggo4el.yaml",
+    "workflow_path": "/home/user/betty/workflows/tmpybggo4el.yaml",
+    "timestamp": "2025-10-23T00:16:50.480755+00:00",
+    "steps": [
+      {
+        "step_number": 1,
+        "skill": "skill.define",
+        "args": [
+          "skills/skill.create/skill.yaml"
+        ],
+        "output": "2025-10-23 00:16:50 - __main__ - INFO - Validating manifest: skills/skill.create/skill.yaml\n2025-10-23 00:16:50 - __main__ - INFO - \u2705 Manifest validation passed\n2025-10-23 00:16:50 - __main__ - INFO - \ud83d\udd01 Delegating registry update to registry.update skill...\n2025-10-23 00:16:50 - __main__ - INFO - Registry update succeeded\n{\n  \"valid\": true,\n  \"missing\": [],\n  \"path\": \"skills/skill.create/skill.yaml\",\n  \"manifest\": {\n    \"name\": \"skill.create\",\n    \"version\": \"0.1.0\",\n    \"description\": \"Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\\n\",\n    \"inputs\": [\n      \"skill_name\",\n      \"description\",\n      \"inputs\",\n      \"outputs\"\n    ],\n    \"outputs\": [\n      \"skill_directory\",\n      \"skill_manifest.yaml\",\n      \"registration_record.json\"\n    ],\n    \"dependencies\": [\n      \"skill.define\",\n      \"context.schema\"\n    ],\n    \"status\": \"active\",\n    \"entrypoints\": [\n      {\n        \"command\": \"/skill/create\",\n        \"handler\": \"skill_create.py\",\n        \"runtime\": \"python\",\n        \"description\": \"Scaffolds a new Betty Skill directory, generates its manifest, validates it with skill.define, and updates the registry.\\n\",\n        \"parameters\": [\n          {\n            \"name\": \"skill_name\",\n            \"type\": \"string\",\n            \"description\": \"Name of the new skill (e.g., runtime.execute)\",\n            \"required\": true\n          },\n          {\n            \"name\": \"description\",\n            \"type\": \"string\",\n            \"description\": \"Description of what the skill will do\",\n            \"required\": true\n          },\n          {\n            \"name\": \"inputs\",\n            \"type\": \"string\",\n            \"description\": \"Comma-separated list of input parameters (optional)\",\n            \"required\": false\n          },\n          {\n            \"name\": \"outputs\",\n            \"type\": \"string\",\n            \"description\": \"Comma-separated list of output parameters (optional)\",\n            \"required\": false\n          }\n        ],\n        \"permissions\": [\n          \"filesystem\",\n          \"read\",\n          \"write\"\n        ]\n      }\n    ]\n  },\n  \"status\": \"registered\",\n  \"registry_updated\": true\n}",
+        "stderr": null,
+        "returncode": 0,
+        "status": "success"
+      }
+    ],
+    "status": "success",
+    "completed_at": "2025-10-23T00:16:50.639839+00:00"
+  },
+  {
+    "workflow": "tmp30h0na5t.yaml",
+    "workflow_path": "/home/user/betty/workflows/tmp30h0na5t.yaml",
+    "timestamp": "2025-10-23T00:17:26.514094+00:00",
+    "steps": [
+      {
+        "step_number": 1,
+        "skill": "skill.define",
+        "args": [
+          "skills/skill.create/skill.yaml"
+        ],
+        "output": "2025-10-23 00:17:26 - __main__ - INFO - Validating manifest: skills/skill.create/skill.yaml\n2025-10-23 00:17:26 - __main__ - INFO - \u2705 Manifest validation passed\n2025-10-23 00:17:26 - __main__ - INFO - \ud83d\udd01 Delegating registry update to registry.update skill...\n2025-10-23 00:17:26 - __main__ - INFO - Registry update succeeded\n{\n  \"valid\": true,\n  \"missing\": [],\n  \"path\": \"skills/skill.create/skill.yaml\",\n  \"manifest\": {\n    \"name\": \"skill.create\",\n    \"version\": \"0.1.0\",\n    \"description\": \"Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\\n\",\n    \"inputs\": [\n      \"skill_name\",\n      \"description\",\n      \"inputs\",\n      \"outputs\"\n    ],\n    \"outputs\": [\n      \"skill_directory\",\n      \"skill_manifest.yaml\",\n      \"registration_record.json\"\n    ],\n    \"dependencies\": [\n      \"skill.define\",\n      \"context.schema\"\n    ],\n    \"status\": \"active\",\n    \"entrypoints\": [\n      {\n        \"command\": \"/skill/create\",\n        \"handler\": \"skill_create.py\",\n        \"runtime\": \"python\",\n        \"description\": \"Scaffolds a new Betty Skill directory, generates its manifest, validates it with skill.define, and updates the registry.\\n\",\n        \"parameters\": [\n          {\n            \"name\": \"skill_name\",\n            \"type\": \"string\",\n            \"description\": \"Name of the new skill (e.g., runtime.execute)\",\n            \"required\": true\n          },\n          {\n            \"name\": \"description\",\n            \"type\": \"string\",\n            \"description\": \"Description of what the skill will do\",\n            \"required\": true\n          },\n          {\n            \"name\": \"inputs\",\n            \"type\": \"string\",\n            \"description\": \"Comma-separated list of input parameters (optional)\",\n            \"required\": false\n          },\n          {\n            \"name\": \"outputs\",\n            \"type\": \"string\",\n            \"description\": \"Comma-separated list of output parameters (optional)\",\n            \"required\": false\n          }\n        ],\n        \"permissions\": [\n          \"filesystem\",\n          \"read\",\n          \"write\"\n        ]\n      }\n    ]\n  },\n  \"status\": \"registered\",\n  \"registry_updated\": true\n}",
+        "stderr": null,
+        "returncode": 0,
+        "status": "success"
+      }
+    ],
+    "status": "success",
+    "completed_at": "2025-10-23T00:17:26.683558+00:00"
+  },
+  {
+    "workflow": "tmpctsp1zxc.yaml",
+    "workflow_path": "/home/user/betty/workflows/tmpctsp1zxc.yaml",
+    "timestamp": "2025-10-23T00:17:55.330204+00:00",
+    "steps": [
+      {
+        "step_number": 1,
+        "skill": "skill.define",
+        "args": [
+          "skills/skill.create/skill.yaml"
+        ],
+        "output": "2025-10-23 00:17:55 - __main__ - INFO - Validating manifest: skills/skill.create/skill.yaml\n2025-10-23 00:17:55 - __main__ - INFO - \u2705 Manifest validation passed\n2025-10-23 00:17:55 - __main__ - INFO - \ud83d\udd01 Delegating registry update to registry.update skill...\n2025-10-23 00:17:55 - __main__ - INFO - Registry update succeeded\n{\n  \"valid\": true,\n  \"missing\": [],\n  \"path\": \"skills/skill.create/skill.yaml\",\n  \"manifest\": {\n    \"name\": \"skill.create\",\n    \"version\": \"0.1.0\",\n    \"description\": \"Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\\n\",\n    \"inputs\": [\n      \"skill_name\",\n      \"description\",\n      \"inputs\",\n      \"outputs\"\n    ],\n    \"outputs\": [\n      \"skill_directory\",\n      \"skill_manifest.yaml\",\n      \"registration_record.json\"\n    ],\n    \"dependencies\": [\n      \"skill.define\",\n      \"context.schema\"\n    ],\n    \"status\": \"active\",\n    \"entrypoints\": [\n      {\n        \"command\": \"/skill/create\",\n        \"handler\": \"skill_create.py\",\n        \"runtime\": \"python\",\n        \"description\": \"Scaffolds a new Betty Skill directory, generates its manifest, validates it with skill.define, and updates the registry.\\n\",\n        \"parameters\": [\n          {\n            \"name\": \"skill_name\",\n            \"type\": \"string\",\n            \"description\": \"Name of the new skill (e.g., runtime.execute)\",\n            \"required\": true\n          },\n          {\n            \"name\": \"description\",\n            \"type\": \"string\",\n            \"description\": \"Description of what the skill will do\",\n            \"required\": true\n          },\n          {\n            \"name\": \"inputs\",\n            \"type\": \"string\",\n            \"description\": \"Comma-separated list of input parameters (optional)\",\n            \"required\": false\n          },\n          {\n            \"name\": \"outputs\",\n            \"type\": \"string\",\n            \"description\": \"Comma-separated list of output parameters (optional)\",\n            \"required\": false\n          }\n        ],\n        \"permissions\": [\n          \"filesystem\",\n          \"read\",\n          \"write\"\n        ]\n      }\n    ]\n  },\n  \"status\": \"registered\",\n  \"registry_updated\": true\n}",
+        "stderr": null,
+        "returncode": 0,
+        "status": "success"
+      }
+    ],
+    "status": "success",
+    "completed_at": "2025-10-23T00:17:55.475434+00:00"
+  },
+  {
+    "workflow": "create_workflow_validate.yaml",
+    "workflow_path": "workflows/create_workflow_validate.yaml",
+    "timestamp": "2025-10-23T00:18:10.528701+00:00",
+    "steps": [
+      {
+        "step_number": 1,
+        "skill": "skill.create",
+        "args": [
+          "workflow.validate",
+          "Validates workflow definitions"
+        ],
+        "output": "2025-10-23 00:18:10 - __main__ - ERROR - Skill 'workflow.validate' already exists\n{\n  \"error\": \"ManifestError\",\n  \"message\": \"Skill 'workflow.validate' already exists\",\n  \"details\": {\n    \"skill_path\": \"/home/user/betty/skills/workflow.validate\"\n  }\n}",
+        "stderr": null,
+        "returncode": 1,
+        "status": "failed"
+      }
+    ],
+    "status": "failed",
+    "failed_steps": [
+      {
+        "step": 1,
+        "skill": "skill.create",
+        "returncode": 1
+      }
+    ],
+    "completed_at": "2025-10-23T00:18:10.612080+00:00"
+  },
+  {
+    "workflow": "tmp4sqt460m.yaml",
+    "workflow_path": "/home/user/betty/workflows/tmp4sqt460m.yaml",
+    "timestamp": "2025-10-23T00:18:44.427195+00:00",
+    "steps": [
+      {
+        "step_number": 1,
+        "skill": "skill.define",
+        "args": [
+          "skills/skill.create/skill.yaml"
+        ],
+        "output": "2025-10-23 00:18:44 - __main__ - INFO - Validating manifest: skills/skill.create/skill.yaml\n2025-10-23 00:18:44 - __main__ - INFO - \u2705 Manifest validation passed\n2025-10-23 00:18:44 - __main__ - INFO - \ud83d\udd01 Delegating registry update to registry.update skill...\n2025-10-23 00:18:44 - __main__ - INFO - Registry update succeeded\n{\n  \"valid\": true,\n  \"missing\": [],\n  \"path\": \"skills/skill.create/skill.yaml\",\n  \"manifest\": {\n    \"name\": \"skill.create\",\n    \"version\": \"0.1.0\",\n    \"description\": \"Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\\n\",\n    \"inputs\": [\n      \"skill_name\",\n      \"description\",\n      \"inputs\",\n      \"outputs\"\n    ],\n    \"outputs\": [\n      \"skill_directory\",\n      \"skill_manifest.yaml\",\n      \"registration_record.json\"\n    ],\n    \"dependencies\": [\n      \"skill.define\",\n      \"context.schema\"\n    ],\n    \"status\": \"active\",\n    \"entrypoints\": [\n      {\n        \"command\": \"/skill/create\",\n        \"handler\": \"skill_create.py\",\n        \"runtime\": \"python\",\n        \"description\": \"Scaffolds a new Betty Skill directory, generates its manifest, validates it with skill.define, and updates the registry.\\n\",\n        \"parameters\": [\n          {\n            \"name\": \"skill_name\",\n            \"type\": \"string\",\n            \"description\": \"Name of the new skill (e.g., runtime.execute)\",\n            \"required\": true\n          },\n          {\n            \"name\": \"description\",\n            \"type\": \"string\",\n            \"description\": \"Description of what the skill will do\",\n            \"required\": true\n          },\n          {\n            \"name\": \"inputs\",\n            \"type\": \"string\",\n            \"description\": \"Comma-separated list of input parameters (optional)\",\n            \"required\": false\n          },\n          {\n            \"name\": \"outputs\",\n            \"type\": \"string\",\n            \"description\": \"Comma-separated list of output parameters (optional)\",\n            \"required\": false\n          }\n        ],\n        \"permissions\": [\n          \"filesystem\",\n          \"read\",\n          \"write\"\n        ]\n      }\n    ]\n  },\n  \"status\": \"registered\",\n  \"registry_updated\": true\n}",
+        "stderr": null,
+        "returncode": 0,
+        "status": "success"
+      }
+    ],
+    "status": "success",
+    "completed_at": "2025-10-23T00:18:44.597321+00:00"
+  },
+  {
+    "workflow": "tmpt_h8_31t.yaml",
+    "workflow_path": "/home/user/betty/workflows/tmpt_h8_31t.yaml",
+    "timestamp": "2025-10-23T00:19:00.637714+00:00",
+    "steps": [
+      {
+        "step_number": 1,
+        "skill": "skill.define",
+        "args": [
+          "skills/skill.create/skill.yaml"
+        ],
+        "output": "2025-10-23 00:19:00 - __main__ - INFO - Validating manifest: skills/skill.create/skill.yaml\n2025-10-23 00:19:00 - __main__ - INFO - \u2705 Manifest validation passed\n2025-10-23 00:19:00 - __main__ - INFO - \ud83d\udd01 Delegating registry update to registry.update skill...\n2025-10-23 00:19:00 - __main__ - INFO - Registry update succeeded\n{\n  \"valid\": true,\n  \"missing\": [],\n  \"path\": \"skills/skill.create/skill.yaml\",\n  \"manifest\": {\n    \"name\": \"skill.create\",\n    \"version\": \"0.1.0\",\n    \"description\": \"Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\\n\",\n    \"inputs\": [\n      \"skill_name\",\n      \"description\",\n      \"inputs\",\n      \"outputs\"\n    ],\n    \"outputs\": [\n      \"skill_directory\",\n      \"skill_manifest.yaml\",\n      \"registration_record.json\"\n    ],\n    \"dependencies\": [\n      \"skill.define\",\n      \"context.schema\"\n    ],\n    \"status\": \"active\",\n    \"entrypoints\": [\n      {\n        \"command\": \"/skill/create\",\n        \"handler\": \"skill_create.py\",\n        \"runtime\": \"python\",\n        \"description\": \"Scaffolds a new Betty Skill directory, generates its manifest, validates it with skill.define, and updates the registry.\\n\",\n        \"parameters\": [\n          {\n            \"name\": \"skill_name\",\n            \"type\": \"string\",\n            \"description\": \"Name of the new skill (e.g., runtime.execute)\",\n            \"required\": true\n          },\n          {\n            \"name\": \"description\",\n            \"type\": \"string\",\n            \"description\": \"Description of what the skill will do\",\n            \"required\": true\n          },\n          {\n            \"name\": \"inputs\",\n            \"type\": \"string\",\n            \"description\": \"Comma-separated list of input parameters (optional)\",\n            \"required\": false\n          },\n          {\n            \"name\": \"outputs\",\n            \"type\": \"string\",\n            \"description\": \"Comma-separated list of output parameters (optional)\",\n            \"required\": false\n          }\n        ],\n        \"permissions\": [\n          \"filesystem\",\n          \"read\",\n          \"write\"\n        ]\n      }\n    ]\n  },\n  \"status\": \"registered\",\n  \"registry_updated\": true\n}",
+        "stderr": null,
+        "returncode": 0,
+        "status": "success"
+      }
+    ],
+    "status": "success",
+    "completed_at": "2025-10-23T00:19:00.827869+00:00"
   }
 ]
