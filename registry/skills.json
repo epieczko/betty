@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-23T00:42:01.013362+00:00",
+  "generated_at": "2025-10-23T01:03:59.158330+00:00",
   "skills": [
     {
       "name": "agent.define",
@@ -458,6 +458,150 @@
         "asyncapi",
         "scaffolding",
         "zalando"
+      ]
+    },
+    {
+      "name": "api.generate-models",
+      "version": "0.1.0",
+      "description": "Generate type-safe models from OpenAPI and AsyncAPI specifications using Modelina",
+      "inputs": [
+        {
+          "name": "spec_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to API specification file (OpenAPI or AsyncAPI)"
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "required": true,
+          "description": "Target language (typescript, python, java, go, csharp)"
+        },
+        {
+          "name": "output_dir",
+          "type": "string",
+          "required": false,
+          "default": "src/models",
+          "description": "Output directory for generated models"
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "required": false,
+          "description": "Package/module name for generated code"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "models_path",
+          "type": "string",
+          "description": "Path to directory containing generated models"
+        },
+        {
+          "name": "files_generated",
+          "type": "array",
+          "description": "List of generated model files"
+        },
+        {
+          "name": "model_count",
+          "type": "number",
+          "description": "Number of models generated"
+        }
+      ],
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/api/generate-models",
+          "handler": "modelina_generate.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write",
+            "process:execute"
+          ]
+        }
+      ],
+      "status": "active",
+      "tags": [
+        "api",
+        "codegen",
+        "modelina",
+        "openapi",
+        "asyncapi",
+        "typescript",
+        "python",
+        "java"
+      ]
+    },
+    {
+      "name": "api.compatibility",
+      "version": "0.1.0",
+      "description": "Detect breaking changes between API specification versions",
+      "inputs": [
+        {
+          "name": "old_spec_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the old/previous API specification"
+        },
+        {
+          "name": "new_spec_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the new/current API specification"
+        },
+        {
+          "name": "fail_on_breaking",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Exit with error code if breaking changes detected"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "compatible",
+          "type": "boolean",
+          "description": "Whether the new spec is backward compatible"
+        },
+        {
+          "name": "breaking_changes",
+          "type": "array",
+          "description": "List of breaking changes detected"
+        },
+        {
+          "name": "non_breaking_changes",
+          "type": "array",
+          "description": "List of non-breaking changes detected"
+        },
+        {
+          "name": "change_summary",
+          "type": "object",
+          "description": "Summary of all changes"
+        }
+      ],
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/api/compatibility",
+          "handler": "check_compatibility.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read"
+          ]
+        }
+      ],
+      "status": "active",
+      "tags": [
+        "api",
+        "compatibility",
+        "breaking-changes",
+        "versioning",
+        "openapi"
       ]
     }
   ]

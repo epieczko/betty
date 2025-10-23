@@ -1,0 +1,52 @@
+# API-First Development Workflow
+# Complete workflow for API-driven development following Zalando guidelines
+
+name: api_first_development
+version: 1.0.0
+description: Complete API-first development workflow with validation and code generation
+
+# Expected workflow inputs (passed as variables)
+# - service_name: Name of the service/API
+# - spec_type: openapi or asyncapi
+# - target_languages: Comma-separated list (e.g., "typescript,python")
+
+steps:
+  # Step 1: Create the API specification from template
+  - skill: api.define
+    args:
+      - "${service_name}"
+      - "${spec_type}"
+      - "--template=zalando"
+      - "--output-dir=specs"
+    description: "Create Zalando-compliant API specification"
+
+  # Step 2: Validate against Zalando guidelines
+  - skill: api.validate
+    args:
+      - "specs/${service_name}.${spec_type}.yaml"
+      - "zalando"
+    description: "Validate spec against Zalando guidelines"
+
+  # Step 3: Generate TypeScript models
+  - skill: api.generate-models
+    args:
+      - "specs/${service_name}.${spec_type}.yaml"
+      - "typescript"
+      - "--output-dir=src/models/${service_name}"
+    description: "Generate TypeScript models"
+
+  # Step 4: Generate Python models
+  - skill: api.generate-models
+    args:
+      - "specs/${service_name}.${spec_type}.yaml"
+      - "python"
+      - "--output-dir=backend/models/${service_name}"
+    description: "Generate Python models"
+
+# Metadata
+created_at: "2025-10-23T01:00:00Z"
+tags:
+  - api-first
+  - zalando
+  - openapi
+  - code-generation
