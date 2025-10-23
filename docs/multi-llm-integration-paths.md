@@ -1,5 +1,15 @@
 # Multi-LLM Integration Paths for Betty
 
+> **UPDATE (2025-10-23)**: We identified an existing open-source solution that implements Path 3!
+>
+> **Recommended Solution**: Use [claude-code-router](https://github.com/musistudio/claude-code-router) (20k+ stars)
+>
+> See **[claude-code-router-integration.md](./claude-code-router-integration.md)** for comprehensive integration guide.
+>
+> This document remains useful for understanding the architectural trade-offs.
+
+---
+
 ## Executive Summary
 
 Betty currently has **zero direct LLM integration**. All reasoning happens through Claude Code's runtime, which provides Claude as the underlying LLM. To enable Betty agents to use any LLM (OpenAI, Anthropic, local models, etc.), we need to introduce an abstraction layer.
