@@ -1,0 +1,26 @@
+name: workflow.validate
+version: 0.1.0
+description: >
+  Validates Betty workflow YAML definitions to ensure correct structure and required fields.
+inputs:
+  - workflow.yaml
+outputs:
+  - validation_result.json
+dependencies:
+  - context.schema
+status: active
+
+entrypoints:
+  - command: /workflow/validate
+    handler: workflow_validate.py
+    runtime: python
+    description: >
+      Validate the structure of a workflow YAML file before execution.
+    parameters:
+      - name: workflow.yaml
+        type: string
+        required: true
+        description: Path to the workflow YAML file.
+    permissions:
+      - filesystem
+      - read
