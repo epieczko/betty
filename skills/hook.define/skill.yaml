@@ -1,0 +1,60 @@
+name: hook.define
+version: 0.1.0
+description: Create and register validation hooks for Claude Code
+
+inputs:
+  - name: event
+    type: string
+    required: true
+    description: Hook event trigger (on_file_edit, on_file_save, on_commit, on_push, on_tool_use)
+
+  - name: pattern
+    type: string
+    required: false
+    description: File pattern to match (e.g., "*.openapi.yaml", "specs/**/*.yaml")
+
+  - name: command
+    type: string
+    required: true
+    description: Command to execute when hook triggers (skill name or full command)
+
+  - name: blocking
+    type: boolean
+    required: false
+    default: true
+    description: Whether hook should block operation if it fails
+
+  - name: timeout
+    type: number
+    required: false
+    default: 30000
+    description: Timeout in milliseconds (default 30 seconds)
+
+  - name: description
+    type: string
+    required: false
+    description: Human-readable description of what the hook does
+
+outputs:
+  - name: hook_config
+    type: object
+    description: Generated hook configuration
+
+  - name: hooks_file_path
+    type: string
+    description: Path to .claude/hooks.yaml file
+
+dependencies:
+  - context.schema
+
+entrypoints:
+  - command: /skill/hook/define
+    handler: hook_define.py
+    runtime: python
+    permissions:
+      - filesystem:read
+      - filesystem:write
+
+status: active
+
+tags: [hooks, validation, automation, claude-code]

@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-23T00:19:01.605907+00:00",
+  "generated_at": "2025-10-23T00:42:01.013362+00:00",
   "skills": [
     {
       "name": "agent.define",
@@ -240,6 +240,225 @@
       "outputs": [],
       "dependencies": [],
       "status": "draft"
+    },
+    {
+      "name": "hook.define",
+      "version": "0.1.0",
+      "description": "Create and register validation hooks for Claude Code",
+      "inputs": [
+        {
+          "name": "event",
+          "type": "string",
+          "required": true,
+          "description": "Hook event trigger (on_file_edit, on_file_save, on_commit, on_push, on_tool_use)"
+        },
+        {
+          "name": "pattern",
+          "type": "string",
+          "required": false,
+          "description": "File pattern to match (e.g., \"*.openapi.yaml\", \"specs/**/*.yaml\")"
+        },
+        {
+          "name": "command",
+          "type": "string",
+          "required": true,
+          "description": "Command to execute when hook triggers (skill name or full command)"
+        },
+        {
+          "name": "blocking",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether hook should block operation if it fails"
+        },
+        {
+          "name": "timeout",
+          "type": "number",
+          "required": false,
+          "default": 30000,
+          "description": "Timeout in milliseconds (default 30 seconds)"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Human-readable description of what the hook does"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "hook_config",
+          "type": "object",
+          "description": "Generated hook configuration"
+        },
+        {
+          "name": "hooks_file_path",
+          "type": "string",
+          "description": "Path to .claude/hooks.yaml file"
+        }
+      ],
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/hook/define",
+          "handler": "hook_define.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "status": "active",
+      "tags": [
+        "hooks",
+        "validation",
+        "automation",
+        "claude-code"
+      ]
+    },
+    {
+      "name": "api.validate",
+      "version": "0.1.0",
+      "description": "Validate OpenAPI and AsyncAPI specifications against enterprise guidelines",
+      "inputs": [
+        {
+          "name": "spec_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the API specification file (OpenAPI or AsyncAPI)"
+        },
+        {
+          "name": "guideline_set",
+          "type": "string",
+          "required": false,
+          "default": "zalando",
+          "description": "Which API guidelines to validate against (zalando, google, microsoft)"
+        },
+        {
+          "name": "strict",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Enable strict mode (warnings become errors)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_report",
+          "type": "object",
+          "description": "Detailed validation results including errors and warnings"
+        },
+        {
+          "name": "valid",
+          "type": "boolean",
+          "description": "Whether the spec is valid"
+        },
+        {
+          "name": "guideline_version",
+          "type": "string",
+          "description": "Version of guidelines used for validation"
+        }
+      ],
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/api/validate",
+          "handler": "api_validate.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "network:http"
+          ]
+        }
+      ],
+      "status": "active",
+      "tags": [
+        "api",
+        "validation",
+        "openapi",
+        "asyncapi",
+        "zalando"
+      ]
+    },
+    {
+      "name": "api.define",
+      "version": "0.1.0",
+      "description": "Create OpenAPI and AsyncAPI specifications from templates",
+      "inputs": [
+        {
+          "name": "service_name",
+          "type": "string",
+          "required": true,
+          "description": "Name of the service/API (e.g., user-service, order-api)"
+        },
+        {
+          "name": "spec_type",
+          "type": "string",
+          "required": false,
+          "default": "openapi",
+          "description": "Type of specification (openapi or asyncapi)"
+        },
+        {
+          "name": "template",
+          "type": "string",
+          "required": false,
+          "default": "zalando",
+          "description": "Template to use (zalando, basic, minimal)"
+        },
+        {
+          "name": "output_dir",
+          "type": "string",
+          "required": false,
+          "default": "specs",
+          "description": "Output directory for generated specification"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": false,
+          "default": "1.0.0",
+          "description": "API version"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "spec_path",
+          "type": "string",
+          "description": "Path to generated specification file"
+        },
+        {
+          "name": "spec_content",
+          "type": "object",
+          "description": "Generated specification content"
+        }
+      ],
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/api/define",
+          "handler": "api_define.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "status": "active",
+      "tags": [
+        "api",
+        "openapi",
+        "asyncapi",
+        "scaffolding",
+        "zalando"
+      ]
     }
   ]
 }
