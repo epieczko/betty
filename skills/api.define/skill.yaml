@@ -1,0 +1,57 @@
+name: api.define
+version: 0.1.0
+description: Create OpenAPI and AsyncAPI specifications from templates
+
+inputs:
+  - name: service_name
+    type: string
+    required: true
+    description: Name of the service/API (e.g., user-service, order-api)
+
+  - name: spec_type
+    type: string
+    required: false
+    default: openapi
+    description: Type of specification (openapi or asyncapi)
+
+  - name: template
+    type: string
+    required: false
+    default: zalando
+    description: Template to use (zalando, basic, minimal)
+
+  - name: output_dir
+    type: string
+    required: false
+    default: specs
+    description: Output directory for generated specification
+
+  - name: version
+    type: string
+    required: false
+    default: 1.0.0
+    description: API version
+
+outputs:
+  - name: spec_path
+    type: string
+    description: Path to generated specification file
+
+  - name: spec_content
+    type: object
+    description: Generated specification content
+
+dependencies:
+  - context.schema
+
+entrypoints:
+  - command: /skill/api/define
+    handler: api_define.py
+    runtime: python
+    permissions:
+      - filesystem:read
+      - filesystem:write
+
+status: active
+
+tags: [api, openapi, asyncapi, scaffolding, zalando]

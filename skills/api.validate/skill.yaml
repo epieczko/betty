@@ -1,0 +1,49 @@
+name: api.validate
+version: 0.1.0
+description: Validate OpenAPI and AsyncAPI specifications against enterprise guidelines
+
+inputs:
+  - name: spec_path
+    type: string
+    required: true
+    description: Path to the API specification file (OpenAPI or AsyncAPI)
+
+  - name: guideline_set
+    type: string
+    required: false
+    default: zalando
+    description: Which API guidelines to validate against (zalando, google, microsoft)
+
+  - name: strict
+    type: boolean
+    required: false
+    default: false
+    description: Enable strict mode (warnings become errors)
+
+outputs:
+  - name: validation_report
+    type: object
+    description: Detailed validation results including errors and warnings
+
+  - name: valid
+    type: boolean
+    description: Whether the spec is valid
+
+  - name: guideline_version
+    type: string
+    description: Version of guidelines used for validation
+
+dependencies:
+  - context.schema
+
+entrypoints:
+  - command: /skill/api/validate
+    handler: api_validate.py
+    runtime: python
+    permissions:
+      - filesystem:read
+      - network:http
+
+status: active
+
+tags: [api, validation, openapi, asyncapi, zalando]

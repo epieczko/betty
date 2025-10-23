@@ -1,0 +1,16 @@
+hooks:
+  on_file_edit:
+  - name: python betty-skills-api-validate-api_validate-py {file_path} zalando-all.openapi.yaml
+    command: python betty/skills/api.validate/api_validate.py {file_path} zalando
+    blocking: true
+    timeout: 10000
+    when:
+      pattern: '*.openapi.yaml'
+    description: Validate OpenAPI specs against Zalando guidelines on every edit
+  - name: python betty-skills-api-validate-api_validate-py {file_path}-all.asyncapi.yaml
+    command: python betty/skills/api.validate/api_validate.py {file_path}
+    blocking: true
+    timeout: 10000
+    when:
+      pattern: '*.asyncapi.yaml'
+    description: Validate AsyncAPI specs on every edit
