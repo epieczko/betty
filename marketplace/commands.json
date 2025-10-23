@@ -1,0 +1,34 @@
+{
+  "marketplace_version": "1.0.0",
+  "generated_at": "2025-10-23T20:01:18.348316+00:00",
+  "last_updated": "2025-10-23T20:01:18.348318+00:00",
+  "description": "Betty Framework Certified Commands Marketplace",
+  "total_commands": 4,
+  "certified_count": 1,
+  "draft_count": 3,
+  "catalog": [
+    {
+      "name": "/test-workflow-command",
+      "version": "1.0.0",
+      "description": "Test complete workflow",
+      "status": "certified",
+      "tags": [
+        "test",
+        "workflow"
+      ],
+      "execution": {
+        "target": "api.validate",
+        "type": "skill"
+      },
+      "parameters": [
+        {
+          "description": "Input parameter",
+          "name": "input",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "maintainer": "Betty Core Team"
+    }
+  ]
+}
