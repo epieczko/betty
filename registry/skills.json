@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-23T01:55:40.020608+00:00",
+  "generated_at": "2025-10-23T02:12:09.363696+00:00",
   "skills": [
     {
       "name": "skill.define",
@@ -100,127 +100,6 @@
       "name": "test.example",
       "version": "0.1.0",
       "description": "Example skill for testing workflow orchestration",
-      "inputs": [],
-      "outputs": [],
-      "dependencies": [],
-      "status": "draft"
-    },
-    {
-      "name": "test.integration.temp",
-      "version": "0.1.0",
-      "description": "Test skill with IO",
-      "inputs": [
-        "input1",
-        "input2"
-      ],
-      "outputs": [
-        "output1"
-      ],
-      "dependencies": [],
-      "status": "draft"
-    },
-    {
-      "name": "workflow.compose",
-      "version": "0.1.0",
-      "description": "Executes multi-step Betty Framework workflows by chaining existing skills. Enables declarative orchestration of skill pipelines.\n",
-      "inputs": [
-        "workflow.yaml"
-      ],
-      "outputs": [
-        "workflow_history.json"
-      ],
-      "dependencies": [
-        "skill.create",
-        "skill.define",
-        "registry.update"
-      ],
-      "status": "active",
-      "entrypoints": [
-        {
-          "command": "/workflow/compose",
-          "handler": "workflow_compose.py",
-          "runtime": "python",
-          "description": "Execute a Betty workflow defined in a YAML file.\n",
-          "parameters": [
-            {
-              "name": "workflow.yaml",
-              "type": "string",
-              "required": true,
-              "description": "Path to a workflow YAML file to execute."
-            }
-          ],
-          "permissions": [
-            "filesystem",
-            "read",
-            "write"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "skill.create",
-      "version": "0.1.0",
-      "description": "Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\n",
-      "inputs": [
-        "skill_name",
-        "description",
-        "inputs",
-        "outputs"
-      ],
-      "outputs": [
-        "skill_directory",
-        "skill_manifest.yaml",
-        "registration_record.json"
-      ],
-      "dependencies": [
-        "skill.define",
-        "context.schema"
-      ],
-      "status": "active",
-      "entrypoints": [
-        {
-          "command": "/skill/create",
-          "handler": "skill_create.py",
-          "runtime": "python",
-          "description": "Scaffolds a new Betty Skill directory, generates its manifest, validates it with skill.define, and updates the registry.\n",
-          "parameters": [
-            {
-              "name": "skill_name",
-              "type": "string",
-              "description": "Name of the new skill (e.g., runtime.execute)",
-              "required": true
-            },
-            {
-              "name": "description",
-              "type": "string",
-              "description": "Description of what the skill will do",
-              "required": true
-            },
-            {
-              "name": "inputs",
-              "type": "string",
-              "description": "Comma-separated list of input parameters (optional)",
-              "required": false
-            },
-            {
-              "name": "outputs",
-              "type": "string",
-              "description": "Comma-separated list of output parameters (optional)",
-              "required": false
-            }
-          ],
-          "permissions": [
-            "filesystem",
-            "read",
-            "write"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "test.lifecycle.complete",
-      "version": "0.1.0",
-      "description": "Lifecycle test skill",
       "inputs": [],
       "outputs": [],
       "dependencies": [],
@@ -650,7 +529,7 @@
       "description": "Validate and register command manifests in the Command Registry",
       "inputs": [
         {
-          "name": "command_manifest_path",
+          "name": "manifest_path",
           "type": "string",
           "required": true,
           "description": "Path to the command manifest file (YAML)"
@@ -700,7 +579,7 @@
       "description": "Validate and register hook manifests in the Hook Registry",
       "inputs": [
         {
-          "name": "hook_manifest_path",
+          "name": "manifest_path",
           "type": "string",
           "required": true,
           "description": "Path to the hook manifest file (YAML)"
@@ -744,6 +623,127 @@
         "infrastructure",
         "policy"
       ]
+    },
+    {
+      "name": "test.integration.temp",
+      "version": "0.1.0",
+      "description": "Test skill with IO",
+      "inputs": [
+        "input1",
+        "input2"
+      ],
+      "outputs": [
+        "output1"
+      ],
+      "dependencies": [],
+      "status": "draft"
+    },
+    {
+      "name": "workflow.compose",
+      "version": "0.1.0",
+      "description": "Executes multi-step Betty Framework workflows by chaining existing skills. Enables declarative orchestration of skill pipelines.\n",
+      "inputs": [
+        "workflow_path"
+      ],
+      "outputs": [
+        "workflow_history.json"
+      ],
+      "dependencies": [
+        "skill.create",
+        "skill.define",
+        "registry.update"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/workflow/compose",
+          "handler": "workflow_compose.py",
+          "runtime": "python",
+          "description": "Execute a Betty workflow defined in a YAML file.\n",
+          "parameters": [
+            {
+              "name": "workflow_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to a workflow YAML file to execute."
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "skill.create",
+      "version": "0.1.0",
+      "description": "Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\n",
+      "inputs": [
+        "skill_name",
+        "description",
+        "inputs",
+        "outputs"
+      ],
+      "outputs": [
+        "skill_directory",
+        "manifest_path",
+        "registration_record.json"
+      ],
+      "dependencies": [
+        "skill.define",
+        "context.schema"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/skill/create",
+          "handler": "skill_create.py",
+          "runtime": "python",
+          "description": "Scaffolds a new Betty Skill directory, generates its manifest, validates it with skill.define, and updates the registry.\n",
+          "parameters": [
+            {
+              "name": "skill_name",
+              "type": "string",
+              "description": "Name of the new skill (e.g., runtime.execute)",
+              "required": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "description": "Description of what the skill will do",
+              "required": true
+            },
+            {
+              "name": "inputs",
+              "type": "string",
+              "description": "Comma-separated list of input parameters (optional)",
+              "required": false
+            },
+            {
+              "name": "outputs",
+              "type": "string",
+              "description": "Comma-separated list of output parameters (optional)",
+              "required": false
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "test.lifecycle.complete",
+      "version": "0.1.0",
+      "description": "Lifecycle test skill",
+      "inputs": [],
+      "outputs": [],
+      "dependencies": [],
+      "status": "draft"
     }
   ]
 }
