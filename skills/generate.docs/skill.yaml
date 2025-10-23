@@ -1,0 +1,54 @@
+name: generate.docs
+version: 0.1.0
+description: Automatically generate or update SKILL.md documentation from skill.yaml manifests
+
+inputs:
+  - name: manifest_path
+    type: string
+    required: true
+    description: Path to skill.yaml manifest file to generate documentation from
+
+  - name: overwrite
+    type: boolean
+    required: false
+    default: false
+    description: Overwrite existing SKILL.md file if it exists
+
+  - name: dry_run
+    type: boolean
+    required: false
+    default: false
+    description: Preview the generated documentation without writing to disk
+
+  - name: output_path
+    type: string
+    required: false
+    description: Custom output path for SKILL.md (defaults to same directory as manifest)
+
+outputs:
+  - name: doc_path
+    type: string
+    description: Path to generated or updated SKILL.md file
+
+  - name: doc_content
+    type: string
+    description: Generated documentation content
+
+  - name: dry_run_preview
+    type: string
+    description: Preview of documentation (when dry_run=true)
+
+dependencies:
+  - context.schema
+
+entrypoints:
+  - command: /skill/generate/docs
+    handler: generate_docs.py
+    runtime: python
+    permissions:
+      - filesystem:read
+      - filesystem:write
+
+status: active
+
+tags: [documentation, automation, scaffolding, skill-management]
