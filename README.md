@@ -43,7 +43,9 @@ Betty doesn’t modify the Claude Code runtime—it **configures and disciplines
 
 ## 🧩 Current Core Skills
 
-Betty’s self-referential “kernel” of skills bootstraps the rest of the system:
+Betty's self-referential "kernel" of skills bootstraps the rest of the system:
+
+### Foundation Skills
 
 | Skill | Purpose |
 |--------|----------|
@@ -51,8 +53,28 @@ Betty’s self-referential “kernel” of skills bootstraps the rest of the sys
 | **skill.define** | Validates and registers skill manifests. |
 | **registry.update** | Adds or modifies entries in `/registry/skills.json`. |
 | **workflow.compose** | Executes declarative YAML workflows chaining skills together. |
+| **workflow.validate** | Ensures workflow YAML schema correctness before execution. |
 
-These four form the baseline for an **AI-native SDLC** where creation, validation, registration, and orchestration are themselves skills.
+### API Development Skills
+
+| Skill | Purpose |
+|--------|----------|
+| **api.define** | Create OpenAPI and AsyncAPI specifications from templates. |
+| **api.validate** | Validate API specs against enterprise guidelines (Zalando, Google, Microsoft). |
+| **api.generate-models** | Generate type-safe models from specs using Modelina (TypeScript, Python, Java, Go). |
+| **api.compatibility** | Detect breaking changes between API specification versions. |
+
+### Infrastructure Skills
+
+| Skill | Purpose |
+|--------|----------|
+| **agent.define** | Validates and registers agent manifests for intelligent orchestration. |
+| **command.define** | Validates and registers slash command manifests. |
+| **hook.define** | Create and register validation hooks for Claude Code. |
+| **hook.register** | Validate and register hook manifests in the Hook Registry. |
+| **policy.enforce** | Validates operations against organizational policies (active). |
+
+These skills form the baseline for an **AI-native SDLC** where creation, validation, registration, and orchestration are themselves skills.
 
 ---
 
@@ -60,25 +82,72 @@ These four form the baseline for an **AI-native SDLC** where creation, validatio
 
 ```
 betty-framework/
-├── betty/                    # Shared Python utilities
-│   ├── config.py
-│   ├── validation.py
-│   ├── logging_utils.py
-│   ├── file_utils.py
-│   └── errors.py
-├── docs/
-│   ├── betty-framework-overview.md
-│   └── references.md
-├── skills/
-│   ├── skill.create/
-│   ├── skill.define/
-│   ├── registry.update/
-│   └── workflow.compose/
-├── registry/
-│   ├── skills.json
-│   └── workflow_history.json
-└── workflows/
-    └── example_create_and_register.yaml
+├── betty/                         # Shared Python utilities
+│   ├── config.py                  # Configuration constants and paths
+│   ├── validation.py              # Validation utility functions
+│   ├── logging_utils.py           # Logging infrastructure
+│   ├── file_utils.py              # File operations with locking
+│   └── errors.py                  # Custom exception classes
+│
+├── docs/                          # Documentation
+│   ├── betty-framework-overview.md    # High-level architecture overview
+│   ├── betty-architecture.md          # Five-layer model details
+│   ├── CODEBASE_ANALYSIS.md          # Technical codebase analysis
+│   ├── COMMAND_HOOK_INFRASTRUCTURE.md # Commands & hooks documentation
+│   ├── api-driven-development.md     # API-first workflow guide
+│   ├── skills-framework.md           # Skills taxonomy and design
+│   ├── multi-llm-integration-paths.md # Multi-LLM integration options
+│   ├── references.md                  # External documentation links
+│   ├── glossary.md                    # Betty terminology reference
+│   └── contributing.md                # Contribution guidelines
+│
+├── skills/                        # Skills implementation
+│   ├── skill.create/              # Scaffold new skills
+│   ├── skill.define/              # Validate skill manifests
+│   ├── registry.update/           # Update skill registry
+│   ├── workflow.compose/          # Execute workflows
+│   ├── workflow.validate/         # Validate workflow YAML
+│   ├── agent.define/              # Validate & register agents
+│   ├── command.define/            # Validate & register commands
+│   ├── hook.define/               # Create validation hooks
+│   ├── hook.register/             # Register hook manifests
+│   ├── api.define/                # Create API specifications
+│   ├── api.validate/              # Validate API specs
+│   ├── api.generate-models/       # Generate models from specs
+│   ├── api.compatibility/         # Check API compatibility
+│   ├── policy.enforce/            # Enforce organizational policies
+│   └── audit.log/                 # Audit trail logging
+│
+├── agents/                        # Intelligent orchestrators
+│   ├── api.designer/              # Design APIs with iterative refinement
+│   │   ├── agent.yaml             # Agent manifest
+│   │   └── README.md              # Agent documentation
+│   └── api.analyzer/              # Analyze API compatibility
+│       ├── agent.yaml
+│       └── README.md
+│
+├── .claude/                       # Claude Code integration
+│   ├── commands/                  # Slash command definitions
+│   │   ├── README.md              # Commands overview
+│   │   ├── api-design.md          # /api-design command
+│   │   ├── api-validate.md        # /api-validate command
+│   │   ├── api-generate.md        # /api-generate command
+│   │   └── api-compatibility.md   # /api-compatibility command
+│   └── hooks.yaml                 # Live hooks configuration
+│
+├── registry/                      # Registries (source of truth)
+│   ├── skills.json                # Registered skills
+│   ├── agents.json                # Registered agents
+│   ├── commands.json              # Registered commands
+│   ├── hooks.json                 # Registered hooks
+│   └── workflow_history.json      # Workflow execution history
+│
+├── workflows/                     # Workflow definitions
+│   ├── example_create_and_register.yaml
+│   └── api_first_development.yaml
+│
+└── tests/                         # Test suites
+    └── integration/               # Integration tests
 ```
 
 ---
@@ -128,8 +197,37 @@ Each step logs to `/registry/skills.json` and `/registry/workflow_history.json`.
 
 ## 📚 Documentation
 
-* `docs/betty-framework-overview.md` — Full lifecycle and architecture
-* `docs/references.md` — Official Claude Code API and plugin references
+### Architecture & Design
+
+* [Betty Architecture](docs/betty-architecture.md) — Five-layer model explained
+* [Betty Framework Overview](docs/betty-framework-overview.md) — Lifecycle and bootstrapping
+* [Skills Framework](docs/skills-framework.md) — Skill taxonomy and categories
+* [API-Driven Development](docs/api-driven-development.md) — Complete API workflow guide
+
+### Infrastructure
+
+* [Command & Hook Infrastructure](docs/COMMAND_HOOK_INFRASTRUCTURE.md) — Layer 1 and 5 details
+* [Multi-LLM Integration](docs/multi-llm-integration-paths.md) — Multi-model strategies
+
+### Reference
+
+* [Glossary](docs/glossary.md) — Betty terminology and concepts
+* [Contributing](docs/contributing.md) — How to contribute to Betty
+* [References](docs/references.md) — External documentation links
+* [Codebase Analysis](docs/CODEBASE_ANALYSIS.md) — Technical implementation details
+
+### Skills Documentation
+
+Each skill has comprehensive documentation in its `SKILL.md` file:
+* Foundation: `skill.create`, `skill.define`, `registry.update`, `workflow.compose`, `workflow.validate`
+* API: `api.define`, `api.validate`, `api.generate-models`, `api.compatibility`
+* Infrastructure: `agent.define`, `command.define`, `hook.define`, `hook.register`
+
+### Agents Documentation
+
+Each agent has a `README.md` in its directory:
+* [api.designer](agents/api.designer/README.md) — Iterative API design agent
+* [api.analyzer](agents/api.analyzer/README.md) — API compatibility analysis agent
 
 ---
 
@@ -153,9 +251,23 @@ Each step logs to `/registry/skills.json` and `/registry/workflow_history.json`.
 
 ## 🤝 Contributing
 
-1. Use lowercase, dot-separated names (e.g., `domain.action`).
+We welcome contributions! Please see our [Contributing Guide](docs/contributing.md) for detailed instructions.
+
+**Quick Guidelines:**
+
+1. Use lowercase, dot-separated names (e.g., `domain.action` for skills).
 2. Include `skill.yaml`, `SKILL.md`, and a handler script for each skill.
 3. Validate via `skill.create → skill.define → registry.update` before commit.
-4. Submit PRs with clear workflow examples and registry entries set to `active`.
+4. Write comprehensive tests and documentation.
+5. Submit PRs with clear workflow examples and registry entries set to `draft` initially.
+
+**Before submitting:**
+- [ ] Manifest validated with `skill.define` or `agent.define`
+- [ ] Documentation (SKILL.md/README.md) is complete
+- [ ] Examples and usage instructions provided
+- [ ] Code follows style guidelines
+- [ ] Registry updated
+
+See [docs/contributing.md](docs/contributing.md) for full details.
 
 
