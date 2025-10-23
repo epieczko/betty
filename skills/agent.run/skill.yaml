@@ -1,0 +1,85 @@
+name: agent.run
+version: 0.1.0
+description: >
+  Execute a registered Betty agent by loading its manifest, generating a Claude-friendly
+  prompt, invoking skills based on the agent's workflow, and logging results. Supports
+  both iterative and oneshot reasoning modes with optional Claude API integration.
+
+inputs:
+  - name: agent_path
+    type: string
+    required: true
+    description: Path to agent manifest (agent.yaml) or agent name (e.g., api.designer)
+
+  - name: task_context
+    type: string
+    required: false
+    description: Task or query to provide to the agent for execution
+
+  - name: save_log
+    type: boolean
+    required: false
+    default: true
+    description: Whether to save execution log to agent_logs/<agent>.json
+
+outputs:
+  - name: execution_result
+    type: object
+    description: Complete execution results including prompt, Claude response, and skill outputs
+    schema:
+      properties:
+        ok: boolean
+        status: string
+        timestamp: string
+        errors: array
+        details:
+          type: object
+          properties:
+            timestamp: string
+            agent: object
+            task_context: string
+            prompt: string
+            skills_available: array
+            claude_response: object
+            execution_results: array
+            summary: object
+            log_path: string
+
+dependencies:
+  - agent.define
+
+entrypoints:
+  - command: /agent/run
+    handler: agent_run.py
+    runtime: python
+    description: >
+      Execute a Betty agent with optional task context. Generates Claude-friendly prompts,
+      invokes the Claude API (or simulates), executes planned skills, and logs all results
+      to agent_logs/ directory.
+    parameters:
+      - name: agent_path
+        type: string
+        required: true
+        description: Path to agent.yaml file or agent name (e.g., api.designer)
+      - name: task_context
+        type: string
+        required: false
+        description: Optional task or query for the agent to execute
+      - name: save_log
+        type: boolean
+        required: false
+        default: true
+        description: Save execution log to agent_logs/<agent>_<timestamp>.json
+    permissions:
+      - filesystem:read
+      - filesystem:write
+      - network:http
+
+status: active
+
+tags:
+  - agents
+  - execution
+  - claude-api
+  - orchestration
+  - layer2
