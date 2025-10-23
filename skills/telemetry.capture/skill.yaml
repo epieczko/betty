@@ -1,0 +1,65 @@
+name: telemetry.capture
+version: 0.1.0
+description: >
+  Captures runtime telemetry metrics for skill usage across workflows, agents, and CLI.
+  Records skill execution with inputs, status, duration, and caller context to enable
+  performance monitoring and usage analytics.
+inputs:
+  - skill_name
+  - inputs (JSON)
+  - status
+  - duration_ms
+  - agent (optional)
+  - workflow (optional)
+  - caller (optional)
+outputs:
+  - telemetry_entry.json
+  - telemetry.json (registry file)
+dependencies: []
+status: active
+
+entrypoints:
+  - command: /telemetry/capture
+    handler: telemetry_capture.py
+    runtime: python
+    description: >
+      Capture and record telemetry metrics for skill execution with full context.
+    parameters:
+      - name: skill_name
+        type: string
+        required: true
+        description: Name of the skill being tracked.
+      - name: inputs
+        type: string
+        required: true
+        description: JSON object containing input parameters passed to the skill.
+      - name: status
+        type: string
+        required: true
+        description: Execution status (success, failed, timeout, etc.).
+      - name: duration_ms
+        type: integer
+        required: true
+        description: Execution duration in milliseconds.
+      - name: agent
+        type: string
+        required: false
+        description: Name of the agent that invoked the skill (if applicable).
+      - name: workflow
+        type: string
+        required: false
+        description: Name of the workflow in which the skill was executed (if applicable).
+      - name: caller
+        type: string
+        required: false
+        description: Caller identifier (CLI, API, workflow, agent, etc.).
+    permissions:
+      - filesystem:read
+      - filesystem:write
+
+tags:
+  - telemetry
+  - monitoring
+  - observability
+  - metrics
+  - governance
