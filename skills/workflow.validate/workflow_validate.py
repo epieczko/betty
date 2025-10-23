@@ -18,7 +18,9 @@ from betty.validation import ValidationError, validate_path  # noqa: E402
 logger = setup_logger(__name__)
 
 REQUIRED_FIELDS = ["steps"]
-STEP_REQUIRED_FIELDS = ["skill", "args"]
+# Steps can have either 'skill' or 'agent' (not both)
+# For skill steps: 'skill' and 'args' are required
+# For agent steps: 'agent' is required, 'input' is optional
 
 
 def build_response(ok: bool, path: str, errors: Optional[List[str]] = None, details: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
@@ -76,17 +78,42 @@ def _validate_steps(steps: Any) -> List[str]:
             errors.append(f"Step {index} must be a mapping")
             continue
 
-        for field in STEP_REQUIRED_FIELDS:
-            if field not in step:
-                errors.append(f"Step {index} missing '{field}'")
+        # Check if step has skill or agent field
+        has_skill = "skill" in step
+        has_agent = "agent" in step
 
-        skill_value = step.get("skill")
-        if skill_value is not None and not isinstance(skill_value, str):
-            errors.append(f"Step {index} 'skill' must be a string")
+        if not has_skill and not has_agent:
+            errors.append(f"Step {index} must have either 'skill' or 'agent' field")
+            continue
 
-        args_value = step.get("args")
-        if args_value is not None and not isinstance(args_value, list):
-            errors.append(f"Step {index} 'args' must be a list")
+        if has_skill and has_agent:
+            errors.append(f"Step {index} cannot have both 'skill' and 'agent' fields")
+            continue
+
+        # Validate skill steps
+        if has_skill:
+            skill_value = step.get("skill")
+            if not isinstance(skill_value, str):
+                errors.append(f"Step {index} 'skill' must be a string")
+
+            # args field is required for skill steps
+            if "args" not in step:
+                errors.append(f"Step {index} missing 'args' field (required for skill steps)")
+            else:
+                args_value = step.get("args")
+                if not isinstance(args_value, list):
+                    errors.append(f"Step {index} 'args' must be a list")
+
+        # Validate agent steps
+        if has_agent:
+            agent_value = step.get("agent")
+            if not isinstance(agent_value, str):
+                errors.append(f"Step {index} 'agent' must be a string")
+
+            # input field is optional for agent steps, but if present must be a string
+            input_value = step.get("input")
+            if input_value is not None and not isinstance(input_value, str):
+                errors.append(f"Step {index} 'input' must be a string")
 
     return errors
 
