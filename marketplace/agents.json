@@ -1,9 +1,9 @@
 {
   "marketplace_version": "1.0.0",
-  "generated_at": "2025-10-23T19:40:03.538016+00:00",
+  "generated_at": "2025-10-23T20:01:17.051219+00:00",
   "description": "Betty Framework Certified Agents Marketplace",
-  "total_agents": 2,
+  "total_agents": 0,
   "certified_count": 0,
-  "draft_count": 2,
+  "draft_count": 0,
   "catalog": []
 }
