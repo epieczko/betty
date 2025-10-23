@@ -187,9 +187,24 @@ The telemetry file is a JSON array of entries ordered by timestamp:
 ]
 ```
 
-### Retention Policy
+### Retention and Rotation Policy
 
-The telemetry log automatically retains only the last **100,000 entries** to prevent unbounded growth. Older entries are automatically removed when the limit is exceeded.
+The telemetry system implements a **weekly rotation policy** with automatic archiving:
+
+1. **Weekly Rotation**: Entries older than 7 days are automatically archived to dated files in `/home/user/betty/registry/telemetry_archive/`
+2. **Archive Format**: Archives are organized by ISO week (e.g., `telemetry-2025-W41.json`)
+3. **Safety Limit**: The main log also enforces a maximum of **100,000 entries** to prevent unbounded growth as a safety mechanism
+4. **Automatic Process**: Rotation happens automatically during each telemetry capture operation
+
+Example archive structure:
+```
+registry/
+├── telemetry.json              # Current week's entries
+└── telemetry_archive/
+    ├── telemetry-2025-W40.json # Week 40 archive
+    ├── telemetry-2025-W41.json # Week 41 archive
+    └── telemetry-2025-W42.json # Week 42 archive
+```
 
 ## Integration Points
 
@@ -241,6 +256,23 @@ def register_skill_cli(skill_path: str):
 ## Thread Safety
 
 The `telemetry.capture` skill uses thread-safe file operations with locking via `betty.file_utils.safe_update_json`. Multiple concurrent telemetry writes are handled safely without data corruption.
+
+## Rotation Mechanism
+
+The rotation process happens automatically during each telemetry capture:
+
+1. **Age Check**: The system checks if any entries are older than 7 days
+2. **Separation**: Entries are separated into "recent" (≤7 days) and "old" (>7 days) groups
+3. **Archive Creation**: Old entries are grouped by ISO week and written to archive files
+4. **Archive Merging**: If an archive file already exists for a week, new entries are appended
+5. **Main File Update**: Only recent entries remain in the main `telemetry.json` file
+6. **Safety Limit**: As a fallback, the main file is also capped at 100,000 entries
+
+The rotation is:
+- **Automatic**: No manual intervention required
+- **Thread-safe**: Uses the same locking mechanism as regular writes
+- **Non-destructive**: Old data is preserved in archives, not deleted
+- **Efficient**: Archives are only created when old entries are detected
 
 ## Error Handling
 
@@ -296,6 +328,8 @@ The `telemetry.capture` skill uses thread-safe file operations with locking via 
 
 The telemetry data can be analyzed using standard JSON tools:
 
+### Current Week's Data
+
 ```bash
 # Count total telemetry entries
 jq 'length' registry/telemetry.json
@@ -321,6 +355,25 @@ jq '.[] | select(.agent == "orchestrator")' registry/telemetry.json
 # Get entries from last hour
 jq --arg cutoff "$(date -u -d '1 hour ago' +%Y-%m-%dT%H:%M:%S)" \
    '.[] | select(.timestamp > $cutoff)' registry/telemetry.json
+```
+
+### Archived Data
+
+```bash
+# Query specific week's archive
+jq '.[] | select(.status == "success")' registry/telemetry_archive/telemetry-2025-W41.json
+
+# Merge all archives for historical analysis
+jq -s 'add' registry/telemetry_archive/*.json | jq 'length'
+
+# Find slowest executions across all archives
+jq -s 'add | sort_by(.duration_ms) | reverse | .[0:10]' registry/telemetry_archive/*.json
+
+# Count total archived entries
+jq -s 'add | length' registry/telemetry_archive/*.json
+
+# List all available archive weeks
+ls -1 registry/telemetry_archive/ | grep -o 'W[0-9]*'
 ```
 
 ## Future Enhancements
@@ -381,8 +434,10 @@ Future support for streaming telemetry to external systems:
 | Purpose | Performance & usage metrics | Compliance & audit trail |
 | Required Fields | skill, inputs, status, duration | skill, status |
 | Context Tracking | agent, workflow, caller | metadata (generic) |
-| Retention | 100,000 entries | 10,000 entries |
+| Retention | 7 days active + weekly archives | 10,000 entries |
+| Rotation | Weekly with archiving | Size-based (10k limit) |
 | Focus | Runtime analytics | Governance & debugging |
 | Decorator Support | Yes | No |
+| Thread Safety | Yes | Yes |
 
 Both skills complement each other and can be used together for comprehensive observability.

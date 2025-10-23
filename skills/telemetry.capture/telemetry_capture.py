@@ -7,7 +7,7 @@ import os
 import sys
 import time
 from typing import Any, Callable, Dict, List, Optional
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 # Ensure project root on path for betty imports when executed directly
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
@@ -21,6 +21,11 @@ logger = setup_logger(__name__)
 
 # Telemetry log file path
 TELEMETRY_FILE = os.path.join(REGISTRY_DIR, "telemetry.json")
+TELEMETRY_ARCHIVE_DIR = os.path.join(REGISTRY_DIR, "telemetry_archive")
+
+# Rotation settings
+ROTATION_DAYS = 7  # Rotate weekly
+MAX_ENTRIES = 100000  # Safety limit to prevent unbounded growth
 
 
 def build_response(ok: bool, path: str, errors: Optional[List[str]] = None, details: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
@@ -89,11 +94,94 @@ def create_telemetry_entry(
     return entry
 
 
+def rotate_telemetry_if_needed(telemetry_data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """
+    Rotate telemetry data if the oldest entries are more than ROTATION_DAYS old.
+
+    Archives old entries to dated archive files and returns recent entries.
+
+    Args:
+        telemetry_data: List of telemetry entries
+
+    Returns:
+        List of recent telemetry entries (within ROTATION_DAYS)
+    """
+    if not telemetry_data:
+        return telemetry_data
+
+    # Calculate cutoff date (entries older than this will be archived)
+    cutoff_date = datetime.now(timezone.utc) - timedelta(days=ROTATION_DAYS)
+
+    # Separate old and recent entries
+    old_entries = []
+    recent_entries = []
+
+    for entry in telemetry_data:
+        try:
+            entry_timestamp = datetime.fromisoformat(entry.get("timestamp", ""))
+            if entry_timestamp < cutoff_date:
+                old_entries.append(entry)
+            else:
+                recent_entries.append(entry)
+        except (ValueError, TypeError):
+            # If timestamp is invalid, keep it in recent entries
+            recent_entries.append(entry)
+
+    # Archive old entries if any exist
+    if old_entries:
+        try:
+            os.makedirs(TELEMETRY_ARCHIVE_DIR, exist_ok=True)
+
+            # Group old entries by week
+            entries_by_week = {}
+            for entry in old_entries:
+                try:
+                    timestamp = datetime.fromisoformat(entry.get("timestamp", ""))
+                    # Use ISO week date format (YYYY-Www)
+                    week_key = timestamp.strftime("%Y-W%W")
+                    if week_key not in entries_by_week:
+                        entries_by_week[week_key] = []
+                    entries_by_week[week_key].append(entry)
+                except (ValueError, TypeError):
+                    # Skip entries with invalid timestamps
+                    continue
+
+            # Write each week's entries to separate archive files
+            for week_key, entries in entries_by_week.items():
+                archive_file = os.path.join(TELEMETRY_ARCHIVE_DIR, f"telemetry-{week_key}.json")
+
+                # If archive file exists, append to it; otherwise create new
+                existing_entries = []
+                if os.path.exists(archive_file):
+                    try:
+                        with open(archive_file, 'r') as f:
+                            existing_entries = json.load(f)
+                            if not isinstance(existing_entries, list):
+                                existing_entries = []
+                    except (json.JSONDecodeError, IOError):
+                        existing_entries = []
+
+                # Combine and write
+                all_archived_entries = existing_entries + entries
+                with open(archive_file, 'w') as f:
+                    json.dump(all_archived_entries, f, indent=2)
+
+                logger.info(f"Archived {len(entries)} entries to {archive_file}")
+
+        except Exception as e:
+            logger.warning(f"Failed to archive old telemetry entries: {e}")
+            # On archive failure, keep old entries in the main file
+            return telemetry_data
+
+    return recent_entries
+
+
 def capture_telemetry(entry: Dict[str, Any]) -> Dict[str, Any]:
     """
     Append a telemetry entry to the telemetry log file.
 
     Uses thread-safe file operations with locking.
+    Implements weekly rotation: entries older than 7 days are archived.
 
     Args:
         entry: Telemetry entry to append
@@ -106,10 +194,19 @@ def capture_telemetry(entry: Dict[str, Any]) -> Dict[str, Any]:
         if not isinstance(telemetry_data, list):
             telemetry_data = []
 
+        # Perform weekly rotation check
+        telemetry_data = rotate_telemetry_if_needed(telemetry_data)
+
+        # Append new entry
         telemetry_data.append(entry)
 
-        # Keep only last 100000 entries to prevent unbounded growth
-        return telemetry_data[-100000:]
+        # Safety limit: keep only last MAX_ENTRIES to prevent unbounded growth
+        # This is a fallback in case rotation doesn't work or entries accumulate too quickly
+        if len(telemetry_data) > MAX_ENTRIES:
+            telemetry_data = telemetry_data[-MAX_ENTRIES:]
+            logger.warning(f"Telemetry log exceeded {MAX_ENTRIES} entries, truncating to safety limit")
+
+        return telemetry_data
 
     try:
         # Ensure registry directory exists
