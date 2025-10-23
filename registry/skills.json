@@ -1,20 +1,14 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-23T19:58:14.823854+00:00",
+  "generated_at": "2025-10-23T19:59:00.000000+00:00",
   "skills": [
     {
       "name": "workflow.validate",
       "version": "0.1.0",
       "description": "Validates Betty workflow YAML definitions to ensure correct structure and required fields.\n",
-      "inputs": [
-        "workflow.yaml"
-      ],
-      "outputs": [
-        "validation_result.json"
-      ],
-      "dependencies": [
-        "context.schema"
-      ],
+      "inputs": ["workflow.yaml"],
+      "outputs": ["validation_result.json"],
+      "dependencies": ["context.schema"],
       "status": "active",
       "entrypoints": [
         {
@@ -30,10 +24,7 @@
               "description": "Path to the workflow YAML file."
             }
           ],
-          "permissions": [
-            "filesystem",
-            "read"
-          ]
+          "permissions": ["filesystem", "read"]
         }
       ]
     },
@@ -111,27 +102,17 @@
           "description": "Path to .claude/hooks.yaml file"
         }
       ],
-      "dependencies": [
-        "context.schema"
-      ],
+      "dependencies": ["context.schema"],
       "entrypoints": [
         {
           "command": "/skill/hook/define",
           "handler": "hook_define.py",
           "runtime": "python",
-          "permissions": [
-            "filesystem:read",
-            "filesystem:write"
-          ]
+          "permissions": ["filesystem:read", "filesystem:write"]
         }
       ],
       "status": "active",
-      "tags": [
-        "hooks",
-        "validation",
-        "automation",
-        "claude-code"
-      ]
+      "tags": ["hooks", "validation", "automation", "claude-code"]
     },
     {
       "name": "api.validate",
@@ -176,28 +157,17 @@
           "description": "Version of guidelines used for validation"
         }
       ],
-      "dependencies": [
-        "context.schema"
-      ],
+      "dependencies": ["context.schema"],
       "entrypoints": [
         {
           "command": "/skill/api/validate",
           "handler": "api_validate.py",
           "runtime": "python",
-          "permissions": [
-            "filesystem:read",
-            "network:http"
-          ]
+          "permissions": ["filesystem:read", "network:http"]
         }
       ],
       "status": "active",
-      "tags": [
-        "api",
-        "validation",
-        "openapi",
-        "asyncapi",
-        "zalando"
-      ]
+      "tags": ["api", "validation", "openapi", "asyncapi", "zalando"]
     },
     {
       "name": "api.define",
@@ -251,869 +221,45 @@
           "description": "Generated specification content"
         }
       ],
-      "dependencies": [
-        "context.schema"
-      ],
+      "dependencies": ["context.schema"],
       "entrypoints": [
         {
           "command": "/skill/api/define",
           "handler": "api_define.py",
           "runtime": "python",
-          "permissions": [
-            "filesystem:read",
-            "filesystem:write"
-          ]
+          "permissions": ["filesystem:read", "filesystem:write"]
         }
       ],
       "status": "active",
-      "tags": [
-        "api",
-        "openapi",
-        "asyncapi",
-        "scaffolding",
-        "zalando"
-      ]
+      "tags": ["api", "openapi", "asyncapi", "scaffolding", "zalando"]
     },
     {
-      "name": "api.generate-models",
+      "name": "docs.sync.plugin_manifest",
       "version": "0.1.0",
-      "description": "Generate type-safe models from OpenAPI and AsyncAPI specifications using Modelina",
-      "inputs": [
-        {
-          "name": "spec_path",
-          "type": "string",
-          "required": true,
-          "description": "Path to API specification file (OpenAPI or AsyncAPI)"
-        },
-        {
-          "name": "language",
-          "type": "string",
-          "required": true,
-          "description": "Target language (typescript, python, java, go, csharp)"
-        },
-        {
-          "name": "output_dir",
-          "type": "string",
-          "required": false,
-          "default": "src/models",
-          "description": "Output directory for generated models"
-        },
-        {
-          "name": "package_name",
-          "type": "string",
-          "required": false,
-          "description": "Package/module name for generated code"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "models_path",
-          "type": "string",
-          "description": "Path to directory containing generated models"
-        },
-        {
-          "name": "files_generated",
-          "type": "array",
-          "description": "List of generated model files"
-        },
-        {
-          "name": "model_count",
-          "type": "number",
-          "description": "Number of models generated"
-        }
-      ],
-      "dependencies": [
-        "context.schema"
-      ],
-      "entrypoints": [
-        {
-          "command": "/skill/api/generate-models",
-          "handler": "modelina_generate.py",
-          "runtime": "python",
-          "permissions": [
-            "filesystem:read",
-            "filesystem:write",
-            "process:execute"
-          ]
-        }
-      ],
-      "status": "active",
-      "tags": [
-        "api",
-        "codegen",
-        "modelina",
-        "openapi",
-        "asyncapi",
-        "typescript",
-        "python",
-        "java"
-      ]
-    },
-    {
-      "name": "api.compatibility",
-      "version": "0.1.0",
-      "description": "Detect breaking changes between API specification versions",
-      "inputs": [
-        {
-          "name": "old_spec_path",
-          "type": "string",
-          "required": true,
-          "description": "Path to the old/previous API specification"
-        },
-        {
-          "name": "new_spec_path",
-          "type": "string",
-          "required": true,
-          "description": "Path to the new/current API specification"
-        },
-        {
-          "name": "fail_on_breaking",
-          "type": "boolean",
-          "required": false,
-          "default": true,
-          "description": "Exit with error code if breaking changes detected"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "compatible",
-          "type": "boolean",
-          "description": "Whether the new spec is backward compatible"
-        },
-        {
-          "name": "breaking_changes",
-          "type": "array",
-          "description": "List of breaking changes detected"
-        },
-        {
-          "name": "non_breaking_changes",
-          "type": "array",
-          "description": "List of non-breaking changes detected"
-        },
-        {
-          "name": "change_summary",
-          "type": "object",
-          "description": "Summary of all changes"
-        }
-      ],
-      "dependencies": [
-        "context.schema"
-      ],
-      "entrypoints": [
-        {
-          "command": "/skill/api/compatibility",
-          "handler": "check_compatibility.py",
-          "runtime": "python",
-          "permissions": [
-            "filesystem:read"
-          ]
-        }
-      ],
-      "status": "active",
-      "tags": [
-        "api",
-        "compatibility",
-        "breaking-changes",
-        "versioning",
-        "openapi"
-      ]
-    },
-    {
-      "name": "agent.define",
-      "version": "0.1.0",
-      "description": "Validates and registers agent manifests for the Betty Framework. Ensures schema compliance, validates skill references, and updates the Agent Registry.\n",
-      "inputs": [
-        {
-          "name": "manifest_path",
-          "type": "string",
-          "required": true,
-          "description": "Path to the agent.yaml file to validate"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "validation_result",
-          "type": "object",
-          "description": "Validation results including errors and warnings"
-        },
-        {
-          "name": "registry_updated",
-          "type": "boolean",
-          "description": "Whether agent was successfully registered"
-        }
-      ],
-      "dependencies": [
-        "skill.define"
-      ],
-      "status": "active",
-      "entrypoints": [
-        {
-          "command": "/agent/define",
-          "handler": "agent_define.py",
-          "runtime": "python",
-          "description": "Validate an agent manifest and register it in the Agent Registry.\n",
-          "parameters": [
-            {
-              "name": "manifest_path",
-              "type": "string",
-              "required": true,
-              "description": "Path to the agent.yaml file to validate"
-            }
-          ],
-          "permissions": [
-            "filesystem:read",
-            "filesystem:write"
-          ]
-        }
-      ],
-      "tags": [
-        "agents",
-        "validation",
-        "registry",
-        "layer2"
-      ]
-    },
-    {
-      "name": "command.define",
-      "version": "0.1.0",
-      "description": "Validate and register command manifests in the Command Registry",
-      "inputs": [
-        {
-          "name": "manifest_path",
-          "type": "string",
-          "required": true,
-          "description": "Path to the command manifest file (YAML)"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "validation_result",
-          "type": "object",
-          "description": "Validation results and registration status",
-          "schema": {
-            "properties": {
-              "ok": "boolean",
-              "status": "string",
-              "errors": "array",
-              "path": "string",
-              "details": "object"
-            }
-          }
-        }
-      ],
-      "dependencies": [
-        "None"
-      ],
-      "entrypoints": [
-        {
-          "command": "/skill/command/define",
-          "handler": "command_define.py",
-          "runtime": "python",
-          "permissions": [
-            "filesystem:read",
-            "filesystem:write"
-          ]
-        }
-      ],
-      "status": "active",
-      "tags": [
-        "command",
-        "registry",
-        "validation",
-        "infrastructure"
-      ]
-    },
-    {
-      "name": "hook.register",
-      "version": "0.1.0",
-      "description": "Validate and register hook manifests in the Hook Registry",
-      "inputs": [
-        {
-          "name": "manifest_path",
-          "type": "string",
-          "required": true,
-          "description": "Path to the hook manifest file (YAML)"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "validation_result",
-          "type": "object",
-          "description": "Validation results and registration status",
-          "schema": {
-            "properties": {
-              "ok": "boolean",
-              "status": "string",
-              "errors": "array",
-              "path": "string",
-              "details": "object"
-            }
-          }
-        }
-      ],
-      "dependencies": [
-        "None"
-      ],
-      "entrypoints": [
-        {
-          "command": "/skill/hook/register",
-          "handler": "hook_register.py",
-          "runtime": "python",
-          "permissions": [
-            "filesystem:read",
-            "filesystem:write"
-          ]
-        }
-      ],
-      "status": "active",
-      "tags": [
-        "hook",
-        "registry",
-        "validation",
-        "infrastructure",
-        "policy"
-      ]
-    },
-    {
-      "name": "test.integration.temp",
-      "version": "0.1.0",
-      "description": "Test skill with IO",
-      "inputs": [
-        "input1",
-        "input2"
-      ],
-      "outputs": [
-        "output1"
-      ],
-      "dependencies": [],
-      "status": "draft"
-    },
-    {
-      "name": "workflow.compose",
-      "version": "0.1.0",
-      "description": "Executes multi-step Betty Framework workflows by chaining existing skills. Enables declarative orchestration of skill pipelines.\n",
-      "inputs": [
-        "workflow_path"
-      ],
-      "outputs": [
-        "workflow_history.json"
-      ],
-      "dependencies": [
-        "skill.create",
-        "skill.define",
-        "registry.update"
-      ],
-      "status": "active",
-      "entrypoints": [
-        {
-          "command": "/workflow/compose",
-          "handler": "workflow_compose.py",
-          "runtime": "python",
-          "description": "Execute a Betty workflow defined in a YAML file.\n",
-          "parameters": [
-            {
-              "name": "workflow_path",
-              "type": "string",
-              "required": true,
-              "description": "Path to a workflow YAML file to execute."
-            }
-          ],
-          "permissions": [
-            "filesystem",
-            "read",
-            "write"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "test.lifecycle.complete",
-      "version": "0.1.0",
-      "description": "Lifecycle test skill",
+      "description": "Reconciles plugin.yaml with Betty Framework registries to ensure consistency. Identifies missing, orphaned, and mismatched command entries and suggests corrections.",
       "inputs": [],
-      "outputs": [],
-      "dependencies": [],
-      "status": "draft"
-    },
-    {
-      "name": "policy.enforce",
-      "version": "0.1.0",
-      "description": "Validates operations against organizational policies before execution",
-      "inputs": [
-        "action",
-        "target",
-        "policy_set"
-      ],
-      "outputs": [
-        "validation_result.json",
-        "policy_violations.json"
-      ],
-      "dependencies": [],
-      "status": "active"
-    },
-    {
-      "name": "run.agent",
-      "version": "0.1.0",
-      "description": "Simulates execution of a Betty agent by loading its manifest, constructing the prompt, and demonstrating which skills would be invoked. Useful for testing agent design and understanding agent behavior.\n",
-      "inputs": [
-        {
-          "name": "agent_path",
-          "type": "string",
-          "required": true,
-          "description": "Path to agent manifest (agent.yaml) or agent name"
-        },
-        {
-          "name": "input_text",
-          "type": "string",
-          "required": false,
-          "description": "Optional task/query to provide to the agent"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "execution_log",
-          "type": "object",
-          "description": "Details of the simulated agent execution including prompt and skills"
-        }
-      ],
-      "dependencies": [
-        "agent.define"
-      ],
+      "outputs": ["plugin.preview.yaml", "plugin_manifest_diff.md"],
+      "dependencies": ["plugin.sync", "registry.update"],
       "status": "active",
       "entrypoints": [
         {
-          "command": "/agent/run",
-          "handler": "run_agent.py",
+          "command": "/docs/sync/plugin-manifest",
+          "handler": "plugin_manifest_sync.py",
           "runtime": "python",
-          "description": "Simulate execution of an agent manifest. Shows the constructed prompt, mock Claude response, and skills that would be invoked.\n",
-          "parameters": [
-            {
-              "name": "agent_path",
-              "type": "string",
-              "required": true,
-              "description": "Path to agent.yaml file or agent name (e.g., api.designer)"
-            },
-            {
-              "name": "input_text",
-              "type": "string",
-              "required": false,
-              "description": "Optional input text to provide to the agent"
-            }
-          ],
-          "permissions": [
-            "filesystem:read"
-          ]
-        }
-      ],
-      "tags": [
-        "agents",
-        "simulation",
-        "testing",
-        "layer2"
-      ]
-    },
-    {
-      "name": "skill.define",
-      "version": "0.1.0",
-      "description": "Validates and registers skill manifests (.skill.yaml) for the Betty Framework. Ensures schema compliance and updates the Skill Registry.\n",
-      "inputs": [
-        "manifest_path"
-      ],
-      "outputs": [
-        "validation_result.json",
-        "updated_registry.json"
-      ],
-      "dependencies": [],
-      "status": "active",
-      "entrypoints": [
-        {
-          "command": "/skill/define",
-          "handler": "skill_define.py",
-          "runtime": "python",
-          "description": "Validate a Claude Code skill manifest and register it in the Betty Skill Registry.\n",
-          "parameters": [
-            {
-              "name": "manifest_path",
-              "type": "string",
-              "required": true,
-              "description": "Path to the skill.yaml file to validate."
-            }
-          ],
-          "permissions": [
-            "filesystem",
-            "read",
-            "write"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "test.workflow.integration",
-      "version": "0.1.0",
-      "description": "Integration test skill for workflow lifecycle",
-      "inputs": [
-        "test_input"
-      ],
-      "outputs": [
-        "test_output"
-      ],
-      "dependencies": [],
-      "status": "draft"
-    },
-    {
-      "name": "skill.create",
-      "version": "0.1.0",
-      "description": "Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\n",
-      "inputs": [
-        "skill_name",
-        "description",
-        "inputs",
-        "outputs"
-      ],
-      "outputs": [
-        "skill_directory",
-        "manifest_path",
-        "registration_record.json"
-      ],
-      "dependencies": [
-        "skill.define",
-        "context.schema"
-      ],
-      "status": "active",
-      "entrypoints": [
-        {
-          "command": "/skill/create",
-          "handler": "skill_create.py",
-          "runtime": "python",
-          "description": "Scaffolds a new Betty Skill directory, generates its manifest, validates it with skill.define, and updates the registry.\n",
-          "parameters": [
-            {
-              "name": "skill_name",
-              "type": "string",
-              "description": "Name of the new skill (e.g., runtime.execute)",
-              "required": true
-            },
-            {
-              "name": "description",
-              "type": "string",
-              "description": "Description of what the skill will do",
-              "required": true
-            },
-            {
-              "name": "inputs",
-              "type": "string",
-              "description": "Comma-separated list of input parameters (optional)",
-              "required": false
-            },
-            {
-              "name": "outputs",
-              "type": "string",
-              "description": "Comma-separated list of output parameters (optional)",
-              "required": false
-            }
-          ],
-          "permissions": [
-            "filesystem",
-            "read",
-            "write"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "registry.update",
-      "version": "0.1.0",
-      "description": "Updates the Betty Framework Skill Registry by adding or modifying entries based on validated skill manifests.\n",
-      "inputs": [
-        "manifest_path"
-      ],
-      "outputs": [
-        "registry_update_result.json"
-      ],
-      "dependencies": [
-        "skill.define"
-      ],
-      "status": "active",
-      "entrypoints": [
-        {
-          "command": "/registry/update",
-          "handler": "registry_update.py",
-          "runtime": "python",
-          "description": "Add or update entries in the Skill Registry.\n",
-          "parameters": [
-            {
-              "name": "manifest_path",
-              "type": "string",
-              "required": true,
-              "description": "Path to the skill manifest (.skill.yaml) being added or updated."
-            }
-          ],
-          "permissions": [
-            "filesystem",
-            "read",
-            "write"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "plugin.sync",
-      "version": "0.1.0",
-      "description": "Automatically generates plugin.yaml from Betty Framework registries. Reads skills.json, commands.json, and hooks.json to build a complete plugin configuration.\n",
-      "inputs": [],
-      "outputs": [
-        "plugin.yaml",
-        "generation_report.json"
-      ],
-      "dependencies": [
-        "registry.update"
-      ],
-      "status": "active",
-      "entrypoints": [
-        {
-          "command": "/plugin/sync",
-          "handler": "plugin_sync.py",
-          "runtime": "python",
-          "description": "Generate plugin.yaml from registry files. Syncs active skills with entrypoints into plugin commands.\n",
+          "description": "Reconcile plugin.yaml with registry files. Identifies discrepancies and generates plugin.preview.yaml with suggested updates and a detailed diff report.",
           "parameters": [],
-          "permissions": [
-            "filesystem:read",
-            "filesystem:write"
-          ]
+          "permissions": ["filesystem:read", "filesystem:write"]
         }
       ],
-      "tags": [
-        "plugin",
-        "registry",
-        "automation",
-        "infrastructure"
-      ]
-    },
-    {
-      "name": "generate.marketplace",
-      "version": "0.1.0",
-      "description": "Generate marketplace catalog files from Betty Framework registries. Filters active and certified skills/agents and outputs marketplace-ready JSON files.\n",
-      "inputs": [],
-      "outputs": [
-        "marketplace/skills.json",
-        "marketplace/agents.json"
-      ],
-      "dependencies": [
-        "registry.update"
-      ],
-      "status": "active",
-      "entrypoints": [
-        {
-          "command": "/marketplace/generate",
-          "handler": "generate_marketplace.py",
-          "runtime": "python",
-          "description": "Generate marketplace catalogs from registry files. Filters by status: active and certified: true.\n",
-          "parameters": [],
-          "permissions": [
-            "filesystem:read",
-            "filesystem:write"
-          ]
-        }
-      ],
-      "tags": [
-        "marketplace",
-        "registry",
-        "automation",
-        "infrastructure"
-      ]
-    },
-    {
-      "name": "agent.run",
-      "version": "0.1.0",
-      "description": "Execute a registered Betty agent by loading its manifest, generating a Claude-friendly prompt, invoking skills based on the agent's workflow, and logging results. Supports both iterative and oneshot reasoning modes with optional Claude API integration.\n",
-      "inputs": [
-        {
-          "name": "agent_path",
-          "type": "string",
-          "required": true,
-          "description": "Path to agent manifest (agent.yaml) or agent name (e.g., api.designer)"
-        },
-        {
-          "name": "task_context",
-          "type": "string",
-          "required": false,
-          "description": "Task or query to provide to the agent for execution"
-        },
-        {
-          "name": "save_log",
-          "type": "boolean",
-          "required": false,
-          "default": true,
-          "description": "Whether to save execution log to agent_logs/<agent>.json"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "execution_result",
-          "type": "object",
-          "description": "Complete execution results including prompt, Claude response, and skill outputs",
-          "schema": {
-            "properties": {
-              "ok": "boolean",
-              "status": "string",
-              "timestamp": "string",
-              "errors": "array",
-              "details": {
-                "type": "object",
-                "properties": {
-                  "timestamp": "string",
-                  "agent": "object",
-                  "task_context": "string",
-                  "prompt": "string",
-                  "skills_available": "array",
-                  "claude_response": "object",
-                  "execution_results": "array",
-                  "summary": "object",
-                  "log_path": "string"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "dependencies": [
-        "agent.define"
-      ],
-      "entrypoints": [
-        {
-          "command": "/agent/run",
-          "handler": "agent_run.py",
-          "runtime": "python",
-          "description": "Execute a Betty agent with optional task context. Generates Claude-friendly prompts, invokes the Claude API (or simulates), executes planned skills, and logs all results to agent_logs/ directory.\n",
-          "parameters": [
-            {
-              "name": "agent_path",
-              "type": "string",
-              "required": true,
-              "description": "Path to agent.yaml file or agent name (e.g., api.designer)"
-            },
-            {
-              "name": "task_context",
-              "type": "string",
-              "required": false,
-              "description": "Optional task or query for the agent to execute"
-            },
-            {
-              "name": "save_log",
-              "type": "boolean",
-              "required": false,
-              "default": true,
-              "description": "Save execution log to agent_logs/<agent>_<timestamp>.json"
-            }
-          ],
-          "permissions": [
-            "filesystem:read",
-            "filesystem:write",
-            "network:http"
-          ]
-        }
-      ],
-      "status": "active",
-      "tags": [
-        "agents",
-        "execution",
-        "claude-api",
-        "orchestration",
-        "layer2"
-      ]
-    },
-    {
-      "name": "plugin.build",
-      "version": "0.1.0",
-      "description": "Automatically bundle a plugin directory (or the whole repo) into a deployable Claude Code plugin package. Gathers all declared entrypoints, validates handler files exist, and packages everything into .tar.gz or .zip under /dist.\n",
-      "inputs": [
-        {
-          "name": "plugin_path",
-          "type": "string",
-          "required": false,
-          "description": "Path to plugin.yaml (defaults to ./plugin.yaml)"
-        },
-        {
-          "name": "output_format",
-          "type": "string",
-          "required": false,
-          "description": "Package format (tar.gz or zip, defaults to tar.gz)"
-        },
-        {
-          "name": "output_dir",
-          "type": "string",
-          "required": false,
-          "description": "Output directory (defaults to ./dist)"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "plugin_package",
-          "type": "file",
-          "description": "Packaged plugin archive (.tar.gz or .zip)"
-        },
-        {
-          "name": "build_report",
-          "type": "object",
-          "description": "JSON report with validated entrypoints, missing files, and package checksum"
-        }
-      ],
-      "dependencies": [
-        "plugin.sync"
-      ],
-      "status": "active",
-      "entrypoints": [
-        {
-          "command": "/plugin/build",
-          "handler": "plugin_build.py",
-          "runtime": "python",
-          "description": "Bundle plugin directory into deployable package. Validates all entrypoints and handlers before packaging.\n",
-          "parameters": [
-            {
-              "name": "plugin_path",
-              "type": "string",
-              "required": false,
-              "description": "Path to plugin.yaml (defaults to ./plugin.yaml)"
-            },
-            {
-              "name": "output_format",
-              "type": "string",
-              "required": false,
-              "description": "Package format (tar.gz or zip, defaults to tar.gz)"
-            },
-            {
-              "name": "output_dir",
-              "type": "string",
-              "required": false,
-              "description": "Output directory (defaults to ./dist)"
-            }
-          ],
-          "permissions": [
-            "filesystem:read",
-            "filesystem:write"
-          ]
-        }
-      ],
-      "tags": [
-        "plugin",
-        "packaging",
-        "build",
-        "deployment",
-        "distribution"
-      ]
+      "tags": ["docs", "plugin", "registry", "validation", "reconciliation", "infrastructure"]
     },
     {
       "name": "docs.sync.readme",
       "version": "0.1.0",
       "description": "Regenerate the top-level README.md to reflect all current registered skills and agents. Pulls from registry/skills.json and registry/agents.json, groups by category, and updates documentation sections while maintaining repo style and tone.\n",
       "inputs": [],
-      "outputs": [
-        "README.md",
-        "sync_report.json"
-      ],
-      "dependencies": [
-        "registry.update"
-      ],
+      "outputs": ["README.md", "sync_report.json"],
+      "dependencies": ["registry.update"],
       "status": "active",
       "entrypoints": [
         {
@@ -1122,18 +268,10 @@
           "runtime": "python",
           "description": "Sync README.md with current registry state. Updates skills tables, agents links, and documentation map to reflect all registered skills and agents.\n",
           "parameters": [],
-          "permissions": [
-            "filesystem:read",
-            "filesystem:write"
-          ]
+          "permissions": ["filesystem:read", "filesystem:write"]
         }
       ],
-      "tags": [
-        "documentation",
-        "registry",
-        "automation",
-        "maintenance"
-      ]
+      "tags": ["docs", "documentation", "registry", "automation", "maintenance"]
     }
   ]
 }
