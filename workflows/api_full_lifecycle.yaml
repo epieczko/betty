@@ -1,0 +1,373 @@
+# ============================================================================
+# API Full Lifecycle Workflow
+# ============================================================================
+#
+# This workflow orchestrates a complete API development lifecycle:
+# 1. Design/Generate API specification
+# 2. Validate against enterprise guidelines
+# 3. Analyze compatibility with previous versions
+#
+# USAGE:
+#   betty workflow run api_full_lifecycle.yaml \
+#     service_name=user-service \
+#     input_description="REST API for user management with CRUD operations"
+#
+# ============================================================================
+
+name: api_full_lifecycle
+version: 1.0.0
+description: |
+  Complete API lifecycle workflow connecting design, validation, and
+  compatibility analysis. Generates OpenAPI specs, validates against
+  Zalando guidelines, and checks for breaking changes.
+
+# ============================================================================
+# WORKFLOW INPUTS
+# ============================================================================
+# Expected variables (passed at runtime):
+#
+# - service_name (required):
+#     Name of the service/API (e.g., "user-service", "order-api")
+#     Used for: naming spec files, output directories
+#
+# - input_description (optional):
+#     Natural language description of API requirements
+#     Used for: documentation, future AI-driven generation
+#     Example: "REST API for user management with authentication"
+#
+# - spec_type (optional, default: "openapi"):
+#     Type of API specification (openapi | asyncapi)
+#
+# - guideline_set (optional, default: "zalando"):
+#     API guidelines to validate against (zalando | google | microsoft)
+#
+# - api_version (optional, default: "1.0.0"):
+#     Version number for the generated API specification
+#
+# ============================================================================
+
+# ============================================================================
+# FAIL-FAST BEHAVIOR
+# ============================================================================
+# When fail_fast is true (default), the workflow stops immediately on any
+# step failure. This ensures:
+# - Invalid specs don't proceed to compatibility checks
+# - Breaking changes stop the workflow before deployment
+# - Fast feedback for developers
+#
+# Set to false if you want to collect all errors before stopping.
+# ============================================================================
+fail_fast: true
+
+# ============================================================================
+# WORKFLOW STEPS
+# ============================================================================
+# Steps execute sequentially. Each step's output is captured as JSON and
+# can be referenced by subsequent steps (implementation in progress).
+#
+# Step execution flow:
+#   1. Execute skill as subprocess
+#   2. Capture stdout (JSON), stderr (logs), return code
+#   3. If return code != 0: mark as failed
+#   4. If fail_fast=true and step failed: STOP workflow
+#   5. Otherwise: continue to next step
+#
+# ============================================================================
+
+steps:
+  # ==========================================================================
+  # STEP 1: API DESIGN - Generate OpenAPI Specification
+  # ==========================================================================
+  # Calls: api.define skill
+  # Purpose: Generate initial API specification from template
+  #
+  # This step creates a baseline OpenAPI/AsyncAPI specification using
+  # Zalando-compliant templates. The spec is generated in the specs/
+  # directory with the naming convention: {service_name}.{spec_type}.yaml
+  #
+  # For AI-driven spec generation from natural language descriptions,
+  # consider using the api.designer agent directly instead of this workflow.
+  # The api.designer agent can:
+  #   - Interpret input_description
+  #   - Generate specs with domain context
+  #   - Iteratively refine based on validation feedback
+  #
+  # Outputs (captured):
+  #   - spec_path: Path to generated file (e.g., "specs/user-service.openapi.yaml")
+  #   - spec_content: Full OpenAPI/AsyncAPI specification object
+  #
+  # Failure conditions:
+  #   - Invalid service_name (contains special characters)
+  #   - Output directory not writable
+  #   - Template not found
+  # ==========================================================================
+  - skill: api.define
+    args:
+      - "${service_name}"           # Service name (e.g., "user-service")
+      - "--spec-type=${spec_type:-openapi}"    # Spec type (default: openapi)
+      - "--template=zalando"         # Use Zalando-compliant template
+      - "--output-dir=specs"         # Output directory for spec files
+      - "--version=${api_version:-1.0.0}"      # API version (default: 1.0.0)
+    description: "Generate API specification from Zalando template"
+
+  # ==========================================================================
+  # STEP 2: API VALIDATION - Check Conformance to Guidelines
+  # ==========================================================================
+  # Calls: api.validate skill
+  # Purpose: Validate generated spec against enterprise API guidelines
+  #
+  # This step runs comprehensive validation checks against the selected
+  # guideline set (default: Zalando). It verifies:
+  #   - OpenAPI/AsyncAPI schema correctness
+  #   - Naming conventions (snake_case, kebab-case)
+  #   - Required headers (X-Flow-ID, etc.)
+  #   - Error response formats (Problem JSON)
+  #   - Security definitions
+  #   - Documentation completeness
+  #
+  # The validator uses industry-standard tools:
+  #   - Zally (Zalando's API linter)
+  #   - Spectral (OpenAPI linter)
+  #   - Custom Betty validators
+  #
+  # Inputs (from previous step):
+  #   - spec_path: Generated in Step 1 (e.g., "specs/user-service.openapi.yaml")
+  #
+  # Outputs (captured):
+  #   - validation_report: Detailed report with errors/warnings
+  #   - valid: Boolean flag (true if spec passes all checks)
+  #   - guideline_version: Version of guidelines used
+  #
+  # Failure conditions:
+  #   - Spec file not found
+  #   - Schema validation errors (invalid OpenAPI structure)
+  #   - Guideline violations (missing required fields, wrong naming)
+  #   - Strict mode violations (warnings treated as errors)
+  #
+  # Workflow behavior:
+  #   - If validation fails (valid=false), workflow STOPS (fail_fast=true)
+  #   - Developer must fix issues and re-run workflow
+  #   - No point proceeding to compatibility check with invalid spec
+  # ==========================================================================
+  - skill: api.validate
+    args:
+      - "specs/${service_name}.${spec_type:-openapi}.yaml"  # Path to spec file
+      - "${guideline_set:-zalando}"  # Guidelines to validate against
+      - "--strict=false"              # Treat warnings as info (not errors)
+    description: "Validate spec against enterprise API guidelines"
+
+  # ==========================================================================
+  # STEP 3: COMPATIBILITY ANALYSIS - Detect Breaking Changes
+  # ==========================================================================
+  # Calls: api.compatibility skill
+  # Purpose: Compare new spec with previous version for breaking changes
+  #
+  # This step performs comprehensive backward compatibility analysis between
+  # the newly generated spec and the previous version (if it exists). It
+  # detects changes that could break existing API consumers:
+  #
+  # Breaking changes detected:
+  #   - Removed endpoints or operations
+  #   - Removed required parameters
+  #   - Changed parameter types (string -> number)
+  #   - Removed response fields
+  #   - Changed response status codes
+  #   - Stricter validation rules (added required fields)
+  #   - Authentication/authorization changes
+  #
+  # Non-breaking changes allowed:
+  #   - Added new endpoints
+  #   - Added optional parameters
+  #   - Added new response fields
+  #   - Relaxed validation rules
+  #   - Documentation updates
+  #
+  # The analyzer uses:
+  #   - OpenAPI-diff for structural comparison
+  #   - Semantic versioning rules
+  #   - Custom Betty compatibility checkers
+  #
+  # Inputs:
+  #   - old_spec_path: Previous version (e.g., "specs/user-service.openapi.v1.yaml")
+  #   - new_spec_path: Current version (generated in Step 1)
+  #
+  # NOTE: If no old spec exists (first deployment), this step can be skipped
+  # or will pass automatically. The workflow assumes old specs follow the
+  # naming pattern: {service_name}.{spec_type}.v{N}.yaml
+  #
+  # Outputs (captured):
+  #   - compatible: Boolean (true if backward compatible)
+  #   - breaking_changes: List of breaking changes with details
+  #   - non_breaking_changes: List of safe changes
+  #   - change_summary: High-level summary with statistics
+  #   - migration_guide: Recommendations for handling breaking changes
+  #
+  # Failure conditions:
+  #   - Old or new spec file not found
+  #   - Spec parsing errors
+  #   - Breaking changes detected (fail_on_breaking=true)
+  #
+  # Workflow behavior:
+  #   - If breaking changes found, workflow STOPS (fail_fast=true)
+  #   - Developer must:
+  #     a) Remove breaking changes, OR
+  #     b) Bump major version (1.x.x -> 2.0.0), OR
+  #     c) Override with --fail-on-breaking=false flag
+  #   - This prevents accidental deployment of breaking changes
+  #
+  # For first-time API creation (no previous version):
+  #   - This step will succeed (no comparison possible)
+  #   - Workflow continues to completion
+  # ==========================================================================
+  - skill: api.compatibility
+    args:
+      - "specs/${service_name}.${spec_type:-openapi}.v0.yaml"  # Previous version (if exists)
+      - "specs/${service_name}.${spec_type:-openapi}.yaml"     # Current version (Step 1 output)
+      - "--fail-on-breaking=true"  # Exit with error if breaking changes found
+    description: "Analyze compatibility and detect breaking changes"
+
+# ============================================================================
+# WORKFLOW METADATA
+# ============================================================================
+created_at: "2025-10-23T00:00:00Z"
+updated_at: "2025-10-23T00:00:00Z"
+
+tags:
+  - api
+  - lifecycle
+  - design
+  - validation
+  - compatibility
+  - openapi
+  - zalando
+  - multi-agent
+
+# ============================================================================
+# INTEGRATION WITH AGENTS
+# ============================================================================
+# This workflow uses SKILLS for deterministic, sequential execution.
+# For more intelligent, iterative behavior, consider using AGENTS:
+#
+# 1. api.designer agent:
+#    - Interprets natural language requirements (input_description)
+#    - Generates specs with domain reasoning
+#    - Iteratively refines based on validation feedback
+#    - Use when: Requirements are complex or ambiguous
+#
+# 2. api.analyzer agent:
+#    - Provides detailed compatibility analysis
+#    - Suggests migration paths for breaking changes
+#    - Generates change documentation
+#    - Use when: You need impact analysis and recommendations
+#
+# 3. Hybrid approach:
+#    - Use api.designer to generate initial spec
+#    - Run this workflow to validate and check compatibility
+#    - Use api.analyzer for detailed change analysis if needed
+#
+# Example hybrid usage:
+#   # Step 1: Use agent for intelligent design
+#   betty agent run api.designer \
+#     service_name=user-service \
+#     requirements="User management API with OAuth2"
+#
+#   # Step 2: Run workflow for validation + compatibility
+#   betty workflow run api_full_lifecycle.yaml \
+#     service_name=user-service
+#
+#   # Step 3: If breaking changes, get detailed analysis
+#   betty agent run api.analyzer \
+#     old_spec=specs/user-service.v1.yaml \
+#     new_spec=specs/user-service.yaml
+#
+# ============================================================================
+
+# ============================================================================
+# AUDIT & HISTORY
+# ============================================================================
+# Every workflow execution is automatically logged to:
+#   /registry/workflow_history.json
+#
+# Audit entries include:
+#   - Workflow name, path, version
+#   - Start/end timestamps
+#   - Step-by-step execution details (args, outputs, errors, duration)
+#   - Overall status (success | failed)
+#   - Aggregated errors
+#
+# This provides:
+#   - Complete execution history
+#   - Debugging information for failures
+#   - Performance metrics
+#   - Compliance audit trail
+#
+# To view workflow history:
+#   betty workflow history api_full_lifecycle
+#
+# ============================================================================
+
+# ============================================================================
+# ERROR RECOVERY GUIDE
+# ============================================================================
+# If the workflow fails, check the audit log and follow these steps:
+#
+# STEP 1 FAILURE (api.define):
+#   - Check service_name is valid (alphanumeric, hyphens only)
+#   - Verify specs/ directory exists and is writable
+#   - Ensure template is available
+#   - Check: betty skill run api.define --help
+#
+# STEP 2 FAILURE (api.validate):
+#   - Review validation_report for specific errors
+#   - Common issues:
+#     * Missing required fields (info, servers, paths)
+#     * Invalid naming conventions (use snake_case)
+#     * Missing security definitions
+#     * Invalid response formats (use Problem JSON)
+#   - Fix spec manually or use api.designer agent for auto-fix
+#   - Check: betty skill run api.validate specs/{service}.yaml zalando
+#
+# STEP 3 FAILURE (api.compatibility):
+#   - Review breaking_changes list
+#   - Options:
+#     a) Remove breaking changes from new spec
+#     b) Bump major version (indicates breaking changes expected)
+#     c) Add deprecation warnings before removing endpoints
+#     d) Use feature flags for gradual rollout
+#   - For detailed analysis:
+#     betty agent run api.analyzer old_spec=... new_spec=...
+#
+# ============================================================================
+
+# ============================================================================
+# FUTURE ENHANCEMENTS
+# ============================================================================
+# Planned features for future versions:
+#
+# 1. Conditional execution:
+#    - Skip compatibility check if no old spec exists
+#    - Run additional validations based on spec_type
+#
+# 2. Output variable passing:
+#    - Reference previous step outputs: ${steps.1.spec_path}
+#    - Enable dynamic argument construction
+#
+# 3. Parallel execution:
+#    - Run multiple validations concurrently
+#    - Generate models for multiple languages in parallel
+#
+# 4. Extended steps:
+#    - api.generate-models (create TypeScript/Python models)
+#    - api.publish (upload to API registry)
+#    - api.deploy (trigger deployment pipeline)
+#
+# 5. Notifications:
+#    - Send Slack/email on completion or failure
+#    - Post results to pull request comments
+#
+# 6. Quality gates:
+#    - Require minimum API design score
+#    - Enforce coverage thresholds
+#    - Block on security violations
+#
+# ============================================================================
