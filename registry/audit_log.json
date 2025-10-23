@@ -10,5 +10,55 @@
     "metadata": {
       "key": "value"
     }
+  },
+  {
+    "timestamp": "2025-10-23T16:45:28.297701+00:00",
+    "skill": "skill.define",
+    "status": "success",
+    "duration_ms": 237,
+    "metadata": {
+      "workflow": "tmpf_x8r7ze.yaml",
+      "step_number": 1,
+      "total_steps": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-23T16:45:28.369248+00:00",
+    "skill": "workflow.compose",
+    "status": "success",
+    "duration_ms": 366,
+    "metadata": {
+      "workflow": "tmpf_x8r7ze.yaml",
+      "total_steps": 1,
+      "failed_steps": 0
+    }
+  },
+  {
+    "timestamp": "2025-10-23T16:45:28.679964+00:00",
+    "skill": "skill.define",
+    "status": "failed",
+    "duration_ms": 76,
+    "errors": [
+      "Path does not exist: nonexistent_skill.yaml"
+    ],
+    "metadata": {
+      "workflow": "temp_fail_fast.yaml",
+      "step_number": 1,
+      "total_steps": 2
+    }
+  },
+  {
+    "timestamp": "2025-10-23T16:45:28.750040+00:00",
+    "skill": "workflow.compose",
+    "status": "failed",
+    "duration_ms": 211,
+    "errors": [
+      "Path does not exist: nonexistent_skill.yaml"
+    ],
+    "metadata": {
+      "workflow": "temp_fail_fast.yaml",
+      "total_steps": 2,
+      "failed_steps": 1
+    }
   }
 ]

@@ -197,5 +197,208 @@
     ],
     "status": "success",
     "completed_at": "2025-10-23T00:19:00.827869+00:00"
+  },
+  {
+    "workflow": "tmpf_x8r7ze.yaml",
+    "workflow_path": "/home/user/betty/workflows/tmpf_x8r7ze.yaml",
+    "started_at": "2025-10-23T16:45:27.944500+00:00",
+    "fail_fast": true,
+    "steps": [
+      {
+        "step_number": 1,
+        "skill": "skill.define",
+        "args": [
+          "skills/skill.create/skill.yaml"
+        ],
+        "status": "success",
+        "returncode": 0,
+        "stdout": "2025-10-23 16:45:28 - __main__ - INFO - Validating manifest: skills/skill.create/skill.yaml\n2025-10-23 16:45:28 - __main__ - INFO - \u2705 Manifest validation passed\n2025-10-23 16:45:28 - __main__ - INFO - \ud83d\udd01 Delegating registry update to registry.update skill...\n2025-10-23 16:45:28 - __main__ - ERROR - Registry update failed: \n{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"path\": \"skills/skill.create/skill.yaml\",\n  \"details\": {\n    \"valid\": true,\n    \"missing\": [],\n    \"path\": \"skills/skill.create/skill.yaml\",\n    \"manifest\": {\n      \"name\": \"skill.create\",\n      \"version\": \"0.1.0\",\n      \"description\": \"Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\\n\",\n      \"inputs\": [\n        \"skill_name\",\n        \"description\",\n        \"inputs\",\n        \"outputs\"\n      ],\n      \"outputs\": [\n        \"skill_directory\",\n        \"manifest_path\",\n        \"registration_record.json\"\n      ],\n      \"dependencies\": [\n        \"skill.define\",\n        \"context.schema\"\n      ],\n      \"status\": \"active\",\n      \"entrypoints\": [\n        {\n          \"command\": \"/skill/create\",\n          \"handler\": \"skill_create.py\",\n          \"runtime\": \"python\",\n          \"description\": \"Scaffolds a new Betty Skill directory, generates its manifest, validates it with skill.define, and updates the registry.\\n\",\n          \"parameters\": [\n            {\n              \"name\": \"skill_name\",\n              \"type\": \"string\",\n              \"description\": \"Name of the new skill (e.g., runtime.execute)\",\n              \"required\": true\n            },\n            {\n              \"name\": \"description\",\n              \"type\": \"string\",\n              \"description\": \"Description of what the skill will do\",\n              \"required\": true\n            },\n            {\n              \"name\": \"inputs\",\n              \"type\": \"string\",\n              \"description\": \"Comma-separated list of input parameters (optional)\",\n              \"required\": false\n            },\n            {\n              \"name\": \"outputs\",\n              \"type\": \"string\",\n              \"description\": \"Comma-separated list of output parameters (optional)\",\n              \"required\": false\n            }\n          ],\n          \"permissions\": [\n            \"filesystem\",\n            \"read\",\n            \"write\"\n          ]\n        }\n      ]\n    },\n    \"status\": \"validated\",\n    \"registry_updated\": false\n  }\n}\n",
+        "stderr": "",
+        "parsed": {
+          "ok": true,
+          "status": "success",
+          "errors": [],
+          "path": "skills/skill.create/skill.yaml",
+          "details": {
+            "valid": true,
+            "missing": [],
+            "path": "skills/skill.create/skill.yaml",
+            "manifest": {
+              "name": "skill.create",
+              "version": "0.1.0",
+              "description": "Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\n",
+              "inputs": [
+                "skill_name",
+                "description",
+                "inputs",
+                "outputs"
+              ],
+              "outputs": [
+                "skill_directory",
+                "manifest_path",
+                "registration_record.json"
+              ],
+              "dependencies": [
+                "skill.define",
+                "context.schema"
+              ],
+              "status": "active",
+              "entrypoints": [
+                {
+                  "command": "/skill/create",
+                  "handler": "skill_create.py",
+                  "runtime": "python",
+                  "description": "Scaffolds a new Betty Skill directory, generates its manifest, validates it with skill.define, and updates the registry.\n",
+                  "parameters": [
+                    {
+                      "name": "skill_name",
+                      "type": "string",
+                      "description": "Name of the new skill (e.g., runtime.execute)",
+                      "required": true
+                    },
+                    {
+                      "name": "description",
+                      "type": "string",
+                      "description": "Description of what the skill will do",
+                      "required": true
+                    },
+                    {
+                      "name": "inputs",
+                      "type": "string",
+                      "description": "Comma-separated list of input parameters (optional)",
+                      "required": false
+                    },
+                    {
+                      "name": "outputs",
+                      "type": "string",
+                      "description": "Comma-separated list of output parameters (optional)",
+                      "required": false
+                    }
+                  ],
+                  "permissions": [
+                    "filesystem",
+                    "read",
+                    "write"
+                  ]
+                }
+              ]
+            },
+            "status": "validated",
+            "registry_updated": false
+          }
+        },
+        "parse_error": null,
+        "errors": [],
+        "duration_ms": 237
+      }
+    ],
+    "status": "success",
+    "validation": {
+      "step": "validation",
+      "skill": "workflow.validate",
+      "args": [
+        "/home/user/betty/workflows/tmpf_x8r7ze.yaml"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"path\": \"/home/user/betty/workflows/tmpf_x8r7ze.yaml\",\n  \"details\": {\n    \"valid\": true,\n    \"errors\": [],\n    \"status\": \"validated\",\n    \"path\": \"/home/user/betty/workflows/tmpf_x8r7ze.yaml\"\n  }\n}\n",
+      "stderr": "",
+      "parsed": {
+        "ok": true,
+        "status": "success",
+        "errors": [],
+        "path": "/home/user/betty/workflows/tmpf_x8r7ze.yaml",
+        "details": {
+          "valid": true,
+          "errors": [],
+          "status": "validated",
+          "path": "/home/user/betty/workflows/tmpf_x8r7ze.yaml"
+        }
+      },
+      "parse_error": null,
+      "status": "success",
+      "errors": []
+    },
+    "errors": [],
+    "completed_at": "2025-10-23T16:45:28.310569+00:00"
+  },
+  {
+    "workflow": "temp_fail_fast.yaml",
+    "workflow_path": "/home/user/betty/workflows/temp_fail_fast.yaml",
+    "started_at": "2025-10-23T16:45:28.479645+00:00",
+    "fail_fast": true,
+    "steps": [
+      {
+        "step_number": 1,
+        "skill": "skill.define",
+        "args": [
+          "nonexistent_skill.yaml"
+        ],
+        "status": "failed",
+        "returncode": 1,
+        "stdout": "2025-10-23 16:45:28 - __main__ - ERROR - Unexpected error: Path does not exist: nonexistent_skill.yaml\n{\n  \"ok\": false,\n  \"status\": \"failed\",\n  \"errors\": [\n    \"Path does not exist: nonexistent_skill.yaml\"\n  ],\n  \"path\": \"nonexistent_skill.yaml\",\n  \"details\": {\n    \"error\": {\n      \"error\": \"ValidationError\",\n      \"message\": \"Path does not exist: nonexistent_skill.yaml\",\n      \"details\": {},\n      \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/home/user/betty/skills/skill.define/skill_define.py\\\", line 161, in main\\n    validation = validate_manifest(path)\\n                 ^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/home/user/betty/skills/skill.define/skill_define.py\\\", line 80, in validate_manifest\\n    validate_path(path, must_exist=True)\\n  File \\\"/home/user/betty/betty/validation.py\\\", line 70, in validate_path\\n    raise ValidationError(f\\\"Path does not exist: {path}\\\")\\nbetty.validation.ValidationError: Path does not exist: nonexistent_skill.yaml\\n\"\n    }\n  }\n}\n",
+        "stderr": "",
+        "parsed": {
+          "ok": false,
+          "status": "failed",
+          "errors": [
+            "Path does not exist: nonexistent_skill.yaml"
+          ],
+          "path": "nonexistent_skill.yaml",
+          "details": {
+            "error": {
+              "error": "ValidationError",
+              "message": "Path does not exist: nonexistent_skill.yaml",
+              "details": {},
+              "traceback": "Traceback (most recent call last):\n  File \"/home/user/betty/skills/skill.define/skill_define.py\", line 161, in main\n    validation = validate_manifest(path)\n                 ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/user/betty/skills/skill.define/skill_define.py\", line 80, in validate_manifest\n    validate_path(path, must_exist=True)\n  File \"/home/user/betty/betty/validation.py\", line 70, in validate_path\n    raise ValidationError(f\"Path does not exist: {path}\")\nbetty.validation.ValidationError: Path does not exist: nonexistent_skill.yaml\n"
+            }
+          }
+        },
+        "parse_error": null,
+        "errors": [
+          "Path does not exist: nonexistent_skill.yaml"
+        ],
+        "duration_ms": 76
+      }
+    ],
+    "status": "failed",
+    "validation": {
+      "step": "validation",
+      "skill": "workflow.validate",
+      "args": [
+        "/home/user/betty/workflows/temp_fail_fast.yaml"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"path\": \"/home/user/betty/workflows/temp_fail_fast.yaml\",\n  \"details\": {\n    \"valid\": true,\n    \"errors\": [],\n    \"status\": \"validated\",\n    \"path\": \"/home/user/betty/workflows/temp_fail_fast.yaml\"\n  }\n}\n",
+      "stderr": "",
+      "parsed": {
+        "ok": true,
+        "status": "success",
+        "errors": [],
+        "path": "/home/user/betty/workflows/temp_fail_fast.yaml",
+        "details": {
+          "valid": true,
+          "errors": [],
+          "status": "validated",
+          "path": "/home/user/betty/workflows/temp_fail_fast.yaml"
+        }
+      },
+      "parse_error": null,
+      "status": "success",
+      "errors": []
+    },
+    "failed_steps": [
+      {
+        "step": 1,
+        "skill": "skill.define",
+        "returncode": 1,
+        "errors": [
+          "Path does not exist: nonexistent_skill.yaml"
+        ]
+      }
+    ],
+    "errors": [
+      "Path does not exist: nonexistent_skill.yaml"
+    ],
+    "completed_at": "2025-10-23T16:45:28.691243+00:00"
   }
 ]
