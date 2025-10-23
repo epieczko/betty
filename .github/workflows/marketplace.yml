@@ -1,0 +1,63 @@
+name: Update Marketplace
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'registry/**'
+      - 'generate_marketplace.py'
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  generate-marketplace:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate marketplace catalog
+        run: |
+          python generate_marketplace.py
+          echo "Marketplace generation completed"
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git diff --quiet marketplace/ || echo "changes=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          git config user.name "Betty Bot"
+          git config user.email "bot@betty-framework.dev"
+          git add marketplace/
+          git commit -m "chore: update marketplace catalog
+
+          Generated at: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          Triggered by: ${{ github.event_name }}
+          Commit: ${{ github.sha }}"
+          git push
+
+      - name: Summary
+        run: |
+          echo "### Marketplace Update Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** ✅ Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          python -c "
+          import json
+          with open('marketplace/skills.json') as f:
+              skills = json.load(f)
+          with open('marketplace/agents.json') as f:
+              agents = json.load(f)
+          print(f'**Skills:** {skills[\"total_skills\"]} total ({skills[\"certified_count\"]} certified, {skills[\"draft_count\"]} draft)')
+          print(f'**Agents:** {agents[\"total_agents\"]} total ({agents[\"certified_count\"]} certified, {agents[\"draft_count\"]} draft)')
+          " >> $GITHUB_STEP_SUMMARY

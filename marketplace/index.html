@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Betty Framework Marketplace</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-card h3 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            color: #666;
+        }
+
+        .catalog-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .catalog-section h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .filter-bar {
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-bar input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .filter-bar select {
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 1rem;
+            background: white;
+        }
+
+        .catalog-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .catalog-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .catalog-item:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+
+        .catalog-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .catalog-item-title {
+            flex: 1;
+        }
+
+        .catalog-item-title h3 {
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .catalog-item-version {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-certified {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-draft {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .catalog-item-description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .catalog-item-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background: #f0f0f0;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .catalog-item-footer {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .catalog-item-footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .catalog-item-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .api-endpoints {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .api-endpoints h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .endpoint {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .endpoint code {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #999;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Betty Framework Marketplace</h1>
+        <p>Discover certified skills and agents for the Betty Framework</p>
+    </div>
+
+    <div class="container">
+        <div class="stats" id="stats">
+            <div class="stat-card">
+                <h3 id="skills-count">-</h3>
+                <p>Total Skills</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="certified-skills">-</h3>
+                <p>Certified Skills</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="agents-count">-</h3>
+                <p>Total Agents</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="certified-agents">-</h3>
+                <p>Certified Agents</p>
+            </div>
+        </div>
+
+        <div class="api-endpoints">
+            <h2>API Endpoints</h2>
+            <div class="endpoint">
+                <code>GET</code> <span id="skills-url">./skills.json</span>
+            </div>
+            <div class="endpoint">
+                <code>GET</code> <span id="agents-url">./agents.json</span>
+            </div>
+        </div>
+
+        <div class="catalog-section">
+            <h2>Skills Catalog</h2>
+            <div class="filter-bar">
+                <input type="text" id="skills-search" placeholder="Search skills...">
+                <select id="skills-filter">
+                    <option value="all">All Status</option>
+                    <option value="certified">Certified</option>
+                    <option value="draft">Draft</option>
+                </select>
+            </div>
+            <div id="skills-loading" class="loading">Loading skills...</div>
+            <div id="skills-error" class="error" style="display: none;"></div>
+            <div id="skills-catalog" class="catalog-grid"></div>
+        </div>
+
+        <div class="catalog-section">
+            <h2>Agents Catalog</h2>
+            <div class="filter-bar">
+                <input type="text" id="agents-search" placeholder="Search agents...">
+                <select id="agents-filter">
+                    <option value="all">All Status</option>
+                    <option value="certified">Certified</option>
+                    <option value="draft">Draft</option>
+                </select>
+            </div>
+            <div id="agents-loading" class="loading">Loading agents...</div>
+            <div id="agents-error" class="error" style="display: none;"></div>
+            <div id="agents-catalog" class="catalog-grid"></div>
+        </div>
+    </div>
+
+    <script>
+        let skillsData = [];
+        let agentsData = [];
+
+        async function loadMarketplace() {
+            try {
+                // Load skills
+                const skillsResponse = await fetch('./skills.json');
+                const skillsJson = await skillsResponse.json();
+                skillsData = skillsJson.catalog;
+
+                // Load agents
+                const agentsResponse = await fetch('./agents.json');
+                const agentsJson = await agentsResponse.json();
+                agentsData = agentsJson.catalog;
+
+                // Update stats
+                document.getElementById('skills-count').textContent = skillsJson.total_skills;
+                document.getElementById('certified-skills').textContent = skillsJson.certified_count;
+                document.getElementById('agents-count').textContent = agentsJson.total_agents;
+                document.getElementById('certified-agents').textContent = agentsJson.certified_count;
+
+                // Render catalogs
+                renderSkills();
+                renderAgents();
+
+                // Hide loading
+                document.getElementById('skills-loading').style.display = 'none';
+                document.getElementById('agents-loading').style.display = 'none';
+
+            } catch (error) {
+                console.error('Error loading marketplace:', error);
+                document.getElementById('skills-error').textContent = 'Error loading skills: ' + error.message;
+                document.getElementById('skills-error').style.display = 'block';
+                document.getElementById('skills-loading').style.display = 'none';
+
+                document.getElementById('agents-error').textContent = 'Error loading agents: ' + error.message;
+                document.getElementById('agents-error').style.display = 'block';
+                document.getElementById('agents-loading').style.display = 'none';
+            }
+        }
+
+        function renderSkills(filter = 'all', search = '') {
+            const container = document.getElementById('skills-catalog');
+            const filtered = skillsData.filter(skill => {
+                const matchesFilter = filter === 'all' || skill.status === filter;
+                const matchesSearch = search === '' ||
+                    skill.name.toLowerCase().includes(search.toLowerCase()) ||
+                    skill.description.toLowerCase().includes(search.toLowerCase()) ||
+                    (skill.tags || []).some(tag => tag.toLowerCase().includes(search.toLowerCase()));
+                return matchesFilter && matchesSearch;
+            });
+
+            container.innerHTML = filtered.map(skill => `
+                <div class="catalog-item">
+                    <div class="catalog-item-header">
+                        <div class="catalog-item-title">
+                            <h3>${skill.name}</h3>
+                            <div class="catalog-item-version">v${skill.version} · ${skill.maintainer}</div>
+                        </div>
+                        <span class="badge badge-${skill.status}">${skill.status}</span>
+                    </div>
+                    <div class="catalog-item-description">${skill.description}</div>
+                    ${skill.tags && skill.tags.length > 0 ? `
+                        <div class="catalog-item-tags">
+                            ${skill.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                    <div class="catalog-item-footer">
+                        ${skill.documentation_url ? `<a href="${skill.documentation_url}" target="_blank">Documentation</a>` : ''}
+                        ${skill.entrypoints && skill.entrypoints.length > 0 ? `<span>${skill.entrypoints.length} entrypoint(s)</span>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderAgents(filter = 'all', search = '') {
+            const container = document.getElementById('agents-catalog');
+            const filtered = agentsData.filter(agent => {
+                const matchesFilter = filter === 'all' || agent.status === filter;
+                const matchesSearch = search === '' ||
+                    agent.name.toLowerCase().includes(search.toLowerCase()) ||
+                    agent.description.toLowerCase().includes(search.toLowerCase()) ||
+                    (agent.tags || []).some(tag => tag.toLowerCase().includes(search.toLowerCase()));
+                return matchesFilter && matchesSearch;
+            });
+
+            container.innerHTML = filtered.map(agent => `
+                <div class="catalog-item">
+                    <div class="catalog-item-header">
+                        <div class="catalog-item-title">
+                            <h3>${agent.name}</h3>
+                            <div class="catalog-item-version">v${agent.version} · ${agent.maintainer} · ${agent.reasoning_mode}</div>
+                        </div>
+                        <span class="badge badge-${agent.status}">${agent.status}</span>
+                    </div>
+                    <div class="catalog-item-description">${agent.description}</div>
+                    ${agent.tags && agent.tags.length > 0 ? `
+                        <div class="catalog-item-tags">
+                            ${agent.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                    <div class="catalog-item-footer">
+                        ${agent.documentation_url ? `<a href="${agent.documentation_url}" target="_blank">Documentation</a>` : ''}
+                        ${agent.skills_available ? `<span>${agent.skills_available.length} skill(s)</span>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Event listeners
+        document.getElementById('skills-search').addEventListener('input', (e) => {
+            const filter = document.getElementById('skills-filter').value;
+            renderSkills(filter, e.target.value);
+        });
+
+        document.getElementById('skills-filter').addEventListener('change', (e) => {
+            const search = document.getElementById('skills-search').value;
+            renderSkills(e.target.value, search);
+        });
+
+        document.getElementById('agents-search').addEventListener('input', (e) => {
+            const filter = document.getElementById('agents-filter').value;
+            renderAgents(filter, e.target.value);
+        });
+
+        document.getElementById('agents-filter').addEventListener('change', (e) => {
+            const search = document.getElementById('agents-search').value;
+            renderAgents(e.target.value, search);
+        });
+
+        // Load marketplace on page load
+        loadMarketplace();
+    </script>
+</body>
+</html>

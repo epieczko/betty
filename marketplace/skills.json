@@ -1,0 +1,875 @@
+{
+  "marketplace_version": "1.0.0",
+  "generated_at": "2025-10-23T17:04:26.315783+00:00",
+  "description": "Betty Framework Certified Skills Marketplace",
+  "total_skills": 18,
+  "certified_count": 14,
+  "draft_count": 4,
+  "catalog": [
+    {
+      "name": "agent.define",
+      "version": "0.1.0",
+      "description": "Validates and registers agent manifests for the Betty Framework. Ensures schema compliance, validates skill references, and updates the Agent Registry.\n",
+      "status": "certified",
+      "tags": [
+        "agents",
+        "validation",
+        "registry",
+        "layer2"
+      ],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Validate agent manifest: /agent/define agent.yaml",
+        "Register new agent in the framework"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/agents/define",
+      "dependencies": [
+        "skill.define"
+      ],
+      "entrypoints": [
+        {
+          "command": "/agent/define",
+          "handler": "agent_define.py",
+          "runtime": "python",
+          "description": "Validate an agent manifest and register it in the Agent Registry.\n",
+          "parameters": [
+            {
+              "name": "manifest_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to the agent.yaml file to validate"
+            }
+          ],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "manifest_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the agent.yaml file to validate"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_result",
+          "type": "object",
+          "description": "Validation results including errors and warnings"
+        },
+        {
+          "name": "registry_updated",
+          "type": "boolean",
+          "description": "Whether agent was successfully registered"
+        }
+      ]
+    },
+    {
+      "name": "api.compatibility",
+      "version": "0.1.0",
+      "description": "Detect breaking changes between API specification versions",
+      "status": "certified",
+      "tags": [
+        "api",
+        "compatibility",
+        "breaking-changes",
+        "versioning",
+        "openapi"
+      ],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Check for breaking changes: /skill/api/compatibility --old_spec_path v1.yaml --new_spec_path v2.yaml",
+        "Analyze API evolution: /skill/api/compatibility --old_spec_path old.yaml --new_spec_path new.yaml --fail_on_breaking false"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/api/compatibility",
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/api/compatibility",
+          "handler": "check_compatibility.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "old_spec_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the old/previous API specification"
+        },
+        {
+          "name": "new_spec_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the new/current API specification"
+        },
+        {
+          "name": "fail_on_breaking",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Exit with error code if breaking changes detected"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "compatible",
+          "type": "boolean",
+          "description": "Whether the new spec is backward compatible"
+        },
+        {
+          "name": "breaking_changes",
+          "type": "array",
+          "description": "List of breaking changes detected"
+        },
+        {
+          "name": "non_breaking_changes",
+          "type": "array",
+          "description": "List of non-breaking changes detected"
+        },
+        {
+          "name": "change_summary",
+          "type": "object",
+          "description": "Summary of all changes"
+        }
+      ]
+    },
+    {
+      "name": "api.define",
+      "version": "0.1.0",
+      "description": "Create OpenAPI and AsyncAPI specifications from templates",
+      "status": "certified",
+      "tags": [
+        "api",
+        "openapi",
+        "asyncapi",
+        "scaffolding",
+        "zalando"
+      ],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Create new OpenAPI spec: /skill/api/define --service_name user-service",
+        "Generate AsyncAPI spec: /skill/api/define --service_name events --spec_type asyncapi"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/api/define",
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/api/define",
+          "handler": "api_define.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "service_name",
+          "type": "string",
+          "required": true,
+          "description": "Name of the service/API (e.g., user-service, order-api)"
+        },
+        {
+          "name": "spec_type",
+          "type": "string",
+          "required": false,
+          "default": "openapi",
+          "description": "Type of specification (openapi or asyncapi)"
+        },
+        {
+          "name": "template",
+          "type": "string",
+          "required": false,
+          "default": "zalando",
+          "description": "Template to use (zalando, basic, minimal)"
+        },
+        {
+          "name": "output_dir",
+          "type": "string",
+          "required": false,
+          "default": "specs",
+          "description": "Output directory for generated specification"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": false,
+          "default": "1.0.0",
+          "description": "API version"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "spec_path",
+          "type": "string",
+          "description": "Path to generated specification file"
+        },
+        {
+          "name": "spec_content",
+          "type": "object",
+          "description": "Generated specification content"
+        }
+      ]
+    },
+    {
+      "name": "api.generate-models",
+      "version": "0.1.0",
+      "description": "Generate type-safe models from OpenAPI and AsyncAPI specifications using Modelina",
+      "status": "certified",
+      "tags": [
+        "api",
+        "codegen",
+        "modelina",
+        "openapi",
+        "asyncapi",
+        "typescript",
+        "python",
+        "java"
+      ],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Generate TypeScript models: /skill/api/generate-models --spec_path api.yaml --language typescript",
+        "Generate Python models: /skill/api/generate-models --spec_path api.yaml --language python --output_dir src/models"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/api/generate-models",
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/api/generate-models",
+          "handler": "modelina_generate.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write",
+            "process:execute"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "spec_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to API specification file (OpenAPI or AsyncAPI)"
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "required": true,
+          "description": "Target language (typescript, python, java, go, csharp)"
+        },
+        {
+          "name": "output_dir",
+          "type": "string",
+          "required": false,
+          "default": "src/models",
+          "description": "Output directory for generated models"
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "required": false,
+          "description": "Package/module name for generated code"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "models_path",
+          "type": "string",
+          "description": "Path to directory containing generated models"
+        },
+        {
+          "name": "files_generated",
+          "type": "array",
+          "description": "List of generated model files"
+        },
+        {
+          "name": "model_count",
+          "type": "number",
+          "description": "Number of models generated"
+        }
+      ]
+    },
+    {
+      "name": "api.validate",
+      "version": "0.1.0",
+      "description": "Validate OpenAPI and AsyncAPI specifications against enterprise guidelines",
+      "status": "certified",
+      "tags": [
+        "api",
+        "validation",
+        "openapi",
+        "asyncapi",
+        "zalando"
+      ],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Validate OpenAPI spec: /skill/api/validate --spec_path api.openapi.yaml",
+        "Check against Zalando guidelines: /skill/api/validate --spec_path api.yaml --guideline_set zalando"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/api/validate",
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/api/validate",
+          "handler": "api_validate.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "network:http"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "spec_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the API specification file (OpenAPI or AsyncAPI)"
+        },
+        {
+          "name": "guideline_set",
+          "type": "string",
+          "required": false,
+          "default": "zalando",
+          "description": "Which API guidelines to validate against (zalando, google, microsoft)"
+        },
+        {
+          "name": "strict",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Enable strict mode (warnings become errors)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_report",
+          "type": "object",
+          "description": "Detailed validation results including errors and warnings"
+        },
+        {
+          "name": "valid",
+          "type": "boolean",
+          "description": "Whether the spec is valid"
+        },
+        {
+          "name": "guideline_version",
+          "type": "string",
+          "description": "Version of guidelines used for validation"
+        }
+      ]
+    },
+    {
+      "name": "command.define",
+      "version": "0.1.0",
+      "description": "Validate and register command manifests in the Command Registry",
+      "status": "certified",
+      "tags": [
+        "command",
+        "registry",
+        "validation",
+        "infrastructure"
+      ],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Register command manifest: /skill/command/define command.yaml",
+        "Add new CLI command to Betty"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/commands/define",
+      "dependencies": [
+        "None"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/command/define",
+          "handler": "command_define.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "manifest_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the command manifest file (YAML)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_result",
+          "type": "object",
+          "description": "Validation results and registration status",
+          "schema": {
+            "properties": {
+              "ok": "boolean",
+              "status": "string",
+              "errors": "array",
+              "path": "string",
+              "details": "object"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "hook.define",
+      "version": "0.1.0",
+      "description": "Create and register validation hooks for Claude Code",
+      "status": "certified",
+      "tags": [
+        "hooks",
+        "validation",
+        "automation",
+        "claude-code"
+      ],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Create validation hook: /skill/hook/define --event on_file_edit --pattern '*.yaml' --command /workflow/validate",
+        "Set up pre-commit API validation hook"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/hooks/define",
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/hook/define",
+          "handler": "hook_define.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "event",
+          "type": "string",
+          "required": true,
+          "description": "Hook event trigger (on_file_edit, on_file_save, on_commit, on_push, on_tool_use)"
+        },
+        {
+          "name": "pattern",
+          "type": "string",
+          "required": false,
+          "description": "File pattern to match (e.g., \"*.openapi.yaml\", \"specs/**/*.yaml\")"
+        },
+        {
+          "name": "command",
+          "type": "string",
+          "required": true,
+          "description": "Command to execute when hook triggers (skill name or full command)"
+        },
+        {
+          "name": "blocking",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether hook should block operation if it fails"
+        },
+        {
+          "name": "timeout",
+          "type": "number",
+          "required": false,
+          "default": 30000,
+          "description": "Timeout in milliseconds (default 30 seconds)"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Human-readable description of what the hook does"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "hook_config",
+          "type": "object",
+          "description": "Generated hook configuration"
+        },
+        {
+          "name": "hooks_file_path",
+          "type": "string",
+          "description": "Path to .claude/hooks.yaml file"
+        }
+      ]
+    },
+    {
+      "name": "hook.register",
+      "version": "0.1.0",
+      "description": "Validate and register hook manifests in the Hook Registry",
+      "status": "certified",
+      "tags": [
+        "hook",
+        "registry",
+        "validation",
+        "infrastructure",
+        "policy"
+      ],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Register hook manifest: /skill/hook/register hook.yaml",
+        "Enable policy enforcement via hooks"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/hooks/register",
+      "dependencies": [
+        "None"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/hook/register",
+          "handler": "hook_register.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "manifest_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the hook manifest file (YAML)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_result",
+          "type": "object",
+          "description": "Validation results and registration status",
+          "schema": {
+            "properties": {
+              "ok": "boolean",
+              "status": "string",
+              "errors": "array",
+              "path": "string",
+              "details": "object"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "policy.enforce",
+      "version": "0.1.0",
+      "description": "Validates operations against organizational policies before execution",
+      "status": "certified",
+      "tags": [],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Validate against organizational policy: skill executes policy.enforce before operation",
+        "Enforce compliance rules on API changes"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/policy/enforce",
+      "dependencies": [],
+      "entrypoints": [],
+      "inputs": [
+        "action",
+        "target",
+        "policy_set"
+      ],
+      "outputs": [
+        "validation_result.json",
+        "policy_violations.json"
+      ]
+    },
+    {
+      "name": "registry.update",
+      "version": "0.1.0",
+      "description": "Updates the Betty Framework Skill Registry by adding or modifying entries based on validated skill manifests.\n",
+      "status": "certified",
+      "tags": [],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Register a new skill: /registry/update skill_manifest.yaml",
+        "Update existing skill entry in registry"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/registry/update",
+      "dependencies": [
+        "skill.define"
+      ],
+      "entrypoints": [
+        {
+          "command": "/registry/update",
+          "handler": "registry_update.py",
+          "runtime": "python",
+          "description": "Add or update entries in the Skill Registry.\n",
+          "parameters": [
+            {
+              "name": "skill_manifest.yaml",
+              "type": "string",
+              "required": true,
+              "description": "Path to the skill manifest (.skill.yaml) being added or updated."
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ],
+      "inputs": [
+        "skill_manifest.yaml"
+      ],
+      "outputs": [
+        "registry_update_result.json"
+      ]
+    },
+    {
+      "name": "skill.create",
+      "version": "0.1.0",
+      "description": "Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\n",
+      "status": "certified",
+      "tags": [],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Scaffold new skill: /skill/create --skill_name my.skill --description 'My new skill'",
+        "Bootstrap skill with inputs/outputs: /skill/create --skill_name process.data --inputs 'data,config' --outputs 'result'"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/skills/create",
+      "dependencies": [
+        "skill.define",
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/create",
+          "handler": "skill_create.py",
+          "runtime": "python",
+          "description": "Scaffolds a new Betty Skill directory, generates its manifest, validates it with skill.define, and updates the registry.\n",
+          "parameters": [
+            {
+              "name": "skill_name",
+              "type": "string",
+              "description": "Name of the new skill (e.g., runtime.execute)",
+              "required": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "description": "Description of what the skill will do",
+              "required": true
+            },
+            {
+              "name": "inputs",
+              "type": "string",
+              "description": "Comma-separated list of input parameters (optional)",
+              "required": false
+            },
+            {
+              "name": "outputs",
+              "type": "string",
+              "description": "Comma-separated list of output parameters (optional)",
+              "required": false
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ],
+      "inputs": [
+        "skill_name",
+        "description",
+        "inputs",
+        "outputs"
+      ],
+      "outputs": [
+        "skill_directory",
+        "manifest_path",
+        "registration_record.json"
+      ]
+    },
+    {
+      "name": "skill.define",
+      "version": "0.1.0",
+      "description": "Validates and registers skill manifests for the Betty Framework",
+      "status": "certified",
+      "tags": [],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Validate a new skill manifest: /skill/define manifest.skill.yaml",
+        "Check skill compliance before registration"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/skills/define",
+      "dependencies": [],
+      "entrypoints": [],
+      "inputs": [
+        "skill_manifest_path"
+      ],
+      "outputs": [
+        "validation_result.json",
+        "updated_registry.json"
+      ]
+    },
+    {
+      "name": "test.example",
+      "version": "0.1.0",
+      "description": "Example skill for testing workflow orchestration",
+      "status": "draft",
+      "tags": [],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/test.example",
+      "dependencies": [],
+      "entrypoints": []
+    },
+    {
+      "name": "test.hello",
+      "version": "0.1.0",
+      "description": "A simple test skill that prints hello world",
+      "status": "draft",
+      "tags": [],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/test.hello",
+      "dependencies": [],
+      "entrypoints": []
+    },
+    {
+      "name": "test.integration.temp",
+      "version": "0.1.0",
+      "description": "Test skill with IO",
+      "status": "draft",
+      "tags": [],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/test.integration.temp",
+      "dependencies": [],
+      "entrypoints": [],
+      "inputs": [
+        "input1",
+        "input2"
+      ],
+      "outputs": [
+        "output1"
+      ]
+    },
+    {
+      "name": "test.lifecycle.complete",
+      "version": "0.1.0",
+      "description": "Lifecycle test skill",
+      "status": "draft",
+      "tags": [],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/test.lifecycle.complete",
+      "dependencies": [],
+      "entrypoints": []
+    },
+    {
+      "name": "workflow.compose",
+      "version": "0.1.0",
+      "description": "Executes multi-step Betty Framework workflows by chaining existing skills. Enables declarative orchestration of skill pipelines.\n",
+      "status": "certified",
+      "tags": [],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Execute multi-step workflow: /workflow/compose pipeline.yaml",
+        "Chain multiple skills together"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/workflows/compose",
+      "dependencies": [
+        "skill.create",
+        "skill.define",
+        "registry.update"
+      ],
+      "entrypoints": [
+        {
+          "command": "/workflow/compose",
+          "handler": "workflow_compose.py",
+          "runtime": "python",
+          "description": "Execute a Betty workflow defined in a YAML file.\n",
+          "parameters": [
+            {
+              "name": "workflow_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to a workflow YAML file to execute."
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ],
+      "inputs": [
+        "workflow_path"
+      ],
+      "outputs": [
+        "workflow_history.json"
+      ]
+    },
+    {
+      "name": "workflow.validate",
+      "version": "0.1.0",
+      "description": "Validates Betty workflow YAML definitions to ensure correct structure and required fields.\n",
+      "status": "certified",
+      "tags": [],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Validate workflow structure: /workflow/validate my_workflow.yaml",
+        "Pre-flight check before workflow execution"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/workflows/validate",
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/workflow/validate",
+          "handler": "workflow_validate.py",
+          "runtime": "python",
+          "description": "Validate the structure of a workflow YAML file before execution.\n",
+          "parameters": [
+            {
+              "name": "workflow.yaml",
+              "type": "string",
+              "required": true,
+              "description": "Path to the workflow YAML file."
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read"
+          ]
+        }
+      ],
+      "inputs": [
+        "workflow.yaml"
+      ],
+      "outputs": [
+        "validation_result.json"
+      ]
+    }
+  ]
+}
