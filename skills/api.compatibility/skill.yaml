@@ -1,0 +1,51 @@
+name: api.compatibility
+version: 0.1.0
+description: Detect breaking changes between API specification versions
+
+inputs:
+  - name: old_spec_path
+    type: string
+    required: true
+    description: Path to the old/previous API specification
+
+  - name: new_spec_path
+    type: string
+    required: true
+    description: Path to the new/current API specification
+
+  - name: fail_on_breaking
+    type: boolean
+    required: false
+    default: true
+    description: Exit with error code if breaking changes detected
+
+outputs:
+  - name: compatible
+    type: boolean
+    description: Whether the new spec is backward compatible
+
+  - name: breaking_changes
+    type: array
+    description: List of breaking changes detected
+
+  - name: non_breaking_changes
+    type: array
+    description: List of non-breaking changes detected
+
+  - name: change_summary
+    type: object
+    description: Summary of all changes
+
+dependencies:
+  - context.schema
+
+entrypoints:
+  - command: /skill/api/compatibility
+    handler: check_compatibility.py
+    runtime: python
+    permissions:
+      - filesystem:read
+
+status: active
+
+tags: [api, compatibility, breaking-changes, versioning, openapi]
