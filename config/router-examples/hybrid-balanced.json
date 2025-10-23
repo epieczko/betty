@@ -1,0 +1,30 @@
+{
+  "PORT": 3456,
+  "Providers": [
+    {
+      "name": "deepseek",
+      "api_base_url": "https://api.deepseek.com/chat/completions",
+      "api_key": "${DEEPSEEK_API_KEY}",
+      "models": [
+        "deepseek-chat",
+        "deepseek-reasoner"
+      ]
+    },
+    {
+      "name": "openrouter",
+      "api_base_url": "https://openrouter.ai/api/v1/chat/completions",
+      "api_key": "${OPENROUTER_API_KEY}",
+      "models": [
+        "anthropic/claude-3.5-sonnet",
+        "google/gemini-2.5-pro-preview"
+      ]
+    }
+  ],
+  "Router": {
+    "default": "deepseek,deepseek-chat",
+    "background": "deepseek,deepseek-chat",
+    "think": "deepseek,deepseek-reasoner",
+    "longContext": "openrouter,google/gemini-2.5-pro-preview"
+  },
+  "description": "Hybrid balanced configuration for Betty. Uses DeepSeek for most operations (fast and cheap), DeepSeek Reasoner for complex thinking, Gemini 2.5 Pro for large context. Best balance of cost and quality."
+}

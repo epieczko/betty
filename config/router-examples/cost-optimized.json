@@ -1,0 +1,30 @@
+{
+  "PORT": 3456,
+  "Providers": [
+    {
+      "name": "deepseek",
+      "api_base_url": "https://api.deepseek.com/chat/completions",
+      "api_key": "${DEEPSEEK_API_KEY}",
+      "models": [
+        "deepseek-chat",
+        "deepseek-reasoner"
+      ]
+    },
+    {
+      "name": "anthropic",
+      "api_base_url": "https://api.anthropic.com/v1/messages",
+      "api_key": "${ANTHROPIC_API_KEY}",
+      "models": [
+        "claude-3-5-sonnet-20241022",
+        "claude-opus-4-20250514"
+      ]
+    }
+  ],
+  "Router": {
+    "default": "deepseek,deepseek-chat",
+    "background": "deepseek,deepseek-chat",
+    "think": "deepseek,deepseek-reasoner",
+    "longContext": "anthropic,claude-3-5-sonnet-20241022"
+  },
+  "description": "Cost-optimized configuration for Betty. Uses DeepSeek for most operations (80-90% cost savings), Claude Sonnet for large context only."
+}

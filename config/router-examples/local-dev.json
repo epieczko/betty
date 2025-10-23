@@ -1,0 +1,30 @@
+{
+  "PORT": 3456,
+  "Providers": [
+    {
+      "name": "ollama",
+      "api_base_url": "http://localhost:11434/api/chat",
+      "models": [
+        "llama3.3:70b",
+        "mistral-large",
+        "qwen2.5:72b"
+      ]
+    },
+    {
+      "name": "anthropic",
+      "api_base_url": "https://api.anthropic.com/v1/messages",
+      "api_key": "${ANTHROPIC_API_KEY}",
+      "models": [
+        "claude-3-5-sonnet-20241022",
+        "claude-opus-4-20250514"
+      ]
+    }
+  ],
+  "Router": {
+    "default": "ollama,llama3.3:70b",
+    "background": "ollama,llama3.3:70b",
+    "think": "anthropic,claude-opus-4-20250514",
+    "longContext": "anthropic,claude-3-5-sonnet-20241022"
+  },
+  "description": "Local development configuration for Betty. Uses Ollama for most operations (free, private, offline), Claude for complex reasoning only. Requires Ollama installed with models pulled."
+}
