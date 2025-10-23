@@ -1,0 +1,41 @@
+{
+  "registry_version": "1.0.0",
+  "generated_at": "2025-10-23T01:53:41.669518+00:00",
+  "commands": [
+    {
+      "name": "/test-command",
+      "version": "0.1.0",
+      "description": "Test command for validating command.define skill",
+      "execution": {
+        "type": "skill",
+        "target": "api.validate",
+        "context": {
+          "format": "human"
+        }
+      },
+      "parameters": [
+        {
+          "name": "service_name",
+          "type": "string",
+          "required": true,
+          "description": "Name of the service"
+        },
+        {
+          "name": "spec_type",
+          "type": "enum",
+          "values": [
+            "openapi",
+            "asyncapi"
+          ],
+          "default": "openapi",
+          "description": "Type of API specification"
+        }
+      ],
+      "status": "draft",
+      "tags": [
+        "test",
+        "validation"
+      ]
+    }
+  ]
+}
