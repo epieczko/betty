@@ -4,7 +4,7 @@ description: >
   Updates the Betty Framework Skill Registry by adding or modifying entries
   based on validated skill manifests.
 inputs:
-  - skill_manifest.yaml
+  - manifest_path
 outputs:
   - registry_update_result.json
 dependencies:
@@ -18,7 +18,7 @@ entrypoints:
     description: >
       Add or update entries in the Skill Registry.
     parameters:
-      - name: skill_manifest.yaml
+      - name: manifest_path
         type: string
         required: true
         description: Path to the skill manifest (.skill.yaml) being added or updated.

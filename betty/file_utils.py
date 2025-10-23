@@ -5,9 +5,14 @@ Includes safe file locking for concurrent access.
 
 import os
 import json
-import fcntl
+import tempfile
 from typing import Dict, Any, Optional
 from contextlib import contextmanager
+
+try:  # pragma: no cover - platform specific import
+    import fcntl  # type: ignore
+except ImportError:  # pragma: no cover - Windows fallback
+    fcntl = None
 
 from .logging_utils import get_logger
 
@@ -43,7 +48,8 @@ def locked_file(file_path: str, mode: str = 'r+'):
         FileLockError: If lock cannot be acquired
     """
     # Ensure parent directory exists
-    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    directory = os.path.dirname(file_path) or "."
+    os.makedirs(directory, exist_ok=True)
 
     # Create file if it doesn't exist and mode includes writing
     if not os.path.exists(file_path) and ('w' in mode or 'a' in mode or '+' in mode):
@@ -51,16 +57,24 @@ def locked_file(file_path: str, mode: str = 'r+'):
             pass  # Create empty file
 
     try:
-        with open(file_path, mode) as f:
-            try:
-                # Acquire exclusive lock
-                fcntl.flock(f.fileno(), fcntl.LOCK_EX)
-                logger.debug(f"Acquired lock on {file_path}")
+        open_kwargs = {"mode": mode}
+        if "b" not in mode:
+            open_kwargs["encoding"] = "utf-8"
+
+        with open(file_path, **open_kwargs) as f:
+            if fcntl is not None:
+                try:
+                    # Acquire exclusive lock when supported
+                    fcntl.flock(f.fileno(), fcntl.LOCK_EX)
+                    logger.debug(f"Acquired lock on {file_path}")
+                    yield f
+                finally:
+                    fcntl.flock(f.fileno(), fcntl.LOCK_UN)
+                    logger.debug(f"Released lock on {file_path}")
+            else:
+                # Windows fallback – no-op locking
+                logger.debug(f"Locking not supported on this platform for {file_path}")
                 yield f
-            finally:
-                # Release lock
-                fcntl.flock(f.fileno(), fcntl.LOCK_UN)
-                logger.debug(f"Released lock on {file_path}")
     except IOError as e:
         raise FileLockError(f"Failed to lock file {file_path}: {e}")
 
@@ -88,27 +102,27 @@ def safe_read_json(file_path: str, default: Optional[Dict[str, Any]] = None) -> 
 
 
 def safe_write_json(file_path: str, data: Dict[str, Any], indent: int = 2) -> None:
-    """
-    Safely write JSON data to a file with file locking.
+    """Atomically write JSON data to ``file_path`` in a cross-platform way."""
 
-    Args:
-        file_path: Path to JSON file
-        data: Data to write
-        indent: JSON indentation (default: 2)
-    """
-    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    directory = os.path.dirname(file_path) or "."
+    os.makedirs(directory, exist_ok=True)
 
-    # If file doesn't exist, create it
-    if not os.path.exists(file_path):
-        with open(file_path, 'w') as f:
-            json.dump(data, f, indent=indent)
-        return
+    fd, tmp_path = tempfile.mkstemp(dir=directory, prefix=".betty", suffix=".json")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as tmp_file:
+            json.dump(data, tmp_file, indent=indent)
+            tmp_file.flush()
+            os.fsync(tmp_file.fileno())
 
-    # Otherwise, use locked write
-    with locked_file(file_path, 'r+') as f:
-        f.seek(0)
-        json.dump(data, f, indent=indent)
-        f.truncate()
+        os.replace(tmp_path, file_path)
+        logger.debug(f"Atomically wrote JSON to {file_path}")
+    except Exception:
+        # Ensure temporary file is removed on failure
+        try:
+            os.unlink(tmp_path)
+        except FileNotFoundError:
+            pass
+        raise
 
 
 def safe_update_json(file_path: str, update_fn, default: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
@@ -123,27 +137,29 @@ def safe_update_json(file_path: str, update_fn, default: Optional[Dict[str, Any]
     Returns:
         Updated data
     """
-    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    directory = os.path.dirname(file_path) or "."
+    os.makedirs(directory, exist_ok=True)
 
-    # If file doesn't exist, start with default
-    if not os.path.exists(file_path):
-        current_data = default if default is not None else {}
+    def _load_existing(use_lock: bool = True) -> Dict[str, Any]:
+        try:
+            if use_lock and fcntl is not None:
+                with locked_file(file_path, 'r') as f:
+                    return json.load(f)
+            with open(file_path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError, FileLockError, IOError):
+            return default if default is not None else {}
+
+    if fcntl is None:
+        current_data = _load_existing()
         updated_data = update_fn(current_data)
-        with open(file_path, 'w') as f:
-            json.dump(updated_data, f, indent=2)
+        safe_write_json(file_path, updated_data)
         return updated_data
 
-    # Otherwise, use locked update
-    with locked_file(file_path, 'r+') as f:
-        try:
-            current_data = json.load(f)
-        except json.JSONDecodeError:
-            current_data = default if default is not None else {}
-
+    lock_mode = 'r+' if os.path.exists(file_path) else 'w+'
+    with locked_file(file_path, lock_mode) as _:
+        current_data = _load_existing(use_lock=False)
         updated_data = update_fn(current_data)
-
-        f.seek(0)
-        json.dump(updated_data, f, indent=2)
-        f.truncate()
+        safe_write_json(file_path, updated_data)
 
     return updated_data

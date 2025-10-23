@@ -16,11 +16,11 @@ python skills/workflow.validate/workflow_validate.py workflows/example.yaml
 
 ## Inputs
 
-* `workflow.yaml` – Path to the workflow file.
+* `workflow_path` – Path to the workflow file.
 
 ## Outputs
 
-* JSON printed to stdout with `valid`, `errors`, and `status` fields.
+* JSON printed to stdout with `ok`, `errors`, `status`, and `path` fields.
 
 ## Example
 

@@ -30,6 +30,22 @@ from betty.errors import SkillNotFoundError, ManifestError, format_error_respons
 logger = setup_logger(__name__)
 
 
+def build_response(ok: bool, path: Optional[str], errors: Optional[List[str]] = None, details: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    """Create a standardized response payload for CLI output."""
+
+    response: Dict[str, Any] = {
+        "ok": ok,
+        "status": "success" if ok else "failed",
+        "errors": errors or [],
+        "path": path,
+    }
+
+    if details is not None:
+        response["details"] = details
+
+    return response
+
+
 def create_skill_manifest(
     skill_name: str,
     description: str,
@@ -342,15 +358,39 @@ def main():
     outputs = [o.strip() for o in args.outputs.split(",") if o.strip()]
 
     try:
-        result = create_skill(args.skill_name, args.description, inputs, outputs)
-        print(json.dumps(result, indent=2))
+        details = create_skill(args.skill_name, args.description, inputs, outputs)
+        response = build_response(
+            True,
+            path=details.get("skill_path"),
+            errors=[],
+            details=details,
+        )
+        print(json.dumps(response, indent=2))
+        sys.exit(0)
     except (ValidationError, ManifestError) as e:
         logger.error(str(e))
-        print(json.dumps(format_error_response(e), indent=2))
+        error_info = format_error_response(e)
+        path = None
+        if isinstance(e, ManifestError):
+            path = e.details.get("skill_path") or e.details.get("manifest_path")
+        response = build_response(
+            False,
+            path=path,
+            errors=[error_info.get("message", str(e))],
+            details={"error": error_info},
+        )
+        print(json.dumps(response, indent=2))
         sys.exit(1)
     except Exception as e:
         logger.error(f"Unexpected error: {e}")
-        print(json.dumps(format_error_response(e, include_traceback=True), indent=2))
+        error_info = format_error_response(e, include_traceback=True)
+        response = build_response(
+            False,
+            path=None,
+            errors=[error_info.get("message", str(e))],
+            details={"error": error_info},
+        )
+        print(json.dumps(response, indent=2))
         sys.exit(1)
 
 
