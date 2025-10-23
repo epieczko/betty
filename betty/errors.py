@@ -60,6 +60,16 @@ class ManifestError(BettyError):
     pass
 
 
+class AgentValidationError(BettyError):
+    """Raised when agent manifest validation fails."""
+    pass
+
+
+class AgentRegistryError(BettyError):
+    """Raised when agent registry operations fail."""
+    pass
+
+
 def format_error_response(error: Exception, include_traceback: bool = False) -> Dict[str, Any]:
     """
     Format an exception into a standardized error response.

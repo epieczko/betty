@@ -1,22 +1,7 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-23T01:03:59.158330+00:00",
+  "generated_at": "2025-10-23T01:40:13.390630+00:00",
   "skills": [
-    {
-      "name": "agent.define",
-      "version": "0.1.0",
-      "description": "Create and validate Claude Code agent manifests",
-      "inputs": [
-        "agent_manifest.yaml"
-      ],
-      "outputs": [
-        "validated_agent_manifest.json"
-      ],
-      "dependencies": [
-        "skill.define"
-      ],
-      "status": "draft"
-    },
     {
       "name": "skill.define",
       "version": "0.1.0",
@@ -602,6 +587,61 @@
         "breaking-changes",
         "versioning",
         "openapi"
+      ]
+    },
+    {
+      "name": "agent.define",
+      "version": "0.1.0",
+      "description": "Validates and registers agent manifests for the Betty Framework. Ensures schema compliance, validates skill references, and updates the Agent Registry.\n",
+      "inputs": [
+        {
+          "name": "manifest_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the agent.yaml file to validate"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_result",
+          "type": "object",
+          "description": "Validation results including errors and warnings"
+        },
+        {
+          "name": "registry_updated",
+          "type": "boolean",
+          "description": "Whether agent was successfully registered"
+        }
+      ],
+      "dependencies": [
+        "skill.define"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/agent/define",
+          "handler": "agent_define.py",
+          "runtime": "python",
+          "description": "Validate an agent manifest and register it in the Agent Registry.\n",
+          "parameters": [
+            {
+              "name": "manifest_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to the agent.yaml file to validate"
+            }
+          ],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "tags": [
+        "agents",
+        "validation",
+        "registry",
+        "layer2"
       ]
     }
   ]

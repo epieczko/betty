@@ -1,0 +1,78 @@
+name: api.designer
+version: 0.1.0
+description: "Design RESTful APIs following enterprise guidelines with iterative refinement"
+
+capabilities:
+  - Design RESTful APIs from natural language requirements
+  - Apply Zalando guidelines automatically
+  - Generate OpenAPI 3.1 specs with best practices
+  - Iteratively refine based on validation feedback
+  - Handle AsyncAPI for event-driven architectures
+
+skills_available:
+  - api.define
+  - api.validate
+  - api.generate-models
+  - api.compatibility
+
+reasoning_mode: iterative
+
+context_requirements:
+  guidelines: string
+  domain: string
+  existing_apis: list
+  strict_mode: boolean
+
+workflow_pattern: |
+  1. Analyze requirements and domain context
+  2. Draft OpenAPI spec following guidelines
+  3. Run validation (api.validate)
+  4. If validation fails:
+     - Analyze errors
+     - Refine spec
+     - Re-validate
+     - Repeat until passing
+  5. Generate models for target languages
+  6. Verify generated models compile
+
+example_task: |
+  Input: "Create API for user management with CRUD operations,
+          authentication via JWT, and email verification workflow"
+
+  Agent will:
+  1. Draft OpenAPI spec with proper resource paths (/users, /users/{id})
+  2. Apply Zalando guidelines (snake_case, problem JSON, etc.)
+  3. Validate spec against Zally rules
+  4. Fix issues (e.g., add required headers, fix naming)
+  5. Generate TypeScript and Python models via Modelina
+  6. Verify models compile in sample projects
+
+error_handling:
+  max_retries: 3
+  on_validation_failure: "Analyze errors, refine spec, retry"
+  on_generation_failure: "Try alternative Modelina configurations"
+  on_compilation_failure: "Adjust spec to fix type issues"
+  timeout_seconds: 300
+
+output:
+  success:
+    - OpenAPI spec (validated)
+    - Generated models (compiled)
+    - Validation report
+    - Dependency graph
+  failure:
+    - Error analysis
+    - Partial spec
+    - Suggested fixes
+
+status: draft
+
+tags:
+  - api
+  - design
+  - openapi
+  - zalando
+  - iterative
+
+dependencies:
+  - context.schema

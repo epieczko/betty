@@ -1,0 +1,62 @@
+{
+  "registry_version": "1.0.0",
+  "generated_at": "2025-10-23T01:39:51.136417+00:00",
+  "agents": [
+    {
+      "name": "api.designer",
+      "version": "0.1.0",
+      "description": "Design RESTful APIs following enterprise guidelines with iterative refinement",
+      "reasoning_mode": "iterative",
+      "skills_available": [
+        "api.define",
+        "api.validate",
+        "api.generate-models",
+        "api.compatibility"
+      ],
+      "capabilities": [
+        "Design RESTful APIs from natural language requirements",
+        "Apply Zalando guidelines automatically",
+        "Generate OpenAPI 3.1 specs with best practices",
+        "Iteratively refine based on validation feedback",
+        "Handle AsyncAPI for event-driven architectures"
+      ],
+      "status": "draft",
+      "tags": [
+        "api",
+        "design",
+        "openapi",
+        "zalando",
+        "iterative"
+      ],
+      "dependencies": [
+        "context.schema"
+      ]
+    },
+    {
+      "name": "api.analyzer",
+      "version": "0.1.0",
+      "description": "Analyze API specifications for backward compatibility and breaking changes",
+      "reasoning_mode": "oneshot",
+      "skills_available": [
+        "api.compatibility",
+        "api.validate"
+      ],
+      "capabilities": [
+        "Detect breaking changes between API versions",
+        "Generate detailed compatibility reports",
+        "Identify removed or modified endpoints",
+        "Suggest migration paths for breaking changes",
+        "Validate API evolution best practices"
+      ],
+      "status": "draft",
+      "tags": [
+        "api",
+        "analysis",
+        "compatibility",
+        "versioning",
+        "oneshot"
+      ],
+      "dependencies": []
+    }
+  ]
+}

@@ -108,3 +108,73 @@ def validate_version(version: str) -> None:
             f"Invalid version: '{version}'. "
             "Must follow semantic versioning (e.g., 1.0.0, 0.1.0-alpha)"
         )
+
+
+def validate_agent_name(name: str) -> None:
+    """
+    Validate that an agent name follows Betty's naming convention.
+
+    Valid names:
+    - Start with lowercase letter
+    - Contain only lowercase letters, numbers, dots, hyphens, underscores
+    - Examples: api.designer, compliance.checker, data-migrator
+
+    Args:
+        name: Agent name to validate
+
+    Raises:
+        ValidationError: If name is invalid
+    """
+    if not name:
+        raise ValidationError("Agent name cannot be empty")
+
+    if not re.match(r'^[a-z][a-z0-9._-]*$', name):
+        raise ValidationError(
+            f"Invalid agent name: '{name}'. "
+            "Must start with lowercase letter and contain only "
+            "lowercase letters, numbers, dots, hyphens, and underscores."
+        )
+
+
+def validate_reasoning_mode(mode: str) -> None:
+    """
+    Validate that reasoning mode is valid.
+
+    Valid modes:
+    - iterative: Agent can retry with feedback
+    - oneshot: Agent executes once without retry
+
+    Args:
+        mode: Reasoning mode to validate
+
+    Raises:
+        ValidationError: If mode is invalid
+    """
+    valid_modes = ["iterative", "oneshot"]
+    if mode not in valid_modes:
+        raise ValidationError(
+            f"Invalid reasoning_mode: '{mode}'. "
+            f"Must be one of: {', '.join(valid_modes)}"
+        )
+
+
+def validate_skills_exist(skills: List[str], skill_registry: Dict[str, Any]) -> List[str]:
+    """
+    Validate that all skills exist in the skill registry.
+
+    Args:
+        skills: List of skill names to validate
+        skill_registry: Skill registry dictionary
+
+    Returns:
+        List of missing skills (empty if all skills exist)
+    """
+    if not skills:
+        return []
+
+    # Extract skill names from registry
+    registered_skills = {skill["name"] for skill in skill_registry.get("skills", [])}
+
+    # Find missing skills
+    missing = [skill for skill in skills if skill not in registered_skills]
+    return missing
