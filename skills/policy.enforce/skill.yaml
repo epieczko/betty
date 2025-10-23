@@ -1,0 +1,12 @@
+name: policy.enforce
+version: 0.1.0
+description: Validates operations against organizational policies before execution
+inputs:
+- action
+- target
+- policy_set
+outputs:
+- validation_result.json
+- policy_violations.json
+dependencies: []
+status: active

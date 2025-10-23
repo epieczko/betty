@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-23T00:19:01.605907+00:00",
+  "generated_at": "2025-10-23T02:30:14.709693+00:00",
   "skills": [
     {
       "name": "agent.define",
@@ -240,6 +240,22 @@
       "outputs": [],
       "dependencies": [],
       "status": "draft"
+    },
+    {
+      "name": "policy.enforce",
+      "version": "0.1.0",
+      "description": "Validates operations against organizational policies before execution",
+      "inputs": [
+        "action",
+        "target",
+        "policy_set"
+      ],
+      "outputs": [
+        "validation_result.json",
+        "policy_violations.json"
+      ],
+      "dependencies": [],
+      "status": "active"
     }
   ]
 }
