@@ -1,13 +1,45 @@
 name: policy.enforce
 version: 0.1.0
 description: >
-  Enforces policy rules for skill definitions including naming conventions,
-  status values, and permissions validation.
+  Enforces policy rules for skill and agent manifests including naming conventions,
+  semantic versioning, permissions validation, and status lifecycle checks. Supports
+  both single-file validation and batch mode for scanning all manifests in skills/
+  and agents/ directories.
+
 inputs:
-  - skill_manifest_path
+  - name: manifest_path
+    type: string
+    required: false
+    description: Path to a single skill.yaml or agent.yaml manifest file to validate
+
+  - name: batch
+    type: boolean
+    required: false
+    default: false
+    description: Enable batch mode to scan all manifests in skills/ and agents/ directories
+
+  - name: strict
+    type: boolean
+    required: false
+    default: false
+    description: Enable strict mode where warnings become errors
+
 outputs:
-  - policy_validation_result.json
-dependencies: []
+  - name: validation_report
+    type: object
+    description: Detailed validation results including violations, warnings, and success status
+
+  - name: violations
+    type: array
+    description: List of policy violations found in the manifest(s)
+
+  - name: success
+    type: boolean
+    description: Whether the manifest(s) passed all policy checks
+
+dependencies:
+  - context.schema
+
 status: active
 
 entrypoints:
@@ -15,12 +47,32 @@ entrypoints:
     handler: policy_enforce.py
     runtime: python
     description: >
-      Validate skill manifest against policy rules for naming, status, and permissions.
+      Validate skill or agent manifest against policy rules for naming conventions,
+      semantic versioning, permissions, and status values.
     parameters:
-      - name: skill_manifest_path
+      - name: manifest_path
         type: string
-        required: true
-        description: Path to the skill.yaml manifest file to validate.
+        required: false
+        description: Path to the manifest file to validate (omit for batch mode)
+
+      - name: --batch
+        type: boolean
+        required: false
+        default: false
+        description: Enable batch mode to validate all manifests
+
+      - name: --strict
+        type: boolean
+        required: false
+        default: false
+        description: Treat warnings as errors
     permissions:
       - filesystem
       - read
+
+tags:
+  - governance
+  - policy
+  - validation
+  - naming
+  - versioning
