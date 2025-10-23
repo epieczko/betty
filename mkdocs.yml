@@ -1,0 +1,96 @@
+site_name: Betty Framework
+site_url: https://epieczko.github.io/betty
+site_description: RiskExec's system for structured, auditable AI-assisted engineering built on Claude Code Plugins
+site_author: RiskExec
+repo_url: https://github.com/epieczko/betty
+repo_name: epieczko/betty
+
+theme:
+  name: material
+  palette:
+    # Light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      enable_creation_date: true
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+nav:
+  - Home: README.md
+
+  - Getting Started:
+    - Overview: docs/betty-framework-overview.md
+    - Contributing: docs/contributing.md
+
+  - Architecture:
+    - Betty Architecture: docs/betty-architecture.md
+    - Codebase Analysis: docs/CODEBASE_ANALYSIS.md
+    - Governance Architecture: docs/governance-architecture.md
+
+  - Skills & Agents:
+    - Skills Framework: docs/skills-framework.md
+    - Agent Implementation Plan: docs/agent-define-implementation-plan.md
+    - Agent Schema Reference: docs/agent-schema-reference.md
+
+  - Development Guides:
+    - API-Driven Development: docs/api-driven-development.md
+    - Command Hook Infrastructure: docs/COMMAND_HOOK_INFRASTRUCTURE.md
+
+  - Integration:
+    - Claude Code Router: docs/claude-code-router-integration.md
+    - Multi-LLM Integration: docs/multi-llm-integration-paths.md
+
+  - Reference:
+    - Glossary: docs/glossary.md
+    - External References: docs/references.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/epieczko/betty
+  generator: false
+
+copyright: Copyright &copy; 2025 RiskExec
