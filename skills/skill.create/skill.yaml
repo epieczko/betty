@@ -10,7 +10,7 @@ inputs:
   - outputs
 outputs:
   - skill_directory
-  - skill_manifest.yaml
+  - manifest_path
   - registration_record.json
 dependencies:
   - skill.define

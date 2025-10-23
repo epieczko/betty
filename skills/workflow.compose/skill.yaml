@@ -4,7 +4,7 @@ description: >
   Executes multi-step Betty Framework workflows by chaining existing skills.
   Enables declarative orchestration of skill pipelines.
 inputs:
-  - workflow.yaml
+  - workflow_path
 outputs:
   - workflow_history.json
 dependencies:
@@ -20,7 +20,7 @@ entrypoints:
     description: >
       Execute a Betty workflow defined in a YAML file.
     parameters:
-      - name: workflow.yaml
+      - name: workflow_path
         type: string
         required: true
         description: Path to a workflow YAML file to execute.

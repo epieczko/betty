@@ -83,10 +83,13 @@ class TestSkillCreateIntegration:
 
         assert result.returncode == 0
         output = parse_json_output(result.stdout)
+        assert output["ok"] is True
         assert output["status"] == "success"
-        assert output["skill_name"] == temp_skill_name
-        assert output["validation"] == "passed"
-        assert output["registry_updated"] is True
+        assert output["path"].endswith(temp_skill_name)
+        details = output["details"]
+        assert details["skill_name"] == temp_skill_name
+        assert details["validation"] == "passed"
+        assert details["registry_updated"] is True
 
         # Verify files were created
         skill_path = BASE_PATH / "skills" / temp_skill_name
@@ -110,7 +113,9 @@ class TestSkillCreateIntegration:
 
         assert result.returncode == 0
         output = parse_json_output(result.stdout)
+        assert output["ok"] is True
         assert output["status"] == "success"
+        assert output["details"]["skill_name"] == temp_skill_name
 
 
 class TestSkillDefineIntegration:
@@ -130,8 +135,10 @@ class TestSkillDefineIntegration:
 
         assert result.returncode == 0
         output = parse_json_output(result.stdout)
-        assert output["valid"] is True
-        assert output["manifest"]["name"] == "skill.create"
+        assert output["ok"] is True
+        details = output["details"]
+        assert details["valid"] is True
+        assert details["manifest"]["name"] == "skill.create"
 
     def test_validate_nonexistent_file(self):
         """Test validation with non-existent file."""
@@ -147,7 +154,9 @@ class TestSkillDefineIntegration:
 
         assert result.returncode == 1
         output = parse_json_output(result.stdout)
-        assert "error" in output
+        assert output["ok"] is False
+        assert output["status"] == "failed"
+        assert output["errors"]
 
 
 class TestRegistryUpdateIntegration:
@@ -167,8 +176,10 @@ class TestRegistryUpdateIntegration:
 
         assert result.returncode == 0
         output = parse_json_output(result.stdout)
-        assert output["status"] == "success"
-        assert output["updated"] == "workflow.compose"
+        assert output["ok"] is True
+        details = output["details"]
+        assert details["status"] == "success"
+        assert details["updated"] == "workflow.compose"
 
 
 class TestWorkflowComposeIntegration:
@@ -206,10 +217,48 @@ class TestWorkflowComposeIntegration:
 
         assert result.returncode == 0
         output = parse_json_output(result.stdout)
-        assert output["status"] == "success"
-        assert len(output["steps"]) == 1
-        assert output["steps"][0]["skill"] == "skill.define"
-        assert output["steps"][0]["status"] == "success"
+        assert output["ok"] is True
+        details = output["details"]
+        assert details["status"] == "success"
+        assert len(details["steps"]) == 1
+        assert details["steps"][0]["skill"] == "skill.define"
+        assert details["steps"][0]["status"] == "success"
+
+    def test_workflow_compose_fail_fast(self):
+        """Ensure workflows stop on first failure when fail_fast is true."""
+        failing_workflow_path = BASE_PATH / "workflows" / "temp_fail_fast.yaml"
+        failing_workflow_path.write_text(
+            """steps:
+  - skill: skill.define
+    args: ["nonexistent_skill.yaml"]
+  - skill: skill.define
+    args: ["skills/skill.create/skill.yaml"]
+""",
+            encoding="utf-8",
+        )
+
+        try:
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(BASE_PATH / "skills/workflow.compose/workflow_compose.py"),
+                    str(failing_workflow_path),
+                ],
+                capture_output=True,
+                text=True,
+            )
+
+            assert result.returncode == 1
+            output = parse_json_output(result.stdout)
+            assert output["ok"] is False
+            details = output["details"]
+            assert details["status"] == "failed"
+            assert len(details["steps"]) == 1
+            assert details["steps"][0]["status"] == "failed"
+            assert details["errors"]
+        finally:
+            if failing_workflow_path.exists():
+                failing_workflow_path.unlink()
 
 
 class TestWorkflowValidateIntegration:
@@ -231,8 +280,9 @@ class TestWorkflowValidateIntegration:
 
         assert result.returncode == 0
         output = parse_json_output(result.stdout)
-        assert output["valid"] is True
+        assert output["ok"] is True
         assert output["path"] == str(workflow_file)
+        assert output["details"]["valid"] is True
 
     def test_validate_nonexistent_workflow(self):
         """Test validation with non-existent workflow."""
@@ -248,7 +298,8 @@ class TestWorkflowValidateIntegration:
 
         assert result.returncode == 1
         output = parse_json_output(result.stdout)
-        assert "error" in output or "errors" in output or output.get("valid") is False
+        assert output["ok"] is False
+        assert output["errors"]
 
 
 class TestFullLifecycleIntegration:
@@ -282,6 +333,7 @@ class TestFullLifecycleIntegration:
         )
         assert create_result.returncode == 0
         create_output = parse_json_output(create_result.stdout)
+        assert create_output["ok"] is True
         assert create_output["status"] == "success"
 
         skill_manifest = BASE_PATH / "skills" / temp_skill_name / "skill.yaml"
@@ -299,7 +351,8 @@ class TestFullLifecycleIntegration:
         )
         assert validate_result.returncode == 0
         validate_output = parse_json_output(validate_result.stdout)
-        assert validate_output["valid"] is True
+        assert validate_output["ok"] is True
+        assert validate_output["details"]["valid"] is True
 
         # Step 3: Update registry (redundant but tests registry.update directly)
         registry_result = subprocess.run(
@@ -313,8 +366,8 @@ class TestFullLifecycleIntegration:
         )
         assert registry_result.returncode == 0
         registry_output = parse_json_output(registry_result.stdout)
-        assert registry_output["status"] == "success"
-        assert registry_output["updated"] == temp_skill_name
+        assert registry_output["ok"] is True
+        assert registry_output["details"]["updated"] == temp_skill_name
 
         # Verify skill is in registry
         with open(REGISTRY_FILE) as f:
