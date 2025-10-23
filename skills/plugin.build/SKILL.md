@@ -27,8 +27,10 @@ This eliminates manual packaging errors and ensures consistent, reproducible plu
 3. **Gathers Files**: Collects skills, utilities, registries, and documentation
 4. **Creates Package**: Bundles everything into a versioned archive
 5. **Calculates Checksums**: Generates MD5 and SHA256 hashes
-6. **Generates Report**: Outputs detailed build metrics as JSON
-7. **Reports Issues**: Identifies missing files or validation errors
+6. **Generates Manifest**: Creates manifest.json with entrypoint summary and checksums
+7. **Creates Preview**: Generates plugin.preview.yaml for review before deployment
+8. **Generates Report**: Outputs detailed build metrics as JSON
+9. **Reports Issues**: Identifies missing files or validation errors
 
 ## Usage
 
@@ -100,6 +102,22 @@ Examples:
 
 **Location**: `{output-dir}/{package-name}.{format}`
 
+### Manifest File
+
+**Naming convention**: `manifest.json`
+
+**Location**: `{output-dir}/manifest.json`
+
+Contains plugin metadata, entrypoint summary, and package checksums. This is the primary file for plugin distribution and installation.
+
+### Plugin Preview
+
+**Naming convention**: `plugin.preview.yaml`
+
+**Location**: `{output-dir}/plugin.preview.yaml`
+
+Contains the current plugin configuration for review before deployment. Useful for comparing changes or validating the plugin structure.
+
 ### Build Report
 
 **Naming convention**: `{plugin-name}-{version}-build-report.json`
@@ -142,6 +160,58 @@ betty-framework-1.0.0/
     │   ├── SKILL.md
     │   └── api_validate.py
     └── ... (all other skills)
+```
+
+## Manifest Schema
+
+The `manifest.json` file is the primary metadata file for plugin distribution:
+
+```json
+{
+  "name": "betty-framework",
+  "version": "1.0.0",
+  "description": "Betty Framework - Structured AI-assisted engineering",
+  "author": {
+    "name": "RiskExec",
+    "email": "platform@riskexec.com",
+    "url": "https://github.com/epieczko/betty"
+  },
+  "license": "MIT",
+  "metadata": {
+    "homepage": "https://github.com/epieczko/betty",
+    "repository": "https://github.com/epieczko/betty",
+    "documentation": "https://github.com/epieczko/betty/tree/main/docs",
+    "tags": ["framework", "api-development", "workflow"],
+    "generated_at": "2025-10-23T12:34:56.789012+00:00"
+  },
+  "requirements": {
+    "python": ">=3.11",
+    "packages": ["pyyaml"]
+  },
+  "permissions": ["filesystem:read", "filesystem:write", "process:execute"],
+  "package": {
+    "filename": "betty-framework-1.0.0.tar.gz",
+    "size_bytes": 245760,
+    "checksums": {
+      "md5": "a1b2c3d4e5f6...",
+      "sha256": "1234567890abcdef..."
+    }
+  },
+  "entrypoints": [
+    {
+      "command": "skill/define",
+      "handler": "skills/skill.define/skill_define.py",
+      "runtime": "python"
+    }
+  ],
+  "commands_count": 18,
+  "agents": [
+    {
+      "name": "api.designer",
+      "description": "Design APIs with iterative refinement"
+    }
+  ]
+}
 ```
 
 ## Build Report Schema
@@ -341,15 +411,19 @@ INFO: 🔐 Calculating checksums...
 INFO:   MD5:    a1b2c3d4e5f6...
 INFO:   SHA256: 1234567890ab...
 INFO: 📊 Build report: /home/user/betty/dist/betty-framework-1.0.0-build-report.json
+INFO: 📋 Manifest: /home/user/betty/dist/manifest.json
+INFO: 📋 Preview file created: /home/user/betty/dist/plugin.preview.yaml
 INFO:
 ============================================================
 INFO: 🎉 BUILD COMPLETE
 ============================================================
-INFO: 📦 Package: /home/user/betty/dist/betty-framework-1.0.0.tar.gz
-INFO: 📊 Report:  /home/user/betty/dist/betty-framework-1.0.0-build-report.json
+INFO: 📦 Package:  /home/user/betty/dist/betty-framework-1.0.0.tar.gz
+INFO: 📊 Report:   /home/user/betty/dist/betty-framework-1.0.0-build-report.json
+INFO: 📋 Manifest: /home/user/betty/dist/manifest.json
+INFO: 👁️  Preview:  /home/user/betty/dist/plugin.preview.yaml
 INFO: ✅ Commands: 18/18
-INFO: 📏 Size:    240.00 KB
-INFO: 📝 Files:   127
+INFO: 📏 Size:     240.00 KB
+INFO: 📝 Files:    127
 ============================================================
 ```
 
@@ -534,6 +608,8 @@ Add to GitHub Actions:
 
 - `{output-dir}/{plugin-name}-{version}.{format}` – Created package archive
 - `{output-dir}/{plugin-name}-{version}-build-report.json` – Created build report
+- `{output-dir}/manifest.json` – Created plugin manifest with checksums and entrypoints
+- `{output-dir}/plugin.preview.yaml` – Created plugin preview for review
 
 ## Exit Codes
 
