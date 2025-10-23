@@ -3,7 +3,7 @@ version: 0.1.0
 description: "Validate and register command manifests in the Command Registry"
 
 inputs:
-  - name: command_manifest_path
+  - name: manifest_path
     type: string
     required: true
     description: "Path to the command manifest file (YAML)"
