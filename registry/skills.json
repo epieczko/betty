@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-23T02:30:14.709693+00:00",
+  "generated_at": "2025-10-23T17:06:40.996422+00:00",
   "skills": [
     {
       "name": "skill.define",
@@ -760,6 +760,67 @@
       ],
       "dependencies": [],
       "status": "active"
+    },
+    {
+      "name": "run.agent",
+      "version": "0.1.0",
+      "description": "Simulates execution of a Betty agent by loading its manifest, constructing the prompt, and demonstrating which skills would be invoked. Useful for testing agent design and understanding agent behavior.\n",
+      "inputs": [
+        {
+          "name": "agent_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to agent manifest (agent.yaml) or agent name"
+        },
+        {
+          "name": "input_text",
+          "type": "string",
+          "required": false,
+          "description": "Optional task/query to provide to the agent"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "execution_log",
+          "type": "object",
+          "description": "Details of the simulated agent execution including prompt and skills"
+        }
+      ],
+      "dependencies": [
+        "agent.define"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/agent/run",
+          "handler": "run_agent.py",
+          "runtime": "python",
+          "description": "Simulate execution of an agent manifest. Shows the constructed prompt, mock Claude response, and skills that would be invoked.\n",
+          "parameters": [
+            {
+              "name": "agent_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to agent.yaml file or agent name (e.g., api.designer)"
+            },
+            {
+              "name": "input_text",
+              "type": "string",
+              "required": false,
+              "description": "Optional input text to provide to the agent"
+            }
+          ],
+          "permissions": [
+            "filesystem:read"
+          ]
+        }
+      ],
+      "tags": [
+        "agents",
+        "simulation",
+        "testing",
+        "layer2"
+      ]
     }
   ]
 }

@@ -222,14 +222,21 @@ def execute_workflow(workflow_file: str) -> Dict[str, Any]:
     logger.info(f"Total steps: {len(steps)}")
     failed_steps: List[Dict[str, Any]] = []
     for i, step in enumerate(steps, 1):
+        # Support both 'skill' and 'agent' step types
+        is_agent_step = "agent" in step
+        is_skill_step = "skill" in step
+
         step_log: Dict[str, Any] = {
             "step_number": i,
-            "skill": step.get("skill"),
+            "skill": step.get("skill") if is_skill_step else None,
+            "agent": step.get("agent") if is_agent_step else None,
             "args": step.get("args", []),
             "status": "pending",
         }
-        if "skill" not in step:
-            error = f"Step {i} missing required 'skill' field"
+
+        # Validate step has either skill or agent field
+        if not is_skill_step and not is_agent_step:
+            error = f"Step {i} missing required 'skill' or 'agent' field"
             logger.error(error)
             step_log["status"] = "failed"
             step_log["errors"] = [error]
@@ -239,10 +246,34 @@ def execute_workflow(workflow_file: str) -> Dict[str, Any]:
             if fail_fast:
                 break
             continue
-        skill_name = step["skill"]
-        handler = get_skill_handler_path(skill_name)
-        args = step.get("args", [])
-        logger.info(f"\n=== Step {i}/{len(steps)}: Executing {skill_name} ===")
+
+        if is_skill_step and is_agent_step:
+            error = f"Step {i} cannot have both 'skill' and 'agent' fields"
+            logger.error(error)
+            step_log["status"] = "failed"
+            step_log["errors"] = [error]
+            aggregated_errors.append(error)
+            failed_steps.append({"step": i, "error": error})
+            log["steps"].append(step_log)
+            if fail_fast:
+                break
+            continue
+
+        # Handle agent steps by delegating to run.agent skill
+        if is_agent_step:
+            agent_name = step["agent"]
+            input_text = step.get("input", "")
+            skill_name = "run.agent"
+            handler = get_skill_handler_path(skill_name)
+            args = [agent_name]
+            if input_text:
+                args.append(input_text)
+            logger.info(f"\n=== Step {i}/{len(steps)}: Executing agent {agent_name} via run.agent ===")
+        else:
+            skill_name = step["skill"]
+            handler = get_skill_handler_path(skill_name)
+            args = step.get("args", [])
+            logger.info(f"\n=== Step {i}/{len(steps)}: Executing {skill_name} ===")
         try:
             step_start_time = datetime.now(timezone.utc)
             execution_result = run_skill(handler, args)
