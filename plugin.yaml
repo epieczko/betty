@@ -25,10 +25,10 @@ metadata:
   - enterprise
   - skills
   - agents
-  generated_at: '2025-10-23T17:49:55.735067+00:00'
+  generated_at: '2025-10-23T18:07:31.603260+00:00'
   generated_by: plugin.sync skill
-  skill_count: 16
-  command_count: 15
+  skill_count: 17
+  command_count: 16
 requirements:
   python: '>=3.11'
   packages:
@@ -233,6 +233,18 @@ commands:
   handler:
     runtime: python
     script: skills/plugin.sync/plugin_sync.py
+  parameters: []
+  permissions:
+  - filesystem:read
+  - filesystem:write
+- name: marketplace/generate
+  description: 'Generate marketplace catalogs from registry files. Filters by status:
+    active and certified: true.
+
+    '
+  handler:
+    runtime: python
+    script: skills/generate.marketplace/generate_marketplace.py
   parameters: []
   permissions:
   - filesystem:read
