@@ -1,0 +1,58 @@
+name: plugin.build
+version: 0.1.0
+description: >
+  Automatically bundle a plugin directory (or the whole repo) into a deployable Claude Code plugin package.
+  Gathers all declared entrypoints, validates handler files exist, and packages everything into .tar.gz or .zip under /dist.
+inputs:
+  - name: plugin_path
+    type: string
+    required: false
+    description: Path to plugin.yaml (defaults to ./plugin.yaml)
+  - name: output_format
+    type: string
+    required: false
+    description: Package format (tar.gz or zip, defaults to tar.gz)
+  - name: output_dir
+    type: string
+    required: false
+    description: Output directory (defaults to ./dist)
+outputs:
+  - name: plugin_package
+    type: file
+    description: Packaged plugin archive (.tar.gz or .zip)
+  - name: build_report
+    type: object
+    description: JSON report with validated entrypoints, missing files, and package checksum
+dependencies:
+  - plugin.sync
+status: active
+
+entrypoints:
+  - command: /plugin/build
+    handler: plugin_build.py
+    runtime: python
+    description: >
+      Bundle plugin directory into deployable package. Validates all entrypoints and handlers before packaging.
+    parameters:
+      - name: plugin_path
+        type: string
+        required: false
+        description: Path to plugin.yaml (defaults to ./plugin.yaml)
+      - name: output_format
+        type: string
+        required: false
+        description: Package format (tar.gz or zip, defaults to tar.gz)
+      - name: output_dir
+        type: string
+        required: false
+        description: Output directory (defaults to ./dist)
+    permissions:
+      - filesystem:read
+      - filesystem:write
+
+tags:
+  - plugin
+  - packaging
+  - build
+  - deployment
+  - distribution
