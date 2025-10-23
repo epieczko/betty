@@ -17,6 +17,7 @@ from betty.file_utils import safe_update_json
 from betty.validation import validate_path
 from betty.logging_utils import setup_logger
 from betty.errors import WorkflowError, format_error_response
+from betty.telemetry_capture import capture_skill_execution
 logger = setup_logger(__name__)
 
 
@@ -316,6 +317,19 @@ def execute_workflow(workflow_file: str) -> Dict[str, Any]:
                     "total_steps": len(steps),
                 }
             )
+
+            # Capture telemetry for this step
+            capture_skill_execution(
+                skill_name=skill_name,
+                inputs={"args": args},
+                status="success" if execution_result["returncode"] == 0 else "failed",
+                duration_ms=step_duration_ms,
+                workflow=os.path.basename(workflow_file),
+                caller="workflow.compose",
+                error=step_errors[0] if step_errors else None,
+                step_number=i,
+                total_steps=len(steps),
+            )
             if execution_result["returncode"] != 0:
                 failed_steps.append({
                     "step": i,
@@ -365,6 +379,20 @@ def execute_workflow(workflow_file: str) -> Dict[str, Any]:
                 }
             )
 
+            # Capture telemetry for failed step
+            capture_skill_execution(
+                skill_name=skill_name,
+                inputs={"args": args},
+                status="failed",
+                duration_ms=0,  # No duration available for exception cases
+                workflow=os.path.basename(workflow_file),
+                caller="workflow.compose",
+                error=error_msg,
+                step_number=i,
+                total_steps=len(steps),
+                error_type="WorkflowError",
+            )
+
             if fail_fast:
                 break
     if failed_steps:
@@ -394,6 +422,20 @@ def execute_workflow(workflow_file: str) -> Dict[str, Any]:
             "total_steps": len(steps),
             "failed_steps": len(failed_steps),
         }
+    )
+
+    # Capture telemetry for overall workflow
+    capture_skill_execution(
+        skill_name="workflow.compose",
+        inputs={"workflow_file": workflow_file},
+        status=log["status"],
+        duration_ms=workflow_duration_ms or 0,
+        caller="cli",
+        error=aggregated_errors[0] if aggregated_errors else None,
+        workflow=os.path.basename(workflow_file),
+        total_steps=len(steps),
+        failed_steps=len(failed_steps),
+        completed_steps=len(steps) - len(failed_steps),
     )
 
     if log["status"] == "success":

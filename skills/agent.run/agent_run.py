@@ -27,6 +27,7 @@ from betty.config import (
 from betty.validation import validate_path
 from betty.logging_utils import setup_logger
 from betty.errors import BettyError, format_error_response
+from betty.telemetry_capture import capture_skill_execution, capture_audit_entry
 
 logger = setup_logger(__name__)
 
@@ -481,6 +482,9 @@ def run_agent(
     """
     logger.info(f"Running agent: {agent_path}")
 
+    # Track execution time for telemetry
+    start_time = datetime.now(timezone.utc)
+
     try:
         # Load agent manifest
         agent_manifest = load_agent_manifest(agent_path)
@@ -551,6 +555,40 @@ def run_agent(
             log_path = save_execution_log(agent_name, execution_data)
             execution_data["log_path"] = log_path
 
+        # Calculate execution duration
+        end_time = datetime.now(timezone.utc)
+        duration_ms = int((end_time - start_time).total_seconds() * 1000)
+
+        # Capture telemetry for successful agent execution
+        capture_skill_execution(
+            skill_name="agent.run",
+            inputs={
+                "agent": agent_name,
+                "task_context": task_context or "No task provided",
+            },
+            status="success" if execution_data["summary"]["success"] else "failed",
+            duration_ms=duration_ms,
+            agent=agent_name,
+            caller="cli",
+            reasoning_mode=reasoning_mode,
+            skills_planned=len(skills_plan),
+            skills_executed=len(execution_results),
+        )
+
+        # Log audit entry for agent execution
+        capture_audit_entry(
+            skill_name="agent.run",
+            status="success" if execution_data["summary"]["success"] else "failed",
+            duration_ms=duration_ms,
+            errors=None,
+            metadata={
+                "agent": agent_name,
+                "reasoning_mode": reasoning_mode,
+                "skills_executed": len(execution_results),
+                "task_context": task_context or "No task provided",
+            }
+        )
+
         return build_response(
             ok=True,
             details=execution_data
@@ -559,6 +597,33 @@ def run_agent(
     except BettyError as e:
         logger.error(f"Agent execution failed: {e}")
         error_info = format_error_response(e, include_traceback=False)
+
+        # Calculate execution duration for failed case
+        end_time = datetime.now(timezone.utc)
+        duration_ms = int((end_time - start_time).total_seconds() * 1000)
+
+        # Capture telemetry for failed agent execution
+        capture_skill_execution(
+            skill_name="agent.run",
+            inputs={"agent_path": agent_path},
+            status="failed",
+            duration_ms=duration_ms,
+            caller="cli",
+            error=str(e),
+        )
+
+        # Log audit entry for failed agent execution
+        capture_audit_entry(
+            skill_name="agent.run",
+            status="failed",
+            duration_ms=duration_ms,
+            errors=[str(e)],
+            metadata={
+                "agent_path": agent_path,
+                "error_type": "BettyError",
+            }
+        )
+
         return build_response(
             ok=False,
             errors=[str(e)],
@@ -567,6 +632,33 @@ def run_agent(
     except Exception as e:
         logger.error(f"Unexpected error: {e}", exc_info=True)
         error_info = format_error_response(e, include_traceback=True)
+
+        # Calculate execution duration for failed case
+        end_time = datetime.now(timezone.utc)
+        duration_ms = int((end_time - start_time).total_seconds() * 1000)
+
+        # Capture telemetry for unexpected error
+        capture_skill_execution(
+            skill_name="agent.run",
+            inputs={"agent_path": agent_path},
+            status="failed",
+            duration_ms=duration_ms,
+            caller="cli",
+            error=str(e),
+        )
+
+        # Log audit entry for unexpected error
+        capture_audit_entry(
+            skill_name="agent.run",
+            status="failed",
+            duration_ms=duration_ms,
+            errors=[f"Unexpected error: {str(e)}"],
+            metadata={
+                "agent_path": agent_path,
+                "error_type": type(e).__name__,
+            }
+        )
+
         return build_response(
             ok=False,
             errors=[f"Unexpected error: {str(e)}"],
