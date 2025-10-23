@@ -1,78 +1,9 @@
 {
   "marketplace_version": "1.0.0",
-  "generated_at": "2025-10-23T17:04:26.317395+00:00",
+  "generated_at": "2025-10-23T17:32:13.384976+00:00",
   "description": "Betty Framework Certified Agents Marketplace",
-  "total_agents": 2,
+  "total_agents": 0,
   "certified_count": 0,
-  "draft_count": 2,
-  "catalog": [
-    {
-      "name": "api.analyzer",
-      "version": "0.1.0",
-      "description": "Analyze API specifications for backward compatibility and breaking changes",
-      "status": "draft",
-      "tags": [
-        "api",
-        "analysis",
-        "compatibility",
-        "versioning",
-        "oneshot"
-      ],
-      "maintainer": "Betty Core Team",
-      "usage_examples": [
-        "Analyze API compatibility: Ask Claude to use api.analyzer agent",
-        "Generate breaking change report between versions"
-      ],
-      "documentation_url": "https://betty-framework.dev/docs/agents/api-analyzer",
-      "reasoning_mode": "oneshot",
-      "skills_available": [
-        "api.compatibility",
-        "api.validate"
-      ],
-      "capabilities": [
-        "Detect breaking changes between API versions",
-        "Generate detailed compatibility reports",
-        "Identify removed or modified endpoints",
-        "Suggest migration paths for breaking changes",
-        "Validate API evolution best practices"
-      ],
-      "dependencies": []
-    },
-    {
-      "name": "api.designer",
-      "version": "0.1.0",
-      "description": "Design RESTful APIs following enterprise guidelines with iterative refinement",
-      "status": "draft",
-      "tags": [
-        "api",
-        "design",
-        "openapi",
-        "zalando",
-        "iterative"
-      ],
-      "maintainer": "Betty Core Team",
-      "usage_examples": [
-        "Design new API from requirements: Ask Claude to use api.designer agent",
-        "Generate OpenAPI spec with Zalando guidelines applied"
-      ],
-      "documentation_url": "https://betty-framework.dev/docs/agents/api-designer",
-      "reasoning_mode": "iterative",
-      "skills_available": [
-        "api.define",
-        "api.validate",
-        "api.generate-models",
-        "api.compatibility"
-      ],
-      "capabilities": [
-        "Design RESTful APIs from natural language requirements",
-        "Apply Zalando guidelines automatically",
-        "Generate OpenAPI 3.1 specs with best practices",
-        "Iteratively refine based on validation feedback",
-        "Handle AsyncAPI for event-driven architectures"
-      ],
-      "dependencies": [
-        "context.schema"
-      ]
-    }
-  ]
+  "draft_count": 0,
+  "catalog": []
 }

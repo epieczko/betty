@@ -1,10 +1,10 @@
 {
   "marketplace_version": "1.0.0",
-  "generated_at": "2025-10-23T17:04:26.315783+00:00",
+  "generated_at": "2025-10-23T17:32:13.383881+00:00",
   "description": "Betty Framework Certified Skills Marketplace",
-  "total_skills": 18,
-  "certified_count": 14,
-  "draft_count": 4,
+  "total_skills": 15,
+  "certified_count": 15,
+  "draft_count": 0,
   "catalog": [
     {
       "name": "agent.define",
@@ -641,6 +641,70 @@
       ]
     },
     {
+      "name": "run.agent",
+      "version": "0.1.0",
+      "description": "Simulates execution of a Betty agent by loading its manifest, constructing the prompt, and demonstrating which skills would be invoked. Useful for testing agent design and understanding agent behavior.\n",
+      "status": "certified",
+      "tags": [
+        "agents",
+        "simulation",
+        "testing",
+        "layer2"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/run.agent",
+      "dependencies": [
+        "agent.define"
+      ],
+      "entrypoints": [
+        {
+          "command": "/agent/run",
+          "handler": "run_agent.py",
+          "runtime": "python",
+          "description": "Simulate execution of an agent manifest. Shows the constructed prompt, mock Claude response, and skills that would be invoked.\n",
+          "parameters": [
+            {
+              "name": "agent_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to agent.yaml file or agent name (e.g., api.designer)"
+            },
+            {
+              "name": "input_text",
+              "type": "string",
+              "required": false,
+              "description": "Optional input text to provide to the agent"
+            }
+          ],
+          "permissions": [
+            "filesystem:read"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "agent_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to agent manifest (agent.yaml) or agent name"
+        },
+        {
+          "name": "input_text",
+          "type": "string",
+          "required": false,
+          "description": "Optional task/query to provide to the agent"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "execution_log",
+          "type": "object",
+          "description": "Details of the simulated agent execution including prompt and skills"
+        }
+      ]
+    },
+    {
       "name": "skill.create",
       "version": "0.1.0",
       "description": "Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\n",
@@ -710,7 +774,7 @@
     {
       "name": "skill.define",
       "version": "0.1.0",
-      "description": "Validates and registers skill manifests for the Betty Framework",
+      "description": "Validates and registers skill manifests (.skill.yaml) for the Betty Framework. Ensures schema compliance and updates the Skill Registry.\n",
       "status": "certified",
       "tags": [],
       "maintainer": "Betty Core Team",
@@ -720,69 +784,34 @@
       ],
       "documentation_url": "https://betty-framework.dev/docs/skills/define",
       "dependencies": [],
-      "entrypoints": [],
+      "entrypoints": [
+        {
+          "command": "/skill/define",
+          "handler": "skill_define.py",
+          "runtime": "python",
+          "description": "Validate a Claude Code skill manifest and register it in the Betty Skill Registry.\n",
+          "parameters": [
+            {
+              "name": "manifest_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to the skill.yaml file to validate."
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ],
       "inputs": [
-        "skill_manifest_path"
+        "manifest_path"
       ],
       "outputs": [
         "validation_result.json",
         "updated_registry.json"
       ]
-    },
-    {
-      "name": "test.example",
-      "version": "0.1.0",
-      "description": "Example skill for testing workflow orchestration",
-      "status": "draft",
-      "tags": [],
-      "maintainer": "Community",
-      "usage_examples": [],
-      "documentation_url": "https://betty-framework.dev/docs/skills/test.example",
-      "dependencies": [],
-      "entrypoints": []
-    },
-    {
-      "name": "test.hello",
-      "version": "0.1.0",
-      "description": "A simple test skill that prints hello world",
-      "status": "draft",
-      "tags": [],
-      "maintainer": "Community",
-      "usage_examples": [],
-      "documentation_url": "https://betty-framework.dev/docs/skills/test.hello",
-      "dependencies": [],
-      "entrypoints": []
-    },
-    {
-      "name": "test.integration.temp",
-      "version": "0.1.0",
-      "description": "Test skill with IO",
-      "status": "draft",
-      "tags": [],
-      "maintainer": "Community",
-      "usage_examples": [],
-      "documentation_url": "https://betty-framework.dev/docs/skills/test.integration.temp",
-      "dependencies": [],
-      "entrypoints": [],
-      "inputs": [
-        "input1",
-        "input2"
-      ],
-      "outputs": [
-        "output1"
-      ]
-    },
-    {
-      "name": "test.lifecycle.complete",
-      "version": "0.1.0",
-      "description": "Lifecycle test skill",
-      "status": "draft",
-      "tags": [],
-      "maintainer": "Community",
-      "usage_examples": [],
-      "documentation_url": "https://betty-framework.dev/docs/skills/test.lifecycle.complete",
-      "dependencies": [],
-      "entrypoints": []
     },
     {
       "name": "workflow.compose",
