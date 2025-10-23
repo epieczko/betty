@@ -21,6 +21,20 @@ REQUIRED_FIELDS = ["steps"]
 STEP_REQUIRED_FIELDS = ["skill", "args"]
 
 
+def build_response(ok: bool, path: str, errors: Optional[List[str]] = None, details: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    response: Dict[str, Any] = {
+        "ok": ok,
+        "status": "success" if ok else "failed",
+        "errors": errors or [],
+        "path": path,
+    }
+
+    if details is not None:
+        response["details"] = details
+
+    return response
+
+
 def _load_workflow(path: str) -> Dict[str, Any]:
     """Load a workflow YAML file into a dictionary."""
     try:
@@ -108,22 +122,46 @@ def main(argv: Optional[List[str]] = None) -> int:
     if len(argv) != 1:
         message = "Usage: workflow_validate.py <workflow.yaml>"
         logger.error(message)
-        print(json.dumps({"valid": False, "errors": [message], "status": "failed"}, indent=2))
+        response = build_response(
+            False,
+            path="",
+            errors=[message],
+            details={"error": {"error": "UsageError", "message": message, "details": {}}},
+        )
+        print(json.dumps(response, indent=2))
         return 1
 
     workflow_path = argv[0]
 
     try:
         result = validate_workflow(workflow_path)
-        print(json.dumps(result, indent=2))
-        return 0 if result["valid"] else 1
+        response = build_response(
+            result.get("valid", False),
+            path=result.get("path", workflow_path),
+            errors=result.get("errors", []),
+            details=result,
+        )
+        print(json.dumps(response, indent=2))
+        return 0 if response["ok"] else 1
     except (SkillValidationError, WorkflowError) as exc:
         logger.error("Validation failed: %s", exc)
-        print(json.dumps({"valid": False, "errors": [str(exc)], "status": "failed"}, indent=2))
+        response = build_response(
+            False,
+            path=workflow_path,
+            errors=[str(exc)],
+            details={"error": {"error": type(exc).__name__, "message": str(exc), "details": {}}},
+        )
+        print(json.dumps(response, indent=2))
         return 1
     except Exception as exc:  # pragma: no cover - unexpected failures
         logger.exception("Unexpected error during workflow validation")
-        print(json.dumps({"valid": False, "errors": [str(exc)], "status": "failed"}, indent=2))
+        response = build_response(
+            False,
+            path=workflow_path,
+            errors=[str(exc)],
+            details={"error": {"error": type(exc).__name__, "message": str(exc)}},
+        )
+        print(json.dumps(response, indent=2))
         return 1
 
 

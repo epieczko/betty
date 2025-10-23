@@ -9,7 +9,7 @@ import sys
 import json
 import yaml
 import subprocess
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from datetime import datetime, timezone
 
 # Add parent directory to path for imports
@@ -21,6 +21,20 @@ from betty.logging_utils import setup_logger
 from betty.errors import SkillValidationError, format_error_response
 
 logger = setup_logger(__name__)
+
+
+def build_response(ok: bool, path: str, errors: Optional[List[str]] = None, details: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    response: Dict[str, Any] = {
+        "ok": ok,
+        "status": "success" if ok else "failed",
+        "errors": errors or [],
+        "path": path,
+    }
+
+    if details is not None:
+        response["details"] = details
+
+    return response
 
 
 def load_skill_manifest(path: str) -> Dict[str, Any]:
@@ -131,39 +145,66 @@ def delegate_to_registry_update(manifest_path: str) -> bool:
 def main():
     """Main CLI entry point."""
     if len(sys.argv) < 2:
-        error = {
-            "error": "UsageError",
-            "message": "Usage: skill_define.py <path_to_skill.yaml>",
-            "details": {}
-        }
-        print(json.dumps(error, indent=2))
+        message = "Usage: skill_define.py <path_to_skill.yaml>"
+        response = build_response(
+            False,
+            path="",
+            errors=[message],
+            details={"error": {"error": "UsageError", "message": message, "details": {}}},
+        )
+        print(json.dumps(response, indent=2))
         sys.exit(1)
 
     path = sys.argv[1]
 
     try:
-        result = validate_manifest(path)
+        validation = validate_manifest(path)
+        details = dict(validation)
 
-        if result["valid"]:
-            # Delegate to registry.update
+        if validation.get("valid"):
             registry_updated = delegate_to_registry_update(path)
-            result["status"] = "registered" if registry_updated else "validated"
-            result["registry_updated"] = registry_updated
+            details["status"] = "registered" if registry_updated else "validated"
+            details["registry_updated"] = registry_updated
 
-        print(json.dumps(result, indent=2))
+        errors: List[str] = []
+        if not validation.get("valid"):
+            if validation.get("missing"):
+                errors.append("Missing required fields: " + ", ".join(validation["missing"]))
+            if validation.get("error"):
+                errors.append(str(validation["error"]))
 
-        # Exit with error code if validation failed
-        if not result["valid"]:
-            sys.exit(1)
+        response = build_response(
+            bool(validation.get("valid")),
+            path=path,
+            errors=errors,
+            details=details,
+        )
+        print(json.dumps(response, indent=2))
+        sys.exit(0 if response["ok"] else 1)
 
     except SkillValidationError as e:
         logger.error(str(e))
-        print(json.dumps(format_error_response(e), indent=2))
+        error_info = format_error_response(e)
+        response = build_response(
+            False,
+            path=path,
+            errors=[error_info.get("message", str(e))],
+            details={"error": error_info},
+        )
+        print(json.dumps(response, indent=2))
         sys.exit(1)
     except Exception as e:
         logger.error(f"Unexpected error: {e}")
-        print(json.dumps(format_error_response(e, include_traceback=True), indent=2))
+        error_info = format_error_response(e, include_traceback=True)
+        response = build_response(
+            False,
+            path=path,
+            errors=[error_info.get("message", str(e))],
+            details={"error": error_info},
+        )
+        print(json.dumps(response, indent=2))
         sys.exit(1)
+
 
 
 if __name__ == "__main__":
