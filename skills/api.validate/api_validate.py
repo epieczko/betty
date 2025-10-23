@@ -21,6 +21,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 from betty.logging_utils import setup_logger
 from betty.errors import format_error_response, BettyError
 from betty.validation import validate_path
+from betty.telemetry_capture import telemetry_decorator
 
 logger = setup_logger(__name__)
 
@@ -276,6 +277,7 @@ def format_validation_output(report: Dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+@telemetry_decorator(skill_name="api.validate", caller="cli")
 def main():
     parser = argparse.ArgumentParser(
         description="Validate API specifications against enterprise guidelines"

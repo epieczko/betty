@@ -20,6 +20,7 @@ from betty.file_utils import safe_update_json
 from betty.validation import validate_path
 from betty.logging_utils import setup_logger
 from betty.errors import RegistryError, format_error_response
+from betty.telemetry_capture import capture_execution
 
 logger = setup_logger(__name__)
 
@@ -156,6 +157,15 @@ def update_registry_data(manifest_path: str) -> Dict[str, Any]:
     skill_name = manifest["name"]
     logger.info(f"Updating registry with skill: {skill_name}")
 
+    # Capture registry state before update for diff tracking
+    registry_before = None
+    try:
+        if os.path.exists(REGISTRY_FILE):
+            with open(REGISTRY_FILE, 'r') as f:
+                registry_before = json.load(f)
+    except Exception:
+        pass  # Ignore errors reading before state
+
     def update_fn(registry_data):
         """Update function for safe_update_json."""
         # Ensure registry has proper structure
@@ -188,19 +198,54 @@ def update_registry_data(manifest_path: str) -> Dict[str, Any]:
     }
 
     try:
-        # Use safe atomic update with file locking
-        updated_registry = safe_update_json(REGISTRY_FILE, update_fn, default=default_registry)
+        # Capture telemetry with diff tracking
+        with capture_execution(
+            skill_name="registry.update",
+            inputs={"manifest_path": manifest_path, "skill_name": skill_name},
+            caller="cli"
+        ) as ctx:
+            # Use safe atomic update with file locking
+            updated_registry = safe_update_json(REGISTRY_FILE, update_fn, default=default_registry)
 
-        result = {
-            "status": "success",
-            "updated": skill_name,
-            "registry_path": REGISTRY_FILE,
-            "total_skills": len(updated_registry["skills"]),
-            "timestamp": datetime.now(timezone.utc).isoformat()
-        }
+            # Calculate diff for telemetry
+            registry_diff = None
+            if registry_before:
+                skills_before = {s.get("name"): s for s in registry_before.get("skills", [])}
+                skills_after = {s.get("name"): s for s in updated_registry.get("skills", [])}
 
-        logger.info(f"✅ Successfully updated registry for: {skill_name}")
-        return result
+                # Determine if this was an add, update, or no change
+                if skill_name not in skills_before:
+                    operation = "add"
+                elif skills_before.get(skill_name) != skills_after.get(skill_name):
+                    operation = "update"
+                else:
+                    operation = "no_change"
+
+                registry_diff = {
+                    "operation": operation,
+                    "skill_name": skill_name,
+                    "skills_before": len(skills_before),
+                    "skills_after": len(skills_after),
+                }
+
+            # Add metadata to telemetry
+            ctx.set_metadata(
+                registry_path=REGISTRY_FILE,
+                total_skills=len(updated_registry["skills"]),
+                policy_enforced=True,
+                diff=registry_diff,
+            )
+
+            result = {
+                "status": "success",
+                "updated": skill_name,
+                "registry_path": REGISTRY_FILE,
+                "total_skills": len(updated_registry["skills"]),
+                "timestamp": datetime.now(timezone.utc).isoformat()
+            }
+
+            logger.info(f"✅ Successfully updated registry for: {skill_name}")
+            return result
 
     except Exception as e:
         logger.error(f"Failed to update registry: {e}")
