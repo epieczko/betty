@@ -1,6 +1,6 @@
 {
   "marketplace_version": "1.0.0",
-  "generated_at": "2025-10-23T17:32:13.383881+00:00",
+  "generated_at": "2025-10-23T17:43:24.090933+00:00",
   "description": "Betty Framework Certified Skills Marketplace",
   "total_skills": 15,
   "certified_count": 15,
@@ -620,7 +620,7 @@
           "description": "Add or update entries in the Skill Registry.\n",
           "parameters": [
             {
-              "name": "skill_manifest.yaml",
+              "name": "manifest_path",
               "type": "string",
               "required": true,
               "description": "Path to the skill manifest (.skill.yaml) being added or updated."
@@ -634,7 +634,7 @@
         }
       ],
       "inputs": [
-        "skill_manifest.yaml"
+        "manifest_path"
       ],
       "outputs": [
         "registry_update_result.json"
