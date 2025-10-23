@@ -21,6 +21,7 @@ from betty.config import (
     REGISTRY_FILE,
     AGENTS_REGISTRY_FILE,
     COMMANDS_REGISTRY_FILE,
+    HOOKS_REGISTRY_FILE,
     BASE_DIR
 )
 from betty.logging_utils import setup_logger
@@ -72,7 +73,8 @@ def load_registry(registry_type: str) -> Dict[str, Any]:
     registry_paths = {
         'skills': REGISTRY_FILE,
         'agents': AGENTS_REGISTRY_FILE,
-        'commands': COMMANDS_REGISTRY_FILE
+        'commands': COMMANDS_REGISTRY_FILE,
+        'hooks': HOOKS_REGISTRY_FILE
     }
 
     if registry_type not in registry_paths:
@@ -273,6 +275,13 @@ def extract_key_metadata(entry: Dict[str, Any], registry_type: str) -> Dict[str,
             "parameters": entry.get("parameters", [])
         })
 
+    elif registry_type == "hooks":
+        metadata.update({
+            "event": entry.get("event"),
+            "command": entry.get("command"),
+            "enabled": entry.get("enabled", True)
+        })
+
     return metadata
 
 
@@ -385,11 +394,11 @@ def query_registry(
 
     # Normalize registry type
     registry = registry.lower()
-    if registry not in ['skills', 'agents', 'commands']:
+    if registry not in ['skills', 'agents', 'commands', 'hooks']:
         raise BettyError(
             f"Invalid registry: {registry}",
             details={
-                "valid_registries": ["skills", "agents", "commands"],
+                "valid_registries": ["skills", "agents", "commands", "hooks"],
                 "provided": registry
             }
         )
@@ -443,6 +452,106 @@ def query_registry(
     )
 
 
+def format_table(results: List[Dict[str, Any]], registry_type: str) -> str:
+    """
+    Format results as an aligned table.
+
+    Args:
+        results: List of matching entries
+        registry_type: Type of registry
+
+    Returns:
+        Formatted table string
+    """
+    if not results:
+        return "No matching entries found."
+
+    # Define columns based on registry type
+    if registry_type == "skills":
+        columns = ["Name", "Version", "Status", "Tags", "Commands"]
+    elif registry_type == "agents":
+        columns = ["Name", "Version", "Status", "Tags", "Reasoning", "Skills"]
+    elif registry_type == "commands":
+        columns = ["Name", "Version", "Status", "Tags", "Execution Type"]
+    elif registry_type == "hooks":
+        columns = ["Name", "Version", "Status", "Event", "Command", "Enabled"]
+    else:
+        columns = ["Name", "Version", "Status", "Description"]
+
+    # Extract data for each column
+    rows = []
+    for entry in results:
+        if registry_type == "skills":
+            commands = [ep.get('command', '') for ep in entry.get('entrypoints', [])]
+            row = [
+                entry.get('name', ''),
+                entry.get('version', ''),
+                entry.get('status', ''),
+                ', '.join(entry.get('tags', [])[:3]),  # Limit to 3 tags
+                ', '.join(commands[:2])  # Limit to 2 commands
+            ]
+        elif registry_type == "agents":
+            row = [
+                entry.get('name', ''),
+                entry.get('version', ''),
+                entry.get('status', ''),
+                ', '.join(entry.get('tags', [])[:3]),
+                entry.get('reasoning_mode', ''),
+                str(len(entry.get('skills_available', [])))
+            ]
+        elif registry_type == "commands":
+            exec_type = entry.get('execution', {}).get('type', '')
+            row = [
+                entry.get('name', ''),
+                entry.get('version', ''),
+                entry.get('status', ''),
+                ', '.join(entry.get('tags', [])[:3]),
+                exec_type
+            ]
+        elif registry_type == "hooks":
+            row = [
+                entry.get('name', ''),
+                entry.get('version', ''),
+                entry.get('status', ''),
+                entry.get('event', ''),
+                entry.get('command', '')[:40],  # Truncate long commands
+                str(entry.get('enabled', True))
+            ]
+        else:
+            row = [
+                entry.get('name', ''),
+                entry.get('version', ''),
+                entry.get('status', ''),
+                entry.get('description', '')[:50]
+            ]
+        rows.append(row)
+
+    # Calculate column widths
+    col_widths = [len(col) for col in columns]
+    for row in rows:
+        for i, cell in enumerate(row):
+            col_widths[i] = max(col_widths[i], len(str(cell)))
+
+    # Build table
+    lines = []
+    separator = "+" + "+".join("-" * (w + 2) for w in col_widths) + "+"
+
+    # Header
+    lines.append(separator)
+    header = "|" + "|".join(f" {col:<{col_widths[i]}} " for i, col in enumerate(columns)) + "|"
+    lines.append(header)
+    lines.append(separator)
+
+    # Rows
+    for row in rows:
+        row_str = "|" + "|".join(f" {str(cell):<{col_widths[i]}} " for i, cell in enumerate(row)) + "|"
+        lines.append(row_str)
+
+    lines.append(separator)
+
+    return "\n".join(lines)
+
+
 def main():
     """Main CLI entry point."""
     import argparse
@@ -452,11 +561,11 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # List all skills
+  # List all skills (compact format)
   registry_query.py skills
 
-  # Find skills with 'api' tag
-  registry_query.py skills --tag api
+  # Find skills with 'api' tag in table format
+  registry_query.py skills --tag api --format table
 
   # Find agents with 'design' capability
   registry_query.py agents --capability design
@@ -464,17 +573,20 @@ Examples:
   # Find active skills with name containing 'validate'
   registry_query.py skills --name validate --status active
 
+  # Query hooks registry
+  registry_query.py hooks --status active --format table
+
   # Fuzzy search for commands
   registry_query.py commands --name test --fuzzy
 
-  # Limit results
-  registry_query.py skills --tag api --limit 5
+  # Limit results with JSON output
+  registry_query.py skills --tag api --limit 5 --format json
         """
     )
 
     parser.add_argument(
         "registry",
-        choices=["skills", "agents", "commands"],
+        choices=["skills", "agents", "commands", "hooks"],
         help="Registry to query"
     )
     parser.add_argument(
@@ -517,9 +629,10 @@ Examples:
         help="Maximum number of results to return"
     )
     parser.add_argument(
-        "--json",
-        action="store_true",
-        help="Output full JSON response"
+        "--format",
+        choices=["json", "table", "compact"],
+        default="compact",
+        help="Output format (default: compact)"
     )
 
     args = parser.parse_args()
@@ -538,12 +651,27 @@ Examples:
             limit=args.limit
         )
 
-        if args.json:
+        details = result["details"]
+
+        if args.format == "json":
             # Output full JSON
             print(json.dumps(result, indent=2))
+        elif args.format == "table":
+            # Table format
+            print(f"\n{'='*80}")
+            print(f"REGISTRY QUERY: {details['registry'].upper()}")
+            print(f"{'='*80}")
+            print(f"\nTotal entries: {details['total_entries']}")
+            print(f"Matching entries: {details['matching_entries']}\n")
+
+            if details['results']:
+                print(format_table(details['results'], details['registry']))
+            else:
+                print("No matching entries found.")
+
+            print(f"\n{'='*80}\n")
         else:
-            # Pretty print for CLI
-            details = result["details"]
+            # Compact format (original pretty print)
             print(f"\n{'='*80}")
             print(f"REGISTRY QUERY: {details['registry'].upper()}")
             print(f"{'='*80}")
@@ -571,6 +699,10 @@ Examples:
                         if entry.get('capabilities'):
                             print(f"   Capabilities: {len(entry['capabilities'])} capabilities")
                         print(f"   Reasoning: {entry.get('reasoning_mode', 'unknown')}")
+                    elif details['registry'] == 'hooks':
+                        print(f"   Event: {entry.get('event', 'unknown')}")
+                        print(f"   Command: {entry.get('command', 'unknown')}")
+                        print(f"   Enabled: {entry.get('enabled', True)}")
 
                     print()
 

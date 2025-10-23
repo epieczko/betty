@@ -1,15 +1,16 @@
 name: registry.query
 version: 0.1.0
 description: >
-  Search Betty registries programmatically by filtering skills, agents, and commands.
+  Search Betty registries programmatically by filtering skills, agents, commands, and hooks.
   Supports filtering by tags, domain, status, name, version, and capability with optional
-  fuzzy matching for dynamic discovery and CLI autocompletion.
+  fuzzy matching for dynamic discovery and CLI autocompletion. Includes table formatting
+  for easy viewing in CLI.
 
 inputs:
   - name: registry
     type: string
     required: true
-    description: Registry to query (skills, agents, or commands)
+    description: Registry to query (skills, agents, commands, or hooks)
   - name: name
     type: string
     required: false
@@ -46,6 +47,10 @@ inputs:
     type: integer
     required: false
     description: Maximum number of results to return
+  - name: format
+    type: string
+    required: false
+    description: Output format (json, table, compact)
 
 outputs:
   - name: results
@@ -73,7 +78,7 @@ entrypoints:
       - name: registry
         type: string
         required: true
-        description: Registry to query (skills, agents, or commands)
+        description: Registry to query (skills, agents, commands, or hooks)
       - name: name
         type: string
         required: false
@@ -110,6 +115,10 @@ entrypoints:
         type: integer
         required: false
         description: Maximum results to return
+      - name: format
+        type: string
+        required: false
+        description: Output format (json, table, compact)
     permissions:
       - filesystem:read
 
