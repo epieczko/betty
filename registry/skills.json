@@ -920,6 +920,9 @@
         "registry",
         "automation",
         "infrastructure"
+      ]
+    },
+    {
       "name": "agent.run",
       "version": "0.1.0",
       "description": "Execute a registered Betty agent by loading its manifest, generating a Claude-friendly prompt, invoking skills based on the agent's workflow, and logging results. Supports both iterative and oneshot reasoning modes with optional Claude API integration.\n",

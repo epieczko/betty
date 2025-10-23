@@ -78,15 +78,17 @@ def convert_skill_to_marketplace(skill: Dict[str, Any]) -> Dict[str, Any]:
     Returns:
         Skill entry in marketplace format
     """
+    skill_name = skill.get("name")
     marketplace_skill = {
-        "name": skill.get("name"),
+        "name": skill_name,
         "version": skill.get("version"),
         "description": skill.get("description"),
         "status": "certified",  # Transform active -> certified for marketplace
         "tags": skill.get("tags", []),
+        "manifest_path": f"skills/{skill_name}/skill.yaml",
         "maintainer": skill.get("maintainer", "Betty Core Team"),
         "usage_examples": skill.get("usage_examples", []),
-        "documentation_url": f"https://betty-framework.dev/docs/skills/{skill.get('name')}",
+        "documentation_url": f"https://betty-framework.dev/docs/skills/{skill_name}",
         "dependencies": skill.get("dependencies", []),
         "entrypoints": skill.get("entrypoints", []),
         "inputs": skill.get("inputs", []),
@@ -118,8 +120,9 @@ def convert_agent_to_marketplace(agent: Dict[str, Any]) -> Dict[str, Any]:
     Returns:
         Agent entry in marketplace format
     """
+    agent_name = agent.get("name")
     marketplace_agent = {
-        "name": agent.get("name"),
+        "name": agent_name,
         "version": agent.get("version"),
         "description": agent.get("description"),
         "status": "certified",  # Transform active -> certified for marketplace
@@ -127,8 +130,9 @@ def convert_agent_to_marketplace(agent: Dict[str, Any]) -> Dict[str, Any]:
         "skills_available": agent.get("skills_available", []),
         "capabilities": agent.get("capabilities", []),
         "tags": agent.get("tags", []),
+        "manifest_path": f"agents/{agent_name}/agent.yaml",
         "maintainer": agent.get("maintainer", "Betty Core Team"),
-        "documentation_url": f"https://betty-framework.dev/docs/agents/{agent.get('name')}",
+        "documentation_url": f"https://betty-framework.dev/docs/agents/{agent_name}",
         "dependencies": agent.get("dependencies", [])
     }
 
