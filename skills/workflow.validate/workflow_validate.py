@@ -14,6 +14,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../.
 from betty.errors import SkillValidationError, WorkflowError  # noqa: E402
 from betty.logging_utils import setup_logger  # noqa: E402
 from betty.validation import ValidationError, validate_path  # noqa: E402
+from betty.telemetry_integration import telemetry_tracked  # noqa: E402
 
 logger = setup_logger(__name__)
 
@@ -142,6 +143,7 @@ def validate_workflow(path: str) -> Dict[str, Any]:
     return result
 
 
+@telemetry_tracked(skill_name="workflow.validate", caller="cli")
 def main(argv: Optional[List[str]] = None) -> int:
     """Entry point for CLI execution."""
     argv = argv or sys.argv[1:]

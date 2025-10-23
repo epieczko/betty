@@ -24,6 +24,7 @@ AGENTS_REGISTRY_FILE = os.path.join(REGISTRY_DIR, "agents.json")
 COMMANDS_REGISTRY_FILE = os.path.join(REGISTRY_DIR, "commands.json")
 HOOKS_REGISTRY_FILE = os.path.join(REGISTRY_DIR, "hooks.json")
 WORKFLOW_HISTORY_FILE = os.path.join(REGISTRY_DIR, "workflow_history.json")
+TELEMETRY_FILE = os.path.join(REGISTRY_DIR, "telemetry.json")
 
 # Registry configuration
 REGISTRY_VERSION = "1.0.0"
