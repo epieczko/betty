@@ -920,6 +920,9 @@
         "registry",
         "automation",
         "infrastructure"
+      ]
+    },
+    {
       "name": "agent.run",
       "version": "0.1.0",
       "description": "Execute a registered Betty agent by loading its manifest, generating a Claude-friendly prompt, invoking skills based on the agent's workflow, and logging results. Supports both iterative and oneshot reasoning modes with optional Claude API integration.\n",
@@ -1017,6 +1020,173 @@
         "claude-api",
         "orchestration",
         "layer2"
+      ]
+    },
+    {
+      "name": "registry.query",
+      "version": "0.1.0",
+      "description": "Search Betty registries programmatically by filtering skills, agents, and commands. Supports filtering by tags, domain, status, name, version, and capability with optional fuzzy matching for dynamic discovery and CLI autocompletion.",
+      "inputs": [
+        {
+          "name": "registry",
+          "type": "string",
+          "required": true,
+          "description": "Registry to query (skills, agents, or commands)"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Filter by name (substring match, supports fuzzy matching)"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": false,
+          "description": "Filter by version (exact match)"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "description": "Filter by status (e.g., active, draft, deprecated, archived)"
+        },
+        {
+          "name": "tag",
+          "type": "string",
+          "required": false,
+          "description": "Filter by single tag"
+        },
+        {
+          "name": "tags",
+          "type": "array",
+          "required": false,
+          "description": "Filter by multiple tags (any match)"
+        },
+        {
+          "name": "capability",
+          "type": "string",
+          "required": false,
+          "description": "Filter by capability (agents only, substring match)"
+        },
+        {
+          "name": "domain",
+          "type": "string",
+          "required": false,
+          "description": "Filter by domain (alias for tag filtering)"
+        },
+        {
+          "name": "fuzzy",
+          "type": "boolean",
+          "required": false,
+          "description": "Enable fuzzy matching for name and capability filters"
+        },
+        {
+          "name": "limit",
+          "type": "integer",
+          "required": false,
+          "description": "Maximum number of results to return"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "results",
+          "type": "array",
+          "description": "List of matching registry entries with key metadata"
+        },
+        {
+          "name": "query_metadata",
+          "type": "object",
+          "description": "Query statistics including total entries and matching count"
+        },
+        {
+          "name": "registry_info",
+          "type": "object",
+          "description": "Information about the queried registry"
+        }
+      ],
+      "dependencies": [],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/registry/query",
+          "handler": "registry_query.py",
+          "runtime": "python",
+          "description": "Query Betty registries with flexible filtering options. Returns matching entries with key metadata for programmatic use or CLI exploration.",
+          "parameters": [
+            {
+              "name": "registry",
+              "type": "string",
+              "required": true,
+              "description": "Registry to query (skills, agents, or commands)"
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "required": false,
+              "description": "Filter by name (substring match)"
+            },
+            {
+              "name": "version",
+              "type": "string",
+              "required": false,
+              "description": "Filter by version (exact match)"
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "required": false,
+              "description": "Filter by status"
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "required": false,
+              "description": "Filter by single tag"
+            },
+            {
+              "name": "tags",
+              "type": "array",
+              "required": false,
+              "description": "Filter by multiple tags"
+            },
+            {
+              "name": "capability",
+              "type": "string",
+              "required": false,
+              "description": "Filter by capability (agents only)"
+            },
+            {
+              "name": "domain",
+              "type": "string",
+              "required": false,
+              "description": "Filter by domain"
+            },
+            {
+              "name": "fuzzy",
+              "type": "boolean",
+              "required": false,
+              "description": "Enable fuzzy matching"
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "description": "Maximum results to return"
+            }
+          ],
+          "permissions": [
+            "filesystem:read"
+          ]
+        }
+      ],
+      "tags": [
+        "registry",
+        "search",
+        "query",
+        "discovery",
+        "metadata",
+        "cli"
       ]
     }
   ]
