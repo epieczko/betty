@@ -1,0 +1,19 @@
+# GitHub Pages Configuration for Betty Marketplace
+
+# Theme
+theme: jekyll-theme-minimal
+
+# Site settings
+title: Betty Framework Marketplace
+description: Certified skills and agents for the Betty Framework
+show_downloads: true
+
+# Include files
+include:
+  - "*.json"
+  - "*.html"
+
+# Exclude files
+exclude:
+  - README.md
+  - _config.yml
