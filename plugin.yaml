@@ -25,10 +25,10 @@ metadata:
   - enterprise
   - skills
   - agents
-  generated_at: '2025-10-23T17:49:55.735067+00:00'
+  generated_at: '2025-10-23T18:07:10.418058+00:00'
   generated_by: plugin.sync skill
-  skill_count: 16
-  command_count: 15
+  skill_count: 17
+  command_count: 16
 requirements:
   python: '>=3.11'
   packages:
@@ -237,6 +237,33 @@ commands:
   permissions:
   - filesystem:read
   - filesystem:write
+- name: agent/run
+  description: 'Execute a Betty agent with optional task context. Generates Claude-friendly
+    prompts, invokes the Claude API (or simulates), executes planned skills, and logs
+    all results to agent_logs/ directory.
+
+    '
+  handler:
+    runtime: python
+    script: skills/agent.run/agent_run.py
+  parameters:
+  - name: agent_path
+    type: string
+    required: true
+    description: Path to agent.yaml file or agent name (e.g., api.designer)
+  - name: task_context
+    type: string
+    required: false
+    description: Optional task or query for the agent to execute
+  - name: save_log
+    type: boolean
+    required: false
+    default: true
+    description: Save execution log to agent_logs/<agent>_<timestamp>.json
+  permissions:
+  - filesystem:read
+  - filesystem:write
+  - network:http
 agents:
 - name: api.designer
   description: Design APIs with iterative refinement following enterprise guidelines
