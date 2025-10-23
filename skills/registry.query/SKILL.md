@@ -10,26 +10,30 @@ The `registry.query` skill enables programmatic searching of Betty registries (s
 
 ## Features
 
-- **Multi-Registry Support**: Query skills, agents, or commands registries
+- **Multi-Registry Support**: Query skills, agents, commands, or hooks registries
 - **Flexible Filtering**: Filter by name, version, status, tags, domain, and capability
 - **Fuzzy Matching**: Optional fuzzy search for name and capability fields
 - **Result Limiting**: Control the number of results returned
 - **Rich Metadata**: Returns key metadata for each matching entry
-- **JSON Output**: Structured output suitable for programmatic use
+- **Multiple Output Formats**: JSON, table, or compact format for different use cases
+- **Table Formatting**: Aligned column display for easy CLI viewing
 
 ## Usage
 
 ### Command Line
 
 ```bash
-# List all skills
+# List all skills (compact format, default)
 python3 skills/registry.query/registry_query.py skills
 
-# Find skills with 'api' tag
-python3 skills/registry.query/registry_query.py skills --tag api
+# Find skills with 'api' tag in table format
+python3 skills/registry.query/registry_query.py skills --tag api --format table
 
 # Find agents with 'design' capability
 python3 skills/registry.query/registry_query.py agents --capability design
+
+# Query hooks registry
+python3 skills/registry.query/registry_query.py hooks --status active --format table
 
 # Find active skills with name containing 'validate'
 python3 skills/registry.query/registry_query.py skills --name validate --status active
@@ -41,7 +45,7 @@ python3 skills/registry.query/registry_query.py commands --name test --fuzzy
 python3 skills/registry.query/registry_query.py skills --tag api --limit 5
 
 # Get full JSON output
-python3 skills/registry.query/registry_query.py skills --tag validation --json
+python3 skills/registry.query/registry_query.py skills --tag validation --format json
 ```
 
 ### Programmatic Use
@@ -75,7 +79,7 @@ betty registry query agents --capability "API design"
 ### Required
 
 - **`registry`** (string): Registry to query
-  - Valid values: `skills`, `agents`, `commands`
+  - Valid values: `skills`, `agents`, `commands`, `hooks`
 
 ### Optional Filters
 
@@ -88,6 +92,10 @@ betty registry query agents --capability "API design"
 - **`domain`** (string): Filter by domain (alias for tag filter)
 - **`fuzzy`** (boolean): Enable fuzzy matching for name and capability
 - **`limit`** (integer): Maximum number of results to return
+- **`format`** (string): Output format (`json`, `table`, `compact`)
+  - `json`: Full JSON response with all metadata
+  - `table`: Aligned column table for easy reading
+  - `compact`: Detailed list format (default)
 
 ## Output Format
 
@@ -171,6 +179,13 @@ betty registry query agents --capability "API design"
 - `execution`: Execution configuration (type, target)
 - `parameters`: Command parameters
 
+### Hooks
+
+- `name`, `version`, `description`, `status`, `tags`
+- `event`: Hook event trigger (e.g., on_file_edit, on_commit)
+- `command`: Command to execute
+- `enabled`: Whether the hook is enabled
+
 ## Use Cases
 
 ### 1. Dynamic Discovery
@@ -223,7 +238,22 @@ Find agents by capability:
 python3 skills/registry.query/registry_query.py agents --capability "API design"
 ```
 
-### 6. Status Monitoring
+### 6. Hooks Management
+
+Query and monitor hooks:
+
+```bash
+# List all hooks in table format
+python3 skills/registry.query/registry_query.py hooks --format table
+
+# Find hooks by event type
+python3 skills/registry.query/registry_query.py hooks --tag commit
+
+# Find enabled hooks
+python3 skills/registry.query/registry_query.py hooks --status active
+```
+
+### 7. Status Monitoring
 
 Find deprecated or draft entries:
 
@@ -247,7 +277,32 @@ The skill is designed with these future enhancements in mind:
 
 ## Examples
 
-### Example 1: Find all API-related skills
+### Example 1: Find all API-related skills in table format
+
+```bash
+$ python3 skills/registry.query/registry_query.py skills --tag api --format table
+
+================================================================================
+REGISTRY QUERY: SKILLS
+================================================================================
+
+Total entries: 21
+Matching entries: 5
+
++-------------------+---------+--------+---------------------------+-------------------------+
+| Name              | Version | Status | Tags                      | Commands                |
++-------------------+---------+--------+---------------------------+-------------------------+
+| api.define        | 0.1.0   | active | api, openapi, asyncapi    | /api/define             |
+| api.validate      | 0.1.0   | active | api, validation, openapi  | /api/validate           |
+| api.compatibility | 0.1.0   | draft  | api, compatibility        | /api/compatibility      |
+| api.generate      | 0.1.0   | active | api, codegen              | /api/generate           |
+| api.test          | 0.1.0   | draft  | api, testing              | /api/test               |
++-------------------+---------+--------+---------------------------+-------------------------+
+
+================================================================================
+```
+
+### Example 2: Find all API-related skills in compact format
 
 ```bash
 $ python3 skills/registry.query/registry_query.py skills --tag api
@@ -278,7 +333,30 @@ RESULTS:
 ...
 ```
 
-### Example 2: Find agents that can design APIs
+### Example 3: Query hooks registry
+
+```bash
+$ python3 skills/registry.query/registry_query.py hooks --format table
+
+================================================================================
+REGISTRY QUERY: HOOKS
+================================================================================
+
+Total entries: 3
+Matching entries: 3
+
++------------------+---------+--------+------------------+----------------------------------------+---------+
+| Name             | Version | Status | Event            | Command                                | Enabled |
++------------------+---------+--------+------------------+----------------------------------------+---------+
+| pre-commit-lint  | 0.1.0   | active | on_commit        | python3 hooks/lint.py                  | True    |
+| auto-test        | 0.1.0   | active | on_file_save     | pytest tests/                          | True    |
+| telemetry-log    | 0.1.0   | active | on_workflow_end  | python3 hooks/telemetry.py --capture   | True    |
++------------------+---------+--------+------------------+----------------------------------------+---------+
+
+================================================================================
+```
+
+### Example 4: Find agents that can design APIs
 
 ```bash
 $ python3 skills/registry.query/registry_query.py agents --capability design
@@ -302,7 +380,7 @@ RESULTS:
    Reasoning: iterative
 ```
 
-### Example 3: Fuzzy search with limit
+### Example 5: Fuzzy search with limit
 
 ```bash
 $ python3 skills/registry.query/registry_query.py skills --name vld --fuzzy --limit 3
