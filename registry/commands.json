@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-23T02:37:30.480153+00:00",
+  "generated_at": "2025-10-23T16:45:26.170703+00:00",
   "commands": [
     {
       "name": "/test-command",
