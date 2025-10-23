@@ -1,0 +1,96 @@
+name: docs.lint.links
+version: 0.1.0
+description: >
+  Validates Markdown links to detect broken internal or external links,
+  with optional autofix mode to correct common issues.
+
+inputs:
+  - name: root_dir
+    type: string
+    required: false
+    default: "."
+    description: Root directory to search for Markdown files (default: current directory)
+
+  - name: no_external
+    type: boolean
+    required: false
+    default: false
+    description: Skip checking external links (faster)
+
+  - name: autofix
+    type: boolean
+    required: false
+    default: false
+    description: Automatically fix common issues (case mismatches, .md extension issues)
+
+  - name: timeout
+    type: integer
+    required: false
+    default: 10
+    description: Timeout for external link checks in seconds
+
+  - name: exclude
+    type: string
+    required: false
+    description: Comma-separated list of patterns to exclude (e.g., 'node_modules,.git')
+
+  - name: output
+    type: string
+    required: false
+    default: "json"
+    description: Output format (json or text)
+
+outputs:
+  - name: lint_results
+    type: object
+    description: JSON object containing link validation results with issues and statistics
+
+  - name: issues
+    type: array
+    description: Array of link issues found, each with file, line, link, issue type, and suggested fix
+
+  - name: summary
+    type: object
+    description: Summary statistics including files checked, issues found, and fixes applied
+
+dependencies: []
+
+status: active
+
+entrypoints:
+  - command: /docs/lint/links
+    handler: docs_link_lint.py
+    runtime: python
+    description: >
+      Scan all Markdown files and detect broken internal or external links.
+    parameters:
+      - name: root_dir
+        type: string
+        required: false
+        description: Root directory to search (default: current directory)
+      - name: no_external
+        type: boolean
+        required: false
+        description: Skip checking external links
+      - name: autofix
+        type: boolean
+        required: false
+        description: Automatically fix common issues
+      - name: timeout
+        type: integer
+        required: false
+        description: Timeout for external link checks in seconds
+      - name: exclude
+        type: string
+        required: false
+        description: Comma-separated exclusion patterns
+      - name: output
+        type: string
+        required: false
+        description: Output format (json or text)
+    permissions:
+      - filesystem:read
+      - filesystem:write
+      - network
+
+tags: [documentation, linting, validation, links, markdown]
