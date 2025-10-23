@@ -1,0 +1,99 @@
+name: Validate Manifests and Documentation
+
+on:
+  push:
+    branches: [ main, develop, claude/* ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Validate all skill manifests with skill.define
+      run: |
+        echo "Validating skill manifests..."
+        EXIT_CODE=0
+        for skill_manifest in skills/*/skill.yaml; do
+          echo "Validating: $skill_manifest"
+          if ! python skills/skill.define/skill_define.py "$skill_manifest"; then
+            echo "❌ Validation failed for: $skill_manifest"
+            EXIT_CODE=1
+          else
+            echo "✅ Validation passed for: $skill_manifest"
+          fi
+        done
+        exit $EXIT_CODE
+
+    - name: Validate all agent manifests with agent.define
+      run: |
+        echo "Validating agent manifests..."
+        EXIT_CODE=0
+        for agent_manifest in agents/*/agent.yaml; do
+          echo "Validating: $agent_manifest"
+          if ! python skills/agent.define/agent_define.py "$agent_manifest"; then
+            echo "❌ Validation failed for: $agent_manifest"
+            EXIT_CODE=1
+          else
+            echo "✅ Validation passed for: $agent_manifest"
+          fi
+        done
+        exit $EXIT_CODE
+
+    - name: Run policy.enforce on all manifests
+      run: |
+        echo "Running policy enforcement on all manifests..."
+        python skills/policy.enforce/policy_enforce.py --batch
+
+    - name: Check for SKILL.md in all skills
+      run: |
+        echo "Checking for SKILL.md documentation..."
+        EXIT_CODE=0
+        for skill_dir in skills/*/; do
+          skill_name=$(basename "$skill_dir")
+          if [ ! -f "${skill_dir}SKILL.md" ]; then
+            echo "❌ Missing SKILL.md in: $skill_dir"
+            EXIT_CODE=1
+          else
+            echo "✅ Found SKILL.md in: $skill_dir"
+          fi
+        done
+        exit $EXIT_CODE
+
+    - name: Check for README.md in all agents
+      run: |
+        echo "Checking for README.md documentation..."
+        EXIT_CODE=0
+        for agent_dir in agents/*/; do
+          agent_name=$(basename "$agent_dir")
+          if [ ! -f "${agent_dir}README.md" ]; then
+            echo "❌ Missing README.md in: $agent_dir"
+            EXIT_CODE=1
+          else
+            echo "✅ Found README.md in: $agent_dir"
+          fi
+        done
+        exit $EXIT_CODE
+
+    - name: Summary
+      if: success()
+      run: |
+        echo "✅ All validations passed!"
+        echo "- All skill manifests are valid"
+        echo "- All agent manifests are valid"
+        echo "- All policies are enforced"
+        echo "- All skills have SKILL.md documentation"
+        echo "- All agents have README.md documentation"
