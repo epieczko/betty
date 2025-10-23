@@ -1,0 +1,95 @@
+name: registry.diff
+version: 0.1.0
+description: >
+  Compare current and previous versions of skills/agents and report differences.
+  Detects changes, determines required actions, and provides suggestions for
+  version management and breaking change prevention.
+
+# Input parameters
+inputs:
+  - name: manifest_path
+    type: string
+    required: true
+    description: Path to the skill.yaml or agent.yaml manifest file to compare
+
+# Output files/data
+outputs:
+  - name: diff_result
+    type: object
+    description: >
+      Detailed diff analysis including diff_type, required_action, suggestions,
+      and comparison details
+
+# Skills this depends on
+dependencies: []
+
+# Lifecycle status
+status: active
+
+# Entrypoints define how the skill is invoked
+entrypoints:
+  - command: /registry/diff
+    handler: registry_diff.py
+    runtime: python
+    description: >
+      Compare a manifest against its registry entry to detect changes and
+      determine appropriate actions.
+    parameters:
+      - name: manifest_path
+        type: string
+        required: true
+        description: >
+          Path to the skill.yaml or agent.yaml manifest file to analyze.
+          Can be absolute or relative path.
+    permissions:
+      - filesystem
+      - read
+
+# Return values
+returns:
+  diff_type:
+    type: string
+    enum:
+      - new
+      - version_bump
+      - version_downgrade
+      - permission_change
+      - breaking_change
+      - status_change
+      - needs_version_bump
+      - no_change
+    description: Classification of the detected changes
+
+  required_action:
+    type: string
+    enum:
+      - register
+      - review
+      - reject
+      - skip
+    description: Recommended action based on the analysis
+
+  suggestions:
+    type: array
+    items:
+      type: string
+    description: >
+      List of suggestions for addressing the detected changes,
+      including version bump recommendations
+
+# Exit codes
+exit_codes:
+  0: >
+    Success - changes are acceptable (new entry, clean version bump,
+    or no significant changes)
+  1: >
+    Failure - breaking or unauthorized changes detected (version downgrade,
+    removed fields without version bump, unauthorized permission changes)
+
+# Tags for categorization
+tags:
+  - registry
+  - validation
+  - version-control
+  - diff
+  - comparison
