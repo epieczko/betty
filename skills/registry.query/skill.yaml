@@ -1,0 +1,89 @@
+name: registry.query
+version: 0.1.0
+description: Search Betty registries programmatically for skills, agents, commands, and hooks
+
+inputs:
+  - name: registry
+    type: string
+    required: true
+    description: Registry to query (skills, agents, commands, hooks)
+    enum: [skills, agents, commands, hooks]
+
+  - name: name
+    type: string
+    required: false
+    description: Filter by name (exact or partial match based on partial flag)
+
+  - name: partial
+    type: boolean
+    required: false
+    default: false
+    description: Enable partial/substring name matching
+
+  - name: version
+    type: string
+    required: false
+    description: Filter by exact version (semantic versioning)
+
+  - name: tag
+    type: string
+    required: false
+    description: Filter by single tag (entries must have this tag)
+
+  - name: tags
+    type: array
+    required: false
+    description: Filter by multiple tags (entries must have at least one)
+
+  - name: status
+    type: string
+    required: false
+    description: Filter by status
+    enum: [draft, active, deprecated, archived]
+
+  - name: capability
+    type: string
+    required: false
+    description: Filter by capability substring (agents only)
+
+  - name: domain
+    type: string
+    required: false
+    description: Filter by domain prefix (e.g., 'api' matches 'api.define', 'api.validate')
+
+  - name: format
+    type: string
+    required: false
+    default: summary
+    description: Output format
+    enum: [summary, detailed, json, names]
+
+  - name: fields
+    type: array
+    required: false
+    description: Specific fields to include in output (for detailed format)
+
+outputs:
+  - name: results
+    type: array
+    description: List of matching registry entries
+
+  - name: count
+    type: integer
+    description: Number of matching entries
+
+  - name: formatted_output
+    type: string
+    description: Human-readable formatted results
+
+dependencies: []
+
+entrypoints:
+  - command: /skill/registry/query
+    handler: registry_query.py
+    runtime: python
+    permissions:
+      - filesystem:read
+
+status: active
+tags: [registry, query, search, discovery, lookup, automation, workflow, metadata]
