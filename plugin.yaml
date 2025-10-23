@@ -25,10 +25,10 @@ metadata:
   - enterprise
   - skills
   - agents
-  generated_at: '2025-10-23T18:07:10.418058+00:00'
+  generated_at: '2025-10-23T19:22:34.459260+00:00'
   generated_by: plugin.sync skill
-  skill_count: 17
-  command_count: 16
+  skill_count: 19
+  command_count: 18
 requirements:
   python: '>=3.11'
   packages:
@@ -240,6 +240,15 @@ commands:
 - name: marketplace/generate
   description: 'Generate marketplace catalogs from registry files. Filters by status:
     active and certified: true.
+
+    '
+  handler:
+    runtime: python
+    script: skills/generate.marketplace/generate_marketplace.py
+  parameters: []
+  permissions:
+  - filesystem:read
+  - filesystem:write
 - name: agent/run
   description: 'Execute a Betty agent with optional task context. Generates Claude-friendly
     prompts, invokes the Claude API (or simulates), executes planned skills, and logs
@@ -267,6 +276,30 @@ commands:
   - filesystem:read
   - filesystem:write
   - network:http
+- name: plugin/build
+  description: 'Bundle plugin directory into deployable package. Validates all entrypoints
+    and handlers before packaging.
+
+    '
+  handler:
+    runtime: python
+    script: skills/plugin.build/plugin_build.py
+  parameters:
+  - name: plugin_path
+    type: string
+    required: false
+    description: Path to plugin.yaml (defaults to ./plugin.yaml)
+  - name: output_format
+    type: string
+    required: false
+    description: Package format (tar.gz or zip, defaults to tar.gz)
+  - name: output_dir
+    type: string
+    required: false
+    description: Output directory (defaults to ./dist)
+  permissions:
+  - filesystem:read
+  - filesystem:write
 agents:
 - name: api.designer
   description: Design APIs with iterative refinement following enterprise guidelines
