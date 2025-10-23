@@ -1,347 +1,157 @@
 # Betty Framework
 
-A self-bootstrapping skill system built on top of Claude Code for creating, managing, and orchestrating reusable AI-powered skills.
+> **Claude Code thinks. Betty builds.**
 
-## Overview
+Betty Framework is **RiskExec’s system for structured, auditable AI-assisted engineering** built on Anthropic’s Claude Code Plugins platform.  
+Where Claude Code provides the runtime, plugin model, and marketplace for extending AI development, **Betty adds methodology, orchestration, and governance**—turning raw agent capability into a repeatable, enterprise-grade engineering discipline.
 
-Betty Framework enables you to:
-- **Create** new skills with standardized manifests and handlers
-- **Validate** skill definitions against schema requirements
-- **Register** skills in a centralized registry
-- **Compose** multi-step workflows by chaining skills together
-- **Bootstrap** itself by using its own skills to create new skills
+---
 
-## Features
+## 🌐 Mission and Inspiration
 
-- **Self-Bootstrapping**: Betty can generate new skills using existing skills
-- **Declarative Workflows**: Define multi-step processes in YAML
-- **Type-Safe**: Full type hints and validation throughout
-- **Production-Ready**: File locking, error handling, logging, and tests
-- **Extensible**: Easy to add new skills and integrate with existing tools
+Named for **Betty Shannon (1922 – 2017)**—the electrical engineer and mathematician who helped translate Claude Shannon’s theory of information into applied computation—  
+Betty embodies the spirit of **turning reasoning into engineered systems**.
 
-## Quick Start
+> Claude Code thinks. Betty builds.
 
-### Installation
+---
 
-```bash
-# Clone the repository
-git clone <repository-url>
-cd betty
+## 🧭 Purpose and Scope
 
-# Install dependencies
-pip install -r requirements.txt
+Betty extends Claude Code Plugins into a structured engineering layer that:
 
-# Verify installation
-python -m pytest
-```
+* Defines **standardized workflows** (specify → plan → implement → verify).  
+* Establishes **governance and auditability** for every agent action.  
+* Integrates with **enterprise orchestrators and compliance systems**.  
+* Enables **composable engineering** through curated Claude Code Plugins published in the RiskExec Marketplace.
 
-### Creating Your First Skill
+Betty doesn’t modify the Claude Code runtime—it **configures and disciplines** it, providing conventions for how plugins, agents, and teams interact.
 
-```bash
-# Create a new skill
-python skills/skill.create/skill_create.py \
-    "hello.world" \
-    "A simple hello world skill" \
-    --inputs "name" \
-    --outputs "greeting"
+---
 
-# This creates:
-# - skills/hello.world/skill.yaml (manifest)
-# - skills/hello.world/SKILL.md (documentation)
-# - skills/hello.world/hello_world.py (handler)
-```
+## ⚙️ How Betty Builds on Claude Code
 
-### Running a Workflow
+| Claude Code Provides | Betty Adds |
+|----------------------|------------|
+| Plugin runtime & manifest model | Structured engineering lifecycle |
+| Agent & tool integration (via MCP) | Governance, context schema, traceability |
+| Public & private marketplaces | Curated RiskExec Marketplace with certified plugins |
+| Command execution & logging | Multi-phase orchestration and artifact lineage |
+| Context & memory APIs | Enterprise analytics, QA, and policy enforcement |
 
-```bash
-# Create a workflow YAML file
-cat > my_workflow.yaml << EOF
-steps:
-  - skill: skill.create
-    args: ["test.skill", "A test skill"]
-  - skill: skill.define
-    args: ["skills/test.skill/skill.yaml"]
-  - skill: registry.update
-    args: ["skills/test.skill/skill.yaml"]
-EOF
+---
 
-# Execute the workflow
-python skills/workflow.compose/workflow_compose.py my_workflow.yaml
-```
+## 🧩 Current Core Skills
 
-## Architecture
+Betty’s self-referential “kernel” of skills bootstraps the rest of the system:
 
-### Core Components
+| Skill | Purpose |
+|--------|----------|
+| **skill.create** | Scaffolds new skill directories and manifests. |
+| **skill.define** | Validates and registers skill manifests. |
+| **registry.update** | Adds or modifies entries in `/registry/skills.json`. |
+| **workflow.compose** | Executes declarative YAML workflows chaining skills together. |
 
-| Component | Description | Location |
-|-----------|-------------|----------|
-| **skill.create** | Scaffolds new skill directories and manifests | `skills/skill.create/` |
-| **skill.define** | Validates skill manifests against schema | `skills/skill.define/` |
-| **registry.update** | Updates the central skill registry | `skills/registry.update/` |
-| **workflow.compose** | Executes multi-step skill workflows | `skills/workflow.compose/` |
+These four form the baseline for an **AI-native SDLC** where creation, validation, registration, and orchestration are themselves skills.
 
-### Directory Structure
+---
+
+## 🧱 Repository Structure
 
 ```
-betty/
-├── betty/                  # Core framework modules
-│   ├── config.py          # Configuration and constants
-│   ├── validation.py      # Input validation utilities
-│   ├── errors.py          # Custom exception classes
-│   ├── logging_utils.py   # Logging setup
-│   └── file_utils.py      # Safe file I/O with locking
-├── skills/                # Individual skills
+
+betty-framework/
+├── docs/
+│   ├── betty-framework-overview.md
+│   └── references.md
+├── skills/
 │   ├── skill.create/
 │   ├── skill.define/
 │   ├── registry.update/
 │   └── workflow.compose/
-├── registry/              # Skill registry and history
+├── registry/
 │   ├── skills.json
 │   └── workflow_history.json
-├── workflows/             # Workflow definitions
-├── docs/                  # Documentation
-└── tests/                 # Unit tests
-```
+└── workflows/
+└── example_create_and_register.yaml
 
-## Skill Manifest Format
-
-Skills are defined using YAML manifests (`skill.yaml`):
-
-```yaml
-name: skill.name
-version: 0.1.0
-description: >
-  What this skill does
-inputs:
-  - input_parameter_1
-  - input_parameter_2
-outputs:
-  - output_parameter_1
-dependencies:
-  - required.skill.1
-  - required.skill.2
-status: active  # draft, active, deprecated, archived
-
-entrypoints:
-  - command: /skill/name
-    handler: skill_name.py
-    runtime: python
-    description: >
-      Detailed description of what this entrypoint does
-    parameters:
-      - name: param1
-        type: string
-        required: true
-        description: Parameter description
-    permissions:
-      - filesystem
-      - read
-      - write
-```
-
-## Development
-
-### Running Tests
-
-```bash
-# Run all tests
-pytest
-
-# Run with coverage
-pytest --cov=betty --cov-report=html
-
-# Run specific test file
-pytest tests/test_validation.py
-
-# Run specific test
-pytest tests/test_validation.py::TestValidateSkillName::test_valid_skill_names
-```
-
-### Code Quality
-
-```bash
-# Type checking
-mypy betty/ skills/
-
-# Code formatting
-black betty/ skills/ tests/
-
-# Linting
-pylint betty/ skills/
-```
-
-### Adding a New Skill
-
-1. **Create the skill**:
-   ```bash
-   python skills/skill.create/skill_create.py \
-       "my.skill" \
-       "Description of my skill" \
-       --inputs "input1,input2" \
-       --outputs "output1"
-   ```
-
-2. **Implement the handler**: Edit `skills/my.skill/my_skill.py`
-
-3. **Update documentation**: Edit `skills/my.skill/SKILL.md`
-
-4. **Test the skill**: Create tests in `tests/test_my_skill.py`
-
-5. **Validate and register**:
-   ```bash
-   python skills/skill.define/skill_define.py skills/my.skill/skill.yaml
-   ```
-
-## API Reference
-
-### Betty Core Modules
-
-#### `betty.config`
-- `BASE_DIR`: Root directory of Betty framework
-- `SKILLS_DIR`: Directory containing all skills
-- `REGISTRY_FILE`: Path to skills registry JSON
-- `get_skill_path(skill_name)`: Get path to a skill directory
-- `ensure_directories()`: Ensure all required directories exist
-
-#### `betty.validation`
-- `validate_skill_name(name)`: Validate skill naming convention
-- `validate_path(path, must_exist=False)`: Validate file paths
-- `validate_manifest_fields(manifest, required_fields)`: Validate manifest
-- `validate_version(version)`: Validate semantic version
-
-#### `betty.errors`
-- `BettyError`: Base exception for all Betty errors
-- `SkillNotFoundError`: Raised when a skill cannot be found
-- `SkillValidationError`: Raised when validation fails
-- `RegistryError`: Raised for registry operation failures
-- `WorkflowError`: Raised for workflow execution failures
-- `ManifestError`: Raised for manifest parsing errors
-
-#### `betty.file_utils`
-- `locked_file(path, mode)`: Context manager for file locking
-- `safe_read_json(path, default=None)`: Thread-safe JSON read
-- `safe_write_json(path, data)`: Thread-safe JSON write
-- `safe_update_json(path, update_fn, default=None)`: Atomic JSON update
-
-## Configuration
-
-Betty can be configured using environment variables:
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `BETTY_HOME` | Root directory for Betty | Current directory |
-
-## Workflow Features
-
-Workflows support:
-- **Sequential execution**: Steps run in order
-- **Error handling**: Configure fail-fast or continue-on-error
-- **History tracking**: All workflow runs are logged
-- **Timeouts**: Automatic timeout for long-running skills (5 minutes)
-- **Rich logging**: Detailed execution logs with timestamps
-
-### Workflow YAML Format
-
-```yaml
-fail_fast: true  # Stop on first error (default: true)
-
-steps:
-  - skill: skill.name
-    args:
-      - argument1
-      - argument2
-
-  - skill: another.skill
-    args: ["single-arg"]
-```
-
-## Best Practices
-
-1. **Skill Naming**: Use dot notation (`category.action`)
-2. **Versioning**: Follow semantic versioning (MAJOR.MINOR.PATCH)
-3. **Error Handling**: Always use Betty error classes
-4. **Logging**: Use `setup_logger(__name__)` in all modules
-5. **Type Hints**: Add type annotations to all functions
-6. **Documentation**: Keep SKILL.md files up to date
-7. **Testing**: Write unit tests for all new functionality
-
-## Troubleshooting
-
-### Common Issues
-
-**Skill not found**
-```
-SkillNotFoundError: Skill 'my.skill' not found
-```
-- Ensure the skill directory exists in `skills/`
-- Check that the skill is registered in `registry/skills.json`
-
-**Validation failed**
-```
-SkillValidationError: Missing required fields: ['version']
-```
-- Check your skill.yaml has all required fields
-- Run `skill.define` to see detailed validation errors
-
-**Permission denied**
-```
-PermissionError: Cannot write to registry/skills.json
-```
-- Check file permissions
-- Ensure parent directory exists
-- Try running with appropriate permissions
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/my-feature`)
-3. Make your changes
-4. Add tests for new functionality
-5. Run the test suite (`pytest`)
-6. Commit your changes (`git commit -am 'Add new feature'`)
-7. Push to the branch (`git push origin feature/my-feature`)
-8. Create a Pull Request
-
-## Roadmap
-
-### Current Features (v0.1.0)
-- ✅ Skill creation and scaffolding
-- ✅ Skill validation and registration
-- ✅ Workflow composition and execution
-- ✅ File locking for concurrent access
-- ✅ Comprehensive error handling
-- ✅ Unit test coverage
-
-### Planned Features (v0.2.0)
-- 🔄 Claude Code plugin integration
-- 🔄 Skill dependency resolution
-- 🔄 Parallel workflow execution
-- 🔄 Skill versioning and migrations
-- 🔄 Web UI for skill management
-- 🔄 Marketplace integration
-
-### Future (v1.0.0)
-- 🎯 Remote skill execution
-- 🎯 Skill sandboxing
-- 🎯 Performance monitoring
-- 🎯 Auto-documentation generation
-- 🎯 Skill composition (meta-skills)
-
-## License
-
-[Add your license here]
-
-## Support
-
-- **Documentation**: See `docs/` directory
-- **Issues**: [GitHub Issues](https://github.com/yourusername/betty/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/betty/discussions)
-
-## Acknowledgments
-
-Built for use with [Claude Code](https://claude.com/claude-code) by Anthropic.
+````
 
 ---
 
-**Version**: 0.1.0
-**Last Updated**: 2025-10-22
+## 🚀 Example Usage
+
+```bash
+# 1 · Create a new skill
+python skills/skill.create/skill_create.py workflow.validate "Validates workflow YAML definitions"
+
+# 2 · Validate its manifest
+python skills/skill.define/skill_define.py skills/workflow.validate/skill.yaml
+
+# 3 · Update the registry
+python skills/registry.update/registry_update.py skills/workflow.validate/skill.yaml
+
+# 4 · Run the entire process as a workflow
+python skills/workflow.compose/workflow_compose.py workflows/example_create_and_register.yaml
+````
+
+Each step logs to `/registry/skills.json` and `/registry/workflow_history.json`.
+
+---
+
+## 🧠 Design Principles
+
+* **Structure over improvisation** — Every workflow step is defined, typed, and reproducible.
+* **Human oversight first** — Developers can approve, correct, or extend any agent output.
+* **Composable by default** — Skills can be rearranged or replaced without breaking the system.
+* **Audit as a feature** — Provenance and traceability are built-in, not bolted-on.
+* **Future-ready** — Engineered for multi-agent collaboration and adaptive workflows.
+
+---
+
+## 🔭 Planned Expansion
+
+| Area                         | Skill / Feature     | Description                                                   |
+| ---------------------------- | ------------------- | ------------------------------------------------------------- |
+| **Workflow Validation**      | `workflow.validate` | Ensures workflow YAML schema correctness before execution.    |
+| **Documentation Generation** | `generate.docs`     | Auto-creates `SKILL.md` from each `skill.yaml`.               |
+| **Governance Policies**      | `policy.enforce`    | Enforces naming rules, permissions, and compliance policies.  |
+| **Observability**            | `telemetry.capture` | Collects runtime metrics and logs for skills and agents.      |
+| **Versioning**               | `registry.diff`     | Tracks manifest deltas and release history.                   |
+| **Marketplace Integration**  | `plugin.publish`    | Publishes certified Betty skills to Claude Code marketplaces. |
+
+---
+
+## 📚 Documentation
+
+* `docs/betty-framework-overview.md` — Full lifecycle and architecture
+* `docs/references.md` — Official Claude Code API and plugin references
+
+---
+
+## ⚙️ Requirements
+
+* Python 3.11 or newer
+* PyYAML (`pip install pyyaml`)
+* (Optional) Claude Code runtime for plugin execution
+
+---
+
+## 🧭 Roadmap
+
+1. **Core Stabilization** — Improve error handling and atomic writes.
+2. **Governance Layer** — Add `policy.enforce` and compliance logging.
+3. **Plugin Packaging** — Introduce `plugin.yaml` for native Claude commands.
+4. **Marketplace Integration** — Enable publishing and certification of skills.
+5. **Agent Collaboration** — Expand from skills → workflows → multi-agent systems.
+
+---
+
+## 🤝 Contributing
+
+1. Use lowercase, dot-separated names (e.g., `domain.action`).
+2. Include `skill.yaml`, `SKILL.md`, and a handler script for each skill.
+3. Validate via `skill.create → skill.define → registry.update` before commit.
+4. Submit PRs with clear workflow examples and registry entries set to `active`.
+
+
