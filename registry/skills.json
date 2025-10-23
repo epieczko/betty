@@ -890,6 +890,36 @@
       ]
     },
     {
+      "name": "generate.marketplace",
+      "version": "0.1.0",
+      "description": "Generate marketplace catalog files from Betty Framework registries. Filters active and certified skills/agents and outputs marketplace-ready JSON files.\n",
+      "inputs": [],
+      "outputs": [
+        "marketplace/skills.json",
+        "marketplace/agents.json"
+      ],
+      "dependencies": [
+        "registry.update"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/marketplace/generate",
+          "handler": "generate_marketplace.py",
+          "runtime": "python",
+          "description": "Generate marketplace catalogs from registry files. Filters by status: active and certified: true.\n",
+          "parameters": [],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "tags": [
+        "marketplace",
+        "registry",
+        "automation",
+        "infrastructure"
       "name": "agent.run",
       "version": "0.1.0",
       "description": "Execute a registered Betty agent by loading its manifest, generating a Claude-friendly prompt, invoking skills based on the agent's workflow, and logging results. Supports both iterative and oneshot reasoning modes with optional Claude API integration.\n",

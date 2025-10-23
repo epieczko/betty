@@ -237,6 +237,9 @@ commands:
   permissions:
   - filesystem:read
   - filesystem:write
+- name: marketplace/generate
+  description: 'Generate marketplace catalogs from registry files. Filters by status:
+    active and certified: true.
 - name: agent/run
   description: 'Execute a Betty agent with optional task context. Generates Claude-friendly
     prompts, invokes the Claude API (or simulates), executes planned skills, and logs
