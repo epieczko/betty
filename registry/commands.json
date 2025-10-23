@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-23T01:53:41.669518+00:00",
+  "generated_at": "2025-10-23T02:37:30.480153+00:00",
   "commands": [
     {
       "name": "/test-command",
@@ -35,6 +35,54 @@
       "tags": [
         "test",
         "validation"
+      ]
+    },
+    {
+      "name": "/test-registry-command",
+      "version": "1.0.0",
+      "description": "Test registry update",
+      "execution": {
+        "type": "skill",
+        "target": "api.validate"
+      },
+      "parameters": [],
+      "status": "draft",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "name": "/test-update-command",
+      "version": "1.0.1",
+      "description": "Updated description",
+      "execution": {
+        "type": "skill",
+        "target": "api.validate"
+      },
+      "parameters": [],
+      "status": "draft",
+      "tags": []
+    },
+    {
+      "name": "/test-workflow-command",
+      "version": "1.0.0",
+      "description": "Test complete workflow",
+      "execution": {
+        "target": "api.validate",
+        "type": "skill"
+      },
+      "parameters": [
+        {
+          "description": "Input parameter",
+          "name": "input",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "status": "active",
+      "tags": [
+        "test",
+        "workflow"
       ]
     }
   ]
