@@ -49,33 +49,38 @@ Betty's self-referential "kernel" of skills bootstraps the rest of the system:
 
 | Skill | Purpose |
 |--------|----------|
-| **skill.create** | Scaffolds new skill directories and manifests. |
-| **skill.define** | Validates and registers skill manifests. |
-| **registry.update** | Adds or modifies entries in `/registry/skills.json`. |
-| **workflow.compose** | Executes declarative YAML workflows chaining skills together. |
-| **workflow.validate** | Ensures workflow YAML schema correctness before execution. |
+| **registry.update** | Updates the Betty Framework Skill Registry by adding or modifying entries based on validated skill manifests. |
+| **skill.create** | Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework. |
+| **skill.define** | Validates and registers skill manifests (.skill.yaml) for the Betty Framework. Ensures schema compliance and updates the Skill Registry. |
+| **workflow.compose** | Executes multi-step Betty Framework workflows by chaining existing skills. Enables declarative orchestration of skill pipelines. |
+| **workflow.validate** | Validates Betty workflow YAML definitions to ensure correct structure and required fields. |
 
 ### API Development Skills
 
 | Skill | Purpose |
 |--------|----------|
-| **api.define** | Create OpenAPI and AsyncAPI specifications from templates. |
-| **api.validate** | Validate API specs against enterprise guidelines (Zalando, Google, Microsoft). |
-| **api.generate-models** | Generate type-safe models from specs using Modelina (TypeScript, Python, Java, Go). |
-| **api.compatibility** | Detect breaking changes between API specification versions. |
+| **api.compatibility** | Detect breaking changes between API specification versions |
+| **api.define** | Create OpenAPI and AsyncAPI specifications from templates |
+| **api.generate-models** | Generate type-safe models from OpenAPI and AsyncAPI specifications using Modelina |
+| **api.validate** | Validate OpenAPI and AsyncAPI specifications against enterprise guidelines |
 
 ### Infrastructure Skills
 
 | Skill | Purpose |
 |--------|----------|
-| **agent.define** | Validates and registers agent manifests for intelligent orchestration. |
-| **command.define** | Validates and registers slash command manifests. |
-| **hook.define** | Create and register validation hooks for Claude Code. |
-| **hook.register** | Validate and register hook manifests in the Hook Registry. |
-| **policy.enforce** | Validates operations against organizational policies (active). |
+| **agent.define** | Validates and registers agent manifests for the Betty Framework. Ensures schema compliance, validates skill references, and updates the Agent Registry. |
+| **agent.run** | Execute a registered Betty agent by loading its manifest, generating a Claude-friendly prompt, invoking skills based on the agent's workflow, and logging results. Supports both iterative and oneshot reasoning modes with optional Claude API integration. |
+| **command.define** | Validate and register command manifests in the Command Registry |
+| **docs.sync.readme** | Regenerate the top-level README.md to reflect all current registered skills and agents. Pulls from registry/skills.json and registry/agents.json, groups by category, and updates documentation sections while maintaining repo style and tone. |
+| **generate.marketplace** | Generate marketplace catalog files from Betty Framework registries. Filters active and certified skills/agents and outputs marketplace-ready JSON files. |
+| **hook.define** | Create and register validation hooks for Claude Code |
+| **hook.register** | Validate and register hook manifests in the Hook Registry |
+| **plugin.build** | Automatically bundle a plugin directory (or the whole repo) into a deployable Claude Code plugin package. Gathers all declared entrypoints, validates handler files exist, and packages everything into .tar.gz or .zip under /dist. |
+| **plugin.sync** | Automatically generates plugin.yaml from Betty Framework registries. Reads skills.json, commands.json, and hooks.json to build a complete plugin configuration. |
+| **policy.enforce** | Validates operations against organizational policies before execution |
+| **run.agent** | Simulates execution of a Betty agent by loading its manifest, constructing the prompt, and demonstrating which skills would be invoked. Useful for testing agent design and understanding agent behavior. |
 
 These skills form the baseline for an **AI-native SDLC** where creation, validation, registration, and orchestration are themselves skills.
-
 ---
 
 ## 🧱 Repository Structure
@@ -226,10 +231,9 @@ Each skill has comprehensive documentation in its `SKILL.md` file:
 ### Agents Documentation
 
 Each agent has a `README.md` in its directory:
-* [api.designer](agents/api.designer/README.md) — Iterative API design agent
-* [api.analyzer](agents/api.analyzer/README.md) — API compatibility analysis agent
+* [api.analyzer](agents/api.analyzer/README.md) — Analyze API specifications for backward compatibility and breaking changes
+* [api.designer](agents/api.designer/README.md) — Design RESTful APIs following enterprise guidelines with iterative refinement
 
----
 
 ## ⚙️ Requirements
 

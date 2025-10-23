@@ -32,5 +32,86 @@
     "status": "success",
     "duration_ms": 0,
     "caller": "cli"
+  },
+  {
+    "timestamp": "2025-10-23T19:58:43.590058+00:00",
+    "skill": "docs.validate.skill_docs",
+    "inputs": {
+      "arg_count": 1,
+      "args": [
+        "skills/docs.validate.skill_docs"
+      ]
+    },
+    "status": "success",
+    "duration_ms": 3,
+    "caller": "cli"
+  },
+  {
+    "timestamp": "2025-10-23T19:58:51.158997+00:00",
+    "skill": "docs.validate.skill_docs",
+    "inputs": {
+      "arg_count": 1,
+      "args": [
+        "skills/api.validate"
+      ]
+    },
+    "status": "success",
+    "duration_ms": 3,
+    "caller": "cli"
+  },
+  {
+    "timestamp": "2025-10-23T19:58:58.534340+00:00",
+    "skill": "docs.validate.skill_docs",
+    "inputs": {
+      "arg_count": 2,
+      "args": [
+        "skills",
+        "--summary"
+      ]
+    },
+    "status": "failed",
+    "duration_ms": 77,
+    "caller": "cli"
+  },
+  {
+    "timestamp": "2025-10-23T20:00:13.862148+00:00",
+    "skill": "docs.validate.skill_docs",
+    "inputs": {
+      "arg_count": 1,
+      "args": [
+        "skills/audit.log"
+      ]
+    },
+    "status": "failed",
+    "duration_ms": 3,
+    "caller": "cli"
+  },
+  {
+    "timestamp": "2025-10-23T20:00:21.809843+00:00",
+    "skill": "docs.validate.skill_docs",
+    "inputs": {
+      "arg_count": 2,
+      "args": [
+        "skills",
+        "--summary"
+      ]
+    },
+    "status": "failed",
+    "duration_ms": 91,
+    "caller": "cli"
+  },
+  {
+    "timestamp": "2025-10-23T20:00:31.672665+00:00",
+    "skill": "docs.validate.skill_docs",
+    "inputs": {
+      "arg_count": 2,
+      "args": [
+        "skills/docs.validate.skill_docs",
+        "--summary"
+      ]
+    },
+    "status": "success",
+    "duration_ms": 3,
+    "caller": "cli"
   }
 ]

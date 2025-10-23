@@ -1,0 +1,86 @@
+name: docs.expand.glossary
+version: 0.1.0
+description: >-
+  Extract undocumented terms from manifests and documentation, then enrich
+  glossary.md with auto-generated definitions. Scans skill.yaml, agent.yaml,
+  and markdown files to identify missing glossary entries.
+
+inputs:
+  - name: glossary_path
+    type: string
+    required: false
+    description: "Path to glossary.md file (default: docs/glossary.md)"
+
+  - name: base_dir
+    type: string
+    required: false
+    description: "Base directory to scan for manifests (default: project root)"
+
+  - name: dry_run
+    type: boolean
+    required: false
+    default: false
+    description: Preview changes without writing to glossary file
+
+  - name: include_auto_generated
+    type: boolean
+    required: false
+    default: true
+    description: Include auto-generated definitions for common terms
+
+outputs:
+  - name: summary
+    type: object
+    description: Summary of glossary expansion including counts and file paths
+
+  - name: new_definitions
+    type: object
+    description: Dictionary of new terms and their definitions
+
+  - name: manifest_terms
+    type: object
+    description: Categorized terms extracted from manifests
+
+  - name: skipped_terms
+    type: array
+    description: Terms that were skipped (already documented or too common)
+
+dependencies:
+  - context.schema
+
+entrypoints:
+  - command: /docs/expand/glossary
+    handler: glossary_expand.py
+    runtime: python
+    description: >
+      Scan manifests and docs for undocumented terms, then expand glossary.md
+      with new definitions. Supports dry-run mode for previewing changes.
+    parameters:
+      - name: glossary_path
+        type: string
+        required: false
+        description: Custom path to glossary.md
+      - name: base_dir
+        type: string
+        required: false
+        description: Custom base directory to scan
+      - name: dry_run
+        type: boolean
+        required: false
+        description: Preview changes without writing
+      - name: include_auto_generated
+        type: boolean
+        required: false
+        description: Include auto-generated definitions
+    permissions:
+      - filesystem:read
+      - filesystem:write
+
+status: active
+
+tags:
+  - documentation
+  - glossary
+  - automation
+  - analysis
+  - manifests

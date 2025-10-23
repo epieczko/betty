@@ -1,0 +1,31 @@
+{
+  "marketplace_version": "1.0.0",
+  "generated_at": "2025-10-23T20:01:18.348346+00:00",
+  "last_updated": "2025-10-23T20:01:18.348347+00:00",
+  "description": "Betty Framework Certified Hooks Marketplace",
+  "total_hooks": 4,
+  "certified_count": 1,
+  "draft_count": 3,
+  "catalog": [
+    {
+      "name": "test-workflow-hook",
+      "version": "1.0.0",
+      "description": "Test complete workflow",
+      "status": "certified",
+      "tags": [
+        "test",
+        "workflow",
+        "openapi"
+      ],
+      "event": "on_file_edit",
+      "command": "python validate.py {file_path}",
+      "blocking": true,
+      "when": {
+        "pattern": "*.openapi.yaml"
+      },
+      "timeout": 30000,
+      "on_failure": "show_errors",
+      "maintainer": "Betty Core Team"
+    }
+  ]
+}
