@@ -60,5 +60,71 @@
       "total_steps": 2,
       "failed_steps": 1
     }
+  },
+  {
+    "timestamp": "2025-10-23T17:08:23.610672+00:00",
+    "skill": "run.agent",
+    "status": "success",
+    "duration_ms": 73,
+    "metadata": {
+      "workflow": "test-agent-workflow.yaml",
+      "step_number": 1,
+      "total_steps": 2
+    }
+  },
+  {
+    "timestamp": "2025-10-23T17:08:23.749672+00:00",
+    "skill": "run.agent",
+    "status": "success",
+    "duration_ms": 74,
+    "metadata": {
+      "workflow": "test-agent-workflow.yaml",
+      "step_number": 2,
+      "total_steps": 2
+    }
+  },
+  {
+    "timestamp": "2025-10-23T17:08:23.820481+00:00",
+    "skill": "workflow.compose",
+    "status": "success",
+    "duration_ms": 344,
+    "metadata": {
+      "workflow": "test-agent-workflow.yaml",
+      "total_steps": 2,
+      "failed_steps": 0
+    }
+  },
+  {
+    "timestamp": "2025-10-23T17:08:31.829571+00:00",
+    "skill": "run.agent",
+    "status": "success",
+    "duration_ms": 72,
+    "metadata": {
+      "workflow": "test-agent-workflow.yaml",
+      "step_number": 1,
+      "total_steps": 2
+    }
+  },
+  {
+    "timestamp": "2025-10-23T17:08:31.963005+00:00",
+    "skill": "run.agent",
+    "status": "success",
+    "duration_ms": 67,
+    "metadata": {
+      "workflow": "test-agent-workflow.yaml",
+      "step_number": 2,
+      "total_steps": 2
+    }
+  },
+  {
+    "timestamp": "2025-10-23T17:08:32.032505+00:00",
+    "skill": "workflow.compose",
+    "status": "success",
+    "duration_ms": 341,
+    "metadata": {
+      "workflow": "test-agent-workflow.yaml",
+      "total_steps": 2,
+      "failed_steps": 0
+    }
   }
 ]

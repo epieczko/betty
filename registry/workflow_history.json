@@ -400,5 +400,427 @@
       "Path does not exist: nonexistent_skill.yaml"
     ],
     "completed_at": "2025-10-23T16:45:28.691243+00:00"
+  },
+  {
+    "workflow": "test-agent-workflow.yaml",
+    "workflow_path": "workflows/test-agent-workflow.yaml",
+    "started_at": "2025-10-23T17:08:23.416216+00:00",
+    "fail_fast": true,
+    "steps": [
+      {
+        "step_number": 1,
+        "skill": "run.agent",
+        "agent": "api.designer",
+        "args": [
+          "api.designer",
+          "Create a simple REST API for managing todo items"
+        ],
+        "status": "success",
+        "returncode": 0,
+        "stdout": "2025-10-23 17:08:23 - __main__ - INFO - Loading agent: api.designer\n2025-10-23 17:08:23 - __main__ - INFO - Constructing agent prompt...\n2025-10-23 17:08:23 - __main__ - INFO - Generating mock Claude response...\n\n================================================================================\nAGENT SIMULATION: api.designer\n================================================================================\n\nAgent: api.designer v0.1.0\nReasoning Mode: iterative\nStatus: draft\n\n--------------------------------------------------------------------------------\nPROMPT SENT TO AGENT:\n--------------------------------------------------------------------------------\nYou are api.designer, a specialized Betty Framework agent.\n\nDESCRIPTION:\nDesign RESTful APIs following enterprise guidelines with iterative refinement\n\nCAPABILITIES:\n  - Design RESTful APIs from natural language requirements\n  - Apply Zalando guidelines automatically\n  - Generate OpenAPI 3.1 specs with best practices\n  - Iteratively refine based on validation feedback\n  - Handle AsyncAPI for event-driven architectures\n\nREASONING MODE: iterative\n\nAVAILABLE SKILLS:\n  - api.define\n  - api.validate\n  - api.generate-models\n  - api.compatibility\n\nWORKFLOW PATTERN:\n1. Analyze requirements and domain context\n2. Draft OpenAPI spec following guidelines\n3. Run validation (api.validate)\n4. If validation fails:\n   - Analyze errors\n   - Refine spec\n   - Re-validate\n   - Repeat until passing\n5. Generate models for target languages\n6. Verify generated models compile\n\n\nTASK:\nCreate a simple REST API for managing todo items\n\nPlease analyze this task and determine which skills to invoke and in what order.\n\n\n--------------------------------------------------------------------------------\nMOCK CLAUDE RESPONSE:\n--------------------------------------------------------------------------------\n{\n  \"agent\": \"api.designer\",\n  \"reasoning_mode\": \"iterative\",\n  \"task\": \"Create a simple REST API for managing todo items\",\n  \"analysis\": \"As api.designer, I would approach this task by invoking the following skills:\",\n  \"skills_to_invoke\": [\n    {\n      \"skill\": \"api.define\",\n      \"purpose\": \"Create initial OpenAPI specification\"\n    },\n    {\n      \"skill\": \"api.validate\",\n      \"purpose\": \"Validate the generated API specification\"\n    },\n    {\n      \"skill\": \"api.generate-models\",\n      \"purpose\": \"Generate client/server models\"\n    }\n  ],\n  \"execution_plan\": [\n    {\n      \"step\": 1,\n      \"skill\": \"api.define\",\n      \"purpose\": \"Create initial OpenAPI specification\",\n      \"status\": \"simulated\"\n    },\n    {\n      \"step\": 2,\n      \"skill\": \"api.validate\",\n      \"purpose\": \"Validate the generated API specification\",\n      \"status\": \"simulated\"\n    },\n    {\n      \"step\": 3,\n      \"skill\": \"api.generate-models\",\n      \"purpose\": \"Generate client/server models\",\n      \"status\": \"simulated\"\n    }\n  ],\n  \"note\": \"This agent uses iterative reasoning. In a real execution, it would analyze results from each skill and potentially invoke additional skills or retry based on feedback.\"\n}\n\n--------------------------------------------------------------------------------\nSKILLS THAT WOULD BE INVOKED:\n--------------------------------------------------------------------------------\n  \u2022 api.define\n    Create OpenAPI and AsyncAPI specifications from templates\n    Status: active\n  \u2022 api.validate\n    Validate OpenAPI and AsyncAPI specifications against enterprise guidelines\n    Status: active\n  \u2022 api.generate-models\n    Generate type-safe models from OpenAPI and AsyncAPI specifications using Modelina\n    Status: active\n  \u2022 api.compatibility\n    Detect breaking changes between API specification versions\n    Status: active\n\n================================================================================\nEND SIMULATION\n================================================================================\n\n{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"details\": {\n    \"timestamp\": \"2025-10-23T17:08:23.547401+00:00\",\n    \"agent\": {\n      \"name\": \"api.designer\",\n      \"version\": \"0.1.0\",\n      \"description\": \"Design RESTful APIs following enterprise guidelines with iterative refinement\",\n      \"reasoning_mode\": \"iterative\",\n      \"status\": \"draft\"\n    },\n    \"input\": \"Create a simple REST API for managing todo items\",\n    \"prompt\": \"You are api.designer, a specialized Betty Framework agent.\\n\\nDESCRIPTION:\\nDesign RESTful APIs following enterprise guidelines with iterative refinement\\n\\nCAPABILITIES:\\n  - Design RESTful APIs from natural language requirements\\n  - Apply Zalando guidelines automatically\\n  - Generate OpenAPI 3.1 specs with best practices\\n  - Iteratively refine based on validation feedback\\n  - Handle AsyncAPI for event-driven architectures\\n\\nREASONING MODE: iterative\\n\\nAVAILABLE SKILLS:\\n  - api.define\\n  - api.validate\\n  - api.generate-models\\n  - api.compatibility\\n\\nWORKFLOW PATTERN:\\n1. Analyze requirements and domain context\\n2. Draft OpenAPI spec following guidelines\\n3. Run validation (api.validate)\\n4. If validation fails:\\n   - Analyze errors\\n   - Refine spec\\n   - Re-validate\\n   - Repeat until passing\\n5. Generate models for target languages\\n6. Verify generated models compile\\n\\n\\nTASK:\\nCreate a simple REST API for managing todo items\\n\\nPlease analyze this task and determine which skills to invoke and in what order.\\n\",\n    \"skills_available\": [\n      {\n        \"name\": \"api.define\",\n        \"description\": \"Create OpenAPI and AsyncAPI specifications from templates\",\n        \"status\": \"active\"\n      },\n      {\n        \"name\": \"api.validate\",\n        \"description\": \"Validate OpenAPI and AsyncAPI specifications against enterprise guidelines\",\n        \"status\": \"active\"\n      },\n      {\n        \"name\": \"api.generate-models\",\n        \"description\": \"Generate type-safe models from OpenAPI and AsyncAPI specifications using Modelina\",\n        \"status\": \"active\"\n      },\n      {\n        \"name\": \"api.compatibility\",\n        \"description\": \"Detect breaking changes between API specification versions\",\n        \"status\": \"active\"\n      }\n    ],\n    \"mock_response\": {\n      \"agent\": \"api.designer\",\n      \"reasoning_mode\": \"iterative\",\n      \"task\": \"Create a simple REST API for managing todo items\",\n      \"analysis\": \"As api.designer, I would approach this task by invoking the following skills:\",\n      \"skills_to_invoke\": [\n        {\n          \"skill\": \"api.define\",\n          \"purpose\": \"Create initial OpenAPI specification\"\n        },\n        {\n          \"skill\": \"api.validate\",\n          \"purpose\": \"Validate the generated API specification\"\n        },\n        {\n          \"skill\": \"api.generate-models\",\n          \"purpose\": \"Generate client/server models\"\n        }\n      ],\n      \"execution_plan\": [\n        {\n          \"step\": 1,\n          \"skill\": \"api.define\",\n          \"purpose\": \"Create initial OpenAPI specification\",\n          \"status\": \"simulated\"\n        },\n        {\n          \"step\": 2,\n          \"skill\": \"api.validate\",\n          \"purpose\": \"Validate the generated API specification\",\n          \"status\": \"simulated\"\n        },\n        {\n          \"step\": 3,\n          \"skill\": \"api.generate-models\",\n          \"purpose\": \"Generate client/server models\",\n          \"status\": \"simulated\"\n        }\n      ],\n      \"note\": \"This agent uses iterative reasoning. In a real execution, it would analyze results from each skill and potentially invoke additional skills or retry based on feedback.\"\n    },\n    \"simulation_mode\": true,\n    \"note\": \"This is a simulated execution. In production, the agent would invoke real skills through the Claude Code Plugin runtime.\"\n  }\n}\n",
+        "stderr": "",
+        "parsed": {
+          "ok": true,
+          "status": "success",
+          "errors": [],
+          "details": {
+            "timestamp": "2025-10-23T17:08:23.547401+00:00",
+            "agent": {
+              "name": "api.designer",
+              "version": "0.1.0",
+              "description": "Design RESTful APIs following enterprise guidelines with iterative refinement",
+              "reasoning_mode": "iterative",
+              "status": "draft"
+            },
+            "input": "Create a simple REST API for managing todo items",
+            "prompt": "You are api.designer, a specialized Betty Framework agent.\n\nDESCRIPTION:\nDesign RESTful APIs following enterprise guidelines with iterative refinement\n\nCAPABILITIES:\n  - Design RESTful APIs from natural language requirements\n  - Apply Zalando guidelines automatically\n  - Generate OpenAPI 3.1 specs with best practices\n  - Iteratively refine based on validation feedback\n  - Handle AsyncAPI for event-driven architectures\n\nREASONING MODE: iterative\n\nAVAILABLE SKILLS:\n  - api.define\n  - api.validate\n  - api.generate-models\n  - api.compatibility\n\nWORKFLOW PATTERN:\n1. Analyze requirements and domain context\n2. Draft OpenAPI spec following guidelines\n3. Run validation (api.validate)\n4. If validation fails:\n   - Analyze errors\n   - Refine spec\n   - Re-validate\n   - Repeat until passing\n5. Generate models for target languages\n6. Verify generated models compile\n\n\nTASK:\nCreate a simple REST API for managing todo items\n\nPlease analyze this task and determine which skills to invoke and in what order.\n",
+            "skills_available": [
+              {
+                "name": "api.define",
+                "description": "Create OpenAPI and AsyncAPI specifications from templates",
+                "status": "active"
+              },
+              {
+                "name": "api.validate",
+                "description": "Validate OpenAPI and AsyncAPI specifications against enterprise guidelines",
+                "status": "active"
+              },
+              {
+                "name": "api.generate-models",
+                "description": "Generate type-safe models from OpenAPI and AsyncAPI specifications using Modelina",
+                "status": "active"
+              },
+              {
+                "name": "api.compatibility",
+                "description": "Detect breaking changes between API specification versions",
+                "status": "active"
+              }
+            ],
+            "mock_response": {
+              "agent": "api.designer",
+              "reasoning_mode": "iterative",
+              "task": "Create a simple REST API for managing todo items",
+              "analysis": "As api.designer, I would approach this task by invoking the following skills:",
+              "skills_to_invoke": [
+                {
+                  "skill": "api.define",
+                  "purpose": "Create initial OpenAPI specification"
+                },
+                {
+                  "skill": "api.validate",
+                  "purpose": "Validate the generated API specification"
+                },
+                {
+                  "skill": "api.generate-models",
+                  "purpose": "Generate client/server models"
+                }
+              ],
+              "execution_plan": [
+                {
+                  "step": 1,
+                  "skill": "api.define",
+                  "purpose": "Create initial OpenAPI specification",
+                  "status": "simulated"
+                },
+                {
+                  "step": 2,
+                  "skill": "api.validate",
+                  "purpose": "Validate the generated API specification",
+                  "status": "simulated"
+                },
+                {
+                  "step": 3,
+                  "skill": "api.generate-models",
+                  "purpose": "Generate client/server models",
+                  "status": "simulated"
+                }
+              ],
+              "note": "This agent uses iterative reasoning. In a real execution, it would analyze results from each skill and potentially invoke additional skills or retry based on feedback."
+            },
+            "simulation_mode": true,
+            "note": "This is a simulated execution. In production, the agent would invoke real skills through the Claude Code Plugin runtime."
+          }
+        },
+        "parse_error": null,
+        "errors": [],
+        "duration_ms": 73
+      },
+      {
+        "step_number": 2,
+        "skill": "run.agent",
+        "agent": "api.analyzer",
+        "args": [
+          "api.analyzer",
+          "Analyze the API design for best practices"
+        ],
+        "status": "success",
+        "returncode": 0,
+        "stdout": "2025-10-23 17:08:23 - __main__ - INFO - Loading agent: api.analyzer\n2025-10-23 17:08:23 - __main__ - INFO - Constructing agent prompt...\n2025-10-23 17:08:23 - __main__ - INFO - Generating mock Claude response...\n\n================================================================================\nAGENT SIMULATION: api.analyzer\n================================================================================\n\nAgent: api.analyzer v0.1.0\nReasoning Mode: oneshot\nStatus: draft\n\n--------------------------------------------------------------------------------\nPROMPT SENT TO AGENT:\n--------------------------------------------------------------------------------\nYou are api.analyzer, a specialized Betty Framework agent.\n\nDESCRIPTION:\nAnalyze API specifications for backward compatibility and breaking changes\n\nCAPABILITIES:\n  - Detect breaking changes between API versions\n  - Generate detailed compatibility reports\n  - Identify removed or modified endpoints\n  - Suggest migration paths for breaking changes\n  - Validate API evolution best practices\n\nREASONING MODE: oneshot\n\nAVAILABLE SKILLS:\n  - api.compatibility\n  - api.validate\n\nWORKFLOW PATTERN:\n1. Load old and new API specifications\n2. Run comprehensive compatibility analysis\n3. Categorize changes as breaking or non-breaking\n4. Generate detailed report with migration recommendations\n5. Return results (no retry needed)\n\n\nTASK:\nAnalyze the API design for best practices\n\nPlease analyze this task and determine which skills to invoke and in what order.\n\n\n--------------------------------------------------------------------------------\nMOCK CLAUDE RESPONSE:\n--------------------------------------------------------------------------------\n{\n  \"agent\": \"api.analyzer\",\n  \"reasoning_mode\": \"oneshot\",\n  \"task\": \"Analyze the API design for best practices\",\n  \"analysis\": \"As api.analyzer, I would approach this task by invoking the following skills:\",\n  \"skills_to_invoke\": [\n    {\n      \"skill\": \"api.validate\",\n      \"purpose\": \"Analyze API specification for issues\"\n    },\n    {\n      \"skill\": \"api.compatibility\",\n      \"purpose\": \"Check compatibility with existing APIs\"\n    }\n  ],\n  \"execution_plan\": [\n    {\n      \"step\": 1,\n      \"skill\": \"api.validate\",\n      \"purpose\": \"Analyze API specification for issues\",\n      \"status\": \"simulated\"\n    },\n    {\n      \"step\": 2,\n      \"skill\": \"api.compatibility\",\n      \"purpose\": \"Check compatibility with existing APIs\",\n      \"status\": \"simulated\"\n    }\n  ]\n}\n\n--------------------------------------------------------------------------------\nSKILLS THAT WOULD BE INVOKED:\n--------------------------------------------------------------------------------\n  \u2022 api.compatibility\n    Detect breaking changes between API specification versions\n    Status: active\n  \u2022 api.validate\n    Validate OpenAPI and AsyncAPI specifications against enterprise guidelines\n    Status: active\n\n================================================================================\nEND SIMULATION\n================================================================================\n\n{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"details\": {\n    \"timestamp\": \"2025-10-23T17:08:23.689725+00:00\",\n    \"agent\": {\n      \"name\": \"api.analyzer\",\n      \"version\": \"0.1.0\",\n      \"description\": \"Analyze API specifications for backward compatibility and breaking changes\",\n      \"reasoning_mode\": \"oneshot\",\n      \"status\": \"draft\"\n    },\n    \"input\": \"Analyze the API design for best practices\",\n    \"prompt\": \"You are api.analyzer, a specialized Betty Framework agent.\\n\\nDESCRIPTION:\\nAnalyze API specifications for backward compatibility and breaking changes\\n\\nCAPABILITIES:\\n  - Detect breaking changes between API versions\\n  - Generate detailed compatibility reports\\n  - Identify removed or modified endpoints\\n  - Suggest migration paths for breaking changes\\n  - Validate API evolution best practices\\n\\nREASONING MODE: oneshot\\n\\nAVAILABLE SKILLS:\\n  - api.compatibility\\n  - api.validate\\n\\nWORKFLOW PATTERN:\\n1. Load old and new API specifications\\n2. Run comprehensive compatibility analysis\\n3. Categorize changes as breaking or non-breaking\\n4. Generate detailed report with migration recommendations\\n5. Return results (no retry needed)\\n\\n\\nTASK:\\nAnalyze the API design for best practices\\n\\nPlease analyze this task and determine which skills to invoke and in what order.\\n\",\n    \"skills_available\": [\n      {\n        \"name\": \"api.compatibility\",\n        \"description\": \"Detect breaking changes between API specification versions\",\n        \"status\": \"active\"\n      },\n      {\n        \"name\": \"api.validate\",\n        \"description\": \"Validate OpenAPI and AsyncAPI specifications against enterprise guidelines\",\n        \"status\": \"active\"\n      }\n    ],\n    \"mock_response\": {\n      \"agent\": \"api.analyzer\",\n      \"reasoning_mode\": \"oneshot\",\n      \"task\": \"Analyze the API design for best practices\",\n      \"analysis\": \"As api.analyzer, I would approach this task by invoking the following skills:\",\n      \"skills_to_invoke\": [\n        {\n          \"skill\": \"api.validate\",\n          \"purpose\": \"Analyze API specification for issues\"\n        },\n        {\n          \"skill\": \"api.compatibility\",\n          \"purpose\": \"Check compatibility with existing APIs\"\n        }\n      ],\n      \"execution_plan\": [\n        {\n          \"step\": 1,\n          \"skill\": \"api.validate\",\n          \"purpose\": \"Analyze API specification for issues\",\n          \"status\": \"simulated\"\n        },\n        {\n          \"step\": 2,\n          \"skill\": \"api.compatibility\",\n          \"purpose\": \"Check compatibility with existing APIs\",\n          \"status\": \"simulated\"\n        }\n      ]\n    },\n    \"simulation_mode\": true,\n    \"note\": \"This is a simulated execution. In production, the agent would invoke real skills through the Claude Code Plugin runtime.\"\n  }\n}\n",
+        "stderr": "",
+        "parsed": {
+          "ok": true,
+          "status": "success",
+          "errors": [],
+          "details": {
+            "timestamp": "2025-10-23T17:08:23.689725+00:00",
+            "agent": {
+              "name": "api.analyzer",
+              "version": "0.1.0",
+              "description": "Analyze API specifications for backward compatibility and breaking changes",
+              "reasoning_mode": "oneshot",
+              "status": "draft"
+            },
+            "input": "Analyze the API design for best practices",
+            "prompt": "You are api.analyzer, a specialized Betty Framework agent.\n\nDESCRIPTION:\nAnalyze API specifications for backward compatibility and breaking changes\n\nCAPABILITIES:\n  - Detect breaking changes between API versions\n  - Generate detailed compatibility reports\n  - Identify removed or modified endpoints\n  - Suggest migration paths for breaking changes\n  - Validate API evolution best practices\n\nREASONING MODE: oneshot\n\nAVAILABLE SKILLS:\n  - api.compatibility\n  - api.validate\n\nWORKFLOW PATTERN:\n1. Load old and new API specifications\n2. Run comprehensive compatibility analysis\n3. Categorize changes as breaking or non-breaking\n4. Generate detailed report with migration recommendations\n5. Return results (no retry needed)\n\n\nTASK:\nAnalyze the API design for best practices\n\nPlease analyze this task and determine which skills to invoke and in what order.\n",
+            "skills_available": [
+              {
+                "name": "api.compatibility",
+                "description": "Detect breaking changes between API specification versions",
+                "status": "active"
+              },
+              {
+                "name": "api.validate",
+                "description": "Validate OpenAPI and AsyncAPI specifications against enterprise guidelines",
+                "status": "active"
+              }
+            ],
+            "mock_response": {
+              "agent": "api.analyzer",
+              "reasoning_mode": "oneshot",
+              "task": "Analyze the API design for best practices",
+              "analysis": "As api.analyzer, I would approach this task by invoking the following skills:",
+              "skills_to_invoke": [
+                {
+                  "skill": "api.validate",
+                  "purpose": "Analyze API specification for issues"
+                },
+                {
+                  "skill": "api.compatibility",
+                  "purpose": "Check compatibility with existing APIs"
+                }
+              ],
+              "execution_plan": [
+                {
+                  "step": 1,
+                  "skill": "api.validate",
+                  "purpose": "Analyze API specification for issues",
+                  "status": "simulated"
+                },
+                {
+                  "step": 2,
+                  "skill": "api.compatibility",
+                  "purpose": "Check compatibility with existing APIs",
+                  "status": "simulated"
+                }
+              ]
+            },
+            "simulation_mode": true,
+            "note": "This is a simulated execution. In production, the agent would invoke real skills through the Claude Code Plugin runtime."
+          }
+        },
+        "parse_error": null,
+        "errors": [],
+        "duration_ms": 74
+      }
+    ],
+    "status": "success",
+    "validation": {
+      "step": "validation",
+      "skill": "workflow.validate",
+      "args": [
+        "workflows/test-agent-workflow.yaml"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"path\": \"workflows/test-agent-workflow.yaml\",\n  \"details\": {\n    \"valid\": true,\n    \"errors\": [],\n    \"status\": \"validated\",\n    \"path\": \"workflows/test-agent-workflow.yaml\"\n  }\n}\n",
+      "stderr": "",
+      "parsed": {
+        "ok": true,
+        "status": "success",
+        "errors": [],
+        "path": "workflows/test-agent-workflow.yaml",
+        "details": {
+          "valid": true,
+          "errors": [],
+          "status": "validated",
+          "path": "workflows/test-agent-workflow.yaml"
+        }
+      },
+      "parse_error": null,
+      "status": "success",
+      "errors": []
+    },
+    "errors": [],
+    "completed_at": "2025-10-23T17:08:23.760965+00:00"
+  },
+  {
+    "workflow": "test-agent-workflow.yaml",
+    "workflow_path": "workflows/test-agent-workflow.yaml",
+    "started_at": "2025-10-23T17:08:31.632279+00:00",
+    "fail_fast": true,
+    "steps": [
+      {
+        "step_number": 1,
+        "skill": "run.agent",
+        "agent": "api.designer",
+        "args": [
+          "api.designer",
+          "Create a simple REST API for managing todo items"
+        ],
+        "status": "success",
+        "returncode": 0,
+        "stdout": "2025-10-23 17:08:31 - __main__ - INFO - Loading agent: api.designer\n2025-10-23 17:08:31 - __main__ - INFO - Constructing agent prompt...\n2025-10-23 17:08:31 - __main__ - INFO - Generating mock Claude response...\n\n================================================================================\nAGENT SIMULATION: api.designer\n================================================================================\n\nAgent: api.designer v0.1.0\nReasoning Mode: iterative\nStatus: draft\n\n--------------------------------------------------------------------------------\nPROMPT SENT TO AGENT:\n--------------------------------------------------------------------------------\nYou are api.designer, a specialized Betty Framework agent.\n\nDESCRIPTION:\nDesign RESTful APIs following enterprise guidelines with iterative refinement\n\nCAPABILITIES:\n  - Design RESTful APIs from natural language requirements\n  - Apply Zalando guidelines automatically\n  - Generate OpenAPI 3.1 specs with best practices\n  - Iteratively refine based on validation feedback\n  - Handle AsyncAPI for event-driven architectures\n\nREASONING MODE: iterative\n\nAVAILABLE SKILLS:\n  - api.define\n  - api.validate\n  - api.generate-models\n  - api.compatibility\n\nWORKFLOW PATTERN:\n1. Analyze requirements and domain context\n2. Draft OpenAPI spec following guidelines\n3. Run validation (api.validate)\n4. If validation fails:\n   - Analyze errors\n   - Refine spec\n   - Re-validate\n   - Repeat until passing\n5. Generate models for target languages\n6. Verify generated models compile\n\n\nTASK:\nCreate a simple REST API for managing todo items\n\nPlease analyze this task and determine which skills to invoke and in what order.\n\n\n--------------------------------------------------------------------------------\nMOCK CLAUDE RESPONSE:\n--------------------------------------------------------------------------------\n{\n  \"agent\": \"api.designer\",\n  \"reasoning_mode\": \"iterative\",\n  \"task\": \"Create a simple REST API for managing todo items\",\n  \"analysis\": \"As api.designer, I would approach this task by invoking the following skills:\",\n  \"skills_to_invoke\": [\n    {\n      \"skill\": \"api.define\",\n      \"purpose\": \"Create initial OpenAPI specification\"\n    },\n    {\n      \"skill\": \"api.validate\",\n      \"purpose\": \"Validate the generated API specification\"\n    },\n    {\n      \"skill\": \"api.generate-models\",\n      \"purpose\": \"Generate client/server models\"\n    }\n  ],\n  \"execution_plan\": [\n    {\n      \"step\": 1,\n      \"skill\": \"api.define\",\n      \"purpose\": \"Create initial OpenAPI specification\",\n      \"status\": \"simulated\"\n    },\n    {\n      \"step\": 2,\n      \"skill\": \"api.validate\",\n      \"purpose\": \"Validate the generated API specification\",\n      \"status\": \"simulated\"\n    },\n    {\n      \"step\": 3,\n      \"skill\": \"api.generate-models\",\n      \"purpose\": \"Generate client/server models\",\n      \"status\": \"simulated\"\n    }\n  ],\n  \"note\": \"This agent uses iterative reasoning. In a real execution, it would analyze results from each skill and potentially invoke additional skills or retry based on feedback.\"\n}\n\n--------------------------------------------------------------------------------\nSKILLS THAT WOULD BE INVOKED:\n--------------------------------------------------------------------------------\n  \u2022 api.define\n    Create OpenAPI and AsyncAPI specifications from templates\n    Status: active\n  \u2022 api.validate\n    Validate OpenAPI and AsyncAPI specifications against enterprise guidelines\n    Status: active\n  \u2022 api.generate-models\n    Generate type-safe models from OpenAPI and AsyncAPI specifications using Modelina\n    Status: active\n  \u2022 api.compatibility\n    Detect breaking changes between API specification versions\n    Status: active\n\n================================================================================\nEND SIMULATION\n================================================================================\n\n{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"details\": {\n    \"timestamp\": \"2025-10-23T17:08:31.770149+00:00\",\n    \"agent\": {\n      \"name\": \"api.designer\",\n      \"version\": \"0.1.0\",\n      \"description\": \"Design RESTful APIs following enterprise guidelines with iterative refinement\",\n      \"reasoning_mode\": \"iterative\",\n      \"status\": \"draft\"\n    },\n    \"input\": \"Create a simple REST API for managing todo items\",\n    \"prompt\": \"You are api.designer, a specialized Betty Framework agent.\\n\\nDESCRIPTION:\\nDesign RESTful APIs following enterprise guidelines with iterative refinement\\n\\nCAPABILITIES:\\n  - Design RESTful APIs from natural language requirements\\n  - Apply Zalando guidelines automatically\\n  - Generate OpenAPI 3.1 specs with best practices\\n  - Iteratively refine based on validation feedback\\n  - Handle AsyncAPI for event-driven architectures\\n\\nREASONING MODE: iterative\\n\\nAVAILABLE SKILLS:\\n  - api.define\\n  - api.validate\\n  - api.generate-models\\n  - api.compatibility\\n\\nWORKFLOW PATTERN:\\n1. Analyze requirements and domain context\\n2. Draft OpenAPI spec following guidelines\\n3. Run validation (api.validate)\\n4. If validation fails:\\n   - Analyze errors\\n   - Refine spec\\n   - Re-validate\\n   - Repeat until passing\\n5. Generate models for target languages\\n6. Verify generated models compile\\n\\n\\nTASK:\\nCreate a simple REST API for managing todo items\\n\\nPlease analyze this task and determine which skills to invoke and in what order.\\n\",\n    \"skills_available\": [\n      {\n        \"name\": \"api.define\",\n        \"description\": \"Create OpenAPI and AsyncAPI specifications from templates\",\n        \"status\": \"active\"\n      },\n      {\n        \"name\": \"api.validate\",\n        \"description\": \"Validate OpenAPI and AsyncAPI specifications against enterprise guidelines\",\n        \"status\": \"active\"\n      },\n      {\n        \"name\": \"api.generate-models\",\n        \"description\": \"Generate type-safe models from OpenAPI and AsyncAPI specifications using Modelina\",\n        \"status\": \"active\"\n      },\n      {\n        \"name\": \"api.compatibility\",\n        \"description\": \"Detect breaking changes between API specification versions\",\n        \"status\": \"active\"\n      }\n    ],\n    \"mock_response\": {\n      \"agent\": \"api.designer\",\n      \"reasoning_mode\": \"iterative\",\n      \"task\": \"Create a simple REST API for managing todo items\",\n      \"analysis\": \"As api.designer, I would approach this task by invoking the following skills:\",\n      \"skills_to_invoke\": [\n        {\n          \"skill\": \"api.define\",\n          \"purpose\": \"Create initial OpenAPI specification\"\n        },\n        {\n          \"skill\": \"api.validate\",\n          \"purpose\": \"Validate the generated API specification\"\n        },\n        {\n          \"skill\": \"api.generate-models\",\n          \"purpose\": \"Generate client/server models\"\n        }\n      ],\n      \"execution_plan\": [\n        {\n          \"step\": 1,\n          \"skill\": \"api.define\",\n          \"purpose\": \"Create initial OpenAPI specification\",\n          \"status\": \"simulated\"\n        },\n        {\n          \"step\": 2,\n          \"skill\": \"api.validate\",\n          \"purpose\": \"Validate the generated API specification\",\n          \"status\": \"simulated\"\n        },\n        {\n          \"step\": 3,\n          \"skill\": \"api.generate-models\",\n          \"purpose\": \"Generate client/server models\",\n          \"status\": \"simulated\"\n        }\n      ],\n      \"note\": \"This agent uses iterative reasoning. In a real execution, it would analyze results from each skill and potentially invoke additional skills or retry based on feedback.\"\n    },\n    \"simulation_mode\": true,\n    \"note\": \"This is a simulated execution. In production, the agent would invoke real skills through the Claude Code Plugin runtime.\"\n  }\n}\n",
+        "stderr": "",
+        "parsed": {
+          "ok": true,
+          "status": "success",
+          "errors": [],
+          "details": {
+            "timestamp": "2025-10-23T17:08:31.770149+00:00",
+            "agent": {
+              "name": "api.designer",
+              "version": "0.1.0",
+              "description": "Design RESTful APIs following enterprise guidelines with iterative refinement",
+              "reasoning_mode": "iterative",
+              "status": "draft"
+            },
+            "input": "Create a simple REST API for managing todo items",
+            "prompt": "You are api.designer, a specialized Betty Framework agent.\n\nDESCRIPTION:\nDesign RESTful APIs following enterprise guidelines with iterative refinement\n\nCAPABILITIES:\n  - Design RESTful APIs from natural language requirements\n  - Apply Zalando guidelines automatically\n  - Generate OpenAPI 3.1 specs with best practices\n  - Iteratively refine based on validation feedback\n  - Handle AsyncAPI for event-driven architectures\n\nREASONING MODE: iterative\n\nAVAILABLE SKILLS:\n  - api.define\n  - api.validate\n  - api.generate-models\n  - api.compatibility\n\nWORKFLOW PATTERN:\n1. Analyze requirements and domain context\n2. Draft OpenAPI spec following guidelines\n3. Run validation (api.validate)\n4. If validation fails:\n   - Analyze errors\n   - Refine spec\n   - Re-validate\n   - Repeat until passing\n5. Generate models for target languages\n6. Verify generated models compile\n\n\nTASK:\nCreate a simple REST API for managing todo items\n\nPlease analyze this task and determine which skills to invoke and in what order.\n",
+            "skills_available": [
+              {
+                "name": "api.define",
+                "description": "Create OpenAPI and AsyncAPI specifications from templates",
+                "status": "active"
+              },
+              {
+                "name": "api.validate",
+                "description": "Validate OpenAPI and AsyncAPI specifications against enterprise guidelines",
+                "status": "active"
+              },
+              {
+                "name": "api.generate-models",
+                "description": "Generate type-safe models from OpenAPI and AsyncAPI specifications using Modelina",
+                "status": "active"
+              },
+              {
+                "name": "api.compatibility",
+                "description": "Detect breaking changes between API specification versions",
+                "status": "active"
+              }
+            ],
+            "mock_response": {
+              "agent": "api.designer",
+              "reasoning_mode": "iterative",
+              "task": "Create a simple REST API for managing todo items",
+              "analysis": "As api.designer, I would approach this task by invoking the following skills:",
+              "skills_to_invoke": [
+                {
+                  "skill": "api.define",
+                  "purpose": "Create initial OpenAPI specification"
+                },
+                {
+                  "skill": "api.validate",
+                  "purpose": "Validate the generated API specification"
+                },
+                {
+                  "skill": "api.generate-models",
+                  "purpose": "Generate client/server models"
+                }
+              ],
+              "execution_plan": [
+                {
+                  "step": 1,
+                  "skill": "api.define",
+                  "purpose": "Create initial OpenAPI specification",
+                  "status": "simulated"
+                },
+                {
+                  "step": 2,
+                  "skill": "api.validate",
+                  "purpose": "Validate the generated API specification",
+                  "status": "simulated"
+                },
+                {
+                  "step": 3,
+                  "skill": "api.generate-models",
+                  "purpose": "Generate client/server models",
+                  "status": "simulated"
+                }
+              ],
+              "note": "This agent uses iterative reasoning. In a real execution, it would analyze results from each skill and potentially invoke additional skills or retry based on feedback."
+            },
+            "simulation_mode": true,
+            "note": "This is a simulated execution. In production, the agent would invoke real skills through the Claude Code Plugin runtime."
+          }
+        },
+        "parse_error": null,
+        "errors": [],
+        "duration_ms": 72
+      },
+      {
+        "step_number": 2,
+        "skill": "run.agent",
+        "agent": "api.analyzer",
+        "args": [
+          "api.analyzer",
+          "Analyze the API design for best practices"
+        ],
+        "status": "success",
+        "returncode": 0,
+        "stdout": "2025-10-23 17:08:31 - __main__ - INFO - Loading agent: api.analyzer\n2025-10-23 17:08:31 - __main__ - INFO - Constructing agent prompt...\n2025-10-23 17:08:31 - __main__ - INFO - Generating mock Claude response...\n\n================================================================================\nAGENT SIMULATION: api.analyzer\n================================================================================\n\nAgent: api.analyzer v0.1.0\nReasoning Mode: oneshot\nStatus: draft\n\n--------------------------------------------------------------------------------\nPROMPT SENT TO AGENT:\n--------------------------------------------------------------------------------\nYou are api.analyzer, a specialized Betty Framework agent.\n\nDESCRIPTION:\nAnalyze API specifications for backward compatibility and breaking changes\n\nCAPABILITIES:\n  - Detect breaking changes between API versions\n  - Generate detailed compatibility reports\n  - Identify removed or modified endpoints\n  - Suggest migration paths for breaking changes\n  - Validate API evolution best practices\n\nREASONING MODE: oneshot\n\nAVAILABLE SKILLS:\n  - api.compatibility\n  - api.validate\n\nWORKFLOW PATTERN:\n1. Load old and new API specifications\n2. Run comprehensive compatibility analysis\n3. Categorize changes as breaking or non-breaking\n4. Generate detailed report with migration recommendations\n5. Return results (no retry needed)\n\n\nTASK:\nAnalyze the API design for best practices\n\nPlease analyze this task and determine which skills to invoke and in what order.\n\n\n--------------------------------------------------------------------------------\nMOCK CLAUDE RESPONSE:\n--------------------------------------------------------------------------------\n{\n  \"agent\": \"api.analyzer\",\n  \"reasoning_mode\": \"oneshot\",\n  \"task\": \"Analyze the API design for best practices\",\n  \"analysis\": \"As api.analyzer, I would approach this task by invoking the following skills:\",\n  \"skills_to_invoke\": [\n    {\n      \"skill\": \"api.validate\",\n      \"purpose\": \"Analyze API specification for issues\"\n    },\n    {\n      \"skill\": \"api.compatibility\",\n      \"purpose\": \"Check compatibility with existing APIs\"\n    }\n  ],\n  \"execution_plan\": [\n    {\n      \"step\": 1,\n      \"skill\": \"api.validate\",\n      \"purpose\": \"Analyze API specification for issues\",\n      \"status\": \"simulated\"\n    },\n    {\n      \"step\": 2,\n      \"skill\": \"api.compatibility\",\n      \"purpose\": \"Check compatibility with existing APIs\",\n      \"status\": \"simulated\"\n    }\n  ]\n}\n\n--------------------------------------------------------------------------------\nSKILLS THAT WOULD BE INVOKED:\n--------------------------------------------------------------------------------\n  \u2022 api.compatibility\n    Detect breaking changes between API specification versions\n    Status: active\n  \u2022 api.validate\n    Validate OpenAPI and AsyncAPI specifications against enterprise guidelines\n    Status: active\n\n================================================================================\nEND SIMULATION\n================================================================================\n\n{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"details\": {\n    \"timestamp\": \"2025-10-23T17:08:31.901836+00:00\",\n    \"agent\": {\n      \"name\": \"api.analyzer\",\n      \"version\": \"0.1.0\",\n      \"description\": \"Analyze API specifications for backward compatibility and breaking changes\",\n      \"reasoning_mode\": \"oneshot\",\n      \"status\": \"draft\"\n    },\n    \"input\": \"Analyze the API design for best practices\",\n    \"prompt\": \"You are api.analyzer, a specialized Betty Framework agent.\\n\\nDESCRIPTION:\\nAnalyze API specifications for backward compatibility and breaking changes\\n\\nCAPABILITIES:\\n  - Detect breaking changes between API versions\\n  - Generate detailed compatibility reports\\n  - Identify removed or modified endpoints\\n  - Suggest migration paths for breaking changes\\n  - Validate API evolution best practices\\n\\nREASONING MODE: oneshot\\n\\nAVAILABLE SKILLS:\\n  - api.compatibility\\n  - api.validate\\n\\nWORKFLOW PATTERN:\\n1. Load old and new API specifications\\n2. Run comprehensive compatibility analysis\\n3. Categorize changes as breaking or non-breaking\\n4. Generate detailed report with migration recommendations\\n5. Return results (no retry needed)\\n\\n\\nTASK:\\nAnalyze the API design for best practices\\n\\nPlease analyze this task and determine which skills to invoke and in what order.\\n\",\n    \"skills_available\": [\n      {\n        \"name\": \"api.compatibility\",\n        \"description\": \"Detect breaking changes between API specification versions\",\n        \"status\": \"active\"\n      },\n      {\n        \"name\": \"api.validate\",\n        \"description\": \"Validate OpenAPI and AsyncAPI specifications against enterprise guidelines\",\n        \"status\": \"active\"\n      }\n    ],\n    \"mock_response\": {\n      \"agent\": \"api.analyzer\",\n      \"reasoning_mode\": \"oneshot\",\n      \"task\": \"Analyze the API design for best practices\",\n      \"analysis\": \"As api.analyzer, I would approach this task by invoking the following skills:\",\n      \"skills_to_invoke\": [\n        {\n          \"skill\": \"api.validate\",\n          \"purpose\": \"Analyze API specification for issues\"\n        },\n        {\n          \"skill\": \"api.compatibility\",\n          \"purpose\": \"Check compatibility with existing APIs\"\n        }\n      ],\n      \"execution_plan\": [\n        {\n          \"step\": 1,\n          \"skill\": \"api.validate\",\n          \"purpose\": \"Analyze API specification for issues\",\n          \"status\": \"simulated\"\n        },\n        {\n          \"step\": 2,\n          \"skill\": \"api.compatibility\",\n          \"purpose\": \"Check compatibility with existing APIs\",\n          \"status\": \"simulated\"\n        }\n      ]\n    },\n    \"simulation_mode\": true,\n    \"note\": \"This is a simulated execution. In production, the agent would invoke real skills through the Claude Code Plugin runtime.\"\n  }\n}\n",
+        "stderr": "",
+        "parsed": {
+          "ok": true,
+          "status": "success",
+          "errors": [],
+          "details": {
+            "timestamp": "2025-10-23T17:08:31.901836+00:00",
+            "agent": {
+              "name": "api.analyzer",
+              "version": "0.1.0",
+              "description": "Analyze API specifications for backward compatibility and breaking changes",
+              "reasoning_mode": "oneshot",
+              "status": "draft"
+            },
+            "input": "Analyze the API design for best practices",
+            "prompt": "You are api.analyzer, a specialized Betty Framework agent.\n\nDESCRIPTION:\nAnalyze API specifications for backward compatibility and breaking changes\n\nCAPABILITIES:\n  - Detect breaking changes between API versions\n  - Generate detailed compatibility reports\n  - Identify removed or modified endpoints\n  - Suggest migration paths for breaking changes\n  - Validate API evolution best practices\n\nREASONING MODE: oneshot\n\nAVAILABLE SKILLS:\n  - api.compatibility\n  - api.validate\n\nWORKFLOW PATTERN:\n1. Load old and new API specifications\n2. Run comprehensive compatibility analysis\n3. Categorize changes as breaking or non-breaking\n4. Generate detailed report with migration recommendations\n5. Return results (no retry needed)\n\n\nTASK:\nAnalyze the API design for best practices\n\nPlease analyze this task and determine which skills to invoke and in what order.\n",
+            "skills_available": [
+              {
+                "name": "api.compatibility",
+                "description": "Detect breaking changes between API specification versions",
+                "status": "active"
+              },
+              {
+                "name": "api.validate",
+                "description": "Validate OpenAPI and AsyncAPI specifications against enterprise guidelines",
+                "status": "active"
+              }
+            ],
+            "mock_response": {
+              "agent": "api.analyzer",
+              "reasoning_mode": "oneshot",
+              "task": "Analyze the API design for best practices",
+              "analysis": "As api.analyzer, I would approach this task by invoking the following skills:",
+              "skills_to_invoke": [
+                {
+                  "skill": "api.validate",
+                  "purpose": "Analyze API specification for issues"
+                },
+                {
+                  "skill": "api.compatibility",
+                  "purpose": "Check compatibility with existing APIs"
+                }
+              ],
+              "execution_plan": [
+                {
+                  "step": 1,
+                  "skill": "api.validate",
+                  "purpose": "Analyze API specification for issues",
+                  "status": "simulated"
+                },
+                {
+                  "step": 2,
+                  "skill": "api.compatibility",
+                  "purpose": "Check compatibility with existing APIs",
+                  "status": "simulated"
+                }
+              ]
+            },
+            "simulation_mode": true,
+            "note": "This is a simulated execution. In production, the agent would invoke real skills through the Claude Code Plugin runtime."
+          }
+        },
+        "parse_error": null,
+        "errors": [],
+        "duration_ms": 67
+      }
+    ],
+    "status": "success",
+    "validation": {
+      "step": "validation",
+      "skill": "workflow.validate",
+      "args": [
+        "workflows/test-agent-workflow.yaml"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"path\": \"workflows/test-agent-workflow.yaml\",\n  \"details\": {\n    \"valid\": true,\n    \"errors\": [],\n    \"status\": \"validated\",\n    \"path\": \"workflows/test-agent-workflow.yaml\"\n  }\n}\n",
+      "stderr": "",
+      "parsed": {
+        "ok": true,
+        "status": "success",
+        "errors": [],
+        "path": "workflows/test-agent-workflow.yaml",
+        "details": {
+          "valid": true,
+          "errors": [],
+          "status": "validated",
+          "path": "workflows/test-agent-workflow.yaml"
+        }
+      },
+      "parse_error": null,
+      "status": "success",
+      "errors": []
+    },
+    "errors": [],
+    "completed_at": "2025-10-23T17:08:31.974270+00:00"
   }
 ]
