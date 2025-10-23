@@ -1,0 +1,36 @@
+[
+  {
+    "timestamp": "2025-10-23T18:08:55.963188+00:00",
+    "skill": "test.skill",
+    "inputs": {
+      "param1": "value1"
+    },
+    "status": "success",
+    "duration_ms": 1000,
+    "caller": "test"
+  },
+  {
+    "timestamp": "2025-10-23T18:09:04.767963+00:00",
+    "skill": "workflow.validate",
+    "inputs": {
+      "arg_count": 0,
+      "args": []
+    },
+    "status": "failed",
+    "duration_ms": 0,
+    "caller": "cli"
+  },
+  {
+    "timestamp": "2025-10-23T18:09:13.479247+00:00",
+    "skill": "workflow.validate",
+    "inputs": {
+      "arg_count": 1,
+      "args": [
+        "/tmp/test-workflow.yaml"
+      ]
+    },
+    "status": "success",
+    "duration_ms": 0,
+    "caller": "cli"
+  }
+]
