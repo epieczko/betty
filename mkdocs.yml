@@ -60,28 +60,32 @@ markdown_extensions:
 
 nav:
   - Home: README.md
-
-  - Getting Started:
-    - Overview: docs/betty-framework-overview.md
-    - Contributing: docs/contributing.md
+  - Overview: docs/betty-framework-overview.md
 
   - Architecture:
     - Betty Architecture: docs/betty-architecture.md
     - Codebase Analysis: docs/CODEBASE_ANALYSIS.md
-    - Governance Architecture: docs/governance-architecture.md
 
-  - Skills & Agents:
+  - Skills:
     - Skills Framework: docs/skills-framework.md
-    - Agent Implementation Plan: docs/agent-define-implementation-plan.md
+    - Implementation Planning: docs/agent-define-implementation-plan.md
+
+  - Agents:
     - Agent Schema Reference: docs/agent-schema-reference.md
 
-  - Development Guides:
+  - Workflows:
     - API-Driven Development: docs/api-driven-development.md
     - Command Hook Infrastructure: docs/COMMAND_HOOK_INFRASTRUCTURE.md
 
-  - Integration:
-    - Claude Code Router: docs/claude-code-router-integration.md
+  - Governance:
+    - Governance Architecture: docs/governance-architecture.md
+
+  - Claude Integration:
+    - Router Integration: docs/claude-code-router-integration.md
     - Multi-LLM Integration: docs/multi-llm-integration-paths.md
+
+  - Contributing:
+    - Contributing Guide: docs/contributing.md
 
   - Reference:
     - Glossary: docs/glossary.md
