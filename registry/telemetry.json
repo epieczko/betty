@@ -113,5 +113,78 @@
     "status": "success",
     "duration_ms": 3,
     "caller": "cli"
+  },
+  {
+    "timestamp": "2025-10-23T20:26:07.249367+00:00",
+    "skill": "test.workflow",
+    "inputs": {
+      "workflow": "test.yaml"
+    },
+    "status": "success",
+    "duration_ms": 250,
+    "workflow": "test-workflow",
+    "caller": "cli"
+  },
+  {
+    "timestamp": "2025-10-23T20:26:32.064327+00:00",
+    "skill": "workflow.validate",
+    "inputs": {
+      "arg_count": 1,
+      "args": [
+        "workflows/test_telemetry.yaml"
+      ]
+    },
+    "status": "success",
+    "duration_ms": 1,
+    "caller": "cli"
+  },
+  {
+    "timestamp": "2025-10-23T20:26:32.170316+00:00",
+    "skill": "workflow.validate",
+    "inputs": {
+      "arg_count": 1,
+      "args": [
+        "workflows/test_telemetry.yaml"
+      ]
+    },
+    "status": "success",
+    "duration_ms": 1,
+    "caller": "cli"
+  },
+  {
+    "timestamp": "2025-10-23T20:26:32.270654+00:00",
+    "execution_id": "05ae2d5f-b7b0-4d6a-b5fe-f69e4efef3a3",
+    "skill": "workflow.validate",
+    "inputs": {
+      "args": [
+        "workflows/test_telemetry.yaml"
+      ]
+    },
+    "status": "success",
+    "duration_ms": 105,
+    "workflow": "test_telemetry.yaml",
+    "caller": "workflow",
+    "workflow_execution_id": "bc71b620-a037-4599-9885-75c096de9976",
+    "step_number": 1,
+    "total_steps": 1,
+    "errors": null
+  },
+  {
+    "timestamp": "2025-10-23T20:26:32.368836+00:00",
+    "execution_id": "bc71b620-a037-4599-9885-75c096de9976",
+    "skill": "workflow.compose",
+    "inputs": {
+      "workflow_file": "test_telemetry.yaml",
+      "total_steps": 1,
+      "fail_fast": true
+    },
+    "status": "success",
+    "duration_ms": 310,
+    "workflow": "test_telemetry.yaml",
+    "caller": "cli",
+    "total_steps": 1,
+    "failed_steps": 0,
+    "successful_steps": 1,
+    "errors": null
   }
 ]

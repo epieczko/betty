@@ -4,6 +4,7 @@
 import json
 import os
 import sys
+import uuid
 from typing import Any, Dict, List, Optional
 from datetime import datetime, timezone
 
@@ -41,9 +42,10 @@ def create_audit_entry(
     duration_ms: Optional[int] = None,
     errors: Optional[List[str]] = None,
     metadata: Optional[Dict[str, Any]] = None,
+    entry_id: Optional[str] = None,
 ) -> Dict[str, Any]:
     """
-    Create an audit log entry.
+    Create an audit log entry with consistent schema.
 
     Args:
         skill_name: Name of the skill being audited
@@ -51,12 +53,14 @@ def create_audit_entry(
         duration_ms: Execution duration in milliseconds
         errors: List of errors (if any)
         metadata: Additional metadata about the execution
+        entry_id: Optional UUID for the entry (auto-generated if not provided)
 
     Returns:
-        Audit entry dictionary
+        Audit entry dictionary with UUID
     """
     entry = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
+        "entry_id": entry_id or str(uuid.uuid4()),
         "skill": skill_name,
         "status": status,
     }
@@ -138,6 +142,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     duration_ms = None
     errors = None
     metadata = None
+    entry_id = None
 
     # Parse optional arguments
     if len(argv) > 2 and argv[2]:
@@ -163,6 +168,10 @@ def main(argv: Optional[List[str]] = None) -> int:
         except json.JSONDecodeError:
             logger.warning(f"Invalid metadata JSON: {argv[4]}, ignoring")
 
+    # Optional entry_id parameter (for linking with telemetry)
+    if len(argv) > 5 and argv[5]:
+        entry_id = argv[5]
+
     try:
         # Create audit entry
         entry = create_audit_entry(
@@ -171,6 +180,7 @@ def main(argv: Optional[List[str]] = None) -> int:
             duration_ms=duration_ms,
             errors=errors,
             metadata=metadata,
+            entry_id=entry_id,
         )
 
         # Append to audit log

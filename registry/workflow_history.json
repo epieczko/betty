@@ -1702,5 +1702,50 @@
       "Missing required field: steps"
     ],
     "completed_at": "2025-10-23T17:38:22.887457+00:00"
+  },
+  {
+    "workflow": "test_telemetry.yaml",
+    "workflow_path": "workflows/test_telemetry.yaml",
+    "execution_id": "bc71b620-a037-4599-9885-75c096de9976",
+    "started_at": "2025-10-23T20:26:31.967379+00:00",
+    "fail_fast": true,
+    "steps": [
+      {
+        "step_number": 1,
+        "skill": "workflow.validate",
+        "agent": null,
+        "args": [
+          "workflows/test_telemetry.yaml"
+        ],
+        "status": "success",
+        "execution_id": "05ae2d5f-b7b0-4d6a-b5fe-f69e4efef3a3",
+        "returncode": 0,
+        "stdout": "{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"path\": \"workflows/test_telemetry.yaml\",\n  \"details\": {\n    \"valid\": true,\n    \"errors\": [],\n    \"status\": \"validated\",\n    \"path\": \"workflows/test_telemetry.yaml\"\n  }\n}\n2025-10-23 20:26:32 - telemetry_capture - INFO - Telemetry captured for: workflow.validate\n",
+        "stderr": "",
+        "parsed": null,
+        "parse_error": "Extra data: line 13 column 1 (char 227)",
+        "errors": [],
+        "duration_ms": 105
+      }
+    ],
+    "status": "success",
+    "validation": {
+      "step": "validation",
+      "skill": "workflow.validate",
+      "args": [
+        "workflows/test_telemetry.yaml"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"path\": \"workflows/test_telemetry.yaml\",\n  \"details\": {\n    \"valid\": true,\n    \"errors\": [],\n    \"status\": \"validated\",\n    \"path\": \"workflows/test_telemetry.yaml\"\n  }\n}\n2025-10-23 20:26:32 - telemetry_capture - INFO - Telemetry captured for: workflow.validate\n",
+      "stderr": "",
+      "parsed": null,
+      "parse_error": "Extra data: line 13 column 1 (char 227)",
+      "status": "success",
+      "errors": [
+        "Extra data: line 13 column 1 (char 227)"
+      ]
+    },
+    "errors": [],
+    "completed_at": "2025-10-23T20:26:32.277594+00:00"
   }
 ]

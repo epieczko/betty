@@ -26,6 +26,7 @@ from betty.config import (
 from betty.validation import validate_skill_name, ValidationError
 from betty.logging_utils import setup_logger
 from betty.errors import SkillNotFoundError, ManifestError, format_error_response
+from betty.telemetry_capture import telemetry_tracked
 
 logger = setup_logger(__name__)
 
@@ -327,7 +328,8 @@ def create_skill(
         raise ManifestError(f"Failed to create skill: {e}")
 
 
-def main():
+@telemetry_tracked(skill_name="skill.create", caller="cli")
+def main(argv: Optional[List[str]] = None) -> int:
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
         description="Create a new Betty Framework Skill.",
@@ -352,7 +354,7 @@ def main():
         default=""
     )
 
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     inputs = [i.strip() for i in args.inputs.split(",") if i.strip()]
     outputs = [o.strip() for o in args.outputs.split(",") if o.strip()]
@@ -366,7 +368,7 @@ def main():
             details=details,
         )
         print(json.dumps(response, indent=2))
-        sys.exit(0)
+        return 0
     except (ValidationError, ManifestError) as e:
         logger.error(str(e))
         error_info = format_error_response(e)
@@ -380,7 +382,7 @@ def main():
             details={"error": error_info},
         )
         print(json.dumps(response, indent=2))
-        sys.exit(1)
+        return 1
     except Exception as e:
         logger.error(f"Unexpected error: {e}")
         error_info = format_error_response(e, include_traceback=True)
@@ -391,8 +393,8 @@ def main():
             details={"error": error_info},
         )
         print(json.dumps(response, indent=2))
-        sys.exit(1)
+        return 1
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

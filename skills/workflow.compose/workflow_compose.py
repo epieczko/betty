@@ -8,6 +8,7 @@ import sys
 import yaml
 import subprocess
 import json
+import uuid
 from typing import Dict, Any, List, Optional, Tuple
 from datetime import datetime, timezone
 # Add parent directory to path for imports
@@ -17,6 +18,7 @@ from betty.file_utils import safe_update_json
 from betty.validation import validate_path
 from betty.logging_utils import setup_logger
 from betty.errors import WorkflowError, format_error_response
+from betty.telemetry_capture import create_telemetry_entry, capture_telemetry_entry
 logger = setup_logger(__name__)
 
 
@@ -171,10 +173,16 @@ def execute_workflow(workflow_file: str) -> Dict[str, Any]:
     validate_path(workflow_file, must_exist=True)
     workflow = load_workflow(workflow_file)
     fail_fast = workflow.get("fail_fast", True)
+
+    # Generate execution ID for tracking
+    workflow_execution_id = str(uuid.uuid4())
+    workflow_start_time = datetime.now(timezone.utc)
+
     log: Dict[str, Any] = {
         "workflow": os.path.basename(workflow_file),
         "workflow_path": workflow_file,
-        "started_at": datetime.now(timezone.utc).isoformat(),
+        "execution_id": workflow_execution_id,
+        "started_at": workflow_start_time.isoformat(),
         "fail_fast": fail_fast,
         "steps": [],
         "status": "running",
@@ -276,6 +284,7 @@ def execute_workflow(workflow_file: str) -> Dict[str, Any]:
             logger.info(f"\n=== Step {i}/{len(steps)}: Executing {skill_name} ===")
         try:
             step_start_time = datetime.now(timezone.utc)
+            step_execution_id = str(uuid.uuid4())
             execution_result = run_skill(handler, args)
             step_end_time = datetime.now(timezone.utc)
             step_duration_ms = int((step_end_time - step_start_time).total_seconds() * 1000)
@@ -292,6 +301,7 @@ def execute_workflow(workflow_file: str) -> Dict[str, Any]:
                 {
                     "skill": skill_name,
                     "args": args,
+                    "execution_id": step_execution_id,
                     "returncode": execution_result["returncode"],
                     "stdout": execution_result["stdout"],
                     "stderr": execution_result["stderr"],
@@ -312,10 +322,27 @@ def execute_workflow(workflow_file: str) -> Dict[str, Any]:
                 errors=step_errors if step_errors else None,
                 metadata={
                     "workflow": os.path.basename(workflow_file),
+                    "workflow_execution_id": workflow_execution_id,
                     "step_number": i,
                     "total_steps": len(steps),
                 }
             )
+
+            # Capture telemetry for this step
+            step_telemetry = create_telemetry_entry(
+                skill_name=skill_name,
+                inputs={"args": args},
+                status="success" if execution_result["returncode"] == 0 else "failed",
+                duration_ms=step_duration_ms,
+                workflow=os.path.basename(workflow_file),
+                caller="workflow",
+                execution_id=step_execution_id,
+                workflow_execution_id=workflow_execution_id,
+                step_number=i,
+                total_steps=len(steps),
+                errors=step_errors if step_errors else None,
+            )
+            capture_telemetry_entry(step_telemetry)
             if execution_result["returncode"] != 0:
                 failed_steps.append({
                     "step": i,
@@ -359,11 +386,29 @@ def execute_workflow(workflow_file: str) -> Dict[str, Any]:
                 errors=[error_msg],
                 metadata={
                     "workflow": os.path.basename(workflow_file),
+                    "workflow_execution_id": workflow_execution_id,
                     "step_number": i,
                     "total_steps": len(steps),
                     "error_type": "WorkflowError",
                 }
             )
+
+            # Capture telemetry for failed step
+            step_telemetry = create_telemetry_entry(
+                skill_name=skill_name,
+                inputs={"args": args},
+                status="failed",
+                duration_ms=0,  # Not tracked for WorkflowError
+                workflow=os.path.basename(workflow_file),
+                caller="workflow",
+                execution_id=str(uuid.uuid4()),
+                workflow_execution_id=workflow_execution_id,
+                step_number=i,
+                total_steps=len(steps),
+                error=error_msg,
+                error_type="WorkflowError",
+            )
+            capture_telemetry_entry(step_telemetry)
 
             if fail_fast:
                 break
@@ -391,10 +436,31 @@ def execute_workflow(workflow_file: str) -> Dict[str, Any]:
         errors=aggregated_errors if aggregated_errors else None,
         metadata={
             "workflow": os.path.basename(workflow_file),
+            "workflow_execution_id": workflow_execution_id,
             "total_steps": len(steps),
             "failed_steps": len(failed_steps),
         }
     )
+
+    # Capture telemetry for overall workflow execution
+    workflow_telemetry = create_telemetry_entry(
+        skill_name="workflow.compose",
+        inputs={
+            "workflow_file": os.path.basename(workflow_file),
+            "total_steps": len(steps),
+            "fail_fast": fail_fast,
+        },
+        status=log["status"],
+        duration_ms=workflow_duration_ms if workflow_duration_ms else 0,
+        workflow=os.path.basename(workflow_file),
+        caller="cli",
+        execution_id=workflow_execution_id,
+        total_steps=len(steps),
+        failed_steps=len(failed_steps),
+        successful_steps=len(steps) - len(failed_steps),
+        errors=aggregated_errors if aggregated_errors else None,
+    )
+    capture_telemetry_entry(workflow_telemetry)
 
     if log["status"] == "success":
         logger.info("\n✅ Workflow completed successfully")

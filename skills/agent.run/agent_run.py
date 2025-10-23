@@ -12,6 +12,8 @@ import os
 import sys
 import yaml
 import json
+import subprocess
+import uuid
 from typing import Dict, Any, List, Optional
 from datetime import datetime, timezone
 from pathlib import Path
@@ -21,17 +23,68 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../.
 
 from betty.config import (
     AGENTS_DIR, AGENTS_REGISTRY_FILE, REGISTRY_FILE,
-    get_agent_manifest_path, get_skill_manifest_path,
+    get_agent_manifest_path, get_skill_manifest_path, get_skill_handler_path,
     BETTY_HOME
 )
 from betty.validation import validate_path
 from betty.logging_utils import setup_logger
 from betty.errors import BettyError, format_error_response
+from betty.telemetry_capture import create_telemetry_entry, capture_telemetry_entry
 
 logger = setup_logger(__name__)
 
 # Agent logs directory
 AGENT_LOGS_DIR = os.path.join(BETTY_HOME, "agent_logs")
+
+
+def log_audit_entry(
+    skill_name: str,
+    status: str,
+    duration_ms: Optional[int] = None,
+    errors: Optional[List[str]] = None,
+    metadata: Optional[Dict[str, Any]] = None,
+) -> None:
+    """
+    Log an audit entry for agent execution.
+
+    Args:
+        skill_name: Name of the skill/agent
+        status: Execution status (success, failed, etc.)
+        duration_ms: Execution duration in milliseconds
+        errors: List of errors (if any)
+        metadata: Additional metadata
+    """
+    try:
+        audit_handler = get_skill_handler_path("audit.log")
+        args = [sys.executable, audit_handler, skill_name, status]
+
+        if duration_ms is not None:
+            args.append(str(duration_ms))
+        else:
+            args.append("")
+
+        if errors:
+            args.append(json.dumps(errors))
+        else:
+            args.append("[]")
+
+        if metadata:
+            args.append(json.dumps(metadata))
+
+        result = subprocess.run(
+            args,
+            capture_output=True,
+            text=True,
+            timeout=10
+        )
+
+        if result.returncode != 0:
+            logger.warning(f"Failed to log audit entry for {skill_name}: {result.stderr}")
+    except FileNotFoundError:
+        # audit.log skill not found, skip audit logging
+        pass
+    except Exception as e:
+        logger.warning(f"Failed to log audit entry for {skill_name}: {e}")
 
 
 def build_response(
@@ -481,13 +534,17 @@ def run_agent(
     """
     logger.info(f"Running agent: {agent_path}")
 
+    # Generate execution ID for tracking
+    agent_execution_id = str(uuid.uuid4())
+    start_time = datetime.now(timezone.utc)
+
     try:
         # Load agent manifest
         agent_manifest = load_agent_manifest(agent_path)
         agent_name = agent_manifest.get("name")
         reasoning_mode = agent_manifest.get("reasoning_mode", "oneshot")
 
-        logger.info(f"Loaded agent: {agent_name} (mode: {reasoning_mode})")
+        logger.info(f"Loaded agent: {agent_name} (mode: {reasoning_mode}) [execution_id: {agent_execution_id}]")
 
         # Load skill registry
         skill_registry = load_skill_registry()
@@ -523,8 +580,14 @@ def run_agent(
         execution_results = execute_skills(skills_plan, reasoning_mode)
 
         # Build complete execution data
+        end_time = datetime.now(timezone.utc)
+        duration_ms = int((end_time - start_time).total_seconds() * 1000)
+        execution_success = all(r.get("output", {}).get("success", False) for r in execution_results)
+
         execution_data = {
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": start_time.isoformat(),
+            "execution_id": agent_execution_id,
+            "duration_ms": duration_ms,
             "agent": {
                 "name": agent_name,
                 "version": agent_manifest.get("version"),
@@ -541,7 +604,7 @@ def run_agent(
             "summary": {
                 "skills_planned": len(skills_plan),
                 "skills_executed": len(execution_results),
-                "success": all(r.get("output", {}).get("success", False) for r in execution_results)
+                "success": execution_success
             }
         }
 
@@ -551,6 +614,41 @@ def run_agent(
             log_path = save_execution_log(agent_name, execution_data)
             execution_data["log_path"] = log_path
 
+        # Log audit entry for agent execution
+        log_audit_entry(
+            skill_name=f"agent.run:{agent_name}",
+            status="success" if execution_success else "failed",
+            duration_ms=duration_ms,
+            errors=missing_skills if missing_skills else None,
+            metadata={
+                "agent_name": agent_name,
+                "execution_id": agent_execution_id,
+                "reasoning_mode": reasoning_mode,
+                "skills_planned": len(skills_plan),
+                "skills_executed": len(execution_results),
+                "task_context": (task_context[:100] + "...") if task_context and len(task_context) > 100 else task_context,
+            }
+        )
+
+        # Capture telemetry for agent execution
+        agent_telemetry = create_telemetry_entry(
+            skill_name="agent.run",
+            inputs={
+                "agent_name": agent_name,
+                "task_context": (task_context[:100] + "...") if task_context and len(task_context) > 100 else task_context,
+                "reasoning_mode": reasoning_mode,
+            },
+            status="success" if execution_success else "failed",
+            duration_ms=duration_ms,
+            agent=agent_name,
+            caller="cli",
+            execution_id=agent_execution_id,
+            skills_planned=len(skills_plan),
+            skills_executed=len(execution_results),
+            missing_skills=missing_skills if missing_skills else None,
+        )
+        capture_telemetry_entry(agent_telemetry)
+
         return build_response(
             ok=True,
             details=execution_data
@@ -559,6 +657,39 @@ def run_agent(
     except BettyError as e:
         logger.error(f"Agent execution failed: {e}")
         error_info = format_error_response(e, include_traceback=False)
+
+        # Calculate duration even for failures
+        end_time = datetime.now(timezone.utc)
+        duration_ms = int((end_time - start_time).total_seconds() * 1000)
+
+        # Log audit entry for failed execution
+        log_audit_entry(
+            skill_name="agent.run",
+            status="failed",
+            duration_ms=duration_ms,
+            errors=[str(e)],
+            metadata={
+                "execution_id": agent_execution_id,
+                "error_type": "BettyError",
+            }
+        )
+
+        # Capture telemetry for failed execution
+        agent_telemetry = create_telemetry_entry(
+            skill_name="agent.run",
+            inputs={
+                "agent_path": agent_path,
+                "task_context": (task_context[:100] + "...") if task_context and len(task_context) > 100 else task_context,
+            },
+            status="failed",
+            duration_ms=duration_ms,
+            caller="cli",
+            execution_id=agent_execution_id,
+            error=str(e),
+            error_type="BettyError",
+        )
+        capture_telemetry_entry(agent_telemetry)
+
         return build_response(
             ok=False,
             errors=[str(e)],
@@ -567,6 +698,39 @@ def run_agent(
     except Exception as e:
         logger.error(f"Unexpected error: {e}", exc_info=True)
         error_info = format_error_response(e, include_traceback=True)
+
+        # Calculate duration even for failures
+        end_time = datetime.now(timezone.utc)
+        duration_ms = int((end_time - start_time).total_seconds() * 1000)
+
+        # Log audit entry for unexpected failure
+        log_audit_entry(
+            skill_name="agent.run",
+            status="failed",
+            duration_ms=duration_ms,
+            errors=[str(e)],
+            metadata={
+                "execution_id": agent_execution_id,
+                "error_type": type(e).__name__,
+            }
+        )
+
+        # Capture telemetry for unexpected failure
+        agent_telemetry = create_telemetry_entry(
+            skill_name="agent.run",
+            inputs={
+                "agent_path": agent_path,
+                "task_context": (task_context[:100] + "...") if task_context and len(task_context) > 100 else task_context,
+            },
+            status="failed",
+            duration_ms=duration_ms,
+            caller="cli",
+            execution_id=agent_execution_id,
+            error=str(e),
+            error_type=type(e).__name__,
+        )
+        capture_telemetry_entry(agent_telemetry)
+
         return build_response(
             ok=False,
             errors=[f"Unexpected error: {str(e)}"],

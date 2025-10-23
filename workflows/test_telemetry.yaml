@@ -1,0 +1,7 @@
+name: test-telemetry
+description: Simple test workflow to verify telemetry integration
+fail_fast: true
+
+steps:
+  - skill: workflow.validate
+    args: ["workflows/test_telemetry.yaml"]

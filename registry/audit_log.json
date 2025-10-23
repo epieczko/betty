@@ -336,5 +336,41 @@
       "total_steps": 2,
       "failed_steps": 1
     }
+  },
+  {
+    "timestamp": "2025-10-23T20:25:38.228881+00:00",
+    "entry_id": "bad9746a-c4f0-4cf9-8a09-9bb801a3dda8",
+    "skill": "test.skill",
+    "status": "success",
+    "duration_ms": 100,
+    "metadata": {
+      "test": "data"
+    }
+  },
+  {
+    "timestamp": "2025-10-23T20:26:32.256620+00:00",
+    "entry_id": "8cf82193-8c58-41a6-adf8-6d830019e6d1",
+    "skill": "workflow.validate",
+    "status": "success",
+    "duration_ms": 105,
+    "metadata": {
+      "workflow": "test_telemetry.yaml",
+      "workflow_execution_id": "bc71b620-a037-4599-9885-75c096de9976",
+      "step_number": 1,
+      "total_steps": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-23T20:26:32.355403+00:00",
+    "entry_id": "69435d94-f029-4da7-95e2-7425dd1356ac",
+    "skill": "workflow.compose",
+    "status": "success",
+    "duration_ms": 310,
+    "metadata": {
+      "workflow": "test_telemetry.yaml",
+      "workflow_execution_id": "bc71b620-a037-4599-9885-75c096de9976",
+      "total_steps": 1,
+      "failed_steps": 0
+    }
   }
 ]

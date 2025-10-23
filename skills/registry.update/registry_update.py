@@ -20,6 +20,7 @@ from betty.file_utils import safe_update_json
 from betty.validation import validate_path
 from betty.logging_utils import setup_logger
 from betty.errors import RegistryError, format_error_response
+from betty.telemetry_capture import telemetry_tracked
 
 logger = setup_logger(__name__)
 
@@ -207,9 +208,11 @@ def update_registry_data(manifest_path: str) -> Dict[str, Any]:
         raise RegistryError(f"Failed to update registry: {e}")
 
 
-def main():
+@telemetry_tracked(skill_name="registry.update", caller="cli")
+def main(argv: Optional[List[str]] = None) -> int:
     """Main CLI entry point."""
-    if len(sys.argv) < 2:
+    argv = argv or sys.argv[1:]
+    if len(argv) < 1:
         message = "Usage: registry_update.py <path_to_skill.yaml>"
         response = build_response(
             False,
@@ -218,9 +221,9 @@ def main():
             details={"error": {"error": "UsageError", "message": message, "details": {}}},
         )
         print(json.dumps(response, indent=2))
-        sys.exit(1)
+        return 1
 
-    manifest_path = sys.argv[1]
+    manifest_path = argv[0]
 
     try:
         details = update_registry_data(manifest_path)
@@ -231,7 +234,7 @@ def main():
             details=details,
         )
         print(json.dumps(response, indent=2))
-        sys.exit(0)
+        return 0
     except RegistryError as e:
         logger.error(str(e))
         error_info = format_error_response(e)
@@ -242,7 +245,7 @@ def main():
             details={"error": error_info},
         )
         print(json.dumps(response, indent=2))
-        sys.exit(1)
+        return 1
     except Exception as e:
         logger.error(f"Unexpected error: {e}")
         error_info = format_error_response(e, include_traceback=True)
@@ -253,8 +256,8 @@ def main():
             details={"error": error_info},
         )
         print(json.dumps(response, indent=2))
-        sys.exit(1)
+        return 1
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
