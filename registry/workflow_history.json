@@ -400,5 +400,531 @@
       "Path does not exist: nonexistent_skill.yaml"
     ],
     "completed_at": "2025-10-23T16:45:28.691243+00:00"
+  },
+  {
+    "workflow": "test_integration_20251023170747.yaml",
+    "workflow_path": "/home/user/betty/workflows/test_integration_20251023170747.yaml",
+    "started_at": "2025-10-23T17:07:49.010291+00:00",
+    "fail_fast": true,
+    "steps": [
+      {
+        "step_number": 1,
+        "skill": "skill.define",
+        "args": [
+          "/home/user/betty/skills/test.workflow.integration.20251023170747/skill.yaml"
+        ],
+        "status": "success",
+        "returncode": 0,
+        "stdout": "2025-10-23 17:07:49 - __main__ - INFO - Validating manifest: /home/user/betty/skills/test.workflow.integration.20251023170747/skill.yaml\n2025-10-23 17:07:49 - __main__ - INFO - \u2705 Manifest validation passed\n2025-10-23 17:07:49 - __main__ - INFO - \ud83d\udd01 Delegating registry update to registry.update skill...\n2025-10-23 17:07:49 - __main__ - INFO - Registry update succeeded\n{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"path\": \"/home/user/betty/skills/test.workflow.integration.20251023170747/skill.yaml\",\n  \"details\": {\n    \"valid\": true,\n    \"missing\": [],\n    \"path\": \"/home/user/betty/skills/test.workflow.integration.20251023170747/skill.yaml\",\n    \"manifest\": {\n      \"name\": \"test.workflow.integration.20251023170747\",\n      \"version\": \"0.1.0\",\n      \"description\": \"Integration test skill for workflow testing\",\n      \"inputs\": [\n        \"input1\",\n        \"input2\"\n      ],\n      \"outputs\": [\n        \"output1\"\n      ],\n      \"dependencies\": [],\n      \"status\": \"draft\"\n    },\n    \"status\": \"registered\",\n    \"registry_updated\": true\n  }\n}\n",
+        "stderr": "",
+        "parsed": {
+          "ok": true,
+          "status": "success",
+          "errors": [],
+          "path": "/home/user/betty/skills/test.workflow.integration.20251023170747/skill.yaml",
+          "details": {
+            "valid": true,
+            "missing": [],
+            "path": "/home/user/betty/skills/test.workflow.integration.20251023170747/skill.yaml",
+            "manifest": {
+              "name": "test.workflow.integration.20251023170747",
+              "version": "0.1.0",
+              "description": "Integration test skill for workflow testing",
+              "inputs": [
+                "input1",
+                "input2"
+              ],
+              "outputs": [
+                "output1"
+              ],
+              "dependencies": [],
+              "status": "draft"
+            },
+            "status": "registered",
+            "registry_updated": true
+          }
+        },
+        "parse_error": null,
+        "errors": [],
+        "duration_ms": 248
+      },
+      {
+        "step_number": 2,
+        "skill": "registry.update",
+        "args": [
+          "/home/user/betty/skills/test.workflow.integration.20251023170747/skill.yaml"
+        ],
+        "status": "success",
+        "returncode": 0,
+        "stdout": "2025-10-23 17:07:49 - __main__ - INFO - Running policy enforcement on: /home/user/betty/skills/test.workflow.integration.20251023170747/skill.yaml\n2025-10-23 17:07:49 - __main__ - WARNING - Failed to parse policy enforcement output as JSON\n2025-10-23 17:07:49 - __main__ - INFO - \u2705 Policy enforcement passed\n2025-10-23 17:07:49 - __main__ - INFO - Updating registry with skill: test.workflow.integration.20251023170747\n2025-10-23 17:07:49 - __main__ - INFO - \u2705 Successfully updated registry for: test.workflow.integration.20251023170747\n{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"path\": \"/home/user/betty/registry/skills.json\",\n  \"details\": {\n    \"status\": \"success\",\n    \"updated\": \"test.workflow.integration.20251023170747\",\n    \"registry_path\": \"/home/user/betty/registry/skills.json\",\n    \"total_skills\": 19,\n    \"timestamp\": \"2025-10-23T17:07:49.572994+00:00\"\n  }\n}\n",
+        "stderr": "",
+        "parsed": {
+          "ok": true,
+          "status": "success",
+          "errors": [],
+          "path": "/home/user/betty/registry/skills.json",
+          "details": {
+            "status": "success",
+            "updated": "test.workflow.integration.20251023170747",
+            "registry_path": "/home/user/betty/registry/skills.json",
+            "total_skills": 19,
+            "timestamp": "2025-10-23T17:07:49.572994+00:00"
+          }
+        },
+        "parse_error": null,
+        "errors": [],
+        "duration_ms": 178
+      }
+    ],
+    "status": "success",
+    "validation": {
+      "step": "validation",
+      "skill": "workflow.validate",
+      "args": [
+        "/home/user/betty/workflows/test_integration_20251023170747.yaml"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"path\": \"/home/user/betty/workflows/test_integration_20251023170747.yaml\",\n  \"details\": {\n    \"valid\": true,\n    \"errors\": [],\n    \"status\": \"validated\",\n    \"path\": \"/home/user/betty/workflows/test_integration_20251023170747.yaml\"\n  }\n}\n",
+      "stderr": "",
+      "parsed": {
+        "ok": true,
+        "status": "success",
+        "errors": [],
+        "path": "/home/user/betty/workflows/test_integration_20251023170747.yaml",
+        "details": {
+          "valid": true,
+          "errors": [],
+          "status": "validated",
+          "path": "/home/user/betty/workflows/test_integration_20251023170747.yaml"
+        }
+      },
+      "parse_error": null,
+      "status": "success",
+      "errors": []
+    },
+    "errors": [],
+    "completed_at": "2025-10-23T17:07:49.651844+00:00"
+  },
+  {
+    "workflow": "test_integration_20251023170749.yaml",
+    "workflow_path": "/home/user/betty/workflows/test_integration_20251023170749.yaml",
+    "started_at": "2025-10-23T17:07:50.368018+00:00",
+    "fail_fast": true,
+    "steps": [
+      {
+        "step_number": 1,
+        "skill": "skill.define",
+        "args": [
+          "/home/user/betty/skills/test.workflow.integration.20251023170749/skill.yaml"
+        ],
+        "status": "success",
+        "returncode": 0,
+        "stdout": "2025-10-23 17:07:50 - __main__ - INFO - Validating manifest: /home/user/betty/skills/test.workflow.integration.20251023170749/skill.yaml\n2025-10-23 17:07:50 - __main__ - INFO - \u2705 Manifest validation passed\n2025-10-23 17:07:50 - __main__ - INFO - \ud83d\udd01 Delegating registry update to registry.update skill...\n2025-10-23 17:07:50 - __main__ - INFO - Registry update succeeded\n{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"path\": \"/home/user/betty/skills/test.workflow.integration.20251023170749/skill.yaml\",\n  \"details\": {\n    \"valid\": true,\n    \"missing\": [],\n    \"path\": \"/home/user/betty/skills/test.workflow.integration.20251023170749/skill.yaml\",\n    \"manifest\": {\n      \"name\": \"test.workflow.integration.20251023170749\",\n      \"version\": \"0.1.0\",\n      \"description\": \"Test skill for policy enforcement\",\n      \"inputs\": [],\n      \"outputs\": [],\n      \"dependencies\": [],\n      \"status\": \"draft\"\n    },\n    \"status\": \"registered\",\n    \"registry_updated\": true\n  }\n}\n",
+        "stderr": "",
+        "parsed": {
+          "ok": true,
+          "status": "success",
+          "errors": [],
+          "path": "/home/user/betty/skills/test.workflow.integration.20251023170749/skill.yaml",
+          "details": {
+            "valid": true,
+            "missing": [],
+            "path": "/home/user/betty/skills/test.workflow.integration.20251023170749/skill.yaml",
+            "manifest": {
+              "name": "test.workflow.integration.20251023170749",
+              "version": "0.1.0",
+              "description": "Test skill for policy enforcement",
+              "inputs": [],
+              "outputs": [],
+              "dependencies": [],
+              "status": "draft"
+            },
+            "status": "registered",
+            "registry_updated": true
+          }
+        },
+        "parse_error": null,
+        "errors": [],
+        "duration_ms": 251
+      },
+      {
+        "step_number": 2,
+        "skill": "policy.enforce",
+        "args": [
+          "/home/user/betty/skills/test.workflow.integration.20251023170749/skill.yaml"
+        ],
+        "status": "success",
+        "returncode": 0,
+        "stdout": "2025-10-23 17:07:50 - __main__ - INFO - Validating single manifest: /home/user/betty/skills/test.workflow.integration.20251023170749/skill.yaml\n{\n  \"success\": true,\n  \"path\": \"/home/user/betty/skills/test.workflow.integration.20251023170749/skill.yaml\",\n  \"manifest_type\": \"skill\",\n  \"violations\": [],\n  \"violation_count\": 0,\n  \"message\": \"All policy checks passed\"\n}\n",
+        "stderr": "",
+        "parsed": {
+          "success": true,
+          "path": "/home/user/betty/skills/test.workflow.integration.20251023170749/skill.yaml",
+          "manifest_type": "skill",
+          "violations": [],
+          "violation_count": 0,
+          "message": "All policy checks passed"
+        },
+        "parse_error": null,
+        "errors": [],
+        "duration_ms": 93
+      }
+    ],
+    "status": "success",
+    "validation": {
+      "step": "validation",
+      "skill": "workflow.validate",
+      "args": [
+        "/home/user/betty/workflows/test_integration_20251023170749.yaml"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"path\": \"/home/user/betty/workflows/test_integration_20251023170749.yaml\",\n  \"details\": {\n    \"valid\": true,\n    \"errors\": [],\n    \"status\": \"validated\",\n    \"path\": \"/home/user/betty/workflows/test_integration_20251023170749.yaml\"\n  }\n}\n",
+      "stderr": "",
+      "parsed": {
+        "ok": true,
+        "status": "success",
+        "errors": [],
+        "path": "/home/user/betty/workflows/test_integration_20251023170749.yaml",
+        "details": {
+          "valid": true,
+          "errors": [],
+          "status": "validated",
+          "path": "/home/user/betty/workflows/test_integration_20251023170749.yaml"
+        }
+      },
+      "parse_error": null,
+      "status": "success",
+      "errors": []
+    },
+    "errors": [],
+    "completed_at": "2025-10-23T17:07:50.926892+00:00"
+  },
+  {
+    "workflow": "test_fail_fast_integration.yaml",
+    "workflow_path": "/home/user/betty/workflows/test_fail_fast_integration.yaml",
+    "started_at": "2025-10-23T17:07:51.110659+00:00",
+    "fail_fast": true,
+    "steps": [
+      {
+        "step_number": 1,
+        "skill": "skill.define",
+        "args": [
+          "nonexistent_file.yaml"
+        ],
+        "status": "failed",
+        "returncode": 1,
+        "stdout": "2025-10-23 17:07:51 - __main__ - ERROR - Unexpected error: Path does not exist: nonexistent_file.yaml\n{\n  \"ok\": false,\n  \"status\": \"failed\",\n  \"errors\": [\n    \"Path does not exist: nonexistent_file.yaml\"\n  ],\n  \"path\": \"nonexistent_file.yaml\",\n  \"details\": {\n    \"error\": {\n      \"error\": \"ValidationError\",\n      \"message\": \"Path does not exist: nonexistent_file.yaml\",\n      \"details\": {},\n      \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/home/user/betty/skills/skill.define/skill_define.py\\\", line 161, in main\\n    validation = validate_manifest(path)\\n                 ^^^^^^^^^^^^^^^^^^^^^^^\\n  File \\\"/home/user/betty/skills/skill.define/skill_define.py\\\", line 80, in validate_manifest\\n    validate_path(path, must_exist=True)\\n  File \\\"/home/user/betty/betty/validation.py\\\", line 70, in validate_path\\n    raise ValidationError(f\\\"Path does not exist: {path}\\\")\\nbetty.validation.ValidationError: Path does not exist: nonexistent_file.yaml\\n\"\n    }\n  }\n}\n",
+        "stderr": "",
+        "parsed": {
+          "ok": false,
+          "status": "failed",
+          "errors": [
+            "Path does not exist: nonexistent_file.yaml"
+          ],
+          "path": "nonexistent_file.yaml",
+          "details": {
+            "error": {
+              "error": "ValidationError",
+              "message": "Path does not exist: nonexistent_file.yaml",
+              "details": {},
+              "traceback": "Traceback (most recent call last):\n  File \"/home/user/betty/skills/skill.define/skill_define.py\", line 161, in main\n    validation = validate_manifest(path)\n                 ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/user/betty/skills/skill.define/skill_define.py\", line 80, in validate_manifest\n    validate_path(path, must_exist=True)\n  File \"/home/user/betty/betty/validation.py\", line 70, in validate_path\n    raise ValidationError(f\"Path does not exist: {path}\")\nbetty.validation.ValidationError: Path does not exist: nonexistent_file.yaml\n"
+            }
+          }
+        },
+        "parse_error": null,
+        "errors": [
+          "Path does not exist: nonexistent_file.yaml"
+        ],
+        "duration_ms": 78
+      }
+    ],
+    "status": "failed",
+    "validation": {
+      "step": "validation",
+      "skill": "workflow.validate",
+      "args": [
+        "/home/user/betty/workflows/test_fail_fast_integration.yaml"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"path\": \"/home/user/betty/workflows/test_fail_fast_integration.yaml\",\n  \"details\": {\n    \"valid\": true,\n    \"errors\": [],\n    \"status\": \"validated\",\n    \"path\": \"/home/user/betty/workflows/test_fail_fast_integration.yaml\"\n  }\n}\n",
+      "stderr": "",
+      "parsed": {
+        "ok": true,
+        "status": "success",
+        "errors": [],
+        "path": "/home/user/betty/workflows/test_fail_fast_integration.yaml",
+        "details": {
+          "valid": true,
+          "errors": [],
+          "status": "validated",
+          "path": "/home/user/betty/workflows/test_fail_fast_integration.yaml"
+        }
+      },
+      "parse_error": null,
+      "status": "success",
+      "errors": []
+    },
+    "failed_steps": [
+      {
+        "step": 1,
+        "skill": "skill.define",
+        "returncode": 1,
+        "errors": [
+          "Path does not exist: nonexistent_file.yaml"
+        ]
+      }
+    ],
+    "errors": [
+      "Path does not exist: nonexistent_file.yaml"
+    ],
+    "completed_at": "2025-10-23T17:07:51.334918+00:00"
+  },
+  {
+    "workflow": "test_multi_step.yaml",
+    "workflow_path": "/home/user/betty/workflows/test_multi_step.yaml",
+    "started_at": "2025-10-23T17:07:51.514293+00:00",
+    "fail_fast": true,
+    "steps": [
+      {
+        "step_number": 1,
+        "skill": "skill.define",
+        "args": [
+          "skills/skill.create/skill.yaml"
+        ],
+        "status": "success",
+        "returncode": 0,
+        "stdout": "2025-10-23 17:07:51 - __main__ - INFO - Validating manifest: skills/skill.create/skill.yaml\n2025-10-23 17:07:51 - __main__ - INFO - \u2705 Manifest validation passed\n2025-10-23 17:07:51 - __main__ - INFO - \ud83d\udd01 Delegating registry update to registry.update skill...\n2025-10-23 17:07:51 - __main__ - INFO - Registry update succeeded\n{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"path\": \"skills/skill.create/skill.yaml\",\n  \"details\": {\n    \"valid\": true,\n    \"missing\": [],\n    \"path\": \"skills/skill.create/skill.yaml\",\n    \"manifest\": {\n      \"name\": \"skill.create\",\n      \"version\": \"0.1.0\",\n      \"description\": \"Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\\n\",\n      \"inputs\": [\n        \"skill_name\",\n        \"description\",\n        \"inputs\",\n        \"outputs\"\n      ],\n      \"outputs\": [\n        \"skill_directory\",\n        \"manifest_path\",\n        \"registration_record.json\"\n      ],\n      \"dependencies\": [\n        \"skill.define\",\n        \"context.schema\"\n      ],\n      \"status\": \"active\",\n      \"entrypoints\": [\n        {\n          \"command\": \"/skill/create\",\n          \"handler\": \"skill_create.py\",\n          \"runtime\": \"python\",\n          \"description\": \"Scaffolds a new Betty Skill directory, generates its manifest, validates it with skill.define, and updates the registry.\\n\",\n          \"parameters\": [\n            {\n              \"name\": \"skill_name\",\n              \"type\": \"string\",\n              \"description\": \"Name of the new skill (e.g., runtime.execute)\",\n              \"required\": true\n            },\n            {\n              \"name\": \"description\",\n              \"type\": \"string\",\n              \"description\": \"Description of what the skill will do\",\n              \"required\": true\n            },\n            {\n              \"name\": \"inputs\",\n              \"type\": \"string\",\n              \"description\": \"Comma-separated list of input parameters (optional)\",\n              \"required\": false\n            },\n            {\n              \"name\": \"outputs\",\n              \"type\": \"string\",\n              \"description\": \"Comma-separated list of output parameters (optional)\",\n              \"required\": false\n            }\n          ],\n          \"permissions\": [\n            \"filesystem\",\n            \"read\",\n            \"write\"\n          ]\n        }\n      ]\n    },\n    \"status\": \"registered\",\n    \"registry_updated\": true\n  }\n}\n",
+        "stderr": "",
+        "parsed": {
+          "ok": true,
+          "status": "success",
+          "errors": [],
+          "path": "skills/skill.create/skill.yaml",
+          "details": {
+            "valid": true,
+            "missing": [],
+            "path": "skills/skill.create/skill.yaml",
+            "manifest": {
+              "name": "skill.create",
+              "version": "0.1.0",
+              "description": "Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\n",
+              "inputs": [
+                "skill_name",
+                "description",
+                "inputs",
+                "outputs"
+              ],
+              "outputs": [
+                "skill_directory",
+                "manifest_path",
+                "registration_record.json"
+              ],
+              "dependencies": [
+                "skill.define",
+                "context.schema"
+              ],
+              "status": "active",
+              "entrypoints": [
+                {
+                  "command": "/skill/create",
+                  "handler": "skill_create.py",
+                  "runtime": "python",
+                  "description": "Scaffolds a new Betty Skill directory, generates its manifest, validates it with skill.define, and updates the registry.\n",
+                  "parameters": [
+                    {
+                      "name": "skill_name",
+                      "type": "string",
+                      "description": "Name of the new skill (e.g., runtime.execute)",
+                      "required": true
+                    },
+                    {
+                      "name": "description",
+                      "type": "string",
+                      "description": "Description of what the skill will do",
+                      "required": true
+                    },
+                    {
+                      "name": "inputs",
+                      "type": "string",
+                      "description": "Comma-separated list of input parameters (optional)",
+                      "required": false
+                    },
+                    {
+                      "name": "outputs",
+                      "type": "string",
+                      "description": "Comma-separated list of output parameters (optional)",
+                      "required": false
+                    }
+                  ],
+                  "permissions": [
+                    "filesystem",
+                    "read",
+                    "write"
+                  ]
+                }
+              ]
+            },
+            "status": "registered",
+            "registry_updated": true
+          }
+        },
+        "parse_error": null,
+        "errors": [],
+        "duration_ms": 267
+      },
+      {
+        "step_number": 2,
+        "skill": "skill.define",
+        "args": [
+          "skills/skill.define/skill.yaml"
+        ],
+        "status": "success",
+        "returncode": 0,
+        "stdout": "2025-10-23 17:07:52 - __main__ - INFO - Validating manifest: skills/skill.define/skill.yaml\n2025-10-23 17:07:52 - __main__ - INFO - \u2705 Manifest validation passed\n2025-10-23 17:07:52 - __main__ - INFO - \ud83d\udd01 Delegating registry update to registry.update skill...\n2025-10-23 17:07:52 - __main__ - INFO - Registry update succeeded\n{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"path\": \"skills/skill.define/skill.yaml\",\n  \"details\": {\n    \"valid\": true,\n    \"missing\": [],\n    \"path\": \"skills/skill.define/skill.yaml\",\n    \"manifest\": {\n      \"name\": \"skill.define\",\n      \"version\": \"0.1.0\",\n      \"description\": \"Validates and registers skill manifests (.skill.yaml) for the Betty Framework. Ensures schema compliance and updates the Skill Registry.\\n\",\n      \"inputs\": [\n        \"manifest_path\"\n      ],\n      \"outputs\": [\n        \"validation_result.json\",\n        \"updated_registry.json\"\n      ],\n      \"dependencies\": [],\n      \"status\": \"active\",\n      \"entrypoints\": [\n        {\n          \"command\": \"/skill/define\",\n          \"handler\": \"skill_define.py\",\n          \"runtime\": \"python\",\n          \"description\": \"Validate a Claude Code skill manifest and register it in the Betty Skill Registry.\\n\",\n          \"parameters\": [\n            {\n              \"name\": \"manifest_path\",\n              \"type\": \"string\",\n              \"required\": true,\n              \"description\": \"Path to the skill.yaml file to validate.\"\n            }\n          ],\n          \"permissions\": [\n            \"filesystem\",\n            \"read\",\n            \"write\"\n          ]\n        }\n      ]\n    },\n    \"status\": \"registered\",\n    \"registry_updated\": true\n  }\n}\n",
+        "stderr": "",
+        "parsed": {
+          "ok": true,
+          "status": "success",
+          "errors": [],
+          "path": "skills/skill.define/skill.yaml",
+          "details": {
+            "valid": true,
+            "missing": [],
+            "path": "skills/skill.define/skill.yaml",
+            "manifest": {
+              "name": "skill.define",
+              "version": "0.1.0",
+              "description": "Validates and registers skill manifests (.skill.yaml) for the Betty Framework. Ensures schema compliance and updates the Skill Registry.\n",
+              "inputs": [
+                "manifest_path"
+              ],
+              "outputs": [
+                "validation_result.json",
+                "updated_registry.json"
+              ],
+              "dependencies": [],
+              "status": "active",
+              "entrypoints": [
+                {
+                  "command": "/skill/define",
+                  "handler": "skill_define.py",
+                  "runtime": "python",
+                  "description": "Validate a Claude Code skill manifest and register it in the Betty Skill Registry.\n",
+                  "parameters": [
+                    {
+                      "name": "manifest_path",
+                      "type": "string",
+                      "required": true,
+                      "description": "Path to the skill.yaml file to validate."
+                    }
+                  ],
+                  "permissions": [
+                    "filesystem",
+                    "read",
+                    "write"
+                  ]
+                }
+              ]
+            },
+            "status": "registered",
+            "registry_updated": true
+          }
+        },
+        "parse_error": null,
+        "errors": [],
+        "duration_ms": 265
+      },
+      {
+        "step_number": 3,
+        "skill": "skill.define",
+        "args": [
+          "skills/registry.update/skill.yaml"
+        ],
+        "status": "success",
+        "returncode": 0,
+        "stdout": "2025-10-23 17:07:52 - __main__ - INFO - Validating manifest: skills/registry.update/skill.yaml\n2025-10-23 17:07:52 - __main__ - INFO - \u2705 Manifest validation passed\n2025-10-23 17:07:52 - __main__ - INFO - \ud83d\udd01 Delegating registry update to registry.update skill...\n2025-10-23 17:07:52 - __main__ - INFO - Registry update succeeded\n{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"path\": \"skills/registry.update/skill.yaml\",\n  \"details\": {\n    \"valid\": true,\n    \"missing\": [],\n    \"path\": \"skills/registry.update/skill.yaml\",\n    \"manifest\": {\n      \"name\": \"registry.update\",\n      \"version\": \"0.1.0\",\n      \"description\": \"Updates the Betty Framework Skill Registry by adding or modifying entries based on validated skill manifests.\\n\",\n      \"inputs\": [\n        \"manifest_path\"\n      ],\n      \"outputs\": [\n        \"registry_update_result.json\"\n      ],\n      \"dependencies\": [\n        \"skill.define\"\n      ],\n      \"status\": \"active\",\n      \"entrypoints\": [\n        {\n          \"command\": \"/registry/update\",\n          \"handler\": \"registry_update.py\",\n          \"runtime\": \"python\",\n          \"description\": \"Add or update entries in the Skill Registry.\\n\",\n          \"parameters\": [\n            {\n              \"name\": \"manifest_path\",\n              \"type\": \"string\",\n              \"required\": true,\n              \"description\": \"Path to the skill manifest (.skill.yaml) being added or updated.\"\n            }\n          ],\n          \"permissions\": [\n            \"filesystem\",\n            \"read\",\n            \"write\"\n          ]\n        }\n      ]\n    },\n    \"status\": \"registered\",\n    \"registry_updated\": true\n  }\n}\n",
+        "stderr": "",
+        "parsed": {
+          "ok": true,
+          "status": "success",
+          "errors": [],
+          "path": "skills/registry.update/skill.yaml",
+          "details": {
+            "valid": true,
+            "missing": [],
+            "path": "skills/registry.update/skill.yaml",
+            "manifest": {
+              "name": "registry.update",
+              "version": "0.1.0",
+              "description": "Updates the Betty Framework Skill Registry by adding or modifying entries based on validated skill manifests.\n",
+              "inputs": [
+                "manifest_path"
+              ],
+              "outputs": [
+                "registry_update_result.json"
+              ],
+              "dependencies": [
+                "skill.define"
+              ],
+              "status": "active",
+              "entrypoints": [
+                {
+                  "command": "/registry/update",
+                  "handler": "registry_update.py",
+                  "runtime": "python",
+                  "description": "Add or update entries in the Skill Registry.\n",
+                  "parameters": [
+                    {
+                      "name": "manifest_path",
+                      "type": "string",
+                      "required": true,
+                      "description": "Path to the skill manifest (.skill.yaml) being added or updated."
+                    }
+                  ],
+                  "permissions": [
+                    "filesystem",
+                    "read",
+                    "write"
+                  ]
+                }
+              ]
+            },
+            "status": "registered",
+            "registry_updated": true
+          }
+        },
+        "parse_error": null,
+        "errors": [],
+        "duration_ms": 269
+      }
+    ],
+    "status": "success",
+    "validation": {
+      "step": "validation",
+      "skill": "workflow.validate",
+      "args": [
+        "/home/user/betty/workflows/test_multi_step.yaml"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"status\": \"success\",\n  \"errors\": [],\n  \"path\": \"/home/user/betty/workflows/test_multi_step.yaml\",\n  \"details\": {\n    \"valid\": true,\n    \"errors\": [],\n    \"status\": \"validated\",\n    \"path\": \"/home/user/betty/workflows/test_multi_step.yaml\"\n  }\n}\n",
+      "stderr": "",
+      "parsed": {
+        "ok": true,
+        "status": "success",
+        "errors": [],
+        "path": "/home/user/betty/workflows/test_multi_step.yaml",
+        "details": {
+          "valid": true,
+          "errors": [],
+          "status": "validated",
+          "path": "/home/user/betty/workflows/test_multi_step.yaml"
+        }
+      },
+      "parse_error": null,
+      "status": "success",
+      "errors": []
+    },
+    "errors": [],
+    "completed_at": "2025-10-23T17:07:52.632107+00:00"
   }
 ]

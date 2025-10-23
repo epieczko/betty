@@ -1,21 +1,7 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-23T02:30:14.709693+00:00",
+  "generated_at": "2025-10-23T17:07:53.655948+00:00",
   "skills": [
-    {
-      "name": "skill.define",
-      "version": "0.1.0",
-      "description": "Validates and registers skill manifests for the Betty Framework",
-      "inputs": [
-        "skill_manifest_path"
-      ],
-      "outputs": [
-        "validation_result.json",
-        "updated_registry.json"
-      ],
-      "dependencies": [],
-      "status": "active"
-    },
     {
       "name": "workflow.validate",
       "version": "0.1.0",
@@ -47,42 +33,6 @@
           "permissions": [
             "filesystem",
             "read"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "registry.update",
-      "version": "0.1.0",
-      "description": "Updates the Betty Framework Skill Registry by adding or modifying entries based on validated skill manifests.\n",
-      "inputs": [
-        "skill_manifest.yaml"
-      ],
-      "outputs": [
-        "registry_update_result.json"
-      ],
-      "dependencies": [
-        "skill.define"
-      ],
-      "status": "active",
-      "entrypoints": [
-        {
-          "command": "/registry/update",
-          "handler": "registry_update.py",
-          "runtime": "python",
-          "description": "Add or update entries in the Skill Registry.\n",
-          "parameters": [
-            {
-              "name": "skill_manifest.yaml",
-              "type": "string",
-              "required": true,
-              "description": "Path to the skill manifest (.skill.yaml) being added or updated."
-            }
-          ],
-          "permissions": [
-            "filesystem",
-            "read",
-            "write"
           ]
         }
       ]
@@ -677,6 +627,134 @@
       ]
     },
     {
+      "name": "test.lifecycle.complete",
+      "version": "0.1.0",
+      "description": "Lifecycle test skill",
+      "inputs": [],
+      "outputs": [],
+      "dependencies": [],
+      "status": "draft"
+    },
+    {
+      "name": "policy.enforce",
+      "version": "0.1.0",
+      "description": "Validates operations against organizational policies before execution",
+      "inputs": [
+        "action",
+        "target",
+        "policy_set"
+      ],
+      "outputs": [
+        "validation_result.json",
+        "policy_violations.json"
+      ],
+      "dependencies": [],
+      "status": "active"
+    },
+    {
+      "name": "test.workflow.integration.20251023170747",
+      "version": "0.1.0",
+      "description": "Integration test skill for workflow testing",
+      "inputs": [
+        "input1",
+        "input2"
+      ],
+      "outputs": [
+        "output1"
+      ],
+      "dependencies": [],
+      "status": "draft"
+    },
+    {
+      "name": "test.workflow.integration.20251023170749",
+      "version": "0.1.0",
+      "description": "Test skill for policy enforcement",
+      "inputs": [],
+      "outputs": [],
+      "dependencies": [],
+      "status": "draft"
+    },
+    {
+      "name": "skill.define",
+      "version": "0.1.0",
+      "description": "Validates and registers skill manifests (.skill.yaml) for the Betty Framework. Ensures schema compliance and updates the Skill Registry.\n",
+      "inputs": [
+        "manifest_path"
+      ],
+      "outputs": [
+        "validation_result.json",
+        "updated_registry.json"
+      ],
+      "dependencies": [],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/skill/define",
+          "handler": "skill_define.py",
+          "runtime": "python",
+          "description": "Validate a Claude Code skill manifest and register it in the Betty Skill Registry.\n",
+          "parameters": [
+            {
+              "name": "manifest_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to the skill.yaml file to validate."
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "registry.update",
+      "version": "0.1.0",
+      "description": "Updates the Betty Framework Skill Registry by adding or modifying entries based on validated skill manifests.\n",
+      "inputs": [
+        "manifest_path"
+      ],
+      "outputs": [
+        "registry_update_result.json"
+      ],
+      "dependencies": [
+        "skill.define"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/registry/update",
+          "handler": "registry_update.py",
+          "runtime": "python",
+          "description": "Add or update entries in the Skill Registry.\n",
+          "parameters": [
+            {
+              "name": "manifest_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to the skill manifest (.skill.yaml) being added or updated."
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "test.workflow.integration.20251023170752",
+      "version": "0.1.0",
+      "description": "Test automatic validation and registration",
+      "inputs": [],
+      "outputs": [],
+      "dependencies": [],
+      "status": "draft"
+    },
+    {
       "name": "skill.create",
       "version": "0.1.0",
       "description": "Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\n",
@@ -735,31 +813,6 @@
           ]
         }
       ]
-    },
-    {
-      "name": "test.lifecycle.complete",
-      "version": "0.1.0",
-      "description": "Lifecycle test skill",
-      "inputs": [],
-      "outputs": [],
-      "dependencies": [],
-      "status": "draft"
-    },
-    {
-      "name": "policy.enforce",
-      "version": "0.1.0",
-      "description": "Validates operations against organizational policies before execution",
-      "inputs": [
-        "action",
-        "target",
-        "policy_set"
-      ],
-      "outputs": [
-        "validation_result.json",
-        "policy_violations.json"
-      ],
-      "dependencies": [],
-      "status": "active"
     }
   ]
 }
