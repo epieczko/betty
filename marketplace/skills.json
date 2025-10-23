@@ -1,9 +1,9 @@
 {
   "marketplace_version": "1.0.0",
-  "generated_at": "2025-10-23T17:43:24.090933+00:00",
+  "generated_at": "2025-10-23T17:51:58.579847+00:00",
   "description": "Betty Framework Certified Skills Marketplace",
-  "total_skills": 15,
-  "certified_count": 15,
+  "total_skills": 16,
+  "certified_count": 16,
   "draft_count": 0,
   "catalog": [
     {
@@ -571,6 +571,41 @@
             }
           }
         }
+      ]
+    },
+    {
+      "name": "plugin.sync",
+      "version": "0.1.0",
+      "description": "Automatically generates plugin.yaml from Betty Framework registries. Reads skills.json, commands.json, and hooks.json to build a complete plugin configuration.\n",
+      "status": "certified",
+      "tags": [
+        "plugin",
+        "registry",
+        "automation",
+        "infrastructure"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/plugin.sync",
+      "dependencies": [
+        "registry.update"
+      ],
+      "entrypoints": [
+        {
+          "command": "/plugin/sync",
+          "handler": "plugin_sync.py",
+          "runtime": "python",
+          "description": "Generate plugin.yaml from registry files. Syncs active skills with entrypoints into plugin commands.\n",
+          "parameters": [],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "outputs": [
+        "plugin.yaml",
+        "generation_report.json"
       ]
     },
     {
