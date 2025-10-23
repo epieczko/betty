@@ -326,6 +326,105 @@ def generate_build_report(
     return report
 
 
+def generate_manifest(
+    config: Dict[str, Any],
+    valid_entrypoints: List[Dict],
+    checksums: Dict[str, str],
+    package_path: str
+) -> Dict[str, Any]:
+    """
+    Generate manifest.json for the plugin package.
+
+    Args:
+        config: Plugin configuration
+        valid_entrypoints: List of validated entrypoints
+        checksums: Package checksums
+        package_path: Path to created package
+
+    Returns:
+        Manifest dictionary
+    """
+    file_size = os.path.getsize(package_path)
+    package_filename = os.path.basename(package_path)
+
+    manifest = {
+        "name": config.get("name"),
+        "version": config.get("version"),
+        "description": config.get("description"),
+        "author": config.get("author", {}),
+        "license": config.get("license"),
+        "metadata": {
+            "homepage": config.get("metadata", {}).get("homepage"),
+            "repository": config.get("metadata", {}).get("repository"),
+            "documentation": config.get("metadata", {}).get("documentation"),
+            "tags": config.get("metadata", {}).get("tags", []),
+            "generated_at": datetime.now(timezone.utc).isoformat()
+        },
+        "requirements": {
+            "python": config.get("requirements", {}).get("python"),
+            "packages": config.get("requirements", {}).get("packages", [])
+        },
+        "permissions": config.get("permissions", []),
+        "package": {
+            "filename": package_filename,
+            "size_bytes": file_size,
+            "checksums": checksums
+        },
+        "entrypoints": [
+            {
+                "command": ep["command"],
+                "handler": ep["handler"],
+                "runtime": ep["runtime"]
+            }
+            for ep in valid_entrypoints
+        ],
+        "commands_count": len(valid_entrypoints),
+        "agents": [
+            {
+                "name": agent.get("name"),
+                "description": agent.get("description")
+            }
+            for agent in config.get("agents", [])
+        ]
+    }
+
+    return manifest
+
+
+def create_plugin_preview(config: Dict[str, Any], output_path: str) -> Optional[str]:
+    """
+    Create plugin.preview.yaml with current plugin configuration.
+    This allows reviewing changes before overwriting plugin.yaml.
+
+    Args:
+        config: Plugin configuration
+        output_path: Directory to write preview file
+
+    Returns:
+        Path to preview file or None if creation failed
+    """
+    try:
+        preview_path = os.path.join(output_path, "plugin.preview.yaml")
+
+        # Add preview metadata
+        preview_config = config.copy()
+        if "metadata" not in preview_config:
+            preview_config["metadata"] = {}
+
+        preview_config["metadata"]["preview_generated_at"] = datetime.now(timezone.utc).isoformat()
+        preview_config["metadata"]["preview_note"] = "Review before applying to plugin.yaml"
+
+        with open(preview_path, "w") as f:
+            yaml.dump(preview_config, f, default_flow_style=False, sort_keys=False)
+
+        logger.info(f"📋 Preview file created: {preview_path}")
+        return preview_path
+
+    except Exception as e:
+        logger.warning(f"⚠️  Failed to create preview file: {e}")
+        return None
+
+
 def build_plugin(
     plugin_path: str = None,
     output_format: str = "tar.gz",
@@ -410,13 +509,27 @@ def build_plugin(
 
     logger.info(f"📊 Build report: {report_path}")
 
+    # Generate and write manifest.json
+    manifest = generate_manifest(config, valid_entrypoints, checksums, package_path)
+    manifest_path = os.path.join(output_dir, "manifest.json")
+    with open(manifest_path, "w") as f:
+        json.dump(manifest, f, indent=2)
+
+    logger.info(f"📋 Manifest: {manifest_path}")
+
+    # Create plugin preview (optional)
+    preview_path = create_plugin_preview(config, output_dir)
+
     # Build result
     result = {
         "ok": not build_report["validation"]["has_errors"],
         "status": "success" if not missing_files else "success_with_warnings",
         "package_path": package_path,
         "report_path": report_path,
-        "build_report": build_report
+        "manifest_path": manifest_path,
+        "preview_path": preview_path,
+        "build_report": build_report,
+        "manifest": manifest
     }
 
     return result
@@ -461,11 +574,14 @@ def main():
         logger.info("\n" + "=" * 60)
         logger.info("🎉 BUILD COMPLETE")
         logger.info("=" * 60)
-        logger.info(f"📦 Package: {result['package_path']}")
-        logger.info(f"📊 Report:  {result['report_path']}")
+        logger.info(f"📦 Package:  {result['package_path']}")
+        logger.info(f"📊 Report:   {result['report_path']}")
+        logger.info(f"📋 Manifest: {result['manifest_path']}")
+        if result.get('preview_path'):
+            logger.info(f"👁️  Preview:  {result['preview_path']}")
         logger.info(f"✅ Commands: {report['validation']['valid_entrypoints']}/{report['validation']['total_commands']}")
-        logger.info(f"📏 Size:    {report['package']['size_human']}")
-        logger.info(f"📝 Files:   {report['package']['files_count']}")
+        logger.info(f"📏 Size:     {report['package']['size_human']}")
+        logger.info(f"📝 Files:    {report['package']['files_count']}")
 
         if report["validation"]["missing_files"]:
             logger.warning(f"⚠️  Warnings: {len(report['validation']['missing_files'])}")
