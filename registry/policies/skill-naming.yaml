@@ -1,0 +1,12 @@
+policy:
+  name: skill-naming-convention
+  version: 1.0.0
+  description: Enforce lowercase dot-separated naming for skills
+  type: validation
+  scope: [create, update]
+  rules:
+    - field: name
+      pattern: "^[a-z][a-z0-9]*\\.[a-z][a-z0-9]*$"
+      message: "Skill names must follow lowercase.dotted format (e.g., data.transform)"
+      severity: error
+  enforcement: blocking

@@ -1,0 +1,16 @@
+policy:
+  name: skill-status-values
+  version: 1.0.0
+  description: Ensure skill status uses valid values
+  type: validation
+  scope: [create, update, register]
+  rules:
+    - field: status
+      allowed_values: [draft, active, deprecated, archived]
+      message: "Skill status must be one of: draft, active, deprecated, archived"
+      severity: error
+    - field: status
+      required: true
+      message: "Skill status is required"
+      severity: error
+  enforcement: blocking

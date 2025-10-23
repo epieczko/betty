@@ -1,276 +1,296 @@
 #!/usr/bin/env python3
-"""policy_enforce.py – Implementation of the policy.enforce Skill."""
+"""
+policy_enforce.py – Implementation of the policy.enforce Skill
+Validates operations against organizational policies before execution.
+"""
 
-import json
 import os
-import re
 import sys
-from typing import Any, Dict, List, Optional
-
+import json
 import yaml
+import re
+from typing import Dict, Any, List
+from datetime import datetime, timezone
+from pathlib import Path
 
-# Ensure project root on path for betty imports when executed directly
+# Add parent directory to path for imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
-from betty.errors import SkillValidationError  # noqa: E402
-from betty.logging_utils import setup_logger  # noqa: E402
-from betty.validation import ValidationError, validate_path  # noqa: E402
+from betty.config import BASE_DIR
+from betty.logging_utils import setup_logger
+from betty.errors import SkillValidationError, format_error_response
 
 logger = setup_logger(__name__)
 
-# Policy rules
-VALID_STATUS_VALUES = {"draft", "active", "deprecated", "archived"}
-VALID_PERMISSIONS = {"filesystem", "read", "write", "network", "execute"}
-SKILL_NAME_PATTERN = re.compile(r"^[a-z][a-z0-9]*(\.[a-z][a-z0-9]*)*$")
+# Default policies directory
+POLICIES_DIR = Path(BASE_DIR) / "registry" / "policies"
 
 
-def build_response(ok: bool, path: str, errors: Optional[List[str]] = None, details: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-    response: Dict[str, Any] = {
-        "ok": ok,
-        "status": "success" if ok else "failed",
-        "errors": errors or [],
-        "path": path,
-    }
+class PolicyViolation:
+    """Represents a single policy violation."""
 
-    if details is not None:
-        response["details"] = details
+    def __init__(self, policy_name: str, rule: str, message: str, severity: str = "error"):
+        self.policy_name = policy_name
+        self.rule = rule
+        self.message = message
+        self.severity = severity
 
-    return response
-
-
-def _load_manifest(path: str) -> Dict[str, Any]:
-    """Load a skill manifest YAML file into a dictionary."""
-    try:
-        with open(path, "r", encoding="utf-8") as handle:
-            data = yaml.safe_load(handle)
-    except FileNotFoundError as exc:
-        raise SkillValidationError(f"Manifest file not found: {path}") from exc
-    except yaml.YAMLError as exc:
-        raise SkillValidationError(f"Invalid YAML syntax: {exc}") from exc
-
-    if data is None:
-        return {}
-
-    if not isinstance(data, dict):
-        raise SkillValidationError("Manifest root must be a mapping")
-
-    return data
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "policy": self.policy_name,
+            "rule": self.rule,
+            "message": self.message,
+            "severity": self.severity
+        }
 
 
-def _validate_skill_naming(name: str) -> List[str]:
-    """
-    Validate skill naming convention.
+class PolicyEngine:
+    """Core policy enforcement engine."""
 
-    Rules:
-    - Must be lowercase
-    - Must use dot notation (e.g., skill.name)
-    - Must start with a letter
-    - Can contain letters, numbers, and dots
-    """
-    errors: List[str] = []
+    def __init__(self, policies_dir: Path = POLICIES_DIR):
+        self.policies_dir = policies_dir
+        self.policies = self._load_policies()
 
-    if not name:
-        errors.append("Skill name cannot be empty")
-        return errors
+    def _load_policies(self) -> List[Dict[str, Any]]:
+        """Load all policy definitions from the policies directory."""
+        policies = []
 
-    if not SKILL_NAME_PATTERN.match(name):
-        errors.append(
-            f"Skill name '{name}' violates naming policy. "
-            "Must be lowercase with dot notation (e.g., 'skill.name'). "
-            "Only letters, numbers, and dots allowed. Must start with a letter."
-        )
+        if not self.policies_dir.exists():
+            logger.warning(f"Policies directory not found: {self.policies_dir}")
+            return policies
 
-    # Additional check: recommend using at least one dot for namespacing
-    if "." not in name:
-        logger.warning(
-            f"Skill name '{name}' doesn't use dot notation for namespacing. "
-            "Consider using format 'category.name' for better organization."
-        )
+        for policy_file in self.policies_dir.glob("*.yaml"):
+            try:
+                with open(policy_file) as f:
+                    policy = yaml.safe_load(f)
+                    if policy and "policy" in policy:
+                        policies.append(policy["policy"])
+                        logger.info(f"Loaded policy: {policy['policy'].get('name', 'unnamed')}")
+            except Exception as e:
+                logger.error(f"Failed to load policy {policy_file}: {e}")
 
-    return errors
+        return policies
 
+    def enforce(self, action: str, target: Dict[str, Any], policy_set: str = None) -> List[PolicyViolation]:
+        """
+        Enforce policies against a target object.
 
-def _validate_status(status: str) -> List[str]:
-    """
-    Validate status value.
+        Args:
+            action: The action being performed (create, update, delete, execute)
+            target: The target object to validate (skill manifest, workflow, etc.)
+            policy_set: Optional specific policy set to enforce (defaults to all)
 
-    Rules:
-    - Must be one of: draft, active, deprecated, archived
-    """
-    errors: List[str] = []
+        Returns:
+            List of policy violations (empty if all policies pass)
+        """
+        violations = []
 
-    if not status:
-        errors.append("Status field is required")
-        return errors
+        # Filter policies based on action and policy_set
+        applicable_policies = [
+            p for p in self.policies
+            if self._is_applicable(p, action, policy_set)
+        ]
 
-    if status not in VALID_STATUS_VALUES:
-        errors.append(
-            f"Invalid status '{status}'. "
-            f"Must be one of: {', '.join(sorted(VALID_STATUS_VALUES))}"
-        )
+        if not applicable_policies:
+            logger.info(f"No applicable policies found for action: {action}")
+            return violations
 
-    return errors
+        logger.info(f"Enforcing {len(applicable_policies)} policies for action: {action}")
 
+        for policy in applicable_policies:
+            policy_violations = self._check_policy(policy, target, action)
+            violations.extend(policy_violations)
 
-def _validate_permissions(entrypoints: List[Dict[str, Any]]) -> List[str]:
-    """
-    Validate permissions for all entrypoints.
+        return violations
 
-    Rules:
-    - Permissions must be from allowed set: filesystem, read, write, network, execute
-    - Warn about potentially risky permission combinations
-    """
-    errors: List[str] = []
+    def _is_applicable(self, policy: Dict[str, Any], action: str, policy_set: str = None) -> bool:
+        """Check if a policy applies to the given action and policy set."""
+        # Check policy set filter
+        if policy_set and policy.get("name") != policy_set:
+            return False
 
-    if not isinstance(entrypoints, list):
-        errors.append("Entrypoints must be a list")
-        return errors
+        # Check if action matches policy scope
+        scope = policy.get("scope", [])
+        if scope and action not in scope:
+            return False
 
-    for idx, entrypoint in enumerate(entrypoints, start=1):
-        if not isinstance(entrypoint, dict):
-            errors.append(f"Entrypoint {idx} must be a mapping")
-            continue
+        return True
 
-        permissions = entrypoint.get("permissions", [])
+    def _check_policy(self, policy: Dict[str, Any], target: Dict[str, Any], action: str) -> List[PolicyViolation]:
+        """Check a single policy against the target."""
+        violations = []
+        policy_name = policy.get("name", "unnamed")
+        rules = policy.get("rules", [])
 
-        if not isinstance(permissions, list):
-            errors.append(f"Entrypoint {idx} permissions must be a list")
-            continue
+        for rule in rules:
+            violation = self._check_rule(policy_name, rule, target, action)
+            if violation:
+                violations.append(violation)
 
-        # Validate each permission
-        for permission in permissions:
-            if permission not in VALID_PERMISSIONS:
-                errors.append(
-                    f"Entrypoint {idx} has invalid permission '{permission}'. "
-                    f"Must be one of: {', '.join(sorted(VALID_PERMISSIONS))}"
+        return violations
+
+    def _check_rule(
+        self,
+        policy_name: str,
+        rule: Dict[str, Any],
+        target: Dict[str, Any],
+        action: str
+    ) -> PolicyViolation | None:
+        """Check a single rule against the target."""
+        field = rule.get("field")
+        pattern = rule.get("pattern")
+        allowed_values = rule.get("allowed_values")
+        forbidden_values = rule.get("forbidden_values")
+        required = rule.get("required", False)
+        message = rule.get("message", f"Policy violation in field: {field}")
+        severity = rule.get("severity", "error")
+
+        # Get field value from target
+        field_value = target.get(field)
+
+        # Check required fields
+        if required and not field_value:
+            return PolicyViolation(
+                policy_name,
+                f"required:{field}",
+                f"Required field '{field}' is missing",
+                severity
+            )
+
+        # Skip remaining checks if field is not present and not required
+        if field_value is None:
+            return None
+
+        # Check pattern matching
+        if pattern:
+            if not re.match(pattern, str(field_value)):
+                return PolicyViolation(
+                    policy_name,
+                    f"pattern:{field}",
+                    message,
+                    severity
                 )
 
-        # Check for risky permission combinations
-        if "network" in permissions and "write" in permissions and "filesystem" in permissions:
-            logger.warning(
-                f"Entrypoint {idx} has risky permission combination: "
-                "network + write + filesystem. Ensure this skill requires all three."
+        # Check allowed values
+        if allowed_values and field_value not in allowed_values:
+            return PolicyViolation(
+                policy_name,
+                f"allowed_values:{field}",
+                f"Field '{field}' must be one of: {', '.join(allowed_values)}",
+                severity
             )
 
-        # Check for write without read
-        if "write" in permissions and "filesystem" not in permissions:
-            logger.warning(
-                f"Entrypoint {idx} has 'write' permission without 'filesystem'. "
-                "This may be intentional but is unusual."
+        # Check forbidden values
+        if forbidden_values and field_value in forbidden_values:
+            return PolicyViolation(
+                policy_name,
+                f"forbidden_values:{field}",
+                f"Field '{field}' cannot be: {field_value}",
+                severity
             )
 
-    return errors
+        return None
 
 
-def enforce_policy(manifest_path: str) -> Dict[str, Any]:
+def enforce_policies(action: str, target_path: str = None, target_data: Dict[str, Any] = None, policy_set: str = None) -> Dict[str, Any]:
     """
-    Enforce policy rules on a skill manifest.
-
-    Checks:
-    1. Skill naming convention (lowercase, dot notation)
-    2. Status values (draft|active|deprecated|archived)
-    3. Permissions (filesystem, read, write, network, execute)
+    Main policy enforcement function.
 
     Args:
-        manifest_path: Path to skill.yaml manifest
+        action: Action being performed (create, update, delete, execute)
+        target_path: Path to target file (for skills/workflows)
+        target_data: Direct target data (alternative to target_path)
+        policy_set: Optional specific policy set to enforce
 
     Returns:
-        Dict with validation results
+        Result dictionary with validation status and violations
     """
-    try:
-        validate_path(manifest_path, must_exist=True)
-    except ValidationError as exc:
-        raise SkillValidationError(str(exc)) from exc
+    # Load target data
+    if target_data is None:
+        if target_path is None:
+            raise SkillValidationError("Either target_path or target_data must be provided")
 
-    manifest = _load_manifest(manifest_path)
+        try:
+            with open(target_path) as f:
+                if target_path.endswith('.yaml') or target_path.endswith('.yml'):
+                    target_data = yaml.safe_load(f)
+                else:
+                    target_data = json.load(f)
+        except FileNotFoundError:
+            raise SkillValidationError(f"Target file not found: {target_path}")
+        except (yaml.YAMLError, json.JSONDecodeError) as e:
+            raise SkillValidationError(f"Invalid target file format: {e}")
 
-    errors: List[str] = []
-    warnings: List[str] = []
+    # Run policy enforcement
+    engine = PolicyEngine()
+    violations = engine.enforce(action, target_data, policy_set)
 
-    # Validate skill name
-    name = manifest.get("name")
-    if name:
-        errors.extend(_validate_skill_naming(name))
-    else:
-        errors.append("Manifest missing required 'name' field")
+    # Determine if enforcement should block
+    blocking_violations = [v for v in violations if v.severity == "error"]
+    warning_violations = [v for v in violations if v.severity == "warning"]
 
-    # Validate status
-    status = manifest.get("status")
-    if status:
-        errors.extend(_validate_status(status))
-    else:
-        errors.append("Manifest missing required 'status' field")
+    passed = len(blocking_violations) == 0
 
-    # Validate permissions
-    entrypoints = manifest.get("entrypoints", [])
-    errors.extend(_validate_permissions(entrypoints))
-
-    policy_status = "compliant" if not errors else "violation"
     result = {
-        "compliant": not errors,
-        "errors": errors,
-        "warnings": warnings,
-        "status": policy_status,
-        "path": manifest_path,
-        "manifest": {
-            "name": name,
-            "status": status,
-            "version": manifest.get("version"),
+        "passed": passed,
+        "action": action,
+        "target": target_path or "inline",
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "policies_checked": len(engine.policies),
+        "violations": {
+            "errors": [v.to_dict() for v in blocking_violations],
+            "warnings": [v.to_dict() for v in warning_violations]
         },
+        "total_violations": len(violations),
+        "status": "allowed" if passed else "blocked"
     }
+
+    if passed:
+        logger.info(f"✅ Policy enforcement passed for action: {action}")
+    else:
+        logger.warning(f"❌ Policy enforcement FAILED for action: {action} ({len(blocking_violations)} errors)")
 
     return result
 
 
-def main(argv: Optional[List[str]] = None) -> int:
-    """Entry point for CLI execution."""
-    argv = argv or sys.argv[1:]
+def main():
+    """Main CLI entry point."""
+    import argparse
 
-    if len(argv) != 1:
-        message = "Usage: policy_enforce.py <skill.yaml>"
-        logger.error(message)
-        response = build_response(
-            False,
-            path="",
-            errors=[message],
-            details={"error": {"error": "UsageError", "message": message, "details": {}}},
-        )
-        print(json.dumps(response, indent=2))
-        return 1
+    parser = argparse.ArgumentParser(description="Enforce Betty Framework policies")
+    parser.add_argument("--action", required=True, help="Action being performed (create, update, delete, execute)")
+    parser.add_argument("--target", help="Path to target file (skill manifest, workflow, etc.)")
+    parser.add_argument("--policy-set", help="Optional specific policy set to enforce")
+    parser.add_argument("--target-json", help="Direct JSON target data")
 
-    manifest_path = argv[0]
+    args = parser.parse_args()
 
     try:
-        result = enforce_policy(manifest_path)
-        response = build_response(
-            result.get("compliant", False),
-            path=result.get("path", manifest_path),
-            errors=result.get("errors", []),
-            details=result,
+        target_data = None
+        if args.target_json:
+            target_data = json.loads(args.target_json)
+
+        result = enforce_policies(
+            action=args.action,
+            target_path=args.target,
+            target_data=target_data,
+            policy_set=args.policy_set
         )
-        print(json.dumps(response, indent=2))
-        return 0 if response["ok"] else 1
-    except SkillValidationError as exc:
-        logger.error("Policy enforcement failed: %s", exc)
-        response = build_response(
-            False,
-            path=manifest_path,
-            errors=[str(exc)],
-            details={"error": {"error": type(exc).__name__, "message": str(exc), "details": {}}},
-        )
-        print(json.dumps(response, indent=2))
-        return 1
-    except Exception as exc:  # pragma: no cover - unexpected failures
-        logger.exception("Unexpected error during policy enforcement")
-        response = build_response(
-            False,
-            path=manifest_path,
-            errors=[str(exc)],
-            details={"error": {"error": type(exc).__name__, "message": str(exc)}},
-        )
-        print(json.dumps(response, indent=2))
-        return 1
+
+        print(json.dumps(result, indent=2))
+
+        # Exit with error code if policy enforcement failed
+        sys.exit(0 if result["passed"] else 1)
+
+    except SkillValidationError as e:
+        logger.error(str(e))
+        print(json.dumps(format_error_response(e), indent=2))
+        sys.exit(1)
+    except Exception as e:
+        logger.error(f"Unexpected error: {e}")
+        print(json.dumps(format_error_response(e, include_traceback=True), indent=2))
+        sys.exit(1)
 
 
-if __name__ == "__main__":  # pragma: no cover - CLI entry point
-    sys.exit(main(sys.argv[1:]))
+if __name__ == "__main__":
+    main()

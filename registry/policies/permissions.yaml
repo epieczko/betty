@@ -1,0 +1,12 @@
+policy:
+  name: permission-controls
+  version: 1.0.0
+  description: Restrict dangerous permissions
+  type: security
+  scope: [create, update, register]
+  rules:
+    - field: permissions
+      forbidden_values: [filesystem.delete, network.unrestricted, secrets.write]
+      message: "Dangerous permission detected - requires security review"
+      severity: warning
+  enforcement: warning
