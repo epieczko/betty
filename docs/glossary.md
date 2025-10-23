@@ -4,6 +4,9 @@ This glossary defines key terms used throughout the Betty Framework documentatio
 
 ## A
 
+### Active
+A status indicating that a component is production-ready and available for use in workflows and operations.
+
 ### Agent
 An intelligent orchestrator with reasoning capabilities that can iteratively execute skills based on context and feedback. Agents operate at Layer 2 of Betty's architecture and can be either **iterative** (retry on failure) or **oneshot** (single execution). Defined by `agent.yaml` manifests.
 
@@ -42,6 +45,9 @@ Anthropic's official CLI for Claude - the runtime environment in which Betty ope
 
 ## D
 
+### Draft
+A status indicating that a component is under development and not yet production-ready. Draft components are excluded from production operations.
+
 ### Dependency
 A required skill or external resource that another skill needs to function. Listed in skill manifests under the `dependencies` field.
 
@@ -57,6 +63,12 @@ A CLI command definition in a skill manifest that specifies how to invoke the sk
 A trigger point for hooks, such as `on_file_edit`, `on_commit`, or `on_push`. Hooks execute automatically when their associated event occurs.
 
 ## F
+
+### Filesystem:Read
+Permission to read files and directories from the filesystem.
+
+### Filesystem:Write
+Permission to write, modify, or delete files and directories.
 
 ### Five-Layer Model
 Betty's architectural pattern consisting of: (1) Commands, (2) Agents, (3) Workflows, (4) Skills, and (5) Hooks. Each layer serves a distinct purpose and delegates to the layer below.
@@ -79,6 +91,9 @@ A JSON file (`/registry/hooks.json`) that tracks formalized hook manifests for v
 
 ## I
 
+### Iterative
+A reasoning mode where an agent can retry operations based on feedback, useful for tasks requiring refinement.
+
 ### Inputs
 Parameters that a skill accepts. Defined in skill manifests with name, type, required status, and description.
 
@@ -100,6 +115,18 @@ An AsyncAPI code generator used by the `api.generate-models` skill to create typ
 
 ## O
 
+### On_Compilation_Failure
+Error handling strategy that defines actions to take when compilation fails.
+
+### On_Generation_Failure
+Error handling strategy that defines actions to take when generation fails.
+
+### On_Validation_Failure
+Error handling strategy that defines actions to take when validation fails.
+
+### Oneshot
+A reasoning mode where an agent executes once without retries, suitable for deterministic tasks.
+
 ### Oneshot Agent
 An agent with `reasoning_mode: oneshot` that executes once without retries. Suitable for simple, deterministic tasks.
 
@@ -110,6 +137,12 @@ An industry-standard specification format for REST APIs (formerly Swagger). Supp
 Artifacts produced by a skill execution. Defined in skill manifests with name, type, and description.
 
 ## P
+
+### Process:Execute
+Permission to execute process resources.
+
+### Python
+A runtime environment for executing Python-based skills and operations.
 
 ### Policy Enforcement
 The process of validating operations against organizational rules before execution. Implemented by the `policy.enforce` skill and run automatically by `registry.update`.
