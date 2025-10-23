@@ -1,0 +1,46 @@
+name: audit.log
+version: 0.1.0
+description: >
+  Records audit events to a centralized audit log with timestamped JSON entries
+  tracking skill execution, status, duration, and errors.
+inputs:
+  - skill_name
+  - status
+  - duration_ms
+  - errors (optional)
+  - metadata (optional)
+outputs:
+  - audit_log_entry.json
+dependencies: []
+status: active
+
+entrypoints:
+  - command: /audit/log
+    handler: audit_log.py
+    runtime: python
+    description: >
+      Append a timestamped audit entry to the centralized audit log.
+    parameters:
+      - name: skill_name
+        type: string
+        required: true
+        description: Name of the skill being audited.
+      - name: status
+        type: string
+        required: true
+        description: Execution status (success, failed, timeout, etc.).
+      - name: duration_ms
+        type: integer
+        required: false
+        description: Execution duration in milliseconds.
+      - name: errors
+        type: string
+        required: false
+        description: JSON array of errors (if any).
+      - name: metadata
+        type: string
+        required: false
+        description: Additional JSON metadata about the execution.
+    permissions:
+      - filesystem
+      - write

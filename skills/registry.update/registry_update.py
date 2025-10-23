@@ -8,13 +8,14 @@ import os
 import sys
 import json
 import yaml
+import subprocess
 from typing import Dict, Any, Optional, List
 from datetime import datetime, timezone
 
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
-from betty.config import BASE_DIR, REGISTRY_FILE, REGISTRY_VERSION
+from betty.config import BASE_DIR, REGISTRY_FILE, REGISTRY_VERSION, get_skill_handler_path
 from betty.file_utils import safe_update_json
 from betty.validation import validate_path
 from betty.logging_utils import setup_logger
@@ -60,6 +61,71 @@ def load_manifest(path: str) -> Dict[str, Any]:
         raise RegistryError(f"Invalid YAML in manifest: {e}")
 
 
+def enforce_policy(manifest_path: str) -> Dict[str, Any]:
+    """
+    Run policy enforcement on the manifest before registry update.
+
+    Args:
+        manifest_path: Path to skill manifest file
+
+    Returns:
+        Policy enforcement result
+
+    Raises:
+        RegistryError: If policy enforcement fails or violations are detected
+    """
+    try:
+        policy_handler = get_skill_handler_path("policy.enforce")
+        logger.info(f"Running policy enforcement on: {manifest_path}")
+
+        result = subprocess.run(
+            [sys.executable, policy_handler, manifest_path],
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+
+        # Try to parse JSON output
+        policy_result = None
+        if result.stdout.strip():
+            try:
+                policy_result = json.loads(result.stdout.strip())
+            except json.JSONDecodeError:
+                logger.warning("Failed to parse policy enforcement output as JSON")
+
+        # Check if policy enforcement passed
+        if result.returncode != 0:
+            errors = []
+            if policy_result and isinstance(policy_result, dict):
+                errors = policy_result.get("errors", [])
+            if not errors:
+                errors = [f"Policy enforcement failed with return code {result.returncode}"]
+
+            error_msg = "Policy violations detected:\n" + "\n".join(f"  - {err}" for err in errors)
+            logger.error(error_msg)
+            raise RegistryError(error_msg)
+
+        if policy_result and not policy_result.get("ok", False):
+            errors = policy_result.get("errors", ["Unknown policy violation"])
+            error_msg = "Policy violations detected:\n" + "\n".join(f"  - {err}" for err in errors)
+            logger.error(error_msg)
+            raise RegistryError(error_msg)
+
+        logger.info("✅ Policy enforcement passed")
+        return policy_result or {}
+
+    except subprocess.TimeoutExpired:
+        raise RegistryError("Policy enforcement timed out")
+    except FileNotFoundError:
+        logger.warning("policy.enforce skill not found, skipping policy enforcement")
+        return {}
+    except Exception as e:
+        if isinstance(e, RegistryError):
+            raise
+        logger.error(f"Failed to run policy enforcement: {e}")
+        raise RegistryError(f"Failed to run policy enforcement: {e}")
+
+
 def update_registry_data(manifest_path: str) -> Dict[str, Any]:
     """
     Update the registry with a skill manifest.
@@ -77,6 +143,9 @@ def update_registry_data(manifest_path: str) -> Dict[str, Any]:
     """
     # Validate path
     validate_path(manifest_path, must_exist=True)
+
+    # Enforce policy before updating registry
+    policy_result = enforce_policy(manifest_path)
 
     # Load manifest
     manifest = load_manifest(manifest_path)

@@ -18,6 +18,56 @@ from betty.validation import validate_path
 from betty.logging_utils import setup_logger
 from betty.errors import WorkflowError, format_error_response
 logger = setup_logger(__name__)
+
+
+def log_audit_entry(
+    skill_name: str,
+    status: str,
+    duration_ms: Optional[int] = None,
+    errors: Optional[List[str]] = None,
+    metadata: Optional[Dict[str, Any]] = None,
+) -> None:
+    """
+    Log an audit entry for skill execution.
+
+    Args:
+        skill_name: Name of the skill
+        status: Execution status (success, failed, etc.)
+        duration_ms: Execution duration in milliseconds
+        errors: List of errors (if any)
+        metadata: Additional metadata
+    """
+    try:
+        audit_handler = get_skill_handler_path("audit.log")
+        args = [sys.executable, audit_handler, skill_name, status]
+
+        if duration_ms is not None:
+            args.append(str(duration_ms))
+        else:
+            args.append("")
+
+        if errors:
+            args.append(json.dumps(errors))
+        else:
+            args.append("[]")
+
+        if metadata:
+            args.append(json.dumps(metadata))
+
+        result = subprocess.run(
+            args,
+            capture_output=True,
+            text=True,
+            timeout=10
+        )
+
+        if result.returncode != 0:
+            logger.warning(f"Failed to log audit entry for {skill_name}: {result.stderr}")
+    except FileNotFoundError:
+        # audit.log skill not found, skip audit logging
+        pass
+    except Exception as e:
+        logger.warning(f"Failed to log audit entry for {skill_name}: {e}")
 def build_response(ok: bool, path: str, errors: Optional[List[str]] = None, details: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     response: Dict[str, Any] = {
         "ok": ok,
@@ -194,7 +244,11 @@ def execute_workflow(workflow_file: str) -> Dict[str, Any]:
         args = step.get("args", [])
         logger.info(f"\n=== Step {i}/{len(steps)}: Executing {skill_name} ===")
         try:
+            step_start_time = datetime.now(timezone.utc)
             execution_result = run_skill(handler, args)
+            step_end_time = datetime.now(timezone.utc)
+            step_duration_ms = int((step_end_time - step_start_time).total_seconds() * 1000)
+
             parsed_step = execution_result.get("parsed")
             step_errors: List[str] = []
             if isinstance(parsed_step, dict) and parsed_step.get("errors"):
@@ -214,9 +268,23 @@ def execute_workflow(workflow_file: str) -> Dict[str, Any]:
                     "parse_error": execution_result.get("parse_error"),
                     "status": "success" if execution_result["returncode"] == 0 else "failed",
                     "errors": step_errors,
+                    "duration_ms": step_duration_ms,
                 }
             )
             log["steps"].append(step_log)
+
+            # Log audit entry for this step
+            log_audit_entry(
+                skill_name=skill_name,
+                status="success" if execution_result["returncode"] == 0 else "failed",
+                duration_ms=step_duration_ms,
+                errors=step_errors if step_errors else None,
+                metadata={
+                    "workflow": os.path.basename(workflow_file),
+                    "step_number": i,
+                    "total_steps": len(steps),
+                }
+            )
             if execution_result["returncode"] != 0:
                 failed_steps.append({
                     "step": i,
@@ -252,6 +320,20 @@ def execute_workflow(workflow_file: str) -> Dict[str, Any]:
             aggregated_errors.append(error_msg)
             failed_steps.append({"step": i, "skill": skill_name, "error": error_msg})
             log["steps"].append(step_log)
+
+            # Log audit entry for failed step
+            log_audit_entry(
+                skill_name=skill_name,
+                status="failed",
+                errors=[error_msg],
+                metadata={
+                    "workflow": os.path.basename(workflow_file),
+                    "step_number": i,
+                    "total_steps": len(steps),
+                    "error_type": "WorkflowError",
+                }
+            )
+
             if fail_fast:
                 break
     if failed_steps:
@@ -262,6 +344,27 @@ def execute_workflow(workflow_file: str) -> Dict[str, Any]:
     log["errors"] = aggregated_errors
     log["completed_at"] = datetime.now(timezone.utc).isoformat()
     save_workflow_history(log)
+
+    # Calculate total workflow duration
+    workflow_duration_ms = None
+    if "started_at" in log and "completed_at" in log:
+        start = datetime.fromisoformat(log["started_at"])
+        end = datetime.fromisoformat(log["completed_at"])
+        workflow_duration_ms = int((end - start).total_seconds() * 1000)
+
+    # Log audit entry for overall workflow
+    log_audit_entry(
+        skill_name="workflow.compose",
+        status=log["status"],
+        duration_ms=workflow_duration_ms,
+        errors=aggregated_errors if aggregated_errors else None,
+        metadata={
+            "workflow": os.path.basename(workflow_file),
+            "total_steps": len(steps),
+            "failed_steps": len(failed_steps),
+        }
+    )
+
     if log["status"] == "success":
         logger.info("\n✅ Workflow completed successfully")
     else:
