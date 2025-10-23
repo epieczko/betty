@@ -1,0 +1,51 @@
+name: hook.simulate
+version: 0.1.0
+description: "Simulate hook execution to test manifests before registration"
+
+inputs:
+  - name: manifest_path
+    type: string
+    required: true
+    description: "Path to the hook manifest file (YAML)"
+
+  - name: execute
+    type: boolean
+    required: false
+    default: false
+    description: "Whether to execute the hook command (vs. just validation)"
+
+  - name: dry_run
+    type: boolean
+    required: false
+    default: true
+    description: "If true, simulate command execution without running it"
+
+outputs:
+  - name: simulation_result
+    type: object
+    description: "Complete simulation results including validation, triggers, and execution"
+    schema:
+      properties:
+        valid: boolean
+        validation_errors: array
+        manifest: object
+        trigger_simulation: object
+        command_executions: array
+        blocking: boolean
+        timeout_ms: number
+
+dependencies:
+  - None
+
+entrypoints:
+  - command: /skill/hook/simulate
+    handler: hook_simulate.py
+    runtime: python
+    permissions:
+      - filesystem:read
+      - filesystem:write
+      - process:execute
+
+status: active
+
+tags: [hook, simulation, testing, validation, development]
