@@ -1,0 +1,57 @@
+name: docs.validate.skill_docs
+version: 0.1.0
+description: Validate SKILL.md documentation files against their skill.yaml manifests to ensure completeness and consistency
+
+inputs:
+  - name: skill_path
+    type: string
+    required: true
+    description: Path to skill directory containing skill.yaml and SKILL.md
+
+  - name: summary
+    type: boolean
+    required: false
+    default: false
+    description: Print a short summary table of validation results instead of full JSON output
+
+  - name: check_headers
+    type: boolean
+    required: false
+    default: true
+    description: Validate that SKILL.md contains required section headers
+
+  - name: check_manifest_parity
+    type: boolean
+    required: false
+    default: true
+    description: Validate that SKILL.md documentation matches skill.yaml manifest fields
+
+outputs:
+  - name: valid
+    type: boolean
+    description: Whether the skill documentation is valid
+
+  - name: validation_report
+    type: object
+    description: Detailed validation results including errors and warnings
+
+  - name: errors
+    type: array
+    description: List of validation errors found
+
+  - name: warnings
+    type: array
+    description: List of validation warnings found
+
+dependencies:
+  - context.schema
+
+entrypoints:
+  - command: /docs/validate/skill-docs
+    handler: skill_docs_validate.py
+    runtime: python
+    permissions:
+      - filesystem:read
+
+status: active
+tags: [documentation, validation, quality-assurance, skill-management]
