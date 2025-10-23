@@ -59,8 +59,13 @@ These four form the baseline for an **AI-native SDLC** where creation, validatio
 ## 🧱 Repository Structure
 
 ```
-
 betty-framework/
+├── betty/                    # Shared Python utilities
+│   ├── config.py
+│   ├── validation.py
+│   ├── logging_utils.py
+│   ├── file_utils.py
+│   └── errors.py
 ├── docs/
 │   ├── betty-framework-overview.md
 │   └── references.md
@@ -73,9 +78,8 @@ betty-framework/
 │   ├── skills.json
 │   └── workflow_history.json
 └── workflows/
-└── example_create_and_register.yaml
-
-````
+    └── example_create_and_register.yaml
+```
 
 ---
 
@@ -93,7 +97,7 @@ python skills/registry.update/registry_update.py skills/workflow.validate/skill.
 
 # 4 · Run the entire process as a workflow
 python skills/workflow.compose/workflow_compose.py workflows/example_create_and_register.yaml
-````
+```
 
 Each step logs to `/registry/skills.json` and `/registry/workflow_history.json`.
 
