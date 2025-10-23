@@ -3,21 +3,6 @@
   "generated_at": "2025-10-23T02:30:14.709693+00:00",
   "skills": [
     {
-      "name": "agent.define",
-      "version": "0.1.0",
-      "description": "Create and validate Claude Code agent manifests",
-      "inputs": [
-        "agent_manifest.yaml"
-      ],
-      "outputs": [
-        "validated_agent_manifest.json"
-      ],
-      "dependencies": [
-        "skill.define"
-      ],
-      "status": "draft"
-    },
-    {
       "name": "skill.define",
       "version": "0.1.0",
       "description": "Validates and registers skill manifests for the Betty Framework",
@@ -121,6 +106,525 @@
       "status": "draft"
     },
     {
+      "name": "hook.define",
+      "version": "0.1.0",
+      "description": "Create and register validation hooks for Claude Code",
+      "inputs": [
+        {
+          "name": "event",
+          "type": "string",
+          "required": true,
+          "description": "Hook event trigger (on_file_edit, on_file_save, on_commit, on_push, on_tool_use)"
+        },
+        {
+          "name": "pattern",
+          "type": "string",
+          "required": false,
+          "description": "File pattern to match (e.g., \"*.openapi.yaml\", \"specs/**/*.yaml\")"
+        },
+        {
+          "name": "command",
+          "type": "string",
+          "required": true,
+          "description": "Command to execute when hook triggers (skill name or full command)"
+        },
+        {
+          "name": "blocking",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether hook should block operation if it fails"
+        },
+        {
+          "name": "timeout",
+          "type": "number",
+          "required": false,
+          "default": 30000,
+          "description": "Timeout in milliseconds (default 30 seconds)"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Human-readable description of what the hook does"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "hook_config",
+          "type": "object",
+          "description": "Generated hook configuration"
+        },
+        {
+          "name": "hooks_file_path",
+          "type": "string",
+          "description": "Path to .claude/hooks.yaml file"
+        }
+      ],
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/hook/define",
+          "handler": "hook_define.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "status": "active",
+      "tags": [
+        "hooks",
+        "validation",
+        "automation",
+        "claude-code"
+      ]
+    },
+    {
+      "name": "api.validate",
+      "version": "0.1.0",
+      "description": "Validate OpenAPI and AsyncAPI specifications against enterprise guidelines",
+      "inputs": [
+        {
+          "name": "spec_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the API specification file (OpenAPI or AsyncAPI)"
+        },
+        {
+          "name": "guideline_set",
+          "type": "string",
+          "required": false,
+          "default": "zalando",
+          "description": "Which API guidelines to validate against (zalando, google, microsoft)"
+        },
+        {
+          "name": "strict",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Enable strict mode (warnings become errors)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_report",
+          "type": "object",
+          "description": "Detailed validation results including errors and warnings"
+        },
+        {
+          "name": "valid",
+          "type": "boolean",
+          "description": "Whether the spec is valid"
+        },
+        {
+          "name": "guideline_version",
+          "type": "string",
+          "description": "Version of guidelines used for validation"
+        }
+      ],
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/api/validate",
+          "handler": "api_validate.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "network:http"
+          ]
+        }
+      ],
+      "status": "active",
+      "tags": [
+        "api",
+        "validation",
+        "openapi",
+        "asyncapi",
+        "zalando"
+      ]
+    },
+    {
+      "name": "api.define",
+      "version": "0.1.0",
+      "description": "Create OpenAPI and AsyncAPI specifications from templates",
+      "inputs": [
+        {
+          "name": "service_name",
+          "type": "string",
+          "required": true,
+          "description": "Name of the service/API (e.g., user-service, order-api)"
+        },
+        {
+          "name": "spec_type",
+          "type": "string",
+          "required": false,
+          "default": "openapi",
+          "description": "Type of specification (openapi or asyncapi)"
+        },
+        {
+          "name": "template",
+          "type": "string",
+          "required": false,
+          "default": "zalando",
+          "description": "Template to use (zalando, basic, minimal)"
+        },
+        {
+          "name": "output_dir",
+          "type": "string",
+          "required": false,
+          "default": "specs",
+          "description": "Output directory for generated specification"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": false,
+          "default": "1.0.0",
+          "description": "API version"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "spec_path",
+          "type": "string",
+          "description": "Path to generated specification file"
+        },
+        {
+          "name": "spec_content",
+          "type": "object",
+          "description": "Generated specification content"
+        }
+      ],
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/api/define",
+          "handler": "api_define.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "status": "active",
+      "tags": [
+        "api",
+        "openapi",
+        "asyncapi",
+        "scaffolding",
+        "zalando"
+      ]
+    },
+    {
+      "name": "api.generate-models",
+      "version": "0.1.0",
+      "description": "Generate type-safe models from OpenAPI and AsyncAPI specifications using Modelina",
+      "inputs": [
+        {
+          "name": "spec_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to API specification file (OpenAPI or AsyncAPI)"
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "required": true,
+          "description": "Target language (typescript, python, java, go, csharp)"
+        },
+        {
+          "name": "output_dir",
+          "type": "string",
+          "required": false,
+          "default": "src/models",
+          "description": "Output directory for generated models"
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "required": false,
+          "description": "Package/module name for generated code"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "models_path",
+          "type": "string",
+          "description": "Path to directory containing generated models"
+        },
+        {
+          "name": "files_generated",
+          "type": "array",
+          "description": "List of generated model files"
+        },
+        {
+          "name": "model_count",
+          "type": "number",
+          "description": "Number of models generated"
+        }
+      ],
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/api/generate-models",
+          "handler": "modelina_generate.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write",
+            "process:execute"
+          ]
+        }
+      ],
+      "status": "active",
+      "tags": [
+        "api",
+        "codegen",
+        "modelina",
+        "openapi",
+        "asyncapi",
+        "typescript",
+        "python",
+        "java"
+      ]
+    },
+    {
+      "name": "api.compatibility",
+      "version": "0.1.0",
+      "description": "Detect breaking changes between API specification versions",
+      "inputs": [
+        {
+          "name": "old_spec_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the old/previous API specification"
+        },
+        {
+          "name": "new_spec_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the new/current API specification"
+        },
+        {
+          "name": "fail_on_breaking",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Exit with error code if breaking changes detected"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "compatible",
+          "type": "boolean",
+          "description": "Whether the new spec is backward compatible"
+        },
+        {
+          "name": "breaking_changes",
+          "type": "array",
+          "description": "List of breaking changes detected"
+        },
+        {
+          "name": "non_breaking_changes",
+          "type": "array",
+          "description": "List of non-breaking changes detected"
+        },
+        {
+          "name": "change_summary",
+          "type": "object",
+          "description": "Summary of all changes"
+        }
+      ],
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/api/compatibility",
+          "handler": "check_compatibility.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read"
+          ]
+        }
+      ],
+      "status": "active",
+      "tags": [
+        "api",
+        "compatibility",
+        "breaking-changes",
+        "versioning",
+        "openapi"
+      ]
+    },
+    {
+      "name": "agent.define",
+      "version": "0.1.0",
+      "description": "Validates and registers agent manifests for the Betty Framework. Ensures schema compliance, validates skill references, and updates the Agent Registry.\n",
+      "inputs": [
+        {
+          "name": "manifest_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the agent.yaml file to validate"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_result",
+          "type": "object",
+          "description": "Validation results including errors and warnings"
+        },
+        {
+          "name": "registry_updated",
+          "type": "boolean",
+          "description": "Whether agent was successfully registered"
+        }
+      ],
+      "dependencies": [
+        "skill.define"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/agent/define",
+          "handler": "agent_define.py",
+          "runtime": "python",
+          "description": "Validate an agent manifest and register it in the Agent Registry.\n",
+          "parameters": [
+            {
+              "name": "manifest_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to the agent.yaml file to validate"
+            }
+          ],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "tags": [
+        "agents",
+        "validation",
+        "registry",
+        "layer2"
+      ]
+    },
+    {
+      "name": "command.define",
+      "version": "0.1.0",
+      "description": "Validate and register command manifests in the Command Registry",
+      "inputs": [
+        {
+          "name": "manifest_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the command manifest file (YAML)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_result",
+          "type": "object",
+          "description": "Validation results and registration status",
+          "schema": {
+            "properties": {
+              "ok": "boolean",
+              "status": "string",
+              "errors": "array",
+              "path": "string",
+              "details": "object"
+            }
+          }
+        }
+      ],
+      "dependencies": [
+        "None"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/command/define",
+          "handler": "command_define.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "status": "active",
+      "tags": [
+        "command",
+        "registry",
+        "validation",
+        "infrastructure"
+      ]
+    },
+    {
+      "name": "hook.register",
+      "version": "0.1.0",
+      "description": "Validate and register hook manifests in the Hook Registry",
+      "inputs": [
+        {
+          "name": "manifest_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the hook manifest file (YAML)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_result",
+          "type": "object",
+          "description": "Validation results and registration status",
+          "schema": {
+            "properties": {
+              "ok": "boolean",
+              "status": "string",
+              "errors": "array",
+              "path": "string",
+              "details": "object"
+            }
+          }
+        }
+      ],
+      "dependencies": [
+        "None"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/hook/register",
+          "handler": "hook_register.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "status": "active",
+      "tags": [
+        "hook",
+        "registry",
+        "validation",
+        "infrastructure",
+        "policy"
+      ]
+    },
+    {
       "name": "test.integration.temp",
       "version": "0.1.0",
       "description": "Test skill with IO",
@@ -139,7 +643,7 @@
       "version": "0.1.0",
       "description": "Executes multi-step Betty Framework workflows by chaining existing skills. Enables declarative orchestration of skill pipelines.\n",
       "inputs": [
-        "workflow.yaml"
+        "workflow_path"
       ],
       "outputs": [
         "workflow_history.json"
@@ -158,7 +662,7 @@
           "description": "Execute a Betty workflow defined in a YAML file.\n",
           "parameters": [
             {
-              "name": "workflow.yaml",
+              "name": "workflow_path",
               "type": "string",
               "required": true,
               "description": "Path to a workflow YAML file to execute."
@@ -184,7 +688,7 @@
       ],
       "outputs": [
         "skill_directory",
-        "skill_manifest.yaml",
+        "manifest_path",
         "registration_record.json"
       ],
       "dependencies": [

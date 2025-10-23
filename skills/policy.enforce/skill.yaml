@@ -1,12 +1,26 @@
 name: policy.enforce
 version: 0.1.0
-description: Validates operations against organizational policies before execution
+description: >
+  Enforces policy rules for skill definitions including naming conventions,
+  status values, and permissions validation.
 inputs:
-- action
-- target
-- policy_set
+  - skill_manifest_path
 outputs:
-- validation_result.json
-- policy_violations.json
+  - policy_validation_result.json
 dependencies: []
 status: active
+
+entrypoints:
+  - command: /policy/enforce
+    handler: policy_enforce.py
+    runtime: python
+    description: >
+      Validate skill manifest against policy rules for naming, status, and permissions.
+    parameters:
+      - name: skill_manifest_path
+        type: string
+        required: true
+        description: Path to the skill.yaml manifest file to validate.
+    permissions:
+      - filesystem
+      - read

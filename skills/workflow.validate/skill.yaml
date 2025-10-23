@@ -3,7 +3,7 @@ version: 0.1.0
 description: >
   Validates Betty workflow YAML definitions to ensure correct structure and required fields.
 inputs:
-  - workflow.yaml
+  - workflow_path
 outputs:
   - validation_result.json
 dependencies:
@@ -17,7 +17,7 @@ entrypoints:
     description: >
       Validate the structure of a workflow YAML file before execution.
     parameters:
-      - name: workflow.yaml
+      - name: workflow_path
         type: string
         required: true
         description: Path to the workflow YAML file.

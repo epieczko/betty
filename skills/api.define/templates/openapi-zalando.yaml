@@ -1,0 +1,303 @@
+openapi: 3.1.0
+
+info:
+  title: {{service_title}}
+  version: {{version}}
+  description: {{description}}
+  contact:
+    name: {{team_name}}
+    email: {{team_email}}
+  x-api-id: {{api_id}}
+  x-audience: {{audience}}
+
+servers:
+  - url: https://api.company.com/{{service_name}}/v1
+    description: Production
+
+paths:
+  /{{resource_plural}}:
+    get:
+      summary: List {{resource_plural}}
+      operationId: list{{resource_title}}
+      tags: [{{resource_title}}]
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of items to return
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: offset
+          in: query
+          description: Number of items to skip
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+      responses:
+        '200':
+          description: List of {{resource_plural}}
+          headers:
+            X-Flow-ID:
+              description: Request flow ID for tracing
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [{{resource_plural}}, pagination]
+                properties:
+                  {{resource_plural}}:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/{{resource_schema}}'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+    post:
+      summary: Create a new {{resource_singular}}
+      operationId: create{{resource_title}}
+      tags: [{{resource_title}}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/{{resource_schema}}Create'
+      responses:
+        '201':
+          description: {{resource_title}} created successfully
+          headers:
+            Location:
+              description: URL of the created resource
+              schema:
+                type: string
+                format: uri
+            X-Flow-ID:
+              description: Request flow ID for tracing
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/{{resource_schema}}'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /{{resource_plural}}/{{{resource_singular}}_id}:
+    parameters:
+      - name: {{resource_singular}}_id
+        in: path
+        required: true
+        description: Unique identifier of the {{resource_singular}}
+        schema:
+          type: string
+          format: uuid
+
+    get:
+      summary: Get {{resource_singular}} by ID
+      operationId: get{{resource_title}}ById
+      tags: [{{resource_title}}]
+      responses:
+        '200':
+          description: {{resource_title}} details
+          headers:
+            X-Flow-ID:
+              description: Request flow ID for tracing
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/{{resource_schema}}'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+    put:
+      summary: Update {{resource_singular}}
+      operationId: update{{resource_title}}
+      tags: [{{resource_title}}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/{{resource_schema}}Update'
+      responses:
+        '200':
+          description: {{resource_title}} updated successfully
+          headers:
+            X-Flow-ID:
+              description: Request flow ID for tracing
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/{{resource_schema}}'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+    delete:
+      summary: Delete {{resource_singular}}
+      operationId: delete{{resource_title}}
+      tags: [{{resource_title}}]
+      responses:
+        '204':
+          description: {{resource_title}} deleted successfully
+          headers:
+            X-Flow-ID:
+              description: Request flow ID for tracing
+              schema:
+                type: string
+                format: uuid
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+components:
+  schemas:
+    {{resource_schema}}:
+      type: object
+      required: [{{resource_singular}}_id, created_at]
+      properties:
+        {{resource_singular}}_id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+
+    {{resource_schema}}Create:
+      type: object
+      required: []
+      properties:
+        # Add creation-specific fields here
+
+    {{resource_schema}}Update:
+      type: object
+      properties:
+        # Add update-specific fields here
+
+    Pagination:
+      type: object
+      required: [limit, offset, total]
+      properties:
+        limit:
+          type: integer
+          description: Number of items per page
+        offset:
+          type: integer
+          description: Number of items skipped
+        total:
+          type: integer
+          description: Total number of items available
+
+    Problem:
+      type: object
+      required: [type, title, status]
+      properties:
+        type:
+          type: string
+          format: uri
+          description: URI reference identifying the problem type
+        title:
+          type: string
+          description: Short, human-readable summary
+        status:
+          type: integer
+          description: HTTP status code
+        detail:
+          type: string
+          description: Human-readable explanation
+        instance:
+          type: string
+          format: uri
+          description: URI reference identifying the specific occurrence
+
+  responses:
+    BadRequest:
+      description: Bad request - invalid parameters or malformed request
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+          example:
+            type: https://api.company.com/problems/bad-request
+            title: Bad Request
+            status: 400
+            detail: "Invalid query parameter 'limit': must be between 1 and 100"
+
+    NotFound:
+      description: Resource not found
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+          example:
+            type: https://api.company.com/problems/not-found
+            title: Not Found
+            status: 404
+            detail: {{resource_title}} with the specified ID was not found
+
+    Conflict:
+      description: Conflict - resource already exists or state conflict
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+          example:
+            type: https://api.company.com/problems/conflict
+            title: Conflict
+            status: 409
+            detail: {{resource_title}} with this identifier already exists
+
+    InternalError:
+      description: Internal server error
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+          example:
+            type: https://api.company.com/problems/internal-error
+            title: Internal Server Error
+            status: 500
+            detail: An unexpected error occurred while processing the request
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT-based authentication
+
+security:
+  - bearerAuth: []

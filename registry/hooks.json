@@ -1,0 +1,72 @@
+{
+  "registry_version": "1.0.0",
+  "generated_at": "2025-10-23T02:37:30.570676+00:00",
+  "hooks": [
+    {
+      "name": "test-validation-hook",
+      "version": "0.1.0",
+      "description": "Test hook for validating hook.define skill",
+      "event": "on_file_edit",
+      "command": "python betty/skills/api.validate/api_validate.py {file_path} zalando",
+      "when": {
+        "pattern": "*.openapi.yaml"
+      },
+      "blocking": true,
+      "timeout": 30000,
+      "on_failure": "show_errors",
+      "status": "draft",
+      "tags": [
+        "test",
+        "validation",
+        "openapi"
+      ]
+    },
+    {
+      "name": "test-registry-hook",
+      "version": "1.0.0",
+      "description": "Test registry update",
+      "event": "on_file_edit",
+      "command": "python test.py {file_path}",
+      "when": {},
+      "blocking": true,
+      "timeout": 30000,
+      "on_failure": "show_errors",
+      "status": "draft",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "name": "test-update-hook",
+      "version": "1.0.1",
+      "description": "Updated description",
+      "event": "on_file_edit",
+      "command": "python new_test.py",
+      "when": {},
+      "blocking": true,
+      "timeout": 30000,
+      "on_failure": "show_errors",
+      "status": "draft",
+      "tags": []
+    },
+    {
+      "name": "test-workflow-hook",
+      "version": "1.0.0",
+      "description": "Test complete workflow",
+      "event": "on_file_edit",
+      "command": "python validate.py {file_path}",
+      "when": {
+        "pattern": "*.openapi.yaml"
+      },
+      "blocking": true,
+      "timeout": 30000,
+      "on_failure": "show_errors",
+      "status": "active",
+      "tags": [
+        "test",
+        "workflow",
+        "openapi"
+      ]
+    }
+  ]
+}

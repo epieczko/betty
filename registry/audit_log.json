@@ -1,0 +1,14 @@
+[
+  {
+    "timestamp": "2025-10-23T02:29:40.283273+00:00",
+    "skill": "test.skill",
+    "status": "success",
+    "duration_ms": 1234,
+    "errors": [
+      "test error"
+    ],
+    "metadata": {
+      "key": "value"
+    }
+  }
+]

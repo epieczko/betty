@@ -1,0 +1,36 @@
+name: hook.register
+version: 0.1.0
+description: "Validate and register hook manifests in the Hook Registry"
+
+inputs:
+  - name: manifest_path
+    type: string
+    required: true
+    description: "Path to the hook manifest file (YAML)"
+
+outputs:
+  - name: validation_result
+    type: object
+    description: "Validation results and registration status"
+    schema:
+      properties:
+        ok: boolean
+        status: string
+        errors: array
+        path: string
+        details: object
+
+dependencies:
+  - None
+
+entrypoints:
+  - command: /skill/hook/register
+    handler: hook_register.py
+    runtime: python
+    permissions:
+      - filesystem:read
+      - filesystem:write
+
+status: active
+
+tags: [hook, registry, validation, infrastructure, policy]
