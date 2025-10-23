@@ -1,0 +1,65 @@
+name: api.analyzer
+version: 0.1.0
+description: "Analyze API specifications for backward compatibility and breaking changes"
+
+capabilities:
+  - Detect breaking changes between API versions
+  - Generate detailed compatibility reports
+  - Identify removed or modified endpoints
+  - Suggest migration paths for breaking changes
+  - Validate API evolution best practices
+
+skills_available:
+  - api.compatibility
+  - api.validate
+
+reasoning_mode: oneshot
+
+context_requirements:
+  old_spec_path: string
+  new_spec_path: string
+  fail_on_breaking: boolean
+
+workflow_pattern: |
+  1. Load old and new API specifications
+  2. Run comprehensive compatibility analysis
+  3. Categorize changes as breaking or non-breaking
+  4. Generate detailed report with migration recommendations
+  5. Return results (no retry needed)
+
+example_task: |
+  Input: "Compare user-service v1.0.0 with v2.0.0 for breaking changes"
+
+  Agent will:
+  1. Load both specifications
+  2. Analyze endpoint changes (additions, removals, modifications)
+  3. Check for breaking schema changes
+  4. Identify parameter or response format changes
+  5. Generate compatibility report
+  6. Provide migration recommendations
+
+error_handling:
+  timeout_seconds: 120
+  on_spec_load_failure: "Return error with file path details"
+  on_comparison_failure: "Return partial analysis with error context"
+
+output:
+  success:
+    - Compatibility report (JSON)
+    - Breaking changes list
+    - Non-breaking changes list
+    - Migration recommendations
+    - API diff visualization
+  failure:
+    - Error details
+    - Partial analysis (if available)
+    - Suggested fixes
+
+status: draft
+
+tags:
+  - api
+  - analysis
+  - compatibility
+  - versioning
+  - oneshot

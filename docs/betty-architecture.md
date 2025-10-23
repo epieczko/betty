@@ -103,7 +103,95 @@ output:
 
 **Created by**: `agent.define` skill
 
-### Structure
+### Agent Manifest Schema
+
+Agent manifests define intelligent orchestrators that compose skills with reasoning and context awareness.
+
+#### Required Fields
+
+| Field | Type | Format | Description |
+|-------|------|--------|-------------|
+| `name` | string | `^[a-z][a-z0-9._-]*$` | Unique identifier (e.g., `api.designer`, `compliance.checker`) |
+| `version` | string | `^\d+\.\d+\.\d+(-[a-zA-Z0-9.-]+)?$` | Semantic version (e.g., `0.1.0`, `1.0.0-beta`) |
+| `description` | string | 1-200 chars | Human-readable purpose statement |
+| `capabilities` | array[string] | Non-empty | List of what the agent can do |
+| `skills_available` | array[string] | Valid skill names | Skills the agent can orchestrate |
+| `reasoning_mode` | enum | `iterative` \| `oneshot` | How the agent approaches tasks |
+
+#### Optional Fields
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `context_requirements` | object | `{}` | Structured context the agent needs |
+| `workflow_pattern` | string | `null` | Narrative description of agent's reasoning process |
+| `example_task` | string | `null` | Concrete example demonstrating agent behavior |
+| `error_handling` | object | `{}` | Retry strategies and failure handling |
+| `output` | object | `{}` | Expected outputs for success and failure cases |
+| `tags` | array[string] | `[]` | Categorization tags (e.g., `api`, `validation`) |
+| `dependencies` | array[string] | `[]` | Other agents or schemas this depends on |
+| `status` | enum | `draft` | Lifecycle status: `draft` \| `active` \| `deprecated` \| `archived` |
+
+#### Field Specifications
+
+**`reasoning_mode`** - How the agent approaches problems:
+- `iterative`: Agent can retry with feedback, refine based on errors, and improve incrementally (for validation loops, refinement tasks)
+- `oneshot`: Agent executes once without retry (for analysis, reporting, deterministic tasks)
+
+**`context_requirements`** - Structured context for decision-making:
+```yaml
+context_requirements:
+  guidelines: string           # Type definition
+  domain: string
+  existing_apis: list
+  strict_mode: boolean
+  target_languages: list
+```
+
+**`error_handling`** - Defines retry and failure strategies:
+```yaml
+error_handling:
+  max_retries: 3
+  on_validation_failure: "analyze_and_refine"
+  on_generation_failure: "try_alternative_config"
+  timeout_seconds: 300
+```
+
+**`output`** - Expected artifacts and reports:
+```yaml
+output:
+  success:
+    - OpenAPI spec (validated)
+    - Generated models (compiled)
+    - Validation report
+  failure:
+    - Error analysis
+    - Partial spec
+    - Suggested fixes
+```
+
+#### Validation Rules
+
+1. **Name Validation**:
+   - Must match regex: `^[a-z][a-z0-9._-]*$`
+   - Should follow pattern: `<domain>.<action>` (e.g., `api.designer`, `compliance.checker`)
+   - Must be unique within agent registry
+
+2. **Version Validation**:
+   - Must follow semantic versioning: `MAJOR.MINOR.PATCH[-prerelease]`
+   - Examples: `0.1.0`, `1.0.0`, `2.3.1-beta`
+
+3. **Skills Validation**:
+   - All skills in `skills_available` must exist in skill registry
+   - Must have at least one skill
+   - Agent should not list itself as a dependency (no circular references)
+
+4. **Status Lifecycle**:
+   - `draft` → `active` → `deprecated` → `archived` (one-way progression)
+   - Only `active` agents can be invoked by commands
+   - `deprecated` agents emit warnings
+   - `archived` agents cannot be executed
+
+### Example: API Designer Agent
 
 ```yaml
 # agents/api.designer/agent.yaml
@@ -124,14 +212,14 @@ skills_available:
   - api.validate            # Zalando compliance checking
   - api.generate-models     # Modelina integration
   - api.compatibility       # Breaking change detection
-  - api.publish             # Registry publication
+  - api.publish             # Registry publication (future)
 
 reasoning_mode: iterative   # Agent can retry with feedback
 
 context_requirements:
-  - guidelines: string      # Which guidelines to follow (zalando, google, etc.)
-  - domain: string          # Business domain context
-  - existing_apis: list     # Related APIs for consistency
+  guidelines: string        # Which guidelines to follow (zalando, google, etc.)
+  domain: string           # Business domain context
+  existing_apis: list      # Related APIs for consistency
 
 workflow_pattern: |
   1. Analyze requirements and domain context
@@ -160,9 +248,11 @@ example_task: |
   7. Publish spec and models to registry
 
 error_handling:
-  - On validation failure: Analyze errors, refine, retry (max 3 attempts)
-  - On generation failure: Try alternative Modelina configurations
-  - On compilation failure: Adjust spec to fix type issues
+  max_retries: 3
+  on_validation_failure: "Analyze errors, refine spec, retry"
+  on_generation_failure: "Try alternative Modelina configurations"
+  on_compilation_failure: "Adjust spec to fix type issues"
+  timeout_seconds: 300
 
 output:
   success:
@@ -174,6 +264,14 @@ output:
     - Error analysis
     - Partial spec
     - Suggested fixes
+
+status: draft
+
+tags:
+  - api
+  - design
+  - openapi
+  - zalando
 ```
 
 ### Agent Examples
