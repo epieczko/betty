@@ -1,12 +1,15 @@
 name: generate.marketplace
-version: 0.1.0
+version: 0.2.0
 description: >
   Generate marketplace catalog files from Betty Framework registries.
-  Filters active and certified skills/agents and outputs marketplace-ready JSON files.
+  Filters active and certified skills/agents/commands/hooks and outputs marketplace-ready JSON files
+  with last_updated timestamps.
 inputs: []
 outputs:
   - marketplace/skills.json
   - marketplace/agents.json
+  - marketplace/commands.json
+  - marketplace/hooks.json
 dependencies:
   - registry.update
 status: active
@@ -17,6 +20,7 @@ entrypoints:
     runtime: python
     description: >
       Generate marketplace catalogs from registry files. Filters by status: active and certified: true.
+      Outputs skills, agents, commands, and hooks marketplace files with last_updated timestamps.
     parameters: []
     permissions:
       - filesystem:read
@@ -27,3 +31,5 @@ tags:
   - registry
   - automation
   - infrastructure
+  - commands
+  - hooks
