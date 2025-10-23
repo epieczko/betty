@@ -13,6 +13,36 @@ Ensure API specifications meet enterprise standards:
 - Detect common API design mistakes
 - Provide actionable suggestions for fixes
 
+## Validation Strategies
+
+### Automatic (Recommended)
+
+Betty automatically uses the best available validator:
+
+1. **Zally (if available)**: 100+ rules, official Zalando validator
+   - Detects Zally server at http://localhost:8000
+   - Uses complete Zalando guidelines
+   - Official and always up-to-date
+
+2. **Built-in (fallback)**: 14 rules, no dependencies
+   - Works without external tools
+   - Covers core guidelines
+   - Fast and simple
+
+### Setup Zally (Optional but Recommended)
+
+For complete validation (100+ rules), install Zally:
+
+```bash
+# Quick start with Docker
+docker run -d -p 8000:8000 zalando/zally:latest
+
+# Validate (automatically uses Zally)
+python skills/api.validate/api_validate.py specs/user.yaml zalando
+```
+
+See [Zally Setup Guide](../../docs/zally-setup.md) for details.
+
 ## Usage
 
 ### Basic Usage
@@ -29,6 +59,7 @@ python skills/api.validate/api_validate.py <spec_path> [guideline_set] [options]
 | `guideline_set` | No | Guidelines to validate against | `zalando` |
 | `--strict` | No | Warnings become errors | `false` |
 | `--format` | No | Output format (json, human) | `json` |
+| `--use-builtin` | No | Force built-in validator (14 rules) | `false` |
 
 ### Guideline Sets
 

@@ -13,7 +13,9 @@ import sys
 import json
 import argparse
 from pathlib import Path
-from typing import Dict, Any
+from typing import Dict, Any, Optional
+import urllib.request
+import urllib.error
 
 # Add betty module to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
@@ -23,6 +25,9 @@ from betty.errors import format_error_response, BettyError
 from betty.validation import validate_path
 
 logger = setup_logger(__name__)
+
+# Zally server configuration
+ZALLY_SERVER_URL = "http://localhost:8000"
 
 
 def load_spec(spec_path: str) -> Dict[str, Any]:
@@ -88,6 +93,121 @@ def detect_spec_type(spec: Dict[str, Any]) -> str:
         raise BettyError(
             "Could not detect specification type. Must contain 'openapi' or 'asyncapi' field."
         )
+
+
+def is_zally_available(server_url: str = ZALLY_SERVER_URL) -> bool:
+    """
+    Check if Zally server is running and accessible.
+
+    Args:
+        server_url: Zally server URL
+
+    Returns:
+        True if Zally server is available, False otherwise
+    """
+    try:
+        # Try to reach Zally health endpoint
+        health_url = f"{server_url}/health"
+        req = urllib.request.Request(health_url, method="GET")
+        with urllib.request.urlopen(req, timeout=2) as response:
+            return response.status == 200
+    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError):
+        return False
+
+
+def validate_with_zally(spec_path: str, server_url: str = ZALLY_SERVER_URL) -> Dict[str, Any]:
+    """
+    Validate specification using Zally server.
+
+    Args:
+        spec_path: Path to specification file
+        server_url: Zally server URL
+
+    Returns:
+        Validation report from Zally
+
+    Raises:
+        BettyError: If validation fails
+    """
+    try:
+        # Read spec file
+        with open(spec_path, 'r') as f:
+            spec_content = f.read()
+
+        # Prepare request to Zally
+        api_url = f"{server_url}/api-violations"
+
+        # Zally expects the spec as plain text in the request body
+        data = spec_content.encode('utf-8')
+
+        headers = {
+            'Content-Type': 'application/yaml',
+            'Accept': 'application/json'
+        }
+
+        req = urllib.request.Request(api_url, data=data, headers=headers, method='POST')
+
+        with urllib.request.urlopen(req, timeout=30) as response:
+            result = json.loads(response.read().decode('utf-8'))
+
+        logger.info("Successfully validated with Zally")
+
+        # Transform Zally response to our format
+        return transform_zally_response(result)
+
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode('utf-8')
+        raise BettyError(f"Zally validation failed: {e.code} {e.reason}\n{error_body}")
+    except urllib.error.URLError as e:
+        raise BettyError(f"Could not connect to Zally server at {server_url}: {e.reason}")
+    except Exception as e:
+        raise BettyError(f"Zally validation error: {e}")
+
+
+def transform_zally_response(zally_result: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Transform Zally response to Betty's validation report format.
+
+    Args:
+        zally_result: Response from Zally API
+
+    Returns:
+        Validation report in Betty format
+    """
+    violations = zally_result.get('violations', [])
+
+    errors = []
+    warnings = []
+
+    for violation in violations:
+        violation_type = violation.get('violation_type', 'UNKNOWN')
+        title = violation.get('title', 'Unknown violation')
+        description = violation.get('description', '')
+        paths = violation.get('paths', [])
+
+        item = {
+            'rule_id': violation_type,
+            'message': title,
+            'severity': 'error' if violation_type == 'MUST' else 'warning',
+            'description': description
+        }
+
+        if paths:
+            item['path'] = ', '.join(paths)
+
+        if violation_type == 'MUST':
+            errors.append(item)
+        else:
+            warnings.append(item)
+
+    return {
+        'valid': len(errors) == 0,
+        'errors': errors,
+        'warnings': warnings,
+        'validator': 'zally',
+        'guideline_version': 'zalando-complete',
+        'rules_checked': f"{len(violations)} Zally rules"
+    }
 
 
 def validate_openapi_zalando(spec: Dict[str, Any], strict: bool = False) -> Dict[str, Any]:
@@ -174,7 +294,8 @@ def validate_asyncapi(spec: Dict[str, Any], strict: bool = False) -> Dict[str, A
 def validate_spec(
     spec_path: str,
     guideline_set: str = "zalando",
-    strict: bool = False
+    strict: bool = False,
+    use_builtin: bool = False
 ) -> Dict[str, Any]:
     """
     Validate API specification against guidelines.
@@ -183,6 +304,7 @@ def validate_spec(
         spec_path: Path to specification file
         guideline_set: Guidelines to validate against
         strict: Enable strict mode
+        use_builtin: Force use of built-in validator instead of Zally
 
     Returns:
         Validation report
@@ -199,7 +321,19 @@ def validate_spec(
     # Validate based on type and guidelines
     if spec_type == "openapi":
         if guideline_set == "zalando":
-            report = validate_openapi_zalando(spec, strict=strict)
+            # Try Zally first (unless explicitly disabled)
+            if not use_builtin and is_zally_available():
+                logger.info("Using Zally for complete Zalando validation (100+ rules)")
+                report = validate_with_zally(spec_path)
+            else:
+                if not use_builtin:
+                    logger.warning(
+                        "Zally server not available. Using built-in validator (14 rules). "
+                        "For complete validation (100+ rules), install Zally: "
+                        "https://github.com/zalando/zally"
+                    )
+                logger.info("Using built-in validator (14 rules)")
+                report = validate_openapi_zalando(spec, strict=strict)
         else:
             raise BettyError(
                 f"Guideline set '{guideline_set}' not yet supported for OpenAPI. "
@@ -305,6 +439,11 @@ def main():
         default="json",
         help="Output format (default: json)"
     )
+    parser.add_argument(
+        "--use-builtin",
+        action="store_true",
+        help="Use built-in validator instead of Zally (14 rules vs 100+)"
+    )
 
     args = parser.parse_args()
 
@@ -325,7 +464,8 @@ def main():
         report = validate_spec(
             spec_path=args.spec_path,
             guideline_set=args.guideline_set,
-            strict=args.strict
+            strict=args.strict,
+            use_builtin=args.use_builtin
         )
 
         # Output based on format
