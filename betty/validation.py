@@ -178,3 +178,118 @@ def validate_skills_exist(skills: List[str], skill_registry: Dict[str, Any]) -> 
     # Find missing skills
     missing = [skill for skill in skills if skill not in registered_skills]
     return missing
+
+
+def validate_command_name(name: str) -> None:
+    """
+    Validate that a command name follows Betty's naming convention.
+
+    Valid names:
+    - Start with slash (/)
+    - Followed by lowercase letter
+    - Contain only lowercase letters, numbers, hyphens
+    - Examples: /api-design, /api-validate, /workflow-run
+
+    Args:
+        name: Command name to validate
+
+    Raises:
+        ValidationError: If name is invalid
+    """
+    if not name:
+        raise ValidationError("Command name cannot be empty")
+
+    if not name.startswith("/"):
+        raise ValidationError(
+            f"Invalid command name: '{name}'. "
+            "Command names must start with '/'"
+        )
+
+    # Remove leading slash for pattern matching
+    name_without_slash = name[1:]
+
+    if not re.match(r'^[a-z][a-z0-9-]*$', name_without_slash):
+        raise ValidationError(
+            f"Invalid command name: '{name}'. "
+            "Must start with '/' followed by lowercase letter and contain only "
+            "lowercase letters, numbers, and hyphens."
+        )
+
+
+def validate_hook_name(name: str) -> None:
+    """
+    Validate that a hook name follows Betty's naming convention.
+
+    Valid names:
+    - Start with lowercase letter
+    - Contain only lowercase letters, numbers, hyphens, underscores
+    - Examples: validate-openapi-spec, check-api-compatibility
+
+    Args:
+        name: Hook name to validate
+
+    Raises:
+        ValidationError: If name is invalid
+    """
+    if not name:
+        raise ValidationError("Hook name cannot be empty")
+
+    if not re.match(r'^[a-z][a-z0-9_-]*$', name):
+        raise ValidationError(
+            f"Invalid hook name: '{name}'. "
+            "Must start with lowercase letter and contain only "
+            "lowercase letters, numbers, hyphens, and underscores."
+        )
+
+
+def validate_command_execution_type(execution_type: str) -> None:
+    """
+    Validate that command execution type is valid.
+
+    Valid types:
+    - agent: Command delegates to an agent
+    - skill: Command calls a skill directly
+    - workflow: Command executes a workflow
+
+    Args:
+        execution_type: Execution type to validate
+
+    Raises:
+        ValidationError: If execution type is invalid
+    """
+    valid_types = ["agent", "skill", "workflow"]
+    if execution_type not in valid_types:
+        raise ValidationError(
+            f"Invalid execution type: '{execution_type}'. "
+            f"Must be one of: {', '.join(valid_types)}"
+        )
+
+
+def validate_hook_event(event: str) -> None:
+    """
+    Validate that hook event is valid.
+
+    Valid events:
+    - on_file_edit: Triggered when a file is edited
+    - on_file_save: Triggered when a file is saved
+    - on_commit: Triggered on git commit
+    - on_push: Triggered on git push
+    - on_tool_use: Triggered when a tool is used
+    - on_agent_start: Triggered when an agent starts
+    - on_workflow_end: Triggered when a workflow completes
+
+    Args:
+        event: Event type to validate
+
+    Raises:
+        ValidationError: If event is invalid
+    """
+    valid_events = [
+        "on_file_edit", "on_file_save", "on_commit", "on_push",
+        "on_tool_use", "on_agent_start", "on_workflow_end"
+    ]
+    if event not in valid_events:
+        raise ValidationError(
+            f"Invalid event: '{event}'. "
+            f"Must be one of: {', '.join(valid_events)}"
+        )

@@ -1,0 +1,25 @@
+{
+  "registry_version": "1.0.0",
+  "generated_at": "2025-10-23T01:55:03.830469+00:00",
+  "hooks": [
+    {
+      "name": "test-validation-hook",
+      "version": "0.1.0",
+      "description": "Test hook for validating hook.define skill",
+      "event": "on_file_edit",
+      "command": "python betty/skills/api.validate/api_validate.py {file_path} zalando",
+      "when": {
+        "pattern": "*.openapi.yaml"
+      },
+      "blocking": true,
+      "timeout": 30000,
+      "on_failure": "show_errors",
+      "status": "draft",
+      "tags": [
+        "test",
+        "validation",
+        "openapi"
+      ]
+    }
+  ]
+}

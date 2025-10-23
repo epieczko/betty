@@ -1,0 +1,25 @@
+name: /test-command
+version: 0.1.0
+description: "Test command for validating command.define skill"
+
+parameters:
+  - name: service_name
+    type: string
+    required: true
+    description: "Name of the service"
+
+  - name: spec_type
+    type: enum
+    values: [openapi, asyncapi]
+    default: openapi
+    description: "Type of API specification"
+
+execution:
+  type: skill
+  target: api.validate
+  context:
+    format: human
+
+status: draft
+
+tags: [test, validation]
