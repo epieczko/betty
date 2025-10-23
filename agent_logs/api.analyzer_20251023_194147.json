@@ -1,0 +1,82 @@
+{
+  "timestamp": "2025-10-23T19:41:47.317293+00:00",
+  "agent": {
+    "name": "api.analyzer",
+    "version": "0.1.0",
+    "description": "Analyze API specifications for backward compatibility and breaking changes",
+    "reasoning_mode": "oneshot",
+    "status": "draft"
+  },
+  "task_context": "Analyze compatibility between two API versions",
+  "prompt": "You are api.analyzer, a specialized Betty Framework agent.\n\n## AGENT DESCRIPTION\nAnalyze API specifications for backward compatibility and breaking changes\n\n## CAPABILITIES\nYou have the following capabilities:\n  \u2022 Detect breaking changes between API versions\n  \u2022 Generate detailed compatibility reports\n  \u2022 Identify removed or modified endpoints\n  \u2022 Suggest migration paths for breaking changes\n  \u2022 Validate API evolution best practices\n\n## REASONING MODE\nONESHOT: You will plan and execute all necessary skills in a single pass.\nAnalyze the task completely before determining the sequence of skill invocations.\n\n## AVAILABLE SKILLS\nYou have access to the following Betty skills:\n  \u2022 api.compatibility\n  \u2022 api.validate\n\n## RECOMMENDED WORKFLOW\n1. Load old and new API specifications\n2. Run comprehensive compatibility analysis\n3. Categorize changes as breaking or non-breaking\n4. Generate detailed report with migration recommendations\n5. Return results (no retry needed)\n\n\n## CONTEXT REQUIREMENTS\nThe following context may be required for optimal performance:\n  \u2022 old_spec_path: string\n  \u2022 new_spec_path: string\n  \u2022 fail_on_breaking: boolean\n\n## TASK\nAnalyze compatibility between two API versions\n\n## INSTRUCTIONS\nAnalyze the task above and respond with a JSON object describing your execution plan:\n\n{\n  \"analysis\": \"Brief analysis of the task\",\n  \"skills_to_invoke\": [\n    {\n      \"skill\": \"skill.name\",\n      \"purpose\": \"Why this skill is needed\",\n      \"inputs\": {\"param\": \"value\"},\n      \"order\": 1\n    }\n  ],\n  \"reasoning\": \"Explanation of your approach\"\n}\n\nSelect skills from your available skills list and arrange them according to the\nworkflow pattern. Ensure the sequence makes logical sense for accomplishing the task.\n",
+  "skills_available": [
+    {
+      "name": "api.compatibility",
+      "description": "Detect breaking changes between API specification versions",
+      "status": "active"
+    },
+    {
+      "name": "api.validate",
+      "description": "Validate OpenAPI and AsyncAPI specifications against enterprise guidelines",
+      "status": "active"
+    }
+  ],
+  "missing_skills": [],
+  "claude_response": {
+    "analysis": "As api.analyzer, I will approach this task using my available skills in a structured sequence.",
+    "skills_to_invoke": [
+      {
+        "skill": "api.validate",
+        "purpose": "Analyze API specification for issues and best practices",
+        "inputs": {
+          "include_warnings": true
+        },
+        "order": 1
+      },
+      {
+        "skill": "api.compatibility",
+        "purpose": "Check compatibility with existing APIs",
+        "inputs": {
+          "check_breaking_changes": true
+        },
+        "order": 2
+      }
+    ],
+    "reasoning": "Selected skills follow the agent's workflow pattern and capabilities.",
+    "mode": "simulated",
+    "note": "This is a mock response. In production, Claude API would provide real analysis."
+  },
+  "execution_results": [
+    {
+      "skill": "api.validate",
+      "purpose": "Analyze API specification for issues and best practices",
+      "status": "simulated",
+      "timestamp": "2025-10-23T19:41:47.317269+00:00",
+      "output": {
+        "note": "Simulated execution of api.validate",
+        "inputs": {
+          "include_warnings": true
+        },
+        "success": true
+      }
+    },
+    {
+      "skill": "api.compatibility",
+      "purpose": "Check compatibility with existing APIs",
+      "status": "simulated",
+      "timestamp": "2025-10-23T19:41:47.317290+00:00",
+      "output": {
+        "note": "Simulated execution of api.compatibility",
+        "inputs": {
+          "check_breaking_changes": true
+        },
+        "success": true
+      }
+    }
+  ],
+  "summary": {
+    "skills_planned": 2,
+    "skills_executed": 2,
+    "success": true
+  }
+}
