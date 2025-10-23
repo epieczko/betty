@@ -1,0 +1,189 @@
+# ============================================================================
+# Documentation Audit and Sync Workflow
+# ============================================================================
+#
+# This workflow performs a comprehensive audit and synchronization of all
+# documentation across the Betty Framework project using Claude-native skills.
+#
+# USAGE:
+#   betty workflow run docs.audit_all.yaml
+#
+# ============================================================================
+
+name: docs.audit_all
+version: 1.0.0
+description: |
+  Validate and synchronize all documentation across the project. This workflow
+  checks skill documentation, enriches the glossary, validates markdown links,
+  rebuilds the README, and updates the plugin manifest to ensure consistency.
+
+# ============================================================================
+# FAIL-FAST BEHAVIOR
+# ============================================================================
+# When fail_fast is true (default), the workflow stops immediately on any
+# step failure to provide fast feedback on documentation issues.
+# ============================================================================
+fail_fast: true
+
+# ============================================================================
+# WORKFLOW STEPS
+# ============================================================================
+# Steps execute sequentially to ensure documentation consistency across
+# all project files and manifests.
+# ============================================================================
+
+steps:
+  # ==========================================================================
+  # STEP 1: Validate Skill Documentation
+  # ==========================================================================
+  # Calls: docs.validate.skill_docs skill
+  # Purpose: Check all SKILL.md files for required sections and alignment
+  #
+  # This step verifies that all skill documentation files:
+  #   - Contain required sections (Purpose, Usage, Examples, etc.)
+  #   - Align with their corresponding skill.yaml manifests
+  #   - Follow consistent formatting and structure
+  #   - Include proper metadata and descriptions
+  #
+  # Failure conditions:
+  #   - Missing required documentation sections
+  #   - Mismatched skill names or descriptions
+  #   - Invalid markdown structure
+  #   - Outdated documentation not reflecting skill.yaml
+  # ==========================================================================
+  - skill: docs.validate.skill_docs
+    description: "Check all SKILL.md files for required sections and alignment with skill.yaml"
+
+  # ==========================================================================
+  # STEP 2: Expand Glossary
+  # ==========================================================================
+  # Calls: docs.expand.glossary skill
+  # Purpose: Enrich glossary.md by extracting undocumented terms
+  #
+  # This step analyzes all manifest files (skill.yaml, agent.yaml, etc.) to:
+  #   - Extract technical terms and concepts
+  #   - Identify terms not yet documented in glossary.md
+  #   - Add new entries with contextual definitions
+  #   - Maintain alphabetical ordering and consistent format
+  #
+  # The glossary serves as a central reference for terminology used
+  # throughout the Betty Framework documentation.
+  #
+  # Failure conditions:
+  #   - glossary.md file not found or not writable
+  #   - Manifest parsing errors
+  #   - Duplicate term conflicts
+  # ==========================================================================
+  - skill: docs.expand.glossary
+    description: "Enrich glossary.md by extracting undocumented terms from manifests"
+
+  # ==========================================================================
+  # STEP 3: Lint Markdown Links
+  # ==========================================================================
+  # Calls: docs.lint.links skill
+  # Purpose: Detect broken Markdown links across all .md files
+  #
+  # This step validates all markdown files in the project to:
+  #   - Check internal links point to existing files/anchors
+  #   - Verify external URLs are accessible
+  #   - Detect broken anchor references
+  #   - Report dead links with file locations
+  #
+  # Maintains documentation quality by ensuring all references are valid
+  # and users can navigate between documentation files reliably.
+  #
+  # Failure conditions:
+  #   - Broken internal file links
+  #   - Missing anchor targets
+  #   - Unreachable external URLs (with timeout)
+  #   - Malformed link syntax
+  # ==========================================================================
+  - skill: docs.lint.links
+    description: "Detect broken Markdown links across all .md files"
+
+  # ==========================================================================
+  # STEP 4: Sync Root README
+  # ==========================================================================
+  # Calls: docs.sync.readme skill
+  # Purpose: Rebuild the root README.md using current skills and agents
+  #
+  # This step regenerates the root README.md to reflect:
+  #   - Current registered skills and their descriptions
+  #   - Available agents and their capabilities
+  #   - Updated feature lists and getting started guides
+  #   - Latest project structure and organization
+  #
+  # Ensures the README stays in sync with actual capabilities and serves
+  # as an accurate entry point for new users and contributors.
+  #
+  # Failure conditions:
+  #   - Unable to read skill/agent registries
+  #   - Template parsing errors
+  #   - README.md file not writable
+  # ==========================================================================
+  - skill: docs.sync.readme
+    description: "Rebuild the root README.md using the current skills and agents"
+
+  # ==========================================================================
+  # STEP 5: Sync Plugin Manifest
+  # ==========================================================================
+  # Calls: docs.sync.plugin_manifest skill
+  # Purpose: Update plugin.yaml to reflect current registered skills/commands
+  #
+  # This step ensures plugin.yaml is synchronized with:
+  #   - All registered skills in the skills/ directory
+  #   - Available commands and their signatures
+  #   - Correct version numbers and metadata
+  #   - Proper skill/command categorization
+  #
+  # The plugin manifest is critical for Claude Code integration and must
+  # accurately represent all available functionality.
+  #
+  # Failure conditions:
+  #   - plugin.yaml file not found or not writable
+  #   - Invalid YAML structure
+  #   - Skill registry read errors
+  #   - Schema validation failures
+  # ==========================================================================
+  - skill: docs.sync.plugin_manifest
+    description: "Update plugin.yaml to reflect the current registered skills and commands"
+
+# ============================================================================
+# WORKFLOW COMPLETION MESSAGES
+# ============================================================================
+on_success: "\u2705 Documentation audit and sync completed."
+on_failure: "\u274c One or more documentation tasks failed. Review above errors."
+
+# ============================================================================
+# WORKFLOW METADATA
+# ============================================================================
+created_at: "2025-10-23T00:00:00Z"
+updated_at: "2025-10-23T00:00:00Z"
+
+tags:
+  - documentation
+  - audit
+  - validation
+  - sync
+  - markdown
+  - quality
+  - maintenance
+
+# ============================================================================
+# USAGE NOTES
+# ============================================================================
+# This workflow should be run:
+#   - Before releasing new versions
+#   - After adding/modifying skills or agents
+#   - When documentation becomes out of sync
+#   - As part of CI/CD documentation checks
+#   - After significant codebase changes
+#
+# For individual documentation tasks, run the skills directly:
+#   betty skill run docs.validate.skill_docs
+#   betty skill run docs.expand.glossary
+#   betty skill run docs.lint.links
+#   betty skill run docs.sync.readme
+#   betty skill run docs.sync.plugin_manifest
+#
+# ============================================================================
