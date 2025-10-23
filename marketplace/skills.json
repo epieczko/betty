@@ -1,22 +1,18 @@
 {
   "marketplace_version": "1.0.0",
-  "generated_at": "2025-10-23T19:25:19.937298+00:00",
+  "generated_at": "2025-10-23T19:20:08.578191+00:00",
   "description": "Betty Framework Certified Skills Marketplace",
-  "total_skills": 19,
-  "certified_count": 19,
-  "draft_count": 0,
+  "total_skills": 23,
+  "certified_count": 18,
+  "draft_count": 5,
   "catalog": [
     {
       "name": "agent.define",
       "version": "0.1.0",
       "description": "Validates and registers agent manifests for the Betty Framework. Ensures schema compliance, validates skill references, and updates the Agent Registry.\n",
       "status": "certified",
-      "tags": [
-        "agents",
-        "validation",
-        "registry",
-        "layer2"
-      ],
+      "tags": [],
+      "manifest_path": "skills/workflow.validate/skill.yaml",
       "maintainer": "Betty Core Team",
       "usage_examples": [
         "Validate agent manifest: /agent/define agent.yaml",
@@ -40,6 +36,44 @@
               "description": "Path to the agent.yaml file to validate"
             }
           ],
+          "permissions": [
+            "filesystem",
+            "read"
+          ]
+        }
+      ],
+      "inputs": [
+        "workflow.yaml"
+      ],
+      "outputs": [
+        "validation_result.json"
+      ]
+    },
+    {
+      "name": "hook.define",
+      "version": "0.1.0",
+      "description": "Create and register validation hooks for Claude Code",
+      "status": "certified",
+      "tags": [
+        "hooks",
+        "validation",
+        "automation",
+        "claude-code"
+      ],
+      "manifest_path": "skills/hook.define/skill.yaml",
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Run hook.define: /skill/hook/define"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/skills/hook.define",
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/hook/define",
+          "handler": "hook_define.py",
+          "runtime": "python",
           "permissions": [
             "filesystem:read",
             "filesystem:write"
@@ -68,110 +102,7 @@
       ]
     },
     {
-      "name": "agent.run",
-      "version": "0.1.0",
-      "description": "Execute a registered Betty agent by loading its manifest, generating a Claude-friendly prompt, invoking skills based on the agent's workflow, and logging results. Supports both iterative and oneshot reasoning modes with optional Claude API integration.\n",
-      "status": "certified",
-      "tags": [
-        "agents",
-        "execution",
-        "claude-api",
-        "orchestration",
-        "layer2"
-      ],
-      "maintainer": "Community",
-      "usage_examples": [],
-      "documentation_url": "https://betty-framework.dev/docs/skills/agent.run",
-      "dependencies": [
-        "agent.define"
-      ],
-      "entrypoints": [
-        {
-          "command": "/agent/run",
-          "handler": "agent_run.py",
-          "runtime": "python",
-          "description": "Execute a Betty agent with optional task context. Generates Claude-friendly prompts, invokes the Claude API (or simulates), executes planned skills, and logs all results to agent_logs/ directory.\n",
-          "parameters": [
-            {
-              "name": "agent_path",
-              "type": "string",
-              "required": true,
-              "description": "Path to agent.yaml file or agent name (e.g., api.designer)"
-            },
-            {
-              "name": "task_context",
-              "type": "string",
-              "required": false,
-              "description": "Optional task or query for the agent to execute"
-            },
-            {
-              "name": "save_log",
-              "type": "boolean",
-              "required": false,
-              "default": true,
-              "description": "Save execution log to agent_logs/<agent>_<timestamp>.json"
-            }
-          ],
-          "permissions": [
-            "filesystem:read",
-            "filesystem:write",
-            "network:http"
-          ]
-        }
-      ],
-      "inputs": [
-        {
-          "name": "agent_path",
-          "type": "string",
-          "required": true,
-          "description": "Path to agent manifest (agent.yaml) or agent name (e.g., api.designer)"
-        },
-        {
-          "name": "task_context",
-          "type": "string",
-          "required": false,
-          "description": "Task or query to provide to the agent for execution"
-        },
-        {
-          "name": "save_log",
-          "type": "boolean",
-          "required": false,
-          "default": true,
-          "description": "Whether to save execution log to agent_logs/<agent>.json"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "execution_result",
-          "type": "object",
-          "description": "Complete execution results including prompt, Claude response, and skill outputs",
-          "schema": {
-            "properties": {
-              "ok": "boolean",
-              "status": "string",
-              "timestamp": "string",
-              "errors": "array",
-              "details": {
-                "type": "object",
-                "properties": {
-                  "timestamp": "string",
-                  "agent": "object",
-                  "task_context": "string",
-                  "prompt": "string",
-                  "skills_available": "array",
-                  "claude_response": "object",
-                  "execution_results": "array",
-                  "summary": "object",
-                  "log_path": "string"
-                }
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "api.compatibility",
+      "name": "api.validate",
       "version": "0.1.0",
       "description": "Detect breaking changes between API specification versions",
       "status": "certified",
@@ -182,6 +113,7 @@
         "versioning",
         "openapi"
       ],
+      "manifest_path": "skills/api.validate/skill.yaml",
       "maintainer": "Betty Core Team",
       "usage_examples": [
         "Check for breaking changes: /skill/api/compatibility --old_spec_path v1.yaml --new_spec_path v2.yaml",
@@ -257,6 +189,7 @@
         "scaffolding",
         "zalando"
       ],
+      "manifest_path": "skills/api.define/skill.yaml",
       "maintainer": "Betty Core Team",
       "usage_examples": [
         "Create new OpenAPI spec: /skill/api/define --service_name user-service",
@@ -341,6 +274,7 @@
         "python",
         "java"
       ],
+      "manifest_path": "skills/api.generate-models/skill.yaml",
       "maintainer": "Betty Core Team",
       "usage_examples": [
         "Generate TypeScript models: /skill/api/generate-models --spec_path api.yaml --language typescript",
@@ -419,6 +353,7 @@
         "asyncapi",
         "zalando"
       ],
+      "manifest_path": "skills/api.compatibility/skill.yaml",
       "maintainer": "Betty Core Team",
       "usage_examples": [
         "Validate OpenAPI spec: /skill/api/validate --spec_path api.openapi.yaml",
@@ -490,6 +425,7 @@
         "validation",
         "infrastructure"
       ],
+      "manifest_path": "skills/agent.define/skill.yaml",
       "maintainer": "Betty Core Team",
       "usage_examples": [
         "Register command manifest: /skill/command/define command.yaml",
@@ -546,6 +482,7 @@
         "automation",
         "infrastructure"
       ],
+      "manifest_path": "skills/command.define/skill.yaml",
       "maintainer": "Community",
       "usage_examples": [],
       "documentation_url": "https://betty-framework.dev/docs/skills/generate.marketplace",
@@ -666,6 +603,7 @@
         "infrastructure",
         "policy"
       ],
+      "manifest_path": "skills/hook.register/skill.yaml",
       "maintainer": "Betty Core Team",
       "usage_examples": [
         "Register hook manifest: /skill/hook/register hook.yaml",
@@ -723,8 +661,12 @@
         "deployment",
         "distribution"
       ],
+      "manifest_path": "skills/workflow.compose/skill.yaml",
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Run workflow.compose: /workflow/compose"
+      ]      
       "maintainer": "Community",
-      "usage_examples": [],
       "documentation_url": "https://betty-framework.dev/docs/skills/plugin.build",
       "dependencies": [
         "plugin.sync"
@@ -835,6 +777,7 @@
       "description": "Validates operations against organizational policies before execution",
       "status": "certified",
       "tags": [],
+      "manifest_path": "skills/policy.enforce/skill.yaml",
       "maintainer": "Betty Core Team",
       "usage_examples": [
         "Validate against organizational policy: skill executes policy.enforce before operation",
@@ -907,8 +850,11 @@
         "testing",
         "layer2"
       ],
-      "maintainer": "Community",
-      "usage_examples": [],
+      "manifest_path": "skills/run.agent/skill.yaml",
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Run run.agent: /agent/run"
+      ],
       "documentation_url": "https://betty-framework.dev/docs/skills/run.agent",
       "dependencies": [
         "agent.define"
@@ -961,11 +907,54 @@
       ]
     },
     {
+      "name": "skill.define",
+      "version": "0.1.0",
+      "description": "Validates and registers skill manifests (.skill.yaml) for the Betty Framework. Ensures schema compliance and updates the Skill Registry.\n",
+      "status": "certified",
+      "tags": [],
+      "manifest_path": "skills/skill.define/skill.yaml",
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Run skill.define: /skill/define"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/skills/skill.define",
+      "dependencies": [],
+      "entrypoints": [
+        {
+          "command": "/skill/define",
+          "handler": "skill_define.py",
+          "runtime": "python",
+          "description": "Validate a Claude Code skill manifest and register it in the Betty Skill Registry.\n",
+          "parameters": [
+            {
+              "name": "manifest_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to the skill.yaml file to validate."
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ],
+      "inputs": [
+        "manifest_path"
+      ],
+      "outputs": [
+        "validation_result.json",
+        "updated_registry.json"
+      ]
+    },
+    {
       "name": "skill.create",
       "version": "0.1.0",
       "description": "Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\n",
       "status": "certified",
       "tags": [],
+      "manifest_path": "skills/skill.create/skill.yaml",
       "maintainer": "Betty Core Team",
       "usage_examples": [
         "Scaffold new skill: /skill/create --skill_name my.skill --description 'My new skill'",
@@ -1033,6 +1022,7 @@
       "description": "Validates and registers skill manifests (.skill.yaml) for the Betty Framework. Ensures schema compliance and updates the Skill Registry.\n",
       "status": "certified",
       "tags": [],
+      "manifest_path": "skills/registry.update/skill.yaml",
       "maintainer": "Betty Core Team",
       "usage_examples": [
         "Validate a new skill manifest: /skill/define manifest.skill.yaml",
@@ -1074,7 +1064,13 @@
       "version": "0.1.0",
       "description": "Executes multi-step Betty Framework workflows by chaining existing skills. Enables declarative orchestration of skill pipelines.\n",
       "status": "certified",
-      "tags": [],
+      "tags": [
+        "plugin",
+        "registry",
+        "automation",
+        "infrastructure"
+      ],
+      "manifest_path": "skills/plugin.sync/skill.yaml",
       "maintainer": "Betty Core Team",
       "usage_examples": [
         "Execute multi-step workflow: /workflow/compose pipeline.yaml",
@@ -1119,7 +1115,13 @@
       "version": "0.1.0",
       "description": "Validates Betty workflow YAML definitions to ensure correct structure and required fields.\n",
       "status": "certified",
-      "tags": [],
+      "tags": [
+        "marketplace",
+        "registry",
+        "automation",
+        "infrastructure"
+      ],
+      "manifest_path": "skills/generate.marketplace/skill.yaml",
       "maintainer": "Betty Core Team",
       "usage_examples": [
         "Validate workflow structure: /workflow/validate my_workflow.yaml",
@@ -1154,6 +1156,112 @@
       ],
       "outputs": [
         "validation_result.json"
+      ]
+    },
+    {
+      "name": "agent.run",
+      "version": "0.1.0",
+      "description": "Execute a registered Betty agent by loading its manifest, generating a Claude-friendly prompt, invoking skills based on the agent's workflow, and logging results. Supports both iterative and oneshot reasoning modes with optional Claude API integration.\n",
+      "status": "certified",
+      "tags": [
+        "agents",
+        "execution",
+        "claude-api",
+        "orchestration",
+        "layer2"
+      ],
+      "manifest_path": "skills/agent.run/skill.yaml",
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Run agent.run: /agent/run"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/skills/agent.run",
+      "dependencies": [
+        "agent.define"
+      ],
+      "entrypoints": [
+        {
+          "command": "/agent/run",
+          "handler": "agent_run.py",
+          "runtime": "python",
+          "description": "Execute a Betty agent with optional task context. Generates Claude-friendly prompts, invokes the Claude API (or simulates), executes planned skills, and logs all results to agent_logs/ directory.\n",
+          "parameters": [
+            {
+              "name": "agent_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to agent.yaml file or agent name (e.g., api.designer)"
+            },
+            {
+              "name": "task_context",
+              "type": "string",
+              "required": false,
+              "description": "Optional task or query for the agent to execute"
+            },
+            {
+              "name": "save_log",
+              "type": "boolean",
+              "required": false,
+              "default": true,
+              "description": "Save execution log to agent_logs/<agent>_<timestamp>.json"
+            }
+          ],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write",
+            "network:http"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "agent_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to agent manifest (agent.yaml) or agent name (e.g., api.designer)"
+        },
+        {
+          "name": "task_context",
+          "type": "string",
+          "required": false,
+          "description": "Task or query to provide to the agent for execution"
+        },
+        {
+          "name": "save_log",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether to save execution log to agent_logs/<agent>.json"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "execution_result",
+          "type": "object",
+          "description": "Complete execution results including prompt, Claude response, and skill outputs",
+          "schema": {
+            "properties": {
+              "ok": "boolean",
+              "status": "string",
+              "timestamp": "string",
+              "errors": "array",
+              "details": {
+                "type": "object",
+                "properties": {
+                  "timestamp": "string",
+                  "agent": "object",
+                  "task_context": "string",
+                  "prompt": "string",
+                  "skills_available": "array",
+                  "claude_response": "object",
+                  "execution_results": "array",
+                  "summary": "object",
+                  "log_path": "string"
+                }
+              }
+            }
+          }
+        }
       ]
     }
   ]
