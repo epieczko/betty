@@ -1,396 +1,206 @@
 #!/usr/bin/env python3
-"""telemetry_capture.py – Implementation of the telemetry.capture Skill."""
+"""
+Betty Framework - Telemetry Capture Skill
+Logs usage of core Betty components to /registry/telemetry.json
+"""
 
-import functools
 import json
 import os
 import sys
-import time
-from typing import Any, Callable, Dict, List, Optional
-from datetime import datetime, timezone, timedelta
-
-# Ensure project root on path for betty imports when executed directly
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
-
-from betty.config import REGISTRY_DIR  # noqa: E402
-from betty.errors import SkillValidationError  # noqa: E402
-from betty.file_utils import safe_update_json  # noqa: E402
-from betty.logging_utils import setup_logger  # noqa: E402
-
-logger = setup_logger(__name__)
-
-# Telemetry log file path
-TELEMETRY_FILE = os.path.join(REGISTRY_DIR, "telemetry.json")
-TELEMETRY_ARCHIVE_DIR = os.path.join(REGISTRY_DIR, "telemetry_archive")
-
-# Rotation settings
-ROTATION_DAYS = 7  # Rotate weekly
-MAX_ENTRIES = 100000  # Safety limit to prevent unbounded growth
+import fcntl
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any, Dict, Optional
 
 
-def build_response(ok: bool, path: str, errors: Optional[List[str]] = None, details: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-    """Build a standard response dictionary."""
-    response: Dict[str, Any] = {
-        "ok": ok,
-        "status": "success" if ok else "failed",
-        "errors": errors or [],
-        "path": path,
-    }
+class TelemetryCapture:
+    """Thread-safe telemetry capture for Betty Framework components."""
 
-    if details is not None:
-        response["details"] = details
+    def __init__(self, telemetry_file: str = "/home/user/betty/registry/telemetry.json"):
+        self.telemetry_file = Path(telemetry_file)
+        self._ensure_telemetry_file()
 
-    return response
+    def _ensure_telemetry_file(self) -> None:
+        """Ensure telemetry file exists with valid JSON structure."""
+        self.telemetry_file.parent.mkdir(parents=True, exist_ok=True)
 
+        if not self.telemetry_file.exists():
+            # Use simple list format to match existing telemetry.json
+            initial_data = []
+            with open(self.telemetry_file, 'w') as f:
+                json.dump(initial_data, f, indent=2)
 
-def create_telemetry_entry(
-    skill_name: str,
-    inputs: Dict[str, Any],
-    status: str,
-    duration_ms: int,
-    agent: Optional[str] = None,
-    workflow: Optional[str] = None,
-    caller: Optional[str] = None,
-    **extra_fields: Any,
-) -> Dict[str, Any]:
-    """
-    Create a telemetry entry.
+    def capture(
+        self,
+        skill: str,
+        status: str,
+        duration_ms: float,
+        caller: str,
+        inputs: Optional[Dict[str, Any]] = None,
+        error_message: Optional[str] = None,
+        metadata: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """
+        Capture telemetry event and append to telemetry.json (thread-safe).
 
-    Args:
-        skill_name: Name of the skill being tracked
-        inputs: Input parameters passed to the skill
-        status: Execution status (success, failed, timeout, etc.)
-        duration_ms: Execution duration in milliseconds
-        agent: Optional agent name that invoked the skill
-        workflow: Optional workflow name in which the skill was executed
-        caller: Optional caller identifier (CLI, API, etc.)
-        **extra_fields: Additional custom fields to include
+        Args:
+            skill: Name of the skill/component (e.g., 'plugin.build', 'agent.run')
+            status: Execution status ('success', 'failure', 'timeout', 'error')
+            duration_ms: Execution duration in milliseconds
+            caller: Source of the call (e.g., 'CLI', 'API', 'workflow.compose')
+            inputs: Input parameters (sanitized, no secrets)
+            error_message: Error message if status is failure/error
+            metadata: Additional context (e.g., user, session_id, environment)
 
-    Returns:
-        Telemetry entry dictionary
-    """
-    entry = {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-        "skill": skill_name,
-        "inputs": inputs,
-        "status": status,
-        "duration_ms": duration_ms,
-    }
+        Returns:
+            Dict containing the captured telemetry entry
+        """
+        # Validate inputs
+        if status not in ['success', 'failure', 'timeout', 'error', 'pending']:
+            raise ValueError(f"Invalid status: {status}. Must be one of: success, failure, timeout, error, pending")
 
-    # Add optional fields if provided
-    if agent is not None:
-        entry["agent"] = agent
-
-    if workflow is not None:
-        entry["workflow"] = workflow
-
-    if caller is not None:
-        entry["caller"] = caller
-
-    # Add any extra fields
-    if extra_fields:
-        entry.update(extra_fields)
-
-    return entry
-
-
-def rotate_telemetry_if_needed(telemetry_data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """
-    Rotate telemetry data if the oldest entries are more than ROTATION_DAYS old.
-
-    Archives old entries to dated archive files and returns recent entries.
-
-    Args:
-        telemetry_data: List of telemetry entries
-
-    Returns:
-        List of recent telemetry entries (within ROTATION_DAYS)
-    """
-    if not telemetry_data:
-        return telemetry_data
-
-    # Calculate cutoff date (entries older than this will be archived)
-    cutoff_date = datetime.now(timezone.utc) - timedelta(days=ROTATION_DAYS)
-
-    # Separate old and recent entries
-    old_entries = []
-    recent_entries = []
-
-    for entry in telemetry_data:
-        try:
-            entry_timestamp = datetime.fromisoformat(entry.get("timestamp", ""))
-            if entry_timestamp < cutoff_date:
-                old_entries.append(entry)
-            else:
-                recent_entries.append(entry)
-        except (ValueError, TypeError):
-            # If timestamp is invalid, keep it in recent entries
-            recent_entries.append(entry)
-
-    # Archive old entries if any exist
-    if old_entries:
-        try:
-            os.makedirs(TELEMETRY_ARCHIVE_DIR, exist_ok=True)
-
-            # Group old entries by week
-            entries_by_week = {}
-            for entry in old_entries:
-                try:
-                    timestamp = datetime.fromisoformat(entry.get("timestamp", ""))
-                    # Use ISO week date format (YYYY-Www)
-                    week_key = timestamp.strftime("%Y-W%W")
-                    if week_key not in entries_by_week:
-                        entries_by_week[week_key] = []
-                    entries_by_week[week_key].append(entry)
-                except (ValueError, TypeError):
-                    # Skip entries with invalid timestamps
-                    continue
-
-            # Write each week's entries to separate archive files
-            for week_key, entries in entries_by_week.items():
-                archive_file = os.path.join(TELEMETRY_ARCHIVE_DIR, f"telemetry-{week_key}.json")
-
-                # If archive file exists, append to it; otherwise create new
-                existing_entries = []
-                if os.path.exists(archive_file):
-                    try:
-                        with open(archive_file, 'r') as f:
-                            existing_entries = json.load(f)
-                            if not isinstance(existing_entries, list):
-                                existing_entries = []
-                    except (json.JSONDecodeError, IOError):
-                        existing_entries = []
-
-                # Combine and write
-                all_archived_entries = existing_entries + entries
-                with open(archive_file, 'w') as f:
-                    json.dump(all_archived_entries, f, indent=2)
-
-                logger.info(f"Archived {len(entries)} entries to {archive_file}")
-
-        except Exception as e:
-            logger.warning(f"Failed to archive old telemetry entries: {e}")
-            # On archive failure, keep old entries in the main file
-            return telemetry_data
-
-    return recent_entries
-
-
-def capture_telemetry(entry: Dict[str, Any]) -> Dict[str, Any]:
-    """
-    Append a telemetry entry to the telemetry log file.
-
-    Uses thread-safe file operations with locking.
-    Implements weekly rotation: entries older than 7 days are archived.
-
-    Args:
-        entry: Telemetry entry to append
-
-    Returns:
-        Result dictionary with capture status
-    """
-    def update_fn(telemetry_data):
-        """Update function for safe_update_json."""
-        if not isinstance(telemetry_data, list):
-            telemetry_data = []
-
-        # Perform weekly rotation check
-        telemetry_data = rotate_telemetry_if_needed(telemetry_data)
-
-        # Append new entry
-        telemetry_data.append(entry)
-
-        # Safety limit: keep only last MAX_ENTRIES to prevent unbounded growth
-        # This is a fallback in case rotation doesn't work or entries accumulate too quickly
-        if len(telemetry_data) > MAX_ENTRIES:
-            telemetry_data = telemetry_data[-MAX_ENTRIES:]
-            logger.warning(f"Telemetry log exceeded {MAX_ENTRIES} entries, truncating to safety limit")
-
-        return telemetry_data
-
-    try:
-        # Ensure registry directory exists
-        os.makedirs(REGISTRY_DIR, exist_ok=True)
-
-        # Use safe atomic update with file locking
-        updated_log = safe_update_json(TELEMETRY_FILE, update_fn, default=[])
-
-        result = {
-            "status": "success",
-            "telemetry_entry": entry,
-            "telemetry_path": TELEMETRY_FILE,
-            "total_entries": len(updated_log),
+        # Build telemetry entry
+        entry = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "skill": skill,
+            "status": status,
+            "duration_ms": float(duration_ms),
+            "caller": caller,
+            "inputs": inputs or {},
+            "error_message": error_message,
+            "metadata": metadata or {}
         }
 
-        logger.info(f"Telemetry captured for: {entry.get('skill')}")
-        return result
+        # Thread-safe append to telemetry.json
+        self._append_entry(entry)
 
-    except Exception as e:
-        logger.error(f"Failed to capture telemetry: {e}")
-        raise SkillValidationError(f"Failed to capture telemetry: {e}")
+        return entry
 
+    def _append_entry(self, entry: Dict[str, Any]) -> None:
+        """
+        Append entry to telemetry file with file locking for thread safety.
 
-def telemetry_decorator(skill_name: Optional[str] = None, caller: Optional[str] = None):
-    """
-    Decorator to automatically capture telemetry for function calls.
-
-    Usage:
-        @telemetry_decorator(skill_name="my.skill", caller="cli")
-        def my_function(arg1, arg2):
-            return result
-
-    Args:
-        skill_name: Name of the skill (defaults to function name)
-        caller: Caller identifier (CLI, API, etc.)
-
-    Returns:
-        Decorated function that captures telemetry
-    """
-    def decorator(func: Callable) -> Callable:
-        @functools.wraps(func)
-        def wrapper(*args, **kwargs):
-            start_time = time.time()
-            error = None
-            result = None
-
-            # Use skill_name if provided, otherwise use function name
-            actual_skill_name = skill_name or func.__name__
+        Uses fcntl.flock for POSIX systems to ensure atomic writes.
+        """
+        with open(self.telemetry_file, 'r+') as f:
+            # Acquire exclusive lock
+            fcntl.flock(f.fileno(), fcntl.LOCK_EX)
 
             try:
-                result = func(*args, **kwargs)
-                status = "success"
-                return result
-            except Exception as e:
-                status = "failed"
-                error = str(e)
-                raise
+                # Read current data (simple list format)
+                f.seek(0)
+                data = json.load(f)
+
+                # Ensure data is a list
+                if not isinstance(data, list):
+                    data = []
+
+                # Append new entry
+                data.append(entry)
+
+                # Keep last 100,000 entries (safety limit)
+                if len(data) > 100000:
+                    data = data[-100000:]
+
+                # Write back (truncate and rewrite)
+                f.seek(0)
+                f.truncate()
+                json.dump(data, f, indent=2)
+                f.write('\n')  # Add newline at end
+
             finally:
-                # Calculate duration
-                duration_ms = int((time.time() - start_time) * 1000)
+                # Release lock
+                fcntl.flock(f.fileno(), fcntl.LOCK_UN)
 
-                # Prepare inputs - sanitize to avoid capturing sensitive data
-                inputs = {
-                    "args_count": len(args),
-                    "kwargs_keys": list(kwargs.keys()),
-                }
+    def query(
+        self,
+        skill: Optional[str] = None,
+        status: Optional[str] = None,
+        caller: Optional[str] = None,
+        limit: Optional[int] = None
+    ) -> list:
+        """
+        Query telemetry entries with optional filters.
 
-                # Create telemetry entry
-                try:
-                    entry = create_telemetry_entry(
-                        skill_name=actual_skill_name,
-                        inputs=inputs,
-                        status=status,
-                        duration_ms=duration_ms,
-                        caller=caller,
-                        error=error if error else None,
-                    )
+        Args:
+            skill: Filter by skill name
+            status: Filter by status
+            caller: Filter by caller
+            limit: Maximum number of entries to return (most recent first)
 
-                    # Capture telemetry (non-blocking, errors are logged but don't affect execution)
-                    capture_telemetry(entry)
-                except Exception as telemetry_error:
-                    logger.warning(f"Failed to capture telemetry for {actual_skill_name}: {telemetry_error}")
+        Returns:
+            List of matching telemetry entries
+        """
+        with open(self.telemetry_file, 'r') as f:
+            data = json.load(f)
 
-        return wrapper
-    return decorator
+        # Data is a simple list
+        entries = data if isinstance(data, list) else []
+
+        # Apply filters
+        if skill:
+            entries = [e for e in entries if e.get("skill") == skill]
+        if status:
+            entries = [e for e in entries if e.get("status") == status]
+        if caller:
+            entries = [e for e in entries if e.get("caller") == caller]
+
+        # Sort by timestamp (most recent first) and limit
+        entries = sorted(entries, key=lambda e: e.get("timestamp", ""), reverse=True)
+
+        if limit:
+            entries = entries[:limit]
+
+        return entries
 
 
-def main(argv: Optional[List[str]] = None) -> int:
-    """Entry point for CLI execution."""
-    argv = argv or sys.argv[1:]
+def main():
+    """CLI entrypoint for telemetry capture."""
+    if len(sys.argv) < 5:
+        print("Usage: python telemetry_capture.py <skill> <status> <duration_ms> <caller> [inputs_json]")
+        print("\nExample:")
+        print('  python telemetry_capture.py plugin.build success 320 CLI')
+        print('  python telemetry_capture.py agent.run failure 1500 API \'{"agent": "api.designer"}\'')
+        sys.exit(1)
 
-    if len(argv) < 4:
-        message = "Usage: telemetry_capture.py <skill_name> <inputs_json> <status> <duration_ms> [agent] [workflow] [caller]"
-        logger.error(message)
-        response = build_response(
-            False,
-            path="",
-            errors=[message],
-            details={"error": {"error": "UsageError", "message": message, "details": {}}},
-        )
-        print(json.dumps(response, indent=2))
-        return 1
+    skill = sys.argv[1]
+    status = sys.argv[2]
+    duration_ms = float(sys.argv[3])
+    caller = sys.argv[4]
 
-    skill_name = argv[0]
-    status = argv[2]
+    # Parse inputs if provided
+    inputs = {}
+    if len(sys.argv) > 5:
+        try:
+            inputs = json.loads(sys.argv[5])
+        except json.JSONDecodeError as e:
+            print(f"Error: Invalid JSON for inputs: {e}", file=sys.stderr)
+            sys.exit(1)
 
-    # Parse inputs JSON
+    # Parse error message if provided
+    error_message = None
+    if len(sys.argv) > 6:
+        error_message = sys.argv[6]
+
+    # Capture telemetry
     try:
-        inputs = json.loads(argv[1])
-        if not isinstance(inputs, dict):
-            inputs = {"value": inputs}
-    except json.JSONDecodeError:
-        logger.error(f"Invalid inputs JSON: {argv[1]}")
-        response = build_response(
-            False,
-            path="",
-            errors=[f"Invalid inputs JSON: {argv[1]}"],
-        )
-        print(json.dumps(response, indent=2))
-        return 1
-
-    # Parse duration_ms
-    try:
-        duration_ms = int(argv[3])
-    except ValueError:
-        logger.error(f"Invalid duration_ms value: {argv[3]}")
-        response = build_response(
-            False,
-            path="",
-            errors=[f"Invalid duration_ms value: {argv[3]}"],
-        )
-        print(json.dumps(response, indent=2))
-        return 1
-
-    # Parse optional arguments
-    agent = argv[4] if len(argv) > 4 and argv[4] else None
-    workflow = argv[5] if len(argv) > 5 and argv[5] else None
-    caller = argv[6] if len(argv) > 6 and argv[6] else None
-
-    try:
-        # Create telemetry entry
-        entry = create_telemetry_entry(
-            skill_name=skill_name,
-            inputs=inputs,
+        telemetry = TelemetryCapture()
+        entry = telemetry.capture(
+            skill=skill,
             status=status,
             duration_ms=duration_ms,
-            agent=agent,
-            workflow=workflow,
             caller=caller,
+            inputs=inputs,
+            error_message=error_message
         )
 
-        # Capture telemetry
-        result = capture_telemetry(entry)
+        print(json.dumps(entry, indent=2))
+        print(f"\n✓ Telemetry captured to {telemetry.telemetry_file}")
 
-        response = build_response(
-            True,
-            path=result.get("telemetry_path", TELEMETRY_FILE),
-            errors=[],
-            details=result,
-        )
-        print(json.dumps(response, indent=2))
-        return 0
-
-    except SkillValidationError as exc:
-        logger.error("Telemetry capture failed: %s", exc)
-        response = build_response(
-            False,
-            path=TELEMETRY_FILE,
-            errors=[str(exc)],
-            details={"error": {"error": type(exc).__name__, "message": str(exc), "details": {}}},
-        )
-        print(json.dumps(response, indent=2))
-        return 1
-    except Exception as exc:  # pragma: no cover - unexpected failures
-        logger.exception("Unexpected error during telemetry capture")
-        response = build_response(
-            False,
-            path=TELEMETRY_FILE,
-            errors=[str(exc)],
-            details={"error": {"error": type(exc).__name__, "message": str(exc)}},
-        )
-        print(json.dumps(response, indent=2))
-        return 1
+    except Exception as e:
+        print(f"Error capturing telemetry: {e}", file=sys.stderr)
+        sys.exit(1)
 
 
-if __name__ == "__main__":  # pragma: no cover - CLI entry point
-    sys.exit(main(sys.argv[1:]))
+if __name__ == "__main__":
+    main()

@@ -1,65 +1,97 @@
 name: telemetry.capture
 version: 0.1.0
 description: >
-  Captures runtime telemetry metrics for skill usage across workflows, agents, and CLI.
-  Records skill execution with inputs, status, duration, and caller context to enable
-  performance monitoring and usage analytics.
+  Captures and logs usage telemetry for Betty Framework components.
+  Provides thread-safe JSON logging to /registry/telemetry.json with
+  ISO timestamps and structured metadata.
+
 inputs:
-  - skill_name
-  - inputs (JSON)
-  - status
-  - duration_ms
-  - agent (optional)
-  - workflow (optional)
-  - caller (optional)
+  - name: skill
+    type: string
+    required: true
+    description: Name of the skill/component being logged (e.g., 'plugin.build', 'agent.run')
+
+  - name: status
+    type: string
+    required: true
+    description: Execution status (success, failure, timeout, error, pending)
+
+  - name: duration_ms
+    type: number
+    required: true
+    description: Execution duration in milliseconds
+
+  - name: caller
+    type: string
+    required: true
+    description: Source of the call (e.g., CLI, API, workflow.compose)
+
+  - name: inputs
+    type: object
+    required: false
+    default: {}
+    description: Sanitized input parameters (no secrets)
+
+  - name: error_message
+    type: string
+    required: false
+    description: Error message if status is failure/error
+
+  - name: metadata
+    type: object
+    required: false
+    default: {}
+    description: Additional context (user, session_id, environment, etc.)
+
 outputs:
-  - telemetry_entry.json
-  - telemetry.json (registry file)
+  - name: telemetry_entry
+    type: object
+    description: The captured telemetry entry with ISO timestamp
+
+  - name: telemetry_file
+    type: string
+    description: Path to the telemetry.json file
+
 dependencies: []
+
 status: active
 
 entrypoints:
   - command: /telemetry/capture
     handler: telemetry_capture.py
     runtime: python
-    description: >
-      Capture and record telemetry metrics for skill execution with full context.
+    description: Capture telemetry event for a Betty component
     parameters:
-      - name: skill_name
+      - name: skill
         type: string
         required: true
-        description: Name of the skill being tracked.
-      - name: inputs
-        type: string
-        required: true
-        description: JSON object containing input parameters passed to the skill.
+        description: Skill name
       - name: status
         type: string
         required: true
-        description: Execution status (success, failed, timeout, etc.).
+        description: Execution status
       - name: duration_ms
-        type: integer
+        type: number
         required: true
-        description: Execution duration in milliseconds.
-      - name: agent
-        type: string
-        required: false
-        description: Name of the agent that invoked the skill (if applicable).
-      - name: workflow
-        type: string
-        required: false
-        description: Name of the workflow in which the skill was executed (if applicable).
+        description: Duration in milliseconds
       - name: caller
         type: string
+        required: true
+        description: Caller identifier
+      - name: inputs
+        type: string
         required: false
-        description: Caller identifier (CLI, API, workflow, agent, etc.).
+        description: JSON string of inputs
+      - name: error_message
+        type: string
+        required: false
+        description: Error message
     permissions:
       - filesystem:read
       - filesystem:write
 
 tags:
   - telemetry
-  - monitoring
+  - logging
   - observability
-  - metrics
-  - governance
+  - audit
