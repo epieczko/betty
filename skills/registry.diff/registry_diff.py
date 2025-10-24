@@ -149,11 +149,23 @@ def detect_removed_fields(current: Dict[str, Any], previous: Dict[str, Any]) -> 
     # Check nested structures like inputs, outputs
     for list_field in ["inputs", "outputs", "dependencies", "capabilities", "skills_available"]:
         if list_field in previous and list_field in current:
-            prev_items = set(previous[list_field]) if isinstance(previous[list_field], list) else set()
-            curr_items = set(current[list_field]) if isinstance(current[list_field], list) else set()
-            removed_items = prev_items - curr_items
-            if removed_items:
-                removed.append(f"{list_field}: {', '.join(str(x) for x in removed_items)}")
+            prev_list = previous[list_field] if isinstance(previous[list_field], list) else []
+            curr_list = current[list_field] if isinstance(current[list_field], list) else []
+
+            # For simple lists (strings), use set comparison
+            if prev_list and all(isinstance(x, (str, int, float, bool)) for x in prev_list):
+                prev_items = set(prev_list)
+                curr_items = set(curr_list)
+                removed_items = prev_items - curr_items
+                if removed_items:
+                    removed.append(f"{list_field}: {', '.join(str(x) for x in removed_items)}")
+            # For complex lists (dicts), compare by key fields like 'name'
+            elif prev_list and all(isinstance(x, dict) for x in prev_list):
+                prev_names = {item.get('name', item.get('command', str(item))) for item in prev_list}
+                curr_names = {item.get('name', item.get('command', str(item))) for item in curr_list}
+                removed_names = prev_names - curr_names
+                if removed_names:
+                    removed.append(f"{list_field}: {', '.join(removed_names)}")
 
     return removed
 
@@ -162,15 +174,17 @@ def analyze_diff(
     manifest: Dict[str, Any],
     registry_entry: Optional[Dict[str, Any]],
     manifest_type: str
-) -> Tuple[str, str, List[str], Dict[str, Any]]:
+) -> Tuple[str, str, List[str], Dict[str, Any], List[str], bool]:
     """
     Analyze differences between current manifest and registry entry.
 
     Returns:
-        (diff_type, required_action, suggestions, details)
+        (diff_type, required_action, suggestions, details, changed_fields, breaking)
     """
     name = manifest.get("name", "unknown")
     current_version = manifest.get("version", "0.0.0")
+    changed_fields: List[str] = []
+    breaking = False
 
     # Case 1: New entry (not in registry)
     if registry_entry is None:
@@ -182,12 +196,18 @@ def analyze_diff(
                 "name": name,
                 "version": current_version,
                 "is_new": True
-            }
+            },
+            [],  # No changed fields for new entries
+            False  # Not breaking for new entries
         )
 
     # Extract previous values
     previous_version = registry_entry.get("version", "0.0.0")
     version_comparison = compare_versions(current_version, previous_version)
+
+    # Track version changes
+    if version_comparison != "same":
+        changed_fields.append("version")
 
     # Detect permission changes
     current_perms = get_permissions(manifest)
@@ -196,13 +216,67 @@ def analyze_diff(
     removed_perms = previous_perms - current_perms
     permission_changed = bool(added_perms or removed_perms)
 
+    if permission_changed:
+        changed_fields.append("permissions")
+
     # Detect removed fields
     removed_fields = detect_removed_fields(manifest, registry_entry)
+
+    # Track field removals in changed_fields
+    for field in removed_fields:
+        # Extract field name (e.g., "inputs: ..." -> "inputs")
+        field_name = field.split(":")[0] if ":" in field else field
+        if field_name not in changed_fields:
+            changed_fields.append(field_name)
 
     # Detect status changes
     current_status = manifest.get("status", "draft")
     previous_status = registry_entry.get("status", "draft")
     status_changed = current_status != previous_status
+
+    if status_changed:
+        changed_fields.append("status")
+
+    # Check for description changes
+    if manifest.get("description") != registry_entry.get("description"):
+        changed_fields.append("description")
+
+    # Check for other field changes based on manifest type
+    if manifest_type == "skill":
+        # Check inputs
+        if json.dumps(manifest.get("inputs", []), sort_keys=True) != json.dumps(registry_entry.get("inputs", []), sort_keys=True):
+            if "inputs" not in changed_fields:
+                changed_fields.append("inputs")
+        # Check outputs
+        if json.dumps(manifest.get("outputs", []), sort_keys=True) != json.dumps(registry_entry.get("outputs", []), sort_keys=True):
+            if "outputs" not in changed_fields:
+                changed_fields.append("outputs")
+        # Check entrypoints
+        if json.dumps(manifest.get("entrypoints", []), sort_keys=True) != json.dumps(registry_entry.get("entrypoints", []), sort_keys=True):
+            if "entrypoints" not in changed_fields:
+                changed_fields.append("entrypoints")
+    elif manifest_type == "agent":
+        # Check capabilities
+        if json.dumps(manifest.get("capabilities", []), sort_keys=True) != json.dumps(registry_entry.get("capabilities", []), sort_keys=True):
+            if "capabilities" not in changed_fields:
+                changed_fields.append("capabilities")
+        # Check skills_available
+        if json.dumps(manifest.get("skills_available", []), sort_keys=True) != json.dumps(registry_entry.get("skills_available", []), sort_keys=True):
+            if "skills_available" not in changed_fields:
+                changed_fields.append("skills_available")
+        # Check reasoning_mode
+        if manifest.get("reasoning_mode") != registry_entry.get("reasoning_mode"):
+            changed_fields.append("reasoning_mode")
+
+    # Check dependencies
+    if json.dumps(manifest.get("dependencies", []), sort_keys=True) != json.dumps(registry_entry.get("dependencies", []), sort_keys=True):
+        if "dependencies" not in changed_fields:
+            changed_fields.append("dependencies")
+
+    # Check tags
+    if json.dumps(sorted(manifest.get("tags", []))) != json.dumps(sorted(registry_entry.get("tags", []))):
+        if "tags" not in changed_fields:
+            changed_fields.append("tags")
 
     # Build details
     details = {
@@ -225,6 +299,7 @@ def analyze_diff(
 
     # Case 2: Version downgrade (breaking change)
     if version_comparison == "downgrade":
+        breaking = True
         return (
             "version_downgrade",
             "reject",
@@ -233,11 +308,14 @@ def analyze_diff(
                 "Version downgrades are not permitted",
                 f"Suggested action: Restore version to at least {previous_version}"
             ],
-            details
+            details,
+            changed_fields,
+            breaking
         )
 
     # Case 3: Removed fields without version bump (breaking change)
     if removed_fields and version_comparison == "same":
+        breaking = True
         suggestions.extend([
             f"Fields removed without version bump: {', '.join(removed_fields)}",
             "Removing fields requires a version bump",
@@ -247,12 +325,15 @@ def analyze_diff(
             "breaking_change",
             "reject",
             suggestions,
-            details
+            details,
+            changed_fields,
+            breaking
         )
 
     # Case 4: Permission changes
     if permission_changed:
         if removed_perms and version_comparison == "same":
+            breaking = True
             suggestions.extend([
                 f"Permissions removed without version bump: {', '.join(removed_perms)}",
                 f"Suggested version: {increment_version(current_version, 'minor')}"
@@ -266,7 +347,9 @@ def analyze_diff(
             "permission_change",
             "review",
             suggestions if suggestions else [f"Permission changes detected in {name}"],
-            details
+            details,
+            changed_fields,
+            breaking
         )
 
     # Case 5: Status change to deprecated/archived without version bump
@@ -279,7 +362,9 @@ def analyze_diff(
             "status_change",
             "review",
             suggestions,
-            details
+            details,
+            changed_fields,
+            breaking
         )
 
     # Case 6: Version bump (normal change)
@@ -291,7 +376,9 @@ def analyze_diff(
             "version_bump",
             "register",
             suggestions,
-            details
+            details,
+            changed_fields,
+            breaking
         )
 
     # Case 7: No significant changes
@@ -300,7 +387,9 @@ def analyze_diff(
             "no_change",
             "skip",
             [f"No significant changes detected in {name}"],
-            details
+            details,
+            changed_fields,
+            breaking
         )
 
     # Case 8: Changes without version bump (needs review)
@@ -313,7 +402,9 @@ def analyze_diff(
         "needs_version_bump",
         "review",
         suggestions,
-        details
+        details,
+        changed_fields,
+        breaking
     )
 
 
@@ -368,7 +459,7 @@ def diff_manifest(manifest_path: str) -> Dict[str, Any]:
     registry_entry = find_registry_entry(name, manifest_type)
 
     # Analyze differences
-    diff_type, required_action, suggestions, details = analyze_diff(
+    diff_type, required_action, suggestions, details, changed_fields, breaking = analyze_diff(
         manifest, registry_entry, manifest_type
     )
 
@@ -378,12 +469,14 @@ def diff_manifest(manifest_path: str) -> Dict[str, Any]:
         "manifest_type": manifest_type,
         "diff_type": diff_type,
         "required_action": required_action,
+        "changed_fields": changed_fields,
+        "breaking": breaking,
         "suggestions": suggestions,
         "details": details,
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
 
-    logger.info(f"Diff analysis complete: {diff_type} -> {required_action}")
+    logger.info(f"Diff analysis complete: {diff_type} -> {required_action} (breaking: {breaking}, changed: {changed_fields})")
 
     return result
 
@@ -435,6 +528,9 @@ def main():
         print(f"Type: {result['manifest_type']}", file=sys.stderr)
         print(f"Diff Type: {result['diff_type']}", file=sys.stderr)
         print(f"Required Action: {result['required_action']}", file=sys.stderr)
+        print(f"Breaking: {result['breaking']}", file=sys.stderr)
+        if result['changed_fields']:
+            print(f"Changed Fields: {', '.join(result['changed_fields'])}", file=sys.stderr)
         print("\nSuggestions:", file=sys.stderr)
         for suggestion in result["suggestions"]:
             print(f"  • {suggestion}", file=sys.stderr)
