@@ -25,7 +25,9 @@
     "skill": "workflow.validate",
     "inputs": {
       "arg_count": 1,
-      "args": ["/tmp/test-workflow.yaml"]
+      "args": [
+        "/tmp/test-workflow.yaml"
+      ]
     },
     "status": "success",
     "duration_ms": 0,
@@ -36,7 +38,9 @@
     "skill": "docs.validate.skill_docs",
     "inputs": {
       "arg_count": 1,
-      "args": ["skills/docs.validate.skill_docs"]
+      "args": [
+        "skills/docs.validate.skill_docs"
+      ]
     },
     "status": "success",
     "duration_ms": 3,
@@ -47,7 +51,9 @@
     "skill": "docs.validate.skill_docs",
     "inputs": {
       "arg_count": 1,
-      "args": ["skills/api.validate"]
+      "args": [
+        "skills/api.validate"
+      ]
     },
     "status": "success",
     "duration_ms": 3,
@@ -58,7 +64,10 @@
     "skill": "docs.validate.skill_docs",
     "inputs": {
       "arg_count": 2,
-      "args": ["skills", "--summary"]
+      "args": [
+        "skills",
+        "--summary"
+      ]
     },
     "status": "failed",
     "duration_ms": 77,
@@ -69,7 +78,9 @@
     "skill": "docs.validate.skill_docs",
     "inputs": {
       "arg_count": 1,
-      "args": ["skills/audit.log"]
+      "args": [
+        "skills/audit.log"
+      ]
     },
     "status": "failed",
     "duration_ms": 3,
@@ -80,7 +91,10 @@
     "skill": "docs.validate.skill_docs",
     "inputs": {
       "arg_count": 2,
-      "args": ["skills", "--summary"]
+      "args": [
+        "skills",
+        "--summary"
+      ]
     },
     "status": "failed",
     "duration_ms": 91,
@@ -91,7 +105,10 @@
     "skill": "docs.validate.skill_docs",
     "inputs": {
       "arg_count": 2,
-      "args": ["skills/docs.validate.skill_docs", "--summary"]
+      "args": [
+        "skills/docs.validate.skill_docs",
+        "--summary"
+      ]
     },
     "status": "success",
     "duration_ms": 3,
@@ -201,7 +218,9 @@
     "execution_id": "3393d60d-2473-41ea-b4e7-5cc3ad8dae66",
     "skill": "plugin.build",
     "inputs": {
-      "cli_args": ["--help"]
+      "cli_args": [
+        "--help"
+      ]
     },
     "status": "success",
     "duration_ms": 4,
