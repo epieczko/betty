@@ -1,9 +1,10 @@
 name: registry.diff
-version: 0.1.0
+version: 0.2.0
 description: >
   Compare current and previous versions of skills/agents and report differences.
   Detects changes, determines required actions, and provides suggestions for
-  version management and breaking change prevention.
+  version management and breaking change prevention. Enhanced with changed_fields
+  array and breaking flag for easier consumption.
 
 # Input parameters
 inputs:
@@ -68,6 +69,20 @@ returns:
       - reject
       - skip
     description: Recommended action based on the analysis
+
+  changed_fields:
+    type: array
+    items:
+      type: string
+    description: >
+      List of field names that changed between the manifest and registry entry
+      (e.g., version, permissions, status, description, inputs, outputs, etc.)
+
+  breaking:
+    type: boolean
+    description: >
+      Indicates whether the changes are breaking (e.g., version downgrade,
+      removed fields without version bump, removed permissions without version bump)
 
   suggestions:
     type: array
