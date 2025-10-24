@@ -113,5 +113,68 @@
     "status": "success",
     "duration_ms": 3,
     "caller": "cli"
+  },
+  {
+    "timestamp": "2025-10-24T21:25:13.261475+00:00",
+    "execution_id": "393398ad-919f-4eff-b46b-968b63ce5de5",
+    "skill": "registry.update",
+    "inputs": {
+      "manifest_path": "skills/registry.update/skill.yaml",
+      "skill_name": "registry.update"
+    },
+    "status": "success",
+    "duration_ms": 7,
+    "caller": "cli",
+    "registry_path": "/home/user/betty/registry/skills.json",
+    "total_skills": 9,
+    "policy_enforced": true,
+    "diff": {
+      "operation": "add",
+      "skill_name": "registry.update",
+      "skills_before": 8,
+      "skills_after": 9
+    }
+  },
+  {
+    "timestamp": "2025-10-24T21:25:20.977528+00:00",
+    "execution_id": "819e6c4c-a2b0-457c-8964-c687d7d3fdd9",
+    "skill": "registry.update",
+    "inputs": {
+      "manifest_path": "skills/registry.update/skill.yaml",
+      "skill_name": "registry.update"
+    },
+    "status": "success",
+    "duration_ms": 5,
+    "caller": "cli",
+    "registry_path": "/home/user/betty/registry/skills.json",
+    "total_skills": 9,
+    "policy_enforced": true,
+    "diff": {
+      "operation": "update",
+      "skill_name": "registry.update",
+      "skills_before": 9,
+      "skills_after": 9
+    }
+  },
+  {
+    "timestamp": "2025-10-24T21:26:11.171786+00:00",
+    "execution_id": "1b2072e3-c8dc-48a2-b8b1-31a10bddfb0a",
+    "skill": "registry.update",
+    "inputs": {
+      "manifest_path": "skills/registry.update/skill.yaml",
+      "skill_name": "registry.update"
+    },
+    "status": "success",
+    "duration_ms": 6,
+    "caller": "cli",
+    "registry_path": "/home/user/betty/registry/skills.json",
+    "total_skills": 9,
+    "policy_enforced": true,
+    "diff": {
+      "operation": "update",
+      "skill_name": "registry.update",
+      "skills_before": 9,
+      "skills_after": 9
+    }
   }
 ]
