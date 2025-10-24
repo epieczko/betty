@@ -1,52 +1,236 @@
 {
   "marketplace_version": "1.0.0",
-  "generated_at": "2025-10-24T20:37:26.586515+00:00",
-  "last_updated": "2025-10-24T20:37:26.586534+00:00",
+  "generated_at": "2025-10-24T22:27:07.826403+00:00",
   "description": "Betty Framework Certified Skills Marketplace",
-  "total_skills": 8,
+  "total_skills": 6,
   "certified_count": 6,
-  "draft_count": 2,
+  "draft_count": 0,
   "catalog": [
     {
-      "name": "workflow.validate",
+      "name": "api.define",
       "version": "0.1.0",
-      "description": "Validates Betty workflow YAML definitions to ensure correct structure and required fields.\n",
+      "description": "Create OpenAPI and AsyncAPI specifications from templates",
       "status": "certified",
-      "tags": [],
-      "manifest_path": "skills/workflow.validate/skill.yaml",
+      "tags": [
+        "api",
+        "openapi",
+        "asyncapi",
+        "scaffolding",
+        "zalando"
+      ],
       "maintainer": "Betty Core Team",
       "usage_examples": [
-        "Run workflow.validate: /workflow/validate"
+        "Create new OpenAPI spec: /skill/api/define --service_name user-service",
+        "Generate AsyncAPI spec: /skill/api/define --service_name events --spec_type asyncapi"
       ],
-      "documentation_url": "https://betty-framework.dev/docs/skills/workflow.validate",
+      "documentation_url": "https://betty-framework.dev/docs/api/define",
       "dependencies": [
         "context.schema"
       ],
       "entrypoints": [
         {
-          "command": "/workflow/validate",
-          "handler": "workflow_validate.py",
+          "command": "/skill/api/define",
+          "handler": "api_define.py",
           "runtime": "python",
-          "description": "Validate the structure of a workflow YAML file before execution.\n",
-          "parameters": [
-            {
-              "name": "workflow.yaml",
-              "type": "string",
-              "required": true,
-              "description": "Path to the workflow YAML file."
-            }
-          ],
           "permissions": [
-            "filesystem",
-            "read"
+            "filesystem:read",
+            "filesystem:write"
           ]
         }
       ],
       "inputs": [
-        "workflow.yaml"
+        {
+          "name": "service_name",
+          "type": "string",
+          "required": true,
+          "description": "Name of the service/API (e.g., user-service, order-api)"
+        },
+        {
+          "name": "spec_type",
+          "type": "string",
+          "required": false,
+          "default": "openapi",
+          "description": "Type of specification (openapi or asyncapi)"
+        },
+        {
+          "name": "template",
+          "type": "string",
+          "required": false,
+          "default": "zalando",
+          "description": "Template to use (zalando, basic, minimal)"
+        },
+        {
+          "name": "output_dir",
+          "type": "string",
+          "required": false,
+          "default": "specs",
+          "description": "Output directory for generated specification"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": false,
+          "default": "1.0.0",
+          "description": "API version"
+        }
       ],
       "outputs": [
-        "validation_result.json"
+        {
+          "name": "spec_path",
+          "type": "string",
+          "description": "Path to generated specification file"
+        },
+        {
+          "name": "spec_content",
+          "type": "object",
+          "description": "Generated specification content"
+        }
+      ]
+    },
+    {
+      "name": "api.validate",
+      "version": "0.1.0",
+      "description": "Validate OpenAPI and AsyncAPI specifications against enterprise guidelines",
+      "status": "certified",
+      "tags": [
+        "api",
+        "validation",
+        "openapi",
+        "asyncapi",
+        "zalando"
+      ],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Validate OpenAPI spec: /skill/api/validate --spec_path api.openapi.yaml",
+        "Check against Zalando guidelines: /skill/api/validate --spec_path api.yaml --guideline_set zalando"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/api/validate",
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/api/validate",
+          "handler": "api_validate.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "network:http"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "spec_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the API specification file (OpenAPI or AsyncAPI)"
+        },
+        {
+          "name": "guideline_set",
+          "type": "string",
+          "required": false,
+          "default": "zalando",
+          "description": "Which API guidelines to validate against (zalando, google, microsoft)"
+        },
+        {
+          "name": "strict",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Enable strict mode (warnings become errors)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_report",
+          "type": "object",
+          "description": "Detailed validation results including errors and warnings"
+        },
+        {
+          "name": "valid",
+          "type": "boolean",
+          "description": "Whether the spec is valid"
+        },
+        {
+          "name": "guideline_version",
+          "type": "string",
+          "description": "Version of guidelines used for validation"
+        }
+      ]
+    },
+    {
+      "name": "docs.sync.plugin_manifest",
+      "version": "0.1.0",
+      "description": "Reconciles plugin.yaml with Betty Framework registries to ensure consistency. Identifies missing, orphaned, and mismatched command entries and suggests corrections.",
+      "status": "certified",
+      "tags": [
+        "docs",
+        "plugin",
+        "registry",
+        "validation",
+        "reconciliation",
+        "infrastructure"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/docs.sync.plugin_manifest",
+      "dependencies": [
+        "plugin.sync",
+        "registry.update"
+      ],
+      "entrypoints": [
+        {
+          "command": "/docs/sync/plugin-manifest",
+          "handler": "plugin_manifest_sync.py",
+          "runtime": "python",
+          "description": "Reconcile plugin.yaml with registry files. Identifies discrepancies and generates plugin.preview.yaml with suggested updates and a detailed diff report.",
+          "parameters": [],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "outputs": [
+        "plugin.preview.yaml",
+        "plugin_manifest_diff.md"
+      ]
+    },
+    {
+      "name": "docs.sync.readme",
+      "version": "0.1.0",
+      "description": "Regenerate the top-level README.md to reflect all current registered skills and agents. Pulls from registry/skills.json and registry/agents.json, groups by category, and updates documentation sections while maintaining repo style and tone.\n",
+      "status": "certified",
+      "tags": [
+        "docs",
+        "documentation",
+        "registry",
+        "automation",
+        "maintenance"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/docs.sync.readme",
+      "dependencies": [
+        "registry.update"
+      ],
+      "entrypoints": [
+        {
+          "command": "/docs/sync/readme",
+          "handler": "readme_sync.py",
+          "runtime": "python",
+          "description": "Sync README.md with current registry state. Updates skills tables, agents links, and documentation map to reflect all registered skills and agents.\n",
+          "parameters": [],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "outputs": [
+        "README.md",
+        "sync_report.json"
       ]
     },
     {
@@ -60,12 +244,12 @@
         "automation",
         "claude-code"
       ],
-      "manifest_path": "skills/hook.define/skill.yaml",
       "maintainer": "Betty Core Team",
       "usage_examples": [
-        "Run hook.define: /skill/hook/define"
+        "Create validation hook: /skill/hook/define --event on_file_edit --pattern '*.yaml' --command /workflow/validate",
+        "Set up pre-commit API validation hook"
       ],
-      "documentation_url": "https://betty-framework.dev/docs/skills/hook.define",
+      "documentation_url": "https://betty-framework.dev/docs/hooks/define",
       "dependencies": [
         "context.schema"
       ],
@@ -134,238 +318,45 @@
       ]
     },
     {
-      "name": "api.validate",
+      "name": "workflow.validate",
       "version": "0.1.0",
-      "description": "Validate OpenAPI and AsyncAPI specifications against enterprise guidelines",
+      "description": "Validates Betty workflow YAML definitions to ensure correct structure and required fields.\n",
       "status": "certified",
-      "tags": [
-        "api",
-        "validation",
-        "openapi",
-        "asyncapi",
-        "zalando"
-      ],
-      "manifest_path": "skills/api.validate/skill.yaml",
+      "tags": [],
       "maintainer": "Betty Core Team",
       "usage_examples": [
-        "Run api.validate: /skill/api/validate"
+        "Validate workflow structure: /workflow/validate my_workflow.yaml",
+        "Pre-flight check before workflow execution"
       ],
-      "documentation_url": "https://betty-framework.dev/docs/skills/api.validate",
+      "documentation_url": "https://betty-framework.dev/docs/workflows/validate",
       "dependencies": [
         "context.schema"
       ],
       "entrypoints": [
         {
-          "command": "/skill/api/validate",
-          "handler": "api_validate.py",
+          "command": "/workflow/validate",
+          "handler": "workflow_validate.py",
           "runtime": "python",
+          "description": "Validate the structure of a workflow YAML file before execution.\n",
+          "parameters": [
+            {
+              "name": "workflow.yaml",
+              "type": "string",
+              "required": true,
+              "description": "Path to the workflow YAML file."
+            }
+          ],
           "permissions": [
-            "filesystem:read",
-            "network:http"
+            "filesystem",
+            "read"
           ]
         }
       ],
       "inputs": [
-        {
-          "name": "spec_path",
-          "type": "string",
-          "required": true,
-          "description": "Path to the API specification file (OpenAPI or AsyncAPI)"
-        },
-        {
-          "name": "guideline_set",
-          "type": "string",
-          "required": false,
-          "default": "zalando",
-          "description": "Which API guidelines to validate against (zalando, google, microsoft)"
-        },
-        {
-          "name": "strict",
-          "type": "boolean",
-          "required": false,
-          "default": false,
-          "description": "Enable strict mode (warnings become errors)"
-        }
+        "workflow.yaml"
       ],
       "outputs": [
-        {
-          "name": "validation_report",
-          "type": "object",
-          "description": "Detailed validation results including errors and warnings"
-        },
-        {
-          "name": "valid",
-          "type": "boolean",
-          "description": "Whether the spec is valid"
-        },
-        {
-          "name": "guideline_version",
-          "type": "string",
-          "description": "Version of guidelines used for validation"
-        }
-      ]
-    },
-    {
-      "name": "api.define",
-      "version": "0.1.0",
-      "description": "Create OpenAPI and AsyncAPI specifications from templates",
-      "status": "certified",
-      "tags": [
-        "api",
-        "openapi",
-        "asyncapi",
-        "scaffolding",
-        "zalando"
-      ],
-      "manifest_path": "skills/api.define/skill.yaml",
-      "maintainer": "Betty Core Team",
-      "usage_examples": [
-        "Run api.define: /skill/api/define"
-      ],
-      "documentation_url": "https://betty-framework.dev/docs/skills/api.define",
-      "dependencies": [
-        "context.schema"
-      ],
-      "entrypoints": [
-        {
-          "command": "/skill/api/define",
-          "handler": "api_define.py",
-          "runtime": "python",
-          "permissions": [
-            "filesystem:read",
-            "filesystem:write"
-          ]
-        }
-      ],
-      "inputs": [
-        {
-          "name": "service_name",
-          "type": "string",
-          "required": true,
-          "description": "Name of the service/API (e.g., user-service, order-api)"
-        },
-        {
-          "name": "spec_type",
-          "type": "string",
-          "required": false,
-          "default": "openapi",
-          "description": "Type of specification (openapi or asyncapi)"
-        },
-        {
-          "name": "template",
-          "type": "string",
-          "required": false,
-          "default": "zalando",
-          "description": "Template to use (zalando, basic, minimal)"
-        },
-        {
-          "name": "output_dir",
-          "type": "string",
-          "required": false,
-          "default": "specs",
-          "description": "Output directory for generated specification"
-        },
-        {
-          "name": "version",
-          "type": "string",
-          "required": false,
-          "default": "1.0.0",
-          "description": "API version"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "spec_path",
-          "type": "string",
-          "description": "Path to generated specification file"
-        },
-        {
-          "name": "spec_content",
-          "type": "object",
-          "description": "Generated specification content"
-        }
-      ]
-    },
-    {
-      "name": "docs.sync.plugin_manifest",
-      "version": "0.1.0",
-      "description": "Reconciles plugin.yaml with Betty Framework registries to ensure consistency. Identifies missing, orphaned, and mismatched command entries and suggests corrections.",
-      "status": "certified",
-      "tags": [
-        "docs",
-        "plugin",
-        "registry",
-        "validation",
-        "reconciliation",
-        "infrastructure"
-      ],
-      "manifest_path": "skills/docs.sync.plugin_manifest/skill.yaml",
-      "maintainer": "Betty Core Team",
-      "usage_examples": [
-        "Run docs.sync.plugin_manifest: /docs/sync/plugin-manifest"
-      ],
-      "documentation_url": "https://betty-framework.dev/docs/skills/docs.sync.plugin_manifest",
-      "dependencies": [
-        "plugin.sync",
-        "registry.update"
-      ],
-      "entrypoints": [
-        {
-          "command": "/docs/sync/plugin-manifest",
-          "handler": "plugin_manifest_sync.py",
-          "runtime": "python",
-          "description": "Reconcile plugin.yaml with registry files. Identifies discrepancies and generates plugin.preview.yaml with suggested updates and a detailed diff report.",
-          "parameters": [],
-          "permissions": [
-            "filesystem:read",
-            "filesystem:write"
-          ]
-        }
-      ],
-      "inputs": [],
-      "outputs": [
-        "plugin.preview.yaml",
-        "plugin_manifest_diff.md"
-      ]
-    },
-    {
-      "name": "docs.sync.readme",
-      "version": "0.1.0",
-      "description": "Regenerate the top-level README.md to reflect all current registered skills and agents. Pulls from registry/skills.json and registry/agents.json, groups by category, and updates documentation sections while maintaining repo style and tone.\n",
-      "status": "certified",
-      "tags": [
-        "docs",
-        "documentation",
-        "registry",
-        "automation",
-        "maintenance"
-      ],
-      "manifest_path": "skills/docs.sync.readme/skill.yaml",
-      "maintainer": "Betty Core Team",
-      "usage_examples": [
-        "Run docs.sync.readme: /docs/sync/readme"
-      ],
-      "documentation_url": "https://betty-framework.dev/docs/skills/docs.sync.readme",
-      "dependencies": [
-        "registry.update"
-      ],
-      "entrypoints": [
-        {
-          "command": "/docs/sync/readme",
-          "handler": "readme_sync.py",
-          "runtime": "python",
-          "description": "Sync README.md with current registry state. Updates skills tables, agents links, and documentation map to reflect all registered skills and agents.\n",
-          "parameters": [],
-          "permissions": [
-            "filesystem:read",
-            "filesystem:write"
-          ]
-        }
-      ],
-      "inputs": [],
-      "outputs": [
-        "README.md",
-        "sync_report.json"
+        "validation_result.json"
       ]
     }
   ]

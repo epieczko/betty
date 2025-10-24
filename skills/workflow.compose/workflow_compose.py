@@ -18,6 +18,7 @@ from betty.validation import validate_path
 from betty.logging_utils import setup_logger
 from betty.errors import WorkflowError, format_error_response
 from betty.telemetry_capture import capture_skill_execution
+from utils.telemetry_utils import capture_telemetry
 logger = setup_logger(__name__)
 
 
@@ -445,6 +446,7 @@ def execute_workflow(workflow_file: str) -> Dict[str, Any]:
     return log
 
 
+@capture_telemetry(skill_name="workflow.compose", caller="cli")
 def main():
     """Main CLI entry point."""
     if len(sys.argv) < 2:
