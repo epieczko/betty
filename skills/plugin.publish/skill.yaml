@@ -1,0 +1,88 @@
+name: plugin.publish
+version: 0.1.0
+description: >
+  Publish a bundled plugin package (.tar.gz) to various targets: local directory,
+  remote Claude Marketplace endpoint, or GitHub Releases. Validates SHA256 checksums
+  before publication and generates publication metadata for tracking and auditing.
+
+inputs:
+  - name: package_path
+    type: string
+    required: true
+    description: Path to the .tar.gz package file built by plugin.build
+  - name: target
+    type: string
+    required: false
+    default: local
+    description: "Publication target: 'local' (dist/published/), 'remote' (Claude Marketplace), or 'release' (GitHub Releases)"
+  - name: expected_sha256
+    type: string
+    required: false
+    description: Expected SHA256 checksum for validation (optional, auto-detected from manifest.json)
+  - name: manifest_path
+    type: string
+    required: false
+    description: Path to manifest.json (optional, auto-detected from package directory)
+  - name: remote_endpoint
+    type: string
+    required: false
+    description: Remote API endpoint URL for 'remote' target (defaults to Claude Marketplace)
+
+outputs:
+  - name: publication_result
+    type: object
+    description: Publication result with target, paths, and metadata
+  - name: checksums
+    type: object
+    description: Validated MD5 and SHA256 checksums
+  - name: publication_metadata
+    type: object
+    description: Publication metadata including timestamp and target details
+
+dependencies:
+  - plugin.build
+
+status: active
+
+entrypoints:
+  - command: /plugin/publish
+    handler: plugin_publish.py
+    runtime: python
+    description: >
+      Publish a bundled plugin package to local, remote, or release targets.
+      Validates SHA256 checksums and generates publication metadata.
+    parameters:
+      - name: package_path
+        type: string
+        required: true
+        description: Path to the .tar.gz package file
+      - name: target
+        type: string
+        required: false
+        default: local
+        description: "Publication target: local, remote, or release"
+      - name: expected_sha256
+        type: string
+        required: false
+        description: Expected SHA256 checksum for validation
+      - name: manifest_path
+        type: string
+        required: false
+        description: Path to manifest.json
+      - name: remote_endpoint
+        type: string
+        required: false
+        description: Remote API endpoint URL for 'remote' target
+    permissions:
+      - filesystem:read
+      - filesystem:write
+      - network:http
+
+tags:
+  - plugin
+  - publishing
+  - deployment
+  - distribution
+  - marketplace
+  - github-releases
+  - checksum-validation
