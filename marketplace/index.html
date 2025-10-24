@@ -43,7 +43,7 @@
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
             margin-bottom: 2rem;
         }
@@ -240,7 +240,7 @@
 <body>
     <div class="header">
         <h1>Betty Framework Marketplace</h1>
-        <p>Discover certified skills and agents for the Betty Framework</p>
+        <p>Discover certified skills, agents, commands, and hooks for the Betty Framework</p>
     </div>
 
     <div class="container">
@@ -261,6 +261,22 @@
                 <h3 id="certified-agents">-</h3>
                 <p>Certified Agents</p>
             </div>
+            <div class="stat-card">
+                <h3 id="commands-count">-</h3>
+                <p>Total Commands</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="certified-commands">-</h3>
+                <p>Certified Commands</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="hooks-count">-</h3>
+                <p>Total Hooks</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="certified-hooks">-</h3>
+                <p>Certified Hooks</p>
+            </div>
         </div>
 
         <div class="api-endpoints">
@@ -270,6 +286,12 @@
             </div>
             <div class="endpoint">
                 <code>GET</code> <span id="agents-url">./agents.json</span>
+            </div>
+            <div class="endpoint">
+                <code>GET</code> <span id="commands-url">./commands.json</span>
+            </div>
+            <div class="endpoint">
+                <code>GET</code> <span id="hooks-url">./hooks.json</span>
             </div>
         </div>
 
@@ -302,11 +324,43 @@
             <div id="agents-error" class="error" style="display: none;"></div>
             <div id="agents-catalog" class="catalog-grid"></div>
         </div>
+
+        <div class="catalog-section">
+            <h2>Commands Catalog</h2>
+            <div class="filter-bar">
+                <input type="text" id="commands-search" placeholder="Search commands...">
+                <select id="commands-filter">
+                    <option value="all">All Status</option>
+                    <option value="certified">Certified</option>
+                    <option value="draft">Draft</option>
+                </select>
+            </div>
+            <div id="commands-loading" class="loading">Loading commands...</div>
+            <div id="commands-error" class="error" style="display: none;"></div>
+            <div id="commands-catalog" class="catalog-grid"></div>
+        </div>
+
+        <div class="catalog-section">
+            <h2>Hooks Catalog</h2>
+            <div class="filter-bar">
+                <input type="text" id="hooks-search" placeholder="Search hooks...">
+                <select id="hooks-filter">
+                    <option value="all">All Status</option>
+                    <option value="certified">Certified</option>
+                    <option value="draft">Draft</option>
+                </select>
+            </div>
+            <div id="hooks-loading" class="loading">Loading hooks...</div>
+            <div id="hooks-error" class="error" style="display: none;"></div>
+            <div id="hooks-catalog" class="catalog-grid"></div>
+        </div>
     </div>
 
     <script>
         let skillsData = [];
         let agentsData = [];
+        let commandsData = [];
+        let hooksData = [];
 
         async function loadMarketplace() {
             try {
@@ -320,19 +374,37 @@
                 const agentsJson = await agentsResponse.json();
                 agentsData = agentsJson.catalog;
 
+                // Load commands
+                const commandsResponse = await fetch('./commands.json');
+                const commandsJson = await commandsResponse.json();
+                commandsData = commandsJson.catalog;
+
+                // Load hooks
+                const hooksResponse = await fetch('./hooks.json');
+                const hooksJson = await hooksResponse.json();
+                hooksData = hooksJson.catalog;
+
                 // Update stats
                 document.getElementById('skills-count').textContent = skillsJson.total_skills;
                 document.getElementById('certified-skills').textContent = skillsJson.certified_count;
                 document.getElementById('agents-count').textContent = agentsJson.total_agents;
                 document.getElementById('certified-agents').textContent = agentsJson.certified_count;
+                document.getElementById('commands-count').textContent = commandsJson.total_commands;
+                document.getElementById('certified-commands').textContent = commandsJson.certified_count;
+                document.getElementById('hooks-count').textContent = hooksJson.total_hooks;
+                document.getElementById('certified-hooks').textContent = hooksJson.certified_count;
 
                 // Render catalogs
                 renderSkills();
                 renderAgents();
+                renderCommands();
+                renderHooks();
 
                 // Hide loading
                 document.getElementById('skills-loading').style.display = 'none';
                 document.getElementById('agents-loading').style.display = 'none';
+                document.getElementById('commands-loading').style.display = 'none';
+                document.getElementById('hooks-loading').style.display = 'none';
 
             } catch (error) {
                 console.error('Error loading marketplace:', error);
@@ -343,6 +415,14 @@
                 document.getElementById('agents-error').textContent = 'Error loading agents: ' + error.message;
                 document.getElementById('agents-error').style.display = 'block';
                 document.getElementById('agents-loading').style.display = 'none';
+
+                document.getElementById('commands-error').textContent = 'Error loading commands: ' + error.message;
+                document.getElementById('commands-error').style.display = 'block';
+                document.getElementById('commands-loading').style.display = 'none';
+
+                document.getElementById('hooks-error').textContent = 'Error loading hooks: ' + error.message;
+                document.getElementById('hooks-error').style.display = 'block';
+                document.getElementById('hooks-loading').style.display = 'none';
             }
         }
 
@@ -414,6 +494,75 @@
             `).join('');
         }
 
+        function renderCommands(filter = 'all', search = '') {
+            const container = document.getElementById('commands-catalog');
+            const filtered = commandsData.filter(command => {
+                const matchesFilter = filter === 'all' || command.status === filter;
+                const matchesSearch = search === '' ||
+                    command.name.toLowerCase().includes(search.toLowerCase()) ||
+                    command.description.toLowerCase().includes(search.toLowerCase()) ||
+                    (command.tags || []).some(tag => tag.toLowerCase().includes(search.toLowerCase()));
+                return matchesFilter && matchesSearch;
+            });
+
+            container.innerHTML = filtered.map(command => `
+                <div class="catalog-item">
+                    <div class="catalog-item-header">
+                        <div class="catalog-item-title">
+                            <h3>${command.name}</h3>
+                            <div class="catalog-item-version">v${command.version} · ${command.maintainer}</div>
+                        </div>
+                        <span class="badge badge-${command.status}">${command.status}</span>
+                    </div>
+                    <div class="catalog-item-description">${command.description}</div>
+                    ${command.tags && command.tags.length > 0 ? `
+                        <div class="catalog-item-tags">
+                            ${command.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                    <div class="catalog-item-footer">
+                        ${command.execution ? `<span>Type: ${command.execution.type} → ${command.execution.target}</span>` : ''}
+                        ${command.parameters ? `<span>${command.parameters.length} parameter(s)</span>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderHooks(filter = 'all', search = '') {
+            const container = document.getElementById('hooks-catalog');
+            const filtered = hooksData.filter(hook => {
+                const matchesFilter = filter === 'all' || hook.status === filter;
+                const matchesSearch = search === '' ||
+                    hook.name.toLowerCase().includes(search.toLowerCase()) ||
+                    hook.description.toLowerCase().includes(search.toLowerCase()) ||
+                    (hook.tags || []).some(tag => tag.toLowerCase().includes(search.toLowerCase()));
+                return matchesFilter && matchesSearch;
+            });
+
+            container.innerHTML = filtered.map(hook => `
+                <div class="catalog-item">
+                    <div class="catalog-item-header">
+                        <div class="catalog-item-title">
+                            <h3>${hook.name}</h3>
+                            <div class="catalog-item-version">v${hook.version} · ${hook.maintainer}</div>
+                        </div>
+                        <span class="badge badge-${hook.status}">${hook.status}</span>
+                    </div>
+                    <div class="catalog-item-description">${hook.description}</div>
+                    ${hook.tags && hook.tags.length > 0 ? `
+                        <div class="catalog-item-tags">
+                            ${hook.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                    <div class="catalog-item-footer">
+                        <span>Event: ${hook.event}</span>
+                        ${hook.blocking !== undefined ? `<span>${hook.blocking ? 'Blocking' : 'Non-blocking'}</span>` : ''}
+                        ${hook.timeout ? `<span>Timeout: ${hook.timeout}ms</span>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
         // Event listeners
         document.getElementById('skills-search').addEventListener('input', (e) => {
             const filter = document.getElementById('skills-filter').value;
@@ -433,6 +582,26 @@
         document.getElementById('agents-filter').addEventListener('change', (e) => {
             const search = document.getElementById('agents-search').value;
             renderAgents(e.target.value, search);
+        });
+
+        document.getElementById('commands-search').addEventListener('input', (e) => {
+            const filter = document.getElementById('commands-filter').value;
+            renderCommands(filter, e.target.value);
+        });
+
+        document.getElementById('commands-filter').addEventListener('change', (e) => {
+            const search = document.getElementById('commands-search').value;
+            renderCommands(e.target.value, search);
+        });
+
+        document.getElementById('hooks-search').addEventListener('input', (e) => {
+            const filter = document.getElementById('hooks-filter').value;
+            renderHooks(filter, e.target.value);
+        });
+
+        document.getElementById('hooks-filter').addEventListener('change', (e) => {
+            const search = document.getElementById('hooks-search').value;
+            renderHooks(e.target.value, search);
         });
 
         // Load marketplace on page load
