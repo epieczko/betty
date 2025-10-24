@@ -67,7 +67,14 @@ KNOWN_ARTIFACT_TYPES = {
         "file_pattern": "agents/*/README.md",
         "content_type": "text/markdown",
         "description": "Human-readable agent documentation"
-    }
+    },
+    "optimization-report": {
+        "schema": "schemas/optimization-report.json",
+        "file_pattern": "*.optimization.json",
+        "content_type": "application/json",
+        "description": "Performance and security optimization recommendations for APIs and workflows. Contains actionable suggestions for improving efficiency, security posture, and adherence to best practices."
+    },
+
 }
 
 

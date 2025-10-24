@@ -510,6 +510,33 @@ Designs comprehensive REST APIs...
 
 ---
 
+### 9. Optimization Report (`optimization-report`)
+
+**Description:** Performance and security optimization recommendations for APIs and workflows. Contains actionable suggestions for improving efficiency, security posture, and adherence to best practices.
+
+**Convention:**
+- File pattern: `*.optimization.json`
+- Format: JSON
+- Content type: application/json
+
+**Schema:** `schemas/optimization-report.json`
+
+**Produced by:**
+- `api.optimize`
+- `workflow.optimize`
+
+**Consumed by:**
+- `api.implement`
+- `report.generate`
+- `dashboard.display`
+
+**Related types:**
+- `validation-report`
+- `openapi-spec`
+- `workflow-definition`
+
+---
+
 ## Artifact Metadata Schema
 
 Skills declare artifact metadata in `skill.yaml`:
@@ -895,3 +922,4 @@ If valid → Register workflow
 | agent-description | **/agent_description.md | schemas/agent-description.json | Developers | atum agent |
 | agent-definition | agents/*/agent.yaml | schemas/agent-definition.json | atum agent | Betty runtime |
 | agent-documentation | agents/*/README.md | - | atum agent | Users, docs tools |
+| optimization-report | *.optimization.json | schemas/optimization-report.json | api.optimize, workflow.optimize | api.implement, report.generate, dashboard.display |

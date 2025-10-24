@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Optimization Report",
+  "description": "Performance and security optimization recommendations for APIs and workflows. Contains actionable suggestions for improving efficiency, security posture, and adherence to best practices.",
+  "type": "object",
+  "required": [
+    "optimizations",
+    "severity",
+    "analyzed_artifact"
+  ],
+  "properties": {
+    "optimizations": {
+      "type": "array",
+      "description": "List of optimization recommendations"
+    },
+    "severity": {
+      "type": "string",
+      "description": "Overall severity level (low, medium, high, critical)"
+    },
+    "categories": {
+      "type": "array",
+      "description": "Categories of optimizations (performance, security, best-practice)"
+    },
+    "timestamp": {
+      "type": "string",
+      "description": "When the analysis was performed"
+    },
+    "analyzed_artifact": {
+      "type": "string",
+      "description": "Reference to the artifact that was analyzed"
+    }
+  }
+}
