@@ -1,14 +1,17 @@
 name: registry.update
-version: 0.1.0
+version: 0.2.0
 description: >
   Updates the Betty Framework Skill Registry by adding or modifying entries
-  based on validated skill manifests.
+  based on validated skill manifests. Supports automatic version bumping based
+  on semantic versioning rules.
 inputs:
   - manifest_path
+  - auto_version
 outputs:
   - registry_update_result.json
 dependencies:
   - skill.define
+  - registry.diff
 status: active
 
 entrypoints:
@@ -16,12 +19,19 @@ entrypoints:
     handler: registry_update.py
     runtime: python
     description: >
-      Add or update entries in the Skill Registry.
+      Add or update entries in the Skill Registry with optional automatic version bumping.
     parameters:
       - name: manifest_path
         type: string
         required: true
         description: Path to the skill manifest (.skill.yaml) being added or updated.
+      - name: auto_version
+        type: boolean
+        required: false
+        description: >
+          Enable automatic version bumping based on changes detected.
+          Rules: field removed → major bump, field/permission added → minor bump,
+          other changes → patch bump.
     permissions:
       - filesystem
       - read
