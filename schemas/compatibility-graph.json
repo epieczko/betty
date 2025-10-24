@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Compatibility Graph",
+  "description": "Agent relationship graph showing which agents can work together based on artifact flows. Maps producers to consumers, enabling intelligent multi-agent orchestration.",
+  "type": "object",
+  "required": [
+    "agents",
+    "relationships"
+  ],
+  "properties": {
+    "agents": {
+      "type": "array",
+      "description": "List of agents in the graph"
+    },
+    "relationships": {
+      "type": "array",
+      "description": "Compatible agent pairs with artifact flows"
+    },
+    "pipelines": {
+      "type": "array",
+      "description": "Suggested multi-agent workflows"
+    },
+    "gaps": {
+      "type": "array",
+      "description": "Missing artifacts or incompatibilities"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Analysis timestamp and version"
+    }
+  }
+}

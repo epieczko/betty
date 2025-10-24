@@ -537,6 +537,58 @@ Designs comprehensive REST APIs...
 
 ---
 
+### 10. Compatibility Graph (`compatibility-graph`)
+
+**Description:** Agent relationship graph showing which agents can work together based on artifact flows. Maps producers to consumers, enabling intelligent multi-agent orchestration.
+
+**Convention:**
+- File pattern: `*.compatibility.json`
+- Format: JSON
+- Content type: application/json
+
+**Schema:** `schemas/compatibility-graph.json`
+
+**Produced by:**
+- `meta.compatibility`
+
+**Consumed by:**
+- `meta.suggest`
+- `dashboard.display`
+- `workflow.orchestrator`
+
+**Related types:**
+- `agent-definition`
+- `pipeline-suggestion`
+- `artifact-definition`
+
+---
+
+### 11. Pipeline Suggestion (`pipeline-suggestion`)
+
+**Description:** Suggested multi-agent workflow with step-by-step execution plan. Ensures artifact compatibility and provides rationale for agent selection.
+
+**Convention:**
+- File pattern: `*.pipeline.json`
+- Format: JSON
+- Content type: application/json
+
+**Schema:** `schemas/pipeline-suggestion.json`
+
+**Produced by:**
+- `meta.compatibility`
+- `meta.suggest`
+
+**Consumed by:**
+- `workflow.orchestrator`
+- `Claude (for decision making)`
+
+**Related types:**
+- `compatibility-graph`
+- `workflow-definition`
+- `agent-definition`
+
+---
+
 ## Artifact Metadata Schema
 
 Skills declare artifact metadata in `skill.yaml`:
@@ -923,3 +975,5 @@ If valid → Register workflow
 | agent-definition | agents/*/agent.yaml | schemas/agent-definition.json | atum agent | Betty runtime |
 | agent-documentation | agents/*/README.md | - | atum agent | Users, docs tools |
 | optimization-report | *.optimization.json | schemas/optimization-report.json | api.optimize, workflow.optimize | api.implement, report.generate, dashboard.display |
+| compatibility-graph | *.compatibility.json | schemas/compatibility-graph.json | meta.compatibility | meta.suggest, dashboard.display, workflow.orchestrator |
+| pipeline-suggestion | *.pipeline.json | schemas/pipeline-suggestion.json | meta.compatibility, meta.suggest | workflow.orchestrator, Claude (for decision making) |

@@ -74,6 +74,18 @@ KNOWN_ARTIFACT_TYPES = {
         "content_type": "application/json",
         "description": "Performance and security optimization recommendations for APIs and workflows. Contains actionable suggestions for improving efficiency, security posture, and adherence to best practices."
     },
+    "compatibility-graph": {
+        "schema": "schemas/compatibility-graph.json",
+        "file_pattern": "*.compatibility.json",
+        "content_type": "application/json",
+        "description": "Agent relationship graph showing which agents can work together based on artifact flows. Maps producers to consumers, enabling intelligent multi-agent orchestration."
+    },
+    "pipeline-suggestion": {
+        "schema": "schemas/pipeline-suggestion.json",
+        "file_pattern": "*.pipeline.json",
+        "content_type": "application/json",
+        "description": "Suggested multi-agent workflow with step-by-step execution plan. Ensures artifact compatibility and provides rationale for agent selection."
+    },
 
 }
 
