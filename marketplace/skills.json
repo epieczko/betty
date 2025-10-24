@@ -350,7 +350,7 @@
               "name": "auto_version",
               "type": "boolean",
               "required": false,
-              "description": "Enable automatic version bumping based on changes detected. Rules: field removed \u2192 major bump, field/permission added \u2192 minor bump, other changes \u2192 patch bump.\n"
+              "description": "Enable automatic version bumping based on changes detected. Rules: field removed → major bump, field/permission added → minor bump, other changes → patch bump.\n"
             }
           ],
           "permissions": [
