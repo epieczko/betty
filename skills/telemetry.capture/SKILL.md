@@ -1,443 +1,392 @@
 # telemetry.capture
 
+**Version:** 0.1.0
+**Status:** Active
+**Tags:** telemetry, logging, observability, audit
+
 ## Overview
 
-The `telemetry.capture` skill provides comprehensive runtime telemetry tracking for the Betty Framework. It captures detailed metrics about skill usage across workflows, agents, and CLI executions, enabling performance monitoring, usage analytics, and operational insights.
+The `telemetry.capture` skill provides comprehensive execution logging for Betty Framework components. It captures usage metrics, execution status, timing data, and contextual metadata in a structured, thread-safe manner.
+
+All telemetry data is written to `/registry/telemetry.json` with ISO timestamps and validated JSON schema.
+
+## Features
+
+- Thread-safe JSON logging using file locking (fcntl)
+- ISO 8601 timestamp formatting with timezone support
+- Structured telemetry entries with validation
+- Query interface for telemetry analysis
+- Decorator pattern for automatic capture (`@capture_telemetry`)
+- Context manager pattern for manual capture
+- CLI and programmatic interfaces
+- Input sanitization (exclude secrets)
 
 ## Purpose
 
-Track skill execution metrics with full context to enable:
-- Performance monitoring and optimization
-- Usage analytics across workflows and agents
-- Runtime behavior analysis
-- Future integration with observability platforms (Grafana, Prometheus)
-
-## Telemetry Entry Format
-
-Each telemetry entry contains:
-
-```json
-{
-  "timestamp": "2025-10-23T12:34:56.789Z",
-  "skill": "workflow.compose",
-  "inputs": {
-    "workflow_path": "example.yaml",
-    "strict_mode": true
-  },
-  "status": "success",
-  "duration_ms": 1234,
-  "agent": "workflow-orchestrator",
-  "workflow": "deployment-pipeline",
-  "caller": "cli"
-}
-```
-
-### Fields
-
-- **timestamp** (required): ISO 8601 UTC timestamp of when the skill was executed
-- **skill** (required): Name of the skill that was executed
-- **inputs** (required): JSON object containing input parameters passed to the skill
-- **status** (required): Execution status (success, failed, timeout, etc.)
-- **duration_ms** (required): Execution duration in milliseconds
-- **agent** (optional): Name of the agent that invoked the skill
-- **workflow** (optional): Name of the workflow in which the skill was executed
-- **caller** (optional): Caller identifier (CLI, API, workflow, agent, etc.)
+This skill enables:
+- **Observability**: Track execution patterns across Betty components
+- **Performance Monitoring**: Measure duration of skill executions
+- **Error Tracking**: Capture failures with detailed error messages
+- **Usage Analytics**: Understand which skills are used most frequently
+- **Audit Trail**: Maintain compliance and debugging history
+- **Workflow Analysis**: Trace caller chains and dependencies
 
 ## Usage
 
-### Command Line
+### Basic CLI Usage
 
 ```bash
-python telemetry_capture.py <skill_name> <inputs_json> <status> <duration_ms> [agent] [workflow] [caller]
+# Capture a successful execution
+python skills/telemetry.capture/telemetry_capture.py plugin.build success 320 CLI
+
+# Capture with inputs
+python skills/telemetry.capture/telemetry_capture.py \
+  agent.run success 1500 API '{"agent": "api.designer", "task": "design_api"}'
+
+# Capture a failure
+python skills/telemetry.capture/telemetry_capture.py \
+  workflow.compose failure 2800 CLI '{"workflow": "api_first"}' "Validation failed at step 3"
 ```
 
-### Examples
-
-#### Basic Telemetry Capture
-
-```bash
-python telemetry_capture.py "workflow.validate" '{"path": "test.yaml"}' "success" 150
-```
-
-#### Capture with Agent Context
-
-```bash
-python telemetry_capture.py "skill.create" '{"name": "new.skill"}' "success" 2500 "skill-generator" "" "cli"
-```
-
-#### Capture from Workflow Execution
-
-```bash
-python telemetry_capture.py "policy.enforce" '{"policy": "naming"}' "failed" 450 "" "validation-pipeline" "workflow"
-```
-
-#### Complete Context
-
-```bash
-python telemetry_capture.py \
-  "agent.define" \
-  '{"name": "test-agent", "mode": "iterative"}' \
-  "success" \
-  3200 \
-  "meta-orchestrator" \
-  "agent-creation-workflow" \
-  "api"
-```
-
-### From Python Code
-
-#### Direct Function Call
+### As a Decorator (Recommended)
 
 ```python
-from skills.telemetry.capture.telemetry_capture import create_telemetry_entry, capture_telemetry
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent / "../telemetry.capture"))
 
-# Create and capture telemetry
-entry = create_telemetry_entry(
-    skill_name="my.skill",
-    inputs={"param1": "value1", "param2": 42},
+from telemetry_utils import capture_telemetry
+
+@capture_telemetry(skill_name="agent.run", caller="CLI", capture_inputs=True)
+def run_agent(agent_path: str, task_context: str = None):
+    """Execute a Betty agent."""
+    # ... implementation
+    return {"status": "success", "result": execution_result}
+
+# Usage
+result = run_agent("/agents/api.designer", "Design user authentication API")
+# Telemetry is automatically captured
+```
+
+### As a Context Manager
+
+```python
+from telemetry_utils import TelemetryContext
+
+def build_plugin(plugin_path: str):
+    with TelemetryContext(skill="plugin.build", caller="CLI") as ctx:
+        ctx.set_inputs({"plugin_path": plugin_path})
+        
+        try:
+            # Perform build operations
+            result = create_plugin_archive(plugin_path)
+            ctx.set_status("success")
+            return result
+        except Exception as e:
+            ctx.set_error(str(e))
+            raise
+```
+
+### Programmatic API
+
+```python
+from telemetry_capture import TelemetryCapture
+
+telemetry = TelemetryCapture()
+
+# Capture an event
+entry = telemetry.capture(
+    skill="plugin.build",
     status="success",
-    duration_ms=1234,
-    agent="my-agent",
-    workflow="my-workflow",
-    caller="cli"
+    duration_ms=320.5,
+    caller="CLI",
+    inputs={"plugin_path": "./plugin.yaml", "output_format": "tar.gz"},
+    metadata={"user": "developer@example.com", "environment": "production"}
 )
 
-result = capture_telemetry(entry)
-print(f"Captured to: {result['telemetry_path']}")
+print(f"Captured: {entry['timestamp']}")
 ```
 
-#### Using the Decorator
-
-The skill provides a `@telemetry_decorator` for automatic telemetry capture:
+### Query Telemetry Data
 
 ```python
-from skills.telemetry.capture.telemetry_capture import telemetry_decorator
+from telemetry_capture import TelemetryCapture
 
-@telemetry_decorator(skill_name="my.custom.skill", caller="cli")
-def my_skill_function(arg1, arg2):
-    # Your skill logic here
-    return result
+telemetry = TelemetryCapture()
 
-# Telemetry is automatically captured on each call
-result = my_skill_function("test", 42)
+# Query recent failures
+failures = telemetry.query(status="failure", limit=10)
+
+# Query specific skill usage
+agent_runs = telemetry.query(skill="agent.run", limit=50)
+
+# Query by caller
+cli_executions = telemetry.query(caller="CLI", limit=100)
+
+for entry in failures:
+    print(f"{entry['timestamp']}: {entry['skill']} - {entry['error_message']}")
 ```
 
-The decorator:
-- Automatically captures execution time
-- Records success/failure status
-- Sanitizes inputs (captures arg count and kwarg keys, not actual values)
-- Non-blocking (errors in telemetry don't affect the main function)
+## Parameters
 
-### CLI Integration Example
+### Capture Parameters
 
-```python
-import subprocess
-import json
-import time
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `skill` | string | Yes | Name of the skill/component (e.g., 'plugin.build') |
+| `status` | string | Yes | Execution status: success, failure, timeout, error, pending |
+| `duration_ms` | number | Yes | Execution duration in milliseconds |
+| `caller` | string | Yes | Source of the call (CLI, API, workflow.compose) |
+| `inputs` | object | No | Sanitized input parameters (default: {}) |
+| `error_message` | string | No | Error message if status is failure/error |
+| `metadata` | object | No | Additional context (user, session_id, environment) |
 
-# Track CLI command execution
-start_time = time.time()
-result = subprocess.run(["betty", "skill", "validate", "test.yaml"], capture_output=True)
-duration_ms = int((time.time() - start_time) * 1000)
+### Decorator Parameters
 
-# Capture telemetry
-subprocess.run([
-    sys.executable,
-    "skills/telemetry.capture/telemetry_capture.py",
-    "skill.validate",
-    json.dumps({"path": "test.yaml"}),
-    "success" if result.returncode == 0 else "failed",
-    str(duration_ms),
-    "",  # no agent
-    "",  # no workflow
-    "cli"
-])
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `skill_name` | string | function name | Override skill name |
+| `caller` | string | "runtime" | Caller identifier |
+| `capture_inputs` | boolean | False | Whether to capture function arguments |
+| `sanitize_keys` | list | None | Parameter names to redact (e.g., ['password']) |
+
+## Output Format
+
+### Telemetry Entry Structure
+
+```json
+{
+  "timestamp": "2025-10-24T14:30:45.123456+00:00",
+  "skill": "plugin.build",
+  "status": "success",
+  "duration_ms": 320.5,
+  "caller": "CLI",
+  "inputs": {
+    "plugin_path": "./plugin.yaml",
+    "output_format": "tar.gz"
+  },
+  "error_message": null,
+  "metadata": {
+    "user": "developer@example.com",
+    "environment": "production"
+  }
+}
 ```
 
-## Telemetry Data File
-
-### Location
-
-`/home/user/betty/registry/telemetry.json`
-
-### Structure
-
-The telemetry file is a JSON array of entries ordered by timestamp:
+### Telemetry File Structure
 
 ```json
 [
   {
-    "timestamp": "2025-10-23T12:30:00.000Z",
-    "skill": "workflow.validate",
-    "inputs": {"path": "test.yaml"},
+    "timestamp": "2025-10-24T14:30:45.123456+00:00",
+    "skill": "plugin.build",
     "status": "success",
-    "duration_ms": 150,
-    "caller": "cli"
+    "duration_ms": 320.5,
+    "caller": "CLI",
+    "inputs": {
+      "plugin_path": "./plugin.yaml",
+      "output_format": "tar.gz"
+    },
+    "error_message": null,
+    "metadata": {}
   },
   {
-    "timestamp": "2025-10-23T12:31:00.000Z",
-    "skill": "agent.define",
-    "inputs": {"name": "new-agent", "mode": "iterative"},
+    "timestamp": "2025-10-24T14:32:10.789012+00:00",
+    "skill": "agent.run",
     "status": "success",
-    "duration_ms": 2500,
-    "agent": "orchestrator",
-    "workflow": "setup-pipeline",
-    "caller": "workflow"
+    "duration_ms": 1500.0,
+    "caller": "API",
+    "inputs": {
+      "agent": "api.designer"
+    },
+    "error_message": null,
+    "metadata": {}
   }
 ]
 ```
 
-### Retention and Rotation Policy
+Note: The telemetry file is a simple JSON array for efficient querying and compatibility with existing Betty Framework tools.
 
-The telemetry system implements a **weekly rotation policy** with automatic archiving:
+## Examples
 
-1. **Weekly Rotation**: Entries older than 7 days are automatically archived to dated files in `/home/user/betty/registry/telemetry_archive/`
-2. **Archive Format**: Archives are organized by ISO week (e.g., `telemetry-2025-W41.json`)
-3. **Safety Limit**: The main log also enforces a maximum of **100,000 entries** to prevent unbounded growth as a safety mechanism
-4. **Automatic Process**: Rotation happens automatically during each telemetry capture operation
+### Example 1: Capture Plugin Build
 
-Example archive structure:
-```
-registry/
-├── telemetry.json              # Current week's entries
-└── telemetry_archive/
-    ├── telemetry-2025-W40.json # Week 40 archive
-    ├── telemetry-2025-W41.json # Week 41 archive
-    └── telemetry-2025-W42.json # Week 42 archive
+```bash
+python skills/telemetry.capture/telemetry_capture.py \
+  plugin.build success 320 CLI '{"plugin_path": "./plugin.yaml", "output_format": "tar.gz"}'
 ```
 
-## Integration Points
+**Output:**
+```json
+{
+  "timestamp": "2025-10-24T14:30:45.123456+00:00",
+  "skill": "plugin.build",
+  "status": "success",
+  "duration_ms": 320.0,
+  "caller": "CLI",
+  "inputs": {
+    "plugin_path": "./plugin.yaml",
+    "output_format": "tar.gz"
+  },
+  "error_message": null,
+  "metadata": {}
+}
 
-### Workflow Execution Tracking
+✓ Telemetry captured to /home/user/betty/registry/telemetry.json
+```
+
+### Example 2: Capture Agent Execution with Decorator
 
 ```python
-# In workflow executor
-start_time = time.time()
-result = execute_step(step_name, step_config)
-duration_ms = int((time.time() - start_time) * 1000)
+# In skills/agent.run/agent_run.py
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent / "../telemetry.capture"))
 
-# Capture telemetry
-from skills.telemetry.capture.telemetry_capture import create_telemetry_entry, capture_telemetry
+from telemetry_utils import capture_telemetry
 
-entry = create_telemetry_entry(
-    skill_name=step_config.get('skill'),
-    inputs=step_config.get('inputs', {}),
-    status="success" if result.get('ok') else "failed",
-    duration_ms=duration_ms,
-    workflow=workflow_name,
-    caller="workflow"
+@capture_telemetry(
+    skill_name="agent.run",
+    caller="CLI",
+    capture_inputs=True,
+    sanitize_keys=["api_key", "password"]
 )
-capture_telemetry(entry)
+def main():
+    """Execute agent with automatic telemetry capture."""
+    # ... existing implementation
+    return {"status": "success", "result": result}
+
+if __name__ == "__main__":
+    main()
 ```
 
-### Agent Skill Invocation
+### Example 3: Query Recent Failures
 
 ```python
-# In agent skill runner
-@telemetry_decorator(skill_name=skill_name, caller="agent")
-def run_agent_skill(skill_name: str, **kwargs):
-    # Execute skill
-    return execute_skill(skill_name, **kwargs)
+from telemetry_capture import TelemetryCapture
+
+telemetry = TelemetryCapture()
+failures = telemetry.query(status="failure", limit=10)
+
+print("Recent Failures:")
+for entry in failures:
+    print(f"  [{entry['timestamp']}] {entry['skill']}")
+    print(f"    Error: {entry['error_message']}")
+    print(f"    Duration: {entry['duration_ms']}ms")
+    print()
 ```
-
-### CLI Commands
-
-Apply the decorator to CLI entrypoints:
-
-```python
-from skills.telemetry.capture.telemetry_capture import telemetry_decorator
-
-@telemetry_decorator(skill_name="skill.register", caller="cli")
-def register_skill_cli(skill_path: str):
-    # CLI logic
-    return register_skill(skill_path)
-```
-
-## Thread Safety
-
-The `telemetry.capture` skill uses thread-safe file operations with locking via `betty.file_utils.safe_update_json`. Multiple concurrent telemetry writes are handled safely without data corruption.
-
-## Rotation Mechanism
-
-The rotation process happens automatically during each telemetry capture:
-
-1. **Age Check**: The system checks if any entries are older than 7 days
-2. **Separation**: Entries are separated into "recent" (≤7 days) and "old" (>7 days) groups
-3. **Archive Creation**: Old entries are grouped by ISO week and written to archive files
-4. **Archive Merging**: If an archive file already exists for a week, new entries are appended
-5. **Main File Update**: Only recent entries remain in the main `telemetry.json` file
-6. **Safety Limit**: As a fallback, the main file is also capped at 100,000 entries
-
-The rotation is:
-- **Automatic**: No manual intervention required
-- **Thread-safe**: Uses the same locking mechanism as regular writes
-- **Non-destructive**: Old data is preserved in archives, not deleted
-- **Efficient**: Archives are only created when old entries are detected
 
 ## Error Handling
 
-- Returns non-zero exit code on failures
-- Logs errors to stderr via `betty.logging_utils`
-- Provides detailed error messages in JSON response
-- Decorator mode: telemetry failures are logged but don't interrupt the main function
-
-## Response Format
-
-### Success
-
-```json
-{
-  "ok": true,
-  "status": "success",
-  "errors": [],
-  "path": "/home/user/betty/registry/telemetry.json",
-  "details": {
-    "status": "success",
-    "telemetry_entry": {
-      "timestamp": "2025-10-23T12:34:56.789Z",
-      "skill": "workflow.validate",
-      "inputs": {"path": "test.yaml"},
-      "status": "success",
-      "duration_ms": 150,
-      "caller": "cli"
-    },
-    "telemetry_path": "/home/user/betty/registry/telemetry.json",
-    "total_entries": 1523
-  }
-}
-```
-
-### Failure
-
-```json
-{
-  "ok": false,
-  "status": "failed",
-  "errors": ["Invalid inputs JSON: not a valid json"],
-  "path": "",
-  "details": {
-    "error": {
-      "error": "ValueError",
-      "message": "Invalid inputs JSON: not a valid json"
-    }
-  }
-}
-```
-
-## Analytics and Querying
-
-The telemetry data can be analyzed using standard JSON tools:
-
-### Current Week's Data
-
-```bash
-# Count total telemetry entries
-jq 'length' registry/telemetry.json
-
-# Find all failed executions
-jq '.[] | select(.status == "failed")' registry/telemetry.json
-
-# Get average duration for a specific skill
-jq '[.[] | select(.skill == "workflow.compose") | .duration_ms] | add / length' registry/telemetry.json
-
-# Top 10 slowest skill executions
-jq 'sort_by(.duration_ms) | reverse | .[0:10]' registry/telemetry.json
-
-# Count executions by caller
-jq 'group_by(.caller) | map({caller: .[0].caller, count: length})' registry/telemetry.json
-
-# Entries from specific workflow
-jq '.[] | select(.workflow == "deployment-pipeline")' registry/telemetry.json
-
-# Skills executed by specific agent
-jq '.[] | select(.agent == "orchestrator")' registry/telemetry.json
-
-# Get entries from last hour
-jq --arg cutoff "$(date -u -d '1 hour ago' +%Y-%m-%dT%H:%M:%S)" \
-   '.[] | select(.timestamp > $cutoff)' registry/telemetry.json
-```
-
-### Archived Data
-
-```bash
-# Query specific week's archive
-jq '.[] | select(.status == "success")' registry/telemetry_archive/telemetry-2025-W41.json
-
-# Merge all archives for historical analysis
-jq -s 'add' registry/telemetry_archive/*.json | jq 'length'
-
-# Find slowest executions across all archives
-jq -s 'add | sort_by(.duration_ms) | reverse | .[0:10]' registry/telemetry_archive/*.json
-
-# Count total archived entries
-jq -s 'add | length' registry/telemetry_archive/*.json
-
-# List all available archive weeks
-ls -1 registry/telemetry_archive/ | grep -o 'W[0-9]*'
-```
-
-## Future Enhancements
-
-### Prometheus Export
-
-The telemetry data can be exported to Prometheus format:
+### Invalid Status Value
 
 ```python
-# Future implementation
-from skills.telemetry.capture.exporters import PrometheusExporter
-
-exporter = PrometheusExporter()
-metrics = exporter.export_metrics()
-# Expose on /metrics endpoint
+# Raises ValueError
+telemetry.capture(
+    skill="test.skill",
+    status="invalid_status",  # Must be: success, failure, timeout, error, pending
+    duration_ms=100,
+    caller="CLI"
+)
 ```
 
-### Grafana Dashboard
+**Error:** `ValueError: Invalid status: invalid_status. Must be one of: success, failure, timeout, error, pending`
 
-Create dashboards to visualize:
-- Skill execution rates over time
-- Average execution durations by skill
-- Success/failure rates
-- Workflow performance metrics
-- Agent activity patterns
+### Malformed Input JSON (CLI)
 
-### Real-time Streaming
+```bash
+python skills/telemetry.capture/telemetry_capture.py \
+  plugin.build success 320 CLI '{invalid json}'
+```
 
-Future support for streaming telemetry to external systems:
-- OpenTelemetry integration
-- CloudWatch/Datadog export
-- Custom webhook notifications
+**Error:** `Error: Invalid JSON for inputs: Expecting property name enclosed in double quotes`
+
+### File Locking Contention
+
+The implementation uses `fcntl.flock` for thread-safe writes. If multiple processes write simultaneously:
+- Writes are serialized automatically
+- No data loss occurs
+- Performance may degrade under heavy contention
 
 ## Dependencies
 
-- `betty.config` - Registry directory configuration
-- `betty.file_utils` - Thread-safe JSON updates
-- `betty.logging_utils` - Logging infrastructure
-- `betty.errors` - Error handling
+This skill has no external dependencies beyond Python standard library:
+- `json` - JSON parsing and serialization
+- `fcntl` - File locking for thread safety
+- `datetime` - ISO 8601 timestamp generation
+- `pathlib` - Path handling
+- `typing` - Type annotations
 
-## Permissions
+## Configuration
 
-- `filesystem:read` - Access to registry directory
-- `filesystem:write` - Write telemetry entries to log file
+### Environment Variables
 
-## Best Practices
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `BETTY_TELEMETRY_FILE` | `/home/user/betty/registry/telemetry.json` | Path to telemetry file |
 
-1. **Sanitize Sensitive Inputs**: Don't capture passwords, tokens, or PII in the inputs field
-2. **Use Meaningful Status Values**: Stick to standard values like "success", "failed", "timeout"
-3. **Always Include Duration**: Performance tracking requires accurate timing
-4. **Provide Context**: Use agent/workflow/caller fields when available
-5. **Non-blocking Capture**: Use the decorator or handle exceptions to prevent telemetry from breaking main logic
+### Custom Telemetry File
 
-## Comparison with audit.log
+```python
+from telemetry_capture import TelemetryCapture
 
-| Feature | telemetry.capture | audit.log |
-|---------|------------------|-----------|
-| Purpose | Performance & usage metrics | Compliance & audit trail |
-| Required Fields | skill, inputs, status, duration | skill, status |
-| Context Tracking | agent, workflow, caller | metadata (generic) |
-| Retention | 7 days active + weekly archives | 10,000 entries |
-| Rotation | Weekly with archiving | Size-based (10k limit) |
-| Focus | Runtime analytics | Governance & debugging |
-| Decorator Support | Yes | No |
-| Thread Safety | Yes | Yes |
+# Use custom location
+telemetry = TelemetryCapture(telemetry_file="/custom/path/telemetry.json")
+```
 
-Both skills complement each other and can be used together for comprehensive observability.
+## Troubleshooting
+
+### Q: Telemetry file doesn't exist
+
+**A:** The skill automatically creates the telemetry file on first use. Ensure:
+- The parent directory exists or can be created
+- Write permissions are granted
+- Path is absolute or correctly relative
+
+### Q: Decorator not capturing telemetry
+
+**A:** Ensure you:
+1. Import the decorator correctly
+2. Add the parent path to sys.path if needed
+3. Check that the decorated function completes (doesn't hang)
+4. Verify file permissions on `/registry/telemetry.json`
+
+### Q: How to exclude sensitive data?
+
+**A:** Use `sanitize_keys` parameter:
+
+```python
+@capture_telemetry(
+    skill_name="auth.login",
+    capture_inputs=True,
+    sanitize_keys=["password", "api_key", "secret_token"]
+)
+def login(username: str, password: str):
+    # password will be redacted as "***REDACTED***"
+    pass
+```
+
+### Q: Performance impact of telemetry?
+
+**A:** Minimal impact:
+- Decorator adds <1ms overhead per call
+- File I/O is buffered and atomic
+- No network calls
+- Consider async writes for high-throughput scenarios
+
+## Integration with Betty Framework
+
+The `telemetry.capture` skill integrates with:
+
+- **agent.run**: Logs agent executions with task context
+- **workflow.compose**: Traces multi-step workflow chains
+- **plugin.build**: Monitors build performance
+- **api.define**: Tracks API creation events
+- **skill.define**: Captures skill registration
+- **audit.log**: Complements audit trail with performance metrics
+
+All core Betty components should use the `@capture_telemetry` decorator for consistent observability.
+
+## License
+
+Part of the Betty Framework. See repository LICENSE.

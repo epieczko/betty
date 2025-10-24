@@ -21,6 +21,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../.
 
 from betty.config import BASE_DIR
 from betty.logging_utils import setup_logger
+from betty.telemetry_capture import capture_skill_execution
 
 logger = setup_logger(__name__)
 
@@ -441,6 +442,9 @@ def build_plugin(
     Returns:
         Build result dictionary
     """
+    # Track execution time for telemetry
+    start_time = datetime.now(timezone.utc)
+
     # Set defaults
     if plugin_path is None:
         plugin_path = os.path.join(BASE_DIR, "plugin.yaml")
@@ -531,6 +535,27 @@ def build_plugin(
         "build_report": build_report,
         "manifest": manifest
     }
+
+    # Calculate execution duration and capture telemetry
+    end_time = datetime.now(timezone.utc)
+    duration_ms = int((end_time - start_time).total_seconds() * 1000)
+
+    capture_skill_execution(
+        skill_name="plugin.build",
+        inputs={
+            "plugin_path": plugin_path,
+            "output_format": output_format,
+            "output_dir": output_dir
+        },
+        status="success" if result["ok"] else "success_with_warnings",
+        duration_ms=duration_ms,
+        caller="cli",
+        plugin_name=config.get("name"),
+        plugin_version=config.get("version"),
+        files_count=len(files_to_package),
+        package_size_bytes=os.path.getsize(package_path),
+        warnings_count=len(missing_files)
+    )
 
     return result
 
