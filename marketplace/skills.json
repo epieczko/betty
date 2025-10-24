@@ -1,9 +1,9 @@
 {
   "marketplace_version": "1.0.0",
-  "generated_at": "2025-10-24T22:27:07.826403+00:00",
+  "generated_at": "2025-10-24T22:32:30.567924+00:00",
   "description": "Betty Framework Certified Skills Marketplace",
-  "total_skills": 6,
-  "certified_count": 6,
+  "total_skills": 7,
+  "certified_count": 7,
   "draft_count": 0,
   "catalog": [
     {
@@ -315,6 +315,57 @@
           "type": "string",
           "description": "Path to .claude/hooks.yaml file"
         }
+      ]
+    },
+    {
+      "name": "registry.update",
+      "version": "0.2.1",
+      "description": "Updates the Betty Framework Skill Registry by adding or modifying entries based on validated skill manifests. Supports automatic version bumping based on semantic versioning rules.\n",
+      "status": "certified",
+      "tags": [],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Register a new skill: /registry/update skill_manifest.yaml",
+        "Update existing skill entry in registry"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/registry/update",
+      "dependencies": [
+        "skill.define",
+        "registry.diff"
+      ],
+      "entrypoints": [
+        {
+          "command": "/registry/update",
+          "handler": "registry_update.py",
+          "runtime": "python",
+          "description": "Add or update entries in the Skill Registry with optional automatic version bumping.\n",
+          "parameters": [
+            {
+              "name": "manifest_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to the skill manifest (.skill.yaml) being added or updated."
+            },
+            {
+              "name": "auto_version",
+              "type": "boolean",
+              "required": false,
+              "description": "Enable automatic version bumping based on changes detected. Rules: field removed \u2192 major bump, field/permission added \u2192 minor bump, other changes \u2192 patch bump.\n"
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ],
+      "inputs": [
+        "manifest_path",
+        "auto_version"
+      ],
+      "outputs": [
+        "registry_update_result.json"
       ]
     },
     {
