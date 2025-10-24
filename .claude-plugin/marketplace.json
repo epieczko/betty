@@ -1,0 +1,50 @@
+{
+  "name": "betty-marketplace",
+  "version": "1.0.0",
+  "description": "Betty Framework Plugin Marketplace - Enterprise-grade AI-assisted engineering framework",
+  "owner": {
+    "name": "RiskExec",
+    "email": "platform@riskexec.com",
+    "url": "https://github.com/epieczko/betty"
+  },
+  "metadata": {
+    "homepage": "https://github.com/epieczko/betty",
+    "repository": "https://github.com/epieczko/betty",
+    "documentation": "https://github.com/epieczko/betty/tree/main/docs",
+    "generated_at": "2025-10-24T22:40:26.544668+00:00",
+    "generated_by": "generate.marketplace skill"
+  },
+  "plugins": [
+    {
+      "name": "betty-framework",
+      "source": ".",
+      "version": "1.0.0",
+      "description": "Betty Framework is RiskExec's system for structured, auditable AI-assisted engineering.\nWhere Claude Code provides the runtime, Betty adds methodology, orchestration, and governance—\nturning raw agent capability into a repeatable, enterprise-grade engineering discipline.\n",
+      "author": {
+        "name": "RiskExec",
+        "email": "platform@riskexec.com",
+        "url": "https://github.com/epieczko/betty"
+      },
+      "license": "MIT",
+      "tags": [
+        "framework",
+        "api-development",
+        "workflow",
+        "governance",
+        "enterprise",
+        "skills",
+        "agents"
+      ],
+      "requirements": {
+        "python": ">=3.11",
+        "packages": [
+          "pyyaml"
+        ],
+        "optional": [
+          "datamodel-code-generator"
+        ]
+      },
+      "strict": true
+    }
+  ]
+}
