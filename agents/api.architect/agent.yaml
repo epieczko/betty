@@ -1,0 +1,29 @@
+name: api.architect
+description: An agent that designs comprehensive REST APIs and validates them against
+  best practices. Takes API requirements as input and produces validated OpenAPI specifications
+  with generated data models ready for implementation.
+skills_available:
+- workflow.validate
+- api.validate
+- api.define
+permissions: []
+artifact_metadata:
+  consumes:
+  - type: API requirements
+    description: Input artifact of type API requirements
+  - type: Domain constraints and business rules
+    description: Input artifact of type Domain constraints and business rules
+  produces:
+  - type: openapi-spec
+    schema: schemas/openapi-spec.json
+    file_pattern: '*.openapi.yaml'
+    content_type: application/yaml
+    description: OpenAPI 3.0+ specification
+  - type: api-models
+    file_pattern: '*.{py,ts,go}'
+    description: Generated API data models
+  - type: validation-report
+    schema: schemas/validation-report.json
+    file_pattern: '*.validation.json'
+    content_type: application/json
+    description: Structured validation results

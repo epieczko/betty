@@ -50,8 +50,42 @@ KNOWN_ARTIFACT_TYPES = {
     "api-models": {
         "file_pattern": "*.{py,ts,go}",
         "description": "Generated API data models"
+    },
+    "agent-description": {
+        "schema": "schemas/agent-description.json",
+        "file_pattern": "**/agent_description.md",
+        "content_type": "text/markdown",
+        "description": "Natural language description of agent purpose and requirements"
+    },
+    "agent-definition": {
+        "schema": "schemas/agent-definition.json",
+        "file_pattern": "agents/*/agent.yaml",
+        "content_type": "application/yaml",
+        "description": "Complete agent configuration with skills and metadata"
+    },
+    "agent-documentation": {
+        "file_pattern": "agents/*/README.md",
+        "content_type": "text/markdown",
+        "description": "Human-readable agent documentation"
     }
 }
+
+
+def get_artifact_definition(artifact_type: str) -> Optional[Dict[str, Any]]:
+    """
+    Get the definition for a known artifact type.
+
+    Args:
+        artifact_type: Artifact type identifier
+
+    Returns:
+        Artifact definition dictionary with schema, file_pattern, etc., or None if unknown
+    """
+    if artifact_type in KNOWN_ARTIFACT_TYPES:
+        definition = {"type": artifact_type}
+        definition.update(KNOWN_ARTIFACT_TYPES[artifact_type])
+        return definition
+    return None
 
 
 def validate_artifact_type(artifact_type: str) -> tuple[bool, Optional[str]]:

@@ -89,6 +89,25 @@ def find_skills_by_artifacts(
     return matches
 
 
+def find_skills_for_purpose(
+    registry: Dict[str, Any],
+    purpose: str,
+    required_artifacts: Optional[List[str]] = None
+) -> Dict[str, Any]:
+    """
+    Find skills for agent purpose (alias for recommend_skills_for_purpose).
+
+    Args:
+        registry: Skills registry (for compatibility, currently unused)
+        purpose: Description of agent purpose
+        required_artifacts: Artifact types agent needs to work with
+
+    Returns:
+        Recommendation result with skills and rationale
+    """
+    return recommend_skills_for_purpose(purpose, required_artifacts)
+
+
 def recommend_skills_for_purpose(
     agent_purpose: str,
     required_artifacts: Optional[List[str]] = None

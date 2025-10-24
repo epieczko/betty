@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Agent Definition",
+  "description": "Schema for Betty Framework agent definitions (agent.yaml)",
+  "type": "object",
+  "required": ["name", "description", "skills_available", "permissions"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9._-]+$",
+      "description": "Agent name using lowercase, numbers, dots, underscores, hyphens"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Detailed description of agent purpose and capabilities"
+    },
+    "artifact_metadata": {
+      "type": "object",
+      "properties": {
+        "consumes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/artifact"
+          },
+          "description": "Artifacts this agent consumes as input"
+        },
+        "produces": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/artifact"
+          },
+          "description": "Artifacts this agent produces as output"
+        }
+      }
+    },
+    "skills_available": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9._-]+$"
+      },
+      "minItems": 1,
+      "description": "List of skills this agent can use"
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z]+:[a-z]+$"
+      },
+      "minItems": 1,
+      "description": "Permissions required (format: scope:action)"
+    },
+    "system_prompt": {
+      "type": "string",
+      "description": "Optional system prompt providing agent-specific instructions"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version (optional)"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Tags for categorization (optional)"
+    }
+  },
+  "definitions": {
+    "artifact": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Artifact type identifier"
+        },
+        "file_pattern": {
+          "type": "string",
+          "description": "Glob pattern for artifact files"
+        },
+        "content_type": {
+          "type": "string",
+          "description": "MIME type of artifact content"
+        },
+        "schema": {
+          "type": "string",
+          "description": "Path to JSON schema for validation"
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of the artifact"
+        }
+      }
+    }
+  }
+}
