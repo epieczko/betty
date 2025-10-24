@@ -1,6 +1,6 @@
 {
   "marketplace_version": "1.0.0",
-  "generated_at": "2025-10-24T22:32:30.567924+00:00",
+  "generated_at": "2025-10-24T23:17:13.754177+00:00",
   "description": "Betty Framework Certified Skills Marketplace",
   "total_skills": 7,
   "certified_count": 7,
@@ -350,7 +350,7 @@
               "name": "auto_version",
               "type": "boolean",
               "required": false,
-              "description": "Enable automatic version bumping based on changes detected. Rules: field removed → major bump, field/permission added → minor bump, other changes → patch bump.\n"
+              "description": "Enable automatic version bumping based on changes detected. Rules: field removed \u2192 major bump, field/permission added \u2192 minor bump, other changes \u2192 patch bump.\n"
             }
           ],
           "permissions": [
