@@ -22,6 +22,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../.
 from betty.config import BASE_DIR
 from betty.logging_utils import setup_logger
 from betty.telemetry_capture import capture_skill_execution
+from utils.telemetry_utils import capture_telemetry
 
 logger = setup_logger(__name__)
 
@@ -560,6 +561,7 @@ def build_plugin(
     return result
 
 
+@capture_telemetry(skill_name="plugin.build", caller="cli")
 def main():
     """Main CLI entry point."""
     import argparse

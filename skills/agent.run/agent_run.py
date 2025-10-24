@@ -28,6 +28,7 @@ from betty.validation import validate_path
 from betty.logging_utils import setup_logger
 from betty.errors import BettyError, format_error_response
 from betty.telemetry_capture import capture_skill_execution, capture_audit_entry
+from utils.telemetry_utils import capture_telemetry
 
 logger = setup_logger(__name__)
 
@@ -666,6 +667,7 @@ def run_agent(
         )
 
 
+@capture_telemetry(skill_name="agent.run", caller="cli")
 def main():
     """Main CLI entry point."""
     if len(sys.argv) < 2:
