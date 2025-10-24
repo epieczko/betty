@@ -20,6 +20,7 @@ BETTY_HOME = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 sys.path.insert(0, BETTY_HOME)
 
 from betty.config import BASE_DIR, REGISTRY_DIR
+from utils.telemetry_utils import capture_telemetry
 
 # Configure logging
 logging.basicConfig(
@@ -545,6 +546,7 @@ def publish_plugin(
     return result
 
 
+@capture_telemetry(skill_name="plugin.publish", caller="cli")
 def main():
     """CLI entry point."""
     import argparse
