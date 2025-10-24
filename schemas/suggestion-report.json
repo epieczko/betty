@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Suggestion Report",
+  "description": "Context-aware recommendations for what to do next after an agent completes. Includes ranked suggestions with rationale, required artifacts, and expected outcomes.",
+  "type": "object",
+  "required": [
+    "context",
+    "suggestions",
+    "primary_suggestion"
+  ],
+  "properties": {
+    "context": {
+      "type": "object",
+      "description": "Current context (agent that ran, artifacts produced)"
+    },
+    "suggestions": {
+      "type": "array",
+      "description": "Ranked list of recommended next steps"
+    },
+    "primary_suggestion": {
+      "type": "object",
+      "description": "Best recommendation with detailed rationale"
+    },
+    "alternatives": {
+      "type": "array",
+      "description": "Alternative options"
+    },
+    "warnings": {
+      "type": "array",
+      "description": "Things to be aware of"
+    }
+  }
+}

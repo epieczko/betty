@@ -589,6 +589,32 @@ Designs comprehensive REST APIs...
 
 ---
 
+### 12. Suggestion Report (`suggestion-report`)
+
+**Description:** Context-aware recommendations for what to do next after an agent completes. Includes ranked suggestions with rationale, required artifacts, and expected outcomes.
+
+**Convention:**
+- File pattern: `*.suggestions.json`
+- Format: JSON
+- Content type: application/json
+
+**Schema:** `schemas/suggestion-report.json`
+
+**Produced by:**
+- `meta.suggest`
+
+**Consumed by:**
+- `Claude (for decision making)`
+- `dashboard.display`
+- `workflow.orchestrator`
+
+**Related types:**
+- `compatibility-graph`
+- `pipeline-suggestion`
+- `agent-definition`
+
+---
+
 ## Artifact Metadata Schema
 
 Skills declare artifact metadata in `skill.yaml`:
@@ -977,3 +1003,4 @@ If valid → Register workflow
 | optimization-report | *.optimization.json | schemas/optimization-report.json | api.optimize, workflow.optimize | api.implement, report.generate, dashboard.display |
 | compatibility-graph | *.compatibility.json | schemas/compatibility-graph.json | meta.compatibility | meta.suggest, dashboard.display, workflow.orchestrator |
 | pipeline-suggestion | *.pipeline.json | schemas/pipeline-suggestion.json | meta.compatibility, meta.suggest | workflow.orchestrator, Claude (for decision making) |
+| suggestion-report | *.suggestions.json | schemas/suggestion-report.json | meta.suggest | Claude (for decision making), dashboard.display, workflow.orchestrator |

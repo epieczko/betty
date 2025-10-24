@@ -86,6 +86,12 @@ KNOWN_ARTIFACT_TYPES = {
         "content_type": "application/json",
         "description": "Suggested multi-agent workflow with step-by-step execution plan. Ensures artifact compatibility and provides rationale for agent selection."
     },
+    "suggestion-report": {
+        "schema": "schemas/suggestion-report.json",
+        "file_pattern": "*.suggestions.json",
+        "content_type": "application/json",
+        "description": "Context-aware recommendations for what to do next after an agent completes. Includes ranked suggestions with rationale, required artifacts, and expected outcomes."
+    },
 
 }
 
