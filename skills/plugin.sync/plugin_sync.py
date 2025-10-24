@@ -93,9 +93,36 @@ def convert_skill_to_command(skill: Dict[str, Any], entrypoint: Dict[str, Any]) 
         }
     }
 
-    # Add parameters if present
-    if "parameters" in entrypoint:
+    # Add parameters from entrypoint or extract from skill inputs
+    if "parameters" in entrypoint and entrypoint["parameters"]:
+        # Use parameters from entrypoint if they exist
         command["parameters"] = entrypoint["parameters"]
+    elif "inputs" in skill and skill["inputs"]:
+        # Otherwise, convert skill inputs to command parameters
+        parameters = []
+        for inp in skill["inputs"]:
+            if isinstance(inp, dict):
+                # Full input specification
+                param = {
+                    "name": inp.get("name", ""),
+                    "type": inp.get("type", "string"),
+                    "required": inp.get("required", False),
+                    "description": inp.get("description", "")
+                }
+                # Add default if present
+                if "default" in inp:
+                    param["default"] = inp["default"]
+                parameters.append(param)
+            elif isinstance(inp, str):
+                # Simple string input (legacy format)
+                parameters.append({
+                    "name": inp,
+                    "type": "string",
+                    "required": False,
+                    "description": ""
+                })
+        if parameters:
+            command["parameters"] = parameters
 
     # Add permissions if present
     if "permissions" in entrypoint:
@@ -195,6 +222,13 @@ def generate_plugin_yaml(
         **base_config,
         "commands": commands
     }
+
+    # Override plugin-level permissions (remove network:none contradiction)
+    plugin_config["permissions"] = [
+        "filesystem:read",
+        "filesystem:write",
+        "process:execute"
+    ]
 
     # Add metadata about generation
     if "metadata" not in plugin_config:
