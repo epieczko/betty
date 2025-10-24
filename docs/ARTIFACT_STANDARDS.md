@@ -25,6 +25,166 @@ Betty uses a **3-tier artifact system**:
 
 ---
 
+## Artifact Metadata Reusability
+
+**Key Principle: Artifact metadata is defined once at the skill level and automatically inherited by all agents that use those skills.**
+
+### Skills Define, Agents Inherit
+
+Artifact metadata lives in **skills** (the source of truth), not in agents:
+
+```yaml
+# skills/api.define/skill.yaml
+name: api.define
+artifact_metadata:
+  produces:
+    - type: openapi-spec
+      schema: schemas/openapi-spec.json
+      file_pattern: "*.openapi.yaml"
+
+# skills/api.validate/skill.yaml
+name: api.validate
+artifact_metadata:
+  consumes:
+    - type: openapi-spec
+  produces:
+    - type: validation-report
+```
+
+**Agents automatically inherit artifact capabilities from their skills:**
+
+```yaml
+# agents/api.designer/agent.yaml
+name: api.designer
+skills_available:
+  - api.define        # Inherits: produces openapi-spec
+  - api.validate      # Inherits: consumes openapi-spec, produces validation-report
+
+# Agent can now work with:
+# - openapi-spec (from api.define and api.validate)
+# - validation-report (from api.validate)
+# WITHOUT duplicating any artifact_metadata!
+```
+
+### Benefits of Reusability
+
+✅ **DRY (Don't Repeat Yourself)**
+- Artifact metadata defined **once** at skill level
+- Multiple agents can use the same skill
+- No duplication across agent definitions
+
+✅ **Automatic Capability Discovery**
+```python
+# Betty can derive agent capabilities automatically
+agent_artifacts = get_artifacts_from_skills(agent['skills_available'])
+# Returns all artifacts the agent can produce/consume
+```
+
+✅ **Consistency Enforcement**
+- All agents using `api.define` produce the **same** openapi-spec format
+- Schema is enforced at the skill level
+- No divergence across agents
+
+✅ **Composability**
+```yaml
+# Create new agent by composing existing skills
+agents/api.migrator/agent.yaml:
+  skills_available:
+    - api.validate      # Inherits artifact metadata
+    - api.compatibility # Inherits artifact metadata
+
+# This agent automatically works with the artifacts those skills define!
+```
+
+### Multi-Agent Collaboration
+
+Different agents can communicate through shared artifact types:
+
+```
+Agent 1 (api.designer) uses api.define
+  → Produces: specs/user-api.openapi.yaml (openapi-spec)
+  → Saves to standard location (convention)
+
+Agent 2 (api.validator) uses api.validate
+  → Finds: specs/user-api.openapi.yaml
+  → Consumes: openapi-spec artifact
+  → Validates and produces: validation-report
+
+Both agents work with the same artifact type (defined at skill level)
+No artifact metadata duplication needed!
+```
+
+### What Goes Where
+
+**In Skills (Required):**
+- `artifact_metadata` with produces/consumes
+- Defines the contract
+
+**In Agents (Optional):**
+- `skills_available` list (this is how they inherit)
+- `system_prompt` can reference artifact conventions for guidance
+- NO duplication of artifact_metadata
+
+---
+
+## Meta-Skills for Artifact Management
+
+Betty provides skills to help create and manage the artifact system itself:
+
+### artifact.define - Define Artifact Metadata
+
+Helps create `artifact_metadata` blocks for skills.
+
+**Usage:**
+```bash
+/skill/artifact/define api.validate \
+  --produces validation-report \
+  --consumes openapi-spec
+```
+
+**Output:**
+```yaml
+artifact_metadata:
+  produces:
+    - type: validation-report
+      schema: schemas/validation-report.json
+      file_pattern: "*.validation.json"
+      content_type: application/json
+  consumes:
+    - type: openapi-spec
+      required: true
+```
+
+### agent.compose - Recommend Skills for Agents
+
+Suggests compatible skills based on agent purpose.
+
+**Usage:**
+```bash
+/agent/compose "Design and validate APIs" \
+  --required-artifacts openapi-spec validation-report
+```
+
+**Output:**
+```yaml
+skills_available:
+  - api.define       # Produces: openapi-spec
+  - api.validate     # Consumes: openapi-spec, produces: validation-report
+  - api.generate-models  # Consumes: openapi-spec
+
+# Rationale:
+# - api.define: Produces required openapi-spec artifacts
+# - api.validate: Validates openapi-spec, produces validation-report
+# - api.generate-models: Can generate code from openapi-spec
+```
+
+The agent.compose skill analyzes:
+- Artifact compatibility (ensures skills can work together)
+- Artifact flow (no gaps in produce/consume chain)
+- Purpose matching (keywords in agent description)
+
+---
+
 ## Artifact Types
 
 Betty defines standard artifact types that certified skills produce and consume:

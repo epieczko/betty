@@ -1,0 +1,93 @@
+name: artifact.define
+version: 0.1.0
+description: >
+  Define artifact metadata for Betty Framework skills. Helps create artifact_metadata
+  blocks that declare what artifacts a skill produces and consumes, enabling
+  skill interoperability and autonomous agent composition.
+
+inputs:
+  - name: skill_name
+    type: string
+    required: true
+    description: Name of the skill to define artifact metadata for
+
+  - name: produces
+    type: array
+    required: false
+    description: List of artifact types this skill produces (e.g., openapi-spec, validation-report)
+
+  - name: consumes
+    type: array
+    required: false
+    description: List of artifact types this skill consumes
+
+  - name: output_file
+    type: string
+    required: false
+    default: artifact_metadata.yaml
+    description: Where to save the generated artifact metadata
+
+outputs:
+  - name: artifact_metadata
+    type: object
+    description: Generated artifact metadata block
+
+  - name: metadata_file
+    type: string
+    description: Path to saved artifact metadata file
+
+  - name: validation_result
+    type: object
+    description: Validation results for the artifact metadata
+
+dependencies:
+  - context.schema
+
+entrypoints:
+  - command: /skill/artifact/define
+    handler: artifact_define.py
+    runtime: python
+    description: >
+      Create artifact metadata for a skill. Validates artifact types against
+      known schemas, suggests file patterns, and generates properly formatted
+      artifact_metadata blocks for skill.yaml files.
+    parameters:
+      - name: skill_name
+        type: string
+        required: true
+        description: Name of the skill (e.g., api.define, workflow.validate)
+      - name: produces
+        type: array
+        required: false
+        description: Artifact types produced (e.g., ["openapi-spec", "validation-report"])
+      - name: consumes
+        type: array
+        required: false
+        description: Artifact types consumed
+      - name: output_file
+        type: string
+        required: false
+        default: artifact_metadata.yaml
+        description: Output file path
+    permissions:
+      - filesystem:read
+      - filesystem:write
+
+status: active
+
+tags:
+  - artifacts
+  - metadata
+  - scaffolding
+  - interoperability
+  - layer3
+
+# This skill's own artifact metadata!
+artifact_metadata:
+  produces:
+    - type: artifact-metadata-definition
+      description: Artifact metadata YAML block for skill.yaml files
+      file_pattern: "artifact_metadata.yaml"
+      content_type: application/yaml
+
+  consumes: []  # Doesn't consume artifacts, creates from user input

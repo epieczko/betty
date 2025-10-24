@@ -1,0 +1,102 @@
+name: agent.compose
+version: 0.1.0
+description: >
+  Recommend skills for a Betty agent based on its purpose and responsibilities.
+  Analyzes artifact flows, ensures skill compatibility, and suggests optimal
+  skill combinations for agent definitions.
+
+inputs:
+  - name: agent_purpose
+    type: string
+    required: true
+    description: Description of what the agent should do (e.g., "Design and validate APIs")
+
+  - name: required_artifacts
+    type: array
+    required: false
+    description: Artifact types the agent needs to work with (e.g., ["openapi-spec"])
+
+  - name: output_format
+    type: string
+    required: false
+    default: yaml
+    description: Output format (yaml, json, or markdown)
+
+  - name: include_rationale
+    type: boolean
+    required: false
+    default: true
+    description: Include explanation of why each skill was recommended
+
+outputs:
+  - name: recommended_skills
+    type: array
+    description: List of recommended skill names
+
+  - name: skills_with_rationale
+    type: object
+    description: Skills with explanation of why they were recommended
+
+  - name: artifact_flow
+    type: object
+    description: Diagram showing how artifacts flow between recommended skills
+
+  - name: compatibility_report
+    type: object
+    description: Validation that recommended skills work together
+
+dependencies:
+  - registry.query
+
+entrypoints:
+  - command: /agent/compose
+    handler: agent_compose.py
+    runtime: python
+    description: >
+      Recommend skills for an agent based on its purpose. Analyzes the registry
+      to find skills that produce/consume compatible artifacts, ensures no gaps
+      in artifact flow, and suggests optimal skill combinations.
+    parameters:
+      - name: agent_purpose
+        type: string
+        required: true
+        description: What the agent should do
+      - name: required_artifacts
+        type: array
+        required: false
+        description: Artifact types to work with
+      - name: output_format
+        type: string
+        required: false
+        default: yaml
+        description: Output format (yaml, json, markdown)
+      - name: include_rationale
+        type: boolean
+        required: false
+        default: true
+        description: Include explanations
+    permissions:
+      - filesystem:read
+
+status: active
+
+tags:
+  - agents
+  - composition
+  - artifacts
+  - scaffolding
+  - interoperability
+  - layer3
+
+# This skill's own artifact metadata
+artifact_metadata:
+  produces:
+    - type: agent-skill-recommendation
+      description: Recommended skills list with compatibility analysis for agent definitions
+      file_pattern: "agent-skills-recommendation.{yaml,json}"
+      content_type: application/yaml
+
+  consumes:
+    - type: registry-data
+      description: Betty Framework registry containing skills and their artifact metadata
+      required: true
