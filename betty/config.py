@@ -7,6 +7,9 @@ import os
 from enum import Enum
 from typing import Optional
 
+# Betty Framework version
+VERSION = "1.0.0"
+
 # Base directory - can be overridden with BETTY_HOME environment variable
 BETTY_HOME = os.environ.get('BETTY_HOME', os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 

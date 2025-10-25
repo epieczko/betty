@@ -208,3 +208,4 @@ registry/workflow_history.json
 *.bak
 .DS_Store
 
+/.betty-traces/

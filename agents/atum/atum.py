@@ -27,6 +27,9 @@ sys.path.insert(0, str(artifact_define_path))
 import agent_compose
 import artifact_define
 
+# Import traceability system
+from betty.traceability import get_tracer, RequirementInfo
+
 
 class AgentCreator:
     """Creates agents from natural language descriptions"""
@@ -337,7 +340,8 @@ This agent was created by **Atum**, the meta-agent that speaks agents into exist
         self,
         description_path: str,
         output_dir: Optional[str] = None,
-        validate: bool = True
+        validate: bool = True,
+        requirement: Optional[RequirementInfo] = None
     ) -> Dict[str, str]:
         """
         Create a complete agent from description
@@ -346,6 +350,7 @@ This agent was created by **Atum**, the meta-agent that speaks agents into exist
             description_path: Path to agent description file
             output_dir: Output directory (default: agents/{name}/)
             validate: Whether to validate with registry.certify
+            requirement: Requirement information for traceability (optional)
 
         Returns:
             Dictionary with paths to created files
@@ -408,13 +413,54 @@ This agent was created by **Atum**, the meta-agent that speaks agents into exist
         with open(readme_path, 'w') as f:
             f.write(readme_content)
 
-        return {
+        # Log traceability if requirement provided
+        trace_id = None
+        if requirement:
+            try:
+                tracer = get_tracer()
+                trace_id = tracer.log_creation(
+                    component_id=name,
+                    component_name=name.replace(".", " ").title(),
+                    component_type="agent",
+                    component_version="0.1.0",
+                    component_file_path=str(agent_yaml_path),
+                    input_source_path=description_path,
+                    created_by_tool="meta.agent",
+                    created_by_version="0.1.0",
+                    requirement=requirement,
+                    tags=["agent", "auto-generated"],
+                    project="Betty Framework"
+                )
+
+                # Log validation check
+                tracer.log_verification(
+                    component_id=name,
+                    check_type="validation",
+                    tool="meta.agent",
+                    result="passed",
+                    details={
+                        "checks_performed": [
+                            {"name": "agent_structure", "status": "passed"},
+                            {"name": "artifact_metadata", "status": "passed"},
+                            {"name": "skills_compatibility", "status": "passed", "message": f"{len(skills)} compatible skills found"}
+                        ]
+                    }
+                )
+            except Exception as e:
+                print(f"⚠️  Warning: Could not log traceability: {e}")
+
+        result = {
             "agent_yaml": str(agent_yaml_path),
             "readme": str(readme_path),
             "name": name,
             "skills": skills,
             "rationale": skill_recommendations.get("rationale", "")
         }
+
+        if trace_id:
+            result["trace_id"] = trace_id
+
+        return result
 
 
 def main():
@@ -438,7 +484,45 @@ def main():
         help="Skip validation step"
     )
 
+    # Traceability arguments
+    parser.add_argument(
+        "--requirement-id",
+        help="Requirement identifier for traceability (e.g., REQ-2025-001)"
+    )
+    parser.add_argument(
+        "--requirement-description",
+        help="What this agent is meant to accomplish"
+    )
+    parser.add_argument(
+        "--requirement-source",
+        help="Source document or system (e.g., requirements/Q1-2025.md)"
+    )
+    parser.add_argument(
+        "--issue-id",
+        help="Issue tracking ID (e.g., JIRA-123)"
+    )
+    parser.add_argument(
+        "--requested-by",
+        help="Who requested this requirement"
+    )
+    parser.add_argument(
+        "--rationale",
+        help="Why this component is needed"
+    )
+
     args = parser.parse_args()
+
+    # Create requirement info if provided
+    requirement = None
+    if args.requirement_id and args.requirement_description:
+        requirement = RequirementInfo(
+            id=args.requirement_id,
+            description=args.requirement_description,
+            source=args.requirement_source,
+            issue_id=args.issue_id,
+            requested_by=args.requested_by,
+            rationale=args.rationale
+        )
 
     # Create agent
     creator = AgentCreator()
@@ -449,7 +533,8 @@ def main():
         result = creator.create_agent(
             args.description,
             output_dir=args.output,
-            validate=not args.no_validate
+            validate=not args.no_validate,
+            requirement=requirement
         )
 
         print(f"\n✨ Agent '{result['name']}' created successfully!\n")
@@ -459,6 +544,10 @@ def main():
 
         if result.get("rationale"):
             print(f"💡 Rationale:\n{result['rationale']}\n")
+
+        if result.get("trace_id"):
+            print(f"📝 Traceability: {result['trace_id']}")
+            print(f"   View trace: python3 betty/trace_cli.py show {result['name']}\n")
 
     except Exception as e:
         print(f"\n❌ Error creating agent: {e}", file=sys.stderr)

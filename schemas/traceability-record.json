@@ -1,0 +1,311 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://betty-framework.org/schemas/traceability-record.json",
+  "title": "Betty Traceability Record",
+  "description": "Complete traceability record for Betty components linking requirements to verification",
+  "type": "object",
+  "required": ["trace_id", "component", "creation", "requirement"],
+  "properties": {
+    "trace_id": {
+      "type": "string",
+      "description": "Unique traceability record ID",
+      "pattern": "^trace-[0-9]{8}-[a-z0-9.-]+$",
+      "example": "trace-20250115-code.reviewer"
+    },
+    "component": {
+      "type": "object",
+      "required": ["id", "name", "type", "version"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Component identifier",
+          "example": "code.reviewer"
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable component name",
+          "example": "Code Reviewer Agent"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["agent", "skill", "hook", "artifact-type"],
+          "description": "Type of component"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "description": "Semantic version",
+          "example": "1.0.0"
+        },
+        "file_path": {
+          "type": "string",
+          "description": "Path to component definition",
+          "example": "agents/code.reviewer/agent.yaml"
+        }
+      }
+    },
+    "creation": {
+      "type": "object",
+      "required": ["timestamp", "created_by", "input_source"],
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of creation",
+          "example": "2025-01-15T10:30:00Z"
+        },
+        "created_by": {
+          "type": "object",
+          "required": ["tool", "version"],
+          "properties": {
+            "tool": {
+              "type": "string",
+              "description": "Meta-agent or tool that created the component",
+              "example": "meta.agent"
+            },
+            "version": {
+              "type": "string",
+              "description": "Version of the creation tool",
+              "example": "0.1.0"
+            },
+            "user": {
+              "type": "string",
+              "description": "User who initiated creation (optional)",
+              "example": "user@example.com"
+            }
+          }
+        },
+        "input_source": {
+          "type": "object",
+          "required": ["path", "hash"],
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "Path to input description file",
+              "example": "examples/agents/code_reviewer_agent.md"
+            },
+            "hash": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$",
+              "description": "SHA-256 hash of input file",
+              "example": "sha256:abc123..."
+            },
+            "content_preview": {
+              "type": "string",
+              "description": "First 200 chars of input (optional)",
+              "maxLength": 200
+            }
+          }
+        },
+        "betty_version": {
+          "type": "string",
+          "description": "Betty Framework version",
+          "example": "1.0.0"
+        }
+      }
+    },
+    "requirement": {
+      "type": "object",
+      "required": ["id", "description"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Requirement identifier",
+          "example": "REQ-2025-001"
+        },
+        "description": {
+          "type": "string",
+          "description": "What this component is meant to accomplish",
+          "example": "Automated code review for security vulnerabilities"
+        },
+        "source": {
+          "type": "string",
+          "description": "Source document or system",
+          "example": "requirements/Q1-2025.md"
+        },
+        "issue_id": {
+          "type": "string",
+          "description": "Issue tracking ID (Jira, GitHub, etc.)",
+          "example": "BETTY-123"
+        },
+        "requested_by": {
+          "type": "string",
+          "description": "Who requested this requirement",
+          "example": "product-team@example.com"
+        },
+        "rationale": {
+          "type": "string",
+          "description": "Why this component is needed",
+          "example": "Reduce manual review time, catch security issues early"
+        },
+        "acceptance_criteria": {
+          "type": "array",
+          "description": "Criteria for requirement fulfillment",
+          "items": {
+            "type": "string"
+          },
+          "example": ["Scan for SQL injection", "Check for XSS vulnerabilities", "Validate input sanitization"]
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "required": ["status", "checks"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["pending", "in_progress", "passed", "failed", "partial"],
+          "description": "Overall verification status"
+        },
+        "checks": {
+          "type": "array",
+          "description": "Individual verification checks performed",
+          "items": {
+            "type": "object",
+            "required": ["timestamp", "check_type", "tool", "result"],
+            "properties": {
+              "timestamp": {
+                "type": "string",
+                "format": "date-time",
+                "description": "When check was performed"
+              },
+              "check_type": {
+                "type": "string",
+                "enum": ["validation", "compatibility", "integration_test", "unit_test", "security_scan", "manual_review"],
+                "description": "Type of verification check"
+              },
+              "tool": {
+                "type": "string",
+                "description": "Tool that performed the check",
+                "example": "meta.artifact"
+              },
+              "result": {
+                "type": "string",
+                "enum": ["passed", "failed", "warning", "skipped"],
+                "description": "Result of the check"
+              },
+              "details": {
+                "type": "object",
+                "description": "Check-specific details",
+                "properties": {
+                  "checks_performed": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "naming_convention"
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": ["passed", "failed", "warning"]
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "tests_run": {
+                    "type": "integer",
+                    "description": "Number of tests executed"
+                  },
+                  "tests_passed": {
+                    "type": "integer"
+                  },
+                  "tests_failed": {
+                    "type": "integer"
+                  },
+                  "coverage": {
+                    "type": "string",
+                    "pattern": "^\\d+%$",
+                    "description": "Code coverage percentage"
+                  },
+                  "compatible_agents": {
+                    "type": "integer",
+                    "description": "Number of compatible agents found"
+                  },
+                  "errors": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "warnings": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "evidence": {
+                "type": "string",
+                "description": "Path to detailed results/logs",
+                "example": ".betty-traces/evidence/trace-20250115-code.reviewer-validation.log"
+              }
+            }
+          }
+        },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "total_checks": {
+              "type": "integer"
+            },
+            "passed": {
+              "type": "integer"
+            },
+            "failed": {
+              "type": "integer"
+            },
+            "warnings": {
+              "type": "integer"
+            },
+            "last_verified": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata for document database",
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "example": ["security", "code-quality", "automation"]
+        },
+        "project": {
+          "type": "string",
+          "description": "Project or product name",
+          "example": "Betty Framework"
+        },
+        "team": {
+          "type": "string",
+          "description": "Responsible team",
+          "example": "Platform Engineering"
+        },
+        "environment": {
+          "type": "string",
+          "enum": ["development", "staging", "production"],
+          "description": "Deployment environment"
+        },
+        "compliance": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Compliance standards met",
+          "example": ["SOC2", "ISO27001"]
+        }
+      }
+    }
+  }
+}
