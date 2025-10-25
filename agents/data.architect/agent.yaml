@@ -1,0 +1,59 @@
+name: data.architect
+description: Create comprehensive data architecture and governance artifacts including
+  data models, schema definitions, data flow diagrams, data dictionaries, data governance
+  policies, and data quality frameworks. Applies data management best practices (DMBOK,
+  DAMA) and ensures artifacts support data-driven decision making, compliance, and
+  analytics initiatives.
+skills_available:
+  - artifact.create
+  - artifact.validate
+  - artifact.review
+permissions:
+  - filesystem:read
+  - filesystem:write
+artifact_metadata:
+  consumes:
+  - type: Business requirements or use cases
+    description: Input artifact of type Business requirements or use cases
+  - type: Data sources and systems
+    description: Input artifact of type Data sources and systems
+  - type: Data domains or subject areas
+    description: Input artifact of type Data domains or subject areas
+  - type: Compliance requirements
+    description: Input artifact of type Compliance requirements
+  - type: Data quality expectations
+    description: Input artifact of type Data quality expectations
+  - type: Analytics or reporting needs
+    description: Input artifact of type Analytics or reporting needs
+  produces:
+  - type: 'data-model: Logical and physical data models with entities, relationships,
+      and attributes'
+    description: 'Output artifact of type data-model: Logical and physical data models
+      with entities, relationships, and attributes'
+  - type: 'schema-definition: Database schemas with tables, columns, constraints,
+      and indexes'
+    description: 'Output artifact of type schema-definition: Database schemas with
+      tables, columns, constraints, and indexes'
+  - type: 'data-flow-diagram: Data flow between systems with transformations and quality
+      checks'
+    description: 'Output artifact of type data-flow-diagram: Data flow between systems
+      with transformations and quality checks'
+  - type: 'data-dictionary: Comprehensive data dictionary with business definitions'
+    description: 'Output artifact of type data-dictionary: Comprehensive data dictionary
+      with business definitions'
+  - type: 'data-governance-policy: Data governance framework with roles, policies,
+      and procedures'
+    description: 'Output artifact of type data-governance-policy: Data governance
+      framework with roles, policies, and procedures'
+  - type: 'data-quality-framework: Data quality measurement and monitoring framework'
+    description: 'Output artifact of type data-quality-framework: Data quality measurement
+      and monitoring framework'
+  - type: 'master-data-management-plan: MDM strategy for critical data domains'
+    description: 'Output artifact of type master-data-management-plan: MDM strategy
+      for critical data domains'
+  - type: 'data-lineage-diagram: End-to-end data lineage with source-to-target mappings'
+    description: 'Output artifact of type data-lineage-diagram: End-to-end data lineage
+      with source-to-target mappings'
+  - type: 'data-catalog: Enterprise data catalog with metadata and discovery'
+    description: 'Output artifact of type data-catalog: Enterprise data catalog with
+      metadata and discovery'

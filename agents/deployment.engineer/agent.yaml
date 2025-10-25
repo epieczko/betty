@@ -1,0 +1,58 @@
+name: deployment.engineer
+description: Create comprehensive deployment and release artifacts including deployment
+  plans, CI/CD pipelines, release checklists, rollback procedures, runbooks, and infrastructure-as-code
+  configurations. Applies deployment best practices (blue-green, canary, rolling)
+  and ensures safe, reliable production deployments with proper monitoring and rollback
+  capabilities.
+skills_available:
+  - artifact.create
+  - artifact.validate
+  - artifact.review
+permissions:
+  - filesystem:read
+  - filesystem:write
+artifact_metadata:
+  consumes:
+  - type: Application or service description
+    description: Input artifact of type Application or service description
+  - type: Infrastructure and environment details
+    description: Input artifact of type Infrastructure and environment details
+  - type: Deployment requirements
+    description: Input artifact of type Deployment requirements
+  - type: Release scope and components
+    description: Input artifact of type Release scope and components
+  - type: Monitoring and alerting requirements
+    description: Input artifact of type Monitoring and alerting requirements
+  - type: Compliance or change control requirements
+    description: Input artifact of type Compliance or change control requirements
+  produces:
+  - type: 'deployment-plan: Comprehensive deployment strategy with steps, validation,
+      and rollback'
+    description: 'Output artifact of type deployment-plan: Comprehensive deployment
+      strategy with steps, validation, and rollback'
+  - type: 'cicd-pipeline-definition: CI/CD pipeline configuration with stages, gates,
+      and automation'
+    description: 'Output artifact of type cicd-pipeline-definition: CI/CD pipeline
+      configuration with stages, gates, and automation'
+  - type: 'release-checklist: Pre-deployment checklist with validation and approval
+      steps'
+    description: 'Output artifact of type release-checklist: Pre-deployment checklist
+      with validation and approval steps'
+  - type: 'rollback-plan: Rollback procedures with triggers and recovery steps'
+    description: 'Output artifact of type rollback-plan: Rollback procedures with
+      triggers and recovery steps'
+  - type: 'runbooks: Operational runbooks for deployment, troubleshooting, and maintenance'
+    description: 'Output artifact of type runbooks: Operational runbooks for deployment,
+      troubleshooting, and maintenance'
+  - type: 'infrastructure-as-code: Infrastructure provisioning templates'
+    description: 'Output artifact of type infrastructure-as-code: Infrastructure provisioning
+      templates'
+  - type: 'deployment-pipeline: Deployment automation scripts and orchestration'
+    description: 'Output artifact of type deployment-pipeline: Deployment automation
+      scripts and orchestration'
+  - type: 'smoke-test-suite: Post-deployment smoke tests for validation'
+    description: 'Output artifact of type smoke-test-suite: Post-deployment smoke
+      tests for validation'
+  - type: 'production-readiness-checklist: Production readiness assessment and sign-off'
+    description: 'Output artifact of type production-readiness-checklist: Production
+      readiness assessment and sign-off'

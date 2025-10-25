@@ -1,0 +1,57 @@
+name: governance.manager
+description: Create comprehensive program and project governance artifacts including
+  project charters, RAID logs (Risks, Assumptions, Issues, Decisions), decision logs,
+  governance frameworks, compliance matrices, and steering committee artifacts. Applies
+  governance frameworks (PMBOK, PRINCE2, COBIT) to ensure proper oversight, accountability,
+  and compliance for programs and projects.
+skills_available:
+  - artifact.create
+  - artifact.validate
+  - artifact.review
+permissions:
+  - filesystem:read
+  - filesystem:write
+artifact_metadata:
+  consumes:
+  - type: Program or project description
+    description: Input artifact of type Program or project description
+  - type: Stakeholders and governance structure
+    description: Input artifact of type Stakeholders and governance structure
+  - type: Objectives and success criteria
+    description: Input artifact of type Objectives and success criteria
+  - type: Compliance or regulatory requirements
+    description: Input artifact of type Compliance or regulatory requirements
+  - type: Risks, issues, and assumptions
+    description: Input artifact of type Risks, issues, and assumptions
+  - type: Decisions to be documented
+    description: Input artifact of type Decisions to be documented
+  produces:
+  - type: 'project-charter: Project charter with authority, scope, objectives, and
+      success criteria'
+    description: 'Output artifact of type project-charter: Project charter with authority,
+      scope, objectives, and success criteria'
+  - type: 'raid-log: Comprehensive RAID log'
+    description: 'Output artifact of type raid-log: Comprehensive RAID log'
+  - type: 'decision-log: Decision register with context, options, rationale, and outcomes'
+    description: 'Output artifact of type decision-log: Decision register with context,
+      options, rationale, and outcomes'
+  - type: 'governance-framework: Governance structure with roles, committees, and
+      decision rights'
+    description: 'Output artifact of type governance-framework: Governance structure
+      with roles, committees, and decision rights'
+  - type: 'compliance-matrix: Compliance mapping to regulatory and policy requirements'
+    description: 'Output artifact of type compliance-matrix: Compliance mapping to
+      regulatory and policy requirements'
+  - type: 'stakeholder-analysis: Stakeholder analysis with power/interest grid and
+      engagement strategy'
+    description: 'Output artifact of type stakeholder-analysis: Stakeholder analysis
+      with power/interest grid and engagement strategy'
+  - type: 'steering-committee-report: Executive steering committee reporting pack'
+    description: 'Output artifact of type steering-committee-report: Executive steering
+      committee reporting pack'
+  - type: 'change-control-process: Change management and approval workflow'
+    description: 'Output artifact of type change-control-process: Change management
+      and approval workflow'
+  - type: 'benefits-realization-plan: Benefits tracking and realization framework'
+    description: 'Output artifact of type benefits-realization-plan: Benefits tracking
+      and realization framework'

@@ -1,0 +1,48 @@
+name: workflow.orchestrate
+version: 0.1.0
+description: Orchestrate multi-artifact workflows by coordinating specialized agents
+  and artifact creation skills. Creates complete artifact sets for complex initiatives
+  by managing dependencies, sequencing work, and ensuring artifact consistency. Supports
+  common SDLC workflows like project initiation, security reviews, data design, test
+  planning, deployment planning, and full SDLC cycles.
+inputs:
+- 'workflow_type (string, required): Type of workflow to execute (project-initiation,
+  security-review, data-design, test-planning, deployment-planning, full-sdlc)'
+- 'description (string, required): Initiative or project description for context'
+- 'output_directory (string, required): Directory where all workflow artifacts will
+  be created'
+- 'author (string, optional): Author name for generated artifacts (default: "Workflow
+  Orchestrator")'
+- 'classification (string, optional): Classification level (Public, Internal, Confidential,
+  Restricted, default: Internal)'
+outputs:
+- 'workflow-execution-report: Complete workflow execution report with all generated
+  artifacts'
+- 'artifact-manifest: Manifest of all created artifacts with paths and validation
+  status'
+- All artifacts specified by the workflow type (e.g., business-case, project-charter,
+  etc.)
+- None (initiates workflows from user context)
+- workflow-execution-report
+- artifact-manifest
+- Plus all artifacts specified by the chosen workflow type
+- filesystem:read
+- filesystem:write
+- artifact.create skill (to create individual artifacts)
+- artifact.validate skill (to validate created artifacts)
+- Template files in templates/ directory
+- Call artifact.create with appropriate type and context
+- Call artifact.validate to check quality
+- Track created artifacts and validation results
+- Handle missing dependencies gracefully
+- Continue workflow even if individual artifacts fail
+- Report all failures in execution report
+- Return overall success based on whether any artifacts were created
+status: active
+permissions: []
+entrypoints:
+- command: /workflow/orchestrate
+  handler: workflow_orchestrate.py
+  runtime: python
+  description: Orchestrate multi-artifact workflows by coordinating specialized agents
+    and artifact creation skills
