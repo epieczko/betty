@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Artifact Type Description",
+  "description": "Schema for defining new artifact types in Betty Framework",
+  "type": "object",
+  "required": ["name", "purpose", "format"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Artifact type name in kebab-case (e.g., 'optimization-report')"
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 20,
+      "description": "Clear description of what this artifact represents"
+    },
+    "format": {
+      "type": "string",
+      "enum": ["JSON", "YAML", "Markdown", "Python", "TypeScript", "Go", "Text", "Binary", "Multiple"],
+      "description": "Primary format of the artifact"
+    },
+    "file_pattern": {
+      "type": "string",
+      "description": "Glob pattern for artifact files (e.g., '*.optimization.json')"
+    },
+    "content_type": {
+      "type": "string",
+      "description": "MIME type (e.g., 'application/json')"
+    },
+    "schema_properties": {
+      "type": "object",
+      "description": "JSON Schema properties for validation",
+      "additionalProperties": true
+    },
+    "required_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Required fields in the artifact"
+    },
+    "producers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Skills/agents that produce this artifact type"
+    },
+    "consumers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Skills/agents that consume this artifact type"
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "Example artifact instances"
+    },
+    "validation_rules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Custom validation rules or constraints"
+    },
+    "related_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Related artifact types that might be used together"
+    }
+  }
+}

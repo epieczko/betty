@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://betty-framework.dev/schemas/hook-config.json",
+  "title": "Claude Code Hook Configuration",
+  "description": "Schema for Claude Code hook configurations",
+  "type": "object",
+  "required": ["hooks"],
+  "properties": {
+    "hooks": {
+      "type": "array",
+      "description": "Array of hook definitions",
+      "items": {
+        "type": "object",
+        "required": ["name", "event", "command"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Hook name/identifier"
+          },
+          "event": {
+            "type": "string",
+            "enum": [
+              "on_file_edit",
+              "on_file_save",
+              "on_file_create",
+              "on_file_delete",
+              "on_commit",
+              "on_push",
+              "on_tool_use",
+              "on_agent_start",
+              "on_agent_end"
+            ],
+            "description": "Event that triggers the hook"
+          },
+          "command": {
+            "type": "string",
+            "description": "Command to execute when hook triggers"
+          },
+          "pattern": {
+            "type": "string",
+            "description": "File pattern to match (glob syntax, e.g., '*.openapi.yaml')"
+          },
+          "blocking": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether hook should block the triggering operation if it fails"
+          },
+          "timeout": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 30000,
+            "description": "Timeout in milliseconds"
+          },
+          "on_failure": {
+            "type": "string",
+            "enum": ["block", "warn", "ignore"],
+            "default": "block",
+            "description": "Behavior when hook execution fails"
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable description of what the hook does"
+          },
+          "enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether the hook is enabled"
+          }
+        }
+      }
+    },
+    "version": {
+      "type": "string",
+      "description": "Hook configuration version"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional metadata",
+      "properties": {
+        "generated_by": {"type": "string"},
+        "generated_at": {"type": "string", "format": "date-time"}
+      }
+    }
+  }
+}

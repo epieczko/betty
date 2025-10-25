@@ -1,0 +1,565 @@
+# Betty Framework - Certification System
+
+## Overview
+
+**Nothing runs in Betty without certification.**
+
+The Betty Framework enforces complete traceability for all components through its certification system. Every agent, skill, and hook must be certified before it can execute. Certification ensures full audit trails from requirements to verification for compliance with SOC2, ISO 27001, GDPR, and FDA 21 CFR Part 11.
+
+## What is Certification?
+
+A component is **certified** when it has:
+
+1. ✅ **Traceability Record** - JSON file in `.betty-traces/`
+2. ✅ **Requirement Linkage** - ID, description, source, rationale
+3. ✅ **Verification Status** - Passed validation checks
+
+Uncertified components **cannot run** in Betty (strict mode).
+
+## Quick Start
+
+### Check if a Component is Certified
+
+```bash
+python3 betty/cert_cli.py check file.compare
+```
+
+Output:
+```
+======================================================================
+Component Certification: file.compare
+======================================================================
+
+Status: ✅ CERTIFIED
+
+Requirement ID:   REQ-2025-001
+Description:      File comparison for change detection
+Verification:     passed
+Created By:       meta.skill
+Created At:       2025-10-25T02:32:13Z
+Trace ID:         trace-20251025-file.compare
+```
+
+### Audit All Components
+
+```bash
+# Check certification status
+python3 betty/cert_cli.py audit
+
+# Strict mode - fail if any uncertified
+python3 betty/cert_cli.py audit --strict
+```
+
+### List Certified Components
+
+```bash
+# List all certified components
+python3 betty/cert_cli.py list --certified
+
+# List certified skills only
+python3 betty/cert_cli.py list --certified --type skill
+
+# List uncertified components
+python3 betty/cert_cli.py list --uncertified
+```
+
+## Creating Certified Components
+
+All meta-agents automatically certify components when created with requirement linkage.
+
+### Certify a New Skill
+
+```bash
+python3 agents/meta.skill/meta_skill.py description.md \
+  --requirement-id "REQ-2025-001" \
+  --requirement-description "File comparison capability" \
+  --issue-id "JIRA-123" \
+  --requested-by "dev-team@example.com" \
+  --rationale "Enable automated diff analysis"
+```
+
+Output includes:
+```
+📝 Traceability: trace-20251025-file.compare
+   View trace: python3 betty/trace_cli.py show file.compare
+```
+
+### Certify a New Agent
+
+```bash
+python3 agents/atum/atum.py description.md \
+  --requirement-id "REQ-2025-002" \
+  --requirement-description "Automated code review" \
+  --issue-id "JIRA-124" \
+  --requested-by "security-team@example.com" \
+  --rationale "Reduce manual security review time"
+```
+
+### Certify a New Hook
+
+```bash
+python3 agents/meta.hook/meta_hook.py description.md \
+  --requirement-id "REQ-2025-003" \
+  --requirement-description "Pre-commit quality checks" \
+  --issue-id "JIRA-125" \
+  --requested-by "qa-team@example.com" \
+  --rationale "Enforce code standards before commits"
+```
+
+## Migrating Existing Components
+
+For components created before the certification system existed, use bulk certification:
+
+### Bulk Certify All Components
+
+```bash
+# Dry run - see what would be certified
+python3 betty/bulk_certify.py --dry-run
+
+# Certify all uncertified components
+python3 betty/bulk_certify.py
+
+# Use custom requirement prefix
+python3 betty/bulk_certify.py --requirement-prefix REQ-MIGRATE
+```
+
+This creates traceability records for legacy components with:
+- Requirement ID: `REQ-LEGACY-{COMPONENT-NAME}`
+- Source: "Bulk certification - existing component"
+- Created by: "bulk-certification"
+- Tags: `["legacy", "bulk-certified"]`
+
+## Certification Enforcement Modes
+
+Control certification enforcement via environment variable:
+
+```bash
+# STRICT (default) - Block uncertified components
+export BETTY_CERT_MODE=strict
+
+# DEV - Warn but allow uncertified (for development)
+export BETTY_CERT_MODE=dev
+
+# DISABLED - No enforcement (not recommended)
+export BETTY_CERT_MODE=disabled
+```
+
+### Strict Mode (Production)
+
+```bash
+export BETTY_CERT_MODE=strict
+python3 skills/uncertified_skill/uncertified_skill.py
+```
+
+Output:
+```
+❌ CERTIFICATION FAILED
+Component: uncertified.skill (skill)
+Operation: execution
+Reason: Component lacks required traceability certification
+
+Betty Framework requires full traceability for all components.
+To certify this component, create it with requirement linkage:
+
+  python3 agents/meta.skill/meta_skill.py description.md \
+    --requirement-id REQ-XXX \
+    --requirement-description '...'
+```
+
+### Dev Mode (Development)
+
+```bash
+export BETTY_CERT_MODE=dev
+python3 skills/uncertified_skill/uncertified_skill.py
+```
+
+Output:
+```
+⚠️  WARNING: Component uncertified.skill lacks certification
+   Allowing execution in DEV mode
+   In production, this component would be blocked
+```
+
+## Runtime Execution Tracking
+
+Certified skills automatically log execution for audit trails:
+
+```python
+# Skills generated by meta.skill include certification decorator
+@certified_skill("file.compare")
+def execute(self, file_path_1=None, file_path_2=None):
+    # ... skill implementation ...
+    pass
+```
+
+Every execution is logged as a verification check:
+
+```json
+{
+  "check_type": "execution",
+  "tool": "betty.runtime",
+  "result": "passed",
+  "details": {
+    "operation": "execute",
+    "timestamp": "2025-10-25T03:30:00Z",
+    "success": true,
+    "inputs": {"file_path_1": "a.txt", "file_path_2": "b.txt"},
+    "result": "success",
+    "duration_ms": 145.2
+  }
+}
+```
+
+View execution history:
+```bash
+python3 betty/trace_cli.py show file.compare
+```
+
+## Compliance Reporting
+
+### Generate Certification Report
+
+```bash
+# Text format
+python3 betty/cert_cli.py report
+
+# JSON format (for tooling/CI)
+python3 betty/cert_cli.py report --format json
+```
+
+JSON output structure:
+```json
+{
+  "audit_type": "betty_framework_certification",
+  "total_certified": 46,
+  "total_uncertified": 0,
+  "certification_rate": 100.0,
+  "certified_components": [
+    {
+      "component_id": "file.compare",
+      "certified": true,
+      "requirement_id": "REQ-2025-001",
+      "requirement_description": "File comparison capability",
+      "verification_status": "passed",
+      "created_by": "meta.skill",
+      "created_at": "2025-10-25T02:32:13Z",
+      "trace_id": "trace-20251025-file.compare"
+    }
+  ],
+  "uncertified_components": []
+}
+```
+
+### CI/CD Integration
+
+Add to CI pipeline:
+
+```yaml
+# .github/workflows/certification-check.yml
+name: Certification Audit
+
+on: [push, pull_request]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check Betty Certification
+        run: |
+          export BETTY_CERT_MODE=strict
+          python3 betty/cert_cli.py audit --strict
+```
+
+Exit codes:
+- `0` - All components certified
+- `1` - Uncertified components found (strict mode)
+
+## Requirement Fields
+
+When certifying components, provide these fields:
+
+| Field | Required | Description | Example |
+|-------|----------|-------------|---------|
+| `--requirement-id` | ✅ Yes | Unique requirement identifier | `REQ-2025-001` |
+| `--requirement-description` | ✅ Yes | What the component accomplishes | `"File comparison capability"` |
+| `--requirement-source` | No | Source document/system | `"Product Requirements.md"` |
+| `--issue-id` | No | Issue tracking ID | `"JIRA-123"` |
+| `--requested-by` | No | Who requested it | `"dev-team@example.com"` |
+| `--rationale` | No | Why it's needed | `"Enable automated diff analysis"` |
+
+## Best Practices
+
+### 1. Always Use Requirement Linkage
+
+❌ **Don't:**
+```bash
+python3 agents/meta.skill/meta_skill.py description.md
+```
+
+✅ **Do:**
+```bash
+python3 agents/meta.skill/meta_skill.py description.md \
+  --requirement-id "REQ-2025-001" \
+  --requirement-description "File comparison capability"
+```
+
+### 2. Use Meaningful Requirement IDs
+
+❌ **Don't:**
+```
+--requirement-id "REQ-1"
+```
+
+✅ **Do:**
+```
+--requirement-id "REQ-2025-SECURITY-001"
+```
+
+### 3. Link to Issue Tracking
+
+✅ **Do:**
+```bash
+--issue-id "JIRA-123" \
+--requested-by "security-team@example.com"
+```
+
+### 4. Run Audits Regularly
+
+```bash
+# Add to daily cron
+0 9 * * * cd /path/to/betty && python3 betty/cert_cli.py audit --strict
+```
+
+### 5. Use Strict Mode in Production
+
+```bash
+# In production environments
+export BETTY_CERT_MODE=strict
+
+# In CI/CD
+python3 betty/cert_cli.py audit --strict || exit 1
+```
+
+## Troubleshooting
+
+### Component Shows as Uncertified
+
+**Problem:**
+```bash
+$ python3 betty/cert_cli.py check my.skill
+❌ Component 'my.skill' not found
+```
+
+**Solution:**
+Component was created without traceability. Recreate with requirement linkage:
+
+```bash
+python3 agents/meta.skill/meta_skill.py description.md \
+  --requirement-id "REQ-XXX" \
+  --requirement-description "..."
+```
+
+### Execution Blocked in Strict Mode
+
+**Problem:**
+```
+❌ CERTIFICATION FAILED
+Component lacks required traceability certification
+```
+
+**Solutions:**
+
+1. **For development:** Use dev mode
+   ```bash
+   export BETTY_CERT_MODE=dev
+   ```
+
+2. **For production:** Certify the component
+   ```bash
+   python3 betty/bulk_certify.py  # One-time bulk certification
+   ```
+
+### YAML Parse Errors During Bulk Certification
+
+**Problem:**
+```
+❌ unknown - ERROR: YAML parse error: mapping values are not allowed here
+```
+
+**Solution:**
+Fix the YAML syntax in the component file, then re-run bulk certification.
+
+## Architecture
+
+### Components
+
+1. **`betty/certification.py`** - Core certification logic
+   - `ComponentCertification` class
+   - Certification validators
+   - Enforcement decorators (`@certified_skill`, `@certified_agent`)
+
+2. **`betty/cert_cli.py`** - Certification management CLI
+   - Check certification status
+   - List certified/uncertified components
+   - Audit all components
+   - Generate compliance reports
+
+3. **`betty/bulk_certify.py`** - Bulk certification tool
+   - Retroactively certify legacy components
+   - Create traceability records for existing code
+
+4. **`betty/traceability.py`** - Traceability system (backend)
+   - Store trace records
+   - Link requirements to components
+   - Track verification results
+
+### Data Flow
+
+```
+┌─────────────────────┐
+│   Create Component  │
+│   (meta.skill, etc) │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│ Requirement Linkage │
+│ --requirement-id    │
+│ --requirement-desc  │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│ Create Trace Record │
+│ .betty-traces/      │
+│ trace-{id}.json     │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│ Component Certified │
+│ ✅ Ready to execute │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│ Runtime Execution   │
+│ @certified_skill    │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│ Log Execution       │
+│ (audit trail)       │
+└─────────────────────┘
+```
+
+## Compliance Use Cases
+
+### SOC2 Compliance
+
+**Requirement:** Change management and audit trails
+
+**Betty Solution:**
+- Complete traceability from requirement to implementation
+- Execution logs for all component runs
+- Certification audit reports for auditors
+
+```bash
+# Generate SOC2 audit report
+python3 betty/cert_cli.py report --format json > soc2-audit.json
+```
+
+### ISO 27001 Compliance
+
+**Requirement:** Information security management
+
+**Betty Solution:**
+- Requirement linkage to security policies
+- Verification checks logged
+- Access control via certification enforcement
+
+### GDPR Compliance
+
+**Requirement:** Data processing accountability
+
+**Betty Solution:**
+- Document data processing requirements
+- Link components to GDPR articles
+- Audit trail of all data processing operations
+
+### FDA 21 CFR Part 11
+
+**Requirement:** Electronic records and signatures
+
+**Betty Solution:**
+- Complete record integrity (SHA-256 hashes)
+- Audit trails with timestamps
+- User attribution (created_by, requested_by)
+
+## API Reference
+
+### Python API
+
+```python
+from betty.certification import get_certifier, certified_skill
+
+# Check if component is certified
+certifier = get_certifier()
+is_cert = certifier.is_certified("file.compare")
+
+# Get certification details
+details = certifier.get_certification_details("file.compare")
+
+# List all certified components
+certified = certifier.list_certified_components()
+
+# Use decorator for skills
+class MySkill:
+    @certified_skill("my.skill")
+    def execute(self):
+        # Certification checked before execution
+        # Execution logged for audit trail
+        pass
+```
+
+### CLI Reference
+
+```bash
+# Check certification
+betty/cert_cli.py check <component_id>
+
+# List components
+betty/cert_cli.py list [--certified|--uncertified] [--type agent|skill|hook]
+
+# Audit all components
+betty/cert_cli.py audit [--strict]
+
+# Generate report
+betty/cert_cli.py report [--format text|json]
+
+# Bulk certify
+betty/bulk_certify.py [--dry-run] [--requirement-prefix PREFIX]
+```
+
+## Future Enhancements
+
+Planned features:
+- Automated requirement extraction from issue trackers (JIRA, GitHub Issues)
+- Certificate expiration and renewal workflow
+- Component dependency certification (certify dependency tree)
+- Real-time certification dashboard
+- Integration with external compliance tools
+
+## Support
+
+- **Schema**: See `schemas/traceability-record.json`
+- **Traceability Docs**: See `docs/TRACEABILITY.md`
+- **Example Components**: See `examples/` directory
+- **CLI Help**: `python3 betty/cert_cli.py --help`
+
+---
+
+**Remember: Nothing runs in Betty without certification. This ensures complete audit trails and compliance for all operations.**

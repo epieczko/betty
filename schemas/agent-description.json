@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Agent Description",
+  "description": "Schema for natural language agent descriptions",
+  "type": "object",
+  "required": ["name", "purpose"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9._-]+$",
+      "description": "Desired agent name (lowercase, numbers, dots, underscores, hyphens)"
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 20,
+      "description": "Natural language description of what the agent should do"
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Expected input artifacts or data types"
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Expected output artifacts or data types"
+    },
+    "constraints": {
+      "type": "object",
+      "properties": {
+        "permissions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Permission constraints (e.g., 'no network access')"
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Required or excluded skills"
+        }
+      }
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Example use cases or scenarios"
+    }
+  }
+}

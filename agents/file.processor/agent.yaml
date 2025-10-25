@@ -1,0 +1,40 @@
+name: file.processor
+description: Processes files through various transformations including format conversion,
+  compression, encryption, and batch operations.
+skills_available: []
+permissions: []
+artifact_metadata:
+  consumes:
+  - type: file-list
+    description: Input artifact of type file-list
+  - type: transformation-config
+    description: Input artifact of type transformation-config
+  produces:
+  - type: processed-files
+    description: Output artifact of type processed-files
+  - type: processing-report
+    description: Output artifact of type processing-report
+  - type: file.convert
+    description: Output artifact of type file.convert
+  - type: file.compress
+    description: Output artifact of type file.compress
+  - type: file.encrypt
+    description: Output artifact of type file.encrypt
+  - type: batch.processor
+    description: Output artifact of type batch.processor
+  - type: 'Sequential: Process files one by one'
+    description: 'Output artifact of type Sequential: Process files one by one'
+  - type: 'Parallel: Process multiple files concurrently'
+    description: 'Output artifact of type Parallel: Process multiple files concurrently'
+  - type: 'Pipeline: Chain multiple transformations'
+    description: 'Output artifact of type Pipeline: Chain multiple transformations'
+  - type: Files processed successfully
+    description: Output artifact of type Files processed successfully
+  - type: Files that failed with error details
+    description: Output artifact of type Files that failed with error details
+  - type: Processing time and performance metrics
+    description: Output artifact of type Processing time and performance metrics
+  - type: Storage space saved
+    description: Output artifact of type Storage space saved
+  - type: Transformation details for each file
+    description: Output artifact of type Transformation details for each file

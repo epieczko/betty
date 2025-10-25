@@ -1,0 +1,32 @@
+name: code.reviewer
+description: Analyzes code changes and provides comprehensive feedback on code quality,
+  security vulnerabilities, performance issues, and adherence to best practices.
+skills_available: []
+permissions: []
+artifact_metadata:
+  consumes:
+  - type: code-diff
+    description: Input artifact of type code-diff
+  - type: coding-standards
+    description: Input artifact of type coding-standards
+  produces:
+  - type: review-report
+    description: Output artifact of type review-report
+  - type: suggestion-list
+    description: Output artifact of type suggestion-list
+  - type: static-analysis
+    description: Output artifact of type static-analysis
+  - type: security-scan
+    description: Output artifact of type security-scan
+  - type: style-check
+    description: Output artifact of type style-check
+  - type: List of issues found with line numbers
+    description: Output artifact of type List of issues found with line numbers
+  - type: Severity and category for each issue
+    description: Output artifact of type Severity and category for each issue
+  - type: Suggested fixes with code examples
+    description: Output artifact of type Suggested fixes with code examples
+  - type: Overall code quality score
+    description: Output artifact of type Overall code quality score
+  - type: Compliance status with coding standards
+    description: Output artifact of type Compliance status with coding standards

@@ -1,0 +1,47 @@
+name: data.validator
+description: Validates data files against schemas, business rules, and data quality
+  standards. Ensures data integrity, completeness, and compliance.
+skills_available:
+- workflow.validate
+- api.validate
+permissions: []
+artifact_metadata:
+  consumes:
+  - type: data-file
+    description: Input artifact of type data-file
+  - type: schema-definition
+    description: Input artifact of type schema-definition
+  - type: validation-rules
+    description: Input artifact of type validation-rules
+  produces:
+  - type: validation-report
+    schema: schemas/validation-report.json
+    file_pattern: '*.validation.json'
+    content_type: application/json
+    description: Structured validation results
+  - type: data-quality-metrics
+    description: Output artifact of type data-quality-metrics
+  - type: data.validatejson
+    description: Output artifact of type data.validatejson
+  - type: schema.validate
+    description: Output artifact of type schema.validate
+  - type: data.profile
+    description: Output artifact of type data.profile
+  - type: 'Structural: Schema and format validation'
+    description: 'Output artifact of type Structural: Schema and format validation'
+  - type: 'Semantic: Business rule validation'
+    description: 'Output artifact of type Semantic: Business rule validation'
+  - type: 'Statistical: Data quality profiling'
+    description: 'Output artifact of type Statistical: Data quality profiling'
+  - type: Validation status
+    description: Output artifact of type Validation status
+  - type: List of violations with severity
+    description: Output artifact of type List of violations with severity
+  - type: Data quality score
+    description: Output artifact of type Data quality score
+  - type: Statistics
+    description: Output artifact of type Statistics
+  - type: Recommendations for fixing issues
+    description: Output artifact of type Recommendations for fixing issues
+  - type: Compliance status with standards
+    description: Output artifact of type Compliance status with standards

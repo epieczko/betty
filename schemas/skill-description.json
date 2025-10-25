@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Skill Description",
+  "description": "Natural language description of a skill's requirements, inputs, outputs, and implementation details. Used by meta.skill to generate complete skill implementations.",
+  "type": "object",
+  "required": [
+    "name",
+    "purpose"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Skill name in domain.action format"
+    },
+    "purpose": {
+      "type": "string",
+      "description": "What the skill does"
+    },
+    "inputs": {
+      "type": "array",
+      "description": "Input parameters or artifact types"
+    },
+    "outputs": {
+      "type": "array",
+      "description": "Output artifact types"
+    },
+    "permissions": {
+      "type": "array",
+      "description": "Required permissions"
+    },
+    "implementation_notes": {
+      "type": "string",
+      "description": "Implementation guidance"
+    }
+  }
+}

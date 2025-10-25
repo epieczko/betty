@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Pipeline Suggestion",
+  "description": "Suggested multi-agent workflow with step-by-step execution plan. Ensures artifact compatibility and provides rationale for agent selection.",
+  "type": "object",
+  "required": [
+    "name",
+    "steps",
+    "artifact_flow"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Pipeline name"
+    },
+    "description": {
+      "type": "string",
+      "description": "What this pipeline accomplishes"
+    },
+    "steps": {
+      "type": "array",
+      "description": "Ordered list of agents to execute"
+    },
+    "artifact_flow": {
+      "type": "array",
+      "description": "How artifacts flow between steps"
+    },
+    "rationale": {
+      "type": "string",
+      "description": "Why this pipeline works"
+    },
+    "confidence": {
+      "type": "string",
+      "description": "Confidence level (high, medium, low)"
+    },
+    "estimated_duration": {
+      "type": "string",
+      "description": "Expected execution time"
+    }
+  }
+}

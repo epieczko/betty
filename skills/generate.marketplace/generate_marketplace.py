@@ -361,6 +361,75 @@ def write_marketplace_file(data: Dict[str, Any], output_path: str):
     logger.info(f"✅ Written marketplace file to {output_path}")
 
 
+def generate_claude_code_marketplace() -> Dict[str, Any]:
+    """
+    Generate Claude Code marketplace.json file.
+
+    This file lists Betty Framework as an installable plugin in Claude Code's
+    marketplace format, as specified in Claude Code's plugin marketplace documentation.
+
+    Returns:
+        Claude Code marketplace JSON structure
+    """
+    # Load plugin.yaml to get current metadata
+    plugin_yaml_path = os.path.join(BASE_DIR, "plugin.yaml")
+
+    try:
+        import yaml
+        with open(plugin_yaml_path, 'r') as f:
+            plugin_data = yaml.safe_load(f)
+    except Exception as e:
+        logger.warning(f"Could not load plugin.yaml: {e}. Using defaults.")
+        plugin_data = {}
+
+    # Build Claude Code marketplace structure
+    marketplace = {
+        "name": "betty-marketplace",
+        "version": plugin_data.get("version", "1.0.0"),
+        "description": "Betty Framework Plugin Marketplace - Enterprise-grade AI-assisted engineering framework",
+        "owner": {
+            "name": plugin_data.get("author", {}).get("name", "RiskExec"),
+            "email": plugin_data.get("author", {}).get("email", "platform@riskexec.com"),
+            "url": plugin_data.get("author", {}).get("url", "https://github.com/epieczko/betty")
+        },
+        "metadata": {
+            "homepage": plugin_data.get("metadata", {}).get("homepage", "https://github.com/epieczko/betty"),
+            "repository": plugin_data.get("metadata", {}).get("repository", "https://github.com/epieczko/betty"),
+            "documentation": plugin_data.get("metadata", {}).get("documentation", "https://github.com/epieczko/betty/tree/main/docs"),
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "generated_by": "generate.marketplace skill"
+        },
+        "plugins": [
+            {
+                "name": plugin_data.get("name", "betty-framework"),
+                "source": ".",
+                "version": plugin_data.get("version", "1.0.0"),
+                "description": plugin_data.get("description", "Betty Framework for structured AI-assisted engineering"),
+                "author": {
+                    "name": plugin_data.get("author", {}).get("name", "RiskExec"),
+                    "email": plugin_data.get("author", {}).get("email", "platform@riskexec.com"),
+                    "url": plugin_data.get("author", {}).get("url", "https://github.com/epieczko/betty")
+                },
+                "license": plugin_data.get("license", "MIT"),
+                "tags": plugin_data.get("metadata", {}).get("tags", [
+                    "framework",
+                    "api-development",
+                    "workflow",
+                    "governance",
+                    "enterprise"
+                ]),
+                "requirements": plugin_data.get("requirements", {
+                    "python": ">=3.11",
+                    "packages": ["pyyaml"]
+                }),
+                "strict": True  # Requires plugin.yaml manifest
+            }
+        ]
+    }
+
+    return marketplace
+
+
 def main():
     """Main CLI entry point."""
     logger.info("Starting marketplace catalog generation from registries...")
@@ -392,12 +461,18 @@ def main():
         commands_marketplace = generate_commands_marketplace(commands_registry)
         hooks_marketplace = generate_hooks_marketplace(hooks_registry)
 
-        # Write to files
-        logger.info("Writing marketplace files...")
+        # Write Betty marketplace catalogs to files
+        logger.info("Writing Betty marketplace files...")
         write_marketplace_file(skills_marketplace, skills_output_path)
         write_marketplace_file(agents_marketplace, agents_output_path)
         write_marketplace_file(commands_marketplace, commands_output_path)
         write_marketplace_file(hooks_marketplace, hooks_output_path)
+
+        # Generate and write Claude Code marketplace.json
+        logger.info("Generating Claude Code marketplace.json...")
+        claude_marketplace = generate_claude_code_marketplace()
+        claude_marketplace_path = os.path.join(BASE_DIR, ".claude-plugin", "marketplace.json")
+        write_marketplace_file(claude_marketplace, claude_marketplace_path)
 
         # Report results
         result = {
@@ -407,6 +482,7 @@ def main():
             "agents_output": agents_output_path,
             "commands_output": commands_output_path,
             "hooks_output": hooks_output_path,
+            "claude_marketplace_output": claude_marketplace_path,
             "skills_certified": skills_marketplace["certified_count"],
             "skills_total": skills_marketplace["total_skills"],
             "agents_certified": agents_marketplace["certified_count"],
@@ -428,6 +504,7 @@ def main():
         logger.info(f"   - {agents_output_path}")
         logger.info(f"   - {commands_output_path}")
         logger.info(f"   - {hooks_output_path}")
+        logger.info(f"   - {claude_marketplace_path} (Claude Code format)")
 
         print(json.dumps(result, indent=2))
         sys.exit(0)

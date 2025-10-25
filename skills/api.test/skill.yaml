@@ -1,0 +1,27 @@
+name: api.test
+version: 0.1.0
+description: Test REST API endpoints by executing HTTP requests and validating responses
+  against expected outcomes
+inputs:
+- api_spec_path
+- base_url
+- test_scenarios_path (optional)
+- auth_config_path (optional)
+outputs:
+- test_results.json
+- test_report.html
+status: active
+permissions:
+- network:http
+- filesystem:read
+- filesystem:write
+entrypoints:
+- command: /api/test
+  handler: api_test.py
+  runtime: python
+  description: Test REST API endpoints by executing HTTP requests and validating responses
+    against expected outcome
+artifact_metadata:
+  produces:
+  - type: test-result
+  - type: test-report

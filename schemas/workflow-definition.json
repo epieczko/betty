@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://betty-framework.dev/schemas/workflow-definition.json",
+  "title": "Betty Workflow Definition",
+  "description": "Schema for Betty Framework workflow definitions",
+  "type": "object",
+  "required": ["name", "version", "steps"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Workflow name"
+    },
+    "version": {
+      "type": "string",
+      "description": "Workflow version (semantic versioning)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable workflow description"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional metadata",
+      "properties": {
+        "author": {"type": "string"},
+        "created_at": {"type": "string", "format": "date-time"},
+        "tags": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "inputs": {
+      "type": "array",
+      "description": "Workflow inputs",
+      "items": {
+        "type": "object",
+        "required": ["name", "type"],
+        "properties": {
+          "name": {"type": "string"},
+          "type": {"type": "string"},
+          "required": {"type": "boolean", "default": false},
+          "default": {},
+          "description": {"type": "string"}
+        }
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "description": "Workflow outputs",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {"type": "string"},
+          "type": {"type": "string"},
+          "description": {"type": "string"}
+        }
+      }
+    },
+    "steps": {
+      "type": "array",
+      "description": "Ordered workflow steps",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "skill"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Step name"
+          },
+          "skill": {
+            "type": "string",
+            "description": "Skill to execute"
+          },
+          "inputs": {
+            "type": "object",
+            "description": "Inputs to pass to the skill"
+          },
+          "condition": {
+            "type": "string",
+            "description": "Optional condition for step execution"
+          },
+          "on_failure": {
+            "type": "string",
+            "enum": ["stop", "continue", "retry"],
+            "default": "stop",
+            "description": "Behavior on step failure"
+          },
+          "retry": {
+            "type": "object",
+            "properties": {
+              "max_attempts": {"type": "integer", "minimum": 1},
+              "delay_seconds": {"type": "number", "minimum": 0}
+            }
+          }
+        }
+      }
+    },
+    "error_handling": {
+      "type": "object",
+      "description": "Global error handling configuration",
+      "properties": {
+        "on_error": {
+          "type": "string",
+          "enum": ["stop", "continue"],
+          "default": "stop"
+        },
+        "cleanup_steps": {
+          "type": "array",
+          "description": "Steps to run on workflow failure",
+          "items": {"type": "string"}
+        }
+      }
+    }
+  }
+}
