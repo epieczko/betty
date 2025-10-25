@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Great Expectations Suites is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Great Expectations Suites artifact defines data quality validation rules, expectation suites, validation checkpoints, and automated testing procedures using Great Expectations, dbt tests, Soda Core, Monte Carlo Data, and data contracts frameworks. This artifact establishes comprehensive data quality assertions that prevent data pipeline failures, catch data anomalies, and ensure downstream consumers receive clean, reliable data.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Data quality issues are among the most common causes of ML model failures, incorrect business decisions, and customer-facing bugs. This artifact specifies expectation suites that validate data schemas, value ranges, null rates, uniqueness constraints, distribution properties, and referential integrity. It leverages Great Expectations' extensive expectations catalog (expect_column_values_to_be_between, expect_column_to_exist, expect_table_row_count_to_be_between), integrates with data pipelines through validation checkpoints, and provides data profiling capabilities that automatically generate expectations from historical data patterns.
 
 ### Strategic Importance
 
@@ -20,27 +20,44 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines comprehensive data quality validation suites that programmatically test data at rest and in motion, ensuring data meets quality standards before being consumed by downstream applications, ML models, and business intelligence tools. It prevents data quality issues from propagating through data pipelines and provides early detection of schema changes, data drift, and anomalies.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Great Expectations expectation suites and validation definitions
+- Data profiling and automatic expectation generation
+- Validation checkpoints integrated into data pipelines
+- Schema validation (column presence, data types, column order)
+- Value constraints (range, regex, enum, null rate limits)
+- Statistical expectations (mean, std dev, quantiles, distribution tests)
+- Referential integrity checks (foreign key validation)
+- Uniqueness and duplicate detection expectations
+- Custom expectations for domain-specific validation
+- dbt tests (schema tests, data tests, custom generic tests)
+- Soda Core checks and anomaly detection
+- Data contracts between producers and consumers
+- Validation failure alerting and incident response
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Data transformation logic (covered by ETL/ELT documentation)
+- Feature engineering validation (covered by feature-store-contracts)
+- ML model evaluation metrics (covered by evaluation-protocols)
+- Data pipeline orchestration configuration
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Data Engineers building and maintaining data quality tests
+- Analytics Engineers implementing dbt tests and data contracts
+- Data Platform Engineers integrating validation into pipelines
+- ML Engineers ensuring training data quality
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Data Scientists consuming validated datasets
+- Data Analysts relying on clean data for reporting
+- Data Quality teams monitoring data health metrics
+- Product Managers understanding data quality SLAs
 
 ## Document Information
 
@@ -106,19 +123,28 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Start with Schema Validation**: Always validate schema (columns exist, types correct) before value-level validation
+**Profile First**: Use data profiling to automatically generate baseline expectations from historical data
+**Critical vs. Warning**: Distinguish critical expectations (fail pipeline) from warnings (alert but continue)
+**Version Expectation Suites**: Version control expectation suites alongside data pipeline code
+**Test in Development**: Run validation on development/staging data before deploying to production
+**Incremental Testing**: Add expectations incrementally; don't try to define all expectations upfront
+**Validate at Boundaries**: Add checkpoints at data ingestion, transformation stages, and before consumption
+**Document Business Logic**: Include business context in expectation descriptions for maintainability
+**Monitor Test Coverage**: Track which columns and tables have validation coverage
+**Fail Fast**: Place critical schema validations early in pipeline to prevent wasted computation
+**Alert on Anomalies**: Use statistical expectations to detect anomalous patterns, not just hard failures
+**Maintain Test Suites**: Regularly review and update expectations as data evolves
+**Automate Data Docs**: Leverage auto-generated data documentation for transparency
+**Test Freshness**: Include freshness checks for time-sensitive data
+**Validate Uniqueness**: Always test uniqueness constraints on ID columns
+**Range Validation**: Set reasonable bounds on numeric columns to catch data corruption
+**Null Rate Thresholds**: Allow some nulls but alert when null rates exceed historical baselines
+**Cross-Column Checks**: Validate relationships between columns (e.g., start_date < end_date)
+**Reference Data Validation**: Validate against reference tables and lookup tables
+**Custom Expectations**: Build custom expectations for complex business logic not covered by built-in expectations
+**Integration Testing**: Test expectations against representative sample data before deployment
+**Checkpoint Placement**: Add validation checkpoints after major transformations and before serving data
 
 ## Quality Criteria
 
@@ -165,7 +191,139 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Data Quality Frameworks**:
+- Great Expectations (Python-based data validation framework)
+- dbt tests (schema tests, data tests, custom tests)
+- Soda Core (open-source data quality testing)
+- Monte Carlo Data (data observability platform)
+- Datafold (data diff and quality monitoring)
+- Elementary Data (dbt-native data observability)
+- Anomalo (ML-powered data quality monitoring)
+- AWS Deequ (Spark-based data quality library)
+
+**Great Expectations Core Concepts**:
+- Expectation Suites (collections of expectations for datasets)
+- Expectations (assertions about data properties)
+- Validation Results (outcomes of running expectations)
+- Checkpoints (validation runs at pipeline stages)
+- Data Contexts (project configuration and metadata)
+- Data Docs (auto-generated validation documentation)
+- Profilers (automatic expectation generation from data)
+
+**Common Great Expectations**:
+- expect_table_row_count_to_be_between (validate row counts)
+- expect_column_to_exist (schema validation)
+- expect_column_values_to_be_in_set (enum validation)
+- expect_column_values_to_be_between (range validation)
+- expect_column_values_to_not_be_null (null rate validation)
+- expect_column_values_to_be_unique (uniqueness validation)
+- expect_column_values_to_match_regex (pattern validation)
+- expect_column_mean_to_be_between (statistical validation)
+- expect_column_values_to_be_of_type (type validation)
+- expect_table_columns_to_match_ordered_list (schema order validation)
+
+**dbt Test Types**:
+- Schema tests (unique, not_null, accepted_values, relationships)
+- Data tests (custom SQL assertions)
+- Generic tests (reusable parameterized tests)
+- Singular tests (one-off SQL assertions)
+- dbt-expectations package (Great Expectations for dbt)
+- dbt test severity levels (warn, error)
+
+**Soda Core Checks**:
+- Schema checks (column presence, types)
+- Metric checks (row count, null count, distinct count)
+- Anomaly detection (automatic threshold learning)
+- Reference checks (comparing datasets)
+- Custom SQL checks
+- Distribution checks
+- Freshness checks (data recency)
+
+**Data Contracts**:
+- Schema contracts (column names, types, constraints)
+- SLA contracts (freshness, completeness, accuracy)
+- Semantic contracts (business logic validation)
+- Version contracts (schema evolution guarantees)
+- Consumer expectations (downstream requirements)
+
+**Schema Validation**:
+- Column existence and naming conventions
+- Data type validation and compatibility
+- Column order requirements
+- Required vs. optional columns
+- Schema evolution (backward/forward compatibility)
+- Nested schema validation (JSON, struct columns)
+
+**Value Validation**:
+- Range constraints (min/max bounds)
+- Enum validation (allowed values)
+- Regex pattern matching
+- Custom value validation logic
+- Cross-column validation (relationship checks)
+- Conditional validation (if-then rules)
+
+**Statistical Validation**:
+- Distribution checks (mean, median, std dev, skewness)
+- Quantile validation (p50, p95, p99)
+- Outlier detection (IQR, z-score methods)
+- Correlation validation (between columns)
+- Time-series validation (trend, seasonality)
+- Drift detection (comparing to baseline)
+
+**Data Freshness**:
+- Maximum data age validation
+- Update frequency checks
+- Partition recency validation
+- Streaming data lag monitoring
+- SLA compliance for freshness
+
+**Referential Integrity**:
+- Foreign key validation
+- Parent-child relationship checks
+- Join integrity validation
+- Orphaned record detection
+- Many-to-many relationship validation
+
+**Data Profiling**:
+- Automatic statistic generation
+- Value distribution analysis
+- Column correlation discovery
+- Missing value analysis
+- Pattern extraction (regex generation)
+- Automated expectation suite generation
+
+**Integration Patterns**:
+- Airflow operators for validation checkpoints
+- dbt post-hooks for test execution
+- Spark DataFrame validation
+- Pandas DataFrame validation
+- SQL-based validation
+- Streaming data validation (Kafka, Kinesis)
+
+**Validation Actions**:
+- Fail pipeline on critical validation failures
+- Send alerts (Slack, PagerDuty, email)
+- Log validation results to data catalog
+- Update data quality dashboards
+- Quarantine invalid data
+- Trigger data quality incidents
+
+**Monitoring & Observability**:
+- Data quality dashboards (validation pass rate)
+- Test execution monitoring
+- Expectation failure trending
+- Data drift detection over time
+- Anomaly detection and alerting
+- Data lineage with quality annotations
+
+**Tools & Libraries**:
+- great_expectations Python package
+- dbt Core and dbt Cloud
+- Soda Core CLI
+- AWS Deequ (Scala/Spark)
+- Cerberus (Python validation)
+- Pandera (Pandas DataFrame validation)
+- pydantic (Python data validation)
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

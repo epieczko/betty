@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Onboarding Checklist is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Onboarding Checklist is a critical deliverable for automating and standardizing employee onboarding through Identity and Access Management (IAM) platforms. This artifact orchestrates Day 1 access provisioning using SCIM 2.0 automation, integrates with HR systems like Workday and BambooHR for Joiner/Mover/Leaver (JML) workflows, and leverages platforms such as Okta Workflows, Azure AD Lifecycle Management, and SailPoint IdentityIQ to ensure zero-touch provisioning.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+The checklist spans pre-boarding through 90-day milestones, covering account creation, application access, hardware provisioning, security training completion, and manager-led onboarding activities. It integrates with ITSM platforms (ServiceNow, Jira Service Management) for ticket automation, establishes buddy system assignments, and tracks completion of mandatory compliance training. The artifact supports SOX ITGC controls for segregation of duties validation and provides audit trails for access certification compliance.
 
 ### Strategic Importance
 
@@ -20,27 +20,44 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the comprehensive framework for employee onboarding automation and manual activities, ensuring Day 1 access provisioning, systematic application access grants, hardware setup, training curriculum completion, and 30-60-90 day milestone tracking. It standardizes the onboarding experience while enabling role-based customization and automated workflow orchestration.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Pre-boarding activities (offer acceptance to Day 1)
+- SCIM-based account provisioning to directory services (Active Directory, Azure AD, Okta)
+- Application access requests via IGA platforms (SailPoint, Saviynt, CyberArk)
+- Hardware procurement and configuration (laptop, mobile device, peripherals)
+- Physical access provisioning (building badges, parking, key cards)
+- Security awareness training and compliance certifications
+- Manager-led orientation and buddy system assignments
+- 30-60-90 day check-ins and milestone reviews
+- Integration with HRIS (Workday, BambooHR, ADP) for automated triggers
+- ServiceNow/Jira ticket creation and tracking
+- Role-based access templates and provisioning profiles
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Offboarding and termination procedures (see offboarding-checklist)
+- Detailed application-specific training curricula
+- Performance management and goal setting processes
+- Compensation and benefits administration
+- Organizational change management for restructures
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- IT Operations teams responsible for access provisioning
+- HR Business Partners and People Operations teams
+- IAM Administrators managing identity lifecycle
+- Hiring Managers coordinating team onboarding
+- Help Desk teams handling access requests
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Security teams validating access controls
+- Compliance teams auditing onboarding processes
+- Internal Audit for SOX ITGC reviews
+- New employees as self-service checklist reference
 
 ## Document Information
 
@@ -106,19 +123,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Automation-First Approach**: Leverage SCIM 2.0 and automated workflows to eliminate manual provisioning; aim for 90%+ zero-touch onboarding
+**HRIS as Source of Truth**: Configure Workday, BambooHR, or equivalent as authoritative source triggering all downstream provisioning
+**Pre-Boarding Excellence**: Initiate account creation and hardware procurement 5-7 days before start date to ensure Day 1 readiness
+**Role-Based Templates**: Create provisioning profiles by role/department to standardize access patterns and reduce manual decision-making
+**Manager Self-Service**: Empower hiring managers with self-service portals for non-standard access requests and onboarding customization
+**Buddy System Integration**: Systematically assign onboarding buddies through automated matching based on role, location, and experience
+**30-60-90 Day Milestones**: Structure check-ins at 30, 60, and 90 days with automated reminders and completion tracking
+**Compliance-First Training**: Require security awareness, data privacy, and code of conduct training completion before application access grants
+**Hardware Pre-Configuration**: Deploy standardized SOE (Standard Operating Environment) images with pre-installed applications
+**Mobile Device Management**: Enroll mobile devices in MDM (Intune, Jamf, Workspace ONE) during Day 1 setup
+**Access Validation**: Implement manager attestation within first 30 days to validate access appropriateness
+**Feedback Loops**: Collect new hire feedback at 30 and 90 days to continuously improve onboarding experience
+**Audit Trail Retention**: Maintain complete audit logs of all provisioning actions for compliance and troubleshooting
+**Segregation of Duties**: Validate SOD conflicts during provisioning using IGA platform rules
+**Version Control**: Store checklist templates in Git with versioning for rollback capability
+**Metrics Tracking**: Monitor time-to-productivity, Day 1 readiness rate, provisioning SLA compliance, and new hire satisfaction
+**Integration Testing**: Validate all HRIS-to-IAM integrations in staging before production deployment
+**Exception Handling**: Define escalation paths for non-standard access requests requiring approval workflow
+**Documentation Currency**: Update onboarding procedures within 30 days of system or process changes
+**Stakeholder Alignment**: Quarterly reviews with HR, IT, Security, and Compliance to ensure continued alignment
 
 ## Quality Criteria
 
@@ -165,7 +189,57 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Identity & Access Management**:
+- SCIM 2.0 (System for Cross-domain Identity Management) for automated provisioning
+- Okta Workflows for JML (Joiner/Mover/Leaver) automation
+- Azure AD Lifecycle Workflows and Entitlement Management
+- SailPoint IdentityIQ and IdentityNow for IGA
+- Saviynt Enterprise Identity Cloud
+- CyberArk Identity for privileged access onboarding
+- Workday HCM integration for HRIS-driven provisioning
+- BambooHR API for employee data synchronization
+- OneLogin lifecycle management
+- Auth0 B2E (Business to Employee) identity
+- JumpCloud directory-as-a-service onboarding
+- SAML 2.0 and OAuth 2.0 for SSO enablement
+- RBAC (Role-Based Access Control) frameworks
+- ABAC (Attribute-Based Access Control) models
+- Least Privilege Access principles
+
+**ITSM & Workflow Automation**:
+- ServiceNow Employee Center and HRSD modules
+- Jira Service Management for onboarding workflows
+- Workato and Tray.io for integration automation
+- Microsoft Power Automate for provisioning orchestration
+- Zapier for SaaS application integrations
+- PagerDuty for escalation workflows
+
+**HR Systems & Platforms**:
+- Workday HCM as authoritative source
+- BambooHR for SMB onboarding
+- ADP Workforce Now integration
+- UltiPro/UKG Pro for enterprise HR
+- SuccessFactors Employee Central
+- Greenhouse and Lever ATS integration
+- 30-60-90 day plan frameworks
+- New hire orientation best practices
+
+**Training & Compliance**:
+- KnowBe4 for security awareness training
+- SANS Security Awareness for technical roles
+- Compliance training platforms (Ethena, Navex)
+- LMS integration (Cornerstone, Docebo, TalentLMS)
+- SOC 2 CC6.1 (Logical Access Controls)
+- GDPR Article 32 (Security of Processing)
+- NIST SP 800-53 AC-2 (Account Management)
+
+**Access Control Standards**:
+- ISO 27001 A.9.2.1 (User Registration and De-registration)
+- ISO 27001 A.9.2.2 (User Access Provisioning)
+- SOX ITGC controls for access management
+- NIST Cybersecurity Framework PR.AC (Identity Management)
+- CIS Controls v8 - Control 5 (Account Management)
+- COBIT 2019 DSS05.04 (Manage User Identity and Access)
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

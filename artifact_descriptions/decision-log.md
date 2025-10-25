@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Decision Log is a critical governance and audit artifact that provides a chronological record of decision throughout the Portfolio, Governance, and Delivery Ops phase. This structured log serves as both a real-time management tool and a historical record for post-project reviews, audits, and lessons learned activities.
+The Decision Log is a structured governance artifact that captures critical decisions, their rationale, alternatives considered, decision-makers, and outcomes throughout an initiative. Similar to Architectural Decision Records (ADRs) in software development, this log applies decision frameworks like DACI (Driver, Approver, Contributor, Informed) and RAPID (Recommend, Agree, Perform, Input, Decide) to ensure accountability and traceability.
 
-As a cornerstone of program governance, this artifact enables transparency, accountability, and informed decision-making by providing stakeholders with immediate visibility into key events, decisions, and their outcomes. It supports root cause analysis, trend identification, and continuous improvement by maintaining a complete audit trail.
+Modern decision logs are maintained in collaboration platforms (Confluence, Jira, Notion) and leverage decision-making methodologies including decision journals (Annie Duke), pre-mortems (Gary Klein), Cost of Delay (Don Reinertsen), and the Cynefin framework for complexity assessment. The log serves executive leadership, product leaders, and program managers by providing an audit trail for governance, enabling retrospective analysis, and supporting lessons learned. It captures not just what was decided, but why, by whom, and what alternatives were rejected.
 
 ### Strategic Importance
 
@@ -18,27 +18,40 @@ As a cornerstone of program governance, this artifact enables transparency, acco
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+The Decision Log creates a transparent, searchable record of significant decisions throughout an initiative, capturing the decision context, rationale, alternatives considered, decision-makers (using DACI or RAPID frameworks), and outcomes. It enables accountability, supports audit requirements, facilitates knowledge transfer, and provides input for retrospectives and post-implementation reviews. The log answers: What was decided? Why? By whom? What else was considered? What happened?
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Strategic decisions (scope, approach, architecture, investment, priority)
+- Decision record structure (context, decision, rationale, alternatives, consequences)
+- Decision-maker identification using DACI or RAPID frameworks
+- Alternatives considered and reasons for rejection
+- Decision date, status (proposed, accepted, superseded, deprecated)
+- Cost of Delay considerations for prioritization decisions
+- Risk-based decision rationale
+- Outcomes and retrospective analysis
+- Decision dependencies and relationships
+- Links to supporting artifacts (business cases, feasibility studies, technical designs)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Day-to-day tactical decisions (unless significant impact)
+- Meeting minutes (covered in Meeting Minutes, Steering Committee Minutes)
+- Detailed technical specifications (covered in Technical Design Documents)
+- Change requests (covered in Change Log, Change Request artifacts)
+- Risk details (covered in Risk Register)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- **Executive Leadership**: Reviews strategic decisions, accountability, and alignment with strategy
+- **Program Managers**: Tracks decisions affecting program scope, schedule, and resources
+- **Product Leaders**: Documents product strategy and prioritization decisions
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- **Governance & Audit Teams**: Reviews decision-making process and accountability
+- **Portfolio Management**: Assesses decision quality and portfolio alignment
+- **Future Teams**: Learns from historical decisions and rationale (onboarding, knowledge transfer)
 
 ## Document Information
 
@@ -117,13 +130,21 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 **Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
 **Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
 **Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
-**Executive Sponsorship**: Ensure visible executive sponsorship and regular executive review
-**Governance Alignment**: Align with organizational governance framework and decision-making bodies
-**Metric-Driven**: Include measurable metrics and KPIs to track progress and outcomes
-**Dependency Management**: Explicitly identify and track dependencies on other initiatives or resources
-**Risk Integration**: Integrate with risk management processes; escalate risks appropriately
-**Change Control**: Submit significant changes through formal change control process
-**Audit Trail**: Maintain comprehensive audit trail for governance and compliance purposes
+**DACI/RAPID Clarity**: Explicitly identify decision-maker roles using DACI or RAPID framework for every decision
+**Capture Alternatives**: Document alternatives considered and why they were rejected (avoid hindsight bias)
+**Timely Recording**: Log decisions immediately while context is fresh; don't wait for formal documentation
+**Decision Context**: Always capture the context that drove the decision (constraints, information available, urgency)
+**Status Tracking**: Track decision status (proposed, accepted, superseded, deprecated) and update when changed
+**Link to Outcomes**: Circle back to record actual outcomes versus expected (enable retrospective learning)
+**Pre-Mortem Practice**: Use pre-mortem analysis for major decisions to identify potential failure modes
+**Cost of Delay**: Apply Cost of Delay framework for prioritization decisions to make trade-offs explicit
+**Bias Awareness**: Train decision-makers on cognitive biases; use devil's advocate or red team approaches
+**Searchable Format**: Maintain in searchable format (Confluence, Notion) with tags and categories
+**ADR Format**: Consider using ADR (Architectural Decision Record) format for technical decisions
+**Decision Journals**: Encourage leaders to maintain decision journals (Annie Duke methodology) for learning
+**Escalation Criteria**: Define clear criteria for when decisions need escalation to higher authority
+**Reversibility Assessment**: Note whether decisions are reversible or irreversible (Type 1 vs Type 2 - Jeff Bezos)
+**Regular Review**: Review decision log in retrospectives to improve decision-making quality over time
 
 ## Quality Criteria
 
@@ -170,7 +191,79 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Decision Framework Methodologies**:
+- DACI (Driver, Approver, Contributor, Informed) - Intuit decision-making framework
+- RAPID (Recommend, Agree, Perform, Input, Decide) - Bain & Company framework
+- RACI (Responsible, Accountable, Consulted, Informed) - Traditional responsibility matrix
+- Decision Rights Framework - Who decides what
+- Delegated Decision-Making - Spotify/Agile models
+- Escalation frameworks and criteria
+
+**Decision Record Formats**:
+- ADR (Architectural Decision Records) - Michael Nygard format
+- MADR (Markdown ADR) - Lightweight decision records
+- Y-Statements - "In the context of [use case/user story], facing [concern], we decided for [option] to achieve [quality], accepting [downside]"
+- Decision record templates (context, decision, status, consequences)
+- RFC (Request for Comments) processes
+
+**Decision-Making Methodologies**:
+- Decision Journals - Annie Duke ("Thinking in Bets")
+- Pre-mortem Analysis - Gary Klein methodology
+- Prospective Hindsight - Imagining future failure
+- Cost of Delay (CD3) - Don Reinertsen (weighted shortest job first)
+- Cynefin Framework - Dave Snowden (complexity-based decision approach)
+- OODA Loop (Observe, Orient, Decide, Act) - John Boyd
+- Recognize-Analyze-Decide - Naturalistic decision making
+
+**Prioritization & Trade-off Frameworks**:
+- WSJF (Weighted Shortest Job First) - SAFe prioritization
+- Cost of Delay Divided by Duration (CD3)
+- Value vs. Effort matrices
+- RICE Scoring (Reach, Impact, Confidence, Effort) - Intercom
+- MoSCoW Prioritization (Must, Should, Could, Won't)
+- Kano Model - Feature prioritization
+- ICE Scoring (Impact, Confidence, Ease)
+
+**Decision Quality Frameworks**:
+- Decision Quality Chain - Strategic Decisions Group
+- Six Elements of Decision Quality
+- Expected Value calculations
+- Probability-weighted outcomes
+- Bayesian decision theory
+- Multi-criteria decision analysis (MCDA)
+
+**Governance & Accountability**:
+- Decision authority matrices
+- Governance decision gates
+- Stage-Gate decision processes
+- Investment decision frameworks
+- Portfolio Kanban decision points (SAFe)
+- Approval workflows and delegation
+
+**Cognitive Bias Awareness**:
+- Confirmation bias mitigation
+- Sunk cost fallacy awareness
+- Anchoring bias
+- Availability heuristic
+- Groupthink prevention techniques
+- Red team / blue team approaches
+- Devil's advocate methodology
+
+**Collaborative Decision Tools**:
+- Confluence - Decision documentation and tracking
+- Jira - Decision tracking as stories/epics
+- Notion - Decision log databases
+- Miro/Mural - Decision-making workshops, pre-mortems
+- ProductBoard - Product decision tracking
+- Aha! - Strategic decision documentation
+
+**Quality & Retrospective Analysis**:
+- Decision effectiveness metrics
+- Retrospective decision analysis
+- Lessons learned from decisions
+- Decision velocity tracking
+- Decision reversal rates
+- Time to decision metrics
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

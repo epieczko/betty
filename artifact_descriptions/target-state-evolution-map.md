@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Target State Evolution Map is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Target State Evolution Map visualizes the transformation journey from current state to desired future state, depicting the transition path, intermediate milestones, dependencies, and migration strategy. Using visualization frameworks like Wardley Mapping (Simon Wardley), technology radar (ThoughtWorks), and strategic roadmapping, this artifact provides executive leadership and product leaders with a clear picture of how the organization will evolve over time.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Modern target state maps leverage collaborative visualization tools (Miro, Mural, LucidChart) and roadmapping platforms (ProductPlan, Aha!, Roadmunk) to map current capabilities, target capabilities, technology evolution, migration waves, and key decision points. The map synthesizes inputs from enterprise architecture, technology strategy, product roadmaps, and portfolio planning to create an integrated view of organizational transformation. It supports strategic planning by revealing dependencies, sequencing constraints, and the path-dependent nature of transformation.
 
 ### Strategic Importance
 
@@ -20,27 +20,43 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+The Target State Evolution Map visualizes the transformation journey from current state capabilities to desired future state, including the migration path, intermediate milestones, technology evolution, and strategic transitions. It answers: Where are we now? Where are we going? How do we get there? What are the key transition points? The map enables strategic planning, investment sequencing, and dependency management for organizational transformation.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Current state assessment (as-is capabilities, technologies, processes)
+- Target state definition (to-be capabilities, technologies, processes)
+- Transition states and migration waves (phased approach)
+- Wardley Mapping for strategic positioning and evolution
+- Technology radar showing adoption stages (hold, assess, trial, adopt)
+- Capability evolution timeline and roadmap
+- Migration strategy and sequencing
+- Dependencies between transformation initiatives
+- Key decision points and stage gates
+- Risk and constraint mapping
+- Decommissioning and sunset plans
+- Technology stack evolution
+- Architecture evolution (current → transitional → target)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed project plans (covered in Project Plans, Implementation Plans)
+- Detailed technical specifications (covered in Architecture Documents)
+- Budget and resource allocation details (covered in Portfolio Plans, Business Cases)
+- Change management tactics (covered in Change Management Plans)
+- Vendor selection details (covered in Vendor Selection artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- **Executive Leadership**: Understands strategic transformation path and investment sequencing
+- **Enterprise Architects**: Plans architecture evolution and technology migrations
+- **Product Leaders**: Aligns product roadmap with organizational transformation
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- **Program Managers**: Sequences initiatives and manages dependencies
+- **Portfolio Management**: Plans multi-year investment strategy
+- **Technology Leaders**: Plans technology stack evolution and migrations
 
 ## Document Information
 
@@ -119,6 +135,24 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 **Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
 **Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
 **Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Wardley Mapping**: Use Wardley Maps to visualize strategic positioning, evolution, and dependencies
+**Current State Honesty**: Accurately assess current state; avoid aspirational depictions of present reality
+**Multiple Horizons**: Show transformation across time horizons (near-term, mid-term, long-term)
+**Technology Radar**: Apply ThoughtWorks Technology Radar format (hold, assess, trial, adopt) for technology choices
+**Migration Waves**: Define clear migration waves with dependencies and sequencing constraints
+**Strangler Pattern**: Consider Strangler Fig pattern for gradual migration vs. risky big-bang approaches
+**Intermediate States**: Explicitly show transition/intermediate states, not just current and target
+**Dependency Mapping**: Visualize dependencies between capabilities, systems, and initiatives
+**Decision Points**: Mark key decision points where strategic choices must be made
+**Risk Visualization**: Overlay risks on the map (technology risk, dependency risk, timing risk)
+**Evolution Axis**: Use Wardley evolution axis (genesis → custom → product → commodity) for positioning
+**Collaborative Creation**: Develop maps collaboratively using Miro, Mural, or Wardley mapping tools
+**Sunset Planning**: Explicitly plan legacy system decommissioning and technical debt reduction
+**Capability Focus**: Map business capabilities, not just technology; show capability maturity evolution
+**Constraint Visibility**: Make constraints visible (budget, timeline, skills, regulatory, technical)
+**Regular Updates**: Update quarterly as strategy evolves; treat as living document
+**Multiple Scenarios**: Consider creating maps for different scenarios (optimistic, realistic, constrained)
+**Stakeholder Validation**: Validate with architects, product leaders, and technical teams for feasibility
 
 ## Quality Criteria
 
@@ -165,7 +199,100 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Strategic Mapping Frameworks**:
+- Wardley Mapping - Simon Wardley strategic positioning and evolution
+- Wardley Map evolution axis (genesis → custom → product → commodity)
+- Landscape mapping and situational awareness
+- Value chain mapping and dependencies
+- Climatic patterns in technology evolution
+- Doctrine and strategic gameplay
+
+**Technology Evolution Models**:
+- Technology Radar - ThoughtWorks framework (hold, assess, trial, adopt)
+- Gartner Hype Cycle - Technology maturity stages
+- Technology Adoption Lifecycle - Crossing the Chasm (Geoffrey Moore)
+- S-Curve technology adoption patterns
+- Diffusion of Innovations - Everett Rogers
+- Technology Readiness Levels (TRL) - NASA
+
+**Architecture Evolution Frameworks**:
+- TOGAF Architecture Roadmap and Migration Planning
+- Enterprise Architecture transition architectures
+- Current state → target state architecture planning
+- Architecture principles and constraints
+- Capability-based planning
+- Business capability mapping
+- Application portfolio rationalization
+
+**Migration & Transformation Strategies**:
+- Strangler Fig Pattern - Martin Fowler (gradual system migration)
+- Big Bang vs. Phased migration approaches
+- Parallel run strategies
+- Wave-based migration planning
+- Blue-Green deployment for migrations
+- Feature toggling for incremental transitions
+- Legacy system sunset strategies
+
+**Roadmapping Methodologies**:
+- Technology roadmapping frameworks
+- Product roadmap evolution
+- Platform roadmap development
+- Strategic roadmap formats
+- Now-Next-Later roadmapping
+- Theme-based roadmapping
+- Outcome-driven roadmaps
+
+**Capability Maturity Models**:
+- CMMI (Capability Maturity Model Integration)
+- Custom capability maturity frameworks
+- Maturity level progression mapping
+- Capability gap analysis
+- Organizational readiness assessment
+
+**Visualization Tools & Platforms**:
+- Wardley Maps Online (Mapmaker, OnlineWardleyMaps)
+- Miro - Strategic mapping, transformation planning
+- Mural - Collaborative evolution mapping
+- LucidChart - Architecture diagrams, roadmaps
+- ProductPlan - Product and technology roadmaps
+- Aha! - Strategic roadmap planning
+- Roadmunk - Visual roadmap creation
+- Confluence - Documentation and roadmap sharing
+
+**Dependency Management**:
+- Dependency mapping and visualization
+- Critical path analysis for transformation
+- PERT/CPM for complex migrations
+- Dependency structure matrix (DSM)
+- Impact mapping - Gojko Adzic
+
+**Portfolio & Program Planning**:
+- SAFe Program Increment (PI) Planning
+- Portfolio roadmap alignment
+- Strategic themes to initiatives mapping
+- Multi-horizon planning (Horizon 1, 2, 3)
+- Investment sequencing and staging
+
+**Change Impact Assessment**:
+- Stakeholder impact mapping
+- Organizational change readiness
+- Adoption curve and change velocity
+- Change saturation assessment
+- ADKAR model for change planning
+
+**Architecture Frameworks**:
+- TOGAF (The Open Group Architecture Framework)
+- Zachman Framework
+- ArchiMate modeling language
+- C4 Model - Architecture diagrams
+- 4+1 Architectural View Model
+
+**Strategic Planning Tools**:
+- Scenario planning for multiple futures
+- Assumption mapping and validation
+- Option analysis (multiple paths to target state)
+- Decision trees for evolution paths
+- Real options analysis for strategic flexibility
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Evaluation Protocols is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Evaluation Protocols artifact defines standardized methodologies for evaluating machine learning models, AI systems, and data products throughout their lifecycle. This artifact establishes consistent evaluation metrics, test datasets, validation procedures, performance thresholds, and fairness assessments that ensure models meet quality, accuracy, bias, and safety requirements before deployment to production.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As ML systems become increasingly critical to business operations, rigorous evaluation protocols prevent model degradation, bias amplification, and performance failures. This artifact specifies offline evaluation metrics (accuracy, precision, recall, F1, AUC-ROC, RMSE), online evaluation strategies (A/B tests, shadow mode, canary deployments), fairness metrics (demographic parity, equalized odds), and monitoring thresholds that trigger model retraining or rollback. It ensures model evaluation is reproducible, auditable, and aligned with business objectives and ethical AI principles.
 
 ### Strategic Importance
 
@@ -20,27 +20,43 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact establishes standardized evaluation procedures for ML models and AI systems, defining performance metrics, test datasets, validation strategies, and acceptance criteria that determine model readiness for production deployment. It ensures consistent, rigorous, and fair model evaluation across teams and projects.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Model evaluation metrics (classification, regression, ranking, NLP, computer vision)
+- Test dataset design (holdout sets, k-fold cross-validation, temporal splits)
+- Offline evaluation procedures (batch evaluation on historical data)
+- Online evaluation strategies (A/B testing, shadow mode, canary deployments)
+- Fairness metrics and bias detection (demographic parity, equalized odds, disparate impact)
+- Performance thresholds and SLAs for production models
+- Model comparison procedures (baseline models, champion/challenger testing)
+- Point-in-time correctness and temporal validation
+- Training-serving skew detection and prevention
+- Model degradation monitoring and retraining triggers
+- Explainability and interpretability assessments
+- Adversarial robustness testing
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Feature engineering and feature store operations (covered by feature-store-contracts)
+- A/B test statistical analysis for product experiments (covered by experiment-tracking-logs)
+- Data quality validation rules (covered by great-expectations-suites)
+- Model training infrastructure and hyperparameter optimization
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- ML Engineers designing and evaluating models
+- Data Scientists defining evaluation metrics and conducting model analysis
+- MLOps Engineers implementing automated evaluation pipelines
+- AI Platform Engineers building model evaluation infrastructure
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Product Managers setting business performance requirements
+- Data Engineers providing evaluation datasets
+- Model Risk Management teams validating model compliance
+- Responsible AI teams ensuring fairness and bias mitigation
 
 ## Document Information
 
@@ -149,19 +165,27 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Establish Baselines**: Always compare against simple baseline models (random, most-frequent, mean prediction) before deploying complex models
+**Multiple Metrics**: Use multiple complementary metrics; single metric optimization can hide important model weaknesses
+**Stratified Evaluation**: Report metrics broken down by key segments (demographics, geography, time periods) to detect bias
+**Temporal Validation**: Use time-based train/test splits for time-series or sequential data to prevent data leakage
+**Calibration Checks**: Verify predicted probabilities are well-calibrated using reliability diagrams and Brier scores
+**Threshold Optimization**: Tune decision thresholds separately from model training to optimize business objectives
+**Confusion Matrix Analysis**: Examine full confusion matrix, not just aggregate metrics, to understand error patterns
+**Error Analysis**: Systematically analyze misclassifications to identify systematic weaknesses and improvement opportunities
+**Fairness Audits**: Conduct comprehensive fairness assessments across protected attributes before production deployment
+**Online-Offline Correlation**: Validate that offline metrics correlate with online business metrics through backtesting
+**Shadow Mode Testing**: Deploy new models in shadow mode first to collect predictions without impacting users
+**Gradual Rollout**: Use canary deployments (1%, 5%, 25%, 100%) with automated rollback on metric degradation
+**Performance SLAs**: Set explicit SLAs for model latency (p99 < 100ms) and throughput to prevent production issues
+**Retraining Triggers**: Define automated retraining triggers (performance drop >5%, data drift detected, 90 days elapsed)
+**Reproducibility**: Version control evaluation code, datasets, and model artifacts to enable reproducible evaluation
+**Automated Evaluation**: Integrate evaluation into CI/CD pipelines to run on every model version automatically
+**Human Evaluation**: Supplement automated metrics with human evaluation for subjective tasks (generation, summarization)
+**Adversarial Testing**: Test model robustness with adversarial examples and input perturbations before deployment
+**OOD Detection**: Monitor for out-of-distribution inputs and flag low-confidence predictions for human review
+**Model Cards**: Document model evaluation results, limitations, and intended use cases in standardized model cards
+**Continuous Monitoring**: Track model performance metrics in production dashboards with alerting on degradation
 
 ## Quality Criteria
 
@@ -208,7 +232,114 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**ML Evaluation Frameworks**:
+- scikit-learn metrics (classification_report, confusion_matrix, roc_auc_score)
+- TensorFlow Model Analysis (TFMA) for distributed evaluation
+- MLflow Model Evaluation for tracking metrics
+- Weights & Biases (wandb) for experiment tracking and evaluation
+- Neptune.ai for ML metadata and metric tracking
+- Evidently AI for ML model monitoring and evaluation
+- Deepchecks for comprehensive model testing
+- Alibi for model inspection and interpretation
+
+**Classification Metrics**:
+- Accuracy (correct predictions / total predictions)
+- Precision (true positives / predicted positives)
+- Recall/Sensitivity (true positives / actual positives)
+- F1 Score (harmonic mean of precision and recall)
+- AUC-ROC (area under receiver operating characteristic curve)
+- AUC-PR (area under precision-recall curve)
+- Matthews Correlation Coefficient (MCC)
+- Cohen's Kappa (inter-rater reliability)
+- Confusion matrix analysis (TP, FP, TN, FN)
+- Class-specific metrics for multiclass problems
+
+**Regression Metrics**:
+- Mean Absolute Error (MAE)
+- Mean Squared Error (MSE)
+- Root Mean Squared Error (RMSE)
+- Mean Absolute Percentage Error (MAPE)
+- R-squared (coefficient of determination)
+- Adjusted R-squared (penalizing model complexity)
+- Huber loss (robust to outliers)
+- Quantile loss for distribution prediction
+
+**Ranking & Recommendation Metrics**:
+- Precision@K and Recall@K
+- Mean Average Precision (MAP)
+- Normalized Discounted Cumulative Gain (NDCG)
+- Mean Reciprocal Rank (MRR)
+- Coverage (catalog coverage)
+- Diversity and novelty metrics
+- Hit Rate and Click-Through Rate
+
+**NLP & Language Model Metrics**:
+- BLEU score (machine translation quality)
+- ROUGE score (summarization quality)
+- Perplexity (language model fluency)
+- METEOR (semantic similarity)
+- BERTScore (contextual embedding similarity)
+- Human evaluation rubrics
+- Toxicity and safety metrics (Perspective API scores)
+
+**Computer Vision Metrics**:
+- Intersection over Union (IoU) for object detection
+- Mean Average Precision (mAP) for detection
+- Pixel accuracy and mean IoU for segmentation
+- Frechet Inception Distance (FID) for generative models
+- Structural Similarity Index (SSIM)
+
+**Fairness & Bias Metrics**:
+- Demographic parity (equal positive prediction rates)
+- Equalized odds (equal TPR and FPR across groups)
+- Equal opportunity (equal TPR across groups)
+- Disparate impact ratio (>0.8 threshold for compliance)
+- Calibration by group (predicted probabilities match outcomes)
+- Fairlearn library for bias assessment
+- AI Fairness 360 (AIF360) toolkit
+- What-If Tool for fairness exploration
+
+**Test Dataset Design**:
+- Holdout validation (70/15/15 train/val/test split)
+- K-fold cross-validation (typically k=5 or k=10)
+- Stratified sampling for imbalanced datasets
+- Temporal validation (time-based train/test split)
+- Geographic validation (location-based splits)
+- Adversarial test sets (challenging edge cases)
+- Out-of-distribution (OOD) test sets
+
+**Online Evaluation Strategies**:
+- Shadow mode deployment (logging predictions without serving)
+- Canary deployments (gradual rollout with monitoring)
+- A/B testing (randomized controlled trials)
+- Interleaving (side-by-side comparison for ranking)
+- Multi-armed bandit evaluation (adaptive allocation)
+- Champion/Challenger testing (new vs. existing model)
+
+**Model Monitoring & Drift Detection**:
+- Data drift detection (KL divergence, PSI, KS test)
+- Concept drift detection (changing label distributions)
+- Prediction drift monitoring (output distribution changes)
+- Feature distribution monitoring
+- Training-serving skew detection
+- Model staleness metrics (time since last training)
+
+**Explainability & Interpretability**:
+- SHAP (SHapley Additive exPlanations) values
+- LIME (Local Interpretable Model-agnostic Explanations)
+- Feature importance rankings
+- Partial dependence plots
+- Individual conditional expectation (ICE) plots
+- Counterfactual explanations
+- Attention visualization (for transformers)
+
+**Responsible AI & Safety**:
+- Red teaming and adversarial testing
+- Jailbreak attempt detection and prevention
+- PII leakage testing
+- Prompt injection vulnerability assessment
+- Content safety filtering (toxicity, hate speech)
+- Robustness to input perturbations
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

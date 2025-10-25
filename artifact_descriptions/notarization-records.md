@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Notarization Records is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Notarization Records artifact documents platform-specific software verification and malware scanning processes required for distribution on Apple platforms (macOS Gatekeeper, iOS), Windows (SmartScreen), and other ecosystems. This artifact captures notarization submission workflows, automated security analysis results, malware detection outcomes, and distribution approval decisions essential for user trust and platform compliance.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a critical security control for software distribution, notarization records serve release teams submitting applications for platform verification, security teams monitoring malware detection trends, and compliance teams demonstrating adherence to platform security requirements. Integration with Apple Notary Service (notarytool, Xcode), Windows App Certification Kit, and automated scanning services (VirusTotal, automated malware analysis) provides comprehensive documentation of security validation before software reaches end users.
 
 ### Strategic Importance
 
@@ -20,27 +20,42 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as comprehensive documentation of platform notarization workflows including submission to Apple Notary Service, Windows SmartScreen reputation building, malware scanning with antivirus engines, and automated security analysis. It provides evidence of security validation, enables troubleshooting of notarization failures, supports incident response for malware false positives, and demonstrates platform compliance for app store distribution.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Apple notarization (macOS apps, kernel extensions, installer packages)
+- Apple Notary Service API (notarytool, Xcode Cloud, Transporter)
+- Gatekeeper verification and quarantine attribute handling
+- Windows SmartScreen reputation (application signing, SmartScreen filter)
+- Microsoft Store certification (Windows App Certification Kit WACK)
+- Malware scanning (VirusTotal, hybrid-analysis, automated AV scanning)
+- Code signing prerequisites for notarization (Developer ID certificates)
+- Hardened runtime entitlements (macOS security restrictions)
+- App sandboxing requirements (macOS/iOS mandatory sandboxing)
+- Notarization ticket stapling (offline verification support)
+- False positive handling and AV vendor contact
+- Platform security guidelines compliance verification
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Code signing certificate acquisition (covered by code signing records)
+- Application functionality testing (covered by QA test artifacts)
+- App Store review and approval process (separate platform-specific process)
+- Runtime security monitoring and EDR (covered by security monitoring)
+- Vulnerability scanning (covered by security scanning artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Release Engineers submitting applications for notarization
+- macOS/iOS Developers implementing hardened runtime and entitlements
+- Security Engineers investigating malware detection and false positives
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- QA Engineers validating notarization in release workflows
+- DevOps Engineers automating notarization in CI/CD pipelines
+- Compliance Officers demonstrating platform security compliance
 
 ## Document Information
 
@@ -106,19 +121,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Sign Before Notarizing**: Always code sign with valid Developer ID certificate before submitting to Apple Notary Service; unsigned apps will be rejected
+**Hardened Runtime**: Enable hardened runtime for macOS apps (--options runtime); required for notarization; configure necessary entitlements
+**Timestamp Signatures**: Include secure timestamp (--timestamp flag); enables signature verification after certificate expiration
+**Automated Notarization**: Integrate notarization into CI/CD (notarytool in Xcode Cloud, GitHub Actions, Jenkins); avoid manual submission workflows
+**Staple Tickets**: Staple notarization tickets to distributed apps (stapler staple); enables offline Gatekeeper verification without internet
+**VirusTotal Scanning**: Scan releases with VirusTotal before distribution; proactively identify false positives; contact AV vendors for whitelisting
+**False Positive Procedures**: Document AV vendor submission processes; maintain contact list; track false positive resolution timelines
+**SmartScreen Reputation**: For Windows, use EV Code Signing to accelerate SmartScreen reputation; monitor telemetry for SmartScreen blocks
+**Entitlements Minimization**: Request minimum necessary entitlements; broad entitlements (e.g., disable-library-validation) increase security review scrutiny
+**Bundle Identifier Consistency**: Use consistent bundle IDs across releases; changing IDs resets SmartScreen reputation
+**Quarantine Testing**: Test notarized apps with quarantine attribute (xattr -p com.apple.quarantine) to verify Gatekeeper acceptance
+**Notarization Logs**: Review notarization logs for warnings; address security issues flagged by Apple's automated analysis
+**Archive Submissions**: Retain notarization submission receipts, RequestUUIDs, and responses for audit and troubleshooting
+**Multi-Platform Strategy**: Coordinate notarization across platforms (macOS, Windows, Android); ensure consistent release timing
+**Rollback Preparation**: Maintain previous notarized versions; if new notarization fails, can continue distributing prior approved version
+**Monitoring & Alerts**: Monitor notarization failures; set up alerts for submission errors, malware detections, or expired certificates
+**Documentation**: Document platform-specific requirements, entitlement justifications, and known false positive patterns
 
 ## Quality Criteria
 
@@ -165,9 +184,74 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Apple Notarization**:
+- Apple Notary Service (notarytool command-line tool)
+- Xcode notarization integration (Xcode 13+)
+- macOS Gatekeeper (quarantine, code signature, notarization verification)
+- Apple Developer ID Application/Installer certificates
+- Hardened Runtime (com.apple.security.cs.* entitlements)
+- Secure Timestamp requirement (RFC 3161 timestamps)
+- Notarization ticket stapling (stapler command)
+- App Sandbox entitlements (iOS mandatory, macOS recommended)
+- macOS Code Signing Guide
+- iOS App Distribution Guide
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Windows Platform Security**:
+- Windows SmartScreen Filter (reputation-based protection)
+- Microsoft Authenticode signing (prerequisite for SmartScreen reputation)
+- Windows App Certification Kit (WACK)
+- Microsoft Store certification requirements
+- Windows Defender SmartScreen bypass procedures
+- EV Code Signing (faster SmartScreen reputation building)
+- Windows Hardware Quality Labs (WHQL) for drivers
+
+**Malware Scanning Services**:
+- VirusTotal (60+ antivirus engine scanning)
+- hybrid-analysis (automated malware sandbox)
+- Any.run (interactive malware analysis)
+- Joe Sandbox (comprehensive malware analysis)
+- Cuckoo Sandbox (open-source automated malware analysis)
+- OPSWAT MetaDefender (multi-scanning engine)
+- Intezer Analyze (genetic malware analysis)
+
+**Antivirus Vendors (False Positive Contact)**:
+- Microsoft Defender (malware submission portal)
+- Symantec/Broadcom (false positive reporting)
+- McAfee (sample submission)
+- Kaspersky (false positive submission)
+- Avast/AVG (false detection reporting)
+- Bitdefender (whitelist request)
+- F-Secure (false positive reporting)
+- ESET (sample analysis request)
+
+**Platform Guidelines & Requirements**:
+- Apple App Store Review Guidelines
+- macOS Security Compliance Project
+- Microsoft Store Policies
+- Google Play Developer Policy
+- Common Application Enumeration (CAE) for app identification
+- NIST National Software Reference Library (NSRL)
+
+**Code Signing Prerequisites**:
+- Apple Developer ID certificates (Application, Installer, Kernel Extension)
+- Windows Authenticode certificates (EV or OV)
+- Timestamp Authority (TSA) for long-term signature validation
+- OCSP stapling for revocation checking
+
+**Security & Compliance**:
+- NIST SP 800-53 SA-10 (Developer Configuration Management)
+- NIST Cybersecurity Framework (Protect function)
+- CIS Controls (Software Asset Management)
+- ISO 27001 A.14.2.9 (System Acceptance Testing)
+- PCI-DSS Requirement 6.3.2 (pre-production security testing)
+
+**Automated Analysis**:
+- YARA rules (malware pattern matching)
+- Sigma rules (security event detection)
+- STIX/TAXII (threat intelligence sharing)
+- MITRE ATT&CK (adversary tactics and techniques)
+
+**Reference**: Consult platform-specific documentation and security team for notarization workflows and malware false positive handling
 
 ## Integration Points
 

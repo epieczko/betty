@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Secure Coding Checklist is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Secure Coding Checklist is a critical security deliverable that ensures software development practices adhere to industry-recognized secure coding standards, preventing common vulnerabilities before they reach production. This artifact provides systematic verification of secure coding practices aligned with OWASP Top 10, CWE Top 25 Most Dangerous Software Weaknesses, CERT Secure Coding Standards, and SANS/CWE Top 25 Software Errors.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a foundational component of application security programs, this checklist serves development teams performing security reviews, security engineers conducting code audits, and quality assurance teams verifying compliance with secure coding requirements. It integrates with SAST (Static Application Security Testing) tools like SonarQube, Checkmarx, Veracode, Snyk Code, and CodeQL to provide comprehensive coverage across input validation, authentication/authorization, cryptography, session management, error handling, and secure configuration domains.
 
 ### Strategic Importance
 
@@ -20,27 +20,41 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as a systematic verification checklist ensuring code adheres to secure coding standards, preventing injection attacks (SQL, XSS, Command), broken authentication, security misconfigurations, insecure deserialization, XML External Entity (XXE) attacks, and other OWASP Top 10 vulnerabilities. It provides developers and security teams with actionable verification criteria for input validation, output encoding, cryptographic implementation, access control, and secure error handling.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- OWASP Top 10 vulnerability prevention (A01-A10 coverage)
+- CWE Top 25 Most Dangerous Software Weaknesses mitigation
+- Input validation and sanitization (allowlist/denylist patterns)
+- Authentication and authorization implementation (OAuth 2.0, OIDC, SAML)
+- Cryptographic controls (TLS 1.2+, AES-256, secure random number generation)
+- Session management (secure cookies, CSRF tokens, session timeout)
+- Error handling and logging (avoiding information disclosure)
+- Secure configuration (hardening, least privilege, defense in depth)
+- SAST tool integration (SonarQube, Checkmarx, Veracode, Snyk)
+- Language-specific security (Python Bandit, JavaScript ESLint security, Java SpotBugs)
+- API security (REST, GraphQL, rate limiting, API authentication)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Infrastructure security (covered by infrastructure hardening checklists)
+- Network security controls (firewalls, IDS/IPS configurations)
+- DAST/penetration testing procedures (covered by security testing artifacts)
+- Incident response procedures (covered by incident management artifacts)
+- Third-party dependency vulnerability management (covered by SCA/dependency scanning)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Software Engineers implementing secure coding practices
+- Security Engineers conducting secure code reviews
+- Application Security Architects defining security requirements
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- QA/Test Engineers verifying security controls
+- DevOps Engineers integrating SAST tools in CI/CD pipelines
+- Compliance Officers ensuring regulatory adherence (PCI-DSS, SOC 2, ISO 27001)
 
 ## Document Information
 
@@ -106,19 +120,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**SAST Integration**: Integrate static analysis tools (SonarQube, Checkmarx, Snyk Code) into CI/CD pipelines with quality gates blocking insecure code
+**OWASP Top 10 Mapping**: Map each checklist item to specific OWASP Top 10 and CWE categories for traceability and reporting
+**Language-Specific Checks**: Customize checklist per language (Python Bandit rules, JavaScript ESLint security, Java SpotBugs)
+**Input Validation First**: Prioritize allowlist-based input validation over denylist approaches; validate all inputs at trust boundaries
+**Cryptographic Standards**: Mandate TLS 1.2+ for transport, AES-256 for encryption, secure random generation (java.security.SecureRandom, secrets module)
+**Authentication Best Practices**: Enforce MFA, implement OAuth 2.0/OIDC properly, use bcrypt/Argon2 for password hashing (never MD5/SHA1)
+**SQL Injection Prevention**: Use parameterized queries/prepared statements exclusively; never string concatenation for SQL
+**XSS Prevention**: Context-aware output encoding (HTML entity encoding, JavaScript escaping, URL encoding) using framework functions
+**CSRF Protection**: Implement anti-CSRF tokens (synchronizer tokens, double-submit cookies) for state-changing operations
+**Security Headers**: Enforce Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Strict-Transport-Security
+**Error Handling**: Implement generic error messages externally; log detailed errors securely; never expose stack traces
+**Dependency Management**: Use SCA tools (Snyk, OWASP Dependency-Check, GitHub Dependabot) to identify vulnerable dependencies
+**Code Review Requirements**: Require security-focused peer review for authentication, authorization, cryptography, input validation code
+**Security Testing**: Combine SAST (pre-commit), DAST (staging), and penetration testing (pre-production) for defense in depth
+**Version Control**: Store checklists in Git with version history; treat as code (review, branch, merge workflows)
+**Continuous Updates**: Update checklist quarterly or when new OWASP Top 10/CWE releases; incorporate lessons from security incidents
+**Training Integration**: Link checklist items to secure coding training modules (OWASP Secure Coding Dojo, SANS courses)
 
 ## Quality Criteria
 
@@ -165,9 +183,74 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Secure Coding Standards**:
+- OWASP Top 10 (2021): A01 Broken Access Control, A02 Cryptographic Failures, A03 Injection
+- CWE Top 25 Most Dangerous Software Weaknesses (2024)
+- SANS/CWE Top 25 Most Dangerous Software Errors
+- CERT Secure Coding Standards (C, C++, Java, Perl, Android)
+- MISRA C/C++ (automotive/embedded systems secure coding)
+- SEI CERT C Coding Standard
+- SEI CERT Java Coding Standard
+- Microsoft Security Development Lifecycle (SDL)
+- Oracle Java Secure Coding Guidelines
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**SAST/Code Quality Tools**:
+- SonarQube (SonarCloud) with Security Hotspots and Vulnerability detection
+- Checkmarx SAST (CxSAST)
+- Veracode Static Analysis
+- Fortify Static Code Analyzer (SCA)
+- Snyk Code (developer-first SAST)
+- GitHub Advanced Security (CodeQL)
+- Semgrep (lightweight static analysis)
+- CodeQL (GitHub's semantic code analysis)
+- ESLint security plugins (JavaScript/TypeScript)
+- Bandit (Python security linter)
+- Brakeman (Ruby on Rails security scanner)
+- GoSec (Go security checker)
+- SpotBugs with Find Security Bugs plugin (Java)
+- Pylint security extensions
+
+**Web Application Security**:
+- OWASP Application Security Verification Standard (ASVS) 4.0
+- OWASP Software Assurance Maturity Model (SAMM)
+- OWASP Proactive Controls (C1-C10)
+- OWASP Cheat Sheet Series
+- NIST SP 800-53 (Security and Privacy Controls) - SA, SC, SI families
+- NIST SP 800-64 (Security Considerations in SDLC)
+- PCI-DSS Requirement 6 (Develop and Maintain Secure Systems and Applications)
+
+**API Security**:
+- OWASP API Security Top 10
+- REST API Security Best Practices
+- GraphQL Security Best Practices
+- OAuth 2.0 RFC 6749, OpenID Connect (OIDC)
+- JSON Web Token (JWT) Best Practices RFC 8725
+
+**Cryptography Standards**:
+- NIST FIPS 140-2/140-3 (Cryptographic Module Validation)
+- NIST SP 800-57 (Key Management Recommendations)
+- NIST SP 800-90A (Random Number Generation)
+- TLS 1.2 (RFC 5246), TLS 1.3 (RFC 8446)
+- AES-256 encryption, RSA 2048+, ECDSA P-256+
+
+**Language-Specific Security**:
+- Python: Bandit, Safety, PyUp
+- JavaScript/TypeScript: ESLint security, npm audit, Retire.js
+- Java: SpotBugs, Find Security Bugs, OWASP Dependency-Check
+- .NET: Security Code Scan, .NET Security Guard
+- Ruby: Brakeman, bundler-audit
+- Go: GoSec, Nancy
+- PHP: RIPS, Psalm security analysis
+
+**Compliance & Regulatory**:
+- SOC 2 Type II (CC6.6, CC6.7 - Logical and Physical Access Controls)
+- ISO 27001:2013 (A.14.2 Security in Development and Support Processes)
+- PCI-DSS v4.0 (Requirement 6 - Secure Software Development)
+- GDPR Article 25 (Data Protection by Design and by Default)
+- HIPAA Security Rule (Administrative Safeguards - Workforce Security)
+- FedRAMP Controls (SA-11, SA-15, SI-10)
+
+**Reference**: Consult organizational AppSec team for detailed guidance on framework application and SAST tool selection
 
 ## Integration Points
 
