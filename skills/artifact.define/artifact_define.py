@@ -98,6 +98,21 @@ KNOWN_ARTIFACT_TYPES = {
         "content_type": "text/markdown",
         "description": "Natural language description of a skill's requirements, inputs, outputs, and implementation details. Used by meta.skill to generate complete skill implementations."
     },
+    "agile-epic": {
+        "file_pattern": "*.epic.md",
+        "content_type": "text/markdown",
+        "description": "Agile Epic document with structured fields including title, summary, background, acceptance criteria, stakeholders, and next steps. Created by epic.write skill."
+    },
+    "user-stories-list": {
+        "file_pattern": "*.stories.json",
+        "content_type": "application/json",
+        "description": "Structured JSON list of user story summaries with persona, goal, benefit, and acceptance criteria. Created by epic.decompose skill."
+    },
+    "user-story": {
+        "file_pattern": "story_*.md",
+        "content_type": "text/markdown",
+        "description": "Fully formatted user story document following standard format (As a/I want/So that) with acceptance criteria, INVEST validation, and metadata. Created by story.write skill."
+    },
     "skill-definition": {
         "schema": "schemas/skill-definition.json",
         "file_pattern": "skills/*/skill.yaml",

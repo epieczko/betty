@@ -1,0 +1,28 @@
+name: epic.decompose
+version: 0.1.0
+description: Take an Epic (as Markdown) and decompose it into user stories. Analyzes
+  Epic document and identifies major deliverables, grouping them by persona or capability.
+inputs:
+- 'epic_file (string, required): Path to the epic.md file to decompose'
+- 'max_stories (integer, optional): Maximum number of stories to generate (default:
+  5)'
+- 'output_path (string, optional): Where to save the stories.json file (default: ./stories.json)'
+outputs:
+- 'stories.json: Structured JSON list of story summaries with persona, goal, benefit,
+  and acceptance criteria'
+status: active
+permissions:
+- filesystem:read
+- filesystem:write
+entrypoints:
+- command: /epic/decompose
+  handler: epic_decompose.py
+  runtime: python
+  description: Take an Epic (as Markdown) and decompose it into user stories. Analyzes
+    Epic document and identifies
+artifact_metadata:
+  produces:
+  - type: user-stories-list
+  consumes:
+  - type: agile-epic
+    required: true

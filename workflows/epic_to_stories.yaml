@@ -1,0 +1,64 @@
+# Epic-to-Stories Workflow
+# Complete workflow for converting an Agile Epic into fully formatted user stories
+
+name: epic_to_stories
+version: 1.0.0
+description: Automated workflow to create an Epic, decompose it into user stories, and generate formatted story documents
+
+# Expected workflow inputs (passed as variables)
+# - initiative_name: Name of the initiative or product goal
+# - context: Background, rationale, and success criteria
+# - stakeholders: Comma-separated list of stakeholders
+# - max_stories: Maximum number of stories to generate (default: 5)
+# - output_dir: Directory for output files (default: ./agile_output)
+
+steps:
+  # Step 1: Generate the Epic document
+  - skill: epic.write
+    args:
+      - "--initiative-name=${initiative_name}"
+      - "--context=${context}"
+      - "--stakeholders=${stakeholders}"
+      - "--output-path=${output_dir:-./agile_output}/epic.md"
+    description: "Generate structured Agile Epic document"
+
+  # Step 2: Decompose Epic into user stories
+  - skill: epic.decompose
+    args:
+      - "--epic-file=${output_dir:-./agile_output}/epic.md"
+      - "--max-stories=${max_stories:-5}"
+      - "--output-path=${output_dir:-./agile_output}/stories.json"
+    description: "Decompose Epic into user story summaries"
+
+  # Step 3: Generate formatted user story documents
+  - skill: story.write
+    args:
+      - "--stories-file=${output_dir:-./agile_output}/stories.json"
+      - "--epic-reference=${initiative_name}"
+      - "--output-dir=${output_dir:-./agile_output}/stories/"
+    description: "Generate formatted user story markdown files"
+
+# Metadata
+created_at: "2025-10-25T00:00:00Z"
+tags:
+  - agile
+  - epic
+  - user-stories
+  - scrum
+  - backlog
+  - product-management
+
+# Usage examples:
+# Run with default values:
+#   python3 betty/workflow_runner.py workflows/epic_to_stories.yaml \
+#     --initiative_name "Customer Self-Service Portal" \
+#     --context "Enable customers to manage their accounts without support intervention" \
+#     --stakeholders "Product Team,Customer Success,Engineering"
+#
+# Run with custom story limit:
+#   python3 betty/workflow_runner.py workflows/epic_to_stories.yaml \
+#     --initiative_name "Mobile App Redesign" \
+#     --context "Modernize the mobile experience with improved UX" \
+#     --stakeholders "Design Team,Mobile Team,Product" \
+#     --max_stories 8 \
+#     --output_dir "./mobile_redesign"
