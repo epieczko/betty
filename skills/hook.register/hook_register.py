@@ -30,6 +30,7 @@ from betty.validation import (
 )
 from betty.logging_utils import setup_logger
 from betty.errors import format_error_response
+from betty.file_utils import atomic_write_json
 
 logger = setup_logger(__name__)
 
@@ -297,11 +298,9 @@ def update_hook_registry(manifest: Dict[str, Any]) -> bool:
     registry["hooks"] = hooks
     registry["generated_at"] = datetime.now(timezone.utc).isoformat()
 
-    # Write registry back to disk
+    # Write registry back to disk atomically
     try:
-        os.makedirs(os.path.dirname(HOOKS_REGISTRY_FILE), exist_ok=True)
-        with open(HOOKS_REGISTRY_FILE, 'w') as f:
-            json.dump(registry, f, indent=2)
+        atomic_write_json(HOOKS_REGISTRY_FILE, registry)
         logger.info(f"Hook registry updated successfully")
         return True
     except Exception as e:
