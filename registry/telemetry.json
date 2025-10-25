@@ -289,5 +289,26 @@
       "skills_before": 11,
       "skills_after": 11
     }
+  },
+  {
+    "timestamp": "2025-10-25T17:41:07.343644+00:00",
+    "execution_id": "3a9db022-a695-4103-9fdd-dd6b60ed7366",
+    "skill": "registry.update",
+    "inputs": {
+      "manifest_path": "/home/user/betty/skills/git.commit/skill.yaml",
+      "skill_name": "git.commit"
+    },
+    "status": "success",
+    "duration_ms": 7,
+    "caller": "cli",
+    "registry_path": "/home/user/betty/registry/skills.json",
+    "total_skills": 11,
+    "policy_enforced": true,
+    "diff": {
+      "operation": "update",
+      "skill_name": "git.commit",
+      "skills_before": 11,
+      "skills_after": 11
+    }
   }
 ]

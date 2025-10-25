@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-25T17:30:16.402673+00:00",
+  "generated_at": "2025-10-25T17:41:07.337405+00:00",
   "skills": [
     {
       "name": "workflow.validate",
@@ -475,7 +475,7 @@
     {
       "name": "git.commit",
       "version": "0.1.0",
-      "description": "Generate descriptive commit messages by analyzing git diffs. Use when the user asks for help writing commit messages or reviewing staged changes. Follows conventional commits format with types (feat, fix, docs, etc.) and scopes.\n",
+      "description": "Generate descriptive commit messages by analyzing git diffs. Helps developers write clear, consistent commit messages following conventional commits format with proper types (feat, fix, docs, etc.) and scopes.\n",
       "inputs": [
         {
           "name": "git_diff",
@@ -528,9 +528,20 @@
         "commit",
         "conventional-commits",
         "documentation",
-        "developer-tools"
+        "developer-tools",
+        "best-practices"
       ],
-      "updated_at": "2025-10-25T17:30:16.402667+00:00"
+      "artifact_metadata": {
+        "produces": [
+          {
+            "type": "commit-message",
+            "description": "Conventional commit message",
+            "file_pattern": "commit-message.txt",
+            "content_type": "text/plain"
+          }
+        ]
+      },
+      "updated_at": "2025-10-25T17:41:07.337393+00:00"
     }
   ]
 }

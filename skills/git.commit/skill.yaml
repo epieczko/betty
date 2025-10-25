@@ -2,8 +2,8 @@ name: git.commit
 version: 0.1.0
 description: >
   Generate descriptive commit messages by analyzing git diffs.
-  Use when the user asks for help writing commit messages or reviewing staged changes.
-  Follows conventional commits format with types (feat, fix, docs, etc.) and scopes.
+  Helps developers write clear, consistent commit messages following
+  conventional commits format with proper types (feat, fix, docs, etc.) and scopes.
 
 inputs:
   - name: git_diff
@@ -50,3 +50,11 @@ tags:
   - conventional-commits
   - documentation
   - developer-tools
+  - best-practices
+
+artifact_metadata:
+  produces:
+    - type: commit-message
+      description: Conventional commit message
+      file_pattern: "commit-message.txt"
+      content_type: text/plain
