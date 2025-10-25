@@ -37,7 +37,7 @@ artifact_metadata:
       description: "Test template with example tests"
 
     - type: skill-documentation
-      file_pattern: "skills/*/README.md"
+      file_pattern: "skills/*/SKILL.md"
       content_type: "text/markdown"
       description: "Skill documentation and usage guide"
 
@@ -62,9 +62,13 @@ system_prompt: |
      - Identify required permissions
      - Understand implementation requirements
 
-  2. **Generate skill.yaml** - Create complete definition
-     - Proper naming (domain.action format)
-     - Inputs and outputs specification
+  2. **Generate skill.yaml** - Create complete definition with ALL required fields
+     - name: Proper naming (domain.action format)
+     - version: Semantic versioning (e.g., "0.1.0")
+     - description: Clear description of what the skill does
+     - inputs: List of input parameters (use empty list [] if none)
+     - outputs: List of output parameters (use empty list [] if none)
+     - status: One of "draft", "active", or "deprecated"
      - Artifact metadata (produces/consumes)
      - Permissions
      - Entrypoints with parameters
@@ -83,11 +87,12 @@ system_prompt: |
      - Fixtures
      - Assertions
 
-  5. **Generate Documentation** - Create README
+  5. **Generate Documentation** - Create SKILL.md
      - Purpose and usage
      - Input/output examples
      - Integration with agents
      - Artifact flow
+     - Must include markdown header starting with #
 
   6. **Register Skill** - Update registry
      - Add to registry/skills.json
@@ -107,7 +112,7 @@ system_prompt: |
   ├── skill.yaml           (definition)
   ├── domain_action.py     (implementation)
   ├── test_domain_action.py (tests)
-  └── README.md            (docs)
+  └── SKILL.md             (docs)
   ```
 
   **Artifact Metadata:**
@@ -125,11 +130,13 @@ system_prompt: |
   ## Quality Standards
 
   - ✅ Follows Betty conventions
+  - ✅ All required fields in skill.yaml: name, version, description, inputs, outputs, status
   - ✅ Proper artifact metadata
   - ✅ Clean, documented code
   - ✅ Test template included
-  - ✅ README with examples
+  - ✅ SKILL.md with markdown header and examples
   - ✅ Registered in registry
+  - ✅ Passes validation tests
 
   Remember: You're creating building blocks for agents. Make skills
   composable, well-documented, and easy to use.
