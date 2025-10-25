@@ -1,0 +1,96 @@
+name: artifact.validate
+version: 0.1.0
+description: >
+  Validate artifacts against schema, structure, and quality criteria. Checks for
+  completeness, correct format, required fields, and generates detailed validation
+  reports with quality scores and actionable recommendations.
+
+inputs:
+  - name: artifact_path
+    type: string
+    required: true
+    description: Path to the artifact file to validate
+
+  - name: artifact_type
+    type: string
+    required: false
+    description: Type of artifact (auto-detected from filename/content if not provided)
+
+  - name: strict
+    type: boolean
+    required: false
+    default: false
+    description: Strict mode - fail validation on warnings
+
+  - name: schema_path
+    type: string
+    required: false
+    description: Optional path to custom JSON schema for validation
+
+outputs:
+  - name: validation_report
+    type: object
+    description: Detailed validation results with scores and recommendations
+
+  - name: is_valid
+    type: boolean
+    description: Overall validation status (true if artifact passes validation)
+
+  - name: quality_score
+    type: number
+    description: Quality score from 0-100 based on completeness and best practices
+
+dependencies:
+  - artifact.define
+
+entrypoints:
+  - command: /skill/artifact/validate
+    handler: artifact_validate.py
+    runtime: python
+    description: >
+      Validate artifacts for structure, completeness, and quality. Performs syntax
+      validation (YAML/Markdown), metadata completeness checks, schema validation,
+      TODO marker detection, and required section verification. Generates detailed
+      reports with quality scores and actionable recommendations.
+    parameters:
+      - name: artifact_path
+        type: string
+        required: true
+        description: Path to artifact file
+      - name: artifact_type
+        type: string
+        required: false
+        description: Artifact type (auto-detected if not provided)
+      - name: strict
+        type: boolean
+        required: false
+        default: false
+        description: Strict mode - treat warnings as errors
+      - name: schema_path
+        type: string
+        required: false
+        description: Custom JSON schema path
+    permissions:
+      - filesystem:read
+
+status: active
+
+tags:
+  - artifacts
+  - validation
+  - quality
+  - tier2
+  - phase2
+
+# This skill's own artifact metadata
+artifact_metadata:
+  produces:
+    - type: validation-report
+      description: Detailed artifact validation report with scores and recommendations
+      file_pattern: "*-validation-report.yaml"
+      content_type: application/yaml
+
+  consumes:
+    - type: "*"
+      description: Validates any artifact type from the registry
+      file_pattern: "**/*.{yaml,yml,md}"
