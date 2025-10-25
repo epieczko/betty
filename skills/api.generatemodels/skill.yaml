@@ -1,4 +1,4 @@
-name: api.generate-models
+name: api.generatemodels
 version: 0.1.0
 description: Generate type-safe models from OpenAPI and AsyncAPI specifications using Modelina
 
@@ -47,7 +47,6 @@ entrypoints:
     permissions:
       - filesystem:read
       - filesystem:write
-      - process:execute
 
 status: active
 
