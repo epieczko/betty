@@ -14,3 +14,9 @@ hooks:
     when:
       pattern: '*.asyncapi.yaml'
     description: Validate AsyncAPI specs on every edit
+  - name: policy-enforce-skill-yaml
+    command: python skills/policy.enforce/policy_enforce.py {file_path}
+    blocking: true
+    when:
+      pattern: 'skills/*/skill.yaml'
+    description: Enforce policy on skill.yaml files
