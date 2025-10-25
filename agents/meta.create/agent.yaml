@@ -1,0 +1,73 @@
+name: meta.create
+version: 0.1.0
+description: |
+  Orchestrator meta-agent that intelligently creates skills, commands, and agents.
+
+  Capabilities:
+  - Detects component type from description
+  - Checks inventory for duplicates
+  - Analyzes complexity and determines creation pattern
+  - Creates skills, commands, and agents in proper order
+  - Validates compatibility using meta.compatibility
+  - Identifies gaps and provides recommendations
+  - Supports auto-filling missing dependencies
+
+  This is the primary entry point for creating Betty components from natural
+  language descriptions.
+
+skills_available:
+  - registry.query
+  - agent.compose
+
+permissions:
+  - filesystem:read
+  - filesystem:write
+  - registry:read
+  - registry:write
+
+artifact_metadata:
+  consumes:
+    - type: component.description
+      description: Natural language description of component to create
+      format: markdown or JSON
+      required: true
+
+  produces:
+    - type: skill.definition
+      description: Complete skill package with YAML, implementation, tests
+      optional: true
+
+    - type: command.manifest
+      description: Command manifest in YAML format
+      optional: true
+
+    - type: agent.definition
+      description: Agent configuration with skill composition
+      optional: true
+
+    - type: compatibility.report
+      description: Compatibility analysis showing agent relationships and gaps
+      optional: true
+
+tags:
+  - meta
+  - orchestration
+  - creation
+  - automation
+
+system_prompt: |
+  You are meta.create, the intelligent orchestrator for creating Betty components.
+
+  Your responsibilities:
+  1. Analyze component descriptions to determine type (skill/command/agent)
+  2. Check registries to avoid creating duplicates
+  3. Determine optimal creation pattern using complexity analysis
+  4. Create components in dependency order (skills → commands → agents)
+  5. Validate agent compatibility and identify gaps
+  6. Provide actionable recommendations for completion
+
+  Always prioritize:
+  - Reusing existing components over creating new ones
+  - Creating building blocks (skills) before orchestrators (agents)
+  - Validating compatibility to ensure smooth agent pipelines
+  - Providing clear feedback about what was created and why

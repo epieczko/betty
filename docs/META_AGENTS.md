@@ -4,6 +4,63 @@ Meta-agents are specialized agents that create and manage other agents, skills, 
 
 ## Meta-Agent Registry
 
+### meta.create - Component Creation Orchestrator
+**Status:** ✅ Implemented
+
+**Purpose:** Intelligent orchestrator that automatically creates skills, commands, and agents from descriptions. This is the primary entry point for creating Betty components.
+
+**Capabilities:**
+- Detects component type from description (skill/command/agent)
+- Checks registries for duplicates
+- Analyzes complexity using meta.command decision tree
+- Creates components in dependency order (skills → commands → agents)
+- Validates compatibility using meta.compatibility
+- Identifies gaps and provides recommendations
+- Supports auto-filling missing dependencies
+
+**Consumes:**
+- `component.description` (Natural language description in Markdown or JSON)
+
+**Produces:**
+- `skill.definition` (Complete skill package with YAML, implementation, tests)
+- `command.manifest` (Command manifest in YAML format)
+- `agent.definition` (Agent configuration with skill composition)
+- `compatibility.report` (Compatibility analysis showing relationships and gaps)
+
+**Uses:**
+- `meta.command` - Complexity analysis and command creation
+- `meta.skill` - Skill creation
+- `meta.agent` - Agent creation with skill composition
+- `meta.compatibility` - Compatibility validation and gap detection
+- `registry.query` - Duplicate checking
+- `agent.compose` - Skill recommendation
+
+**Usage:**
+```bash
+# Create from any description (auto-detects type)
+python3 agents/meta.create/meta_create.py examples/my_component.md
+
+# With auto-fill gaps
+python3 agents/meta.create/meta_create.py description.md --auto-fill-gaps
+
+# Skip duplicate check
+python3 agents/meta.create/meta_create.py description.md --skip-duplicate-check
+
+# JSON output for automation
+python3 agents/meta.create/meta_create.py description.md --output-format json
+```
+
+**Why use meta.create instead of individual meta-agents?**
+- **Automatic**: Determines what to create without you specifying
+- **Comprehensive**: Handles complex SKILL_AND_COMMAND patterns
+- **Safe**: Checks for duplicates before creating
+- **Validated**: Runs compatibility checks automatically
+- **Complete**: Creates all dependencies in the right order
+
+**See:** [meta.create README](../agents/meta.create/README.md) for detailed documentation
+
+---
+
 ### meta.agent - Agent Creator
 **Current name:** `meta.agent`
 
@@ -91,6 +148,139 @@ skills/data.validatejson/
 ```
 
 **See:** [meta.skill README](../agents/meta.skill/README.md) for detailed documentation
+
+---
+
+### meta.command - Command Creator
+**Status:** ✅ Implemented
+
+**Purpose:** Creates command manifests from natural language descriptions with intelligent complexity analysis
+
+**Consumes:**
+- `command-description` (Markdown or JSON)
+
+**Produces:**
+- `command.manifest` (YAML command definition)
+- `complexity-analysis` (Pattern recommendation: COMMAND_ONLY, SKILL_ONLY, SKILL_AND_COMMAND)
+
+**Features:**
+- **Intelligent Complexity Analysis**: Automatically determines optimal pattern
+  - Counts steps in description
+  - Analyzes autonomy keywords (analyze, optimize, decide, evaluate, etc.)
+  - Assesses reusability markers (composable, building block, utility, etc.)
+  - Recommends creation pattern based on decision tree
+- **Pattern Recommendations:**
+  - `COMMAND_ONLY`: Simple 1-3 steps, inline logic sufficient
+  - `SKILL_ONLY`: Reusable utility, low complexity but high reuse
+  - `SKILL_AND_COMMAND`: Complex (10+ steps) or high autonomy needs
+  - `HYBRID`: Medium complexity with some autonomy requirements
+- **Parameter Parsing**: Extracts and validates command parameters
+- **Execution Type Validation**: Supports agent, skill, and workflow targets
+- **Tag Management**: Automatic categorization and filtering
+
+**Decision Tree:**
+```
+Description → Count Steps → Analyze Keywords
+                    ↓
+    ┌───────────────┴────────────────┐
+    ↓                                 ↓
+1-3 steps                        10+ steps
+low autonomy                     OR high complexity
+    ↓                                 ↓
+COMMAND_ONLY                    SKILL_AND_COMMAND
+    ↓                                 ↓
+inline logic                   skill has logic,
+                              command delegates
+```
+
+**Usage:**
+```bash
+# Create command from description
+python3 agents/meta.command/meta_command.py examples/api_validate_command.md
+
+# With traceability
+python3 agents/meta.command/meta_command.py description.md \
+  --requirement-id REQ-2025-001 \
+  --requirement-description "API validation command"
+```
+
+**Example Description:**
+```markdown
+# Name: /validate-api
+
+# Description:
+Validate API responses against OpenAPI schemas with detailed reporting
+
+# Execution Type: skill
+
+# Target: api.validate
+
+# Parameters:
+- endpoint: string (required) - API endpoint to validate
+- schema: string (required) - Path to OpenAPI schema file
+- strict: boolean (optional, default=false) - Enable strict validation
+
+# Tags:
+- api
+- validation
+- testing
+```
+
+**Generated Output:**
+```yaml
+name: /validate-api
+version: 0.1.0
+description: Validate API responses against OpenAPI schemas
+parameters:
+  - name: endpoint
+    type: string
+    required: true
+    description: API endpoint to validate
+  - name: schema
+    type: string
+    required: true
+    description: Path to OpenAPI schema file
+  - name: strict
+    type: boolean
+    required: false
+    default: false
+    description: Enable strict validation
+execution:
+  type: skill
+  target: api.validate
+status: draft
+tags:
+  - api
+  - validation
+  - testing
+```
+
+**Complexity Analysis Output:**
+```
+📊 Complexity Analysis:
+   Steps detected: 12
+   Complexity: high
+   Autonomy level: medium
+   Reusability: high
+
+💡 Recommended Pattern: SKILL_AND_COMMAND
+   • High complexity: 12 steps detected
+   • High reusability with 12 steps: create both
+
+⚠️  RECOMMENDATION: Create the skill first!
+   Pattern: SKILL_AND_COMMAND
+
+   This command delegates to a skill (api.validate),
+   but that skill may not exist yet.
+
+   Suggested workflow:
+   1. Create skill: python3 agents/meta.skill/meta_skill.py <skill-description.md>
+   2. Test skill: python3 skills/api.validate/api_validate.py
+   3. Review this command manifest: cat commands/validate-api.yaml
+   4. Register command: python3 skills/command.define/command_define.py commands/validate-api.yaml
+```
+
+**See:** [SKILL_COMMAND_DECISION_TREE.md](SKILL_COMMAND_DECISION_TREE.md) for complete decision logic
 
 ---
 
@@ -303,8 +493,10 @@ python3 agents/meta.suggest/meta_suggest.py --format json suggest agents/meta.ag
 
 All meta-agents use the `meta.*` namespace to clearly indicate they operate at a meta-level:
 
-- `meta.agent` - Creates agents
+- `meta.create` - **Orchestrator** - Main entry point for component creation
+- `meta.command` - Creates commands with complexity analysis
 - `meta.skill` - Creates skills
+- `meta.agent` - Creates agents
 - `meta.artifact` - Manages artifact standards
 - `meta.hook` - Creates hooks
 - `meta.compatibility` - Analyzes compatibility
@@ -332,11 +524,13 @@ betty agent list --filter meta.*
 ┌─────────────────────────────────────────────────────────┐
 │ Meta-Agent Layer (Creation & Governance)                │
 ├─────────────────────────────────────────────────────────┤
-│ meta.agent          → Creates agents                    │
-│ meta.skill          → Creates skills                    │
+│ meta.create         → ORCHESTRATOR - Main entry point   │
+│   ├─ meta.command   → Creates commands + analyzes       │
+│   ├─ meta.skill     → Creates skills                    │
+│   ├─ meta.agent     → Creates agents                    │
+│   └─ meta.compatibility → Validates compatibility       │
 │ meta.artifact       → Defines artifact standards        │
 │ meta.hook           → Creates hooks                     │
-│ meta.compatibility  → Analyzes compatibility            │
 │ meta.suggest        → Suggests next steps               │
 └─────────────────────────────────────────────────────────┘
                           ↓
