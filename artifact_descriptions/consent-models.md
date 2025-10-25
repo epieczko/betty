@@ -2,45 +2,66 @@
 
 ## Executive Summary
 
-The Consent Models is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Consent Models artifact defines the legal and technical frameworks for capturing, storing, and managing user consent across digital properties. This specification documents consent acquisition methods (opt-in vs opt-out), lawful bases for processing under GDPR Article 6, consent string formats (IAB TCF 2.2, custom schemas), and consent lifecycle management (grant, refresh, withdrawal, expiry).
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Organizations operating under GDPR must implement consent models that satisfy Article 7 requirements: freely given, specific, informed, unambiguous, and as easy to withdraw as to give. CCPA/CPRA requires opt-out mechanisms for data sales and sharing, while sector-specific regulations (COPPA for children under 13, HIPAA for health data, GLBA for financial data) impose additional consent requirements. Modern consent models support granular purpose-based consent (analytics vs advertising vs personalization), cross-device consent synchronization, and integration with 50-200+ advertising technology vendors through IAB TCF.
+
+This artifact provides the authoritative reference for Privacy Officers, DPOs, Privacy Engineers, and Legal Counsel to design consent models that balance regulatory compliance, user experience, and business requirements. Properly designed consent models reduce regulatory risk (GDPR fines up to EUR 20M or 4% revenue), enable data-driven business operations, and build user trust through transparent privacy practices.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Regulatory Compliance**: Ensures GDPR Article 6/7, CCPA/CPRA, ePrivacy Directive, COPPA, and sector-specific consent requirements are met
+- **Legal Defensibility**: Documents lawful bases for processing, consent mechanisms, and data subject rights enablement for regulatory audits
+- **Cross-Jurisdictional Operations**: Supports multi-region deployments with jurisdiction-specific consent models (GDPR/EEA, CCPA/California, LGPD/Brazil, PIPEDA/Canada)
+- **Consent Lifecycle Management**: Defines processes for consent grant, refresh (annually per GDPR 7(3)), withdrawal, and expiry handling
+- **Business Enablement**: Balances privacy requirements with business needs, optimizing for 70-90% consent rates while maintaining compliance
+- **Vendor Ecosystem Integration**: Enables IAB TCF 2.2 integration with 800+ registered vendors, supporting programmatic advertising and martech ecosystems
+- **User Trust & Transparency**: Implements Privacy by Design principles, providing clear choices and honoring user privacy preferences
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines the complete consent model architecture, specifying how consent is legally obtained, technically captured, persistently stored, and operationally managed throughout its lifecycle. It establishes the framework for distinguishing between consent models (opt-in, opt-out, legitimate interest), purpose taxonomies, consent string schemas, cross-device synchronization, and integration with consent management platforms (OneTrust, TrustArc, Cookiebot). The consent model ensures organizations can demonstrate GDPR Article 5(2) accountability while enabling data-driven business operations.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Consent acquisition models: explicit opt-in (GDPR), implied opt-in, opt-out (CCPA), legitimate interest assessments
+- GDPR Article 6 lawful bases: consent, contract, legal obligation, vital interests, public task, legitimate interests
+- Purpose taxonomy and granularity: analytics, advertising, personalization, functional, strictly necessary
+- IAB TCF 2.2 consent model: purposes 1-11, special purposes, features, special features, legitimate interest framework
+- Consent string formats: IAB TC String v2.0, Google Additional Consent Mode, custom JSON schemas
+- Consent lifecycle states: pending, granted, denied, withdrawn, expired, refreshed
+- Consent persistence: first-party cookies (13-month max), local storage, server-side consent databases
+- Cross-device consent synchronization: authenticated user consent graphs, device fingerprinting, probabilistic matching
+- Consent withdrawal mechanisms: preference centers, email unsubscribe, "Do Not Sell" links (CCPA), Global Privacy Control (GPC)
+- Consent refresh logic: annual re-solicitation (GDPR 7(3)), material policy change triggers, consent expiry (13 months)
+- Minor consent handling: COPPA age verification (under 13), parental consent mechanisms, age-appropriate consent UX
+- Sector-specific consent: HIPAA authorization for health data, GLBA consent for financial data sharing, FERPA consent for education records
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- CMP platform configurations and technical integrations (covered in CMP Configurations artifact)
+- Privacy policy legal language and disclosures (covered in Privacy Policy artifact)
+- Cookie technical specifications and classifications (covered in Cookie Policy Inventory)
+- Data subject access request (DSAR) procedures (covered in DSAR Procedures artifact)
+- Data retention policies and deletion procedures (covered in Data Retention Schedule)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Data Protection Officers (DPOs) and Privacy Officers designing consent strategies
+- Privacy Engineers implementing consent capture and enforcement mechanisms
+- Legal Counsel assessing consent model compliance with GDPR, CCPA, and sector regulations
+- Product Managers balancing privacy requirements with user experience and business goals
+- CMP Administrators configuring consent workflows in OneTrust, TrustArc, Cookiebot platforms
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Compliance Auditors evaluating consent mechanisms for regulatory adherence
+- Information Security teams ensuring consent data protection and audit logging
+- Marketing Technology teams integrating consent signals with advertising and analytics platforms
+- UX Designers creating intuitive consent interfaces and preference centers
+- Engineering teams implementing server-side consent validation and enforcement
 
 ## Document Information
 
@@ -227,9 +248,21 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**GDPR Consent Requirements**: GDPR Article 4(11) Definition of Consent, Article 6 Lawful Basis for Processing, Article 7 Conditions for Consent, Article 7(3) Withdrawal of Consent, Article 7(4) Conditioning Services on Consent, Article 8 Child Consent (16+ or parental), Recital 32 Affirmative Action, Recital 42 Burden of Proof, Recital 43 Freely Given
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**CCPA/CPRA**: CCPA Section 1798.100 Right to Know, Section 1798.105 Right to Delete, Section 1798.120 Right to Opt-Out, Section 1798.135 Do Not Sell My Personal Information, CPRA Sensitive Personal Information Limits, Global Privacy Control (GPC) Signal
+
+**IAB TCF 2.2**: IAB TC String v2.0, Global Vendor List (GVL), Purpose Definitions (1-11), Special Purposes, Features and Special Features, Legitimate Interest Framework, Publisher Restrictions, CMP API Specification
+
+**Sector-Specific Consent**: COPPA Children's Online Privacy Protection Act (under 13), HIPAA Authorization (45 CFR 164.508), GLBA Financial Privacy Rule (16 CFR Part 313), FERPA Education Records (34 CFR Part 99), VPPA Video Privacy (18 USC 2710)
+
+**International Privacy Laws**: ePrivacy Directive 2002/58/EC Article 5(3), LGPD Brazil Articles 7-11, PIPEDA Canada Consent Principles, APPI Japan Consent Requirements, POPIA South Africa, PDPA Singapore, DPA UK
+
+**Privacy Engineering Standards**: ISO/IEC 27701:2019 PIMS, ISO/IEC 29100:2011 Privacy Framework, NIST Privacy Framework, Privacy by Design 7 Principles, W3C Tracking Preference Expression (DNT)
+
+**CMP Platforms**: OneTrust Consent & Preference Management, TrustArc Consent Manager, Cookiebot CMP, Osano Consent Management, Usercentrics, Didomi, Sourcepoint, Quantcast Choice
+
+**Reference**: Consult IAPP (International Association of Privacy Professionals), EDPB Guidelines, and legal counsel for detailed compliance guidance
 
 ## Integration Points
 

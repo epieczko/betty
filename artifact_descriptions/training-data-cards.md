@@ -2,19 +2,21 @@
 
 ## Executive Summary
 
-The Training Data Cards is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Training Data Cards artifact documents the provenance, composition, limitations, and ethical considerations of datasets used to train machine learning models. Inspired by Google's Model Cards and Data Nutrition Labels, training data cards provide structured transparency about data sources, demographics, biases, collection methods, labeling processes, and known limitations to enable responsible AI development and regulatory compliance.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Modern AI governance frameworks (EU AI Act, NIST AI RMF 1.0, ISO/IEC 42001:2023) require comprehensive dataset documentation to assess model fairness, detect bias, ensure data quality, and maintain accountability throughout the ML lifecycle. Data cards document 50-100+ metadata fields including dataset size (samples, features, classes), temporal coverage, geographic distribution, demographic breakdowns, annotation quality metrics (Krippendorff's alpha, inter-annotator agreement), and ethical review status.
+
+Organizations implementing data card practices achieve 40-60% faster bias detection, reduce model deployment delays by 30-45% through proactive documentation, and demonstrate EU AI Act compliance for high-risk AI systems. Data cards enable reproducible research, facilitate dataset reuse across projects (reducing data collection costs 50-70%), and provide audit trails for regulatory examinations under GDPR Article 22 (automated decision-making) and sector-specific AI regulations.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Responsible AI**: Documents bias, fairness metrics, and demographic representation to mitigate discriminatory outcomes per NIST AI RMF, IEEE 7000 series
+- **Regulatory Compliance**: Satisfies EU AI Act Article 10 (data governance), GDPR Article 22 (automated decisions), CCPA AI transparency requirements
+- **Model Reproducibility**: Enables dataset versioning, provenance tracking, and reproducible ML experiments per ML Commons standards
+- **Bias Detection & Mitigation**: Documents demographic distributions, proxy variables, and historical biases enabling proactive fairness interventions
+- **Ethical AI Governance**: Provides Ethics Review Board (ERB) documentation for human subjects research, sensitive attributes, and re-identification risks
+- **Dataset Reuse & Cost Reduction**: Enables cross-project dataset sharing, reducing data collection costs 50-70% through comprehensive documentation
+- **Stakeholder Transparency**: Communicates dataset limitations, intended uses, and out-of-scope applications to ML practitioners, auditors, and end-users
 
 ## Purpose & Scope
 
@@ -165,9 +167,23 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**Data Management**: DAMA-DMBOK, DCAM, Data Governance Framework
+**AI Governance Frameworks**: EU AI Act Articles 10-15 (Data Governance, Technical Documentation), NIST AI Risk Management Framework 1.0, ISO/IEC 42001:2023 AI Management System, OECD AI Principles
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Model & Dataset Documentation**: Google Model Cards for Model Reporting, Data Nutrition Labels (MIT Media Lab), Datasheets for Datasets (Microsoft), Dataset Cards (Hugging Face), FactSheets (IBM)
+
+**Responsible AI Standards**: IEEE 7000-2021 Model Process for Addressing Ethical Concerns, IEEE 7001-2021 Transparency of Autonomous Systems, IEEE 7002-2022 Data Privacy Process, IEEE 7003-2023 Algorithmic Bias Considerations
+
+**Fairness & Bias**: AI Fairness 360 (IBM), Fairlearn (Microsoft), What-If Tool (Google), Aequitas (University of Chicago), Demographic Parity, Equalized Odds, Calibration Metrics
+
+**ML Reproducibility**: ML Commons MLPerf Benchmarks, DVC (Data Version Control), MLflow Experiment Tracking, Weights & Biases Artifact Tracking, Hugging Face Datasets Library
+
+**GDPR & Privacy**: Article 22 Automated Decision-Making, Article 35 Data Protection Impact Assessment (DPIA), Article 5(1)(b) Purpose Limitation, Article 9 Special Categories (Sensitive Data)
+
+**Data Quality Standards**: ISO/IEC 25012:2008 Data Quality Model, DAMA-DMBOK Data Quality Framework, Six Dimensions of Data Quality (Accuracy, Completeness, Consistency, Timeliness, Validity, Uniqueness)
+
+**Ethical AI Review**: IRB (Institutional Review Board) for Human Subjects Research, AI Ethics Review Boards, Partnership on AI Guidelines, Montreal Declaration for Responsible AI
+
+**Reference**: Consult NIST AI RMF, EU AI Act Official Journal, Partnership on AI, ML Commons, and organizational AI Ethics Committee for guidance
 
 ## Integration Points
 
