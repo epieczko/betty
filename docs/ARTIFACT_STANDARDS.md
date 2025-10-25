@@ -663,6 +663,29 @@ Designs comprehensive REST APIs...
 
 ---
 
+### 15. Hook Description (`hook-description`)
+
+**Description:** Natural language description of a Claude Code hook's purpose, trigger event, and command to execute. Used by meta.hook to generate hook configurations.
+
+**Convention:**
+- File pattern: `**/hook_description.md`
+- Format: Markdown
+- Content type: text/markdown
+
+**Schema:** `schemas/hook-description.json`
+
+**Produced by:**
+- `Developers (manual creation)`
+
+**Consumed by:**
+- `meta.hook`
+
+**Related types:**
+- `hook-definition`
+- `agent-definition`
+
+---
+
 ## Artifact Metadata Schema
 
 Skills declare artifact metadata in `skill.yaml`:
@@ -1054,3 +1077,4 @@ If valid → Register workflow
 | suggestion-report | *.suggestions.json | schemas/suggestion-report.json | meta.suggest | Claude (for decision making), dashboard.display, workflow.orchestrator |
 | skill-description | **/skill_description.md | schemas/skill-description.json | Developers (manual creation) | meta.skill |
 | skill-definition | skills/*/skill.yaml | schemas/skill-definition.json | meta.skill | plugin.sync (converts to plugin.yaml commands), meta.agent (selects skills for agents), Betty runtime |
+| hook-description | **/hook_description.md | schemas/hook-description.json | Developers (manual creation) | meta.hook |

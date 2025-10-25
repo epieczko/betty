@@ -104,6 +104,12 @@ KNOWN_ARTIFACT_TYPES = {
         "content_type": "application/yaml",
         "description": "Complete skill configuration in YAML format. Defines skill metadata, inputs, outputs, artifact metadata, permissions, and entrypoints."
     },
+    "hook-description": {
+        "schema": "schemas/hook-description.json",
+        "file_pattern": "**/hook_description.md",
+        "content_type": "text/markdown",
+        "description": "Natural language description of a Claude Code hook's purpose, trigger event, and command to execute. Used by meta.hook to generate hook configurations."
+    },
 
 }
 
