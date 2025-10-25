@@ -2,45 +2,60 @@
 
 ## Executive Summary
 
-The Runbooks is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Runbooks are step-by-step operational procedures documenting how to perform routine tasks, respond to alerts, troubleshoot common issues, and recover from failures. These living documents provide on-call engineers, operators, and SREs with executable playbooks that reduce mean time to resolution (MTTR), ensure consistent responses, and enable junior team members to handle incidents that previously required senior engineers.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As essential operational knowledge transfer artifacts, runbooks provide on-call teams with immediate guidance during high-pressure incidents, new team members with ramp-up documentation, SRE teams with toil reduction opportunities through automation, and management with incident response consistency. They transform tribal knowledge into documented, testable procedures that improve reliability and reduce dependency on specific individuals.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **MTTR Reduction**: Reduces resolution time through clear, tested procedures vs. ad-hoc troubleshooting
+- **Knowledge Transfer**: Codifies expert knowledge enabling any team member to handle incidents
+- **On-Call Burden**: Reduces stress and cognitive load during 2 AM incidents with clear guidance
+- **Automation Roadmap**: Identifies repetitive tasks for automation (runbook → script → self-healing)
+- **Compliance**: Demonstrates documented procedures for SOC 2, ISO 27001, change management requirements
+- **Training**: Provides structured training materials for new hires and cross-training
+- **Toil Identification**: Tracks manual, repetitive work to prioritize elimination
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+Runbooks document step-by-step procedures for operational tasks, alert responses, troubleshooting, deployments, and disaster recovery, enabling consistent, repeatable execution by any team member with clear success criteria and rollback procedures.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Alert response: Step-by-step investigation for each alert (high CPU, disk full, API errors)
+- Troubleshooting procedures: Common issues, diagnostic commands, resolution steps
+- Deployment procedures: Pre-deployment checks, deployment steps, rollback procedures
+- Scaling operations: Adding capacity, load balancing changes, database scaling
+- Backup/restore: Backup procedures, restore testing, RPO/RTO validation
+- Failover procedures: Primary to secondary failover, manual failover triggers
+- Routine maintenance: Log rotation, certificate renewal, database vacuuming
+- Success criteria: How to verify operation completed successfully
+- Rollback procedures: Steps to undo changes if issues arise
+- Escalation paths: When to escalate, who to escalate to, escalation criteria
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- System architecture documentation (covered in Architecture Docs)
+- Monitoring/alerting configuration (covered in Monitoring Strategy)
+- Incident post-mortems (covered in Incident Reports)
+- Long-term capacity planning (covered in Capacity Plan)
+- Security procedures (covered in Security Runbooks)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- On-Call Engineers responding to alerts and incidents
+- SRE Teams maintaining and improving operational procedures
+- Operations Teams performing routine maintenance and deployments
+- New Team Members learning operational procedures
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Engineering Managers understanding operational toil and automation opportunities
+- Product Teams understanding system limitations and operational constraints
+- Compliance Teams auditing operational procedures for regulatory requirements
+- Incident Commanders coordinating multi-team incident response
 
 ## Document Information
 
