@@ -2,45 +2,60 @@
 
 ## Executive Summary
 
-The Service Level Objectives is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Service Level Objectives (SLOs) artifact defines measurable reliability targets for services using Service Level Indicators (SLIs) including availability (99.9%, 99.95%, 99.99%), latency percentiles (P95, P99), error rates, and throughput. This artifact implements Google SRE methodology for error budgets, burn rate alerts, and data-driven reliability decisions that balance feature velocity with system stability.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As the foundation of Site Reliability Engineering practices, SLOs provide objective criteria for making trade-offs between releasing new features and improving reliability. They enable error budget policies (remaining downtime allowance), multi-window multi-burn-rate alerting, and inform decisions about deployment freezes, incident severity, and engineering priorities based on actual user impact rather than subjective opinions.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Reliability Targets**: Establishes concrete availability and performance goals (99.9% uptime, P99 latency <500ms) aligned with business requirements
+- **Error Budget Framework**: Implements Google SRE error budget methodology enabling data-driven reliability vs. velocity trade-offs
+- **Burn Rate Alerting**: Detects SLO violations early through multi-window (1h, 6h, 3d, 30d) burn rate alerts before exhausting error budget
+- **Incident Prioritization**: Objectively determines incident severity based on error budget impact and SLO violation magnitude
+- **Release Decision Making**: Provides quantitative criteria for deployment freezes, rollbacks, and feature launch approvals
+- **Team Accountability**: Creates shared ownership between SRE and development teams for reliability outcomes through error budget policies
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines Service Level Objectives (SLOs) and Service Level Indicators (SLIs) for all critical services, establishing measurable reliability targets, error budget calculations, burn rate alert thresholds, and error budget policies. It documents SLI selection criteria, SLO target percentages (99%, 99.9%, 99.95%, 99.99%), measurement windows (28d, 30d, 90d), and exclusions (planned maintenance, dependency failures).
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- SLI selection: availability, latency (P50/P95/P99), error rate, throughput, data freshness
+- SLO targets: 90%, 95%, 99%, 99.9% (three nines), 99.95%, 99.99% (four nines)
+- Error budget calculations: allowed downtime (43m/month for 99.9%, 4.3m/month for 99.99%)
+- Burn rate alerting: multi-window multi-burn-rate alerts (1h/5m, 6h/30m, 3d/6h windows)
+- Error budget policies: deployment freezes, postmortem requirements, engineering allocation
+- SLI measurement: request-based (success rate) vs. time-based (uptime percentage)
+- Service dependencies: user-facing vs. backend services, dependency SLO inheritance
+- SLA alignment: SLOs stricter than SLAs (SLO 99.9%, SLA 99.5%) with buffer
+- Exclusions: planned maintenance windows, upstream dependency failures, load shedding
+- Tooling: Datadog SLO tracking, Grafana SLO plugins, custom SLO dashboards, Sloth/OpenSLO
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Contractual SLAs and customer credits (covered in legal/commercial agreements)
+- Detailed incident response procedures (covered in incident management runbooks)
+- Infrastructure capacity planning (covered in capacity management artifact)
+- Cost optimization and FinOps (covered in cost management artifacts)
+- Specific metric instrumentation details (covered in metric-catalog artifact)
+- Dashboard implementations (covered in monitoring-dashboards artifact)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- SRE Teams: Define SLOs/SLIs, implement error budgets, configure burn rate alerts, enforce error budget policies
+- Engineering Leadership: Set reliability priorities, approve SLO targets, make deployment freeze decisions
+- Platform Engineers: Measure SLIs, implement SLO tracking dashboards, integrate with observability platforms
+- Product Managers: Understand reliability commitments, prioritize reliability work vs. features
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Application Developers: Optimize code for SLO compliance, understand error budget impact of changes
+- DevOps Engineers: Monitor SLO burn rate during deployments, implement automated rollbacks
+- Customer Success: Communicate reliability metrics to customers, manage expectations
+- Legal/Compliance: Ensure SLOs meet contractual SLA requirements with appropriate buffer
 
 ## Document Information
 
@@ -106,19 +121,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**User-Centric SLIs**: Define SLIs based on actual user experience (request success, page load latency) not system metrics
+**Request-Based SLI**: Prefer request-based SLIs (successful requests / total requests) over time-based for accuracy
+**Achievable Targets**: Start with 99% or 99.9%; avoid 100% SLOs (no error budget); four nines (99.99%) rarely justified
+**Error Budget Buffer**: Set SLOs stricter than SLAs (SLO 99.9%, SLA 99.5%) to avoid SLA breaches
+**Multi-Window Alerts**: Implement burn rate alerts with multiple time windows (1h fast, 6h medium, 3d slow burn)
+**Exclude Maintenance**: Exclude planned maintenance windows from SLO calculations with advance notification
+**4xx vs 5xx**: Only count 5xx errors against SLOs; 4xx are client errors and don't indicate system failures
+**Latency Percentiles**: Use P95 or P99 latency, never average (mean); P99 <500ms is common target
+**28-Day Window**: Use 28-day or 30-day rolling windows for error budget calculations (aligned with month)
+**Error Budget Policy**: Define consequences when error budget exhausted (deployment freeze, reduced velocity, focus on reliability)
+**SLO Review Cadence**: Review SLOs quarterly; adjust based on user feedback, business needs, actual performance
+**Dependency Tracking**: Account for dependency failures; don't penalize service for upstream outages
+**Data Completeness**: Require >95% data completeness for SLO measurement validity
+**Gradual Rollout**: Start with lenient SLOs (95%) and tighten over time based on actual performance
+**Document Exclusions**: Clearly document what's excluded (DDoS attacks, force majeure, client errors)
+**Automate Reporting**: Generate SLO reports automatically; dashboard showing error budget remaining and burn rate
+**Postmortem Triggers**: Require postmortems when error budget consumed >10% in single incident
 
 ## Quality Criteria
 
@@ -165,9 +184,60 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**SRE Principles**:
+- Google SRE Book - Chapter 4 (Service Level Objectives), foundational SLO/SLI/SLA definitions
+- Site Reliability Workbook - Implementing SLOs (Chapter 2), practical guidance and examples
+- Building Secure and Reliable Systems - Google's reliability engineering practices
+- The Art of SLOs - Practical guide to implementing SLOs (Alex Hidalgo)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Error Budget Framework**:
+- Error Budget Policy - Google SRE error budget methodology
+- Burn Rate Alerts - Multi-window multi-burn-rate alerting strategy
+- Error Budget Calculation - Allowed downtime based on SLO targets
+- SLO vs SLA Alignment - Maintaining buffer between internal SLOs and external SLAs
+
+**SLO Measurement**:
+- Request-Based SLIs - Success rate = good requests / total requests
+- Time-Based SLIs - Uptime percentage over measurement window
+- Latency SLIs - P50, P95, P99 percentile latency targets
+- Availability SLIs - Percentage of successful requests (excluding 4xx)
+
+**SLO Tooling**:
+- Datadog SLO Tracking - SaaS SLO monitoring with error budget dashboards
+- Grafana SLO Plugin - Open-source SLO tracking and visualization
+- New Relic Service Levels - APM-integrated SLO management
+- Sloth - OpenSLO-based SLO generator for Prometheus
+- OpenSLO - Open standard for defining SLOs in YAML
+- Nobl9 - SLO platform for multi-cloud environments
+- Blameless SRE Platform - SLO tracking with incident integration
+
+**Burn Rate Alerting**:
+- Multi-Window Alerts - Fast (1h), medium (6h), slow (3d) burn rate detection
+- Alert Severity - Page for fast burn (exhausts budget in hours), ticket for slow burn
+- Alert Thresholds - 14.4x burn rate (1h), 6x (6h), 1x (3d) for 99.9% SLO
+
+**SLI Types**:
+- Availability - Request success rate, uptime percentage
+- Latency - Response time percentiles (P50, P90, P95, P99)
+- Throughput - Requests per second, messages processed
+- Quality - Data freshness, correctness, completeness
+- Durability - Data loss prevention (for storage systems)
+
+**SLO Calculation Tools**:
+- SLO Calculator - Error budget and allowed downtime calculators
+- Burn Rate Calculator - Determine alert thresholds for burn rates
+- Availability Calculator - Convert SLO percentage to allowed downtime
+
+**Industry Standards**:
+- ITIL v4 - Service level management best practices
+- ISO/IEC 20000 - Service management system requirements
+- COBIT - IT governance framework with service delivery focus
+
+**SLA Standards**:
+- AWS SLA - 99.99% for multi-AZ services, credits for violations
+- Azure SLA - 99.95% for multi-region, 99.9% single region
+- GCP SLA - 99.95% for regional services, 99.99% multi-region
+- Industry Standards - Three nines (99.9%) common for SaaS, four nines (99.99%) for critical systems
 
 ## Integration Points
 

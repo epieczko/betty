@@ -2,45 +2,63 @@
 
 ## Executive Summary
 
-The Service Dependency Graph is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Service Dependency Graph is a visual and machine-readable representation of all service-to-service relationships, API dependencies, database connections, message queue subscriptions, and external system integrations across the microservices ecosystem. This artifact maps synchronous dependencies (REST, GraphQL, gRPC calls), asynchronous dependencies (Kafka topics, RabbitMQ queues, SNS/SQS), shared resources (databases, caches, object storage), and third-party integrations to provide complete visibility into the distributed system topology.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As the foundation for impact analysis, failure domain isolation, and operational resilience, this graph enables change impact assessment, blast radius analysis, and failure propagation modeling using service mesh observability (Istio, Linkerd), distributed tracing (Jaeger, Zipkin, AWS X-Ray), and dependency discovery tools. It supports critical capabilities including deployment planning, circuit breaker configuration, capacity planning, disaster recovery, security zone mapping, and incident response by identifying critical paths, circular dependencies, single points of failure, and cascading failure risks.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Impact Analysis**: Enables assessment of change impacts and deployment risk before releases
+- **Failure Domain Isolation**: Identifies boundaries for bulkhead isolation to prevent cascading failures
+- **Operational Resilience**: Reveals critical paths and single points of failure requiring resilience patterns
+- **Capacity Planning**: Shows load distribution and dependencies for scaling decisions
+- **Incident Response**: Accelerates root cause analysis by mapping failure propagation paths
+- **Security Segmentation**: Supports network policy definition and zero-trust architecture implementation
+- **Cost Optimization**: Identifies redundant dependencies and opportunities for consolidation
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact provides comprehensive visibility into service dependencies to support impact analysis, failure domain design, deployment orchestration, and operational troubleshooting. It solves the problem of unknown dependencies in distributed systems by automatically discovering, documenting, and visualizing all service relationships, enabling teams to understand blast radius, identify critical paths, plan deployments, and respond to incidents effectively.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Synchronous service dependencies: REST API calls, GraphQL queries, gRPC RPCs, SOAP requests
+- Asynchronous messaging dependencies: Kafka topics (producers/consumers), RabbitMQ queues/exchanges, AWS SNS/SQS, Azure Service Bus
+- Data dependencies: Database connections, cache dependencies (Redis, Memcached), object storage (S3, Blob)
+- External dependencies: Third-party APIs, SaaS integrations, partner systems, legacy systems
+- Service mesh topology: Istio/Linkerd service graph, Envoy proxy relationships, mTLS connections
+- Dependency metadata: Call volumes, latency percentiles, error rates, timeout configurations, retry policies
+- Failure domains: Bulkhead boundaries, circuit breaker groupings, availability zones, regions
+- Circular dependencies: Detection and documentation of circular service relationships
+- Critical path identification: Services on critical user journeys, single points of failure
+- Deployment dependencies: Service deployment order requirements, version compatibility constraints
+- Network topology: Service-to-service communication paths, API gateway routing, load balancer configurations
+- Discovery mechanisms: Service discovery registries (Consul, Eureka), DNS-based discovery, Kubernetes service discovery
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed API specifications (covered in Interface Control Documents)
+- Infrastructure dependencies (covered in infrastructure architecture)
+- Code-level dependencies (covered in software architecture diagrams)
+- Team organizational dependencies (covered in team topology documentation)
+- Business process dependencies (covered in process maps)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Platform Engineers: Manage service mesh, configure traffic routing, implement resilience patterns
+- SRE/DevOps Teams: Assess deployment impact, troubleshoot incidents, plan capacity
+- Integration Architects: Design integration patterns, assess coupling, plan refactoring
+- Security Engineers: Define network policies, implement zero-trust, assess attack surface
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Application Architects: Understand system topology, identify refactoring opportunities
+- Technical Leads: Plan feature development considering dependencies
+- Release Managers: Sequence deployments based on dependency order
+- Incident Commanders: Understand failure propagation during incidents
+- CTO/Engineering Directors: Assess architectural complexity and technical debt
 
 ## Document Information
 
@@ -106,19 +124,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Automated Discovery**: Use service mesh (Istio/Linkerd) and distributed tracing (Jaeger/X-Ray) for automatic dependency detection
+**Real-Time Updates**: Keep graph current through continuous integration with observability platforms
+**Multiple Views**: Provide logical view (service-level), physical view (instance-level), and network view (IP/ports)
+**Dependency Metadata**: Capture call volumes, latency, error rates, timeout/retry configs for each dependency
+**Failure Domain Mapping**: Group services by failure domain boundaries (AZ, region, team, bounded context)
+**Critical Path Highlighting**: Visually emphasize services on critical business paths and user journeys
+**Circular Dependency Detection**: Implement automated detection and alerting for circular dependencies
+**Blast Radius Analysis**: Calculate potential impact of service failures on downstream consumers
+**Deployment Ordering**: Use topological sort to determine safe deployment sequence
+**Health Status Integration**: Show real-time service health alongside dependency relationships
+**Version Compatibility**: Track service version dependencies and breaking change impacts
+**Environment Separation**: Maintain separate graphs for dev, staging, production environments
+**External Dependency Flagging**: Clearly mark third-party and external system dependencies
+**SLI/SLO Integration**: Overlay SLO status on dependency graph for risk assessment
+**Change Impact Tooling**: Provide query capability to assess impact of proposed changes
+**Incident Correlation**: Link dependency graph to incident management for faster RCA
+**Security Zone Visualization**: Show network security boundaries and service communication policies
+**Rate Limiting Visibility**: Display rate limit configurations between service dependencies
+**Database Connection Tracking**: Monitor and visualize database connection dependencies and patterns
+**Message Queue Topology**: Map Kafka topics, RabbitMQ exchanges, and consumer group relationships
 
 ## Quality Criteria
 
@@ -165,7 +190,156 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Service Mesh Platforms**:
+- Istio (traffic management, observability, security, service graph)
+- Linkerd (lightweight service mesh with topology visualization)
+- Consul Connect (service mesh with service graph)
+- AWS App Mesh (managed service mesh)
+- Envoy Proxy (data plane for service mesh, dependency tracking)
+- NGINX Service Mesh
+- Kuma (universal service mesh)
+- Open Service Mesh (OSM)
+
+**Distributed Tracing & Observability**:
+- OpenTelemetry (distributed tracing standard, dependency tracking)
+- Jaeger (distributed tracing, service dependency graph)
+- Zipkin (distributed tracing, dependency map)
+- AWS X-Ray (service map and dependency analysis)
+- Google Cloud Trace (service dependency visualization)
+- Azure Application Insights (application map)
+- Datadog APM (service map and dependencies)
+- New Relic Service Maps
+- Dynatrace Smartscape topology
+- Lightstep (distributed tracing and service graph)
+
+**Dependency Discovery Tools**:
+- Istio Kiali (service mesh topology visualization)
+- Consul Service Graph
+- Kubernetes Service Topology
+- AWS Service Catalog dependency mapping
+- Weave Scope (container and service dependencies)
+- Netflix Vizceral (traffic flow visualization)
+- Spinnaker dependency resolution
+- Backstage Software Catalog (dependency tracking)
+
+**API Gateway Observability**:
+- Kong Vitals (API dependency tracking)
+- Apigee Analytics (API call graphs)
+- AWS API Gateway metrics and logging
+- Azure API Management analytics
+- Tyk Analytics Dashboard
+- GraphQL schema introspection and query analysis
+
+**Graph Databases & Visualization**:
+- Neo4j (graph database for dependency storage)
+- Amazon Neptune (graph database service)
+- Azure Cosmos DB (Gremlin API)
+- D3.js for dependency graph visualization
+- Cytoscape.js for network visualization
+- Graphviz for directed graphs
+- Gephi for network analysis
+
+**Service Discovery Platforms**:
+- Consul (service discovery and health checking)
+- Eureka (Netflix service discovery)
+- etcd (distributed key-value store for discovery)
+- Apache Zookeeper
+- Kubernetes Service Discovery (DNS, endpoints)
+- AWS Cloud Map (service discovery)
+- Azure Service Fabric Naming Service
+
+**Failure Domain Patterns**:
+- Bulkhead pattern for failure isolation
+- Circuit Breaker pattern (Hystrix, Resilience4j, Polly)
+- Failure domain design principles
+- Blast radius reduction strategies
+- Cascading failure prevention
+- Service level isolation
+- Availability zone isolation
+- Regional failover strategies
+
+**Dependency Analysis Patterns**:
+- Critical Path Method (CPM) for deployment sequencing
+- Directed Acyclic Graph (DAG) analysis for build/deploy ordering
+- Cycle detection algorithms for circular dependencies
+- Breadth-First Search (BFS) for dependency traversal
+- Topological sorting for deployment order
+- Strongly Connected Components (SCC) for circular dependency detection
+- PageRank algorithm for service criticality ranking
+
+**Chaos Engineering Tools**:
+- Chaos Monkey (Netflix failure injection)
+- Gremlin (chaos engineering platform)
+- Chaos Mesh (Kubernetes chaos experiments)
+- Litmus (chaos engineering for Kubernetes)
+- Pumba (Docker chaos testing)
+- Failure injection testing guided by dependency graph
+
+**Network Topology & Security**:
+- Kubernetes Network Policies
+- Istio Authorization Policies
+- Calico network policies
+- Cilium (eBPF-based networking and security)
+- Zero Trust Architecture (service-to-service authentication)
+- mTLS (mutual TLS) for service communication
+- Service-to-service authentication and authorization
+
+**APM & Monitoring Platforms**:
+- Prometheus (metrics and service discovery)
+- Grafana (dependency graph visualization)
+- Datadog (service dependency map)
+- New Relic (service maps and dependencies)
+- AppDynamics (flow maps)
+- Elastic APM (service maps)
+- Splunk (service dependency tracking)
+
+**Infrastructure as Code**:
+- Terraform dependency graphs
+- Pulumi resource dependencies
+- CloudFormation resource dependencies
+- Kubernetes resource dependencies (Helm charts)
+- Service dependency declarations in manifests
+
+**Deployment & Orchestration**:
+- Kubernetes Deployment dependencies
+- Helm chart dependencies
+- Spinnaker pipeline dependencies
+- ArgoCD application dependencies
+- Flux GitOps dependency ordering
+- Jenkins pipeline dependency management
+
+**Architecture Visualization**:
+- C4 Model (Context, Container, Component, Code diagrams)
+- PlantUML for architecture diagrams
+- Mermaid.js for dependency graphs
+- Structurizr for architecture modeling
+- draw.io / diagrams.net for manual diagrams
+- CloudCraft for cloud architecture diagrams
+
+**Standards & Best Practices**:
+- TOGAF dependency management
+- ArchiMate dependency relationships
+- AWS Well-Architected Framework (reliability pillar)
+- Google SRE Book (dependency management)
+- Site Reliability Engineering principles
+- Microservices dependency management patterns
+- Conway's Law implications for dependencies
+
+**Message Brokers & Event Streaming**:
+- Apache Kafka (topic dependency tracking, consumer groups)
+- RabbitMQ (exchange and queue topology)
+- AWS SNS/SQS (pub/sub and queue dependencies)
+- Azure Event Hubs (event stream dependencies)
+- Google Cloud Pub/Sub
+- Redis Streams and Pub/Sub
+- NATS messaging topology
+
+**API & Contract Management**:
+- OpenAPI specifications for API dependencies
+- GraphQL schema stitching and federation
+- gRPC service dependencies via Protobuf
+- Consumer-Driven Contracts (Pact) for dependency validation
+- AsyncAPI for event-driven dependencies
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

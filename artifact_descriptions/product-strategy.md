@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Product Strategy is a critical deliverable within the Inception / Strategy phase, supporting Business & Strategy activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Product Strategy is a foundational deliverable within the Inception / Strategy phase that defines the product vision, target market, competitive differentiation, value proposition, and strategic bets. This artifact leverages industry-standard frameworks including Product-Market Fit assessment, Jobs-to-be-Done methodology, Product-Led Growth principles, and the Product Strategy Canvas to create a comprehensive strategic direction.
 
-As a core component of the Business & Strategy practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As the north star for product development, this artifact guides product managers, product marketing teams, and executive leadership in making critical investment and prioritization decisions. It integrates market analysis, competitive intelligence, customer insights, and business objectives into a cohesive strategy that can be executed through roadmaps, OKRs, and KPIs. Tools like Aha!, ProductPlan, Miro, and Amplitude enable collaborative strategy development and data-driven validation.
 
 ### Strategic Importance
 
@@ -20,27 +20,39 @@ As a core component of the Business & Strategy practice, this artifact serves mu
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the definitive strategic guide for product development, defining the product vision, target market segments, competitive differentiation, value proposition, and strategic initiatives. It answers critical questions: What problem are we solving? For whom? How do we win? What are our strategic bets for the next 12-24 months?
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Product vision, mission, and strategic objectives
+- Target market definition and segmentation (TAM/SAM/SOM)
+- Value proposition and competitive differentiation
+- Product-market fit assessment and validation approach
+- Strategic themes and bets (3-5 major initiatives)
+- Success metrics and North Star metric definition
+- Key assumptions, risks, and dependencies
+- Strategic positioning using Jobs-to-be-Done or Value Proposition Canvas
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed roadmap execution (covered in Portfolio Roadmap)
+- Specific OKRs and KPI targets (covered in OKR Definitions and KPI Framework)
+- Go-to-market tactics and launch plans (covered in GTM Checklist and Product Launch Plan)
+- Detailed competitive analysis (covered in Market Analysis)
+- Pricing and packaging details (covered in separate pricing strategy)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Product Managers who develop and execute against the strategy
+- Product Leaders (VP Product, CPO) who set strategic direction
+- Executive Leadership (CEO, Board) who approve resource allocation
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Product Marketing Managers who translate strategy into positioning
+- Engineering Leadership who align technical roadmaps
+- Strategy Teams who ensure cross-functional alignment
+- Revenue Teams (Sales, Customer Success) who execute GTM strategy
 
 ## Document Information
 
@@ -122,6 +134,16 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 **Market Validation**: Validate assumptions with market research and customer feedback
 **Financial Rigor**: Use discounted cash flow, NPV, and scenario analysis for financial projections
 **Competitive Intelligence**: Incorporate competitive analysis and market positioning
+**Customer-Centric**: Ground strategy in Jobs-to-be-Done or customer pain points, not features
+**Data-Driven**: Use product analytics (Amplitude, Mixpanel) to validate product-market fit assumptions
+**Hypothesis-Driven**: Articulate testable hypotheses and define success criteria before building
+**Strategic Clarity**: Apply Product Strategy Canvas to ensure vision, challenges, and strategic direction align
+**Differentiation**: Clearly articulate unique value proposition and competitive moats (network effects, data, brand)
+**Outcome-Oriented**: Focus on outcomes and impact metrics, not outputs and feature counts
+**Positioning Rigor**: Use Obviously Awesome framework to clarify best-fit customers and market category
+**Roadmap Alignment**: Ensure strategy translates into actionable themes in Now/Next/Later roadmap
+**Cross-Functional**: Involve Engineering, Design, Marketing, Sales, and Customer Success early
+**Framework Application**: Choose 2-3 primary frameworks (e.g., JTBD + Product Strategy Canvas + RICE) and apply consistently
 
 ## Quality Criteria
 
@@ -168,9 +190,55 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Product Strategy Frameworks**:
+- Product Strategy Canvas (Melissa Perri)
+- Lean Canvas and Business Model Canvas (Ash Maurya, Alexander Osterwalder)
+- Product-Market Fit Framework (Sean Ellis, Superhuman PMF Engine)
+- Jobs-to-be-Done (JTBD) Framework (Clayton Christensen, Bob Moesta)
+- Value Proposition Canvas (Strategyzer)
+- Product-Led Growth (PLG) Framework (Wes Bush, OpenView Partners)
+- Lean Startup Methodology (Eric Ries)
+- Discovery-Driven Planning (Rita McGrath)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Strategic Positioning**:
+- Positioning: The Battle for Your Mind (Al Ries, Jack Trout)
+- Obviously Awesome positioning framework (April Dunford)
+- Playing to Win strategy framework (A.G. Lafley, Roger Martin)
+- Blue Ocean Strategy (W. Chan Kim, Renée Mauborgne)
+- Crossing the Chasm (Geoffrey Moore)
+- Category Design and Category Creation (Play Bigger)
+
+**Market Analysis & Sizing**:
+- TAM/SAM/SOM framework (Total/Serviceable/Obtainable Market)
+- Bottoms-up vs. Top-down market sizing
+- Fermi estimation techniques
+- Porter's Five Forces analysis
+- PESTEL analysis (Political, Economic, Social, Technological, Environmental, Legal)
+
+**Prioritization Frameworks**:
+- RICE prioritization (Reach, Impact, Confidence, Effort)
+- WSJF (Weighted Shortest Job First) from SAFe
+- MoSCoW (Must have, Should have, Could have, Won't have)
+- Kano Model for feature prioritization
+- ICE scoring (Impact, Confidence, Ease)
+- Opportunity Scoring (Opportunity Solution Trees)
+- Value vs. Effort matrix
+
+**Product Management Tools**:
+- Strategy & Roadmapping: Aha!, ProductPlan, Roadmunk, Jira Product Discovery, ProductBoard
+- Collaboration: Miro, Mural, Figma (FigJam), Notion
+- Analytics: Amplitude, Mixpanel, Heap, Pendo, FullStory, Hotjar
+- Research: Dovetail, UserTesting, Maze, Optimal Workshop
+- Customer Feedback: Productboard, Canny, UserVoice, Pendo
+
+**Goal-Setting & Measurement**:
+- OKRs (Objectives and Key Results) - Measure What Matters (John Doerr)
+- North Star Framework (Amplitude, Sean Ellis)
+- AARRR Pirate Metrics (Dave McClure)
+- Product Analytics frameworks
+- Cohort analysis and retention metrics
+
+**Reference**: Product Management Body of Knowledge (PMBOK), Pragmatic Marketing Framework, Product-Led Alliance certifications
 
 ## Integration Points
 

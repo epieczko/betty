@@ -2,45 +2,63 @@
 
 ## Executive Summary
 
-The Monitoring Dashboards is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Monitoring Dashboards artifact defines comprehensive visualization and alerting strategies for system observability using industry-standard platforms like Grafana, Datadog, New Relic, and Dynatrace. This artifact establishes standardized dashboards that implement the three pillars of observability (metrics, logs, traces) and proven monitoring methodologies including RED metrics (Rate, Errors, Duration), USE metrics (Utilization, Saturation, Errors), and Google's Four Golden Signals.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a cornerstone of Site Reliability Engineering (SRE) practices, monitoring dashboards enable real-time visibility into service health, performance anomalies, and user experience. These dashboards support proactive incident detection, capacity planning, and data-driven optimization by surfacing actionable insights from observability platforms like Prometheus, Elastic Stack, and OpenTelemetry collectors.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Observability Excellence**: Implements unified monitoring across metrics, logs, and traces using OpenTelemetry standards and vendor-agnostic instrumentation
+- **SRE Practice Enablement**: Supports error budget tracking, SLO monitoring, burn rate alerts, and reliability decision-making per Google SRE Book principles
+- **Proactive Detection**: Identifies performance degradation, resource saturation, and anomalies before they impact users through intelligent alerting and ML-powered detection
+- **Service Health Visibility**: Provides real-time insights into service dependencies, distributed tracing, and end-to-end request flows across microservices architectures
+- **Performance Optimization**: Enables data-driven capacity planning, cost optimization, and resource allocation through historical trend analysis
+- **Incident Response**: Accelerates MTTR (Mean Time To Resolution) by providing contextualized dashboards for on-call engineers and incident commanders
+- **Continuous Improvement**: Facilitates blameless post-mortems and reliability improvements through detailed metrics, logs, and trace correlation
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines standardized monitoring dashboard configurations that visualize system health, performance metrics, and user experience across distributed systems. It establishes reusable dashboard templates implementing RED metrics (request Rate, Error rate, Duration), USE metrics (Utilization, Saturation, Errors), and service-specific KPIs using platforms like Grafana, Datadog, New Relic, and Kibana. The dashboards enable real-time anomaly detection, capacity planning, SLO tracking, and rapid incident triage.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Grafana dashboard configurations (JSON models, provisioning, variables, templating)
+- RED metrics dashboards (request rate, error rate, latency percentiles P50/P90/P95/P99)
+- USE metrics dashboards (CPU/memory/disk utilization, saturation, I/O errors)
+- Four Golden Signals monitoring (latency, traffic, errors, saturation)
+- Service health dashboards (uptime, availability, dependency maps, service mesh)
+- Application Performance Monitoring (APM) dashboards with distributed tracing
+- Infrastructure dashboards (Kubernetes, AWS CloudWatch, Azure Monitor, GCP Operations)
+- Log aggregation dashboards (ELK Stack, Splunk, Loki, CloudWatch Logs Insights)
+- Alerting rules and notification channels (PagerDuty, Slack, OpsGenie, email)
+- Anomaly detection and ML-powered insights (Datadog Watchdog, New Relic Applied Intelligence)
+- Custom business metrics and SLI/SLO tracking dashboards
+- Multi-tenancy and team-specific dashboard organization
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Raw metric collection and instrumentation code (covered in metric-catalog artifact)
+- Logging infrastructure and log taxonomy (covered in logging-taxonomy artifact)
+- SLO definitions and error budget policies (covered in service-level-objectives artifact)
+- Alerting escalation policies and on-call schedules (covered in incident management)
+- Cost optimization dashboards (covered in cost-anomaly-alerts artifact)
+- Security monitoring and SIEM dashboards (covered in security artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- SRE Teams: Build and maintain observability dashboards, define alerts, track SLOs and error budgets
+- Platform Engineers: Design infrastructure monitoring, Kubernetes observability, resource utilization tracking
+- DevOps Engineers: Implement CI/CD pipeline monitoring, deployment tracking, release health dashboards
+- On-Call Engineers: Use dashboards for incident triage, root cause analysis, and real-time troubleshooting
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Engineering Leadership: Review service health metrics, reliability trends, and team performance KPIs
+- Product Managers: Monitor user experience metrics, feature adoption, and business KPIs
+- Observability Engineers: Standardize instrumentation, implement OpenTelemetry, optimize cardinality
+- Application Developers: Integrate custom metrics, debug performance issues, optimize application behavior
 
 ## Document Information
 
@@ -106,19 +124,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Dashboard as Code**: Store Grafana/Datadog dashboard definitions in Git using JSON/Terraform for version control, peer review, and automated provisioning
+**RED Metrics Implementation**: Implement request Rate, Error rate, and Duration (latency) for all user-facing services following SRE methodology
+**USE Metrics for Resources**: Track Utilization, Saturation, and Errors for all infrastructure resources (CPU, memory, disk, network, database connections)
+**Consistent Time Windows**: Standardize time ranges (1h, 6h, 24h, 7d, 30d) and refresh intervals across dashboards for consistent user experience
+**Multi-Level Dashboards**: Create hierarchical dashboards (executive overview, service health, detailed diagnostics) for different audiences and drill-down analysis
+**Alert Integration**: Link dashboard panels directly to alert definitions; include alert status indicators and firing alert counts
+**Percentile Latencies**: Always show P50, P90, P95, P99 latency percentiles rather than averages; avoid mean/average for latency metrics
+**Cardinality Management**: Limit high-cardinality labels in Prometheus queries; use recording rules for expensive aggregations
+**Template Variables**: Use Grafana variables for environment, region, service, instance to enable dashboard reuse across deployments
+**Anomaly Detection**: Leverage platform-native ML features (Datadog Watchdog, New Relic Applied Intelligence) for automatic anomaly detection
+**Service Dependency Maps**: Include service mesh topology, distributed tracing flame graphs, and dependency visualizations
+**Cost Visibility**: Add infrastructure cost panels to resource utilization dashboards for FinOps awareness
+**Dark Theme Support**: Design dashboards for readability in both light and dark modes; use colorblind-friendly palettes
+**Performance Optimization**: Limit dashboard query complexity; use data source caching, query result limits, and time-based sampling
+**Documentation Links**: Embed runbook links, alert documentation, and troubleshooting guides directly in dashboard panels
+**SLO Integration**: Display current SLO compliance, error budget remaining, and burn rate alerts prominently on service dashboards
+**Regular Review Cycles**: Review and update dashboards quarterly; remove unused panels, optimize queries, incorporate feedback from incidents
 
 ## Quality Criteria
 
@@ -165,9 +187,88 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Observability Standards**:
+- OpenTelemetry (OTEL) - Unified observability framework for metrics, logs, and traces
+- W3C Trace Context - Standard for distributed tracing propagation
+- Prometheus Data Model - Time-series metric naming conventions and label standards
+- OpenMetrics - Standardized exposition format for Prometheus-style metrics
+- CloudEvents - Specification for describing event data in common formats
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**SRE Principles & Books**:
+- Google SRE Book - Site Reliability Engineering foundational practices
+- Site Reliability Workbook - Practical implementation guidance for SRE teams
+- Building Secure and Reliable Systems - Google security and reliability best practices
+- SLO/SLI/SLA Framework - Service level objective, indicator, and agreement definitions
+- Error Budget Methodology - Balancing reliability and feature velocity
+- Burn Rate Alerts - Fast and slow burn rate detection for SLO violations
+
+**Monitoring Methodologies**:
+- RED Metrics - Request Rate, Error rate, Duration (latency) for services
+- USE Method - Utilization, Saturation, Errors for resource monitoring
+- Four Golden Signals - Latency, Traffic, Errors, Saturation (Google SRE)
+- MELT Framework - Metrics, Events, Logs, Traces observability pillars
+- APM Best Practices - Application Performance Monitoring patterns
+
+**Observability Platforms**:
+- Grafana - Open-source visualization and dashboarding (Grafana Labs)
+- Datadog - Full-stack observability and monitoring SaaS platform
+- New Relic - Application performance monitoring and observability
+- Dynatrace - AI-powered full-stack observability and AIOps
+- Honeycomb - Observability for distributed systems with high-cardinality data
+- Lightstep - Distributed tracing and observability for microservices
+- Chronosphere - Cloud-native observability built on M3DB and Prometheus
+- Elastic Observability - APM, logs, metrics, and uptime monitoring
+
+**Metrics Platforms**:
+- Prometheus - Open-source time-series database and monitoring system
+- InfluxDB - Time-series database optimized for metrics and events
+- Graphite - Scalable real-time graphing and metrics storage
+- StatsD - Network daemon for metrics aggregation
+- M3DB - Distributed time-series database (Uber)
+- VictoriaMetrics - Fast, cost-effective Prometheus-compatible TSDB
+- Cortex - Horizontally scalable Prometheus-as-a-Service
+- Thanos - Highly available Prometheus setup with long-term storage
+
+**Logging Platforms**:
+- ELK Stack - Elasticsearch, Logstash, Kibana for log aggregation and analysis
+- Splunk - Enterprise log management and SIEM platform
+- Grafana Loki - Log aggregation system designed for Grafana integration
+- Fluentd - Open-source data collector for unified logging layer
+- Fluent Bit - Lightweight log processor and forwarder
+- Vector - High-performance observability data pipeline
+- AWS CloudWatch Logs - AWS-native log aggregation and monitoring
+- Azure Monitor Logs - Azure-native log analytics and monitoring
+- Google Cloud Logging - GCP-native log management and analysis
+
+**Distributed Tracing**:
+- Jaeger - Open-source distributed tracing platform (CNCF)
+- Zipkin - Distributed tracing system for troubleshooting latency
+- Grafana Tempo - High-scale distributed tracing backend
+- AWS X-Ray - Distributed tracing for AWS applications
+- Google Cloud Trace - Distributed tracing for GCP applications
+- Azure Application Insights - Application monitoring with distributed tracing
+
+**Dashboard Platforms**:
+- Grafana - Composable observability platform with extensive data source support
+- Kibana - Visualization and exploration tool for Elasticsearch
+- Datadog Dashboards - SaaS dashboarding with 450+ integrations
+- New Relic Dashboards - Custom dashboards and data exploration
+- CloudWatch Dashboards - AWS-native metric and log visualization
+- Azure Dashboards - Azure portal custom dashboard creation
+- Google Cloud Monitoring - GCP-native dashboarding and alerting
+
+**Infrastructure Monitoring**:
+- Kubernetes Monitoring - Prometheus, kube-state-metrics, cAdvisor integration
+- Service Mesh Observability - Istio, Linkerd, Consul Connect metrics
+- Container Monitoring - Docker stats, containerd metrics, runtime observability
+- Cloud Provider Native - AWS CloudWatch, Azure Monitor, GCP Operations Suite
+- Node Exporters - Prometheus node_exporter for host-level metrics
+
+**Standards & Compliance**:
+- ITIL v4 - IT service management best practices
+- ISO/IEC 20000 - IT service management system requirements
+- NIST Cybersecurity Framework - Detect and respond capabilities
+- CIS Controls - Continuous vulnerability management and monitoring
 
 ## Integration Points
 

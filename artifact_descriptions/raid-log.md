@@ -2,43 +2,68 @@
 
 ## Executive Summary
 
-The Raid Log is a critical governance and audit artifact that provides a chronological record of raid throughout the Portfolio, Governance, and Delivery Ops phase. This structured log serves as both a real-time management tool and a historical record for post-project reviews, audits, and lessons learned activities.
+The RAID Log (Risks, Assumptions, Issues, Decisions) is a critical PMO governance artifact providing centralized tracking of project/program risks, assumptions, issues, and decisions aligned to PMBOK Guide, PRINCE2 methodology, and PMI standards. This real-time management tool integrates with project management platforms (Jira, ServiceNow PPM, Microsoft Project, SmartSheet) enabling transparency, accountability, status reporting, and audit trail throughout project lifecycle phases from initiation through closure.
 
-As a cornerstone of program governance, this artifact enables transparency, accountability, and informed decision-making by providing stakeholders with immediate visibility into key events, decisions, and their outcomes. It supports root cause analysis, trend identification, and continuous improvement by maintaining a complete audit trail.
+As a cornerstone of project governance, this artifact serves Program/Project Managers, PMO Directors, Executive Sponsors, Steering Committees, and Delivery Teams by providing immediate visibility into project risks requiring mitigation, assumptions requiring validation, issues blocking progress, and decisions made with rationale. It supports PMO governance, steering committee reporting, risk-informed decision making, and lessons learned capture.
 
 ### Strategic Importance
 
-- **Governance Excellence**: Demonstrates rigorous program management and adherence to organizational standards
-- **Risk Mitigation**: Early identification of patterns and trends enables proactive intervention
-- **Audit Readiness**: Provides comprehensive trail for internal and external audits
-- **Knowledge Capture**: Preserves institutional knowledge beyond individual personnel tenure
-- **Continuous Improvement**: Enables data-driven process improvements through trend analysis
+- **Comprehensive Tracking**: Provides single source of truth for RAID items (Risks, Assumptions, Issues, Decisions) with unique IDs, ownership, status, and resolution tracking
+- **Risk Management Integration**: Links to Enterprise Risk Register for high-impact risks while managing project-specific tactical risks
+- **Issue Resolution**: Tracks issues blocking project progress with priority, owner, target resolution date, and escalation path
+- **Decision Trail**: Documents all project decisions with date, decision-maker, options considered, rationale, and approval evidence
+- **Assumption Validation**: Tracks critical assumptions requiring validation ensuring assumptions don't become risks or issues
+- **PMO Governance**: Enables PMO oversight, steering committee reporting, and project health dashboards with RAID item metrics
+- **Lessons Learned**: Provides audit trail for post-project reviews, retrospectives, and continuous improvement
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the project/program RAID Log tracking Risks (potential future events impacting objectives), Assumptions (factors believed true requiring validation), Issues (current problems requiring resolution), and Decisions (choices made with rationale). It provides centralized governance tool for project management, steering committee reporting, risk mitigation tracking, issue resolution, assumption validation, and decision audit trail aligned to PMBOK, PRINCE2, and PMO best practices.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- **Risks**: Project-specific risks with likelihood/impact assessment, mitigation plans, risk owner, target dates, and risk response strategy (avoid/transfer/mitigate/accept)
+- **Assumptions**: Critical assumptions underlying project plan with validation approach, assumption owner, validation status, and contingency if invalid
+- **Issues**: Current problems blocking progress with priority (P1 Critical/P2 High/P3 Medium/P4 Low), issue owner, root cause, resolution plan, target date, escalation path
+- **Decisions**: Project decisions documenting date, decision-maker, options considered, decision rationale, approval evidence, and impact on project
+- Unique ID assignment for each RAID item with traceability
+- Status tracking (Open, In Progress, Resolved, Closed) with status dates
+- Priority/severity scoring for risks and issues
+- Owner assignment with accountability for each RAID item
+- Target resolution dates and actual resolution dates
+- Escalation tracking for overdue or high-priority items
+- RAID item metrics and dashboard (open risks, overdue issues, decision count, assumption validation rate)
+- Integration with project status reports and steering committee reports
+- Linkage to project schedule and work breakdown structure
+- Weekly RAID review cadence with project team
+- Escalation to Enterprise Risk Register for high-impact project risks
+- Lessons learned extraction from closed RAID items
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Enterprise-wide strategic and operational risks (see Enterprise Risk Register)
+- Policy exceptions and control deviations (see Exception Register)
+- Security incidents and operational incidents (see Incident Management)
+- Vendor risks and third-party assessments (see Third-Party Risk Assessments)
+- Audit findings and remediation plans (see Audit Management)
+- Change requests and change management (see Change Control)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Program/Project Managers for day-to-day RAID log maintenance, risk mitigation, issue resolution, and decision documentation
+- PMO Directors for portfolio oversight, RAID metrics reporting, and PMO governance
+- Executive Sponsors for high-level project health visibility and key decision approval
+- Project Steering Committee for RAID review, risk acceptance, issue escalation, and strategic decisions
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Project Team Members as risk/issue owners responsible for mitigation and resolution
+- Functional Managers providing resources for issue resolution and risk mitigation
+- Enterprise Risk Management for high-impact project risk escalation and integration with Enterprise Risk Register
+- Internal Audit for project governance assessment and decision trail audit
+- Lessons Learned teams for post-project review and continuous improvement
 
 ## Document Information
 
@@ -124,6 +149,22 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 **Risk Integration**: Integrate with risk management processes; escalate risks appropriately
 **Change Control**: Submit significant changes through formal change control process
 **Audit Trail**: Maintain comprehensive audit trail for governance and compliance purposes
+**RAID Log Best Practices**:
+**Weekly RAID Review**: Conduct weekly RAID log review with project team to add new items, update status, and close resolved items
+**Unique ID System**: Assign unique IDs to each RAID item (e.g., R-001, A-001, I-001, D-001) for traceability and reference
+**Owner Assignment**: Every RAID item must have a named owner accountable for resolution or mitigation
+**Priority Scoring**: Use consistent priority/severity scoring (P1/Critical, P2/High, P3/Medium, P4/Low) for risks and issues
+**Target Dates**: Establish and track target resolution dates for all risks and issues with aging alerts for overdue items
+**Escalation Path**: Define clear escalation path for overdue or high-priority items (e.g., P1 issues unresolved in 48 hours escalate to steering committee)
+**RAI Conversion**: Monitor assumptions and risks that convert to issues, validating assumption failure or risk materialization
+**Decision Documentation**: Document all major project decisions with date, decision-maker, options considered, rationale, and approval
+**Status Reporting Integration**: Include RAID summary in weekly status reports and steering committee presentations
+**Dashboard Metrics**: Track metrics including open risks, overdue issues, decisions made this period, assumption validation rate
+**Risk vs Enterprise Risk**: Escalate high-impact project risks (potential loss >$500K or strategic impact) to Enterprise Risk Register
+**Root Cause Analysis**: Conduct root cause analysis for recurring issues using 5 Whys or Fishbone diagram
+**Lessons Learned**: Extract lessons learned from closed RAID items for project retrospectives and knowledge sharing
+**PM Tool Integration**: Maintain RAID log in project management tool (Jira, ServiceNow PPM) not just spreadsheets
+**No Duplicate Tracking**: Avoid duplicate tracking - if escalated to Enterprise Risk Register, close in RAID log with reference
 
 ## Quality Criteria
 
@@ -170,9 +211,68 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Project Management Standards**:
+- PMBOK Guide 7th Edition (PMI) - Project Risk Management (Chapter 11)
+- PRINCE2 (Projects IN Controlled Environments) - Risk, Issue, Decision management
+- PMI Practice Standard for Project Risk Management
+- ISO 21500:2021 Project, programme and portfolio management - Context and concepts
+- APM Body of Knowledge (Association for Project Management)
+- IPMA Competence Baseline (International Project Management Association)
+- Agile Practice Guide (PMI/Agile Alliance) - Risk and issue management in agile
+- SAFe (Scaled Agile Framework) - Program Risk Management
+- PMI-ACP (Agile Certified Practitioner) risk management practices
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**PMO & Governance Frameworks**:
+- PMI Pulse of the Profession - PMO frameworks and best practices
+- Gartner PMO Maturity Model
+- COBIT 2019 (BAI01 Manage Programmes and Projects)
+- ITIL 4 Service Management (Project Management practice)
+- Portfolio, Programme and Project Offices (P3O) framework
+- MoP (Management of Portfolios) framework
+- MSP (Managing Successful Programmes) framework
+
+**Risk Management Integration**:
+- ISO 31000:2018 Risk Management Guidelines
+- COSO Enterprise Risk Management Framework
+- FAIR (Factor Analysis of Information Risk) for risk quantification
+- NIST Risk Management Framework
+- Three Lines Model for risk governance
+
+**Project Management Tools & Platforms**:
+- Jira (Atlassian) - Issue and risk tracking
+- ServiceNow PPM (Project Portfolio Management)
+- Microsoft Project / Project Online
+- SmartSheet project management
+- Monday.com project tracking
+- Asana project management
+- Wrike project collaboration
+- Planview Enterprise One PPM
+- Clarity PPM (Broadcom)
+- Oracle Primavera P6
+
+**Issue & Decision Management**:
+- PMI Practice Guide on Decision Making
+- DACI (Driver, Approver, Contributor, Informed) decision framework
+- RACI (Responsible, Accountable, Consulted, Informed) for issue ownership
+- ITIL Problem Management for root cause analysis
+- Six Sigma DMAIC for issue resolution
+- 8D (Eight Disciplines) Problem Solving
+
+**Agile & Scrum Integration**:
+- Scrum Guide - Sprint risks and impediments
+- SAFe Program Risk Management
+- Kanban board for issue tracking
+- Retrospective practices for lessons learned
+- Sprint Review for decision documentation
+
+**Compliance & Audit**:
+- SOC 2 (CC5.2 Risk assessment in project delivery)
+- ISO 27001 (Project risk management for ISMS projects)
+- COBIT 2019 project governance
+- PMI Code of Ethics and Professional Conduct
+- Sarbanes-Oxley project governance for IT implementations
+
+**Reference**: Consult PMO, Program/Project Managers, and Enterprise Risk Management team for detailed guidance on RAID log templates, risk assessment methodologies, issue escalation procedures, and integration with portfolio management tools
 
 ## Integration Points
 

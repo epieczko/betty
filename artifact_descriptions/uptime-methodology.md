@@ -2,43 +2,59 @@
 
 ## Executive Summary
 
-The Uptime Methodology is a critical governance and audit artifact that provides a chronological record of uptime methodology throughout the General phase. This structured log serves as both a real-time management tool and a historical record for post-project reviews, audits, and lessons learned activities.
+The Uptime Methodology defines standardized approaches for calculating service availability, managing planned maintenance windows, implementing multi-region redundancy, and administering SLA credits for downtime violations. This artifact establishes measurement methodologies aligned with contractual SLAs, handles timezone considerations, excludes legitimate downtime, and ensures transparent reporting of service reliability metrics.
 
-As a cornerstone of program governance, this artifact enables transparency, accountability, and informed decision-making by providing stakeholders with immediate visibility into key events, decisions, and their outcomes. It supports root cause analysis, trend identification, and continuous improvement by maintaining a complete audit trail.
+As a critical component of SLA management and customer communication, the Uptime Methodology provides consistent availability calculations (monthly, quarterly, annual), maintenance window scheduling practices, multi-AZ/multi-region deployment patterns, and SLA credit policies. It bridges SRE reliability practices with contractual obligations, ensuring internal SLOs drive external SLA commitments.
 
 ### Strategic Importance
 
-- **Governance Excellence**: Demonstrates rigorous program management and adherence to organizational standards
-- **Risk Mitigation**: Early identification of patterns and trends enables proactive intervention
-- **Audit Readiness**: Provides comprehensive trail for internal and external audits
-- **Knowledge Capture**: Preserves institutional knowledge beyond individual personnel tenure
-- **Continuous Improvement**: Enables data-driven process improvements through trend analysis
+- **SLA Compliance**: Ensures accurate availability calculations for contractual SLA commitments and service credit administration
+- **Transparency**: Provides customers with clear uptime metrics, maintenance schedules, and downtime explanations
+- **Multi-Region Reliability**: Implements active-active, active-passive, and multi-region architectures for high availability
+- **Maintenance Planning**: Schedules maintenance windows during low-traffic periods with advance customer notification
+- **Financial Impact**: Manages SLA credits, service level penalties, and revenue implications of downtime
+- **Trust Building**: Demonstrates commitment to reliability through transparent status pages and incident communication
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact standardizes uptime calculation methodologies, maintenance window management, multi-region deployment strategies, and SLA credit administration. It defines availability formulas (uptime minutes / total minutes), planned maintenance exclusions, multi-AZ/multi-region patterns, status page communication, and financial remediation for SLA violations.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Availability calculation: (total_time - downtime) / total_time * 100% for monthly/quarterly/annual periods
+- Planned maintenance windows: scheduling, duration limits, advance notice (7-14 days), customer communication
+- Multi-region architectures: active-active, active-passive, multi-AZ deployments (AWS, Azure, GCP)
+- SLA tiers: 99.9% (three nines = 43m downtime/month), 99.95%, 99.99% (four nines = 4.3m/month)
+- SLA credits: percentage refunds based on availability shortfall (10-25-50-100% credit tiers)
+- Exclusions: planned maintenance, customer-caused outages, DDoS attacks, force majeure events
+- Status pages: Statuspage.io, Atlassian Statuspage, custom status dashboards
+- Uptime monitoring: synthetic monitoring, health checks, multi-region probes (Pingdom, UptimeRobot, Datadog Synthetics)
+- Regional failover: DNS failover, load balancer failover, database replication and failover
+- Incident classification: partial outage vs. full outage, region-specific vs. global incidents
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Internal SLO definitions and error budgets (covered in service-level-objectives artifact)
+- Detailed incident response procedures (covered in incident management runbooks)
+- Disaster recovery and business continuity planning (covered in DR/BCP artifacts)
+- Infrastructure architecture and capacity planning (covered in architecture artifacts)
+- Customer contract terms and legal SLA language (covered in legal/commercial agreements)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- SRE Teams: Calculate uptime, track SLA compliance, coordinate maintenance windows, manage status pages
+- Platform Engineers: Implement multi-region architectures, configure health checks, automate failover
+- Customer Success: Communicate uptime metrics, process SLA credit requests, manage customer expectations
+- Finance Teams: Administer SLA credits, track revenue impact of downtime, process refunds
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Engineering Leadership: Review availability trends, approve architecture investments for higher uptime
+- Legal/Compliance: Ensure uptime calculations match contractual SLA definitions
+- DevOps Engineers: Schedule deployments during maintenance windows, minimize customer impact
+- Product Management: Set uptime targets aligned with customer requirements and market standards
 
 ## Document Information
 
@@ -104,19 +120,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Monthly Calculation**: Calculate uptime monthly (calendar month) for consistency with billing cycles and SLA reporting
+**Maintenance Windows**: Schedule during low-traffic hours (2-6 AM local time); limit to 4 hours max; provide 7-14 days notice
+**Exclude Planned**: Exclude planned maintenance from uptime calculations if advance notice given and during designated window
+**Multi-Region Buffer**: Deploy to 3+ regions/AZs; design for single region failure without service impact
+**Health Checks**: Implement deep health checks beyond simple HTTP 200 (database connectivity, dependency health)
+**Synthetic Monitoring**: Use multi-region synthetic monitors (Pingdom, Datadog Synthetics) to detect outages before customers
+**Status Page Transparency**: Publish real-time status page; update within 5 minutes of incident detection; provide incident timelines
+**SLA Credit Automation**: Automate SLA credit calculation and customer notification; proactive outreach for violations
+**Grace Period**: Implement 5-minute grace period before declaring incident (avoid false positives from brief hiccups)
+**Partial Outage Credits**: Prorate credits for partial outages affecting subset of customers or degraded performance
+**Timezone Consistency**: Use UTC for all uptime calculations; convert to customer timezone for reporting
+**Downtime Attribution**: Clearly categorize downtime (unplanned outage, planned maintenance, third-party dependency)
+**SLO-SLA Alignment**: Maintain buffer (SLO 99.9%, SLA 99.5%) to avoid SLA breaches despite internal SLO violations
+**Incident Declaration**: Declare incidents for customer-facing impact; internal degradation tracked separately
+**Post-Incident Review**: Calculate actual downtime from logs/metrics; reconcile with monitoring data; communicate to customers
+**Credit Tiers**: Standard tiers (99.9-99%: 10% credit, 99-95%: 25% credit, <95%: 50-100% credit)
+**Proactive Communication**: Update status page and notify customers proactively during incidents, not reactively
 
 ## Quality Criteria
 
@@ -163,9 +183,58 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**SLA Standards**:
+- ITIL v4 - Service level management and availability management practices
+- ISO/IEC 20000 - Service availability and continuity requirements
+- TM Forum SLA Management (GB917) - Service level agreement best practices
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Cloud Provider SLAs**:
+- AWS SLA - EC2 (99.99% multi-AZ), RDS (99.95% multi-AZ), S3 (99.9%), Lambda (99.95%)
+- Azure SLA - VMs (99.99% multi-zone), SQL Database (99.99%), Storage (99.9%)
+- GCP SLA - Compute Engine (99.99% regional), Cloud SQL (99.95%), Cloud Storage (99.9%)
+
+**Status Page Platforms**:
+- Atlassian Statuspage - Industry-standard status page SaaS platform
+- Status.io - Status page with incident management integration
+- Cachet - Open-source status page system
+- Instatus - Modern status page platform
+
+**Uptime Monitoring**:
+- Pingdom - Synthetic monitoring and uptime tracking (SolarWinds)
+- UptimeRobot - Free/paid uptime monitoring with 5-minute checks
+- Datadog Synthetics - Multi-location API and browser tests
+- New Relic Synthetics - Scripted browser and API monitors
+- Checkly - Programmable synthetic monitoring
+- Site24x7 - Website monitoring and uptime tracking
+
+**Multi-Region Architectures**:
+- AWS Multi-Region - Route 53 health checks, CloudFront, global accelerator
+- Azure Traffic Manager - DNS-based traffic routing for failover
+- GCP Cloud Load Balancing - Global anycast load balancing
+- Multi-AZ Deployments - AWS availability zones, Azure availability zones, GCP zones
+
+**Failover Patterns**:
+- Active-Active - Traffic distributed across multiple regions simultaneously
+- Active-Passive - Standby region activated during primary region failure
+- DNS Failover - Route 53, Azure Traffic Manager, GCP Cloud DNS health checks
+- Database Replication - Read replicas, cross-region replication, automatic failover
+
+**Availability Calculation**:
+- Uptime Formula - (total_minutes - downtime_minutes) / total_minutes * 100%
+- Downtime Allowances - 99.9% = 43.2min/month, 99.95% = 21.6min/month, 99.99% = 4.32min/month
+- Monthly vs Annual - Calculate both; annual smooths out monthly variances
+
+**SLA Credit Administration**:
+- Automated Credit Calculation - Calculate based on actual uptime vs SLA target
+- Tiered Credit Structure - Increasing credit percentages for worse availability
+- Claim Process - Customer-initiated vs proactive credit issuance
+- Credit Caps - Maximum credit (e.g., 100% of monthly fee, no consequential damages)
+
+**Health Check Standards**:
+- HTTP Health Checks - /health, /healthz, /ping endpoints returning 200 OK
+- Deep Health Checks - Database connectivity, cache availability, dependency health
+- Kubernetes Liveness/Readiness - Container orchestration health checks
+- Load Balancer Health Checks - ALB, NLB, Azure Load Balancer, GCP Load Balancer health probes
 
 ## Integration Points
 

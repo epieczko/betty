@@ -2,43 +2,64 @@
 
 ## Executive Summary
 
-The Cookie Policy is a formal directive that establishes organizational rules, standards, and requirements for cookie. This governance artifact provides mandatory guidance that applies across the organization, ensuring consistency, compliance, and risk management.
+The Cookie Policy is a public-facing transparency notice disclosing website cookies, tracking technologies, and similar identifiers to satisfy ePrivacy Directive consent requirements, GDPR Article 6(1)(a) lawful basis for non-essential cookies, PECR (UK Privacy and Electronic Communications Regulations), and CCPA/CPRA opt-out obligations. This critical privacy artifact explains cookie purposes, categories (strictly necessary, functional, analytics, advertising), retention periods, and third-party cookie setters enabling informed user consent decisions through cookie consent banners.
 
-As a cornerstone of organizational governance, policies translate strategic intent and risk appetite into concrete requirements. They establish the "rules of the road" that guide behavior, decision-making, and operational activities while providing the foundation for controls, procedures, and audit criteria.
+Modern cookie policies integrate with Consent Management Platforms (CMPs) like Cookiebot, OneTrust Cookie Consent, Osano, Usercentrics, and Termly to automatically scan websites for cookies, classify cookie categories, generate policy content, and synchronize consent banner configurations. Organizations implement cookie consent workflows compliant with GDPR's requirement for freely given, specific, informed, and unambiguous consent per Article 4(11), honor Global Privacy Control (GPC) opt-out preference signals per CCPA/CPRA, and maintain consent records demonstrating GDPR Article 7 accountability for consent validity.
 
 ### Strategic Importance
 
-- **Risk Management**: Mitigates organizational risk through standardized requirements
-- **Compliance Assurance**: Ensures adherence to regulatory and legal obligations
-- **Consistency**: Drives uniform approach across business units and geographies
-- **Accountability**: Establishes clear expectations and consequences
-- **Efficiency**: Reduces redundant decision-making through established standards
+- **ePrivacy Directive Compliance**: Satisfies EU Cookie Law requiring prior consent for non-essential cookies and similar tracking technologies
+- **GDPR Article 6(1)(a) Consent**: Establishes lawful basis for cookie processing through valid consent meeting Article 4(11) and Article 7 requirements
+- **PECR Compliance**: Addresses UK Privacy and Electronic Communications Regulations cookie consent and information requirements
+- **CCPA/CPRA Opt-Out**: Supports California consumer opt-out rights for cookie-based sale/sharing of personal information and cross-context behavioral advertising
+- **Regulatory Penalty Avoidance**: Mitigates ePrivacy fines (up to €20 million per GDPR Article 83), CNIL cookie consent enforcement, and ICO PECR violations
+- **User Trust and Transparency**: Builds consumer confidence through clear cookie disclosures and granular consent controls in preference centers
+- **Operational Efficiency**: Automates cookie discovery, policy updates, and consent management through Cookiebot, OneTrust, or Osano platforms
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as a comprehensive transparency notice disclosing all website cookies and tracking technologies, explaining cookie purposes and categories, documenting third-party cookie setters, and enabling informed user consent through integration with cookie consent banners satisfying ePrivacy Directive, GDPR Article 6(1)(a), PECR, and CCPA/CPRA requirements.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Cookie categories (strictly necessary, functional/preference, analytics/performance, advertising/targeting/marketing)
+- First-party cookies set by website domain and third-party cookies set by external domains
+- HTTP cookies, Flash cookies, HTML5 local storage, session storage, and other tracking technologies
+- Cookie purposes (authentication, security, load balancing, analytics, advertising, personalization)
+- Cookie retention periods (session cookies deleted on browser close, persistent cookies with expiration dates)
+- Third-party cookie providers (Google Analytics, Facebook Pixel, Hotjar, Google Ads, Salesforce, HubSpot)
+- ePrivacy Directive consent requirements for non-essential cookies
+- GDPR Article 6(1)(a) valid consent elements (freely given, specific, informed, unambiguous, withdrawable)
+- PECR Regulation 6 cookie consent and information requirements
+- CCPA/CPRA opt-out for cookie-based sale/sharing and cross-context behavioral advertising
+- Cookie consent banner integration (Cookiebot, OneTrust, Osano, Usercentrics, Termly)
+- Granular consent controls and preference center for cookie category selection
+- Global Privacy Control (GPC) opt-out preference signal honoring per CCPA/CPRA Section 1798.135
+- Instructions for blocking or deleting cookies through browser settings
+- Link to main Privacy Policy for comprehensive data processing disclosures
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- General privacy policy disclosures beyond cookies (covered in Privacy Policy artifact)
+- Mobile app tracking technologies (IDFA, Android Advertising ID) addressed separately in app privacy notices
+- Server logs and IP address processing not using cookies
+- Technical cookie banner implementation details (JavaScript integration, consent API)
+- Marketing and advertising strategy decisions about cookie use
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Website Visitors and Users understanding cookie usage and providing informed consent
+- EEA Data Subjects exercising GDPR consent rights and cookie preference management
+- California Residents exercising CCPA/CPRA opt-out rights for cookie-based advertising
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Data Protection Officers (DPOs) ensuring ePrivacy Directive and GDPR Article 6(1)(a) cookie consent compliance
+- Privacy and Legal Teams maintaining cookie policy accuracy and consent mechanism validity
+- Marketing Teams understanding consent requirements for analytics cookies (Google Analytics) and advertising cookies (Facebook Pixel)
+- Web Development Teams implementing cookie consent banners and honoring consent preferences
 
 ## Document Information
 
@@ -117,10 +138,28 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 **Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
 **Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
 **Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
-**Legal Review**: Have legal counsel review before approval
-**Exception Process**: Define clear exception request and approval process
-**Communication Plan**: Communicate policy broadly with training as needed
-**Enforcement Mechanism**: Define how compliance is monitored and enforced
+**Automated Cookie Scanning**: Deploy Cookiebot, OneTrust, or Osano to automatically discover all cookies on website and classify into categories (strictly necessary, functional, analytics, advertising)
+**Granular Cookie Categories**: Organize cookies into clear categories (strictly necessary, functional/preference, analytics/performance, advertising/targeting) enabling granular user consent
+**Strictly Necessary Exemption**: Clearly identify strictly necessary cookies exempt from consent (authentication, security, load balancing) under ePrivacy Directive Article 5(3) exemption
+**Prior Consent Requirement**: Implement cookie banner requiring affirmative consent before placing non-essential cookies per ePrivacy Directive and GDPR Article 6(1)(a)
+**No Pre-Ticked Boxes**: Ensure consent banner does not use pre-ticked boxes or implied consent which violates GDPR Article 4(11) "freely given" requirement per Planet49 CJEU C-673/17
+**Cookie Wall Prohibition**: Avoid "cookie walls" blocking website access for users refusing consent which may violate GDPR "freely given" consent requirement per EDPB Guidelines 05/2020
+**Granular Consent Controls**: Provide separate accept/reject options for each cookie category (not all-or-nothing consent) enabling informed choice
+**Easy Consent Withdrawal**: Implement preference center accessible from cookie policy allowing users to withdraw consent as easily as giving it per GDPR Article 7(3)
+**Third-Party Cookie Transparency**: List specific third-party cookie setters (Google Analytics, Facebook Pixel, HubSpot) with links to their privacy policies
+**Cookie Retention Periods**: Disclose specific cookie expiration periods (e.g., "Google Analytics: 2 years", "Session cookies: until browser close")
+**Global Privacy Control (GPC) Support**: Honor browser-based GPC opt-out preference signals automatically per CCPA/CPRA Section 1798.135(b)(1)
+**IAB TCF 2.2 Compliance**: For advertising/programmatic, implement IAB Transparency & Consent Framework 2.2 compliant CMP (Quantcast Choice, Cookiebot with TCF)
+**Consent Record Maintenance**: Maintain consent records with timestamps, consent string, IP address (pseudonymized), user agent demonstrating GDPR Article 7(1) accountability
+**Regular Cookie Audits**: Scan website monthly using Cookiebot or OneTrust to detect new cookies from third-party scripts and update cookie policy accordingly
+**Browser Cookie Management Instructions**: Provide clear instructions for blocking or deleting cookies through browser settings (Chrome, Firefox, Safari, Edge)
+**Link from Privacy Policy**: Include prominent link to Cookie Policy from main Privacy Policy for comprehensive transparency
+**Mobile-Responsive Banner**: Ensure cookie consent banner is mobile-responsive and accessible on all devices per GDPR Article 12 accessibility requirements
+**A/B Testing Consent Rates**: Test different consent banner designs, copy, and UI to optimize consent rates while maintaining legal compliance (Usercentrics A/B testing)
+**Analytics Cookie Alternatives**: Consider Google Analytics 4 with consent mode, server-side analytics, or privacy-preserving analytics (Plausible, Fathom) reducing cookie consent friction
+**Version Control and Updates**: Maintain cookie policy version history in OneTrust or CMP platform, notify users of material changes to cookie practices
+**Legal and DPO Review**: Obtain Privacy Counsel and DPO approval before implementing cookie banner ensuring ePrivacy Directive and GDPR Article 6(1)(a) compliance
+**CNIL Compliance**: Follow CNIL October 2020 cookie guidelines including 6-month consent validity, specific consent for each purpose, and banner prominence requirements
 
 ## Quality Criteria
 
@@ -167,9 +206,21 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Cookie and Tracking Regulations**: ePrivacy Directive 2002/58/EC Article 5(3) (EU Cookie Law requiring prior consent), GDPR Article 6(1)(a) (consent as lawful basis for cookies), PECR Regulation 6 (UK Privacy and Electronic Communications Regulations), CPRA Section 1798.135 (opt-out preference signals), CNIL cookie consent guidelines and enforcement, ICO guidance on cookies and similar technologies
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Consent Management Platforms (CMPs)**: Cookiebot (automated cookie scanning, consent banner, GDPR/ePrivacy compliance), OneTrust Cookie Consent (enterprise cookie compliance, preference centers), Osano Consent Management (cookie discovery, multi-region compliance), Usercentrics CMP (GDPR/CCPA cookie consent, A/B testing), Termly Cookie Consent (automated cookie detection, policy generation), CookieYes (cookie banner, GDPR/CCPA compliance), Quantcast Choice (IAB TCF 2.2 compliant CMP), TrustArc Cookie Consent Manager, Iubenda Cookie Solution
+
+**Cookie Consent Standards**: IAB Transparency & Consent Framework (TCF) 2.2 for programmatic advertising, Global Privacy Control (GPC) technical specification for opt-out signals, Do Not Track (DNT) browser signals (deprecated but historical reference)
+
+**GDPR Consent Requirements**: GDPR Article 4(11) (consent definition: freely given, specific, informed, unambiguous), GDPR Article 7 (conditions for consent including withdrawability), GDPR Article 13-14 (transparency information when collecting consent), EDPB Guidelines 05/2020 on consent under GDPR
+
+**Cookie Categories**: Strictly Necessary cookies (exempt from consent under ePrivacy), Functional/Preference cookies (require consent), Analytics/Performance cookies (require consent), Advertising/Targeting/Marketing cookies (require consent), Social Media cookies (require consent)
+
+**Supervisory Authority Guidance**: CNIL cookies and trackers recommendations (October 2020), ICO guidance on cookies and similar technologies, Spanish AEPD cookie guidance, Belgian DPA cookie consent requirements, Danish DPA cookie guidelines, German state DPA cookie guidance
+
+**US State Privacy Laws**: CCPA/CPRA (California opt-out for sale/sharing via cookies), Virginia CDPA (targeted advertising opt-out), Colorado CPA (targeted advertising opt-out), Connecticut CTDPA (targeted advertising opt-out), Utah UCPA (targeted advertising opt-out)
+
+**Reference**: Consult Data Protection Officer (DPO), Privacy Counsel, and Web Development teams for detailed cookie consent framework guidance and ePrivacy Directive compliance validation
 
 ## Integration Points
 

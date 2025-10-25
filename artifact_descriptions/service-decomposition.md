@@ -2,45 +2,65 @@
 
 ## Executive Summary
 
-The Service Decomposition is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Service Decomposition Strategy is an architectural blueprint that defines how monolithic applications or complex systems are decomposed into microservices, documenting bounded contexts, service boundaries, domain models, and integration patterns. This artifact applies Domain-Driven Design (DDD) principles, bounded context mapping, and strategic decomposition patterns (Strangler Fig, Branch by Abstraction) to transform tightly-coupled systems into loosely-coupled, independently deployable services.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As the foundation for microservices architecture and system modernization, this strategy documents the decomposition approach using domain analysis, aggregate identification, context mapping relationships (Customer-Supplier, Conformist, Anti-Corruption Layer), and service extraction patterns. It defines service granularity, API contracts between services, data ownership boundaries (Database per Service pattern), event-driven communication patterns, and migration sequencing for incremental transformation while maintaining business continuity.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Domain Alignment**: Aligns service boundaries with business capabilities and domain concepts for organizational clarity
+- **Team Autonomy**: Enables independent development, deployment, and scaling by different teams
+- **Technology Flexibility**: Allows different services to use optimal technology stacks (polyglot architecture)
+- **Scalability**: Enables selective scaling of high-demand services rather than entire monolith
+- **Resilience**: Isolates failures to individual services preventing cascading system failures
+- **Incremental Modernization**: Provides roadmap for gradual migration reducing big-bang rewrite risks
+- **Maintenance Efficiency**: Reduces cognitive load through smaller, focused codebases with clear boundaries
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This strategy defines the systematic approach for decomposing monolithic or complex systems into microservices, establishing service boundaries based on domain analysis, business capabilities, and architectural principles. It solves the challenge of determining "where to cut" by applying Domain-Driven Design bounded contexts, identifying aggregates, analyzing coupling and cohesion, and planning incremental extraction that minimizes risk while delivering continuous value.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Domain-Driven Design (DDD) application: Domain model, bounded contexts, ubiquitous language, aggregates, entities, value objects
+- Bounded context identification through event storming, domain analysis, and business capability mapping
+- Context mapping patterns: Customer-Supplier, Conformist, Anti-Corruption Layer, Shared Kernel, Partnership, Published Language
+- Service boundary definition: what belongs in each service, what stays outside
+- Aggregate identification and transaction boundary mapping
+- Data ownership and Database per Service pattern implementation
+- Service extraction patterns: Strangler Fig, Branch by Abstraction, Parallel Run
+- API contract design for inter-service communication (REST, GraphQL, gRPC, events)
+- Event-driven communication patterns: Domain Events, Event Sourcing, Saga orchestration
+- Service granularity analysis: right-sizing services (not too large, not too small)
+- Shared capabilities handling: Shared Kernel vs. separate services
+- Cross-cutting concerns: authentication, authorization, logging, monitoring
+- Migration sequencing: which services to extract first, dependencies, risk mitigation
+- Team topology alignment: Conway's Law, team ownership, bounded contexts per team
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed implementation code (covered in service repositories)
+- Infrastructure deployment architecture (covered in platform architecture)
+- Detailed API specifications (covered in Interface Control Documents)
+- Specific technology selection (covered in technology radar)
+- Operational procedures (covered in runbooks)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Integration Architects: Design service boundaries and integration patterns
+- Domain Architects: Apply DDD principles and identify bounded contexts
+- Application Architects: Plan system decomposition and modernization strategy
+- Technical Leads: Implement service extraction and refactoring
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Backend Engineers: Understand service boundaries and develop within contexts
+- Product Managers: Align services with business capabilities and value streams
+- Engineering Managers: Plan team structure and ownership model
+- Platform Engineers: Prepare infrastructure for microservices deployment
+- CTO/Technical Directors: Approve decomposition strategy and investment
 
 ## Document Information
 
@@ -106,19 +126,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Start with Domain Analysis**: Conduct Event Storming or Domain Storytelling workshops with domain experts before technical decomposition
+**Bounded Context First**: Identify bounded contexts based on domain language and business capabilities, not technical concerns
+**Transaction Boundaries**: Keep aggregates that must be transactionally consistent within same service
+**Database per Service**: Enforce data ownership - each service owns its data, no direct database sharing
+**Strangler Fig Migration**: Incrementally extract services from monolith rather than big-bang rewrite
+**Start Small**: Begin with lowest-risk, highest-value service extraction as proof of concept
+**Event-First Integration**: Prefer event-driven communication over synchronous calls to reduce coupling
+**Anti-Corruption Layer**: Use ACL pattern when integrating with legacy systems or external services
+**Team Ownership**: Align one bounded context per team following Conway's Law
+**Ubiquitous Language**: Establish and maintain consistent domain terminology within each bounded context
+**Measure Coupling**: Use metrics (efferent/afferent coupling, instability) to validate service boundaries
+**Right-Size Services**: Avoid nano-services and mini-monoliths - align with business capabilities
+**Shared Kernel Carefully**: Minimize shared code/data; when necessary, treat shared kernel as versioned dependency
+**Migration Sequencing**: Extract services in order: least coupled → most valuable → highest risk
+**Dual-Write Strategy**: During migration, write to both old and new systems before cutover
+**API-First Contracts**: Define service APIs before implementation using OpenAPI/gRPC schemas
+**Idempotency by Design**: Ensure operations can be safely retried across service boundaries
+**Saga Orchestration**: Use Saga pattern for distributed transactions spanning multiple services
+**Context Map Documentation**: Document all context relationships (Customer-Supplier, Conformist, ACL, etc.)
+**Continuous Refactoring**: Service boundaries are not set in stone - refine based on operational learnings
 
 ## Quality Criteria
 
@@ -165,7 +192,142 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Domain-Driven Design (DDD)**:
+- Domain-Driven Design (Eric Evans) - foundational DDD concepts
+- Implementing Domain-Driven Design (Vaughn Vernon) - practical DDD application
+- Domain-Driven Design Distilled (Vaughn Vernon) - concise DDD overview
+- Bounded Context pattern and context mapping
+- Ubiquitous Language within bounded contexts
+- Aggregates, Entities, and Value Objects
+- Domain Events and Event Storming
+- Context Map patterns (Customer-Supplier, Conformist, ACL, Shared Kernel, Partnership)
+- Strategic DDD (context mapping) vs. Tactical DDD (implementation patterns)
+
+**Service Decomposition Patterns**:
+- Strangler Fig pattern (Martin Fowler) - incremental replacement
+- Branch by Abstraction - parallel implementation during migration
+- Database per Service pattern
+- Decompose by Business Capability
+- Decompose by Subdomain (DDD bounded contexts)
+- Self-contained Service pattern
+- Service per Team pattern
+- Saga pattern for distributed transactions
+- API Composition pattern
+- Anti-Corruption Layer pattern
+
+**Microservices Architecture**:
+- Building Microservices (Sam Newman) - comprehensive microservices guide
+- Microservices Patterns (Chris Richardson) - pattern catalog
+- Monolith to Microservices (Sam Newman) - migration strategies
+- Team Topologies (Matthew Skelton, Manuel Pais) - team structures
+- The Twelve-Factor App - microservices principles
+- Database per Service pattern
+- API Gateway pattern
+- Event-Driven Architecture
+- CQRS and Event Sourcing
+
+**Service Boundary Identification**:
+- Event Storming (Alberto Brandolini) - collaborative domain exploration
+- Domain Storytelling - visual collaborative modeling
+- Business Capability Modeling
+- Value Stream Mapping
+- Context Canvas (DDD Crew) - bounded context documentation
+- Wardley Mapping for service dependencies
+- C4 Model for architecture visualization
+- Bounded Context Canvas
+
+**Conway's Law & Team Topology**:
+- Conway's Law (Melvin Conway) - organizational impact on architecture
+- Team Topologies (Skelton & Pais) - team interaction patterns
+- Inverse Conway Maneuver - designing teams for desired architecture
+- Stream-aligned teams
+- Enabling teams and platform teams
+- Bounded contexts aligned with team boundaries
+
+**Data Management Patterns**:
+- Database per Service pattern
+- Shared Database anti-pattern
+- Saga pattern (orchestration vs. choreography)
+- Event Sourcing pattern
+- CQRS (Command Query Responsibility Segregation)
+- Outbox pattern for reliable event publishing
+- Change Data Capture (CDC) with Debezium
+- API Composition for queries across services
+- Materialized View pattern
+
+**Migration & Modernization Strategies**:
+- Strangler Fig Application (Martin Fowler)
+- Branch by Abstraction (Paul Hammant)
+- Parallel Run pattern
+- Blue-Green Deployment for service migration
+- Feature Toggles for gradual rollout
+- Anti-Corruption Layer for legacy integration
+- Legacy to Microservices migration patterns
+- Incremental refactoring strategies
+
+**Service Granularity Guidelines**:
+- Single Responsibility Principle (SRP) for services
+- High Cohesion, Low Coupling principles
+- Goldilocks Principle (not too large, not too small)
+- Service granularity trade-offs (nano-services vs. mini-monoliths)
+- Business capability alignment
+- Transaction boundary analysis
+- Aggregate size considerations
+
+**Integration Patterns**:
+- Synchronous communication (REST, GraphQL, gRPC)
+- Asynchronous messaging (Kafka, RabbitMQ, AWS SNS/SQS)
+- Event-Driven Architecture patterns
+- Request-Response vs. Publish-Subscribe
+- Circuit Breaker for inter-service calls
+- Service Mesh (Istio, Linkerd, Consul Connect)
+- API Gateway patterns (Kong, Apigee, AWS API Gateway)
+
+**DDD Tools & Techniques**:
+- Event Storming workshops
+- Domain Storytelling
+- Context Mapping exercises
+- Bounded Context Canvas
+- C4 diagrams (Context, Container, Component, Code)
+- Impact Mapping
+- User Story Mapping aligned with bounded contexts
+- Aggregate design workshops
+
+**Analysis Frameworks**:
+- Business Capability Modeling
+- Value Stream Mapping
+- Domain analysis and modeling
+- Dependency analysis (coupling, cohesion metrics)
+- Seam identification in legacy code
+- Bulkhead analysis for failure isolation
+- Transaction boundary identification
+- Data flow analysis
+
+**Organizational Patterns**:
+- Inverse Conway Maneuver
+- Team Topologies patterns
+- Platform as a Product
+- You Build It You Run It (DevOps culture)
+- Two-Pizza Team sizing
+- Feature Teams vs. Component Teams
+- Ownership and accountability models
+
+**Technology Enablers**:
+- API Gateway platforms (Kong, Apigee, AWS API Gateway, Azure APIM)
+- Service Mesh (Istio, Linkerd, Consul)
+- Event streaming (Apache Kafka, AWS Kinesis, Azure Event Hubs)
+- Service discovery (Consul, Eureka, etcd)
+- Distributed tracing (Jaeger, Zipkin, AWS X-Ray)
+- Containerization (Docker, Kubernetes)
+
+**Industry Best Practices**:
+- AWS Well-Architected Framework (microservices lens)
+- Azure Architecture Center (microservices guidance)
+- Google Cloud Architecture Framework
+- Netflix microservices patterns
+- Amazon two-pizza teams
+- Spotify squad model
+- Martin Fowler's microservices resource guide
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 
