@@ -2,45 +2,62 @@
 
 ## Executive Summary
 
-The Crash Reporting Taxonomy is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Crash Reporting Taxonomy is a structured classification system that standardizes crash categorization, severity assignment, and metadata capture across mobile, web, and backend applications. This taxonomy ensures consistent crash analysis using platforms like Sentry, Bugsnag, Crashlytics, or Rollbar by defining crash types, error codes, stack trace patterns, and impact classifications.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a cornerstone of application reliability engineering and Site Reliability Engineering (SRE) practices, this artifact enables teams to prioritize remediation efforts, track error budgets, identify platform-specific issues, and measure crash-free user rates. It provides development, QA, and operations teams with a common language for discussing application stability and user experience impact.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Prioritization Framework**: Defines P0-P3 severity levels based on user impact, crash frequency, and business criticality
+- **Triage Efficiency**: Enables automated routing of crashes to appropriate teams using error fingerprints and stack trace patterns
+- **Trend Analysis**: Facilitates identification of systemic issues through standardized crash categorization
+- **SLA Alignment**: Maps crash severity to incident response SLAs and MTTR targets
+- **Release Quality**: Provides objective criteria for go/no-go decisions based on crash rates and severity distribution
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+Establishes a unified taxonomy for classifying application crashes, errors, and exceptions across all platforms to enable consistent reporting, prioritization, and remediation tracking using crash monitoring tools.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Mobile crash classification (iOS, Android native crashes, ANR, OOM errors)
+- Web application errors (JavaScript exceptions, unhandled promise rejections, network failures)
+- Backend service crashes (uncaught exceptions, segmentation faults, OOM kills, panic conditions)
+- Crash severity levels with clear user impact definitions (P0: app crash on launch, P1: feature unavailable)
+- Error fingerprinting rules for deduplication and grouping
+- Platform-specific crash types (iOS signal crashes, Android Native Development Kit crashes, JVM crashes)
+- Crash metadata requirements (OS version, app version, device model, user session context)
+- Symbolication and deobfuscation taxonomy (iOS dSYMs, Android ProGuard mapping files)
+- Crash-free user rate and crash-free session rate definitions
+- Network error classification (timeouts, DNS failures, SSL/TLS errors, HTTP status codes)
+- Performance issue classification (slow renders, frame drops, memory warnings)
+- User-reported errors vs. automatically detected crashes
+- Third-party library crash attribution
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Crash analysis procedures and remediation workflows (covered in crash triage playbooks)
+- Crash monitoring tool configuration and implementation
+- Code-level debugging techniques and root cause analysis methods
+- Performance profiling and optimization strategies
+- User feedback collection and sentiment analysis
+- Release management and deployment processes
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Mobile developers (iOS, Android) classifying and triaging crashes
+- Web frontend developers handling JavaScript errors and exceptions
+- Backend engineers investigating service crashes and panics
+- SRE teams managing error budgets and reliability targets
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- QA engineers validating crash classification during testing
+- Product managers prioritizing bug fixes based on user impact
+- Technical support teams escalating critical crash reports
+- DevOps engineers configuring crash monitoring alerts and thresholds
 
 ## Document Information
 
@@ -54,9 +71,9 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 **Storage & Access**: Store in designated document repository with appropriate access controls based on classification
 
-**Classification**: [Define typical classification level - Public | Internal | Confidential | Restricted]
+**Classification**: Internal - Contains application architecture and error patterns
 
-**Retention**: [Define retention period per organizational records management policy]
+**Retention**: Minimum 3 years for trend analysis; indefinite for taxonomy versioning
 
 
 ### Document Control
@@ -145,19 +162,31 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Severity Standardization**: Define P0 (launch blocker), P1 (core feature failure), P2 (degraded experience), P3 (minor issue) with explicit user impact criteria
+**Crash-Free Rate Targets**: Maintain >99.5% crash-free sessions for production; >98% for beta releases
+**Fingerprinting Consistency**: Use stable error fingerprints combining exception type, file path, and function name (avoid line numbers)
+**Symbolication Requirements**: Upload symbols within 1 hour of release to enable readable stack traces
+**Grouping Intelligence**: Configure smart grouping to cluster similar crashes while avoiding over-aggregation
+**Platform-Specific Classification**: Separate iOS signal crashes (SIGSEGV, SIGABRT) from Android JNI crashes and JavaScript exceptions
+**Breadcrumb Taxonomy**: Standardize breadcrumb categories (navigation, network, user input, state changes) for context
+**User Impact Metrics**: Track affected users, not just crash count (10 users with 100 crashes > 100 users with 10 crashes)
+**Performance Thresholds**: Define slow startup (>5s), ANR threshold (5s on Android), slow renders (>16ms frame time)
+**Release Tagging**: Tag crashes by release version, deployment environment, and feature flag state
+**Error Budget**: Allocate error budget as percentage of requests/sessions (e.g., 99.9% reliability = 0.1% error budget)
+**Auto-Assignment Rules**: Configure automatic assignment based on file path, team ownership, or error fingerprint
+**Regression Detection**: Flag crashes introduced in new releases by comparing fingerprints to historical baselines
+**Third-Party Attribution**: Separate crashes in vendor SDKs from first-party code crashes
+**Network Error Taxonomy**: Classify by HTTP status (4xx client errors, 5xx server errors, timeouts, DNS failures)
+**Memory Issue Classification**: Distinguish OOM kills, memory warnings, and memory leaks
+**Handled vs. Unhandled**: Track both caught exceptions (for alerting) and unhandled crashes (for stability)
+**Sampling Strategy**: Use 100% sampling for crashes, intelligent sampling (1-10%) for handled errors to manage costs
+**PII Redaction**: Automatically redact email addresses, tokens, and sensitive data from crash reports
+**Deduplication Windows**: Group crashes within 24-hour windows to track ongoing vs. new issues
+**Integration with APM**: Correlate crash events with application performance monitoring (New Relic, Datadog, Dynatrace)
+**Alerting Thresholds**: Alert on spike (>2x baseline), new error fingerprint in production, or P0/P1 crashes
+**Historical Retention**: Retain crash data for minimum 90 days; aggregated metrics for 2+ years
+**Cross-Platform Consistency**: Use unified severity definitions across mobile, web, and backend platforms
+**Compliance Requirements**: Follow GDPR/CCPA guidelines for user consent and data retention in crash reports
 
 ## Quality Criteria
 
@@ -204,7 +233,95 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Crash Monitoring Platforms**:
+- Sentry Error Tracking Best Practices
+- Firebase Crashlytics Implementation Guide
+- Bugsnag Error Monitoring Documentation
+- Rollbar Error Tracking Standards
+- New Relic Browser Monitoring (JavaScript errors)
+- Datadog RUM (Real User Monitoring) Error Tracking
+- AppDynamics Crash Analytics
+- Instabug Crash Reporting
+
+**Mobile Platform Standards**:
+- Apple Crash Reporting and Energy Diagnostics
+- Android Vitals and ANR (Application Not Responding) Guidelines
+- iOS Human Interface Guidelines - Error Handling
+- Android App Quality Guidelines
+- React Native Error Boundaries
+- Flutter Crash Reporting Integration (Crashlytics, Sentry)
+- Xamarin Crash Reporting Best Practices
+
+**Symbolication & Debug**:
+- iOS dSYM Files and Symbolication Process
+- Android ProGuard/R8 Mapping Files
+- JavaScript Source Maps for Minified Code
+- DWARF Debugging Format (iOS/macOS)
+- Breakpad Crash Reporting Library (cross-platform)
+- Crashpad Crash Reporting System (Chromium-based)
+
+**Error Taxonomies & Standards**:
+- HTTP Status Code Definitions (RFC 7231)
+- POSIX Signal Definitions (SIGSEGV, SIGABRT, SIGBUS, etc.)
+- JavaScript Error Types (TypeError, ReferenceError, SyntaxError)
+- Java Exception Hierarchy
+- .NET Exception Handling Best Practices
+- Go Error Handling Conventions
+- Python Exception Taxonomy
+
+**Site Reliability Engineering**:
+- Google SRE Book - Monitoring Distributed Systems
+- Error Budget Policy Templates
+- SLI/SLO/SLA Framework for Application Reliability
+- Incident Severity Classification (P0-P4)
+- On-Call Runbook Standards
+- Postmortem Culture and Templates
+
+**Application Performance**:
+- Web Vitals (Core Web Vitals, FID, LCP, CLS)
+- RAIL Performance Model (Response, Animation, Idle, Load)
+- iOS Performance Best Practices
+- Android Performance Patterns
+- Progressive Web App (PWA) Reliability Guidelines
+
+**Compliance & Privacy**:
+- GDPR Article 5 (Data Minimization in Crash Reports)
+- CCPA Requirements for Error Data
+- COPPA Compliance for Children's Apps
+- HIPAA Technical Safeguards (if health data in crashes)
+- PCI DSS Requirement 6.5 (Application Vulnerability Management)
+- SOC 2 Type II - Availability and Processing Integrity
+
+**Quality Assurance**:
+- ISO/IEC 25010 (Software Quality Model - Reliability)
+- IEEE 1044 (Classification of Software Anomalies)
+- ISTQB Software Testing Defect Management
+- Severity vs. Priority Matrix Standards
+
+**DevOps & CI/CD**:
+- Shift-Left Testing Principles
+- Continuous Monitoring in CI/CD Pipelines
+- Release Quality Gates (crash rate thresholds)
+- Feature Flag Management with Error Tracking
+- Blue-Green Deployment Monitoring
+
+**Open Source Standards**:
+- OpenTelemetry Error Tracking Semantics
+- W3C Web Application Errors Specification
+- OWASP Application Security Verification Standard (ASVS)
+- CWE (Common Weakness Enumeration) for Code Vulnerabilities
+
+**Industry Benchmarks**:
+- Firebase Performance Monitoring Benchmarks
+- App Store Review Guidelines (crash thresholds)
+- Google Play Vitals (ANR rate, crash rate requirements)
+- Industry Standard Crash-Free Rates (99%+ for consumer apps)
+
+**Platform-Specific**:
+- Windows Error Reporting (WER) Documentation
+- Linux Core Dump Analysis
+- macOS Crash Reporter and Sample Analysis
+- Android Native Development Kit (NDK) Crash Handling
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 
@@ -214,25 +331,34 @@ Before considering this artifact complete and ready for approval, verify:
 
 These artifacts or information sources should exist before this artifact can be completed:
 
-- [List artifacts that provide input to this one]
-- [Data sources that feed this artifact]
-- [Prerequisites that must be satisfied]
+- Application architecture documentation (platforms, tech stack, deployment environments)
+- Crash monitoring tool selection and configuration (Sentry, Bugsnag, Crashlytics)
+- Team ownership mapping (which teams own which services/features)
+- Release management process and version tagging strategy
+- Error budget policies and reliability targets
+- Incident response procedures and SLA definitions
 
 ### Downstream Consumers (Who Uses This)
 
 This artifact provides input to:
 
-- [Artifacts that consume information from this one]
-- [Processes that use this artifact]
-- [Teams or roles that rely on this information]
+- Crash triage playbooks that use taxonomy for routing and prioritization
+- Incident response procedures for escalation and communication
+- Release quality gates and go/no-go decision criteria
+- Error budget tracking and SLO/SLI monitoring dashboards
+- Engineering OKRs and reliability improvement initiatives
+- Customer support knowledge bases for known error patterns
 
 ### Related Artifacts
 
 Closely related artifacts that should be referenced or aligned with:
 
-- [Complementary artifacts in same phase]
-- [Artifacts in adjacent phases]
-- [Cross-cutting artifacts (e.g., risk register)]
+- Crash triage playbooks (operational procedures)
+- Incident severity matrix (for escalation alignment)
+- Application monitoring strategy (APM, logs, traces)
+- Release management process (version control, deployment tracking)
+- Error budget policy (reliability targets and tolerances)
+- On-call runbooks (crash investigation procedures)
 
 ## Review & Approval Process
 
@@ -250,9 +376,9 @@ Closely related artifacts that should be referenced or aligned with:
 ### Approval Requirements
 
 **Required Approvers**:
-- Primary Approver: [Define role - e.g., Program Manager, Architecture Lead, CISO]
-- Secondary Approver: [For high-risk or cross-functional artifacts]
-- Governance Approval: [If requires board or committee approval]
+- Primary Approver: Engineering Manager or Principal Engineer
+- Secondary Approver: SRE Lead or Platform Engineering Lead
+- Governance Approval: Architecture Review Board for enterprise-wide standards
 
 **Approval Evidence**:
 - Document approval in artifact metadata
@@ -263,22 +389,23 @@ Closely related artifacts that should be referenced or aligned with:
 
 ### Update Frequency
 
-**Regular Reviews**: [Define cadence - e.g., Quarterly, Annually]
+**Regular Reviews**: Quarterly review for accuracy and completeness
 
 **Event-Triggered Updates**: Update immediately when:
-- Significant organizational changes occur
-- Regulatory requirements change
-- Major incidents reveal deficiencies
-- Stakeholder requests identify needed updates
-- Related artifacts are substantially updated
+- New platforms or technologies are adopted (new mobile frameworks, backend languages)
+- Crash monitoring tools are changed or upgraded
+- Error budget policies are revised
+- Major application rewrites or architecture changes occur
+- New severity definitions or SLA requirements are introduced
+- Regulatory requirements change (GDPR updates, new privacy laws)
 
 ### Version Control Standards
 
 Use semantic versioning: **MAJOR.MINOR.PATCH**
 
-- **MAJOR**: Significant restructuring, scope changes, or approach changes
-- **MINOR**: New sections, substantial additions, or enhancements
-- **PATCH**: Corrections, clarifications, minor updates
+- **MAJOR**: Significant restructuring of severity levels or category definitions
+- **MINOR**: New crash types, platforms, or classification rules added
+- **PATCH**: Corrections, clarifications, minor updates to examples
 
 ### Change Log Requirements
 
@@ -291,7 +418,7 @@ Maintain change log with:
 
 ### Archival & Retention
 
-**Retention Period**: [Define based on regulatory and business requirements]
+**Retention Period**: Minimum 3 years for trend analysis; retain major versions indefinitely
 
 **Archival Process**:
 - Move superseded versions to archive repository
@@ -300,28 +427,28 @@ Maintain change log with:
 
 ### Ownership & Accountability
 
-**Document Owner**: [Define role responsible for maintenance]
+**Document Owner**: Engineering Manager or SRE Lead
 
 **Responsibilities**:
-- Ensure artifact remains current and accurate
-- Coordinate required updates
-- Manage review and approval process
-- Respond to stakeholder questions
-- Archive superseded versions
+- Ensure taxonomy remains current with platform and tooling changes
+- Coordinate quarterly reviews with development and operations teams
+- Manage review and approval process for updates
+- Respond to stakeholder questions and clarification requests
+- Archive superseded versions with change documentation
 
 ## Templates & Examples
 
 ### Template Access
 
-**Primary Template**: `templates/{artifact_name}-template.{format_type.lower()}`
+**Primary Template**: `templates/crash-reporting-taxonomy-template.md`
 
-**Alternative Formats**: [If multiple formats supported]
+**Alternative Formats**: JSON schema for programmatic crash classification
 
 **Template Version**: Use latest approved template version from repository
 
 ### Example Artifacts
 
-**Reference Examples**: `examples/{artifact_name}-example-*.{format_type.lower()}`
+**Reference Examples**: `examples/crash-reporting-taxonomy-example-*.md`
 
 **Annotated Guidance**: See annotated examples showing best practices and common approaches
 
@@ -363,34 +490,36 @@ Before submitting for approval:
 
 [Define any regulatory requirements applicable to this artifact type, such as:]
 
-- SOC 2: [If artifact supports SOC 2 controls]
-- ISO 27001: [If part of ISMS documentation]
-- GDPR/Privacy: [If contains or references personal data]
-- Industry-Specific: [Healthcare, Financial Services, etc.]
+- GDPR: Minimize PII in crash reports; provide user consent mechanisms
+- CCPA: Allow users to opt-out of crash data collection
+- COPPA: Special handling for apps targeting children under 13
+- HIPAA: Ensure no PHI in crash reports for healthcare applications
+- SOC 2: Demonstrate monitoring and incident response capabilities
 
 ### Audit Requirements
 
 This artifact may be subject to:
 
-- Internal audits by IA team
-- External audits by third-party auditors
-- Regulatory examinations
-- Customer security assessments
+- Internal audits by IA team for reliability and quality assurance
+- External audits by third-party auditors for SOC 2, ISO 27001
+- Regulatory examinations for privacy compliance (GDPR, CCPA)
+- App store compliance reviews (Apple App Store, Google Play)
 
 **Audit Preparation**:
-- Maintain complete version history
+- Maintain complete version history of taxonomy changes
 - Document all approvals with evidence
-- Keep change log current
-- Ensure accessibility for auditors
+- Keep change log current with rationale
+- Ensure accessibility for auditors with appropriate permissions
 
 ### Policy Alignment
 
 This artifact must align with:
 
-- [Relevant organizational policies]
-- [Industry regulations and standards]
-- [Contractual obligations]
-- [Governance framework requirements]
+- Application reliability and error budget policies
+- Incident response and escalation procedures
+- Data privacy and protection policies (PII handling in crashes)
+- Software development lifecycle (SDLC) standards
+- Release quality gates and deployment criteria
 
 ## Metrics & Success Criteria
 
@@ -403,9 +532,10 @@ This artifact must align with:
 
 ### Usage Metrics
 
-- **Access Frequency**: How often artifact is accessed/referenced
-- **Update Frequency**: How often artifact requires updates
-- **Downstream Impact**: How many artifacts/processes depend on this
+- **Adoption Rate**: Percentage of teams using standardized taxonomy
+- **Classification Accuracy**: Percentage of crashes correctly classified on first pass
+- **Triage Efficiency**: Reduction in time to assign crashes to appropriate teams
+- **Downstream Impact**: Number of processes and tools relying on this taxonomy
 
 ### Continuous Improvement
 
@@ -417,24 +547,24 @@ This artifact must align with:
 
 ## Metadata Tags
 
-**Phase**: {phase}
+**Phase**: Development and Operations
 
-**Category**: {category}
+**Category**: Application Reliability Engineering, Site Reliability Engineering (SRE)
 
-**Typical Producers**: [Roles/teams that typically create this artifact]
+**Typical Producers**: Engineering Managers, SRE Leads, Principal Engineers, Platform Engineering
 
-**Typical Consumers**: [Roles/teams that typically use this artifact]
+**Typical Consumers**: Mobile/Web/Backend Developers, QA Engineers, SRE Teams, DevOps, Technical Support
 
-**Effort Estimate**: [Typical hours/days required to complete]
+**Effort Estimate**: 16-24 hours for initial creation; 4-8 hours per quarterly update
 
-**Complexity Level**: [Low | Medium | High | Very High]
+**Complexity Level**: Medium to High
 
-**Business Criticality**: [Low | Medium | High | Mission Critical]
+**Business Criticality**: High (impacts user experience and application reliability)
 
-**Change Frequency**: [Static | Infrequent | Regular | Frequent]
+**Change Frequency**: Quarterly reviews; ad-hoc updates for new platforms or major changes
 
 ---
 
 *This artifact definition follows Big Five consulting methodology standards and incorporates industry best practices. Tailor to your organization's specific requirements and context.*
 
-*Last Updated: {phase} - Version 2.0*
+*Last Updated: General - Version 2.0*
