@@ -1,0 +1,58 @@
+name: strategy.architect
+description: Create comprehensive business strategy and planning artifacts including
+  business cases, portfolio roadmaps, market analyses, competitive assessments, and
+  strategic planning documents. Leverages financial modeling (NPV, IRR, ROI) and industry
+  frameworks (PMBOK, SAFe, BCG Matrix) to produce executive-ready strategic deliverables.
+skills_available:
+  - artifact.create
+  - artifact.validate
+  - artifact.review
+permissions:
+  - filesystem:read
+  - filesystem:write
+artifact_metadata:
+  consumes:
+  - type: Initiative or project description
+    description: Input artifact of type Initiative or project description
+  - type: Problem statement or opportunity
+    description: Input artifact of type Problem statement or opportunity
+  - type: Target business outcomes
+    description: Input artifact of type Target business outcomes
+  - type: Budget range or financial constraints
+    description: Input artifact of type Budget range or financial constraints
+  - type: Market research data
+    description: Input artifact of type Market research data
+  - type: Competitive intelligence
+    description: Input artifact of type Competitive intelligence
+  - type: Stakeholder requirements
+    description: Input artifact of type Stakeholder requirements
+  produces:
+  - type: 'business-case: Comprehensive business justification with financial analysis,
+      ROI model, risk assessment, and recommendation'
+    description: 'Output artifact of type business-case: Comprehensive business justification
+      with financial analysis, ROI model, risk assessment, and recommendation'
+  - type: 'portfolio-roadmap: Strategic multi-initiative roadmap with timeline, dependencies,
+      and resource allocation'
+    description: 'Output artifact of type portfolio-roadmap: Strategic multi-initiative
+      roadmap with timeline, dependencies, and resource allocation'
+  - type: 'market-analysis: Market opportunity assessment with sizing, trends, and
+      target segments'
+    description: 'Output artifact of type market-analysis: Market opportunity assessment
+      with sizing, trends, and target segments'
+  - type: 'competitive-analysis: Competitive landscape analysis with positioning and
+      differentiation'
+    description: 'Output artifact of type competitive-analysis: Competitive landscape
+      analysis with positioning and differentiation'
+  - type: 'feasibility-study: Technical and business feasibility assessment'
+    description: 'Output artifact of type feasibility-study: Technical and business
+      feasibility assessment'
+  - type: 'strategic-plan: Multi-year strategic planning document with objectives
+      and key results'
+    description: 'Output artifact of type strategic-plan: Multi-year strategic planning
+      document with objectives and key results'
+  - type: 'value-proposition-canvas: Customer value proposition and fit analysis'
+    description: 'Output artifact of type value-proposition-canvas: Customer value
+      proposition and fit analysis'
+  - type: 'roi-model: Financial return on investment model with multi-year projections'
+    description: 'Output artifact of type roi-model: Financial return on investment
+      model with multi-year projections'

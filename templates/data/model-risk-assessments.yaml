@@ -1,0 +1,70 @@
+# Model Risk Assessments
+# Auto-generated template - Customize for your needs
+# See artifact_descriptions/model-risk-assessments.md for complete guidance
+
+metadata:
+  # Document Control
+  version: "1.0.0"
+  created: "{{date}}"  # YYYY-MM-DD
+  lastModified: "{{date}}"
+  author: "{{your_name}}"  # TODO: Add your name
+  status: "Draft"  # Draft | Review | Approved | Published
+  classification: "Internal"  # Public | Internal | Confidential | Restricted
+
+  # Ownership
+  documentOwner: "{{role}}"  # TODO: Define owning role
+  approvers:
+    - name: "{{approver_name}}"  # TODO: Add approvers
+      role: "{{approver_role}}"
+      approvalDate: null
+
+  # Related Documents
+  relatedDocuments:
+    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
+      path: "{{path}}"
+      relationship: "depends-on | references | supersedes"
+
+
+# Assessment Overview
+assessmentType: "TODO: Type of assessment"
+assessmentDate: "{{date}}"
+assessedBy:
+  - "TODO: Assessor name and role"
+
+# Scope
+scope:
+  systemsAssessed:
+    - "TODO: System or area assessed"
+  methodology: "TODO: Assessment framework or approach"
+
+# Findings
+findings:
+  - id: "F-001"
+    title: "TODO: Finding title"
+    severity: "High"  # Low | Medium | High | Critical
+    category: "TODO: Finding category"
+    description: |
+      TODO: Detailed description
+    evidence: "TODO: Supporting evidence"
+    recommendation: "TODO: Remediation recommendation"
+    owner: "TODO: Remediation owner"
+    targetDate: "{{date}}"
+
+# Summary
+summary:
+  overallRating: "TODO: Overall assessment result"
+  keyFindings:
+    - "TODO: Key finding 1"
+  priorityActions:
+    - "TODO: Priority action 1"
+
+# Notes
+notes: |
+  TODO: Add any additional notes or context
+
+# Change History
+changeHistory:
+  - version: "1.0.0"
+    date: "{{date}}"
+    author: "{{your_name}}"
+    changes: "Initial version"

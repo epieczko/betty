@@ -208,5 +208,7 @@ registry/workflow_history.json
 *.bak
 .DS_Store
 output/
+test_artifacts/
+test_workflows/
 
 /.betty-traces/

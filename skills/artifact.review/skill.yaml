@@ -1,0 +1,100 @@
+name: artifact.review
+version: 0.1.0
+description: >
+  AI-powered artifact content review for quality, completeness, and best practices.
+  Analyzes artifact content against industry standards, provides quality scoring,
+  and generates actionable recommendations for improvement.
+
+inputs:
+  - name: artifact_path
+    type: string
+    required: true
+    description: Path to the artifact file to review
+
+  - name: artifact_type
+    type: string
+    required: false
+    description: Type of artifact (auto-detected from filename/content if not provided)
+
+  - name: review_level
+    type: string
+    required: false
+    default: standard
+    description: Review depth (quick, standard, comprehensive)
+
+  - name: focus_areas
+    type: array
+    required: false
+    description: Specific areas to focus review on (e.g., security, compliance, completeness)
+
+outputs:
+  - name: review_report
+    type: object
+    description: Detailed review with quality assessment and recommendations
+
+  - name: quality_rating
+    type: string
+    description: Overall quality rating (Excellent, Good, Fair, Needs Improvement, Poor)
+
+  - name: readiness_score
+    type: number
+    description: Readiness score from 0-100 for approval/publication
+
+dependencies:
+  - artifact.define
+  - artifact.validate
+
+entrypoints:
+  - command: /skill/artifact/review
+    handler: artifact_review.py
+    runtime: python
+    description: >
+      AI-powered review of artifact content quality. Analyzes completeness,
+      professional quality, best practices compliance, and industry standards
+      alignment. Provides detailed feedback and actionable recommendations.
+    parameters:
+      - name: artifact_path
+        type: string
+        required: true
+        description: Path to artifact file
+      - name: artifact_type
+        type: string
+        required: false
+        description: Artifact type (auto-detected if not provided)
+      - name: review_level
+        type: string
+        required: false
+        default: standard
+        description: Review depth (quick, standard, comprehensive)
+      - name: focus_areas
+        type: array
+        required: false
+        description: Specific review focus areas
+    permissions:
+      - filesystem:read
+
+status: active
+
+tags:
+  - artifacts
+  - review
+  - quality
+  - ai-powered
+  - tier2
+  - phase2
+
+# This skill's own artifact metadata
+artifact_metadata:
+  produces:
+    - type: review-report
+      description: Detailed artifact content review with quality assessment
+      file_pattern: "*-review-report.yaml"
+      content_type: application/yaml
+
+  consumes:
+    - type: "*"
+      description: Reviews any artifact type from the registry
+      file_pattern: "**/*.{yaml,yml,md}"
+    - type: artifact-type-description
+      description: References comprehensive artifact descriptions for quality criteria
+      file_pattern: "artifact_descriptions/*.md"

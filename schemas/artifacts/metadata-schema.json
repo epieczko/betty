@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://betty-framework.dev/schemas/artifact-metadata.json",
+  "title": "Artifact Metadata Schema",
+  "description": "Common metadata schema for all Betty Framework artifacts",
+  "type": "object",
+  "required": ["metadata"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["version", "created", "author", "status"],
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "description": "Semantic version (e.g., 1.0.0)"
+        },
+        "created": {
+          "type": "string",
+          "format": "date",
+          "description": "Creation date (YYYY-MM-DD)"
+        },
+        "lastModified": {
+          "type": "string",
+          "format": "date",
+          "description": "Last modification date (YYYY-MM-DD)"
+        },
+        "author": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Primary author name or team"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Draft", "Review", "Approved", "Published", "Archived"],
+          "description": "Document lifecycle status"
+        },
+        "classification": {
+          "type": "string",
+          "enum": ["Public", "Internal", "Confidential", "Restricted"],
+          "description": "Information classification level"
+        },
+        "documentOwner": {
+          "type": "string",
+          "description": "Role or person responsible for the document"
+        },
+        "approvers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "role"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Approver name"
+              },
+              "role": {
+                "type": "string",
+                "description": "Approver role/title"
+              },
+              "approvalDate": {
+                "type": ["string", "null"],
+                "format": "date",
+                "description": "Date of approval"
+              }
+            }
+          }
+        },
+        "relatedDocuments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["type", "path", "relationship"],
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Related artifact type"
+              },
+              "path": {
+                "type": "string",
+                "description": "Path to related artifact"
+              },
+              "relationship": {
+                "type": "string",
+                "enum": ["depends-on", "references", "supersedes", "implements", "validates"],
+                "description": "Type of relationship"
+              }
+            }
+          }
+        }
+      }
+    },
+    "changeHistory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["version", "date", "author", "changes"],
+        "properties": {
+          "version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "author": {
+            "type": "string"
+          },
+          "changes": {
+            "type": "string",
+            "description": "Description of changes in this version"
+          }
+        }
+      }
+    }
+  }
+}

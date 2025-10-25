@@ -1,0 +1,58 @@
+name: test.engineer
+description: Create comprehensive testing artifacts including test plans, test cases,
+  test results, test automation strategies, and quality assurance reports. Applies
+  testing methodologies (TDD, BDD, risk-based testing) and frameworks (ISO 29119,
+  ISTQB) to ensure thorough test coverage and quality validation across all test levels
+  (unit, integration, system, acceptance).
+skills_available:
+  - artifact.create
+  - artifact.validate
+  - artifact.review
+permissions:
+  - filesystem:read
+  - filesystem:write
+artifact_metadata:
+  consumes:
+  - type: Requirements or user stories
+    description: Input artifact of type Requirements or user stories
+  - type: System architecture or design
+    description: Input artifact of type System architecture or design
+  - type: Test scope and objectives
+    description: Input artifact of type Test scope and objectives
+  - type: Quality criteria and acceptance thresholds
+    description: Input artifact of type Quality criteria and acceptance thresholds
+  - type: Testing constraints
+    description: Input artifact of type Testing constraints
+  - type: Defects or test results
+    description: Input artifact of type Defects or test results
+  produces:
+  - type: 'test-plan: Comprehensive test strategy with scope, approach, resources,
+      and schedule'
+    description: 'Output artifact of type test-plan: Comprehensive test strategy with
+      scope, approach, resources, and schedule'
+  - type: 'test-cases: Detailed test cases with steps, data, and expected results'
+    description: 'Output artifact of type test-cases: Detailed test cases with steps,
+      data, and expected results'
+  - type: 'test-results: Test execution results with pass/fail status and defect tracking'
+    description: 'Output artifact of type test-results: Test execution results with
+      pass/fail status and defect tracking'
+  - type: 'test-automation-strategy: Test automation framework and tool selection'
+    description: 'Output artifact of type test-automation-strategy: Test automation
+      framework and tool selection'
+  - type: 'acceptance-criteria: User story acceptance criteria in Given-When-Then
+      format'
+    description: 'Output artifact of type acceptance-criteria: User story acceptance
+      criteria in Given-When-Then format'
+  - type: 'performance-test-plan: Performance and load testing strategy'
+    description: 'Output artifact of type performance-test-plan: Performance and load
+      testing strategy'
+  - type: 'integration-test-plan: Integration testing approach with interface validation'
+    description: 'Output artifact of type integration-test-plan: Integration testing
+      approach with interface validation'
+  - type: 'regression-test-suite: Regression test suite for continuous integration'
+    description: 'Output artifact of type regression-test-suite: Regression test suite
+      for continuous integration'
+  - type: 'quality-assurance-report: QA summary with metrics, defects, and quality
+      assessment'
+    description: 'Output artifact of type quality-assurance-report: QA summary with
+      metrics, defects, and quality assessment'

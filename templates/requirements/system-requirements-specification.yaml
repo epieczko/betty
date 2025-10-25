@@ -1,0 +1,71 @@
+# System Requirements Specification
+# Auto-generated template - Customize for your needs
+# See artifact_descriptions/system-requirements-specification.md for complete guidance
+
+metadata:
+  # Document Control
+  version: "1.0.0"
+  created: "{{date}}"  # YYYY-MM-DD
+  lastModified: "{{date}}"
+  author: "{{your_name}}"  # TODO: Add your name
+  status: "Draft"  # Draft | Review | Approved | Published
+  classification: "Internal"  # Public | Internal | Confidential | Restricted
+
+  # Ownership
+  documentOwner: "{{role}}"  # TODO: Define owning role
+  approvers:
+    - name: "{{approver_name}}"  # TODO: Add approvers
+      role: "{{approver_role}}"
+      approvalDate: null
+
+  # Related Documents
+  relatedDocuments:
+    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
+      path: "{{path}}"
+      relationship: "depends-on | references | supersedes"
+
+
+# Specification Overview
+specificationName: "TODO: Name of what is being specified"
+version: "1.0.0"
+status: "Draft"  # Draft | Review | Approved | Deprecated
+
+# Requirements
+requirements:
+  functional:
+    - id: "FR-001"
+      requirement: "TODO: Functional requirement"
+      priority: "Must Have"  # Must Have | Should Have | Could Have
+
+  nonFunctional:
+    - id: "NFR-001"
+      category: "Performance"  # Performance | Security | Scalability | etc.
+      requirement: "TODO: Non-functional requirement"
+      metric: "TODO: How it's measured"
+      target: "TODO: Target value"
+
+# Design
+design:
+  architecture: |
+    TODO: High-level architecture description
+  components:
+    - name: "TODO: Component name"
+      purpose: "TODO: Component purpose"
+      interfaces:
+        - "TODO: Interface description"
+
+# Validation
+validation:
+  testCriteria:
+    - "TODO: How this specification will be validated"
+
+# Notes
+notes: |
+  TODO: Add any additional notes or context
+
+# Change History
+changeHistory:
+  - version: "1.0.0"
+    date: "{{date}}"
+    author: "{{your_name}}"
+    changes: "Initial version"

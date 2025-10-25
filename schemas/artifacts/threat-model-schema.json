@@ -1,0 +1,210 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://betty-framework.dev/schemas/threat-model.json",
+  "title": "Threat Model Schema",
+  "description": "Schema for threat model artifacts",
+  "type": "object",
+  "required": ["metadata", "content"],
+  "allOf": [
+    {
+      "$ref": "./metadata-schema.json"
+    }
+  ],
+  "properties": {
+    "content": {
+      "type": "object",
+      "required": ["systemDescription", "assets", "threats", "controls"],
+      "properties": {
+        "systemDescription": {
+          "type": "object",
+          "required": ["overview", "components", "dataFlows"],
+          "properties": {
+            "overview": {
+              "type": "string",
+              "minLength": 100,
+              "description": "System overview and purpose"
+            },
+            "components": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["name", "description", "trustBoundary"],
+                "properties": {
+                  "name": {"type": "string"},
+                  "description": {"type": "string"},
+                  "trustBoundary": {
+                    "type": "string",
+                    "enum": ["External", "DMZ", "Internal", "Trusted"]
+                  },
+                  "technologies": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  }
+                }
+              }
+            },
+            "dataFlows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "from": {"type": "string"},
+                  "to": {"type": "string"},
+                  "protocol": {"type": "string"},
+                  "dataClassification": {
+                    "type": "string",
+                    "enum": ["Public", "Internal", "Confidential", "Restricted"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "type", "value", "sensitivity"],
+            "properties": {
+              "name": {"type": "string"},
+              "type": {
+                "type": "string",
+                "enum": ["Data", "Service", "Infrastructure", "Intellectual Property"]
+              },
+              "value": {
+                "type": "string",
+                "enum": ["Low", "Medium", "High", "Critical"]
+              },
+              "sensitivity": {
+                "type": "string",
+                "enum": ["Public", "Internal", "Confidential", "Restricted"]
+              },
+              "description": {"type": "string"}
+            }
+          }
+        },
+        "threats": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "title", "description", "category", "impact", "likelihood"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^T-\\d+$",
+                "description": "Threat ID (e.g., T-001)"
+              },
+              "title": {"type": "string"},
+              "description": {"type": "string"},
+              "category": {
+                "type": "string",
+                "enum": [
+                  "Spoofing",
+                  "Tampering",
+                  "Repudiation",
+                  "Information Disclosure",
+                  "Denial of Service",
+                  "Elevation of Privilege"
+                ],
+                "description": "STRIDE category"
+              },
+              "impact": {
+                "type": "string",
+                "enum": ["Low", "Medium", "High", "Critical"]
+              },
+              "likelihood": {
+                "type": "string",
+                "enum": ["Low", "Medium", "High"]
+              },
+              "riskScore": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 25,
+                "description": "Risk score (Impact x Likelihood)"
+              },
+              "attackVector": {"type": "string"},
+              "affectedAssets": {
+                "type": "array",
+                "items": {"type": "string"}
+              }
+            }
+          }
+        },
+        "controls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "title", "type", "mitigatedThreats", "status"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^C-\\d+$",
+                "description": "Control ID (e.g., C-001)"
+              },
+              "title": {"type": "string"},
+              "description": {"type": "string"},
+              "type": {
+                "type": "string",
+                "enum": ["Preventive", "Detective", "Corrective", "Compensating"]
+              },
+              "mitigatedThreats": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^T-\\d+$"
+                },
+                "description": "List of threat IDs this control mitigates"
+              },
+              "status": {
+                "type": "string",
+                "enum": ["Planned", "Implemented", "Tested", "Verified"]
+              },
+              "effectiveness": {
+                "type": "string",
+                "enum": ["Low", "Medium", "High"]
+              }
+            }
+          }
+        },
+        "residualRisks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "threatId": {
+                "type": "string",
+                "pattern": "^T-\\d+$"
+              },
+              "description": {"type": "string"},
+              "acceptanceRationale": {"type": "string"}
+            }
+          }
+        },
+        "compliance": {
+          "type": "object",
+          "properties": {
+            "frameworks": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Applicable frameworks (ISO 27001, NIST, PCI-DSS, etc.)"
+            },
+            "requirements": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "framework": {"type": "string"},
+                  "requirement": {"type": "string"},
+                  "status": {
+                    "type": "string",
+                    "enum": ["Met", "Partially Met", "Not Met", "Not Applicable"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

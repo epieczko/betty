@@ -1,0 +1,89 @@
+# Success Plan Templates
+# Auto-generated template - Customize for your needs
+# See artifact_descriptions/success-plan-templates.md for complete guidance
+
+metadata:
+  # Document Control
+  version: "1.0.0"
+  created: "{{date}}"  # YYYY-MM-DD
+  lastModified: "{{date}}"
+  author: "{{your_name}}"  # TODO: Add your name
+  status: "Draft"  # Draft | Review | Approved | Published
+  classification: "Internal"  # Public | Internal | Confidential | Restricted
+
+  # Ownership
+  documentOwner: "{{role}}"  # TODO: Define owning role
+  approvers:
+    - name: "{{approver_name}}"  # TODO: Add approvers
+      role: "{{approver_role}}"
+      approvalDate: null
+
+  # Related Documents
+  relatedDocuments:
+    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
+      path: "{{path}}"
+      relationship: "depends-on | references | supersedes"
+
+
+# Executive Summary
+executiveSummary: |
+  TODO: 2-3 paragraph overview
+  - What is being planned
+  - Why it matters
+  - Key success criteria
+
+# Objectives
+objectives:
+  - objective: "TODO: Primary objective"
+    successCriteria:
+      - "TODO: Measurable criterion 1"
+      - "TODO: Measurable criterion 2"
+
+# Scope
+scope:
+  inScope:
+    - "TODO: What is included"
+  outOfScope:
+    - "TODO: What is excluded"
+
+# Timeline
+timeline:
+  phases:
+    - name: "Phase 1"
+      startDate: "2024-Q1"
+      endDate: "2024-Q2"
+      milestones:
+        - name: "Milestone 1"
+          date: "2024-01-31"
+          deliverables:
+            - "TODO: Deliverable"
+
+# Resources
+resources:
+  team:
+    - role: "TODO: Role"
+      allocation: "100%"  # FTE percentage
+  budget:
+    total: 0
+    breakdown:
+      - category: "Personnel"
+        amount: 0
+
+# Risks
+risks:
+  - id: "RISK-001"
+    description: "TODO: Risk description"
+    likelihood: "Medium"  # Low | Medium | High
+    impact: "High"  # Low | Medium | High
+    mitigation: "TODO: Mitigation strategy"
+
+# Notes
+notes: |
+  TODO: Add any additional notes or context
+
+# Change History
+changeHistory:
+  - version: "1.0.0"
+    date: "{{date}}"
+    author: "{{your_name}}"
+    changes: "Initial version"

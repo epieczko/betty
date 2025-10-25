@@ -1,0 +1,74 @@
+# Ownership Charters
+# Auto-generated template - Customize for your needs
+# See artifact_descriptions/ownership-charters.md for complete guidance
+
+metadata:
+  # Document Control
+  version: "1.0.0"
+  created: "{{date}}"  # YYYY-MM-DD
+  lastModified: "{{date}}"
+  author: "{{your_name}}"  # TODO: Add your name
+  status: "Draft"  # Draft | Review | Approved | Published
+  classification: "Internal"  # Public | Internal | Confidential | Restricted
+
+  # Ownership
+  documentOwner: "{{role}}"  # TODO: Define owning role
+  approvers:
+    - name: "{{approver_name}}"  # TODO: Add approvers
+      role: "{{approver_role}}"
+      approvalDate: null
+
+  # Related Documents
+  relatedDocuments:
+    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
+      path: "{{path}}"
+      relationship: "depends-on | references | supersedes"
+
+
+# Charter Overview
+purpose: |
+  TODO: Why this initiative/body exists
+  What problem it solves or opportunity it addresses
+
+# Scope
+scope:
+  inScope:
+    - "TODO: Area 1 within scope"
+  outOfScope:
+    - "TODO: Area 1 explicitly excluded"
+
+# Authority & Governance
+authority:
+  sponsor: "TODO: Executive sponsor"
+  decisionAuthority: "TODO: Who can make what decisions"
+  escalationPath:
+    - level: "L1"
+      role: "TODO: First escalation point"
+
+# Objectives
+objectives:
+  - "TODO: Objective 1"
+  - "TODO: Objective 2"
+
+# Success Criteria
+successCriteria:
+  - criterion: "TODO: Measurable success criterion"
+    target: "TODO: Specific target"
+
+# Stakeholders
+stakeholders:
+  - name: "TODO: Stakeholder or group"
+    role: "TODO: Their role"
+    interest: "High"  # Low | Medium | High
+    influence: "High"  # Low | Medium | High
+
+# Notes
+notes: |
+  TODO: Add any additional notes or context
+
+# Change History
+changeHistory:
+  - version: "1.0.0"
+    date: "{{date}}"
+    author: "{{your_name}}"
+    changes: "Initial version"

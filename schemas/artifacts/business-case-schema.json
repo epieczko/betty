@@ -1,0 +1,204 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://betty-framework.dev/schemas/business-case.json",
+  "title": "Business Case Schema",
+  "description": "Schema for business case artifacts",
+  "type": "object",
+  "required": ["metadata", "content"],
+  "allOf": [
+    {
+      "$ref": "./metadata-schema.json"
+    }
+  ],
+  "properties": {
+    "content": {
+      "type": "object",
+      "required": ["executiveSummary", "problemStatement", "proposedSolution", "financialAnalysis"],
+      "properties": {
+        "executiveSummary": {
+          "type": "string",
+          "minLength": 50,
+          "description": "High-level summary for executives (2-3 paragraphs)"
+        },
+        "problemStatement": {
+          "type": "object",
+          "required": ["description", "impact", "stakeholders"],
+          "properties": {
+            "description": {
+              "type": "string",
+              "minLength": 100,
+              "description": "Detailed description of the problem or opportunity"
+            },
+            "impact": {
+              "type": "string",
+              "description": "Business impact of not addressing this"
+            },
+            "stakeholders": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Affected stakeholders"
+            }
+          }
+        },
+        "proposedSolution": {
+          "type": "object",
+          "required": ["description", "scope", "approach"],
+          "properties": {
+            "description": {
+              "type": "string",
+              "minLength": 100,
+              "description": "Proposed solution description"
+            },
+            "scope": {
+              "type": "object",
+              "properties": {
+                "inScope": {
+                  "type": "array",
+                  "items": {"type": "string"}
+                },
+                "outOfScope": {
+                  "type": "array",
+                  "items": {"type": "string"}
+                }
+              }
+            },
+            "approach": {
+              "type": "string",
+              "description": "Implementation approach"
+            }
+          }
+        },
+        "financialAnalysis": {
+          "type": "object",
+          "required": ["costs", "benefits", "roi"],
+          "properties": {
+            "costs": {
+              "type": "object",
+              "properties": {
+                "initial": {
+                  "type": "number",
+                  "description": "Initial investment required"
+                },
+                "ongoing": {
+                  "type": "number",
+                  "description": "Annual ongoing costs"
+                },
+                "breakdown": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "category": {"type": "string"},
+                      "amount": {"type": "number"},
+                      "description": {"type": "string"}
+                    }
+                  }
+                }
+              }
+            },
+            "benefits": {
+              "type": "object",
+              "properties": {
+                "quantifiable": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "benefit": {"type": "string"},
+                      "annualValue": {"type": "number"},
+                      "description": {"type": "string"}
+                    }
+                  }
+                },
+                "qualitative": {
+                  "type": "array",
+                  "items": {"type": "string"}
+                }
+              }
+            },
+            "roi": {
+              "type": "object",
+              "properties": {
+                "paybackPeriod": {
+                  "type": "string",
+                  "description": "Time to recover investment"
+                },
+                "netPresentValue": {
+                  "type": "number"
+                },
+                "internalRateOfReturn": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "riskAssessment": {
+          "type": "object",
+          "properties": {
+            "risks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["description", "impact", "probability", "mitigation"],
+                "properties": {
+                  "description": {"type": "string"},
+                  "impact": {
+                    "type": "string",
+                    "enum": ["Low", "Medium", "High", "Critical"]
+                  },
+                  "probability": {
+                    "type": "string",
+                    "enum": ["Low", "Medium", "High"]
+                  },
+                  "mitigation": {"type": "string"}
+                }
+              }
+            }
+          }
+        },
+        "timeline": {
+          "type": "object",
+          "properties": {
+            "phases": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {"type": "string"},
+                  "duration": {"type": "string"},
+                  "deliverables": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "recommendation": {
+          "type": "string",
+          "minLength": 50,
+          "description": "Final recommendation and next steps"
+        }
+      }
+    },
+    "nextSteps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["action", "owner", "dueDate"],
+        "properties": {
+          "action": {"type": "string"},
+          "owner": {"type": "string"},
+          "dueDate": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      }
+    }
+  }
+}
