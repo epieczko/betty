@@ -26,6 +26,9 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../.
 from betty.config import (
     BASE_DIR,
     COMMANDS_REGISTRY_FILE,
+    REGISTRY_FILE,
+    AGENTS_REGISTRY_FILE,
+    WORKFLOWS_DIR,
     CommandExecutionType,
     CommandStatus
 )
@@ -207,6 +210,91 @@ class CommandCreator:
 
         return context
 
+    def load_skill_registry(self) -> Dict[str, Any]:
+        """
+        Load skill registry for validation.
+
+        Returns:
+            Skill registry dictionary
+
+        Raises:
+            ValueError: If registry cannot be loaded
+        """
+        registry_file = Path(REGISTRY_FILE)
+        if not registry_file.exists():
+            raise ValueError(f"Skill registry not found: {REGISTRY_FILE}")
+
+        try:
+            with open(registry_file) as f:
+                return json.load(f)
+        except json.JSONDecodeError as e:
+            raise ValueError(f"Failed to parse skill registry: {e}")
+
+    def load_agent_registry(self) -> Dict[str, Any]:
+        """
+        Load agent registry for validation.
+
+        Returns:
+            Agent registry dictionary
+
+        Raises:
+            ValueError: If registry cannot be loaded
+        """
+        registry_file = Path(AGENTS_REGISTRY_FILE)
+        if not registry_file.exists():
+            raise ValueError(f"Agent registry not found: {AGENTS_REGISTRY_FILE}")
+
+        try:
+            with open(registry_file) as f:
+                return json.load(f)
+        except json.JSONDecodeError as e:
+            raise ValueError(f"Failed to parse agent registry: {e}")
+
+    def validate_execution_target(self, execution_type: str, target: str) -> None:
+        """
+        Validate that the execution target exists.
+
+        Args:
+            execution_type: Type of execution (agent, skill, workflow)
+            target: Target identifier or path
+
+        Raises:
+            ValueError: If target does not exist
+        """
+        if execution_type == "skill":
+            # Validate skill exists in registry
+            skill_registry = self.load_skill_registry()
+            registered_skills = {skill["name"] for skill in skill_registry.get("skills", [])}
+            if target not in registered_skills:
+                raise ValueError(
+                    f"Skill '{target}' not found in skill registry.\n"
+                    f"Available skills: {', '.join(sorted(registered_skills)) if registered_skills else 'none'}"
+                )
+
+        elif execution_type == "agent":
+            # Validate agent exists in registry
+            agent_registry = self.load_agent_registry()
+            registered_agents = {agent["name"] for agent in agent_registry.get("agents", [])}
+            if target not in registered_agents:
+                raise ValueError(
+                    f"Agent '{target}' not found in agent registry.\n"
+                    f"Available agents: {', '.join(sorted(registered_agents)) if registered_agents else 'none'}"
+                )
+
+        elif execution_type == "workflow":
+            # Validate workflow file exists
+            # Target can be just the name or the full path
+            if target.endswith(".yaml") or target.endswith(".yml"):
+                workflow_path = self.base_dir / target
+            else:
+                workflow_path = self.base_dir / "workflows" / f"{target}.yaml"
+
+            if not workflow_path.exists():
+                raise ValueError(
+                    f"Workflow file not found: {workflow_path}\n"
+                    f"Expected workflow file at: {workflow_path}"
+                )
+
     def generate_command_manifest(self, cmd_desc: Dict[str, Any]) -> str:
         """
         Generate command manifest YAML
@@ -267,6 +355,11 @@ class CommandCreator:
 
             # Parse description
             cmd_desc = self.parse_description(description_path)
+
+            # Validate execution target exists
+            print(f"🔍 Validating execution target: {cmd_desc['execution_type']} → {cmd_desc['target']}")
+            self.validate_execution_target(cmd_desc["execution_type"], cmd_desc["target"])
+            print(f"✅ Target validation passed\n")
 
             # Generate manifest YAML
             manifest_yaml = self.generate_command_manifest(cmd_desc)

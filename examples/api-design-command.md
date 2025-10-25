@@ -3,7 +3,7 @@
 # Description: Design a complete API architecture from requirements
 
 # Execution Type: agent
-# Target: api.architect
+# Target: api.designer
 
 # Parameters:
 - requirements: string (required) - Path to requirements document or description

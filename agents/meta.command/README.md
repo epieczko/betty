@@ -377,11 +377,33 @@ The meta-agent validates:
 
 - ✅ Required fields present (name, description, execution_type, target)
 - ✅ Valid execution type (agent, skill, workflow)
+- ✅ **Execution target exists** (skill in registry, agent in registry, or workflow file)
 - ✅ Command name starts with `/`
 - ✅ Parameter types are valid
 - ✅ Enum parameters have values defined
 - ✅ Version follows semantic versioning
 - ✅ Status is valid (draft, active, deprecated, archived)
+
+### Target Validation
+
+The meta-agent performs **mandatory validation** to ensure the execution target exists:
+
+**For skill execution:**
+- Checks if the skill exists in `registry/skills.json`
+- Fails with error if skill not found
+- Lists all available skills for reference
+
+**For agent execution:**
+- Checks if the agent exists in `registry/agents.json`
+- Fails with error if agent not found
+- Lists all available agents for reference
+
+**For workflow execution:**
+- Checks if the workflow file exists in `workflows/` directory
+- Supports both full paths and workflow names
+- Fails with error if workflow file not found
+
+This **fail-fast approach** prevents creating command manifests that will fail during registration.
 
 ## Error Handling
 
@@ -398,6 +420,27 @@ Common errors and solutions:
 ❌ Error: Invalid execution type: service. Must be one of: agent, skill, workflow
 ```
 → Use only valid execution types
+
+**Target not found (skill):**
+```
+❌ Error: Skill 'nonexistent.skill' not found in skill registry.
+Available skills: api.validate, workflow.compose, ...
+```
+→ Use a skill that exists in the registry, or create the skill first using meta.skill
+
+**Target not found (agent):**
+```
+❌ Error: Agent 'nonexistent.agent' not found in agent registry.
+Available agents: api.designer, api.analyzer
+```
+→ Use an agent that exists in the registry, or create the agent first using meta.agent
+
+**Target not found (workflow):**
+```
+❌ Error: Workflow file not found: /home/user/betty/workflows/nonexistent.yaml
+Expected workflow file at: /home/user/betty/workflows/nonexistent.yaml
+```
+→ Create the workflow file first, or check the target path
 
 **Invalid parameter type:**
 ```
