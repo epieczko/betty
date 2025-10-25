@@ -92,6 +92,18 @@ KNOWN_ARTIFACT_TYPES = {
         "content_type": "application/json",
         "description": "Context-aware recommendations for what to do next after an agent completes. Includes ranked suggestions with rationale, required artifacts, and expected outcomes."
     },
+    "skill-description": {
+        "schema": "schemas/skill-description.json",
+        "file_pattern": "**/skill_description.md",
+        "content_type": "text/markdown",
+        "description": "Natural language description of a skill's requirements, inputs, outputs, and implementation details. Used by meta.skill to generate complete skill implementations."
+    },
+    "skill-definition": {
+        "schema": "schemas/skill-definition.json",
+        "file_pattern": "skills/*/skill.yaml",
+        "content_type": "application/yaml",
+        "description": "Complete skill configuration in YAML format. Defines skill metadata, inputs, outputs, artifact metadata, permissions, and entrypoints."
+    },
 
 }
 

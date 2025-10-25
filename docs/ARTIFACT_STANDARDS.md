@@ -615,6 +615,54 @@ Designs comprehensive REST APIs...
 
 ---
 
+### 13. Skill Description (`skill-description`)
+
+**Description:** Natural language description of a skill's requirements, inputs, outputs, and implementation details. Used by meta.skill to generate complete skill implementations.
+
+**Convention:**
+- File pattern: `**/skill_description.md`
+- Format: Markdown
+- Content type: text/markdown
+
+**Schema:** `schemas/skill-description.json`
+
+**Produced by:**
+- `Developers (manual creation)`
+
+**Consumed by:**
+- `meta.skill`
+
+**Related types:**
+- `skill-definition`
+- `agent-description`
+
+---
+
+### 14. Skill Definition (`skill-definition`)
+
+**Description:** Complete skill configuration in YAML format. Defines skill metadata, inputs, outputs, artifact metadata, permissions, and entrypoints.
+
+**Convention:**
+- File pattern: `skills/*/skill.yaml`
+- Format: YAML
+- Content type: application/yaml
+
+**Schema:** `schemas/skill-definition.json`
+
+**Produced by:**
+- `meta.skill`
+
+**Consumed by:**
+- `plugin.sync (converts to plugin.yaml commands)`
+- `meta.agent (selects skills for agents)`
+- `Betty runtime`
+
+**Related types:**
+- `skill-implementation`
+- `agent-definition`
+
+---
+
 ## Artifact Metadata Schema
 
 Skills declare artifact metadata in `skill.yaml`:
@@ -1004,3 +1052,5 @@ If valid → Register workflow
 | compatibility-graph | *.compatibility.json | schemas/compatibility-graph.json | meta.compatibility | meta.suggest, dashboard.display, workflow.orchestrator |
 | pipeline-suggestion | *.pipeline.json | schemas/pipeline-suggestion.json | meta.compatibility, meta.suggest | workflow.orchestrator, Claude (for decision making) |
 | suggestion-report | *.suggestions.json | schemas/suggestion-report.json | meta.suggest | Claude (for decision making), dashboard.display, workflow.orchestrator |
+| skill-description | **/skill_description.md | schemas/skill-description.json | Developers (manual creation) | meta.skill |
+| skill-definition | skills/*/skill.yaml | schemas/skill-definition.json | meta.skill | plugin.sync (converts to plugin.yaml commands), meta.agent (selects skills for agents), Betty runtime |
