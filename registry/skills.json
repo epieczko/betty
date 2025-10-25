@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-24T21:26:11.166217+00:00",
+  "generated_at": "2025-10-25T17:30:16.402673+00:00",
   "skills": [
     {
       "name": "workflow.validate",
@@ -30,7 +30,9 @@
               "description": "Path to the workflow YAML file."
             }
           ],
-          "permissions": ["filesystem:read"]
+          "permissions": [
+            "filesystem:read"
+          ]
         }
       ]
     },
@@ -374,7 +376,7 @@
               "name": "auto_version",
               "type": "boolean",
               "required": false,
-              "description": "Enable automatic version bumping based on changes detected. Rules: field removed → major bump, field/permission added → minor bump, other changes → patch bump.\n"
+              "description": "Enable automatic version bumping based on changes detected. Rules: field removed \u2192 major bump, field/permission added \u2192 minor bump, other changes \u2192 patch bump.\n"
             }
           ],
           "permissions": [
@@ -384,7 +386,13 @@
           ]
         }
       ],
-      "tags": ["docs", "documentation", "registry", "automation", "maintenance"]
+      "tags": [
+        "docs",
+        "documentation",
+        "registry",
+        "automation",
+        "maintenance"
+      ]
     },
     {
       "name": "agent.run",
@@ -418,7 +426,9 @@
           "description": "Complete execution results including prompt, Claude response, and skill outputs"
         }
       ],
-      "dependencies": ["agent.define"],
+      "dependencies": [
+        "agent.define"
+      ],
       "entrypoints": [
         {
           "command": "/agent/run",
@@ -446,11 +456,81 @@
               "description": "Save execution log to agent_logs/<agent>_<timestamp>.json"
             }
           ],
-          "permissions": ["filesystem:read", "filesystem:write", "network:http"]
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write",
+            "network:http"
+          ]
         }
       ],
       "status": "active",
-      "tags": ["agents", "execution", "claude-api", "orchestration", "layer2"]
+      "tags": [
+        "agents",
+        "execution",
+        "claude-api",
+        "orchestration",
+        "layer2"
+      ]
+    },
+    {
+      "name": "git.commit",
+      "version": "0.1.0",
+      "description": "Generate descriptive commit messages by analyzing git diffs. Use when the user asks for help writing commit messages or reviewing staged changes. Follows conventional commits format with types (feat, fix, docs, etc.) and scopes.\n",
+      "inputs": [
+        {
+          "name": "git_diff",
+          "type": "string",
+          "required": false,
+          "description": "Git diff content (auto-detected from staged changes if not provided)"
+        },
+        {
+          "name": "scope",
+          "type": "string",
+          "required": false,
+          "description": "Scope of the changes (e.g., api, ui, database)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "commit_message",
+          "type": "string",
+          "description": "Generated commit message following conventional commits format"
+        },
+        {
+          "name": "commit_type",
+          "type": "string",
+          "description": "Detected commit type (feat, fix, docs, refactor, test, chore, style)"
+        }
+      ],
+      "dependencies": [],
+      "entrypoints": [
+        {
+          "command": "/git/commit",
+          "handler": "git_commit.py",
+          "runtime": "python",
+          "description": "Generate conventional commit messages by analyzing git diffs. Helps write clear, consistent commit messages following best practices.\n",
+          "parameters": [
+            {
+              "name": "scope",
+              "type": "string",
+              "required": false,
+              "description": "Optional scope for the commit (e.g., api, ui, core)"
+            }
+          ],
+          "permissions": [
+            "filesystem:read"
+          ]
+        }
+      ],
+      "status": "active",
+      "tags": [
+        "git",
+        "commit",
+        "conventional-commits",
+        "documentation",
+        "developer-tools"
+      ],
+      "updated_at": "2025-10-25T17:30:16.402667+00:00"
     }
   ]
 }

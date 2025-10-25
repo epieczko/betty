@@ -1,0 +1,52 @@
+name: git.commit
+version: 0.1.0
+description: >
+  Generate descriptive commit messages by analyzing git diffs.
+  Use when the user asks for help writing commit messages or reviewing staged changes.
+  Follows conventional commits format with types (feat, fix, docs, etc.) and scopes.
+
+inputs:
+  - name: git_diff
+    type: string
+    required: false
+    description: Git diff content (auto-detected from staged changes if not provided)
+
+  - name: scope
+    type: string
+    required: false
+    description: Scope of the changes (e.g., api, ui, database)
+
+outputs:
+  - name: commit_message
+    type: string
+    description: Generated commit message following conventional commits format
+
+  - name: commit_type
+    type: string
+    description: Detected commit type (feat, fix, docs, refactor, test, chore, style)
+
+dependencies: []
+
+entrypoints:
+  - command: /git/commit
+    handler: git_commit.py
+    runtime: python
+    description: >
+      Generate conventional commit messages by analyzing git diffs.
+      Helps write clear, consistent commit messages following best practices.
+    parameters:
+      - name: scope
+        type: string
+        required: false
+        description: Optional scope for the commit (e.g., api, ui, core)
+    permissions:
+      - filesystem:read
+
+status: active
+
+tags:
+  - git
+  - commit
+  - conventional-commits
+  - documentation
+  - developer-tools

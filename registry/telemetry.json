@@ -226,5 +226,68 @@
     "duration_ms": 4,
     "caller": "cli",
     "exit_code": 0
+  },
+  {
+    "timestamp": "2025-10-25T17:28:14.477741+00:00",
+    "execution_id": "e8b3a2eb-8131-428c-b8c8-f71906966932",
+    "skill": "registry.update",
+    "inputs": {
+      "manifest_path": "/home/user/betty/skills/git.commit/skill.yaml",
+      "skill_name": "git.commit"
+    },
+    "status": "success",
+    "duration_ms": 6,
+    "caller": "cli",
+    "registry_path": "/home/user/betty/registry/skills.json",
+    "total_skills": 11,
+    "policy_enforced": true,
+    "diff": {
+      "operation": "add",
+      "skill_name": "git.commit",
+      "skills_before": 10,
+      "skills_after": 11
+    }
+  },
+  {
+    "timestamp": "2025-10-25T17:28:14.734222+00:00",
+    "execution_id": "ad1f042c-7c3c-4f83-bb65-042a2ce15e3f",
+    "skill": "registry.update",
+    "inputs": {
+      "manifest_path": "/home/user/betty/skills/git.commit/skill.yaml",
+      "skill_name": "git.commit"
+    },
+    "status": "success",
+    "duration_ms": 7,
+    "caller": "cli",
+    "registry_path": "/home/user/betty/registry/skills.json",
+    "total_skills": 11,
+    "policy_enforced": true,
+    "diff": {
+      "operation": "update",
+      "skill_name": "git.commit",
+      "skills_before": 11,
+      "skills_after": 11
+    }
+  },
+  {
+    "timestamp": "2025-10-25T17:30:16.408521+00:00",
+    "execution_id": "63badb69-8c99-40de-9dda-749c43bad83c",
+    "skill": "registry.update",
+    "inputs": {
+      "manifest_path": "/home/user/betty/skills/git.commit/skill.yaml",
+      "skill_name": "git.commit"
+    },
+    "status": "success",
+    "duration_ms": 6,
+    "caller": "cli",
+    "registry_path": "/home/user/betty/registry/skills.json",
+    "total_skills": 11,
+    "policy_enforced": true,
+    "diff": {
+      "operation": "update",
+      "skill_name": "git.commit",
+      "skills_before": 11,
+      "skills_after": 11
+    }
   }
 ]
