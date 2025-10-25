@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-25T17:18:49.423739+00:00",
+  "generated_at": "2025-10-25T20:32:23.668282+00:00",
   "skills": [
     {
       "name": "test.hello",
@@ -1956,112 +1956,6 @@
       "updated_at": "2025-10-25T17:17:27.079714+00:00"
     },
     {
-      "name": "registry.update",
-      "version": "0.2.0",
-      "description": "Updates the Betty Framework Skill Registry by adding or modifying entries based on validated skill manifests. Supports automatic version bumping based on semantic versioning rules.\n",
-      "inputs": [
-        "manifest_path",
-        "auto_version"
-      ],
-      "outputs": [
-        "registry_update_result.json"
-      ],
-      "dependencies": [
-        "skill.define",
-        "registry.diff"
-      ],
-      "status": "active",
-      "entrypoints": [
-        {
-          "command": "/registry/update",
-          "handler": "registry_update.py",
-          "runtime": "python",
-          "description": "Add or update entries in the Skill Registry with optional automatic version bumping.\n",
-          "parameters": [
-            {
-              "name": "manifest_path",
-              "type": "string",
-              "required": true,
-              "description": "Path to the skill manifest (.skill.yaml) being added or updated."
-            },
-            {
-              "name": "auto_version",
-              "type": "boolean",
-              "required": false,
-              "description": "Enable automatic version bumping based on changes detected. Rules: field removed → major bump, field/permission added → minor bump, other changes → patch bump.\n"
-            }
-          ],
-          "permissions": [
-            "filesystem",
-            "read",
-            "write"
-          ]
-        }
-      ],
-      "updated_at": "2025-10-25T17:17:27.328824+00:00"
-    },
-    {
-      "name": "skill.create",
-      "version": "0.1.0",
-      "description": "Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\n",
-      "inputs": [
-        "skill_name",
-        "description",
-        "inputs",
-        "outputs"
-      ],
-      "outputs": [
-        "skill_directory",
-        "manifest_path",
-        "registration_record.json"
-      ],
-      "dependencies": [
-        "skill.define",
-        "context.schema"
-      ],
-      "status": "active",
-      "entrypoints": [
-        {
-          "command": "/skill/create",
-          "handler": "skill_create.py",
-          "runtime": "python",
-          "description": "Scaffolds a new Betty Skill directory, generates its manifest, validates it with skill.define, and updates the registry.\n",
-          "parameters": [
-            {
-              "name": "skill_name",
-              "type": "string",
-              "description": "Name of the new skill (e.g., runtime.execute)",
-              "required": true
-            },
-            {
-              "name": "description",
-              "type": "string",
-              "description": "Description of what the skill will do",
-              "required": true
-            },
-            {
-              "name": "inputs",
-              "type": "string",
-              "description": "Comma-separated list of input parameters (optional)",
-              "required": false
-            },
-            {
-              "name": "outputs",
-              "type": "string",
-              "description": "Comma-separated list of output parameters (optional)",
-              "required": false
-            }
-          ],
-          "permissions": [
-            "filesystem",
-            "read",
-            "write"
-          ]
-        }
-      ],
-      "updated_at": "2025-10-25T17:17:27.582928+00:00"
-    },
-    {
       "name": "skill.define",
       "version": "0.1.0",
       "description": "Validates and registers skill manifests (.skill.yaml) for the Betty Framework. Ensures schema compliance and updates the Skill Registry.\n",
@@ -2218,45 +2112,6 @@
         "audit"
       ],
       "updated_at": "2025-10-25T17:17:28.097938+00:00"
-    },
-    {
-      "name": "workflow.compose",
-      "version": "0.1.0",
-      "description": "Executes multi-step Betty Framework workflows by chaining existing skills. Enables declarative orchestration of skill pipelines.\n",
-      "inputs": [
-        "workflow_path"
-      ],
-      "outputs": [
-        "workflow_history.json"
-      ],
-      "dependencies": [
-        "skill.create",
-        "skill.define",
-        "registry.update"
-      ],
-      "status": "active",
-      "entrypoints": [
-        {
-          "command": "/workflow/compose",
-          "handler": "workflow_compose.py",
-          "runtime": "python",
-          "description": "Execute a Betty workflow defined in a YAML file.\n",
-          "parameters": [
-            {
-              "name": "workflow_path",
-              "type": "string",
-              "required": true,
-              "description": "Path to a workflow YAML file to execute."
-            }
-          ],
-          "permissions": [
-            "filesystem",
-            "read",
-            "write"
-          ]
-        }
-      ],
-      "updated_at": "2025-10-25T17:17:28.359605+00:00"
     },
     {
       "name": "workflow.validate",
@@ -2550,6 +2405,211 @@
         "development"
       ],
       "updated_at": "2025-10-25T17:18:49.423732+00:00"
+    },
+    {
+      "name": "test.integration.temp",
+      "version": "0.1.0",
+      "description": "Test skill with IO",
+      "inputs": [
+        "input1",
+        "input2"
+      ],
+      "outputs": [
+        "output1"
+      ],
+      "dependencies": [],
+      "status": "draft",
+      "updated_at": "2025-10-25T20:32:05.725974+00:00"
+    },
+    {
+      "name": "workflow.compose",
+      "version": "0.1.0",
+      "description": "Executes multi-step Betty Framework workflows by chaining existing skills. Enables declarative orchestration of skill pipelines.\n",
+      "inputs": [
+        "workflow_path"
+      ],
+      "outputs": [
+        "workflow_history.json"
+      ],
+      "dependencies": [
+        "skill.create",
+        "skill.define",
+        "registry.update"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/workflow/compose",
+          "handler": "workflow_compose.py",
+          "runtime": "python",
+          "description": "Execute a Betty workflow defined in a YAML file.\n",
+          "parameters": [
+            {
+              "name": "workflow_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to a workflow YAML file to execute."
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ],
+      "updated_at": "2025-10-25T20:32:06.549466+00:00"
+    },
+    {
+      "name": "test.lifecycle.complete",
+      "version": "0.1.0",
+      "description": "Lifecycle test skill",
+      "inputs": [],
+      "outputs": [],
+      "dependencies": [],
+      "status": "draft",
+      "updated_at": "2025-10-25T20:32:09.936683+00:00"
+    },
+    {
+      "name": "test.version.bump",
+      "version": "0.1.1",
+      "description": "Updated to test version bump reason logging",
+      "inputs": [],
+      "outputs": [],
+      "dependencies": [],
+      "status": "draft",
+      "updated_at": "2025-10-25T20:32:15.971579+00:00",
+      "version_bump_reason": "General updates"
+    },
+    {
+      "name": "test.e2e.integration",
+      "version": "0.1.0",
+      "description": "E2E integration test skill",
+      "inputs": [],
+      "outputs": [],
+      "dependencies": [],
+      "status": "draft",
+      "updated_at": "2025-10-25T20:32:17.199261+00:00"
+    },
+    {
+      "name": "test.workflow.integration",
+      "version": "0.1.0",
+      "description": "Integration test skill for workflow lifecycle",
+      "inputs": [
+        "test_input"
+      ],
+      "outputs": [
+        "test_output"
+      ],
+      "dependencies": [],
+      "status": "draft",
+      "updated_at": "2025-10-25T20:32:22.037781+00:00"
+    },
+    {
+      "name": "skill.create",
+      "version": "0.1.0",
+      "description": "Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\n",
+      "inputs": [
+        "skill_name",
+        "description",
+        "inputs",
+        "outputs"
+      ],
+      "outputs": [
+        "skill_directory",
+        "manifest_path",
+        "registration_record.json"
+      ],
+      "dependencies": [
+        "skill.define",
+        "context.schema"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/skill/create",
+          "handler": "skill_create.py",
+          "runtime": "python",
+          "description": "Scaffolds a new Betty Skill directory, generates its manifest, validates it with skill.define, and updates the registry.\n",
+          "parameters": [
+            {
+              "name": "skill_name",
+              "type": "string",
+              "description": "Name of the new skill (e.g., runtime.execute)",
+              "required": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "description": "Description of what the skill will do",
+              "required": true
+            },
+            {
+              "name": "inputs",
+              "type": "string",
+              "description": "Comma-separated list of input parameters (optional)",
+              "required": false
+            },
+            {
+              "name": "outputs",
+              "type": "string",
+              "description": "Comma-separated list of output parameters (optional)",
+              "required": false
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ],
+      "updated_at": "2025-10-25T20:32:23.149178+00:00"
+    },
+    {
+      "name": "registry.update",
+      "version": "0.2.0",
+      "description": "Updates the Betty Framework Skill Registry by adding or modifying entries based on validated skill manifests. Supports automatic version bumping based on semantic versioning rules.\n",
+      "inputs": [
+        "manifest_path",
+        "auto_version"
+      ],
+      "outputs": [
+        "registry_update_result.json"
+      ],
+      "dependencies": [
+        "skill.define",
+        "registry.diff"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/registry/update",
+          "handler": "registry_update.py",
+          "runtime": "python",
+          "description": "Add or update entries in the Skill Registry with optional automatic version bumping.\n",
+          "parameters": [
+            {
+              "name": "manifest_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to the skill manifest (.skill.yaml) being added or updated."
+            },
+            {
+              "name": "auto_version",
+              "type": "boolean",
+              "required": false,
+              "description": "Enable automatic version bumping based on changes detected. Rules: field removed \u2192 major bump, field/permission added \u2192 minor bump, other changes \u2192 patch bump.\n"
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ],
+      "updated_at": "2025-10-25T20:32:23.668271+00:00"
     }
   ]
 }

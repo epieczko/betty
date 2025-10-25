@@ -336,5 +336,437 @@
       "total_steps": 2,
       "failed_steps": 1
     }
+  },
+  {
+    "timestamp": "2025-10-25T20:29:42.708259+00:00",
+    "skill": "skill.define",
+    "status": "success",
+    "duration_ms": 382,
+    "metadata": {
+      "workflow": "tmphto_deu0.yaml",
+      "step_number": 1,
+      "total_steps": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:29:42.823844+00:00",
+    "skill": "workflow.compose",
+    "status": "success",
+    "duration_ms": 623,
+    "metadata": {
+      "workflow": "tmphto_deu0.yaml",
+      "total_steps": 1,
+      "failed_steps": 0
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:29:43.338227+00:00",
+    "skill": "skill.define",
+    "status": "failed",
+    "duration_ms": 126,
+    "errors": [
+      "Path does not exist: nonexistent_skill.yaml"
+    ],
+    "metadata": {
+      "workflow": "temp_fail_fast.yaml",
+      "step_number": 1,
+      "total_steps": 2
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:29:43.452825+00:00",
+    "skill": "workflow.compose",
+    "status": "failed",
+    "duration_ms": 364,
+    "errors": [
+      "Path does not exist: nonexistent_skill.yaml"
+    ],
+    "metadata": {
+      "workflow": "temp_fail_fast.yaml",
+      "total_steps": 2,
+      "failed_steps": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:29:45.548140+00:00",
+    "skill": "test.audit.skill",
+    "status": "success",
+    "duration_ms": 200,
+    "metadata": {
+      "user": "test_user",
+      "action": "create"
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:29:45.651349+00:00",
+    "skill": "test.failing.audit",
+    "status": "failed",
+    "errors": [
+      "Error 1",
+      "Error 2"
+    ]
+  },
+  {
+    "timestamp": "2025-10-25T20:29:45.746713+00:00",
+    "skill": "test.timestamp.audit",
+    "status": "success"
+  },
+  {
+    "timestamp": "2025-10-25T20:30:05.497803+00:00",
+    "skill": "skill.define",
+    "status": "success",
+    "duration_ms": 394,
+    "metadata": {
+      "workflow": "tmpjo6d5ptu.yaml",
+      "step_number": 1,
+      "total_steps": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:30:05.595488+00:00",
+    "skill": "workflow.compose",
+    "status": "success",
+    "duration_ms": 585,
+    "metadata": {
+      "workflow": "tmpjo6d5ptu.yaml",
+      "total_steps": 1,
+      "failed_steps": 0
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:30:06.020319+00:00",
+    "skill": "skill.define",
+    "status": "failed",
+    "duration_ms": 92,
+    "errors": [
+      "Path does not exist: nonexistent_skill.yaml"
+    ],
+    "metadata": {
+      "workflow": "temp_fail_fast.yaml",
+      "step_number": 1,
+      "total_steps": 2
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:30:06.113657+00:00",
+    "skill": "workflow.compose",
+    "status": "failed",
+    "duration_ms": 277,
+    "errors": [
+      "Path does not exist: nonexistent_skill.yaml"
+    ],
+    "metadata": {
+      "workflow": "temp_fail_fast.yaml",
+      "total_steps": 2,
+      "failed_steps": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:30:08.188562+00:00",
+    "skill": "test.audit.skill",
+    "status": "success",
+    "duration_ms": 200,
+    "metadata": {
+      "user": "test_user",
+      "action": "create"
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:30:08.302214+00:00",
+    "skill": "test.failing.audit",
+    "status": "failed",
+    "errors": [
+      "Error 1",
+      "Error 2"
+    ]
+  },
+  {
+    "timestamp": "2025-10-25T20:30:08.412580+00:00",
+    "skill": "test.timestamp.audit",
+    "status": "success"
+  },
+  {
+    "timestamp": "2025-10-25T20:30:17.241222+00:00",
+    "skill": "skill.define",
+    "status": "success",
+    "duration_ms": 384,
+    "metadata": {
+      "workflow": "temp_integration_test.yaml",
+      "step_number": 1,
+      "total_steps": 2
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:30:17.622849+00:00",
+    "skill": "registry.update",
+    "status": "success",
+    "duration_ms": 283,
+    "metadata": {
+      "workflow": "temp_integration_test.yaml",
+      "step_number": 2,
+      "total_steps": 2
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:30:17.727804+00:00",
+    "skill": "workflow.compose",
+    "status": "success",
+    "duration_ms": 967,
+    "metadata": {
+      "workflow": "temp_integration_test.yaml",
+      "total_steps": 2,
+      "failed_steps": 0
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:30:18.639456+00:00",
+    "skill": "skill.define",
+    "status": "success",
+    "duration_ms": 389,
+    "metadata": {
+      "workflow": "temp_integration_test.yaml",
+      "step_number": 1,
+      "total_steps": 3
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:30:19.164254+00:00",
+    "skill": "skill.define",
+    "status": "success",
+    "duration_ms": 416,
+    "metadata": {
+      "workflow": "temp_integration_test.yaml",
+      "step_number": 2,
+      "total_steps": 3
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:30:19.391996+00:00",
+    "skill": "policy.enforce",
+    "status": "success",
+    "duration_ms": 127,
+    "metadata": {
+      "workflow": "temp_integration_test.yaml",
+      "step_number": 3,
+      "total_steps": 3
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:30:19.497131+00:00",
+    "skill": "workflow.compose",
+    "status": "success",
+    "duration_ms": 1386,
+    "metadata": {
+      "workflow": "temp_integration_test.yaml",
+      "total_steps": 3,
+      "failed_steps": 0
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:30:19.942053+00:00",
+    "skill": "skill.define",
+    "status": "failed",
+    "duration_ms": 95,
+    "errors": [
+      "Path does not exist: nonexistent_manifest.yaml"
+    ],
+    "metadata": {
+      "workflow": "temp_integration_test.yaml",
+      "step_number": 1,
+      "total_steps": 2
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:30:20.051477+00:00",
+    "skill": "workflow.compose",
+    "status": "failed",
+    "duration_ms": 291,
+    "errors": [
+      "Path does not exist: nonexistent_manifest.yaml"
+    ],
+    "metadata": {
+      "workflow": "temp_integration_test.yaml",
+      "total_steps": 2,
+      "failed_steps": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:32:07.334489+00:00",
+    "skill": "skill.define",
+    "status": "success",
+    "duration_ms": 405,
+    "metadata": {
+      "workflow": "tmpyu2jalq7.yaml",
+      "step_number": 1,
+      "total_steps": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:32:07.448464+00:00",
+    "skill": "workflow.compose",
+    "status": "success",
+    "duration_ms": 629,
+    "metadata": {
+      "workflow": "tmpyu2jalq7.yaml",
+      "total_steps": 1,
+      "failed_steps": 0
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:32:07.948981+00:00",
+    "skill": "skill.define",
+    "status": "failed",
+    "duration_ms": 113,
+    "errors": [
+      "Path does not exist: nonexistent_skill.yaml"
+    ],
+    "metadata": {
+      "workflow": "temp_fail_fast.yaml",
+      "step_number": 1,
+      "total_steps": 2
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:32:08.069622+00:00",
+    "skill": "workflow.compose",
+    "status": "failed",
+    "duration_ms": 339,
+    "errors": [
+      "Path does not exist: nonexistent_skill.yaml"
+    ],
+    "metadata": {
+      "workflow": "temp_fail_fast.yaml",
+      "total_steps": 2,
+      "failed_steps": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:32:10.592291+00:00",
+    "skill": "test.audit.skill",
+    "status": "success",
+    "duration_ms": 200,
+    "metadata": {
+      "user": "test_user",
+      "action": "create"
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:32:10.699928+00:00",
+    "skill": "test.failing.audit",
+    "status": "failed",
+    "errors": [
+      "Error 1",
+      "Error 2"
+    ]
+  },
+  {
+    "timestamp": "2025-10-25T20:32:10.806281+00:00",
+    "skill": "test.timestamp.audit",
+    "status": "success"
+  },
+  {
+    "timestamp": "2025-10-25T20:32:21.722958+00:00",
+    "skill": "skill.define",
+    "status": "success",
+    "duration_ms": 416,
+    "metadata": {
+      "workflow": "temp_integration_test.yaml",
+      "step_number": 1,
+      "total_steps": 2
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:32:22.155528+00:00",
+    "skill": "registry.update",
+    "status": "success",
+    "duration_ms": 316,
+    "metadata": {
+      "workflow": "temp_integration_test.yaml",
+      "step_number": 2,
+      "total_steps": 2
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:32:22.281698+00:00",
+    "skill": "workflow.compose",
+    "status": "success",
+    "duration_ms": 1093,
+    "metadata": {
+      "workflow": "temp_integration_test.yaml",
+      "total_steps": 2,
+      "failed_steps": 0
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:32:23.281732+00:00",
+    "skill": "skill.define",
+    "status": "success",
+    "duration_ms": 417,
+    "metadata": {
+      "workflow": "temp_integration_test.yaml",
+      "step_number": 1,
+      "total_steps": 3
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:32:23.792604+00:00",
+    "skill": "skill.define",
+    "status": "success",
+    "duration_ms": 395,
+    "metadata": {
+      "workflow": "temp_integration_test.yaml",
+      "step_number": 2,
+      "total_steps": 3
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:32:24.033423+00:00",
+    "skill": "policy.enforce",
+    "status": "success",
+    "duration_ms": 132,
+    "metadata": {
+      "workflow": "temp_integration_test.yaml",
+      "step_number": 3,
+      "total_steps": 3
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:32:24.155532+00:00",
+    "skill": "workflow.compose",
+    "status": "success",
+    "duration_ms": 1423,
+    "metadata": {
+      "workflow": "temp_integration_test.yaml",
+      "total_steps": 3,
+      "failed_steps": 0
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:32:24.650937+00:00",
+    "skill": "skill.define",
+    "status": "failed",
+    "duration_ms": 108,
+    "errors": [
+      "Path does not exist: nonexistent_manifest.yaml"
+    ],
+    "metadata": {
+      "workflow": "temp_integration_test.yaml",
+      "step_number": 1,
+      "total_steps": 2
+    }
+  },
+  {
+    "timestamp": "2025-10-25T20:32:24.777124+00:00",
+    "skill": "workflow.compose",
+    "status": "failed",
+    "duration_ms": 338,
+    "errors": [
+      "Path does not exist: nonexistent_manifest.yaml"
+    ],
+    "metadata": {
+      "workflow": "temp_integration_test.yaml",
+      "total_steps": 2,
+      "failed_steps": 1
+    }
   }
 ]
