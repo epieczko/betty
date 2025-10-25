@@ -1,9 +1,9 @@
 {
   "marketplace_version": "1.0.0",
-  "generated_at": "2025-10-25T17:28:36.827921+00:00",
+  "generated_at": "2025-10-25T20:56:27.240597+00:00",
   "description": "Betty Framework Certified Skills Marketplace",
-  "total_skills": 35,
-  "certified_count": 35,
+  "total_skills": 36,
+  "certified_count": 36,
   "draft_count": 0,
   "catalog": [
     {
@@ -2445,6 +2445,31 @@
           "type": "string",
           "description": "Path to the telemetry.json file"
         }
+      ]
+    },
+    {
+      "name": "test.metaskill",
+      "version": "0.1.0",
+      "description": "This is a test skill to validate meta.skill generates compliant skills.",
+      "status": "certified",
+      "tags": [],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/test.metaskill",
+      "dependencies": [],
+      "entrypoints": [
+        {
+          "command": "/test/metaskill",
+          "handler": "test_metaskill.py",
+          "runtime": "python",
+          "description": "This is a test skill to validate meta.skill generates compliant skills."
+        }
+      ],
+      "inputs": [
+        "test_input"
+      ],
+      "outputs": [
+        "test_output"
       ]
     },
     {
