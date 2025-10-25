@@ -1,0 +1,94 @@
+name: artifact.create
+version: 0.1.0
+description: >
+  Create artifacts from templates with AI-assisted population. Takes an artifact type
+  and business context, loads the appropriate template, and generates a complete,
+  professional artifact ready for review and use.
+
+inputs:
+  - name: artifact_type
+    type: string
+    required: true
+    description: Type of artifact to create (e.g., "business-case", "threat-model", "portfolio-roadmap")
+
+  - name: context
+    type: string
+    required: true
+    description: Business context, requirements, and information to populate the artifact
+
+  - name: output_path
+    type: string
+    required: true
+    description: Path where the generated artifact should be saved
+
+  - name: metadata
+    type: object
+    required: false
+    description: Optional metadata overrides (author, classification, approvers, etc.)
+
+outputs:
+  - name: artifact_file
+    type: string
+    description: Path to the generated artifact file
+
+  - name: artifact_format
+    type: string
+    description: Format of the generated artifact (yaml or markdown)
+
+  - name: generation_report
+    type: object
+    description: Report on the generation process, including populated sections and validation status
+
+dependencies:
+  - artifact.define
+
+entrypoints:
+  - command: /skill/artifact/create
+    handler: artifact_create.py
+    runtime: python
+    description: >
+      Generate artifacts from templates with AI assistance. Loads the appropriate
+      template based on artifact type, populates it with provided context using
+      intelligent content generation, and saves the result to the specified path.
+    parameters:
+      - name: artifact_type
+        type: string
+        required: true
+        description: Artifact type (must exist in KNOWN_ARTIFACT_TYPES)
+      - name: context
+        type: string
+        required: true
+        description: Business context for populating the artifact
+      - name: output_path
+        type: string
+        required: true
+        description: Output file path
+      - name: metadata
+        type: object
+        required: false
+        description: Metadata overrides (author, approvers, etc.)
+    permissions:
+      - filesystem:read
+      - filesystem:write
+
+status: active
+
+tags:
+  - artifacts
+  - templates
+  - generation
+  - ai-assisted
+  - tier2
+
+# This skill's own artifact metadata
+artifact_metadata:
+  produces:
+    - type: "*"
+      description: Dynamically produces any registered artifact type based on artifact_type parameter
+      file_pattern: "{{output_path}}"
+      content_type: application/yaml, text/markdown
+
+  consumes:
+    - type: artifact-type-description
+      description: References artifact descriptions for guidance on structure and content
+      file_pattern: "artifact_descriptions/*.md"
