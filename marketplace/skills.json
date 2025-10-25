@@ -1,15 +1,185 @@
 {
   "marketplace_version": "1.0.0",
-  "generated_at": "2025-10-25T17:08:53.079998+00:00",
+  "generated_at": "2025-10-25T17:28:36.827921+00:00",
   "description": "Betty Framework Certified Skills Marketplace",
-  "total_skills": 8,
-  "certified_count": 8,
+  "total_skills": 35,
+  "certified_count": 35,
   "draft_count": 0,
   "catalog": [
     {
+      "name": "agent.compose",
+      "version": "0.1.0",
+      "description": "Recommend skills for a Betty agent based on its purpose and responsibilities. Analyzes artifact flows, ensures skill compatibility, and suggests optimal skill combinations for agent definitions.\n",
+      "status": "certified",
+      "tags": [
+        "agents",
+        "composition",
+        "artifacts",
+        "scaffolding",
+        "interoperability",
+        "layer3"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/agent.compose",
+      "dependencies": [
+        "registry.query"
+      ],
+      "entrypoints": [
+        {
+          "command": "/agent/compose",
+          "handler": "agent_compose.py",
+          "runtime": "python",
+          "description": "Recommend skills for an agent based on its purpose. Analyzes the registry to find skills that produce/consume compatible artifacts, ensures no gaps in artifact flow, and suggests optimal skill combinations.\n",
+          "parameters": [
+            {
+              "name": "agent_purpose",
+              "type": "string",
+              "required": true,
+              "description": "What the agent should do"
+            },
+            {
+              "name": "required_artifacts",
+              "type": "array",
+              "required": false,
+              "description": "Artifact types to work with"
+            },
+            {
+              "name": "output_format",
+              "type": "string",
+              "required": false,
+              "default": "yaml",
+              "description": "Output format (yaml, json, markdown)"
+            },
+            {
+              "name": "include_rationale",
+              "type": "boolean",
+              "required": false,
+              "default": true,
+              "description": "Include explanations"
+            }
+          ],
+          "permissions": [
+            "filesystem:read"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "agent_purpose",
+          "type": "string",
+          "required": true,
+          "description": "Description of what the agent should do (e.g., \"Design and validate APIs\")"
+        },
+        {
+          "name": "required_artifacts",
+          "type": "array",
+          "required": false,
+          "description": "Artifact types the agent needs to work with (e.g., [\"openapi-spec\"])"
+        },
+        {
+          "name": "output_format",
+          "type": "string",
+          "required": false,
+          "default": "yaml",
+          "description": "Output format (yaml, json, or markdown)"
+        },
+        {
+          "name": "include_rationale",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Include explanation of why each skill was recommended"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "recommended_skills",
+          "type": "array",
+          "description": "List of recommended skill names"
+        },
+        {
+          "name": "skills_with_rationale",
+          "type": "object",
+          "description": "Skills with explanation of why they were recommended"
+        },
+        {
+          "name": "artifact_flow",
+          "type": "object",
+          "description": "Diagram showing how artifacts flow between recommended skills"
+        },
+        {
+          "name": "compatibility_report",
+          "type": "object",
+          "description": "Validation that recommended skills work together"
+        }
+      ]
+    },
+    {
+      "name": "agent.define",
+      "version": "0.1.0",
+      "description": "Validates and registers agent manifests for the Betty Framework. Ensures schema compliance, validates skill references, and updates the Agent Registry.\n",
+      "status": "certified",
+      "tags": [
+        "agents",
+        "validation",
+        "registry",
+        "layer2"
+      ],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Validate agent manifest: /agent/define agent.yaml",
+        "Register new agent in the framework"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/agents/define",
+      "dependencies": [
+        "skill.define"
+      ],
+      "entrypoints": [
+        {
+          "command": "/agent/define",
+          "handler": "agent_define.py",
+          "runtime": "python",
+          "description": "Validate an agent manifest and register it in the Agent Registry.\n",
+          "parameters": [
+            {
+              "name": "manifest_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to the agent.yaml file to validate"
+            }
+          ],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "manifest_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the agent.yaml file to validate"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_result",
+          "type": "object",
+          "description": "Validation results including errors and warnings"
+        },
+        {
+          "name": "registry_updated",
+          "type": "boolean",
+          "description": "Whether agent was successfully registered"
+        }
+      ]
+    },
+    {
       "name": "agent.run",
       "version": "0.1.0",
-      "description": "Execute a registered Betty agent by loading its manifest, generating a Claude-friendly prompt, invoking skills based on the agent's workflow, and logging results. Supports both iterative and oneshot reasoning modes with optional Claude API integration.",
+      "description": "Execute a registered Betty agent by loading its manifest, generating a Claude-friendly prompt, invoking skills based on the agent's workflow, and logging results. Supports both iterative and oneshot reasoning modes with optional Claude API integration.\n",
       "status": "certified",
       "tags": [
         "agents",
@@ -29,7 +199,7 @@
           "command": "/agent/run",
           "handler": "agent_run.py",
           "runtime": "python",
-          "description": "Execute a Betty agent with optional task context. Generates Claude-friendly prompts, invokes the Claude API (or simulates), executes planned skills, and logs all results to agent_logs/ directory.",
+          "description": "Execute a Betty agent with optional task context. Generates Claude-friendly prompts, invokes the Claude API (or simulates), executes planned skills, and logs all results to agent_logs/ directory.\n",
           "parameters": [
             {
               "name": "agent_path",
@@ -83,7 +253,104 @@
         {
           "name": "execution_result",
           "type": "object",
-          "description": "Complete execution results including prompt, Claude response, and skill outputs"
+          "description": "Complete execution results including prompt, Claude response, and skill outputs",
+          "schema": {
+            "properties": {
+              "ok": "boolean",
+              "status": "string",
+              "timestamp": "string",
+              "errors": "array",
+              "details": {
+                "type": "object",
+                "properties": {
+                  "timestamp": "string",
+                  "agent": "object",
+                  "task_context": "string",
+                  "prompt": "string",
+                  "skills_available": "array",
+                  "claude_response": "object",
+                  "execution_results": "array",
+                  "summary": "object",
+                  "log_path": "string"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "api.compatibility",
+      "version": "0.1.0",
+      "description": "Detect breaking changes between API specification versions",
+      "status": "certified",
+      "tags": [
+        "api",
+        "compatibility",
+        "breaking-changes",
+        "versioning",
+        "openapi"
+      ],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Check for breaking changes: /skill/api/compatibility --old_spec_path v1.yaml --new_spec_path v2.yaml",
+        "Analyze API evolution: /skill/api/compatibility --old_spec_path old.yaml --new_spec_path new.yaml --fail_on_breaking false"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/api/compatibility",
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/api/compatibility",
+          "handler": "check_compatibility.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "old_spec_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the old/previous API specification"
+        },
+        {
+          "name": "new_spec_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the new/current API specification"
+        },
+        {
+          "name": "fail_on_breaking",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Exit with error code if breaking changes detected"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "compatible",
+          "type": "boolean",
+          "description": "Whether the new spec is backward compatible"
+        },
+        {
+          "name": "breaking_changes",
+          "type": "array",
+          "description": "List of breaking changes detected"
+        },
+        {
+          "name": "non_breaking_changes",
+          "type": "array",
+          "description": "List of non-breaking changes detected"
+        },
+        {
+          "name": "change_summary",
+          "type": "object",
+          "description": "Summary of all changes"
         }
       ]
     },
@@ -169,6 +436,112 @@
       ]
     },
     {
+      "name": "api.generatemodels",
+      "version": "0.1.0",
+      "description": "Generate type-safe models from OpenAPI and AsyncAPI specifications using Modelina",
+      "status": "certified",
+      "tags": [
+        "api",
+        "codegen",
+        "modelina",
+        "openapi",
+        "asyncapi",
+        "typescript",
+        "python",
+        "java"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/api.generatemodels",
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/api/generate-models",
+          "handler": "modelina_generate.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "spec_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to API specification file (OpenAPI or AsyncAPI)"
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "required": true,
+          "description": "Target language (typescript, python, java, go, csharp)"
+        },
+        {
+          "name": "output_dir",
+          "type": "string",
+          "required": false,
+          "default": "src/models",
+          "description": "Output directory for generated models"
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "required": false,
+          "description": "Package/module name for generated code"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "models_path",
+          "type": "string",
+          "description": "Path to directory containing generated models"
+        },
+        {
+          "name": "files_generated",
+          "type": "array",
+          "description": "List of generated model files"
+        },
+        {
+          "name": "model_count",
+          "type": "number",
+          "description": "Number of models generated"
+        }
+      ]
+    },
+    {
+      "name": "api.test",
+      "version": "0.1.0",
+      "description": "Test REST API endpoints by executing HTTP requests and validating responses against expected outcomes",
+      "status": "certified",
+      "tags": [],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/api.test",
+      "dependencies": [],
+      "entrypoints": [
+        {
+          "command": "/api/test",
+          "handler": "api_test.py",
+          "runtime": "python",
+          "description": "Test REST API endpoints by executing HTTP requests and validating responses against expected outcome"
+        }
+      ],
+      "inputs": [
+        "api_spec_path",
+        "base_url",
+        "test_scenarios_path (optional)",
+        "auth_config_path (optional)"
+      ],
+      "outputs": [
+        "test_results.json",
+        "test_report.html"
+      ]
+    },
+    {
       "name": "api.validate",
       "version": "0.1.0",
       "description": "Validate OpenAPI and AsyncAPI specifications against enterprise guidelines",
@@ -241,9 +614,491 @@
       ]
     },
     {
-      "name": "docs.sync.plugin_manifest",
+      "name": "artifact.define",
       "version": "0.1.0",
-      "description": "Reconciles plugin.yaml with Betty Framework registries to ensure consistency. Identifies missing, orphaned, and mismatched command entries and suggests corrections.",
+      "description": "Define artifact metadata for Betty Framework skills. Helps create artifact_metadata blocks that declare what artifacts a skill produces and consumes, enabling skill interoperability and autonomous agent composition.\n",
+      "status": "certified",
+      "tags": [
+        "artifacts",
+        "metadata",
+        "scaffolding",
+        "interoperability",
+        "layer3"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/artifact.define",
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/artifact/define",
+          "handler": "artifact_define.py",
+          "runtime": "python",
+          "description": "Create artifact metadata for a skill. Validates artifact types against known schemas, suggests file patterns, and generates properly formatted artifact_metadata blocks for skill.yaml files.\n",
+          "parameters": [
+            {
+              "name": "skill_name",
+              "type": "string",
+              "required": true,
+              "description": "Name of the skill (e.g., api.define, workflow.validate)"
+            },
+            {
+              "name": "produces",
+              "type": "array",
+              "required": false,
+              "description": "Artifact types produced (e.g., [\"openapi-spec\", \"validation-report\"])"
+            },
+            {
+              "name": "consumes",
+              "type": "array",
+              "required": false,
+              "description": "Artifact types consumed"
+            },
+            {
+              "name": "output_file",
+              "type": "string",
+              "required": false,
+              "default": "artifact_metadata.yaml",
+              "description": "Output file path"
+            }
+          ],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "skill_name",
+          "type": "string",
+          "required": true,
+          "description": "Name of the skill to define artifact metadata for"
+        },
+        {
+          "name": "produces",
+          "type": "array",
+          "required": false,
+          "description": "List of artifact types this skill produces (e.g., openapi-spec, validation-report)"
+        },
+        {
+          "name": "consumes",
+          "type": "array",
+          "required": false,
+          "description": "List of artifact types this skill consumes"
+        },
+        {
+          "name": "output_file",
+          "type": "string",
+          "required": false,
+          "default": "artifact_metadata.yaml",
+          "description": "Where to save the generated artifact metadata"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "artifact_metadata",
+          "type": "object",
+          "description": "Generated artifact metadata block"
+        },
+        {
+          "name": "metadata_file",
+          "type": "string",
+          "description": "Path to saved artifact metadata file"
+        },
+        {
+          "name": "validation_result",
+          "type": "object",
+          "description": "Validation results for the artifact metadata"
+        }
+      ]
+    },
+    {
+      "name": "audit.log",
+      "version": "0.1.0",
+      "description": "Records audit events to a centralized audit log with timestamped JSON entries tracking skill execution, status, duration, and errors.\n",
+      "status": "certified",
+      "tags": [],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/audit.log",
+      "dependencies": [],
+      "entrypoints": [
+        {
+          "command": "/audit/log",
+          "handler": "audit_log.py",
+          "runtime": "python",
+          "description": "Append a timestamped audit entry to the centralized audit log.\n",
+          "parameters": [
+            {
+              "name": "skill_name",
+              "type": "string",
+              "required": true,
+              "description": "Name of the skill being audited."
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "required": true,
+              "description": "Execution status (success, failed, timeout, etc.)."
+            },
+            {
+              "name": "duration_ms",
+              "type": "integer",
+              "required": false,
+              "description": "Execution duration in milliseconds."
+            },
+            {
+              "name": "errors",
+              "type": "string",
+              "required": false,
+              "description": "JSON array of errors (if any)."
+            },
+            {
+              "name": "metadata",
+              "type": "string",
+              "required": false,
+              "description": "Additional JSON metadata about the execution."
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "write"
+          ]
+        }
+      ],
+      "inputs": [
+        "skill_name",
+        "status",
+        "duration_ms",
+        "errors (optional)",
+        "metadata (optional)"
+      ],
+      "outputs": [
+        "audit_log_entry.json"
+      ]
+    },
+    {
+      "name": "command.define",
+      "version": "0.1.0",
+      "description": "Validate and register command manifests in the Command Registry",
+      "status": "certified",
+      "tags": [
+        "command",
+        "registry",
+        "validation",
+        "infrastructure"
+      ],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Register command manifest: /skill/command/define command.yaml",
+        "Add new CLI command to Betty"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/commands/define",
+      "dependencies": [
+        "None"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/command/define",
+          "handler": "command_define.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "manifest_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the command manifest file (YAML)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_result",
+          "type": "object",
+          "description": "Validation results and registration status",
+          "schema": {
+            "properties": {
+              "ok": "boolean",
+              "status": "string",
+              "errors": "array",
+              "path": "string",
+              "details": "object"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "data.transform",
+      "version": "0.1.0",
+      "description": "Transform data between different formats (JSON, YAML, XML, CSV) with validation and error handling",
+      "status": "certified",
+      "tags": [],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/data.transform",
+      "dependencies": [],
+      "entrypoints": [
+        {
+          "command": "/data/transform",
+          "handler": "data_transform.py",
+          "runtime": "python",
+          "description": "Transform data between different formats (JSON, YAML, XML, CSV) with validation and error handling"
+        }
+      ],
+      "inputs": [
+        "input_file_path",
+        "source_format",
+        "target_format",
+        "schema_path (optional)"
+      ],
+      "outputs": [
+        "transformed_file",
+        "transformation_report.json"
+      ]
+    },
+    {
+      "name": "docs.expand.glossary",
+      "version": "0.1.0",
+      "description": "Extract undocumented terms from manifests and documentation, then enrich glossary.md with auto-generated definitions. Scans skill.yaml, agent.yaml, and markdown files to identify missing glossary entries.",
+      "status": "certified",
+      "tags": [
+        "documentation",
+        "glossary",
+        "automation",
+        "analysis",
+        "manifests"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/docs.expand.glossary",
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/docs/expand/glossary",
+          "handler": "glossary_expand.py",
+          "runtime": "python",
+          "description": "Scan manifests and docs for undocumented terms, then expand glossary.md with new definitions. Supports dry-run mode for previewing changes.\n",
+          "parameters": [
+            {
+              "name": "glossary_path",
+              "type": "string",
+              "required": false,
+              "description": "Custom path to glossary.md"
+            },
+            {
+              "name": "base_dir",
+              "type": "string",
+              "required": false,
+              "description": "Custom base directory to scan"
+            },
+            {
+              "name": "dry_run",
+              "type": "boolean",
+              "required": false,
+              "description": "Preview changes without writing"
+            },
+            {
+              "name": "include_auto_generated",
+              "type": "boolean",
+              "required": false,
+              "description": "Include auto-generated definitions"
+            }
+          ],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "glossary_path",
+          "type": "string",
+          "required": false,
+          "description": "Path to glossary.md file (default: docs/glossary.md)"
+        },
+        {
+          "name": "base_dir",
+          "type": "string",
+          "required": false,
+          "description": "Base directory to scan for manifests (default: project root)"
+        },
+        {
+          "name": "dry_run",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Preview changes without writing to glossary file"
+        },
+        {
+          "name": "include_auto_generated",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Include auto-generated definitions for common terms"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "summary",
+          "type": "object",
+          "description": "Summary of glossary expansion including counts and file paths"
+        },
+        {
+          "name": "new_definitions",
+          "type": "object",
+          "description": "Dictionary of new terms and their definitions"
+        },
+        {
+          "name": "manifest_terms",
+          "type": "object",
+          "description": "Categorized terms extracted from manifests"
+        },
+        {
+          "name": "skipped_terms",
+          "type": "array",
+          "description": "Terms that were skipped (already documented or too common)"
+        }
+      ]
+    },
+    {
+      "name": "docs.lint.links",
+      "version": "0.1.0",
+      "description": "Validates Markdown links to detect broken internal or external links, with optional autofix mode to correct common issues.\n",
+      "status": "certified",
+      "tags": [
+        "documentation",
+        "linting",
+        "validation",
+        "links",
+        "markdown"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/docs.lint.links",
+      "dependencies": [],
+      "entrypoints": [
+        {
+          "command": "/docs/lint/links",
+          "handler": "docs_link_lint.py",
+          "runtime": "python",
+          "description": "Scan all Markdown files and detect broken internal or external links.\n",
+          "parameters": [
+            {
+              "name": "root_dir",
+              "type": "string",
+              "required": false,
+              "description": "Root directory to search (default: current directory)"
+            },
+            {
+              "name": "no_external",
+              "type": "boolean",
+              "required": false,
+              "description": "Skip checking external links"
+            },
+            {
+              "name": "autofix",
+              "type": "boolean",
+              "required": false,
+              "description": "Automatically fix common issues"
+            },
+            {
+              "name": "timeout",
+              "type": "integer",
+              "required": false,
+              "description": "Timeout for external link checks in seconds"
+            },
+            {
+              "name": "exclude",
+              "type": "string",
+              "required": false,
+              "description": "Comma-separated exclusion patterns"
+            },
+            {
+              "name": "output",
+              "type": "string",
+              "required": false,
+              "description": "Output format (json or text)"
+            }
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "root_dir",
+          "type": "string",
+          "required": false,
+          "default": ".",
+          "description": "Root directory to search for Markdown files (default: current directory)"
+        },
+        {
+          "name": "no_external",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Skip checking external links (faster)"
+        },
+        {
+          "name": "autofix",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Automatically fix common issues (case mismatches, .md extension issues)"
+        },
+        {
+          "name": "timeout",
+          "type": "integer",
+          "required": false,
+          "default": 10,
+          "description": "Timeout for external link checks in seconds"
+        },
+        {
+          "name": "exclude",
+          "type": "string",
+          "required": false,
+          "description": "Comma-separated list of patterns to exclude (e.g., 'node_modules,.git')"
+        },
+        {
+          "name": "output",
+          "type": "string",
+          "required": false,
+          "default": "json",
+          "description": "Output format (json or text)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "lint_results",
+          "type": "object",
+          "description": "JSON object containing link validation results with issues and statistics"
+        },
+        {
+          "name": "issues",
+          "type": "array",
+          "description": "Array of link issues found, each with file, line, link, issue type, and suggested fix"
+        },
+        {
+          "name": "summary",
+          "type": "object",
+          "description": "Summary statistics including files checked, issues found, and fixes applied"
+        }
+      ]
+    },
+    {
+      "name": "docs.sync.pluginmanifest",
+      "version": "0.1.0",
+      "description": "Reconciles plugin.yaml with Betty Framework registries to ensure consistency. Identifies missing, orphaned, and mismatched command entries and suggests corrections.\n",
       "status": "certified",
       "tags": [
         "docs",
@@ -255,7 +1110,7 @@
       ],
       "maintainer": "Community",
       "usage_examples": [],
-      "documentation_url": "https://betty-framework.dev/docs/skills/docs.sync.plugin_manifest",
+      "documentation_url": "https://betty-framework.dev/docs/skills/docs.sync.pluginmanifest",
       "dependencies": [
         "plugin.sync",
         "registry.update"
@@ -265,7 +1120,7 @@
           "command": "/docs/sync/plugin-manifest",
           "handler": "plugin_manifest_sync.py",
           "runtime": "python",
-          "description": "Reconcile plugin.yaml with registry files. Identifies discrepancies and generates plugin.preview.yaml with suggested updates and a detailed diff report.",
+          "description": "Reconcile plugin.yaml with registry files. Identifies discrepancies and generates plugin.preview.yaml with suggested updates and a detailed diff report.\n",
           "parameters": [],
           "permissions": [
             "filesystem:read",
@@ -284,7 +1139,6 @@
       "description": "Regenerate the top-level README.md to reflect all current registered skills and agents. Pulls from registry/skills.json and registry/agents.json, groups by category, and updates documentation sections while maintaining repo style and tone.\n",
       "status": "certified",
       "tags": [
-        "docs",
         "documentation",
         "registry",
         "automation",
@@ -312,6 +1166,226 @@
       "outputs": [
         "README.md",
         "sync_report.json"
+      ]
+    },
+    {
+      "name": "docs.validate.skilldocs",
+      "version": "0.1.0",
+      "description": "Validate SKILL.md documentation files against their skill.yaml manifests to ensure completeness and consistency",
+      "status": "certified",
+      "tags": [
+        "documentation",
+        "validation",
+        "quality-assurance",
+        "skill-management"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/docs.validate.skilldocs",
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/docs/validate/skill-docs",
+          "handler": "skill_docs_validate.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "skill_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to skill directory containing skill.yaml and SKILL.md"
+        },
+        {
+          "name": "summary",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Print a short summary table of validation results instead of full JSON output"
+        },
+        {
+          "name": "check_headers",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Validate that SKILL.md contains required section headers"
+        },
+        {
+          "name": "check_manifest_parity",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Validate that SKILL.md documentation matches skill.yaml manifest fields"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "valid",
+          "type": "boolean",
+          "description": "Whether the skill documentation is valid"
+        },
+        {
+          "name": "validation_report",
+          "type": "object",
+          "description": "Detailed validation results including errors and warnings"
+        },
+        {
+          "name": "errors",
+          "type": "array",
+          "description": "List of validation errors found"
+        },
+        {
+          "name": "warnings",
+          "type": "array",
+          "description": "List of validation warnings found"
+        }
+      ]
+    },
+    {
+      "name": "file.compare",
+      "version": "0.1.0",
+      "description": "Compare two files and generate detailed diff reports showing line-by-line differences",
+      "status": "certified",
+      "tags": [],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/file.compare",
+      "dependencies": [],
+      "entrypoints": [
+        {
+          "command": "/file/compare",
+          "handler": "file_compare.py",
+          "runtime": "python",
+          "description": "Compare two files and generate detailed diff reports showing line-by-line differences"
+        }
+      ],
+      "inputs": [
+        "file_path_1",
+        "file_path_2",
+        "output_format (optional)"
+      ],
+      "outputs": [
+        "diff_report.json"
+      ]
+    },
+    {
+      "name": "generate.docs",
+      "version": "0.1.0",
+      "description": "Automatically generate or update SKILL.md documentation from skill.yaml manifests",
+      "status": "certified",
+      "tags": [
+        "documentation",
+        "automation",
+        "scaffolding",
+        "skill-management"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/generate.docs",
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/generate/docs",
+          "handler": "generate_docs.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "manifest_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to skill.yaml manifest file to generate documentation from"
+        },
+        {
+          "name": "overwrite",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Overwrite existing SKILL.md file if it exists"
+        },
+        {
+          "name": "dry_run",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Preview the generated documentation without writing to disk"
+        },
+        {
+          "name": "output_path",
+          "type": "string",
+          "required": false,
+          "description": "Custom output path for SKILL.md (defaults to same directory as manifest)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "doc_path",
+          "type": "string",
+          "description": "Path to generated or updated SKILL.md file"
+        },
+        {
+          "name": "doc_content",
+          "type": "string",
+          "description": "Generated documentation content"
+        },
+        {
+          "name": "dry_run_preview",
+          "type": "string",
+          "description": "Preview of documentation (when dry_run=true)"
+        }
+      ]
+    },
+    {
+      "name": "generate.marketplace",
+      "version": "0.3.0",
+      "description": "Generate marketplace catalog files from Betty Framework registries. Filters active and certified skills/agents/commands/hooks and outputs marketplace-ready JSON files with last_updated timestamps. Also generates Claude Code marketplace.json format.\n",
+      "status": "certified",
+      "tags": [
+        "marketplace",
+        "registry",
+        "automation",
+        "infrastructure",
+        "commands",
+        "hooks"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/generate.marketplace",
+      "dependencies": [
+        "registry.update"
+      ],
+      "entrypoints": [
+        {
+          "command": "/marketplace/generate",
+          "handler": "generate_marketplace.py",
+          "runtime": "python",
+          "description": "Generate marketplace catalogs from registry files. Filters by status: active and certified: true. Outputs skills, agents, commands, and hooks marketplace files with last_updated timestamps. Also generates .claude-plugin/marketplace.json in Claude Code marketplace format.\n",
+          "parameters": [],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "outputs": [
+        "marketplace/skills.json",
+        "marketplace/agents.json",
+        "marketplace/commands.json",
+        "marketplace/hooks.json",
+        ".claude-plugin/marketplace.json"
       ]
     },
     {
@@ -399,17 +1473,702 @@
       ]
     },
     {
-      "name": "registry.update",
-      "version": "0.2.1",
-      "description": "Updates the Betty Framework Skill Registry by adding or modifying entries based on validated skill manifests. Supports automatic version bumping based on semantic versioning rules.\n",
+      "name": "hook.register",
+      "version": "0.1.0",
+      "description": "Validate and register hook manifests in the Hook Registry",
       "status": "certified",
       "tags": [
-        "docs",
-        "documentation",
+        "hook",
+        "registry",
+        "validation",
+        "infrastructure",
+        "policy"
+      ],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Register hook manifest: /skill/hook/register hook.yaml",
+        "Enable policy enforcement via hooks"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/hooks/register",
+      "dependencies": [
+        "None"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/hook/register",
+          "handler": "hook_register.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "manifest_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the hook manifest file (YAML)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_result",
+          "type": "object",
+          "description": "Validation results and registration status",
+          "schema": {
+            "properties": {
+              "ok": "boolean",
+              "status": "string",
+              "errors": "array",
+              "path": "string",
+              "details": "object"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "hook.simulate",
+      "version": "0.1.0",
+      "description": "Simulate hook execution to test manifests before registration",
+      "status": "certified",
+      "tags": [
+        "hook",
+        "simulation",
+        "testing",
+        "validation",
+        "development"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/hook.simulate",
+      "dependencies": [
+        "None"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/hook/simulate",
+          "handler": "hook_simulate.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "manifest_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the hook manifest file (YAML)"
+        },
+        {
+          "name": "execute",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Whether to execute the hook command (vs. just validation)"
+        },
+        {
+          "name": "dry_run",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "If true, simulate command execution without running it"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "simulation_result",
+          "type": "object",
+          "description": "Complete simulation results including validation, triggers, and execution",
+          "schema": {
+            "properties": {
+              "valid": "boolean",
+              "validation_errors": "array",
+              "manifest": "object",
+              "trigger_simulation": "object",
+              "command_executions": "array",
+              "blocking": "boolean",
+              "timeout_ms": "number"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "plugin.build",
+      "version": "0.1.0",
+      "description": "Automatically bundle a plugin directory (or the whole repo) into a deployable Claude Code plugin package. Gathers all declared entrypoints, validates handler files exist, and packages everything into .tar.gz or .zip under /dist.\n",
+      "status": "certified",
+      "tags": [
+        "plugin",
+        "packaging",
+        "build",
+        "deployment",
+        "distribution"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/plugin.build",
+      "dependencies": [
+        "plugin.sync"
+      ],
+      "entrypoints": [
+        {
+          "command": "/plugin/build",
+          "handler": "plugin_build.py",
+          "runtime": "python",
+          "description": "Bundle plugin directory into deployable package. Validates all entrypoints and handlers before packaging.\n",
+          "parameters": [
+            {
+              "name": "plugin_path",
+              "type": "string",
+              "required": false,
+              "description": "Path to plugin.yaml (defaults to ./plugin.yaml)"
+            },
+            {
+              "name": "output_format",
+              "type": "string",
+              "required": false,
+              "description": "Package format (tar.gz or zip, defaults to tar.gz)"
+            },
+            {
+              "name": "output_dir",
+              "type": "string",
+              "required": false,
+              "description": "Output directory (defaults to ./dist)"
+            }
+          ],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "plugin_path",
+          "type": "string",
+          "required": false,
+          "description": "Path to plugin.yaml (defaults to ./plugin.yaml)"
+        },
+        {
+          "name": "output_format",
+          "type": "string",
+          "required": false,
+          "description": "Package format (tar.gz or zip, defaults to tar.gz)"
+        },
+        {
+          "name": "output_dir",
+          "type": "string",
+          "required": false,
+          "description": "Output directory (defaults to ./dist)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "plugin_package",
+          "type": "file",
+          "description": "Packaged plugin archive (.tar.gz or .zip)"
+        },
+        {
+          "name": "build_report",
+          "type": "object",
+          "description": "JSON report with validated entrypoints, missing files, and package checksum"
+        }
+      ]
+    },
+    {
+      "name": "plugin.publish",
+      "version": "0.1.0",
+      "description": "Publish a bundled plugin package (.tar.gz) to various targets: local directory, remote Claude Marketplace endpoint, or GitHub Releases. Validates SHA256 checksums before publication and generates publication metadata for tracking and auditing.\n",
+      "status": "certified",
+      "tags": [
+        "plugin",
+        "publishing",
+        "deployment",
+        "distribution",
+        "marketplace",
+        "github-releases",
+        "checksum-validation"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/plugin.publish",
+      "dependencies": [
+        "plugin.build"
+      ],
+      "entrypoints": [
+        {
+          "command": "/plugin/publish",
+          "handler": "plugin_publish.py",
+          "runtime": "python",
+          "description": "Publish a bundled plugin package to local, remote, or release targets. Validates SHA256 checksums and generates publication metadata.\n",
+          "parameters": [
+            {
+              "name": "package_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to the .tar.gz package file"
+            },
+            {
+              "name": "target",
+              "type": "string",
+              "required": false,
+              "default": "local",
+              "description": "Publication target: local, remote, or release"
+            },
+            {
+              "name": "expected_sha256",
+              "type": "string",
+              "required": false,
+              "description": "Expected SHA256 checksum for validation"
+            },
+            {
+              "name": "manifest_path",
+              "type": "string",
+              "required": false,
+              "description": "Path to manifest.json"
+            },
+            {
+              "name": "remote_endpoint",
+              "type": "string",
+              "required": false,
+              "description": "Remote API endpoint URL for 'remote' target"
+            }
+          ],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write",
+            "network:http"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "package_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the .tar.gz package file built by plugin.build"
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": false,
+          "default": "local",
+          "description": "Publication target: 'local' (dist/published/), 'remote' (Claude Marketplace), or 'release' (GitHub Releases)"
+        },
+        {
+          "name": "expected_sha256",
+          "type": "string",
+          "required": false,
+          "description": "Expected SHA256 checksum for validation (optional, auto-detected from manifest.json)"
+        },
+        {
+          "name": "manifest_path",
+          "type": "string",
+          "required": false,
+          "description": "Path to manifest.json (optional, auto-detected from package directory)"
+        },
+        {
+          "name": "remote_endpoint",
+          "type": "string",
+          "required": false,
+          "description": "Remote API endpoint URL for 'remote' target (defaults to Claude Marketplace)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "publication_result",
+          "type": "object",
+          "description": "Publication result with target, paths, and metadata"
+        },
+        {
+          "name": "checksums",
+          "type": "object",
+          "description": "Validated MD5 and SHA256 checksums"
+        },
+        {
+          "name": "publication_metadata",
+          "type": "object",
+          "description": "Publication metadata including timestamp and target details"
+        }
+      ]
+    },
+    {
+      "name": "plugin.sync",
+      "version": "0.1.0",
+      "description": "Automatically generates plugin.yaml from Betty Framework registries. Reads skills.json, commands.json, and hooks.json to build a complete plugin configuration.\n",
+      "status": "certified",
+      "tags": [
+        "plugin",
         "registry",
         "automation",
-        "maintenance"
+        "infrastructure"
       ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/plugin.sync",
+      "dependencies": [
+        "registry.update"
+      ],
+      "entrypoints": [
+        {
+          "command": "/plugin/sync",
+          "handler": "plugin_sync.py",
+          "runtime": "python",
+          "description": "Generate plugin.yaml from registry files. Syncs active skills with entrypoints into plugin commands.\n",
+          "parameters": [],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "outputs": [
+        "plugin.yaml",
+        "generation_report.json"
+      ]
+    },
+    {
+      "name": "policy.enforce",
+      "version": "0.1.0",
+      "description": "Enforces policy rules for skill and agent manifests including naming conventions, semantic versioning, permissions validation, and status lifecycle checks. Supports both single-file validation and batch mode for scanning all manifests in skills/ and agents/ directories.\n",
+      "status": "certified",
+      "tags": [
+        "governance",
+        "policy",
+        "validation",
+        "naming",
+        "versioning"
+      ],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Validate against organizational policy: skill executes policy.enforce before operation",
+        "Enforce compliance rules on API changes"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/policy/enforce",
+      "dependencies": [
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/policy/enforce",
+          "handler": "policy_enforce.py",
+          "runtime": "python",
+          "description": "Validate skill or agent manifest against policy rules for naming conventions, semantic versioning, permissions, and status values.\n",
+          "parameters": [
+            {
+              "name": "manifest_path",
+              "type": "string",
+              "required": false,
+              "description": "Path to the manifest file to validate (omit for batch mode)"
+            },
+            {
+              "name": "--batch",
+              "type": "boolean",
+              "required": false,
+              "default": false,
+              "description": "Enable batch mode to validate all manifests"
+            },
+            {
+              "name": "--strict",
+              "type": "boolean",
+              "required": false,
+              "default": false,
+              "description": "Treat warnings as errors"
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "manifest_path",
+          "type": "string",
+          "required": false,
+          "description": "Path to a single skill.yaml or agent.yaml manifest file to validate"
+        },
+        {
+          "name": "batch",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Enable batch mode to scan all manifests in skills/ and agents/ directories"
+        },
+        {
+          "name": "strict",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Enable strict mode where warnings become errors"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_report",
+          "type": "object",
+          "description": "Detailed validation results including violations, warnings, and success status"
+        },
+        {
+          "name": "violations",
+          "type": "array",
+          "description": "List of policy violations found in the manifest(s)"
+        },
+        {
+          "name": "success",
+          "type": "boolean",
+          "description": "Whether the manifest(s) passed all policy checks"
+        }
+      ]
+    },
+    {
+      "name": "registry.diff",
+      "version": "0.2.0",
+      "description": "Compare current and previous versions of skills/agents and report differences. Detects changes, determines required actions, and provides suggestions for version management and breaking change prevention. Enhanced with changed_fields array and breaking flag for easier consumption.\n",
+      "status": "certified",
+      "tags": [
+        "registry",
+        "validation",
+        "version-control",
+        "diff",
+        "comparison"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/registry.diff",
+      "dependencies": [],
+      "entrypoints": [
+        {
+          "command": "/registry/diff",
+          "handler": "registry_diff.py",
+          "runtime": "python",
+          "description": "Compare a manifest against its registry entry to detect changes and determine appropriate actions.\n",
+          "parameters": [
+            {
+              "name": "manifest_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to the skill.yaml or agent.yaml manifest file to analyze. Can be absolute or relative path.\n"
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "manifest_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the skill.yaml or agent.yaml manifest file to compare"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "diff_result",
+          "type": "object",
+          "description": "Detailed diff analysis including diff_type, required_action, suggestions, and comparison details\n"
+        }
+      ]
+    },
+    {
+      "name": "registry.query",
+      "version": "0.1.0",
+      "description": "Search Betty registries programmatically by filtering skills, agents, commands, and hooks. Supports filtering by tags, domain, status, name, version, and capability with optional fuzzy matching for dynamic discovery and CLI autocompletion. Includes table formatting for easy viewing in CLI.\n",
+      "status": "certified",
+      "tags": [
+        "registry",
+        "search",
+        "query",
+        "discovery",
+        "metadata",
+        "cli"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/registry.query",
+      "dependencies": [],
+      "entrypoints": [
+        {
+          "command": "/registry/query",
+          "handler": "registry_query.py",
+          "runtime": "python",
+          "description": "Query Betty registries with flexible filtering options. Returns matching entries with key metadata for programmatic use or CLI exploration.\n",
+          "parameters": [
+            {
+              "name": "registry",
+              "type": "string",
+              "required": true,
+              "description": "Registry to query (skills, agents, commands, or hooks)"
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "required": false,
+              "description": "Filter by name (substring match)"
+            },
+            {
+              "name": "version",
+              "type": "string",
+              "required": false,
+              "description": "Filter by version (exact match)"
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "required": false,
+              "description": "Filter by status"
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "required": false,
+              "description": "Filter by single tag"
+            },
+            {
+              "name": "tags",
+              "type": "array",
+              "required": false,
+              "description": "Filter by multiple tags"
+            },
+            {
+              "name": "capability",
+              "type": "string",
+              "required": false,
+              "description": "Filter by capability (agents only)"
+            },
+            {
+              "name": "domain",
+              "type": "string",
+              "required": false,
+              "description": "Filter by domain"
+            },
+            {
+              "name": "fuzzy",
+              "type": "boolean",
+              "required": false,
+              "description": "Enable fuzzy matching"
+            },
+            {
+              "name": "limit",
+              "type": "integer",
+              "required": false,
+              "description": "Maximum results to return"
+            },
+            {
+              "name": "format",
+              "type": "string",
+              "required": false,
+              "description": "Output format (json, table, compact)"
+            }
+          ],
+          "permissions": [
+            "filesystem:read"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "registry",
+          "type": "string",
+          "required": true,
+          "description": "Registry to query (skills, agents, commands, or hooks)"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Filter by name (substring match, supports fuzzy matching)"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": false,
+          "description": "Filter by version (exact match)"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "description": "Filter by status (e.g., active, draft, deprecated, archived)"
+        },
+        {
+          "name": "tag",
+          "type": "string",
+          "required": false,
+          "description": "Filter by single tag"
+        },
+        {
+          "name": "tags",
+          "type": "array",
+          "required": false,
+          "description": "Filter by multiple tags (any match)"
+        },
+        {
+          "name": "capability",
+          "type": "string",
+          "required": false,
+          "description": "Filter by capability (agents only, substring match)"
+        },
+        {
+          "name": "domain",
+          "type": "string",
+          "required": false,
+          "description": "Filter by domain (alias for tag filtering)"
+        },
+        {
+          "name": "fuzzy",
+          "type": "boolean",
+          "required": false,
+          "description": "Enable fuzzy matching for name and capability filters"
+        },
+        {
+          "name": "limit",
+          "type": "integer",
+          "required": false,
+          "description": "Maximum number of results to return"
+        },
+        {
+          "name": "format",
+          "type": "string",
+          "required": false,
+          "description": "Output format (json, table, compact)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "results",
+          "type": "array",
+          "description": "List of matching registry entries with key metadata"
+        },
+        {
+          "name": "query_metadata",
+          "type": "object",
+          "description": "Query statistics including total entries and matching count"
+        },
+        {
+          "name": "registry_info",
+          "type": "object",
+          "description": "Information about the queried registry"
+        }
+      ]
+    },
+    {
+      "name": "registry.update",
+      "version": "0.2.0",
+      "description": "Updates the Betty Framework Skill Registry by adding or modifying entries based on validated skill manifests. Supports automatic version bumping based on semantic versioning rules.\n",
+      "status": "certified",
+      "tags": [],
       "maintainer": "Betty Core Team",
       "usage_examples": [
         "Register a new skill: /registry/update skill_manifest.yaml",
@@ -456,6 +2215,284 @@
       ]
     },
     {
+      "name": "skill.create",
+      "version": "0.1.0",
+      "description": "Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\n",
+      "status": "certified",
+      "tags": [],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Scaffold new skill: /skill/create --skill_name my.skill --description 'My new skill'",
+        "Bootstrap skill with inputs/outputs: /skill/create --skill_name process.data --inputs 'data,config' --outputs 'result'"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/skills/create",
+      "dependencies": [
+        "skill.define",
+        "context.schema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/create",
+          "handler": "skill_create.py",
+          "runtime": "python",
+          "description": "Scaffolds a new Betty Skill directory, generates its manifest, validates it with skill.define, and updates the registry.\n",
+          "parameters": [
+            {
+              "name": "skill_name",
+              "type": "string",
+              "description": "Name of the new skill (e.g., runtime.execute)",
+              "required": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "description": "Description of what the skill will do",
+              "required": true
+            },
+            {
+              "name": "inputs",
+              "type": "string",
+              "description": "Comma-separated list of input parameters (optional)",
+              "required": false
+            },
+            {
+              "name": "outputs",
+              "type": "string",
+              "description": "Comma-separated list of output parameters (optional)",
+              "required": false
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ],
+      "inputs": [
+        "skill_name",
+        "description",
+        "inputs",
+        "outputs"
+      ],
+      "outputs": [
+        "skill_directory",
+        "manifest_path",
+        "registration_record.json"
+      ]
+    },
+    {
+      "name": "skill.define",
+      "version": "0.1.0",
+      "description": "Validates and registers skill manifests (.skill.yaml) for the Betty Framework. Ensures schema compliance and updates the Skill Registry.\n",
+      "status": "certified",
+      "tags": [],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Validate a new skill manifest: /skill/define manifest.skill.yaml",
+        "Check skill compliance before registration"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/skills/define",
+      "dependencies": [],
+      "entrypoints": [
+        {
+          "command": "/skill/define",
+          "handler": "skill_define.py",
+          "runtime": "python",
+          "description": "Validate a Claude Code skill manifest and register it in the Betty Skill Registry.\n",
+          "parameters": [
+            {
+              "name": "manifest_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to the skill.yaml file to validate."
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ],
+      "inputs": [
+        "manifest_path"
+      ],
+      "outputs": [
+        "validation_result.json",
+        "updated_registry.json"
+      ]
+    },
+    {
+      "name": "telemetry.capture",
+      "version": "0.1.0",
+      "description": "Captures and logs usage telemetry for Betty Framework components. Provides thread-safe JSON logging to /registry/telemetry.json with ISO timestamps and structured metadata.\n",
+      "status": "certified",
+      "tags": [
+        "telemetry",
+        "logging",
+        "observability",
+        "audit"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/telemetry.capture",
+      "dependencies": [],
+      "entrypoints": [
+        {
+          "command": "/telemetry/capture",
+          "handler": "telemetry_capture.py",
+          "runtime": "python",
+          "description": "Capture telemetry event for a Betty component",
+          "parameters": [
+            {
+              "name": "skill",
+              "type": "string",
+              "required": true,
+              "description": "Skill name"
+            },
+            {
+              "name": "status",
+              "type": "string",
+              "required": true,
+              "description": "Execution status"
+            },
+            {
+              "name": "duration_ms",
+              "type": "number",
+              "required": true,
+              "description": "Duration in milliseconds"
+            },
+            {
+              "name": "caller",
+              "type": "string",
+              "required": true,
+              "description": "Caller identifier"
+            },
+            {
+              "name": "inputs",
+              "type": "string",
+              "required": false,
+              "description": "JSON string of inputs"
+            },
+            {
+              "name": "error_message",
+              "type": "string",
+              "required": false,
+              "description": "Error message"
+            }
+          ],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "skill",
+          "type": "string",
+          "required": true,
+          "description": "Name of the skill/component being logged (e.g., 'plugin.build', 'agent.run')"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "description": "Execution status (success, failure, timeout, error, pending)"
+        },
+        {
+          "name": "duration_ms",
+          "type": "number",
+          "required": true,
+          "description": "Execution duration in milliseconds"
+        },
+        {
+          "name": "caller",
+          "type": "string",
+          "required": true,
+          "description": "Source of the call (e.g., CLI, API, workflow.compose)"
+        },
+        {
+          "name": "inputs",
+          "type": "object",
+          "required": false,
+          "default": {},
+          "description": "Sanitized input parameters (no secrets)"
+        },
+        {
+          "name": "error_message",
+          "type": "string",
+          "required": false,
+          "description": "Error message if status is failure/error"
+        },
+        {
+          "name": "metadata",
+          "type": "object",
+          "required": false,
+          "default": {},
+          "description": "Additional context (user, session_id, environment, etc.)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "telemetry_entry",
+          "type": "object",
+          "description": "The captured telemetry entry with ISO timestamp"
+        },
+        {
+          "name": "telemetry_file",
+          "type": "string",
+          "description": "Path to the telemetry.json file"
+        }
+      ]
+    },
+    {
+      "name": "workflow.compose",
+      "version": "0.1.0",
+      "description": "Executes multi-step Betty Framework workflows by chaining existing skills. Enables declarative orchestration of skill pipelines.\n",
+      "status": "certified",
+      "tags": [],
+      "maintainer": "Betty Core Team",
+      "usage_examples": [
+        "Execute multi-step workflow: /workflow/compose pipeline.yaml",
+        "Chain multiple skills together"
+      ],
+      "documentation_url": "https://betty-framework.dev/docs/workflows/compose",
+      "dependencies": [
+        "skill.create",
+        "skill.define",
+        "registry.update"
+      ],
+      "entrypoints": [
+        {
+          "command": "/workflow/compose",
+          "handler": "workflow_compose.py",
+          "runtime": "python",
+          "description": "Execute a Betty workflow defined in a YAML file.\n",
+          "parameters": [
+            {
+              "name": "workflow_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to a workflow YAML file to execute."
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
+        }
+      ],
+      "inputs": [
+        "workflow_path"
+      ],
+      "outputs": [
+        "workflow_history.json"
+      ]
+    },
+    {
       "name": "workflow.validate",
       "version": "0.1.0",
       "description": "Validates Betty workflow YAML definitions to ensure correct structure and required fields.\n",
@@ -478,19 +2515,20 @@
           "description": "Validate the structure of a workflow YAML file before execution.\n",
           "parameters": [
             {
-              "name": "workflow.yaml",
+              "name": "workflow_path",
               "type": "string",
               "required": true,
               "description": "Path to the workflow YAML file."
             }
           ],
           "permissions": [
-            "filesystem:read"
+            "filesystem",
+            "read"
           ]
         }
       ],
       "inputs": [
-        "workflow.yaml"
+        "workflow_path"
       ],
       "outputs": [
         "validation_result.json"
