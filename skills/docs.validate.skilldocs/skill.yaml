@@ -1,4 +1,4 @@
-name: docs.validate.skill_docs
+name: docs.validate.skilldocs
 version: 0.1.0
 description: Validate SKILL.md documentation files against their skill.yaml manifests to ensure completeness and consistency
 

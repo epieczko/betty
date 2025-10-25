@@ -1,4 +1,4 @@
-name: docs.sync.plugin_manifest
+name: docs.sync.pluginmanifest
 version: 0.1.0
 description: >
   Reconciles plugin.yaml with Betty Framework registries to ensure consistency.

@@ -25,10 +25,10 @@ metadata:
   - enterprise
   - skills
   - agents
-  generated_at: '2025-10-24T22:53:29.774399+00:00'
+  generated_at: '2025-10-25T17:20:04.203212+00:00'
   generated_by: plugin.sync skill
-  skill_count: 7
-  command_count: 7
+  skill_count: 35
+  command_count: 35
 requirements:
   python: '>=3.11'
   packages:
@@ -40,20 +40,406 @@ permissions:
 - filesystem:write
 - process:execute
 commands:
-- name: workflow/validate
-  description: 'Validate the structure of a workflow YAML file before execution.
+- name: agent/compose
+  description: 'Recommend skills for an agent based on its purpose. Analyzes the registry
+    to find skills that produce/consume compatible artifacts, ensures no gaps in artifact
+    flow, and suggests optimal skill combinations.
 
     '
   handler:
     runtime: python
-    script: skills/workflow.validate/workflow_validate.py
+    script: skills/agent.compose/agent_compose.py
   parameters:
-  - name: workflow.yaml
+  - name: agent_purpose
     type: string
     required: true
-    description: Path to the workflow YAML file.
+    description: What the agent should do
+  - name: required_artifacts
+    type: array
+    required: false
+    description: Artifact types to work with
+  - name: output_format
+    type: string
+    required: false
+    default: yaml
+    description: Output format (yaml, json, markdown)
+  - name: include_rationale
+    type: boolean
+    required: false
+    default: true
+    description: Include explanations
   permissions:
   - filesystem:read
+- name: agent/define
+  description: 'Validate an agent manifest and register it in the Agent Registry.
+
+    '
+  handler:
+    runtime: python
+    script: skills/agent.define/agent_define.py
+  parameters:
+  - name: manifest_path
+    type: string
+    required: true
+    description: Path to the agent.yaml file to validate
+  permissions:
+  - filesystem:read
+  - filesystem:write
+- name: agent/run
+  description: 'Execute a Betty agent with optional task context. Generates Claude-friendly
+    prompts, invokes the Claude API (or simulates), executes planned skills, and logs
+    all results to agent_logs/ directory.
+
+    '
+  handler:
+    runtime: python
+    script: skills/agent.run/agent_run.py
+  parameters:
+  - name: agent_path
+    type: string
+    required: true
+    description: Path to agent.yaml file or agent name (e.g., api.designer)
+  - name: task_context
+    type: string
+    required: false
+    description: Optional task or query for the agent to execute
+  - name: save_log
+    type: boolean
+    required: false
+    default: true
+    description: Save execution log to agent_logs/<agent>_<timestamp>.json
+  permissions:
+  - filesystem:read
+  - filesystem:write
+  - network:http
+- name: skill/api/compatibility
+  description: Detect breaking changes between API specification versions
+  handler:
+    runtime: python
+    script: skills/api.compatibility/check_compatibility.py
+  parameters:
+  - name: old_spec_path
+    type: string
+    required: true
+    description: Path to the old/previous API specification
+  - name: new_spec_path
+    type: string
+    required: true
+    description: Path to the new/current API specification
+  - name: fail_on_breaking
+    type: boolean
+    required: false
+    description: Exit with error code if breaking changes detected
+    default: true
+  permissions:
+  - filesystem:read
+- name: skill/api/define
+  description: Create OpenAPI and AsyncAPI specifications from templates
+  handler:
+    runtime: python
+    script: skills/api.define/api_define.py
+  parameters:
+  - name: service_name
+    type: string
+    required: true
+    description: Name of the service/API (e.g., user-service, order-api)
+  - name: spec_type
+    type: string
+    required: false
+    description: Type of specification (openapi or asyncapi)
+    default: openapi
+  - name: template
+    type: string
+    required: false
+    description: Template to use (zalando, basic, minimal)
+    default: zalando
+  - name: output_dir
+    type: string
+    required: false
+    description: Output directory for generated specification
+    default: specs
+  - name: version
+    type: string
+    required: false
+    description: API version
+    default: 1.0.0
+  permissions:
+  - filesystem:read
+  - filesystem:write
+- name: api/test
+  description: Test REST API endpoints by executing HTTP requests and validating responses
+    against expected outcome
+  handler:
+    runtime: python
+    script: skills/api.test/api_test.py
+  parameters:
+  - name: api_spec_path
+    type: string
+    required: false
+    description: ''
+  - name: base_url
+    type: string
+    required: false
+    description: ''
+  - name: test_scenarios_path (optional)
+    type: string
+    required: false
+    description: ''
+  - name: auth_config_path (optional)
+    type: string
+    required: false
+    description: ''
+- name: skill/api/validate
+  description: Validate OpenAPI and AsyncAPI specifications against enterprise guidelines
+  handler:
+    runtime: python
+    script: skills/api.validate/api_validate.py
+  parameters:
+  - name: spec_path
+    type: string
+    required: true
+    description: Path to the API specification file (OpenAPI or AsyncAPI)
+  - name: guideline_set
+    type: string
+    required: false
+    description: Which API guidelines to validate against (zalando, google, microsoft)
+    default: zalando
+  - name: strict
+    type: boolean
+    required: false
+    description: Enable strict mode (warnings become errors)
+    default: false
+  permissions:
+  - filesystem:read
+  - network:http
+- name: skill/artifact/define
+  description: 'Create artifact metadata for a skill. Validates artifact types against
+    known schemas, suggests file patterns, and generates properly formatted artifact_metadata
+    blocks for skill.yaml files.
+
+    '
+  handler:
+    runtime: python
+    script: skills/artifact.define/artifact_define.py
+  parameters:
+  - name: skill_name
+    type: string
+    required: true
+    description: Name of the skill (e.g., api.define, workflow.validate)
+  - name: produces
+    type: array
+    required: false
+    description: Artifact types produced (e.g., ["openapi-spec", "validation-report"])
+  - name: consumes
+    type: array
+    required: false
+    description: Artifact types consumed
+  - name: output_file
+    type: string
+    required: false
+    default: artifact_metadata.yaml
+    description: Output file path
+  permissions:
+  - filesystem:read
+  - filesystem:write
+- name: audit/log
+  description: 'Append a timestamped audit entry to the centralized audit log.
+
+    '
+  handler:
+    runtime: python
+    script: skills/audit.log/audit_log.py
+  parameters:
+  - name: skill_name
+    type: string
+    required: true
+    description: Name of the skill being audited.
+  - name: status
+    type: string
+    required: true
+    description: Execution status (success, failed, timeout, etc.).
+  - name: duration_ms
+    type: integer
+    required: false
+    description: Execution duration in milliseconds.
+  - name: errors
+    type: string
+    required: false
+    description: JSON array of errors (if any).
+  - name: metadata
+    type: string
+    required: false
+    description: Additional JSON metadata about the execution.
+  permissions:
+  - filesystem
+  - write
+- name: skill/command/define
+  description: Validate and register command manifests in the Command Registry
+  handler:
+    runtime: python
+    script: skills/command.define/command_define.py
+  parameters:
+  - name: manifest_path
+    type: string
+    required: true
+    description: Path to the command manifest file (YAML)
+  permissions:
+  - filesystem:read
+  - filesystem:write
+- name: data/transform
+  description: Transform data between different formats (JSON, YAML, XML, CSV) with
+    validation and error handling
+  handler:
+    runtime: python
+    script: skills/data.transform/data_transform.py
+  parameters:
+  - name: input_file_path
+    type: string
+    required: false
+    description: ''
+  - name: source_format
+    type: string
+    required: false
+    description: ''
+  - name: target_format
+    type: string
+    required: false
+    description: ''
+  - name: schema_path (optional)
+    type: string
+    required: false
+    description: ''
+- name: docs/expand/glossary
+  description: 'Scan manifests and docs for undocumented terms, then expand glossary.md
+    with new definitions. Supports dry-run mode for previewing changes.
+
+    '
+  handler:
+    runtime: python
+    script: skills/docs.expand.glossary/glossary_expand.py
+  parameters:
+  - name: glossary_path
+    type: string
+    required: false
+    description: Custom path to glossary.md
+  - name: base_dir
+    type: string
+    required: false
+    description: Custom base directory to scan
+  - name: dry_run
+    type: boolean
+    required: false
+    description: Preview changes without writing
+  - name: include_auto_generated
+    type: boolean
+    required: false
+    description: Include auto-generated definitions
+  permissions:
+  - filesystem:read
+  - filesystem:write
+- name: docs/lint/links
+  description: 'Scan all Markdown files and detect broken internal or external links.
+
+    '
+  handler:
+    runtime: python
+    script: skills/docs.lint.links/docs_link_lint.py
+  parameters:
+  - name: root_dir
+    type: string
+    required: false
+    description: 'Root directory to search (default: current directory)'
+  - name: no_external
+    type: boolean
+    required: false
+    description: Skip checking external links
+  - name: autofix
+    type: boolean
+    required: false
+    description: Automatically fix common issues
+  - name: timeout
+    type: integer
+    required: false
+    description: Timeout for external link checks in seconds
+  - name: exclude
+    type: string
+    required: false
+    description: Comma-separated exclusion patterns
+  - name: output
+    type: string
+    required: false
+    description: Output format (json or text)
+- name: docs/sync/readme
+  description: 'Sync README.md with current registry state. Updates skills tables,
+    agents links, and documentation map to reflect all registered skills and agents.
+
+    '
+  handler:
+    runtime: python
+    script: skills/docs.sync.readme/readme_sync.py
+  permissions:
+  - filesystem:read
+  - filesystem:write
+- name: file/compare
+  description: Compare two files and generate detailed diff reports showing line-by-line
+    differences
+  handler:
+    runtime: python
+    script: skills/file.compare/file_compare.py
+  parameters:
+  - name: file_path_1
+    type: string
+    required: false
+    description: ''
+  - name: file_path_2
+    type: string
+    required: false
+    description: ''
+  - name: output_format (optional)
+    type: string
+    required: false
+    description: ''
+- name: skill/generate/docs
+  description: Automatically generate or update SKILL.md documentation from skill.yaml
+    manifests
+  handler:
+    runtime: python
+    script: skills/generate.docs/generate_docs.py
+  parameters:
+  - name: manifest_path
+    type: string
+    required: true
+    description: Path to skill.yaml manifest file to generate documentation from
+  - name: overwrite
+    type: boolean
+    required: false
+    description: Overwrite existing SKILL.md file if it exists
+    default: false
+  - name: dry_run
+    type: boolean
+    required: false
+    description: Preview the generated documentation without writing to disk
+    default: false
+  - name: output_path
+    type: string
+    required: false
+    description: Custom output path for SKILL.md (defaults to same directory as manifest)
+  permissions:
+  - filesystem:read
+  - filesystem:write
+- name: marketplace/generate
+  description: 'Generate marketplace catalogs from registry files. Filters by status:
+    active and certified: true. Outputs skills, agents, commands, and hooks marketplace
+    files with last_updated timestamps. Also generates .claude-plugin/marketplace.json
+    in Claude Code marketplace format.
+
+    '
+  handler:
+    runtime: python
+    script: skills/generate.marketplace/generate_marketplace.py
+  permissions:
+  - filesystem:read
+  - filesystem:write
 - name: skill/hook/define
   description: Create and register validation hooks for Claude Code
   handler:
@@ -90,107 +476,412 @@ commands:
   permissions:
   - filesystem:read
   - filesystem:write
-- name: skill/api/validate
-  description: Validate OpenAPI and AsyncAPI specifications against enterprise guidelines
+- name: skill/hook/register
+  description: Validate and register hook manifests in the Hook Registry
   handler:
     runtime: python
-    script: skills/api.validate/api_validate.py
+    script: skills/hook.register/hook_register.py
   parameters:
-  - name: spec_path
+  - name: manifest_path
     type: string
     required: true
-    description: Path to the API specification file (OpenAPI or AsyncAPI)
-  - name: guideline_set
-    type: string
-    required: false
-    description: Which API guidelines to validate against (zalando, google, microsoft)
-    default: zalando
-  - name: strict
-    type: boolean
-    required: false
-    description: Enable strict mode (warnings become errors)
-    default: false
-  permissions:
-  - filesystem:read
-  - network:http
-- name: skill/api/define
-  description: Create OpenAPI and AsyncAPI specifications from templates
-  handler:
-    runtime: python
-    script: skills/api.define/api_define.py
-  parameters:
-  - name: service_name
-    type: string
-    required: true
-    description: Name of the service/API (e.g., user-service, order-api)
-  - name: spec_type
-    type: string
-    required: false
-    description: Type of specification (openapi or asyncapi)
-    default: openapi
-  - name: template
-    type: string
-    required: false
-    description: Template to use (zalando, basic, minimal)
-    default: zalando
-  - name: output_dir
-    type: string
-    required: false
-    description: Output directory for generated specification
-    default: specs
-  - name: version
-    type: string
-    required: false
-    description: API version
-    default: 1.0.0
+    description: Path to the hook manifest file (YAML)
   permissions:
   - filesystem:read
   - filesystem:write
-- name: docs/sync/plugin-manifest
-  description: Reconcile plugin.yaml with registry files. Identifies discrepancies
-    and generates plugin.preview.yaml with suggested updates and a detailed diff report.
-  handler:
-    runtime: python
-    script: skills/docs.sync.plugin_manifest/plugin_manifest_sync.py
-  permissions:
-  - filesystem:read
-  - filesystem:write
-- name: docs/sync/readme
-  description: 'Sync README.md with current registry state. Updates skills tables,
-    agents links, and documentation map to reflect all registered skills and agents.
+- name: plugin/build
+  description: 'Bundle plugin directory into deployable package. Validates all entrypoints
+    and handlers before packaging.
 
     '
   handler:
     runtime: python
-    script: skills/docs.sync.readme/readme_sync.py
+    script: skills/plugin.build/plugin_build.py
+  parameters:
+  - name: plugin_path
+    type: string
+    required: false
+    description: Path to plugin.yaml (defaults to ./plugin.yaml)
+  - name: output_format
+    type: string
+    required: false
+    description: Package format (tar.gz or zip, defaults to tar.gz)
+  - name: output_dir
+    type: string
+    required: false
+    description: Output directory (defaults to ./dist)
   permissions:
   - filesystem:read
   - filesystem:write
-- name: agent/run
-  description: Execute a Betty agent with optional task context. Generates Claude-friendly
-    prompts, invokes the Claude API (or simulates), executes planned skills, and logs
-    all results to agent_logs/ directory.
+- name: plugin/publish
+  description: 'Publish a bundled plugin package to local, remote, or release targets.
+    Validates SHA256 checksums and generates publication metadata.
+
+    '
   handler:
     runtime: python
-    script: skills/agent.run/agent_run.py
+    script: skills/plugin.publish/plugin_publish.py
   parameters:
-  - name: agent_path
+  - name: package_path
     type: string
     required: true
-    description: Path to agent.yaml file or agent name (e.g., api.designer)
-  - name: task_context
+    description: Path to the .tar.gz package file
+  - name: target
     type: string
     required: false
-    description: Optional task or query for the agent to execute
-  - name: save_log
-    type: boolean
+    default: local
+    description: 'Publication target: local, remote, or release'
+  - name: expected_sha256
+    type: string
     required: false
-    default: true
-    description: Save execution log to agent_logs/<agent>_<timestamp>.json
+    description: Expected SHA256 checksum for validation
+  - name: manifest_path
+    type: string
+    required: false
+    description: Path to manifest.json
+  - name: remote_endpoint
+    type: string
+    required: false
+    description: Remote API endpoint URL for 'remote' target
   permissions:
   - filesystem:read
   - filesystem:write
   - network:http
+- name: plugin/sync
+  description: 'Generate plugin.yaml from registry files. Syncs active skills with
+    entrypoints into plugin commands.
+
+    '
+  handler:
+    runtime: python
+    script: skills/plugin.sync/plugin_sync.py
+  permissions:
+  - filesystem:read
+  - filesystem:write
+- name: policy/enforce
+  description: 'Validate skill or agent manifest against policy rules for naming conventions,
+    semantic versioning, permissions, and status values.
+
+    '
+  handler:
+    runtime: python
+    script: skills/policy.enforce/policy_enforce.py
+  parameters:
+  - name: manifest_path
+    type: string
+    required: false
+    description: Path to the manifest file to validate (omit for batch mode)
+  - name: --batch
+    type: boolean
+    required: false
+    default: false
+    description: Enable batch mode to validate all manifests
+  - name: --strict
+    type: boolean
+    required: false
+    default: false
+    description: Treat warnings as errors
+  permissions:
+  - filesystem
+  - read
+- name: registry/diff
+  description: 'Compare a manifest against its registry entry to detect changes and
+    determine appropriate actions.
+
+    '
+  handler:
+    runtime: python
+    script: skills/registry.diff/registry_diff.py
+  parameters:
+  - name: manifest_path
+    type: string
+    required: true
+    description: 'Path to the skill.yaml or agent.yaml manifest file to analyze. Can
+      be absolute or relative path.
+
+      '
+  permissions:
+  - filesystem
+  - read
+- name: registry/query
+  description: 'Query Betty registries with flexible filtering options. Returns matching
+    entries with key metadata for programmatic use or CLI exploration.
+
+    '
+  handler:
+    runtime: python
+    script: skills/registry.query/registry_query.py
+  parameters:
+  - name: registry
+    type: string
+    required: true
+    description: Registry to query (skills, agents, commands, or hooks)
+  - name: name
+    type: string
+    required: false
+    description: Filter by name (substring match)
+  - name: version
+    type: string
+    required: false
+    description: Filter by version (exact match)
+  - name: status
+    type: string
+    required: false
+    description: Filter by status
+  - name: tag
+    type: string
+    required: false
+    description: Filter by single tag
+  - name: tags
+    type: array
+    required: false
+    description: Filter by multiple tags
+  - name: capability
+    type: string
+    required: false
+    description: Filter by capability (agents only)
+  - name: domain
+    type: string
+    required: false
+    description: Filter by domain
+  - name: fuzzy
+    type: boolean
+    required: false
+    description: Enable fuzzy matching
+  - name: limit
+    type: integer
+    required: false
+    description: Maximum results to return
+  - name: format
+    type: string
+    required: false
+    description: Output format (json, table, compact)
+  permissions:
+  - filesystem:read
+- name: registry/update
+  description: 'Add or update entries in the Skill Registry with optional automatic
+    version bumping.
+
+    '
+  handler:
+    runtime: python
+    script: skills/registry.update/registry_update.py
+  parameters:
+  - name: manifest_path
+    type: string
+    required: true
+    description: Path to the skill manifest (.skill.yaml) being added or updated.
+  - name: auto_version
+    type: boolean
+    required: false
+    description: "Enable automatic version bumping based on changes detected. Rules:\
+      \ field removed \u2192 major bump, field/permission added \u2192 minor bump,\
+      \ other changes \u2192 patch bump.\n"
+  permissions:
+  - filesystem
+  - read
+  - write
+- name: skill/create
+  description: 'Scaffolds a new Betty Skill directory, generates its manifest, validates
+    it with skill.define, and updates the registry.
+
+    '
+  handler:
+    runtime: python
+    script: skills/skill.create/skill_create.py
+  parameters:
+  - name: skill_name
+    type: string
+    description: Name of the new skill (e.g., runtime.execute)
+    required: true
+  - name: description
+    type: string
+    description: Description of what the skill will do
+    required: true
+  - name: inputs
+    type: string
+    description: Comma-separated list of input parameters (optional)
+    required: false
+  - name: outputs
+    type: string
+    description: Comma-separated list of output parameters (optional)
+    required: false
+  permissions:
+  - filesystem
+  - read
+  - write
+- name: skill/define
+  description: 'Validate a Claude Code skill manifest and register it in the Betty
+    Skill Registry.
+
+    '
+  handler:
+    runtime: python
+    script: skills/skill.define/skill_define.py
+  parameters:
+  - name: manifest_path
+    type: string
+    required: true
+    description: Path to the skill.yaml file to validate.
+  permissions:
+  - filesystem
+  - read
+  - write
+- name: telemetry/capture
+  description: Capture telemetry event for a Betty component
+  handler:
+    runtime: python
+    script: skills/telemetry.capture/telemetry_capture.py
+  parameters:
+  - name: skill
+    type: string
+    required: true
+    description: Skill name
+  - name: status
+    type: string
+    required: true
+    description: Execution status
+  - name: duration_ms
+    type: number
+    required: true
+    description: Duration in milliseconds
+  - name: caller
+    type: string
+    required: true
+    description: Caller identifier
+  - name: inputs
+    type: string
+    required: false
+    description: JSON string of inputs
+  - name: error_message
+    type: string
+    required: false
+    description: Error message
+  permissions:
+  - filesystem:read
+  - filesystem:write
+- name: workflow/compose
+  description: 'Execute a Betty workflow defined in a YAML file.
+
+    '
+  handler:
+    runtime: python
+    script: skills/workflow.compose/workflow_compose.py
+  parameters:
+  - name: workflow_path
+    type: string
+    required: true
+    description: Path to a workflow YAML file to execute.
+  permissions:
+  - filesystem
+  - read
+  - write
+- name: workflow/validate
+  description: 'Validate the structure of a workflow YAML file before execution.
+
+    '
+  handler:
+    runtime: python
+    script: skills/workflow.validate/workflow_validate.py
+  parameters:
+  - name: workflow_path
+    type: string
+    required: true
+    description: Path to the workflow YAML file.
+  permissions:
+  - filesystem
+  - read
+- name: skill/api/generate-models
+  description: Generate type-safe models from OpenAPI and AsyncAPI specifications
+    using Modelina
+  handler:
+    runtime: python
+    script: skills/api.generatemodels/modelina_generate.py
+  parameters:
+  - name: spec_path
+    type: string
+    required: true
+    description: Path to API specification file (OpenAPI or AsyncAPI)
+  - name: language
+    type: string
+    required: true
+    description: Target language (typescript, python, java, go, csharp)
+  - name: output_dir
+    type: string
+    required: false
+    description: Output directory for generated models
+    default: src/models
+  - name: package_name
+    type: string
+    required: false
+    description: Package/module name for generated code
+  permissions:
+  - filesystem:read
+  - filesystem:write
+- name: docs/sync/plugin-manifest
+  description: 'Reconcile plugin.yaml with registry files. Identifies discrepancies
+    and generates plugin.preview.yaml with suggested updates and a detailed diff report.
+
+    '
+  handler:
+    runtime: python
+    script: skills/docs.sync.pluginmanifest/plugin_manifest_sync.py
+  permissions:
+  - filesystem:read
+  - filesystem:write
+- name: docs/validate/skill-docs
+  description: Validate SKILL.md documentation files against their skill.yaml manifests
+    to ensure completeness and consistency
+  handler:
+    runtime: python
+    script: skills/docs.validate.skilldocs/skill_docs_validate.py
+  parameters:
+  - name: skill_path
+    type: string
+    required: true
+    description: Path to skill directory containing skill.yaml and SKILL.md
+  - name: summary
+    type: boolean
+    required: false
+    description: Print a short summary table of validation results instead of full
+      JSON output
+    default: false
+  - name: check_headers
+    type: boolean
+    required: false
+    description: Validate that SKILL.md contains required section headers
+    default: true
+  - name: check_manifest_parity
+    type: boolean
+    required: false
+    description: Validate that SKILL.md documentation matches skill.yaml manifest
+      fields
+    default: true
+  permissions:
+  - filesystem:read
+- name: skill/hook/simulate
+  description: Simulate hook execution to test manifests before registration
+  handler:
+    runtime: python
+    script: skills/hook.simulate/hook_simulate.py
+  parameters:
+  - name: manifest_path
+    type: string
+    required: true
+    description: Path to the hook manifest file (YAML)
+  - name: execute
+    type: boolean
+    required: false
+    description: Whether to execute the hook command (vs. just validation)
+    default: false
+  - name: dry_run
+    type: boolean
+    required: false
+    description: If true, simulate command execution without running it
+    default: true
+  permissions:
+  - filesystem:read
+  - filesystem:write
 agents:
 - name: api.designer
   description: Design APIs with iterative refinement following enterprise guidelines
