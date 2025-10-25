@@ -1,0 +1,5 @@
+# Test File for Commit Testing
+
+This is a test file to demonstrate the /commit command workflow.
+
+Created during Phase 2 testing.
