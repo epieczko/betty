@@ -1,12 +1,92 @@
 {
   "marketplace_version": "1.0.0",
-  "generated_at": "2025-10-24T22:40:26.469105+00:00",
-  "last_updated": "2025-10-24T22:40:26.469120+00:00",
+  "generated_at": "2025-10-25T17:08:53.079998+00:00",
   "description": "Betty Framework Certified Skills Marketplace",
-  "total_skills": 7,
-  "certified_count": 7,
+  "total_skills": 8,
+  "certified_count": 8,
   "draft_count": 0,
   "catalog": [
+    {
+      "name": "agent.run",
+      "version": "0.1.0",
+      "description": "Execute a registered Betty agent by loading its manifest, generating a Claude-friendly prompt, invoking skills based on the agent's workflow, and logging results. Supports both iterative and oneshot reasoning modes with optional Claude API integration.",
+      "status": "certified",
+      "tags": [
+        "agents",
+        "execution",
+        "claude-api",
+        "orchestration",
+        "layer2"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/agent.run",
+      "dependencies": [
+        "agent.define"
+      ],
+      "entrypoints": [
+        {
+          "command": "/agent/run",
+          "handler": "agent_run.py",
+          "runtime": "python",
+          "description": "Execute a Betty agent with optional task context. Generates Claude-friendly prompts, invokes the Claude API (or simulates), executes planned skills, and logs all results to agent_logs/ directory.",
+          "parameters": [
+            {
+              "name": "agent_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to agent.yaml file or agent name (e.g., api.designer)"
+            },
+            {
+              "name": "task_context",
+              "type": "string",
+              "required": false,
+              "description": "Optional task or query for the agent to execute"
+            },
+            {
+              "name": "save_log",
+              "type": "boolean",
+              "required": false,
+              "default": true,
+              "description": "Save execution log to agent_logs/<agent>_<timestamp>.json"
+            }
+          ],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write",
+            "network:http"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "agent_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to agent manifest (agent.yaml) or agent name (e.g., api.designer)"
+        },
+        {
+          "name": "task_context",
+          "type": "string",
+          "required": false,
+          "description": "Task or query to provide to the agent for execution"
+        },
+        {
+          "name": "save_log",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether to save execution log to agent_logs/<agent>.json"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "execution_result",
+          "type": "object",
+          "description": "Complete execution results including prompt, Claude response, and skill outputs"
+        }
+      ]
+    },
     {
       "name": "api.define",
       "version": "0.1.0",
@@ -323,7 +403,13 @@
       "version": "0.2.1",
       "description": "Updates the Betty Framework Skill Registry by adding or modifying entries based on validated skill manifests. Supports automatic version bumping based on semantic versioning rules.\n",
       "status": "certified",
-      "tags": [],
+      "tags": [
+        "docs",
+        "documentation",
+        "registry",
+        "automation",
+        "maintenance"
+      ],
       "maintainer": "Betty Core Team",
       "usage_examples": [
         "Register a new skill: /registry/update skill_manifest.yaml",
@@ -399,8 +485,7 @@
             }
           ],
           "permissions": [
-            "filesystem",
-            "read"
+            "filesystem:read"
           ]
         }
       ],
