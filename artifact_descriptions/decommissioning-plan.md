@@ -2,43 +2,61 @@
 
 ## Executive Summary
 
-The Decommissioning Plan is a comprehensive planning artifact that establishes the strategic approach, resource allocation, timeline, and success criteria for decommissioning activities within the General phase. This forward-looking document serves as the authoritative reference for execution teams, stakeholders, and governance bodies.
+The Decommissioning Plan is a comprehensive operational artifact that defines procedures, timelines, and responsibilities for safely retiring systems, applications, and infrastructure while preserving data integrity, maintaining compliance, and minimizing business disruption. This plan establishes structured sunset processes that ensure dependent systems are migrated, data is properly archived, access is revoked, and resources are reclaimed in accordance with regulatory retention requirements and security best practices.
 
-As a foundational planning deliverable, it translates strategic objectives into actionable tasks, identifies dependencies and constraints, allocates resources optimally, and establishes measurable outcomes. The plan balances ambition with pragmatism, incorporating risk mitigation strategies and contingency approaches.
+As a foundational lifecycle management deliverable, it orchestrates dependency analysis, user migration, data archival, access deprovisioning, infrastructure teardown, and license reclamation. The plan mitigates decommissioning risks through stakeholder communication, rollback procedures, compliance verification, and post-decommissioning validation that confirms all dependencies are satisfied and no business processes are disrupted.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities directly support organizational objectives and expected outcomes
-- **Resource Optimization**: Enables efficient allocation of personnel, budget, and technology resources
-- **Risk Management**: Identifies potential obstacles and defines proactive mitigation strategies
-- **Stakeholder Alignment**: Creates shared understanding of approach, timeline, and expectations
-- **Success Measurement**: Establishes clear metrics and criteria for evaluating outcomes
+- **Cost Reduction**: Eliminates unnecessary infrastructure, licensing, and maintenance costs for unused systems
+- **Security Risk Mitigation**: Removes attack surface by deprovisioning unused systems and revoking stale access
+- **Compliance Assurance**: Ensures data retention, archival, and disposal meet regulatory requirements
+- **Technical Debt Reduction**: Simplifies architecture by removing legacy systems and reducing operational complexity
+- **Resource Reclamation**: Frees infrastructure capacity, licenses, and engineering resources for higher-value work
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines comprehensive decommissioning procedures for safely retiring systems, applications, and infrastructure while ensuring data integrity, compliance, dependency management, and business continuity. It establishes structured sunset processes that minimize risk and disruption while reclaiming resources and reducing operational overhead.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Decommissioning scope: Applications, services, databases, infrastructure, third-party integrations
+- Dependency mapping: Upstream consumers, downstream dependencies, API integrations, data flows
+- Stakeholder communication: User notifications, migration timelines, support sunset dates
+- Data archival: Data export, long-term storage, retention policies, archive formats (Parquet, Avro, cold storage)
+- Data disposal: Secure deletion, GDPR right-to-erasure, data sanitization, certificate of destruction
+- User migration: Alternative system onboarding, data migration, training, cutover procedures
+- Access deprovisioning: User account disablement, API key revocation, service account removal
+- Infrastructure teardown: Server shutdown, VM deletion, container cleanup, load balancer removal
+- DNS and networking: DNS record removal, firewall rule cleanup, load balancer decommissioning
+- Monitoring cleanup: Alert removal, dashboard archival, metrics retention, log archival
+- License reclamation: Software license return, SaaS subscription cancellation, third-party contract termination
+- Documentation updates: Architecture diagram updates, runbook archival, wiki page updates
+- Compliance verification: Regulatory requirements (SOX, HIPAA, GDPR), audit trail documentation
+- Rollback procedures: Contingency plans if decommissioning causes unexpected issues
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- New system implementation and migration (covered in Migration Plan)
+- Application modernization strategies (covered in Modernization Plan)
+- Cloud migration planning (covered in Cloud Migration Plan)
+- General change management processes (covered in Change Management)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Operations engineers and SREs who execute decommissioning procedures
+- System administrators who deprovision infrastructure and revoke access
+- Application owners who coordinate user migration and sunset communications
+- Project managers who plan decommissioning timelines and coordinate stakeholders
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Security teams who verify access revocation and data disposal
+- Compliance officers who ensure regulatory requirements are met
+- Finance teams who reclaim licenses and terminate subscriptions
+- Enterprise architects who update architecture documentation and dependency maps
 
 ## Document Information
 
@@ -163,7 +181,35 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Decommissioning Methodologies**: ITIL Service Transition (Service Retirement), Application Rationalization frameworks, Legacy system sunset processes, Technical debt reduction strategies
+
+**Data Archival Standards**: ISO 15489 (Records Management), NIST SP 800-88 (Media Sanitization), Archive formats (Parquet, Avro, ORC), Cold storage (AWS Glacier, Azure Archive, GCS Archive)
+
+**Data Disposal & Destruction**: NIST SP 800-88 (Guidelines for Media Sanitization), DoD 5220.22-M (data wiping standard), Secure erase procedures, GDPR Article 17 (Right to Erasure), Data destruction certification
+
+**Compliance & Retention**: GDPR data retention requirements, SOX record retention (7 years), HIPAA record retention (6 years), SEC Rule 17a-4 (financial records), Legal hold procedures
+
+**Dependency Analysis Tools**: ServiceNow CMDB (Configuration Management Database), Azure Resource Graph, AWS Config, Datadog Service Catalog, Backstage software catalog, Neo4j for dependency graphs
+
+**Infrastructure Decommissioning**: Terraform destroy workflows, AWS CloudFormation stack deletion, Azure Resource Manager cleanup, GCP resource deletion, Kubernetes namespace cleanup
+
+**Access Revocation**: Identity and Access Management (IAM) deprovisioning, Okta user deactivation, Azure AD account disablement, AWS IAM user/role deletion, API key revocation, Certificate revocation (PKI)
+
+**License Management**: Snow License Manager, Flexera, ServiceNow SAM (Software Asset Management), SaaS subscription cancellation, Third-party contract termination
+
+**Monitoring & Observability Cleanup**: Prometheus metric retention, Datadog monitor archival, Grafana dashboard cleanup, CloudWatch log group deletion, Alert rule deactivation
+
+**Communication & Change Management**: ITIL Change Management, Stakeholder communication plans, User notification templates, Support sunset timelines, Knowledge base updates
+
+**DNS & Networking Cleanup**: DNS record removal (Route53, Azure DNS, CloudDNS), Load balancer decommissioning, Firewall rule cleanup, Security group deletion, VPC/subnet cleanup
+
+**Database Decommissioning**: Database backup before deletion, Connection string removal, Database drop procedures, Replica cleanup, Backup retention policies
+
+**Documentation Updates**: Architecture diagram tools (Lucidchart, Draw.io, Miro), Confluence page archival, Wiki updates, Runbook archival, README deprecation notices
+
+**Cloud Resource Management**: AWS Service Catalog retirement, Azure Blueprints decommissioning, Google Cloud Deployment Manager cleanup, Tag-based resource identification
+
+**Rollback & Contingency**: Snapshot backups before decommissioning, Rollback procedures, Contingency plans, Emergency restore procedures
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

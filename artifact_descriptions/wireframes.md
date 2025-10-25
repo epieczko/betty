@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Wireframes is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Wireframes are low-fidelity design artifacts that define the structural foundation and information architecture of digital products through simplified visual representations. This artifact enables product teams to establish layout hierarchies, user flow patterns, and functional requirements before investing in high-fidelity design and development.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a foundational UX deliverable, wireframes support rapid iteration and stakeholder alignment using industry-standard design tools (Figma, Sketch, Adobe XD) while adhering to user-centered design principles and established design systems. They serve as the critical bridge between conceptual information architecture and detailed visual design, enabling designers, product managers, and developers to validate structure and functionality early in the design process.
 
 ### Strategic Importance
 
@@ -20,27 +20,40 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the structural blueprint for digital interfaces, defining layout, navigation, content placement, and interaction patterns without detailed visual design. Wireframes validate information architecture, user flows, and functional requirements through low-fidelity representations that enable rapid iteration and stakeholder feedback.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Page/screen layouts and grid systems created in Figma, Sketch, or Adobe XD
+- Navigation patterns and information hierarchy
+- Content placement and functional component placement
+- User flow documentation and interaction states
+- Responsive design breakpoints and mobile-first considerations
+- Accessibility annotations following WCAG 2.1 guidelines
+- Component libraries aligned with Atomic Design methodology
+- Annotation layers documenting interaction behaviors
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Final visual design, color schemes, and branding (handled by high-fidelity mockups)
+- Detailed micro-interactions and animations (handled by prototypes)
+- Production-ready design specifications (handled by design handoff documentation)
+- Code implementation (handled by development teams)
+- Usability test execution (handled by UX research artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- UX Designers and Product Designers who create and iterate on structural layouts
+- Product Managers who validate feature requirements and user flows
+- UX Researchers who use wireframes for early usability testing
+- Business Stakeholders who review and approve functional layouts
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Frontend Developers who reference structure for early technical planning
+- Visual Designers who use wireframes as foundation for high-fidelity mockups
+- Content Strategists who validate information architecture and content placement
+- Accessibility Specialists who review for WCAG compliance early in design process
 
 ## Document Information
 
@@ -165,9 +178,50 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Design Tools & Platforms**:
+- Figma (collaborative design platform with wireframing libraries)
+- Sketch (macOS design tool with extensive wireframe plugins)
+- Adobe XD (Adobe's UX design and wireframing tool)
+- Balsamiq (rapid low-fidelity wireframing tool)
+- Axure RP (wireframing with advanced prototyping capabilities)
+- Miro/FigJam (collaborative whiteboarding for early wireframes)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Design Systems & Methodologies**:
+- Atomic Design (Brad Frost's component-based design methodology)
+- Material Design (Google's design system with wireframe components)
+- Human Interface Guidelines (Apple's iOS/macOS design standards)
+- Fluent Design System (Microsoft's cross-platform design language)
+- Carbon Design System (IBM's open-source design system)
+- Lightning Design System (Salesforce's enterprise design framework)
+
+**UX Design Methodologies**:
+- User-Centered Design (ISO 9241-210)
+- Design Thinking (IDEO methodology)
+- Jobs To Be Done (JTBD framework)
+- Lean UX (iterative design methodology)
+- Mobile-First Design principles
+- Progressive Enhancement approach
+
+**Accessibility Standards**:
+- WCAG 2.1 Level AA (Web Content Accessibility Guidelines)
+- ARIA (Accessible Rich Internet Applications specification)
+- Section 508 (US federal accessibility requirements)
+- EN 301 549 (European accessibility standard)
+- Inclusive Design Principles (Microsoft Inclusive Design toolkit)
+
+**Information Architecture**:
+- Card Sorting methodologies
+- Tree Testing for navigation validation
+- Hierarchy mapping techniques
+- Content modeling frameworks
+
+**Design Collaboration & Handoff**:
+- Design Tokens (style value standardization)
+- Component Libraries (reusable UI elements)
+- Design QA processes
+- Responsive grid systems (8pt, 12-column grids)
+
+**Reference**: Consult organizational UX/design team for specific tool selection, design system adoption, and accessibility requirements
 
 ## Integration Points
 

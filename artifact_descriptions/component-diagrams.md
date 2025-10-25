@@ -2,45 +2,55 @@
 
 ## Executive Summary
 
-The Component Diagrams is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Component Diagrams are detailed technical artifacts that visualize the internal structure, interfaces, dependencies, and relationships of software components within a system or service. Using UML 2.5 Component Diagrams, C4 Model Component level diagrams, or ArchiMate application components, these diagrams show how software elements are organized, how they communicate, and what external dependencies they rely upon.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As essential tools for detailed design communication, component diagrams bridge high-level architecture and implementation by showing package structures, API contracts, interface specifications, and dependency graphs. They support development teams in understanding module boundaries, guide refactoring decisions, enable dependency analysis, and facilitate microservices decomposition following Domain-Driven Design principles and bounded context patterns.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Design Communication**: Provides developers with clear understanding of component structure, responsibilities, and interfaces using industry-standard UML 2.5 or C4 notation
+- **Dependency Management**: Enables analysis of coupling, cohesion, and circular dependencies to improve modularity and testability
+- **Refactoring Support**: Guides architectural refactoring, microservices decomposition, and technical debt reduction initiatives
+- **Onboarding Efficiency**: Accelerates new developer onboarding by visualizing codebase structure and component relationships
+- **Code Quality**: Supports architecture compliance checking using tools like ArchUnit, SonarQube architecture rules, or NDepend
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents detailed component structure using UML 2.5 Component Diagrams, C4 Model Level 3 (Component) diagrams, or package diagrams showing modules, libraries, interfaces, and dependencies. Created using tools like PlantUML, Mermaid, Structurizr, Enterprise Architect, or Visual Paradigm, it specifies component responsibilities, provided/required interfaces, and dependency relationships to guide implementation and code organization.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Component decomposition: Modules, packages, libraries, services within a container or application boundary
+- Interface specifications: Provided interfaces, required interfaces, API contracts (REST, GraphQL, gRPC, message contracts)
+- Dependency relationships: Component-to-component dependencies, third-party library dependencies, framework dependencies
+- Layer organization: Presentation layer, business logic layer, data access layer, cross-cutting concerns (logging, security, configuration)
+- Design patterns: Dependency Injection, Repository pattern, Factory pattern, Strategy pattern, Observer pattern, Adapter pattern
+- Port and adapter boundaries: Hexagonal architecture ports, adapters for databases, external services, message queues
+- Package structure: Java packages, .NET namespaces, Python modules, Node.js modules, Go packages
+- Component interfaces: Interface definitions, API specifications (OpenAPI/Swagger), event schemas (Avro, Protobuf)
+- Diagrams-as-code: PlantUML component diagrams, Mermaid component diagrams, Structurizr DSL component definitions
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- High-level system architecture and service boundaries (see Logical Architecture Diagram)
+- Physical deployment and infrastructure details (see Physical Architecture Diagram)
+- Class-level design and object relationships (see Class Diagrams or detailed design documents)
+- Runtime behavior and interaction sequences (see Sequence Diagrams)
+- Database schema and entity relationships (see Data Model diagrams)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Software Developers implementing components, understanding dependencies, and following architectural patterns
+- Technical Leads designing component structure, defining interfaces, and ensuring separation of concerns
+- Development Team Leads establishing coding standards, package organization, and module boundaries
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Solution Architects validating that detailed design aligns with high-level architecture decisions and patterns
+- Code Reviewers checking compliance with component structure, dependency rules, and layering principles
+- DevOps Engineers understanding build dependencies, deployment artifacts, and service packaging requirements
 
 ## Document Information
 
@@ -165,9 +175,92 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Diagramming Notations & Standards**:
+- UML 2.5 Component Diagrams - Components, interfaces, dependencies, ports, connectors
+- C4 Model Level 3: Component Diagrams - Component-level decomposition within containers
+- ArchiMate 3.1 Application Layer - Application components and interfaces
+- Package Diagrams (UML) - Package structure, package dependencies, import relationships
+- Module Diagrams - Language-specific module and namespace visualization
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Diagramming Tools**:
+- PlantUML - Text-based UML component diagram generation with version control
+- Mermaid - Markdown-based component diagram creation for diagrams-as-code
+- Structurizr - C4 Model component diagrams with DSL support
+- Enterprise Architect (Sparx Systems) - Full-featured UML modeling with code engineering
+- Visual Paradigm - UML, SysML modeling with code generation and reverse engineering
+- draw.io / diagrams.net - Visual component diagramming with UML shapes
+- Lucidchart - Collaborative component diagram creation with UML templates
+- StarUML - Open-source UML modeling tool
+
+**Software Architecture Patterns**:
+- Layered Architecture (N-Tier) - Presentation, Business, Data Access layers with dependency rules
+- Hexagonal Architecture (Ports and Adapters) - Alistair Cockburn's pattern for testable architecture
+- Clean Architecture (Robert C. Martin) - Dependency inversion with concentric circles
+- Onion Architecture - Similar to Clean Architecture with domain-centric layers
+- Domain-Driven Design (DDD) - Bounded contexts, aggregates, domain services, application services
+- Model-View-Controller (MVC) - Separation of concerns for UI applications
+- Model-View-ViewModel (MVVM) - UI pattern for data-binding frameworks
+- Model-View-Presenter (MVP) - Testable UI pattern with presenter layer
+
+**Design Patterns (Gang of Four)**:
+- Creational Patterns - Factory, Abstract Factory, Builder, Singleton, Prototype
+- Structural Patterns - Adapter, Bridge, Composite, Decorator, Facade, Proxy
+- Behavioral Patterns - Observer, Strategy, Command, Template Method, State, Chain of Responsibility
+
+**Dependency Management Principles**:
+- SOLID Principles - Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion
+- Dependency Injection (DI) - Constructor injection, property injection, method injection
+- Inversion of Control (IoC) - Frameworks: Spring (Java), .NET Core DI, Dagger (Android), Guice (Java)
+- Package Principles (Robert C. Martin) - Cohesion principles (REP, CCP, CRP), Coupling principles (ADP, SDP, SAP)
+
+**Code Organization Standards**:
+- Java Package Conventions - Package naming, Maven/Gradle module structure
+- .NET Namespace Conventions - Assembly organization, project structure
+- Python Module Structure - Packages, __init__.py, setup.py, requirements.txt
+- Node.js Module Patterns - CommonJS, ES6 modules, package.json structure
+- Go Package Organization - Internal packages, cmd/pkg structure
+- Monorepo Structure - Nx, Turborepo, Bazel for multi-project repositories
+
+**API & Interface Specifications**:
+- OpenAPI Specification (formerly Swagger) - RESTful API documentation and contracts
+- GraphQL Schema Definition Language (SDL) - GraphQL API type definitions
+- gRPC / Protocol Buffers - RPC interface definitions with .proto files
+- Apache Avro - Data serialization with schema evolution
+- AsyncAPI - Event-driven API specifications for message-based systems
+- RAML (RESTful API Modeling Language) - API design and documentation
+
+**Architecture Testing & Compliance**:
+- ArchUnit - Java architecture unit testing framework for enforcing rules
+- NDepend - .NET architecture analysis and dependency visualization
+- SonarQube - Code quality with architecture rules and dependency analysis
+- Structure101 - Software architecture analysis and dependency management
+- JDepend - Java package dependency analyzer
+- Degraph - Python dependency graph analyzer
+
+**Build & Dependency Management Tools**:
+- Maven - Java build automation with dependency management (pom.xml)
+- Gradle - Build automation for Java, Kotlin, Android with Groovy/Kotlin DSL
+- npm / Yarn / pnpm - Node.js package management
+- NuGet - .NET package manager
+- pip / Poetry / Pipenv - Python package management
+- Go Modules - Go dependency management
+- Cargo - Rust package manager and build system
+
+**Documentation Tools**:
+- JavaDoc - Java API documentation generation
+- Doxygen - Multi-language documentation generator
+- Sphinx - Python documentation with reStructuredText
+- JSDoc - JavaScript API documentation
+- TSDoc - TypeScript documentation standard
+- Swagger UI - Interactive API documentation from OpenAPI specs
+
+**Microservices Decomposition**:
+- Domain-Driven Design - Bounded contexts as service boundaries
+- Event Storming - Collaborative domain modeling for service identification
+- Strangler Fig Pattern - Incremental migration from monolith to microservices
+- Database per Service - Microservices data autonomy pattern
+
+**Reference**: Consult software architecture team for detailed guidance on component design patterns, package organization standards, dependency management practices, and architecture testing approaches for your technology stack
 
 ## Integration Points
 

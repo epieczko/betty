@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Iam Design is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Identity and Access Management (IAM) Design documents define authentication, authorization, and identity governance strategies for applications and infrastructure. This artifact establishes how users, services, and systems prove identity and gain access to resources through role-based access control (RBAC), attribute-based access control (ABAC), and least privilege principles while supporting compliance requirements and security best practices.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a foundational security architecture deliverable, IAM design integrates enterprise identity providers (Okta, Azure AD, Auth0, AWS IAM Identity Center) with application-level authorization, implementing industry standards (OAuth 2.0, OIDC, SAML 2.0) and security frameworks (Zero Trust, NIST SP 800-63). This approach enables centralized identity management, single sign-on (SSO), multi-factor authentication (MFA), and fine-grained access controls while ensuring auditability, supporting regulatory compliance (SOC 2, ISO 27001, GDPR), and enabling secure service-to-service authentication.
 
 ### Strategic Importance
 
@@ -20,27 +20,46 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the authoritative specification for identity and access management architecture, defining how authentication and authorization are implemented across applications, APIs, and infrastructure. It establishes identity provider integration, access control models, privilege management, and audit requirements that ensure secure, compliant access to organizational resources.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Identity provider (IdP) selection and integration (Okta, Azure AD, Auth0, Google Workspace)
+- Authentication protocols (OAuth 2.0, OpenID Connect, SAML 2.0, Kerberos)
+- Multi-factor authentication (MFA) and passwordless authentication strategies
+- Single Sign-On (SSO) implementation patterns
+- Role-Based Access Control (RBAC) and Attribute-Based Access Control (ABAC) models
+- Least privilege and separation of duties principles
+- Service-to-service authentication (service accounts, workload identity, OAuth client credentials)
+- Cloud IAM platforms (AWS IAM, Azure RBAC, Google Cloud IAM)
+- Privileged Access Management (PAM) for administrative accounts
+- Just-In-Time (JIT) access and time-bound permissions
+- Identity lifecycle management (provisioning, deprovisioning, access reviews)
+- API authentication (API keys, JWT tokens, mTLS)
+- Session management and token lifecycle
+- Audit logging and access monitoring
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Network security controls (handled by Zero Trust design)
+- Application-specific business logic authorization (handled by application design)
+- Data encryption strategies (handled by data security design)
+- Incident response procedures (handled by security operations)
+- Detailed compliance framework mapping (handled by compliance artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Security Architects who design IAM solutions and access control models
+- Platform Engineers who implement cloud IAM and infrastructure permissions
+- Backend Developers who integrate authentication and authorization into applications
+- Identity and Access Management (IAM) Administrators who manage user access
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Chief Information Security Officers (CISOs) who oversee security strategy
+- Compliance Officers who ensure regulatory requirements are met
+- IT Operations Teams who manage user provisioning and access requests
+- Security Operations Centers (SOCs) who monitor access logs and anomalies
 
 ## Document Information
 
@@ -165,9 +184,87 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Identity Providers (IdP) & Platforms**:
+- Okta (enterprise identity and SSO platform)
+- Azure Active Directory/Entra ID (Microsoft cloud identity)
+- Auth0 (developer-focused identity platform)
+- AWS IAM Identity Center (formerly AWS SSO)
+- Google Workspace/Cloud Identity
+- Ping Identity (enterprise federation and SSO)
+- OneLogin (cloud identity management)
+- JumpCloud (directory-as-a-service platform)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Authentication Protocols & Standards**:
+- OAuth 2.0 (authorization framework)
+- OpenID Connect (OIDC) for authentication
+- SAML 2.0 (Security Assertion Markup Language)
+- JWT (JSON Web Tokens) for token-based auth
+- Kerberos (network authentication protocol)
+- LDAP (Lightweight Directory Access Protocol)
+- FIDO2/WebAuthn (passwordless authentication)
+- RADIUS (Remote Authentication Dial-In User Service)
+
+**Cloud IAM Platforms**:
+- AWS IAM (Identity and Access Management)
+- AWS IAM Identity Center (multi-account access)
+- Azure RBAC (Role-Based Access Control)
+- Google Cloud IAM (resource-level permissions)
+- GCP Workload Identity Federation
+- Kubernetes RBAC and Service Accounts
+
+**Access Control Models**:
+- Role-Based Access Control (RBAC)
+- Attribute-Based Access Control (ABAC)
+- Relationship-Based Access Control (ReBAC)
+- Policy-Based Access Control (PBAC)
+- Discretionary Access Control (DAC)
+- Mandatory Access Control (MAC)
+
+**Privileged Access Management (PAM)**:
+- CyberArk (enterprise PAM solution)
+- BeyondTrust (privileged access security)
+- Delinea (formerly Thycotic Secret Server)
+- HashiCorp Boundary (identity-based access)
+- Teleport (infrastructure access platform)
+- StrongDM (zero trust PAM)
+
+**Security Frameworks & Standards**:
+- NIST SP 800-63 (Digital Identity Guidelines)
+- NIST SP 800-53 (Security and Privacy Controls)
+- ISO/IEC 27001 (Information Security Management)
+- Zero Trust Architecture (NIST SP 800-207)
+- Least Privilege Principle
+- Separation of Duties (SoD)
+- Defense in Depth
+
+**Compliance & Regulatory**:
+- SOC 2 Type II (access control requirements)
+- GDPR (data access and privacy)
+- HIPAA (healthcare identity management)
+- PCI DSS (payment card industry access controls)
+- FedRAMP (federal IAM requirements)
+
+**Session & Token Management**:
+- JWT Best Current Practice (BCP)
+- OAuth 2.0 Security Best Current Practice
+- PKCE (Proof Key for Code Exchange)
+- Token rotation and refresh strategies
+- Session timeout and idle logout policies
+
+**Multi-Factor Authentication (MFA)**:
+- TOTP (Time-based One-Time Password) via Google Authenticator, Authy
+- SMS/Email-based verification
+- Push notification MFA (Duo, Okta Verify)
+- Hardware tokens (YubiKey, RSA SecurID)
+- Biometric authentication
+
+**Identity Governance**:
+- Identity Lifecycle Management
+- Access Certification and Reviews
+- Segregation of Duties (SoD) enforcement
+- Joiner/Mover/Leaver (JML) processes
+
+**Reference**: Consult organizational security architecture and IAM teams for approved identity providers, authentication standards, and access control policies
 
 ## Integration Points
 

@@ -2,45 +2,71 @@
 
 ## Executive Summary
 
-The Analytics Model Documentation is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Analytics Model Documentation provides comprehensive technical and operational documentation for machine learning models, statistical models, and analytics pipelines, following industry standards including Model Cards (Google), Datasheets for Datasets (Microsoft), and ML metadata frameworks. This artifact enables model transparency, reproducibility, validation, and responsible AI practices through systematic documentation of model development, training procedures, performance metrics, limitations, and ethical considerations.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Modern model documentation integrates with ML platforms like MLflow, Weights & Biases, Neptune.ai, and data catalogs such as DataHub, Amundra, or OpenMetadata to provide discoverable, version-controlled model artifacts with complete lineage tracking. By documenting training data, feature engineering, hyperparameters, evaluation metrics, bias assessments, and deployment considerations, this artifact supports model governance, regulatory compliance (EU AI Act, GDPR Article 22), audit requirements, and cross-functional collaboration between data scientists, ML engineers, product managers, and compliance teams.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Model Transparency**: Enables stakeholders to understand model behavior, limitations, and appropriate use cases
+- **Reproducibility**: Ensures models can be recreated, validated, and debugged through complete documentation
+- **Responsible AI**: Addresses fairness, accountability, transparency, and ethics (FATE) requirements
+- **Regulatory Compliance**: Satisfies explainability requirements for GDPR, EU AI Act, and sector-specific regulations
+- **Risk Management**: Documents model risks, limitations, failure modes, and mitigation strategies
+- **Model Governance**: Enables model inventory, lifecycle management, and approval workflows
+- **Cross-functional Alignment**: Bridges data science, engineering, product, legal, and compliance teams
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as comprehensive documentation for machine learning and analytics models, enabling transparency, reproducibility, validation, governance, and responsible deployment. It provides technical specifications, performance characteristics, training procedures, ethical considerations, and operational requirements for model lifecycle management.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Model overview including purpose, use case, and business context
+- Model architecture with algorithm selection justification
+- Training data specifications with dataset characteristics and limitations
+- Feature engineering documentation including feature definitions and transformations
+- Training procedures with hyperparameters, optimization settings, and reproducibility details
+- Evaluation metrics including accuracy, precision, recall, F1, AUC-ROC, and business metrics
+- Performance analysis across different data segments and demographic groups
+- Fairness and bias assessment with disparity metrics and mitigation strategies
+- Model limitations, known failure modes, and edge cases
+- Ethical considerations including potential harms and mitigation strategies
+- Explainability methods and interpretability techniques (SHAP, LIME, attention weights)
+- Deployment requirements including infrastructure, latency, and throughput specifications
+- Monitoring and observability including drift detection and performance degradation alerts
+- Model versioning with semantic versioning and changelog
+- Data lineage and provenance tracking from source data to model outputs
+- Regulatory compliance documentation (GDPR Article 22, EU AI Act, sector regulations)
+- Maintenance procedures including retraining schedule and trigger conditions
+- Access controls and security considerations for model artifacts
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Raw training code implementation (reference code repositories instead)
+- Proprietary algorithms or trade secrets (document at appropriate abstraction level)
+- Business strategy and competitive analysis
+- Detailed dataset contents (reference dataset documentation artifact)
+- Infrastructure architecture beyond model deployment requirements
+- General data governance policies (reference organization-wide policies)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Data scientists developing and iterating on models
+- Machine learning engineers deploying and maintaining models in production
+- Model validators and reviewers assessing model quality and compliance
+- Product managers understanding model capabilities and limitations
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Compliance officers ensuring regulatory adherence
+- Legal teams assessing liability and risk exposure
+- Audit teams verifying model governance and controls
+- Business stakeholders understanding model impact
+- Ethics review boards evaluating responsible AI practices
+- Security teams assessing model security risks
 
 ## Document Information
 
@@ -227,7 +253,65 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**ML Documentation Standards**:
+- Model Cards (Google): Standardized model reporting framework
+- Datasheets for Datasets (Microsoft): Dataset documentation template
+- FactSheets (IBM): AI system documentation with transparency
+- ML Model Documentation (OpenML): Machine learning experiment metadata
+- Model Reporting (Partnership on AI): Ethical AI documentation
+
+**ML Metadata & Lineage**:
+- ML Metadata (TensorFlow): Metadata tracking for ML pipelines
+- MLflow Model Registry: Model versioning and lifecycle management
+- Weights & Biases: Experiment tracking and model documentation
+- Neptune.ai: ML experiment management and model registry
+- Comet.ml: Model tracking and reproducibility
+- DVC (Data Version Control): Data and model versioning with Git
+
+**Data Catalogs & Discovery**:
+- DataHub (LinkedIn): Metadata platform for data discovery
+- Amundsen (Lyft): Data discovery and metadata engine
+- OpenMetadata: Open-source metadata platform
+- Apache Atlas: Data governance and metadata management
+- Alation: Enterprise data catalog
+- Collibra: Data governance and catalog platform
+
+**Metadata Standards**:
+- DCAT (Data Catalog Vocabulary): W3C standard for dataset metadata
+- Schema.org Dataset: Structured data for datasets
+- Dublin Core: Cross-domain resource description standard
+- PROV-O: W3C provenance ontology for data lineage
+- DCMI Metadata Terms: Dublin Core metadata initiative
+
+**Responsible AI & Ethics**:
+- IEEE 7000 Series: Ethics in system design standards
+- EU AI Act: Risk-based AI regulation framework
+- NIST AI Risk Management Framework: Trustworthy AI principles
+- ISO/IEC 23894: AI Risk Management
+- Fairness Indicators (Google): Bias and fairness assessment tools
+- AI Fairness 360 (IBM): Bias detection and mitigation toolkit
+- What-If Tool (Google): Model understanding and fairness exploration
+
+**Model Explainability**:
+- SHAP (SHapley Additive exPlanations): Unified model interpretation
+- LIME (Local Interpretable Model-agnostic Explanations): Local interpretability
+- InterpretML (Microsoft): Glass-box and black-box interpretability
+- Captum (PyTorch): Model interpretability library
+- Alibi Explain: ML model inspection and interpretation
+
+**Model Monitoring & Observability**:
+- Evidently AI: ML model monitoring and data drift detection
+- Fiddler AI: ML model performance monitoring
+- Arthur AI: Model monitoring and explainability platform
+- Arize AI: ML observability and monitoring
+- Whylabs: Data and ML monitoring with WhyLogs
+
+**Regulatory Compliance**:
+- GDPR Article 22: Automated decision-making and profiling
+- EU AI Act: High-risk AI system requirements
+- SR 11-7 (Federal Reserve): Model Risk Management guidance
+- OCC Bulletin 2011-12: Sound practices for model validation
+- CCPA: California Consumer Privacy Act data rights
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

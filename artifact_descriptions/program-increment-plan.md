@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Program Increment Plan is a comprehensive planning artifact that establishes the strategic approach, resource allocation, timeline, and success criteria for program increment activities within the Portfolio, Governance, and Delivery Ops phase. This forward-looking document serves as the authoritative reference for execution teams, stakeholders, and governance bodies.
+The Program Increment Plan is the cornerstone SAFe planning artifact that defines the 8-12 week Program Increment (PI) objectives, feature commitments, team assignments, and dependencies for an Agile Release Train (ART). This plan emerges from the PI Planning event where 50-125 team members collaborate face-to-face (or virtually) to align on business goals, define PI objectives, identify dependencies, and commit to deliverables for the upcoming increment.
 
-As a foundational planning deliverable, it translates strategic objectives into actionable tasks, identifies dependencies and constraints, allocates resources optimally, and establishes measurable outcomes. The plan balances ambition with pragmatism, incorporating risk mitigation strategies and contingency approaches.
+As the authoritative SAFe planning deliverable, it captures PI objectives with business value scoring, program board visualizations showing feature delivery timelines and cross-team dependencies, team breakout planning results with sprint-by-sprint capacity allocation, identified risks and impediments requiring management attention, and confidence votes from teams. The plan drives ART execution through the PI, guiding daily work, informing ART Sync meetings, tracking progress through iteration reviews, and enabling course correction at mid-PI checkpoints until the PI System Demo and Inspect & Adapt workshop conclude the increment.
 
 ### Strategic Importance
 
@@ -18,27 +18,45 @@ As a foundational planning deliverable, it translates strategic objectives into 
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents the outcome of SAFe PI Planning, serving as the committed plan for an Agile Release Train's work over the next 8-12 weeks. It solves the problem of aligning multiple Agile teams toward common objectives, managing cross-team dependencies, and creating predictable delivery cadence at scale while maintaining team autonomy and enabling continuous value delivery.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- PI objectives for each team with business value scoring (1-10 scale)
+- Program objectives rolled up from team objectives with stretch objectives identified
+- Program Board showing features, iterations, milestones, and cross-team dependencies
+- Team breakout planning results (sprint-by-sprint capacity and feature assignments)
+- Cross-team dependencies identified and managed (including supplier/consumer relationships)
+- Risks and impediments identified during PI Planning (ROAM'd - Resolved, Owned, Accepted, Mitigated)
+- Team confidence votes on PI objective achievability (fist-of-five voting)
+- PI capacity allocation (planned vs. available capacity factoring in PTO and support work)
+- PI milestones and key dates (innovation sprint, IP iteration, PI System Demo)
+- ART planning metrics (planned velocity, predictability, load factor)
+- PI Planning event agenda and outcomes (management briefing, team breakouts, draft plans)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed story-level sprint planning (occurs during iteration planning)
+- Individual task assignments and hour-level estimates
+- Long-term product roadmap beyond the PI (covered in product vision/roadmap)
+- Architectural runway and technical enablers details (covered in architecture artifacts)
+- Individual team retrospectives and improvement actions
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Release Train Engineer (RTE) who facilitates PI Planning and ART execution
+- Business Owners who define business objectives and validate PI plans
+- Product Management who presents vision and prioritizes features for the PI
+- System Architect/Engineering who defines technical direction and enablers
+- Scrum Masters who facilitate team planning and dependency management
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Development teams who execute against the PI plan
+- Product Owners who refine backlogs and manage team-level priorities
+- Stakeholders and customers who benefit from PI deliverables
+- Portfolio Management who track ART-level progress and value delivery
+- Other ARTs and Solution Trains with dependencies
 
 ## Document Information
 
@@ -170,9 +188,74 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**SAFe Framework (Core)**:
+- SAFe Program Increment (PI) Planning (2-day planning event, quarterly cadence)
+- SAFe Agile Release Train (ART) structure (50-125 people, 5-12 Agile teams)
+- SAFe PI Objectives (SMART goals with business value, team and program level)
+- SAFe Program Board (visual planning board, dependencies, milestones)
+- SAFe Confidence Vote (fist-of-five voting on plan achievability)
+- ROAM risk management (Resolved, Owned, Accepted, Mitigated)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**SAFe Events & Ceremonies**:
+- PI Planning event (management briefing, team breakouts, draft plan review, final plan)
+- ART Sync (weekly coordination meeting across teams during PI execution)
+- Iteration Review and System Demo (sprint reviews and integrated solution demos)
+- Inspect & Adapt (I&A) workshop (PI retrospective with problem-solving)
+- Pre-PI Planning and Post-PI Planning (preparation and finalization)
+- Scrum of Scrums (daily cross-team coordination)
+
+**SAFe Roles**:
+- Release Train Engineer (RTE - servant leader for ART, facilitates PI Planning)
+- Product Management (defines features, manages program backlog, business value)
+- System Architect/Engineering (technical leadership, architecture runway)
+- Business Owners (define business objectives, participate in PI Planning)
+- Product Owner (team-level backlog management)
+- Scrum Master (team facilitation, impediment removal)
+
+**SAFe Planning Artifacts**:
+- Program Backlog (features prioritized by WSJF - Weighted Shortest Job First)
+- Team Backlog (user stories derived from features)
+- Program Board (physical or digital board showing PI plan)
+- PI Objectives document (team and program objectives with business value)
+- Feature breakdown and story mapping
+
+**PI Planning Tools**:
+- Jira Align (SAFe-specific planning and tracking platform)
+- Mural / Miro (digital program board, virtual PI Planning)
+- Azure DevOps (PI planning features, dependency tracking)
+- Rally (CA Agile Central - SAFe planning tool)
+- VersionOne / Digital.ai Agile (SAFe portfolio and PI planning)
+- Physical program boards (string, sticky notes, poster boards)
+
+**SAFe Metrics & Measurements**:
+- Predictability Measure (actual vs. planned business value delivered)
+- Program Predictability Measure (rolled up across teams)
+- Team PI Performance (objectives achieved vs. planned)
+- Feature completion rate and cycle time
+- ART velocity and throughput metrics
+- Dependency resolution rate
+
+**Agile Planning Techniques**:
+- Story mapping and feature decomposition
+- WSJF prioritization (Cost of Delay / Job Size)
+- Capacity planning with load factor
+- Dependency mapping and critical path analysis
+- Risk identification and mitigation planning
+- Business value scoring and prioritization
+
+**Scaling Agile Frameworks (Related)**:
+- SAFe Large Solution level (multiple ARTs coordinated via Solution Train)
+- Scrum@Scale (Scrum of Scrums coordination)
+- LeSS (Large-Scale Scrum) planning events
+- Disciplined Agile Delivery (DAD) inception phase
+
+**Dependency Management**:
+- Dependency visualization on program board
+- Cross-team dependency tracking and resolution
+- Supplier-consumer agreements between teams
+- Integration points and milestone coordination
+
+**Reference**: Consult organizational SAFe Program Consultants (SPCs), Release Train Engineers, and Agile Center of Excellence for detailed guidance on PI Planning execution and SAFe practices
 
 ## Integration Points
 

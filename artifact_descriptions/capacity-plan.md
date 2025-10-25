@@ -2,43 +2,59 @@
 
 ## Executive Summary
 
-The Capacity Plan is a comprehensive planning artifact that establishes the strategic approach, resource allocation, timeline, and success criteria for capacity activities within the General phase. This forward-looking document serves as the authoritative reference for execution teams, stakeholders, and governance bodies.
+The Capacity Plan is a strategic operational artifact that forecasts infrastructure resource requirements, establishes capacity targets, and defines scaling strategies to ensure systems meet current and future demand while optimizing costs. This plan applies data-driven capacity planning methodologies to predict growth patterns, identify capacity constraints before they impact performance, and guide investment decisions for compute, storage, network, and database resources.
 
-As a foundational planning deliverable, it translates strategic objectives into actionable tasks, identifies dependencies and constraints, allocates resources optimally, and establishes measurable outcomes. The plan balances ambition with pragmatism, incorporating risk mitigation strategies and contingency approaches.
+As a foundational SRE deliverable, it translates business growth projections into infrastructure requirements through trend analysis, workload modeling, and resource utilization monitoring. The plan defines capacity thresholds, auto-scaling policies, horizontal and vertical scaling strategies, and provides actionable recommendations for infrastructure expansion aligned to demand forecasts and cost optimization goals.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities directly support organizational objectives and expected outcomes
-- **Resource Optimization**: Enables efficient allocation of personnel, budget, and technology resources
-- **Risk Management**: Identifies potential obstacles and defines proactive mitigation strategies
-- **Stakeholder Alignment**: Creates shared understanding of approach, timeline, and expectations
-- **Success Measurement**: Establishes clear metrics and criteria for evaluating outcomes
+- **Performance Assurance**: Prevents resource exhaustion and performance degradation through proactive capacity management
+- **Cost Optimization**: Balances resource provisioning with actual demand to minimize waste and control cloud spending
+- **Scalability Planning**: Defines horizontal and vertical scaling strategies for sustained growth and traffic spikes
+- **Growth Enablement**: Ensures infrastructure capacity aligns with business growth trajectories and seasonal patterns
+- **Data-Driven Decisions**: Uses historical trends, utilization metrics, and forecasting models to guide investment
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact forecasts infrastructure capacity needs based on growth trends, defines resource utilization targets, and establishes scaling strategies to maintain performance while optimizing costs. It provides data-driven recommendations for infrastructure investments using trend analysis, workload forecasting, and industry capacity planning methodologies.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Resource utilization analysis: CPU, memory, disk I/O, network bandwidth, database connections
+- Capacity forecasting models: Linear regression, exponential growth, seasonal trend decomposition (STL)
+- Capacity thresholds and alerting: Warning thresholds (70%), critical thresholds (85%), saturation points (95%)
+- Horizontal scaling strategies: Container orchestration (Kubernetes HPA), serverless auto-scaling, load balancer scaling
+- Vertical scaling strategies: Instance rightsizing, database tier upgrades, storage expansion
+- Cloud capacity planning: AWS EC2/RDS sizing, Azure VM/SQL scaling, GCP Compute Engine optimization
+- Database capacity: Connection pooling, query performance, storage growth, index sizing
+- Storage capacity: Object storage growth, block storage IOPS, file system capacity, backup storage
+- Network capacity: Bandwidth utilization, CDN requirements, inter-region traffic, egress costs
+- Monitoring and metrics: Prometheus, Datadog, New Relic, CloudWatch, Azure Monitor, Google Cloud Monitoring
+- Cost optimization: Reserved instances, spot instances, rightsizing recommendations, FinOps practices
+- Growth projections: User growth, transaction volume, data ingestion rates, API request patterns
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Performance testing and benchmarking (covered in Performance Test Plan)
+- Application performance optimization and code-level improvements (covered in Performance Optimization Plan)
+- Incident response for capacity-related outages (covered in Incident Response Plan)
+- Budget approval and financial planning processes (covered in Budget Planning artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- SRE teams and capacity planners who forecast resource needs and implement scaling strategies
+- Cloud architects who design scalable infrastructure and optimize cloud resource allocation
+- Operations engineers who monitor utilization and respond to capacity constraints
+- Platform engineers who configure auto-scaling policies and resource provisioning
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Engineering leadership who make infrastructure investment decisions
+- FinOps teams who optimize cloud spending and implement cost controls
+- Product managers who align capacity with feature launches and growth expectations
+- Finance teams who budget for infrastructure expansion and cloud costs
 
 ## Document Information
 
@@ -163,7 +179,25 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Capacity Planning Methodologies**: ITIL Capacity Management, Google SRE Book (Capacity Planning chapter), Forecasting System Demand, Trend Analysis & Forecasting, Queueing Theory, Little's Law for capacity analysis
+
+**Monitoring & Observability Platforms**: Prometheus + Grafana, Datadog Infrastructure Monitoring, New Relic Infrastructure, Dynatrace, AppDynamics, Splunk Infrastructure Monitoring, AWS CloudWatch, Azure Monitor, Google Cloud Monitoring, Elastic Observability
+
+**Capacity Metrics & Standards**: USE Method (Utilization, Saturation, Errors), RED Method (Rate, Errors, Duration), Four Golden Signals (Latency, Traffic, Errors, Saturation), SLI/SLO-based capacity planning
+
+**Auto-Scaling Technologies**: Kubernetes Horizontal Pod Autoscaler (HPA), Kubernetes Vertical Pod Autoscaler (VPA), AWS Auto Scaling, Azure Autoscale, GCP Autoscaler, KEDA (Kubernetes Event-Driven Autoscaling), Cluster Autoscaler
+
+**Cloud Cost Optimization**: AWS Cost Explorer & Compute Optimizer, Azure Cost Management + Advisor, GCP Recommender, FinOps Foundation Framework, CloudHealth by VMware, Kubecost for Kubernetes, Spot.io optimization platform
+
+**Forecasting & Analytics Tools**: Prophet (Facebook time series forecasting), statsmodels (Python), R forecast package, Jupyter notebooks for analysis, Pandas for data analysis, ARIMA models, Exponential smoothing
+
+**Database Capacity Planning**: Connection pool sizing (HikariCP, PgBouncer), Query performance analysis (pg_stat_statements, MySQL Performance Schema), Database rightsizing tools, Index bloat monitoring, Table partitioning strategies
+
+**Cloud Resource Management**: AWS Well-Architected Framework (Performance Efficiency), Azure Well-Architected Framework (Performance Efficiency), Google Cloud Architecture Framework, Terraform for IaC capacity provisioning, Pulumi infrastructure management
+
+**Performance Benchmarking**: Apache JMeter for load testing, sysbench for system benchmarking, fio for storage I/O testing, iperf for network bandwidth, YCSB for database benchmarking
+
+**Industry Capacity Planning Standards**: TPC Benchmarks (Transaction Processing Performance Council), SPEC Benchmarks, Cloud cost unit economics, Peak-to-average ratio analysis, N+1 redundancy capacity planning
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

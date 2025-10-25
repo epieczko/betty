@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Zero Trust Design is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Zero Trust Design documents define security architectures based on the principle "never trust, always verify," eliminating implicit trust and requiring continuous verification of every user, device, and network flow. This artifact establishes comprehensive security controls that protect resources regardless of network location through identity-based access, micro-segmentation, least privilege enforcement, and continuous monitoring.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a strategic security architecture deliverable, Zero Trust design implements NIST SP 800-207 guidelines and industry frameworks using technologies such as identity-aware proxies, software-defined perimeters, network segmentation, endpoint security, and continuous authentication. This approach replaces traditional perimeter-based security with defense-in-depth strategies that verify identity, validate device posture, enforce least privilege access, encrypt all traffic, and continuously monitor for anomalies—protecting against modern threats including insider attacks, lateral movement, and compromised credentials while supporting cloud-native, remote-work, and hybrid infrastructure models.
 
 ### Strategic Importance
 
@@ -20,27 +20,47 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the architectural blueprint for implementing Zero Trust security principles across networks, applications, and data. It defines how to eliminate implicit trust, enforce continuous verification, implement micro-segmentation, and establish defense-in-depth controls that protect resources from both external and internal threats regardless of network location.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Zero Trust Architecture principles based on NIST SP 800-207
+- Identity-based access controls and continuous authentication
+- Device trust and endpoint security posture validation
+- Network micro-segmentation and Software-Defined Perimeter (SDP)
+- Identity-Aware Proxy (IAP) and reverse proxy implementations
+- Zero Trust Network Access (ZTNA) for remote access
+- Least privilege access enforcement and just-in-time (JIT) permissions
+- Encryption of data in transit and at rest (TLS 1.3, mTLS)
+- Continuous monitoring and behavioral analytics
+- Cloud security posture management (CSPM)
+- Service mesh security (Istio, Linkerd) for microservices
+- API gateway security and rate limiting
+- Data loss prevention (DLP) and data classification
+- Assume breach mindset and lateral movement prevention
+- Security Information and Event Management (SIEM) integration
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Specific IAM implementation details (handled by IAM design)
+- Application code vulnerabilities (handled by secure SDLC)
+- Physical security controls (handled by facilities security)
+- Incident response procedures (handled by security operations playbooks)
+- Detailed compliance mapping (handled by compliance artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Security Architects who design Zero Trust architectures and security controls
+- Network Security Engineers who implement micro-segmentation and network policies
+- Cloud Security Engineers who secure cloud workloads and multi-cloud environments
+- Chief Information Security Officers (CISOs) who define security strategy
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Platform Engineers who integrate Zero Trust controls into infrastructure
+- DevSecOps Engineers who embed security into CI/CD pipelines
+- SOC Analysts who monitor Zero Trust telemetry and security events
+- Compliance Officers who validate security control effectiveness
 
 ## Document Information
 
@@ -165,9 +185,111 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Zero Trust Frameworks & Standards**:
+- NIST SP 800-207 (Zero Trust Architecture)
+- NIST Cybersecurity Framework (CSF)
+- CISA Zero Trust Maturity Model
+- Forrester Zero Trust eXtended (ZTX) framework
+- Google BeyondCorp Zero Trust model
+- Department of Defense (DoD) Zero Trust Reference Architecture
+- UK National Cyber Security Centre (NCSC) Zero Trust principles
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Zero Trust Network Access (ZTNA)**:
+- Zscaler Private Access (ZPA)
+- Cloudflare Access (Zero Trust network access)
+- Palo Alto Networks Prisma Access
+- Cisco Duo Beyond (secure access)
+- Perimeter 81 (ZTNA platform)
+- Twingate (modern VPN alternative)
+- Tailscale (WireGuard-based mesh VPN)
+
+**Identity-Aware Proxies & Gateways**:
+- Google Cloud Identity-Aware Proxy (IAP)
+- Azure AD Application Proxy
+- AWS Verified Access
+- Cloudflare Access
+- Pomerium (open-source identity-aware proxy)
+- Ory Oathkeeper (cloud-native proxy)
+
+**Network Micro-Segmentation**:
+- VMware NSX (software-defined networking)
+- Illumio (adaptive security platform)
+- Guardicore Centra (breach prevention)
+- Cisco ACI (Application Centric Infrastructure)
+- HashiCorp Consul (service mesh and segmentation)
+- Akamai Guardicore Segmentation
+
+**Service Mesh Security**:
+- Istio (mTLS, traffic encryption, policy enforcement)
+- Linkerd (lightweight service mesh)
+- Consul Connect (HashiCorp service mesh)
+- AWS App Mesh
+- Azure Service Fabric
+
+**Endpoint Security & Device Trust**:
+- CrowdStrike Falcon (endpoint detection and response)
+- Microsoft Defender for Endpoint
+- SentinelOne (autonomous endpoint protection)
+- Carbon Black (VMware endpoint security)
+- Jamf (macOS/iOS device management)
+- Intune (Microsoft endpoint management)
+- Device posture attestation and compliance validation
+
+**Secure Web Gateways (SWG)**:
+- Zscaler Internet Access (ZIA)
+- Cisco Umbrella
+- Netskope (cloud security platform)
+- Palo Alto Networks Prisma Access
+- Cloudflare Gateway
+
+**Data Security & Classification**:
+- Microsoft Purview (data governance and DLP)
+- Varonis (data security platform)
+- Forcepoint DLP (data loss prevention)
+- Digital Guardian (data protection)
+- Nightfall AI (cloud DLP)
+
+**Encryption & Certificate Management**:
+- TLS 1.3 (Transport Layer Security)
+- mTLS (Mutual TLS authentication)
+- Let's Encrypt/cert-manager (automated certificates)
+- HashiCorp Vault (secrets and PKI management)
+- AWS Certificate Manager (ACM)
+
+**Security Monitoring & Analytics**:
+- Splunk (SIEM and security analytics)
+- Microsoft Sentinel (cloud-native SIEM)
+- Datadog Security Monitoring
+- Elastic Security
+- Sumo Logic (cloud SIEM)
+- User and Entity Behavior Analytics (UEBA)
+
+**Cloud Security Posture Management (CSPM)**:
+- Wiz (cloud security platform)
+- Orca Security (agentless cloud security)
+- Prisma Cloud (Palo Alto Networks)
+- Lacework (cloud security automation)
+- AWS Security Hub
+- Azure Defender for Cloud
+- Google Security Command Center
+
+**Security Principles**:
+- Least Privilege Access
+- Defense in Depth
+- Assume Breach mindset
+- Never Trust, Always Verify
+- Verify Explicitly
+- Use Least Privileged Access
+- Assume Breach
+
+**Compliance & Regulatory**:
+- ISO/IEC 27001 (Information Security Management)
+- SOC 2 Type II (security controls)
+- PCI DSS (network segmentation requirements)
+- HIPAA (healthcare security)
+- FedRAMP (federal Zero Trust requirements)
+
+**Reference**: Consult organizational security architecture team for approved Zero Trust technologies, implementation roadmap, and maturity model progression
 
 ## Integration Points
 
