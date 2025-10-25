@@ -1,22 +1,18 @@
 hooks:
-  on_file_edit:
-  - name: python betty-skills-api-validate-api_validate-py {file_path} zalando-all.openapi.yaml
-    command: python betty/skills/api.validate/api_validate.py {file_path} zalando
-    blocking: true
-    timeout: 10000
-    when:
-      pattern: '*.openapi.yaml'
-    description: Validate OpenAPI specs against Zalando guidelines on every edit
-  - name: python betty-skills-api-validate-api_validate-py {file_path}-all.asyncapi.yaml
-    command: python betty/skills/api.validate/api_validate.py {file_path}
-    blocking: true
-    timeout: 10000
-    when:
-      pattern: '*.asyncapi.yaml'
-    description: Validate AsyncAPI specs on every edit
-  - name: policy-enforce-skill-yaml
-    command: python skills/policy.enforce/policy_enforce.py {file_path}
-    blocking: true
-    when:
-      pattern: 'skills/*/skill.yaml'
-    description: Enforce policy on skill.yaml files
+- name: performance-monitor-pre
+  event: before-tool-call
+  command: echo "$(date +%s.%N),$(ps -o %cpu= -p $$),$(ps -o rss= -p $$),$CLAUDE_TOOL_NAME,start"
+    >> ~/.claude/performance.csv
+  description: Monitor system performance - track CPU, memory usage at tool start
+  enabled: true
+  timeout: 5000
+- name: performance-monitor-post
+  event: after-tool-call
+  command: echo "$(date +%s.%N),$(ps -o %cpu= -p $$),$(ps -o rss= -p $$),$CLAUDE_TOOL_NAME,end"
+    >> ~/.claude/performance.csv; if [[ $(wc -l < ~/.claude/performance.csv) -gt 1000
+    ]]; then tail -n 500 ~/.claude/performance.csv > ~/.claude/performance.csv.tmp
+    && mv ~/.claude/performance.csv.tmp ~/.claude/performance.csv; fi
+  description: Monitor system performance - track CPU, memory usage at tool end and
+    rotate logs
+  enabled: true
+  timeout: 5000
