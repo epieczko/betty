@@ -183,9 +183,9 @@ The agent.compose skill analyzes:
 - Artifact flow (no gaps in produce/consume chain)
 - Purpose matching (keywords in agent description)
 
-### atum - Meta-Agent That Creates Agents
+### meta.agent - Meta-Agent That Creates Agents
 
-**Atum** is a meta-agent that creates other agents by speaking them into existence. Named after the Egyptian deity of creation, Atum transforms natural language descriptions into complete, functional agents with proper skill composition, artifact metadata, and documentation.
+**meta.agent** is a meta-agent that creates other agents through skill composition. It transforms natural language descriptions into complete, functional agents with proper skill composition, artifact metadata, and documentation.
 
 **Artifacts:**
 - **Consumes:** `agent-description` (Markdown or JSON)
@@ -198,7 +198,7 @@ The agent.compose skill analyzes:
 **Usage:**
 ```bash
 # Create agent from description
-python3 agents/atum/atum.py examples/api_architect_description.md
+python3 agents/meta.agent/meta_agent.py examples/api_architect_description.md
 
 # Or as a Betty command (future)
 betty agent create examples/api_architect_description.md
@@ -224,7 +224,7 @@ against best practices.
 - Design a RESTful API for an e-commerce platform
 ```
 
-**What Atum Creates:**
+**What meta.agent Creates:**
 
 1. **agent.yaml** - Complete agent definition with:
    - Recommended skills based on purpose
@@ -237,9 +237,9 @@ against best practices.
    - Skills list with rationale
    - Artifact flow diagram
    - Usage examples
-   - Link back to Atum
+   - Link back to meta.agent
 
-**Atum's Workflow:**
+**meta.agent's Workflow:**
 1. Parse natural language description
 2. Use `agent.compose` to find compatible skills
 3. Use `artifact.define` to generate artifact metadata
@@ -247,7 +247,7 @@ against best practices.
 5. Generate agent.yaml and README.md
 6. Validate artifact flow (no gaps)
 
-This enables **agent-driven agent creation** - describe what you want an agent to do, and Atum creates it with the right skills and artifact contracts.
+This enables **agent-driven agent creation** - describe what you want an agent to do, and meta.agent creates it with the right skills and artifact contracts.
 
 ---
 
@@ -405,7 +405,7 @@ paths:
 - Agent design tools
 
 **Consumed by:**
-- `atum` agent - Meta-agent that creates agents from descriptions
+- `meta.agent` agent - Meta-agent that creates agents from descriptions
 
 **Example Structure (Markdown):**
 ```markdown
@@ -439,7 +439,7 @@ Design and validate REST APIs...
 **Schema:** `schemas/agent-definition.json`
 
 **Produced by:**
-- `atum` agent - Creates agents from descriptions
+- `meta.agent` agent - Creates agents from descriptions
 - Developers (manual creation)
 
 **Consumed by:**
@@ -476,7 +476,7 @@ artifact_metadata:
 - Sections: Purpose, Skills, Artifact Flow, Examples, Usage
 
 **Produced by:**
-- `atum` agent - Auto-generates documentation for created agents
+- `meta.agent` agent - Auto-generates documentation for created agents
 - Developers (manual creation)
 
 **Consumed by:**
@@ -1068,9 +1068,9 @@ If valid → Register workflow
 | workflow-definition | workflows/*.workflow.yaml | schemas/workflow-definition.json | workflow.compose | workflow.validate |
 | hook-config | .claude/hooks.yaml | schemas/hook-config.json | hook.define | Claude Code |
 | api-models | models/*.{py,ts,go} | - | api.generate-models | Application code |
-| agent-description | **/agent_description.md | schemas/agent-description.json | Developers | atum agent |
-| agent-definition | agents/*/agent.yaml | schemas/agent-definition.json | atum agent | Betty runtime |
-| agent-documentation | agents/*/README.md | - | atum agent | Users, docs tools |
+| agent-description | **/agent_description.md | schemas/agent-description.json | Developers | meta.agent agent |
+| agent-definition | agents/*/agent.yaml | schemas/agent-definition.json | meta.agent agent | Betty runtime |
+| agent-documentation | agents/*/README.md | - | meta.agent agent | Users, docs tools |
 | optimization-report | *.optimization.json | schemas/optimization-report.json | api.optimize, workflow.optimize | api.implement, report.generate, dashboard.display |
 | compatibility-graph | *.compatibility.json | schemas/compatibility-graph.json | meta.compatibility | meta.suggest, dashboard.display, workflow.orchestrator |
 | pipeline-suggestion | *.pipeline.json | schemas/pipeline-suggestion.json | meta.compatibility, meta.suggest | workflow.orchestrator, Claude (for decision making) |

@@ -1,10 +1,10 @@
-# meta.agent (Atum) - Agent Creator
+# meta.agent - Agent Creator
 
-The meta-agent that creates other agents by speaking them into existence.
+The meta-agent that creates other agents through skill composition.
 
 ## Overview
 
-**meta.agent** (also known as "Atum" after the Egyptian deity of creation) transforms natural language descriptions into complete, functional agents with proper skill composition, artifact metadata, and documentation.
+**meta.agent** transforms natural language descriptions into complete, functional agents with proper skill composition, artifact metadata, and documentation.
 
 **What it produces:**
 - Complete `agent.yaml` with recommended skills
@@ -38,10 +38,10 @@ against best practices.
 - Create an API for a task management system
 ```
 
-### 2. Run Atum
+### 2. Run meta.agent
 
 ```bash
-python3 agents/atum/atum.py examples/api_architect_description.md
+python3 agents/meta.agent/meta_agent.py examples/api_architect_description.md
 ```
 
 ### 3. Output
@@ -61,16 +61,16 @@ python3 agents/atum/atum.py examples/api_architect_description.md
 
 ```bash
 # Create agent from Markdown description
-python3 agents/atum/atum.py path/to/agent_description.md
+python3 agents/meta.agent/meta_agent.py path/to/agent_description.md
 
 # Create agent from JSON description
-python3 agents/atum/atum.py path/to/agent_description.json
+python3 agents/meta.agent/meta_agent.py path/to/agent_description.json
 
 # Specify output directory
-python3 agents/atum/atum.py description.md -o agents/my-agent
+python3 agents/meta.agent/meta_agent.py description.md -o agents/my-agent
 
 # Skip validation
-python3 agents/atum/atum.py description.md --no-validate
+python3 agents/meta.agent/meta_agent.py description.md --no-validate
 ```
 
 ### Description Format
@@ -111,7 +111,7 @@ Detailed description of what the agent does...
 }
 ```
 
-## What Atum Creates
+## What meta.agent Creates
 
 ### 1. agent.yaml
 
@@ -149,7 +149,7 @@ Auto-generated documentation with:
 - Artifact flow (inputs/outputs)
 - Example use cases
 - Usage instructions
-- "Created by Atum" attribution
+- "Created by meta.agent" attribution
 
 ## How It Works
 
@@ -168,7 +168,7 @@ After creating an agent, use `meta.compatibility` to analyze it:
 
 ```bash
 # Create agent
-python3 agents/atum/atum.py description.md
+python3 agents/meta.agent/meta_agent.py description.md
 
 # Analyze compatibility
 python3 agents/meta.compatibility/meta_compatibility.py analyze api.architect
@@ -180,7 +180,7 @@ Get suggestions after creating an agent:
 
 ```bash
 python3 agents/meta.suggest/meta_suggest.py \
-  --context atum \
+  --context meta.agent \
   --artifacts agents/api.architect/agent.yaml
 ```
 
@@ -190,7 +190,7 @@ python3 agents/meta.suggest/meta_suggest.py \
 
 ```bash
 # Step 1: Create agent
-python3 agents/atum/atum.py examples/my_agent.md
+python3 agents/meta.agent/meta_agent.py examples/my_agent.md
 
 # Step 2: Analyze compatibility
 python3 agents/meta.compatibility/meta_compatibility.py find-compatible my-agent
@@ -204,7 +204,7 @@ python3 agents/meta.compatibility/meta_compatibility.py find-compatible my-agent
 ```bash
 # Create several agents
 for desc in examples/*_agent_description.md; do
-    python3 agents/atum/atum.py "$desc"
+    python3 agents/meta.agent/meta_agent.py "$desc"
 done
 
 # Analyze the ecosystem
@@ -257,7 +257,7 @@ If you need a new type, create it with `meta.artifact` first.
 
 ### Skill Selection
 
-Atum uses keyword matching to find skills:
+meta.agent uses keyword matching to find skills:
 - "api" → finds api.define, api.validate
 - "validate" → finds validation skills
 - "agent" → finds agent.compose, meta.agent
@@ -304,10 +304,10 @@ See `examples/` directory for sample agent descriptions:
 
 ## Architecture
 
-Atum is part of the meta-agent ecosystem:
+meta.agent is part of the meta-agent ecosystem:
 
 ```
-meta.agent (Atum)
+meta.agent
     ├─ Uses: agent.compose (find skills)
     ├─ Uses: artifact.define (generate metadata)
     ├─ Produces: agent.yaml + README.md
@@ -323,5 +323,3 @@ meta.agent (Atum)
 ## Created By
 
 Part of the Betty Framework meta-agent ecosystem.
-
-Named after Atum, the Egyptian deity who creates by speaking existence into being.

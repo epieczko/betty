@@ -73,7 +73,7 @@ def cmd_check(args):
     if not is_cert:
         print("\n⚠️  This component cannot run in Betty without certification.")
         print("   To certify, recreate with requirement linkage:\n")
-        print("   python3 agents/atum/atum.py description.md \\")
+        print("   python3 agents/meta.agent/meta_agent.py description.md \\")
         print("     --requirement-id REQ-XXX \\")
         print("     --requirement-description '...'\n")
         return 1

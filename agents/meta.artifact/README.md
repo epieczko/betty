@@ -235,16 +235,16 @@ Type is now registered and usable
 
 ## Integration
 
-### With meta.agent (Atum)
+### With meta.agent
 
-When Atum needs a new artifact type:
+When meta.agent needs a new artifact type:
 
 ```bash
 # 1. Define the artifact type
 python3 agents/meta.artifact/meta_artifact.py create my_artifact.md
 
 # 2. Create agent that uses it
-python3 agents/atum/atum.py agent_description.md
+python3 agents/meta.agent/meta_agent.py agent_description.md
 ```
 
 ### With meta.suggest

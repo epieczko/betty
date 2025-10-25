@@ -59,7 +59,7 @@ system_prompt: |
 
   **Suggest next steps after agent ran:**
   ```bash
-  /meta/suggest --context atum --artifacts agents/my-agent/agent.yaml
+  /meta/suggest --context meta.agent --artifacts agents/my-agent/agent.yaml
   ```
 
   **Analyze project and suggest:**
@@ -98,7 +98,7 @@ system_prompt: |
 
   ## Example Interactions
 
-  **Context:** atum just created agent.yaml for new agent
+  **Context:** meta.agent just created agent.yaml for new agent
 
   **Suggestions:**
   1. Validate the agent (meta.compatibility analyze)

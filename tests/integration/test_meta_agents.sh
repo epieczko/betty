@@ -86,7 +86,7 @@ else
     fail "Artifact check failed"
 fi
 
-# Test 3: meta.agent (atum) - Create agent
+# Test 3: meta.agent - Create agent
 print_test "meta.agent creates agent from description"
 
 cat > /tmp/test_agent.md <<'EOF'
@@ -105,20 +105,20 @@ Test agent for integration testing
 - Test example 1
 EOF
 
-if python3 agents/atum/atum.py /tmp/test_agent.md > /dev/null 2>&1; then
+if python3 agents/meta.agent/meta_agent.py /tmp/test_agent.md > /dev/null 2>&1; then
     if [ -f "agents/test.agent/agent.yaml" ]; then
         pass "Agent created successfully"
     else
         fail "Agent file not created"
     fi
 else
-    fail "atum command failed"
+    fail "meta.agent command failed"
 fi
 
 # Test 4: meta.compatibility - Find compatible agents
 print_test "meta.compatibility finds compatible agents"
 
-if python3 agents/meta.compatibility/meta_compatibility.py find-compatible atum > /dev/null 2>&1; then
+if python3 agents/meta.compatibility/meta_compatibility.py find-compatible meta.agent > /dev/null 2>&1; then
     pass "Compatibility analysis works"
 else
     fail "Compatibility analysis failed"
@@ -136,7 +136,7 @@ fi
 # Test 6: meta.compatibility - Analyze agent
 print_test "meta.compatibility analyzes agent"
 
-if python3 agents/meta.compatibility/meta_compatibility.py analyze atum > /dev/null 2>&1; then
+if python3 agents/meta.compatibility/meta_compatibility.py analyze meta.agent > /dev/null 2>&1; then
     pass "Agent analysis works"
 else
     fail "Agent analysis failed"
@@ -154,7 +154,7 @@ fi
 # Test 8: meta.suggest - Suggest next steps
 print_test "meta.suggest provides next-step recommendations"
 
-if python3 agents/meta.suggest/meta_suggest.py --context atum > /dev/null 2>&1; then
+if python3 agents/meta.suggest/meta_suggest.py --context meta.agent > /dev/null 2>&1; then
     pass "Next-step suggestions work"
 else
     fail "Suggestions failed"
@@ -201,7 +201,7 @@ Produces integration-test artifacts
 - integration-test
 EOF
 
-python3 agents/atum/atum.py /tmp/integration_agent.md > /dev/null 2>&1
+python3 agents/meta.agent/meta_agent.py /tmp/integration_agent.md > /dev/null 2>&1
 
 # Check compatibility
 if python3 agents/meta.compatibility/meta_compatibility.py analyze integration.producer > /dev/null 2>&1; then

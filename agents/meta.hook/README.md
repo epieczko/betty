@@ -240,7 +240,7 @@ done
 
 Hooks are automatically loaded by Claude Code from `.claude/hooks.yaml`.
 
-### With meta.agent (Atum)
+### With meta.agent
 
 Create agents that use hooks:
 

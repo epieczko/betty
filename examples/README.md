@@ -31,7 +31,7 @@ examples/
 **Usage**:
 ```bash
 # Generate the agent
-python3 agents/atum/atum.py examples/agents/code_reviewer_agent.md
+python3 agents/meta.agent/meta_agent.py examples/agents/code_reviewer_agent.md
 
 # View generated configuration
 cat agents/code.reviewer/agent.yaml
@@ -54,7 +54,7 @@ cat agents/code.reviewer/agent.yaml
 **Usage**:
 ```bash
 # Generate the agent
-python3 agents/atum/atum.py examples/agents/file_processor_agent.md
+python3 agents/meta.agent/meta_agent.py examples/agents/file_processor_agent.md
 ```
 
 ### 3. data.validator
@@ -74,7 +74,7 @@ python3 agents/atum/atum.py examples/agents/file_processor_agent.md
 **Usage**:
 ```bash
 # Generate the agent
-python3 agents/atum/atum.py examples/agents/data_validator_agent.md
+python3 agents/meta.agent/meta_agent.py examples/agents/data_validator_agent.md
 ```
 
 ## Example Skills
@@ -228,7 +228,7 @@ python3 agents/meta.hook/meta_hook.py examples/hooks/post_deploy_verify_hook.md
 
 ```bash
 # 1. Create code reviewer agent
-python3 agents/atum/atum.py examples/agents/code_reviewer_agent.md
+python3 agents/meta.agent/meta_agent.py examples/agents/code_reviewer_agent.md
 
 # 2. Add pre-commit hooks
 python3 agents/meta.hook/meta_hook.py examples/hooks/pre_commit_lint_hook.md
@@ -244,7 +244,7 @@ git commit -m "feature: add new functionality"
 
 ```bash
 # 1. Create data validator agent
-python3 agents/atum/atum.py examples/agents/data_validator_agent.md
+python3 agents/meta.agent/meta_agent.py examples/agents/data_validator_agent.md
 
 # 2. Create transformation skill
 python3 agents/meta.skill/meta_skill.py examples/skills/data_transform_skill.md
@@ -279,7 +279,7 @@ Generate all examples at once:
 ```bash
 # Generate all agents
 for agent in examples/agents/*.md; do
-    python3 agents/atum/atum.py "$agent"
+    python3 agents/meta.agent/meta_agent.py "$agent"
 done
 
 # Generate all skills
@@ -305,7 +305,7 @@ Edit the markdown files in `examples/agents/` to change:
 
 Then regenerate:
 ```bash
-python3 agents/atum/atum.py examples/agents/YOUR_AGENT.md
+python3 agents/meta.agent/meta_agent.py examples/agents/YOUR_AGENT.md
 ```
 
 ### Modify Skill Descriptions

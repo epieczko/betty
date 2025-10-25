@@ -180,8 +180,8 @@ class CompatibilityAnalyzer:
             "api": ["api.architect", "meta.agent"],
             "design api": ["api.architect"],
             "validate": ["api.architect"],
-            "create agent": ["meta.agent", "atum"],
-            "agent": ["meta.agent", "atum"],
+            "create agent": ["meta.agent"],
+            "agent": ["meta.agent"],
             "artifact": ["meta.artifact"],
             "optimize": [],  # No optimizer yet, but we have the artifact type
         }

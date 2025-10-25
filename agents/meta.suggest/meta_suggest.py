@@ -102,7 +102,7 @@ class SuggestionEngine:
             })
 
         # Suggestion 3: If agent created something, suggest testing/validation
-        if artifact_types and context_agent in ["atum", "meta.agent", "meta.artifact"]:
+        if artifact_types and context_agent in ["meta.agent", "meta.artifact"]:
             suggestions.append({
                 "action": "Test the created artifact",
                 "rationale": "Verify the artifact works as expected",
@@ -239,7 +239,7 @@ class SuggestionEngine:
         # Suggest creating more agents if few exist
         if graph["metadata"]["total_agents"] < 5:
             suggestions.append({
-                "action": "Create more agents using atum",
+                "action": "Create more agents using meta.agent",
                 "rationale": "Expand agent ecosystem for more capabilities",
                 "priority": "low"
             })

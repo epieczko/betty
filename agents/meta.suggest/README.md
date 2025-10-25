@@ -20,18 +20,18 @@ Helps Claude decide what to do next after an agent completes by analyzing contex
 
 ```bash
 python3 agents/meta.suggest/meta_suggest.py \
-  --context atum \
+  --context meta.agent \
   --artifacts agents/api.architect/agent.yaml
 ```
 
 Output:
 ```
-Context: atum
+Context: meta.agent
 Produced: agent-definition
 
 🌟 Primary Suggestion:
    Process with meta.compatibility
-   Rationale: atum produces 'agent-definition' which meta.compatibility consumes
+   Rationale: meta.agent produces 'agent-definition' which meta.compatibility consumes
    Priority: high
 
 🔄 Alternatives:
@@ -39,7 +39,7 @@ Produced: agent-definition
       Verify the artifact works as expected
 
    2. Analyze compatibility
-      Understand what agents can work with atum's outputs
+      Understand what agents can work with meta.agent's outputs
 ```
 
 ### Analyze Project
@@ -83,9 +83,9 @@ python3 agents/meta.suggest/meta_suggest.py \
 
 **Examples:**
 ```bash
-# After atum creates agent
+# After meta.agent creates agent
 python3 agents/meta.suggest/meta_suggest.py \
-  --context atum \
+  --context meta.agent \
   --artifacts agents/my-agent/agent.yaml
 
 # After meta.artifact creates artifact type
@@ -95,7 +95,7 @@ python3 agents/meta.suggest/meta_suggest.py \
 
 # With user goal
 python3 agents/meta.suggest/meta_suggest.py \
-  --context atum \
+  --context meta.agent \
   --goal "Create and validate API design agent"
 ```
 
@@ -173,8 +173,8 @@ Suggests testing when creation-type agents run.
 
 ```
    Analyze compatibility
-   Rationale: Understand what agents can work with atum's outputs
-   Command: python3 agents/meta.compatibility/meta_compatibility.py analyze atum
+   Rationale: Understand what agents can work with meta.agent's outputs
+   Command: python3 agents/meta.compatibility/meta_compatibility.py analyze meta.agent
 ```
 
 Suggests understanding the ecosystem.
@@ -183,7 +183,7 @@ Suggests understanding the ecosystem.
 
 ```
    Create producer for 'agent-description'
-   Rationale: No agents produce 'agent-description' (required by atum)
+   Rationale: No agents produce 'agent-description' (required by meta.agent)
 ```
 
 Suggests creating missing components.
@@ -215,7 +215,7 @@ Produced: artifact-type-1, artifact-type-2
 ```json
 {
   "context": {
-    "agent": "atum",
+    "agent": "meta.agent",
     "artifacts_produced": ["agents/my-agent/agent.yaml"],
     "artifact_types": ["agent-definition"],
     "timestamp": "2025-10-24T..."
@@ -256,8 +256,8 @@ Claude can call meta.suggest after any agent:
 
 ```
 User: Create an API design agent
-Claude: *runs atum*
-Claude: *calls meta.suggest --context atum*
+Claude: *runs meta.agent*
+Claude: *calls meta.suggest --context meta.agent*
 Claude: I've created the agent. Would you like me to:
   1. Analyze its compatibility
   2. Test it
@@ -273,11 +273,11 @@ Use in shell scripts:
 # Create and analyze agent
 
 # Step 1: Create agent
-python3 agents/atum/atum.py description.md
+python3 agents/meta.agent/meta_agent.py description.md
 
 # Step 2: Get suggestions
 SUGGESTIONS=$(python3 agents/meta.suggest/meta_suggest.py \
-  --context atum \
+  --context meta.agent \
   --format json)
 
 # Step 3: Extract primary suggestion
@@ -293,11 +293,11 @@ eval "$PRIMARY"
 
 ```bash
 # Create agent
-python3 agents/atum/atum.py my_agent.md
+python3 agents/meta.agent/meta_agent.py my_agent.md
 
 # Get suggestions
 python3 agents/meta.suggest/meta_suggest.py \
-  --context atum \
+  --context meta.agent \
   --artifacts agents/my-agent/agent.yaml
 
 # Follow primary suggestion
@@ -383,7 +383,7 @@ Command: python3 agents/meta.compatibility/...
 
 Always includes "why" for each suggestion:
 ```
-Rationale: atum produces 'agent-definition' which meta.compatibility consumes
+Rationale: meta.agent produces 'agent-definition' which meta.compatibility consumes
 ```
 
 Helps Claude and users understand the reasoning.
@@ -396,21 +396,21 @@ More context = better suggestions:
 
 ✅ **Good:**
 ```bash
---context atum \
+--context meta.agent \
 --artifacts agents/my-agent/agent.yaml \
 --goal "Create and validate agent"
 ```
 
 ❌ **Minimal:**
 ```bash
---context atum
+--context meta.agent
 ```
 
 ### Interpreting Warnings
 
 **Gaps warning:**
 ```
-⚠️  atum requires artifacts that aren't produced by any agent
+⚠️  meta.agent requires artifacts that aren't produced by any agent
 ```
 This is often expected for user inputs. Not always a problem.
 
@@ -460,7 +460,7 @@ Total Agents: 0
 
 **Cause:** No agents found in `agents/` directory
 
-**Solution:** Create agents using atum or manually
+**Solution:** Create agents using meta.agent or manually
 
 ## Architecture
 
@@ -476,8 +476,8 @@ meta.suggest
 
 ```bash
 # Example 1: After creating agent
-python3 agents/atum/atum.py examples/api_architect_description.md
-python3 agents/meta.suggest/meta_suggest.py --context atum
+python3 agents/meta.agent/meta_agent.py examples/api_architect_description.md
+python3 agents/meta.suggest/meta_suggest.py --context meta.agent
 
 # Example 2: After creating artifact type
 python3 agents/meta.artifact/meta_artifact.py create artifact.md
@@ -488,7 +488,7 @@ python3 agents/meta.suggest/meta_suggest.py --analyze-project
 
 # Example 4: Export to JSON
 python3 agents/meta.suggest/meta_suggest.py \
-  --context atum \
+  --context meta.agent \
   --format json > suggestions.json
 ```
 

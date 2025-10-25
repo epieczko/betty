@@ -12,10 +12,10 @@ The meta-agent ecosystem has been significantly enhanced with comprehensive docu
 
 #### Individual Agent READMEs (4 files, ~2000 lines)
 
-**agents/atum/README.md** (meta.agent)
+**agents/meta.agent/README.md** (meta.agent)
 - Quick start guide with examples
 - Description format (Markdown/JSON)
-- What Atum creates (agent.yaml + README.md)
+- What meta.agent creates (agent.yaml + README.md)
 - How it works internally
 - Integration with other meta-agents
 - Common workflows
@@ -94,7 +94,7 @@ The meta-agent ecosystem has been significantly enhanced with comprehensive docu
 
 1. ✅ meta.artifact creates artifact type
 2. ✅ meta.artifact checks artifact existence
-3. ✅ meta.agent (atum) creates agent
+3. ✅ meta.agent creates agent
 4. ✅ meta.compatibility finds compatible agents
 5. ✅ meta.compatibility suggests pipeline
 6. ✅ meta.compatibility analyzes agent
@@ -123,7 +123,7 @@ betty/
 │   ├── META_AGENT_IMPROVEMENTS.md (New: This file)
 │   └── ARTIFACT_STANDARDS.md     (Existing, referenced extensively)
 ├── agents/
-│   ├── atum/
+│   ├── meta.agent/
 │   │   └── README.md             (New: ~400 lines)
 │   ├── meta.artifact/
 │   │   └── README.md             (New: ~500 lines)
@@ -181,13 +181,13 @@ betty/
 
 **Before (unclear process):**
 1. User doesn't know where to start
-2. Reads code to understand Atum
+2. Reads code to understand meta.agent
 3. Guesses at description format
 4. Agent created but unsure if correct
 5. Doesn't know what to do next
 
 **After (clear path):**
-1. Reads agents/atum/README.md Quick Start
+1. Reads agents/meta.agent/README.md Quick Start
 2. Follows Tutorial 1 in META_AGENTS.md
 3. Uses provided description template
 4. Agent created with full documentation
@@ -227,7 +227,7 @@ betty/
 ### Integration Test Approach
 
 1. **Artifact Creation** - Test meta.artifact creates types correctly
-2. **Agent Creation** - Test atum creates agents from descriptions
+2. **Agent Creation** - Test meta.agent creates agents from descriptions
 3. **Compatibility Analysis** - Test meta.compatibility finds relationships
 4. **Suggestion Engine** - Test meta.suggest provides recommendations
 5. **Full Integration** - Test complete artifact → agent → workflow

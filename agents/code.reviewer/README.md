@@ -41,7 +41,7 @@ betty agent run code.reviewer --input <path>
 
 ## Created By
 
-This agent was created by **Atum**, the meta-agent that speaks agents into existence.
+This agent was created by **meta.agent**, the meta-agent for creating agents.
 
 ---
 

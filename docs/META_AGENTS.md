@@ -5,8 +5,7 @@ Meta-agents are specialized agents that create and manage other agents, skills, 
 ## Meta-Agent Registry
 
 ### meta.agent - Agent Creator
-**Current name:** `atum` (Egyptian god who speaks existence into being)
-**Aliases:** `atum`, `meta.agent`, `agent.create`
+**Current name:** `meta.agent`
 
 **Purpose:** Creates complete, functional agents from natural language descriptions
 
@@ -21,11 +20,11 @@ Meta-agents are specialized agents that create and manage other agents, skills, 
 
 **Usage:**
 ```bash
-# Using descriptive name
-betty meta agent create examples/my_agent_description.md
+# Using the agent directly
+python3 agents/meta.agent/meta_agent.py examples/my_agent_description.md
 
-# Using legacy name (Atum)
-python3 agents/atum/atum.py examples/my_agent_description.md
+# Or via betty CLI (if available)
+betty meta agent create examples/my_agent_description.md
 ```
 
 ---
@@ -212,13 +211,13 @@ hooks:
 **Usage:**
 ```bash
 # Find compatible agents
-python3 agents/meta.compatibility/meta_compatibility.py find-compatible atum
+python3 agents/meta.compatibility/meta_compatibility.py find-compatible meta.agent
 
 # Suggest pipeline for task
 python3 agents/meta.compatibility/meta_compatibility.py suggest-pipeline "Validate and optimize API specs"
 
 # Analyze specific agent
-python3 agents/meta.compatibility/meta_compatibility.py analyze agents/atum/agent.yaml
+python3 agents/meta.compatibility/meta_compatibility.py analyze agents/meta.agent/agent.yaml
 
 # List all agents (JSON or YAML output)
 python3 agents/meta.compatibility/meta_compatibility.py --format json list-all
@@ -227,7 +226,7 @@ python3 agents/meta.compatibility/meta_compatibility.py --format json list-all
 **Output Example:**
 ```json
 {
-  "agent": "atum",
+  "agent": "meta.agent",
   "compatible_agents": {
     "produces_for": [
       {
@@ -270,25 +269,25 @@ python3 agents/meta.compatibility/meta_compatibility.py --format json list-all
 **Usage:**
 ```bash
 # Get suggestions after running an agent
-python3 agents/meta.suggest/meta_suggest.py suggest agents/atum/agent.yaml
+python3 agents/meta.suggest/meta_suggest.py suggest agents/meta.agent/agent.yaml
 
 # Analyze entire project
 python3 agents/meta.suggest/meta_suggest.py analyze-project
 
 # Output in JSON format
-python3 agents/meta.suggest/meta_suggest.py --format json suggest agents/atum/agent.yaml
+python3 agents/meta.suggest/meta_suggest.py --format json suggest agents/meta.agent/agent.yaml
 ```
 
 **Output Example:**
 ```json
 {
-  "agent": "atum",
+  "agent": "meta.agent",
   "suggestions": [
     {
       "priority": "high",
       "type": "next_agent",
       "description": "Use meta.compatibility to find agents that can consume agent-definition",
-      "command": "python3 agents/meta.compatibility/meta_compatibility.py find-compatible atum"
+      "command": "python3 agents/meta.compatibility/meta_compatibility.py find-compatible meta.agent"
     }
   ]
 }
@@ -314,7 +313,7 @@ All meta-agents use the `meta.*` namespace to clearly indicate they operate at a
 ### Aliases
 
 Some meta-agents may have poetic or legacy aliases:
-- `atum` → `meta.agent` (poetic: Egyptian god of creation)
+- `meta.agent` - Agent creation through skill composition
 - Future: `thoth` → `meta.artifact` (if we want to keep thematic naming)
 
 ### Discovery
@@ -407,7 +406,7 @@ specifications and validating them against best practices.
 
 2. **Create the agent**:
 ```bash
-python3 agents/atum/atum.py examples/api_designer.md
+python3 agents/meta.agent/meta_agent.py examples/api_designer.md
 ```
 
 3. **Analyze compatibility**:
@@ -418,7 +417,7 @@ python3 agents/meta.compatibility/meta_compatibility.py find-compatible api.desi
 4. **Get suggestions for next steps**:
 ```bash
 python3 agents/meta.suggest/meta_suggest.py \
-  --context atum \
+  --context meta.agent \
   --artifacts agents/api.designer/agent.yaml
 ```
 
@@ -557,7 +556,7 @@ python3 agents/meta.suggest/meta_suggest.py --analyze-project
 4. **Create agents to fill gaps**:
 ```bash
 # Create agent that produces api-requirements
-python3 agents/atum/atum.py examples/requirements_analyzer.md
+python3 agents/meta.agent/meta_agent.py examples/requirements_analyzer.md
 
 # Verify gap is filled
 python3 agents/meta.compatibility/meta_compatibility.py list-all
@@ -590,7 +589,7 @@ python3 agents/meta.artifact/meta_artifact.py create examples/security_audit_art
 ```
 
 ```bash
-python3 agents/atum/atum.py examples/security_auditor.md
+python3 agents/meta.agent/meta_agent.py examples/security_auditor.md
 ```
 
 3. **Create agent that consumes it**:
@@ -605,7 +604,7 @@ python3 agents/atum/atum.py examples/security_auditor.md
 ```
 
 ```bash
-python3 agents/atum/atum.py examples/security_fixer.md
+python3 agents/meta.agent/meta_agent.py examples/security_fixer.md
 ```
 
 4. **Verify compatibility**:
@@ -837,13 +836,13 @@ python3 agents/meta.hook/meta_hook.py notify_hook.md
 
 ```bash
 # Create component
-python3 agents/atum/atum.py description.md
+python3 agents/meta.agent/meta_agent.py description.md
 
 # Analyze compatibility
 python3 agents/meta.compatibility/meta_compatibility.py analyze NEW_AGENT
 
 # Get enhancement suggestions
-python3 agents/meta.suggest/meta_suggest.py --context atum
+python3 agents/meta.suggest/meta_suggest.py --context meta.agent
 ```
 
 #### Pattern 2: Define → Register → Use
@@ -853,7 +852,7 @@ python3 agents/meta.suggest/meta_suggest.py --context atum
 python3 agents/meta.artifact/meta_artifact.py create artifact.md
 
 # Register in agent
-# (atum will automatically use registered types)
+# (meta.agent will automatically use registered types)
 
 # Verify usage
 python3 agents/meta.compatibility/meta_compatibility.py list-all
