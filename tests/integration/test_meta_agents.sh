@@ -229,11 +229,115 @@ else
     fail "YAML output failed"
 fi
 
+# Test 13: meta.skill - Create skill from description
+print_test "meta.skill creates skill from description"
+
+cat > /tmp/test_skill.md <<'EOF'
+# Name: test.skill
+
+# Purpose:
+Test skill for integration testing
+
+# Inputs:
+- test_input
+
+# Outputs:
+- test_output.json
+
+# Permissions:
+- filesystem:read
+
+# Produces Artifacts:
+- test-result
+EOF
+
+if python3 agents/meta.skill/meta_skill.py /tmp/test_skill.md > /dev/null 2>&1; then
+    if [ -f "skills/test.skill/skill.yaml" ] && [ -f "skills/test.skill/test_skill.py" ]; then
+        pass "Skill created successfully"
+    else
+        fail "Skill files not created"
+    fi
+else
+    fail "meta.skill command failed"
+fi
+
+# Test 14: meta.skill - Generated skill is valid Python
+print_test "meta.skill generates valid Python code"
+
+if python3 -m py_compile skills/test.skill/test_skill.py 2>/dev/null; then
+    pass "Generated Python code is valid"
+else
+    fail "Generated Python code has syntax errors"
+fi
+
+# Test 15: meta.hook - Create hook from description
+print_test "meta.hook creates hook from description"
+
+cat > /tmp/test_hook.md <<'EOF'
+# Name: test-hook
+
+# Event: before-tool-call
+
+# Description: Test hook for integration testing
+
+# Command: echo "test"
+
+# Enabled: true
+EOF
+
+# Backup existing hooks.yaml if it exists
+if [ -f ".claude/hooks.yaml" ]; then
+    cp .claude/hooks.yaml .claude/hooks.yaml.backup
+fi
+
+if python3 agents/meta.hook/meta_hook.py /tmp/test_hook.md > /dev/null 2>&1; then
+    if [ -f ".claude/hooks.yaml" ]; then
+        if grep -q "test-hook" .claude/hooks.yaml; then
+            pass "Hook created successfully"
+        else
+            fail "Hook not found in hooks.yaml"
+        fi
+    else
+        fail "hooks.yaml not created"
+    fi
+else
+    fail "meta.hook command failed"
+fi
+
+# Restore original hooks.yaml
+if [ -f ".claude/hooks.yaml.backup" ]; then
+    mv .claude/hooks.yaml.backup .claude/hooks.yaml
+else
+    rm -f .claude/hooks.yaml
+fi
+
+# Test 16: meta.hook - Validates event types
+print_test "meta.hook validates event types"
+
+cat > /tmp/invalid_hook.md <<'EOF'
+# Name: invalid-hook
+
+# Event: invalid-event-type
+
+# Command: echo "test"
+EOF
+
+if python3 agents/meta.hook/meta_hook.py /tmp/invalid_hook.md > /dev/null 2>&1; then
+    fail "meta.hook should reject invalid event types"
+else
+    pass "Invalid event type rejected"
+fi
+
 # Cleanup
 echo -e "\n${YELLOW}Cleaning up test artifacts...${NC}"
 rm -f /tmp/test_artifact.md /tmp/test_agent.md /tmp/integration_artifact.md /tmp/integration_agent.md
+rm -f /tmp/test_skill.md /tmp/test_hook.md /tmp/invalid_hook.md
 rm -rf agents/test.agent agents/integration.producer
+rm -rf skills/test.skill
 rm -f schemas/test-artifact.json schemas/integration-test.json
+
+# Restore artifact standards and registry to clean state
+git checkout -- docs/ARTIFACT_STANDARDS.md skills/artifact.define/artifact_define.py 2>/dev/null || true
 
 # Summary
 echo ""
