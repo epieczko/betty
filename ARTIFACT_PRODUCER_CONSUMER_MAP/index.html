@@ -1,0 +1,2662 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="RiskExec's system for structured, auditable AI-assisted engineering built on Claude Code Plugins">
+      
+      
+        <meta name="author" content="RiskExec">
+      
+      
+        <link rel="canonical" href="https://epieczko.github.io/betty/ARTIFACT_PRODUCER_CONSUMER_MAP/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Artifact Producer/Consumer Map - Betty Framework</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#artifact-producerconsumer-map" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Betty Framework" class="md-header__button md-logo" aria-label="Betty Framework" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Betty Framework
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Artifact Producer/Consumer Map
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/epieczko/betty" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    epieczko/betty
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../README.md" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../docs/betty-framework-overview.md" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../docs/betty-architecture.md" class="md-tabs__link">
+          
+  
+  
+  Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../docs/skills-framework.md" class="md-tabs__link">
+          
+  
+  
+  Skills
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../docs/agent-schema-reference.md" class="md-tabs__link">
+          
+  
+  
+  Agents
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../docs/api-driven-development.md" class="md-tabs__link">
+          
+  
+  
+  Workflows
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../docs/governance-architecture.md" class="md-tabs__link">
+          
+  
+  
+  Governance
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../docs/claude-code-router-integration.md" class="md-tabs__link">
+          
+  
+  
+  Claude Integration
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../docs/contributing.md" class="md-tabs__link">
+          
+  
+  
+  Contributing
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../docs/glossary.md" class="md-tabs__link">
+          
+  
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Betty Framework" class="md-nav__button md-logo" aria-label="Betty Framework" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Betty Framework
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/epieczko/betty" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    epieczko/betty
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../README.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/betty-framework-overview.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/betty-architecture.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Betty Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/CODEBASE_ANALYSIS.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Codebase Analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Skills
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Skills
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/skills-framework.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Skills Framework
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/agent-define-implementation-plan.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Implementation Planning
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Agents
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Agents
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/agent-schema-reference.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Agent Schema Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Workflows
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Workflows
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/api-driven-development.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API-Driven Development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/COMMAND_HOOK_INFRASTRUCTURE.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Command Hook Infrastructure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Governance
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Governance
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/governance-architecture.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Governance Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Claude Integration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Claude Integration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/claude-code-router-integration.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Router Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/multi-llm-integration-paths.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Multi-LLM Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Contributing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/contributing.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/glossary.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/references.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    External References
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#producer-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      Producer Map
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Producer Map">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#artifacts-by-producer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Artifacts by Producer
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifacts by Producer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strategyarchitect-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      strategy.architect Agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#securityarchitect-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      security.architect Agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dataarchitect-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      data.architect Agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#governancemanager-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      governance.manager Agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testengineer-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      test.engineer Agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploymentengineer-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      deployment.engineer Agent
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-skills" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Skills
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Skills">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#artifactcreate" class="md-nav__link">
+    <span class="md-ellipsis">
+      artifact.create
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifactvalidate" class="md-nav__link">
+    <span class="md-ellipsis">
+      artifact.validate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifactreview" class="md-nav__link">
+    <span class="md-ellipsis">
+      artifact.review
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workfloworchestrate" class="md-nav__link">
+    <span class="md-ellipsis">
+      workflow.orchestrate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consumer-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consumer Map
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consumer Map">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#artifacts-by-consumer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Artifacts by Consumer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#artifact-dependency-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Artifact Dependency Graph
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Dependency Graph">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sdlc-artifact-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      SDLC Artifact Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-artifact-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow Artifact Sets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow Artifact Sets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#project-initiation-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      project-initiation Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-review-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      security-review Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-design-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      data-design Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-planning-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      test-planning Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment-planning-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      deployment-planning Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-sdlc-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      full-sdlc Workflow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent-capability-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent Capability Matrix
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage Patterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pattern-1-single-artifact-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern 1: Single Artifact Creation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-2-workflow-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern 2: Workflow Execution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-3-custom-artifact-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern 3: Custom Artifact Chain
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#artifact-traceability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Artifact Traceability
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Traceability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upstream-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upstream Dependencies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#downstream-consumers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Downstream Consumers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Future Extensions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Future Extensions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#planned-additions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Planned Additions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enhanced-traceability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enhanced Traceability
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version History
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See Also
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="artifact-producerconsumer-map">Artifact Producer/Consumer Map<a class="headerlink" href="#artifact-producerconsumer-map" title="Permanent link">&para;</a></h1>
+<p><strong>Version</strong>: 1.0.0
+<strong>Last Updated</strong>: 2025-10-25
+<strong>Status</strong>: Phase 3 Complete</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>This document provides a comprehensive map of which agents and skills produce and consume which artifacts in the Betty Framework. This enables autonomous composition of workflows and intelligent agent selection based on artifact requirements.</p>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#producer-map">Producer Map</a> - Who creates what</li>
+<li><a href="#consumer-map">Consumer Map</a> - Who needs what</li>
+<li><a href="#artifact-dependency-graph">Artifact Dependency Graph</a></li>
+<li><a href="#workflow-artifact-sets">Workflow Artifact Sets</a></li>
+<li><a href="#agent-capability-matrix">Agent Capability Matrix</a></li>
+</ol>
+<hr />
+<h2 id="producer-map">Producer Map<a class="headerlink" href="#producer-map" title="Permanent link">&para;</a></h2>
+<h3 id="artifacts-by-producer">Artifacts by Producer<a class="headerlink" href="#artifacts-by-producer" title="Permanent link">&para;</a></h3>
+<h4 id="strategyarchitect-agent">strategy.architect Agent<a class="headerlink" href="#strategyarchitect-agent" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose</strong>: Business strategy and planning artifacts</p>
+<table>
+<thead>
+<tr>
+<th>Artifact Type</th>
+<th>Schema</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>business-case</td>
+<td>business-case-schema.json</td>
+<td>Business justification with ROI</td>
+</tr>
+<tr>
+<td>portfolio-roadmap</td>
+<td>-</td>
+<td>Multi-initiative strategic roadmap</td>
+</tr>
+<tr>
+<td>market-analysis</td>
+<td>-</td>
+<td>Market opportunity assessment</td>
+</tr>
+<tr>
+<td>competitive-analysis</td>
+<td>-</td>
+<td>Competitive landscape analysis</td>
+</tr>
+<tr>
+<td>feasibility-study</td>
+<td>-</td>
+<td>Technical/business feasibility</td>
+</tr>
+<tr>
+<td>strategic-plan</td>
+<td>-</td>
+<td>Multi-year strategic plan</td>
+</tr>
+<tr>
+<td>value-proposition-canvas</td>
+<td>-</td>
+<td>Customer value proposition</td>
+</tr>
+<tr>
+<td>roi-model</td>
+<td>-</td>
+<td>Financial ROI model</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Skills Used</strong>: artifact.create, artifact.validate, artifact.review</p>
+<hr />
+<h4 id="securityarchitect-agent">security.architect Agent<a class="headerlink" href="#securityarchitect-agent" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose</strong>: Security architecture and assessment artifacts</p>
+<table>
+<thead>
+<tr>
+<th>Artifact Type</th>
+<th>Schema</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>threat-model</td>
+<td>threat-model-schema.json</td>
+<td>STRIDE-based threat assessment</td>
+</tr>
+<tr>
+<td>security-architecture-diagram</td>
+<td>-</td>
+<td>Security architecture with trust boundaries</td>
+</tr>
+<tr>
+<td>penetration-testing-report</td>
+<td>-</td>
+<td>Pentest findings with CVSS scores</td>
+</tr>
+<tr>
+<td>vulnerability-management-plan</td>
+<td>-</td>
+<td>Vulnerability management program</td>
+</tr>
+<tr>
+<td>incident-response-plan</td>
+<td>-</td>
+<td>Incident response playbook</td>
+</tr>
+<tr>
+<td>security-assessment</td>
+<td>-</td>
+<td>Security posture assessment</td>
+</tr>
+<tr>
+<td>zero-trust-design</td>
+<td>-</td>
+<td>Zero trust architecture design</td>
+</tr>
+<tr>
+<td>compliance-matrix</td>
+<td>-</td>
+<td>Regulatory compliance mapping</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Skills Used</strong>: artifact.create, artifact.validate, artifact.review</p>
+<hr />
+<h4 id="dataarchitect-agent">data.architect Agent<a class="headerlink" href="#dataarchitect-agent" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose</strong>: Data architecture and governance artifacts</p>
+<table>
+<thead>
+<tr>
+<th>Artifact Type</th>
+<th>Schema</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data-model</td>
+<td>-</td>
+<td>Logical/physical data models</td>
+</tr>
+<tr>
+<td>schema-definition</td>
+<td>-</td>
+<td>Database schemas with constraints</td>
+</tr>
+<tr>
+<td>data-flow-diagram</td>
+<td>-</td>
+<td>System data flows</td>
+</tr>
+<tr>
+<td>data-dictionary</td>
+<td>-</td>
+<td>Data element definitions</td>
+</tr>
+<tr>
+<td>data-governance-policy</td>
+<td>-</td>
+<td>Data governance framework</td>
+</tr>
+<tr>
+<td>data-quality-framework</td>
+<td>-</td>
+<td>Data quality measurement</td>
+</tr>
+<tr>
+<td>master-data-management-plan</td>
+<td>-</td>
+<td>MDM strategy</td>
+</tr>
+<tr>
+<td>data-lineage-diagram</td>
+<td>-</td>
+<td>End-to-end data lineage</td>
+</tr>
+<tr>
+<td>data-catalog</td>
+<td>-</td>
+<td>Enterprise data catalog</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Skills Used</strong>: artifact.create, artifact.validate, artifact.review</p>
+<hr />
+<h4 id="governancemanager-agent">governance.manager Agent<a class="headerlink" href="#governancemanager-agent" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose</strong>: Program and project governance artifacts</p>
+<table>
+<thead>
+<tr>
+<th>Artifact Type</th>
+<th>Schema</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>project-charter</td>
+<td>-</td>
+<td>Project authority and scope</td>
+</tr>
+<tr>
+<td>raid-log</td>
+<td>-</td>
+<td>Risks, Assumptions, Issues, Decisions</td>
+</tr>
+<tr>
+<td>decision-log</td>
+<td>-</td>
+<td>Decision register</td>
+</tr>
+<tr>
+<td>governance-framework</td>
+<td>-</td>
+<td>Governance structure and roles</td>
+</tr>
+<tr>
+<td>compliance-matrix</td>
+<td>-</td>
+<td>Compliance requirements mapping</td>
+</tr>
+<tr>
+<td>stakeholder-analysis</td>
+<td>-</td>
+<td>Stakeholder power/interest analysis</td>
+</tr>
+<tr>
+<td>steering-committee-report</td>
+<td>-</td>
+<td>Executive reporting pack</td>
+</tr>
+<tr>
+<td>change-control-process</td>
+<td>-</td>
+<td>Change management workflow</td>
+</tr>
+<tr>
+<td>benefits-realization-plan</td>
+<td>-</td>
+<td>Benefits tracking framework</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Skills Used</strong>: artifact.create, artifact.validate, artifact.review</p>
+<hr />
+<h4 id="testengineer-agent">test.engineer Agent<a class="headerlink" href="#testengineer-agent" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose</strong>: Testing and quality assurance artifacts</p>
+<table>
+<thead>
+<tr>
+<th>Artifact Type</th>
+<th>Schema</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>test-plan</td>
+<td>-</td>
+<td>Comprehensive test strategy</td>
+</tr>
+<tr>
+<td>test-cases</td>
+<td>-</td>
+<td>Detailed test scenarios</td>
+</tr>
+<tr>
+<td>test-results</td>
+<td>-</td>
+<td>Test execution results</td>
+</tr>
+<tr>
+<td>test-automation-strategy</td>
+<td>-</td>
+<td>Automation framework selection</td>
+</tr>
+<tr>
+<td>acceptance-criteria</td>
+<td>-</td>
+<td>User story acceptance criteria</td>
+</tr>
+<tr>
+<td>performance-test-plan</td>
+<td>-</td>
+<td>Performance/load testing strategy</td>
+</tr>
+<tr>
+<td>integration-test-plan</td>
+<td>-</td>
+<td>Integration testing approach</td>
+</tr>
+<tr>
+<td>regression-test-suite</td>
+<td>-</td>
+<td>Regression test suite</td>
+</tr>
+<tr>
+<td>quality-assurance-report</td>
+<td>-</td>
+<td>QA summary and metrics</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Skills Used</strong>: artifact.create, artifact.validate, artifact.review</p>
+<hr />
+<h4 id="deploymentengineer-agent">deployment.engineer Agent<a class="headerlink" href="#deploymentengineer-agent" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose</strong>: Deployment and release artifacts</p>
+<table>
+<thead>
+<tr>
+<th>Artifact Type</th>
+<th>Schema</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>deployment-plan</td>
+<td>-</td>
+<td>Deployment strategy and procedures</td>
+</tr>
+<tr>
+<td>cicd-pipeline-definition</td>
+<td>-</td>
+<td>CI/CD pipeline configuration</td>
+</tr>
+<tr>
+<td>release-checklist</td>
+<td>-</td>
+<td>Pre-deployment checklist</td>
+</tr>
+<tr>
+<td>rollback-plan</td>
+<td>-</td>
+<td>Rollback procedures</td>
+</tr>
+<tr>
+<td>runbooks</td>
+<td>-</td>
+<td>Operational runbooks</td>
+</tr>
+<tr>
+<td>infrastructure-as-code</td>
+<td>-</td>
+<td>Infrastructure provisioning templates</td>
+</tr>
+<tr>
+<td>deployment-pipeline</td>
+<td>-</td>
+<td>Deployment automation scripts</td>
+</tr>
+<tr>
+<td>smoke-test-suite</td>
+<td>-</td>
+<td>Post-deployment smoke tests</td>
+</tr>
+<tr>
+<td>production-readiness-checklist</td>
+<td>-</td>
+<td>Production readiness assessment</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Skills Used</strong>: artifact.create, artifact.validate, artifact.review</p>
+<hr />
+<h3 id="core-skills">Core Skills<a class="headerlink" href="#core-skills" title="Permanent link">&para;</a></h3>
+<h4 id="artifactcreate">artifact.create<a class="headerlink" href="#artifactcreate" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose</strong>: Generate artifacts from templates</p>
+<p><strong>Produces</strong>: Any of the 406 registered artifact types
+<strong>Consumes</strong>: User context/requirements</p>
+<hr />
+<h4 id="artifactvalidate">artifact.validate<a class="headerlink" href="#artifactvalidate" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose</strong>: Validate artifact structure and quality</p>
+<p><strong>Produces</strong>: validation-report
+<strong>Consumes</strong>: Any artifact type</p>
+<hr />
+<h4 id="artifactreview">artifact.review<a class="headerlink" href="#artifactreview" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose</strong>: AI-powered content quality review</p>
+<p><strong>Produces</strong>: review-report
+<strong>Consumes</strong>: Any artifact type</p>
+<hr />
+<h4 id="workfloworchestrate">workflow.orchestrate<a class="headerlink" href="#workfloworchestrate" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose</strong>: Multi-artifact workflow coordination</p>
+<p><strong>Produces</strong>:
+- workflow-execution-report
+- artifact-manifest
+- All artifacts in selected workflow</p>
+<p><strong>Consumes</strong>: User context for workflow initiation</p>
+<hr />
+<h2 id="consumer-map">Consumer Map<a class="headerlink" href="#consumer-map" title="Permanent link">&para;</a></h2>
+<h3 id="artifacts-by-consumer">Artifacts by Consumer<a class="headerlink" href="#artifacts-by-consumer" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Artifact Type</th>
+<th>Consumed By</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>business-case</td>
+<td>governance.manager</td>
+<td>Input for project charter</td>
+</tr>
+<tr>
+<td>business-case</td>
+<td>test.engineer</td>
+<td>Understanding of business context</td>
+</tr>
+<tr>
+<td>business-case</td>
+<td>deployment.engineer</td>
+<td>Release impact assessment</td>
+</tr>
+<tr>
+<td>project-charter</td>
+<td>All agents</td>
+<td>Project scope and authority reference</td>
+</tr>
+<tr>
+<td>threat-model</td>
+<td>data.architect</td>
+<td>Security requirements for data design</td>
+</tr>
+<tr>
+<td>threat-model</td>
+<td>deployment.engineer</td>
+<td>Security controls for deployment</td>
+</tr>
+<tr>
+<td>data-model</td>
+<td>test.engineer</td>
+<td>Test data requirements</td>
+</tr>
+<tr>
+<td>data-model</td>
+<td>deployment.engineer</td>
+<td>Database deployment planning</td>
+</tr>
+<tr>
+<td>test-plan</td>
+<td>deployment.engineer</td>
+<td>QA gates for deployment</td>
+</tr>
+<tr>
+<td>architecture-*</td>
+<td>security.architect</td>
+<td>Architecture to threat model</td>
+</tr>
+<tr>
+<td>architecture-*</td>
+<td>test.engineer</td>
+<td>System understanding for testing</td>
+</tr>
+<tr>
+<td>requirements-*</td>
+<td>All agents</td>
+<td>Requirements as inputs</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="artifact-dependency-graph">Artifact Dependency Graph<a class="headerlink" href="#artifact-dependency-graph" title="Permanent link">&para;</a></h2>
+<h3 id="sdlc-artifact-flow">SDLC Artifact Flow<a class="headerlink" href="#sdlc-artifact-flow" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Business Strategy
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── business-case (strategy.architect)
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│   ├── project-charter (governance.manager) [depends-on: business-case]
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│   │   ├── raid-log (governance.manager)
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│   │   └── stakeholder-analysis (governance.manager)
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│   └── portfolio-roadmap (strategy.architect)
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>Security &amp; Compliance
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├── threat-model (security.architect)
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│   ├── security-architecture-diagram (security.architect) [depends-on: threat-model]
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│   ├── compliance-matrix (governance.manager)
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│   └── incident-response-plan (security.architect)
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Data Architecture
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>├── data-model (data.architect)
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>│   ├── schema-definition (data.architect) [depends-on: data-model]
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>│   ├── data-flow-diagram (data.architect)
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>│   └── data-governance-policy (data.architect)
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>│
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>Testing
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>├── test-plan (test.engineer)
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>│   ├── test-cases (test.engineer) [depends-on: test-plan]
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>│   ├── test-automation-strategy (test.engineer)
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>│   └── acceptance-criteria (test.engineer)
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>│
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>Deployment
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>├── deployment-plan (deployment.engineer)
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>│   ├── cicd-pipeline-definition (deployment.engineer)
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>│   ├── runbooks (deployment.engineer)
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>│   └── rollback-plan (deployment.engineer) [depends-on: deployment-plan]
+</code></pre></div>
+<hr />
+<h2 id="workflow-artifact-sets">Workflow Artifact Sets<a class="headerlink" href="#workflow-artifact-sets" title="Permanent link">&para;</a></h2>
+<h3 id="project-initiation-workflow">project-initiation Workflow<a class="headerlink" href="#project-initiation-workflow" title="Permanent link">&para;</a></h3>
+<p><strong>Agents</strong>: strategy.architect, governance.manager</p>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Artifact</th>
+<th>Agent</th>
+<th>Depends On</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>business-case</td>
+<td>strategy.architect</td>
+<td>-</td>
+</tr>
+<tr>
+<td>2</td>
+<td>project-charter</td>
+<td>governance.manager</td>
+<td>business-case</td>
+</tr>
+<tr>
+<td>3</td>
+<td>raid-log</td>
+<td>governance.manager</td>
+<td>-</td>
+</tr>
+<tr>
+<td>3</td>
+<td>stakeholder-analysis</td>
+<td>governance.manager</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="security-review-workflow">security-review Workflow<a class="headerlink" href="#security-review-workflow" title="Permanent link">&para;</a></h3>
+<p><strong>Agents</strong>: security.architect</p>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Artifact</th>
+<th>Agent</th>
+<th>Depends On</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>threat-model</td>
+<td>security.architect</td>
+<td>-</td>
+</tr>
+<tr>
+<td>2</td>
+<td>security-architecture-diagram</td>
+<td>security.architect</td>
+<td>threat-model</td>
+</tr>
+<tr>
+<td>2</td>
+<td>security-assessment</td>
+<td>security.architect</td>
+<td>-</td>
+</tr>
+<tr>
+<td>3</td>
+<td>vulnerability-management-plan</td>
+<td>security.architect</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="data-design-workflow">data-design Workflow<a class="headerlink" href="#data-design-workflow" title="Permanent link">&para;</a></h3>
+<p><strong>Agents</strong>: data.architect</p>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Artifact</th>
+<th>Agent</th>
+<th>Depends On</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>data-model</td>
+<td>data.architect</td>
+<td>-</td>
+</tr>
+<tr>
+<td>2</td>
+<td>schema-definition</td>
+<td>data.architect</td>
+<td>data-model</td>
+</tr>
+<tr>
+<td>2</td>
+<td>data-flow-diagram</td>
+<td>data.architect</td>
+<td>-</td>
+</tr>
+<tr>
+<td>3</td>
+<td>data-governance-policy</td>
+<td>data.architect</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="test-planning-workflow">test-planning Workflow<a class="headerlink" href="#test-planning-workflow" title="Permanent link">&para;</a></h3>
+<p><strong>Agents</strong>: test.engineer</p>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Artifact</th>
+<th>Agent</th>
+<th>Depends On</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>test-plan</td>
+<td>test.engineer</td>
+<td>-</td>
+</tr>
+<tr>
+<td>2</td>
+<td>test-automation-strategy</td>
+<td>test.engineer</td>
+<td>-</td>
+</tr>
+<tr>
+<td>2</td>
+<td>acceptance-criteria</td>
+<td>test.engineer</td>
+<td>-</td>
+</tr>
+<tr>
+<td>3</td>
+<td>test-cases</td>
+<td>test.engineer</td>
+<td>test-plan</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="deployment-planning-workflow">deployment-planning Workflow<a class="headerlink" href="#deployment-planning-workflow" title="Permanent link">&para;</a></h3>
+<p><strong>Agents</strong>: deployment.engineer</p>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Artifact</th>
+<th>Agent</th>
+<th>Depends On</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>deployment-plan</td>
+<td>deployment.engineer</td>
+<td>-</td>
+</tr>
+<tr>
+<td>2</td>
+<td>cicd-pipeline-definition</td>
+<td>deployment.engineer</td>
+<td>-</td>
+</tr>
+<tr>
+<td>2</td>
+<td>runbooks</td>
+<td>deployment.engineer</td>
+<td>-</td>
+</tr>
+<tr>
+<td>3</td>
+<td>rollback-plan</td>
+<td>deployment.engineer</td>
+<td>deployment-plan</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="full-sdlc-workflow">full-sdlc Workflow<a class="headerlink" href="#full-sdlc-workflow" title="Permanent link">&para;</a></h3>
+<p><strong>Agents</strong>: strategy.architect, governance.manager, security.architect, data.architect, test.engineer, deployment.engineer</p>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Artifact</th>
+<th>Agent</th>
+<th>Depends On</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>business-case</td>
+<td>strategy.architect</td>
+<td>-</td>
+</tr>
+<tr>
+<td>2</td>
+<td>project-charter</td>
+<td>governance.manager</td>
+<td>business-case</td>
+</tr>
+<tr>
+<td>3</td>
+<td>threat-model</td>
+<td>security.architect</td>
+<td>-</td>
+</tr>
+<tr>
+<td>3</td>
+<td>data-model</td>
+<td>data.architect</td>
+<td>-</td>
+</tr>
+<tr>
+<td>4</td>
+<td>test-plan</td>
+<td>test.engineer</td>
+<td>threat-model, data-model</td>
+</tr>
+<tr>
+<td>5</td>
+<td>deployment-plan</td>
+<td>deployment.engineer</td>
+<td>test-plan</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="agent-capability-matrix">Agent Capability Matrix<a class="headerlink" href="#agent-capability-matrix" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Artifact Category</th>
+<th>Primary Agent</th>
+<th>Secondary Agents</th>
+<th>Key Skills</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business Strategy</td>
+<td>strategy.architect</td>
+<td>-</td>
+<td>artifact.create, artifact.validate, artifact.review</td>
+</tr>
+<tr>
+<td>Governance</td>
+<td>governance.manager</td>
+<td>-</td>
+<td>artifact.create, artifact.validate, artifact.review</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>security.architect</td>
+<td>-</td>
+<td>artifact.create, artifact.validate, artifact.review</td>
+</tr>
+<tr>
+<td>Data Architecture</td>
+<td>data.architect</td>
+<td>-</td>
+<td>artifact.create, artifact.validate, artifact.review</td>
+</tr>
+<tr>
+<td>Testing</td>
+<td>test.engineer</td>
+<td>-</td>
+<td>artifact.create, artifact.validate, artifact.review</td>
+</tr>
+<tr>
+<td>Deployment</td>
+<td>deployment.engineer</td>
+<td>-</td>
+<td>artifact.create, artifact.validate, artifact.review</td>
+</tr>
+<tr>
+<td>Workflows</td>
+<td>workflow.orchestrate</td>
+<td>All agents</td>
+<td>artifact.create, artifact.validate</td>
+</tr>
+<tr>
+<td>Quality Assurance</td>
+<td>artifact.validate, artifact.review</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="usage-patterns">Usage Patterns<a class="headerlink" href="#usage-patterns" title="Permanent link">&para;</a></h2>
+<h3 id="pattern-1-single-artifact-creation">Pattern 1: Single Artifact Creation<a class="headerlink" href="#pattern-1-single-artifact-creation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Use specific agent for artifact type</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># Example: strategy.architect for business-case</span>
+</code></pre></div>
+<h3 id="pattern-2-workflow-execution">Pattern 2: Workflow Execution<a class="headerlink" href="#pattern-2-workflow-execution" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Use workflow.orchestrate for multi-artifact sets</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>python3<span class="w"> </span>skills/workflow.orchestrate/workflow_orchestrate.py<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span>project-initiation<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="s2">&quot;Cloud migration program&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span>./artifacts/cloud-migration
+</code></pre></div>
+<h3 id="pattern-3-custom-artifact-chain">Pattern 3: Custom Artifact Chain<a class="headerlink" href="#pattern-3-custom-artifact-chain" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Create artifacts sequentially with dependencies</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># 1. Create business-case with strategy.architect</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># 2. Create project-charter with governance.manager (references business-case)</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># 3. Create threat-model with security.architect</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># 4. Create test-plan with test.engineer (references threat-model)</span>
+</code></pre></div>
+<hr />
+<h2 id="artifact-traceability">Artifact Traceability<a class="headerlink" href="#artifact-traceability" title="Permanent link">&para;</a></h2>
+<h3 id="upstream-dependencies">Upstream Dependencies<a class="headerlink" href="#upstream-dependencies" title="Permanent link">&para;</a></h3>
+<p>Artifacts that commonly serve as inputs to others:
+- <code>business-case</code> → <code>project-charter</code>, <code>portfolio-roadmap</code>
+- <code>threat-model</code> → <code>security-architecture-diagram</code>, <code>incident-response-plan</code>
+- <code>data-model</code> → <code>schema-definition</code>, <code>data-flow-diagram</code>
+- <code>test-plan</code> → <code>test-cases</code>, <code>test-automation-strategy</code>
+- <code>deployment-plan</code> → <code>rollback-plan</code>, <code>runbooks</code></p>
+<h3 id="downstream-consumers">Downstream Consumers<a class="headerlink" href="#downstream-consumers" title="Permanent link">&para;</a></h3>
+<p>Artifacts that commonly reference others:
+- <code>project-charter</code> ← <code>business-case</code>
+- <code>test-cases</code> ← <code>test-plan</code>, <code>requirements-specification</code>
+- <code>deployment-plan</code> ← <code>test-plan</code>, <code>infrastructure-as-code</code>
+- <code>security-architecture-diagram</code> ← <code>threat-model</code>, <code>compliance-matrix</code></p>
+<hr />
+<h2 id="future-extensions">Future Extensions<a class="headerlink" href="#future-extensions" title="Permanent link">&para;</a></h2>
+<h3 id="planned-additions">Planned Additions<a class="headerlink" href="#planned-additions" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>requirements.engineer</strong> agent for requirements artifacts</li>
+<li><strong>architecture.designer</strong> agent for architecture diagrams</li>
+<li><strong>product.manager</strong> agent for product artifacts</li>
+<li><strong>release.manager</strong> agent for release management</li>
+<li>Additional workflow types for specialized SDLC patterns</li>
+</ul>
+<h3 id="enhanced-traceability">Enhanced Traceability<a class="headerlink" href="#enhanced-traceability" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Automatic dependency resolution</li>
+<li>Impact analysis (what artifacts are affected by changes)</li>
+<li>Coverage analysis (which requirements are tested/implemented)</li>
+<li>Compliance tracing (which controls address which threats)</li>
+</ul>
+<hr />
+<h2 id="version-history">Version History<a class="headerlink" href="#version-history" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0.0</td>
+<td>2025-10-25</td>
+<td>Initial producer/consumer map for Phase 3</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../ARTIFACT_FRAMEWORK_INTEGRATION/">ARTIFACT_FRAMEWORK_INTEGRATION.md</a> - Architecture overview</li>
+<li><a href="../ARTIFACT_USAGE_GUIDE/">ARTIFACT_USAGE_GUIDE.md</a> - Usage patterns</li>
+<li><a href="../PHASE3_COMPLETE.md">PHASE3_COMPLETE.md</a> - Phase 3 implementation details</li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 25, 2025 19:45:04 UTC">October 25, 2025</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 25, 2025 19:45:04 UTC">October 25, 2025</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 RiskExec
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/epieczko/betty" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
