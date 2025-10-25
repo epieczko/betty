@@ -1,0 +1,25 @@
+name: /optimize-build
+version: 0.1.0
+description: Optimize build processes and speed
+parameters:
+- name: project_path
+  type: string
+  description: Path to project root directory
+  required: false
+  default: .
+- name: format
+  type: enum
+  description: Output format
+  required: false
+  default: human
+  values:
+  - human
+  - json
+execution:
+  type: skill
+  target: build.optimize
+status: active
+tags:
+- build
+- optimization
+- performance

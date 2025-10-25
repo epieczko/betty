@@ -42,6 +42,18 @@ class CommandCreator:
     VALID_STATUSES = ["draft", "active", "deprecated", "archived"]
     VALID_PARAMETER_TYPES = ["string", "integer", "boolean", "enum", "array", "object"]
 
+    # Keywords for complexity analysis
+    AUTONOMY_KEYWORDS = [
+        "analyze", "optimize", "decide", "evaluate", "assess",
+        "complex", "multi-step", "autonomous", "intelligent",
+        "adaptive", "sophisticated", "advanced", "comprehensive"
+    ]
+
+    REUSABILITY_KEYWORDS = [
+        "reusable", "composable", "building block", "library",
+        "utility", "helper", "shared", "common", "core"
+    ]
+
     def __init__(self, base_dir: str = BASE_DIR):
         """Initialize command creator"""
         self.base_dir = Path(base_dir)
@@ -207,6 +219,123 @@ class CommandCreator:
 
         return context
 
+    def analyze_complexity(self, cmd_desc: Dict[str, Any], full_content: str = "") -> Dict[str, Any]:
+        """
+        Analyze command complexity and recommend pattern
+
+        Args:
+            cmd_desc: Parsed command description
+            full_content: Full description file content for analysis
+
+        Returns:
+            Dict with complexity analysis and pattern recommendation
+        """
+        analysis = {
+            "step_count": 0,
+            "complexity": "low",
+            "autonomy_level": "none",
+            "reusability": "low",
+            "recommended_pattern": "COMMAND_ONLY",
+            "should_create_skill": False,
+            "reasoning": []
+        }
+
+        # Count steps from description
+        # Look for numbered lists, bullet points, or explicit step mentions
+        step_patterns = [
+            r"^\s*\d+\.\s+",  # Numbered lists
+            r"^\s*[-*]\s+",   # Bullet points
+            r"\bstep\s+\d+\b",  # Explicit "step N"
+        ]
+
+        lines = full_content.split("\n")
+        step_count = 0
+        for line in lines:
+            for pattern in step_patterns:
+                if re.search(pattern, line, re.IGNORECASE):
+                    step_count += 1
+                    break
+
+        analysis["step_count"] = step_count
+
+        # Analyze content for keywords
+        content_lower = full_content.lower()
+        desc_lower = cmd_desc.get("description", "").lower()
+        combined = content_lower + " " + desc_lower
+
+        # Check autonomy keywords
+        autonomy_matches = [kw for kw in self.AUTONOMY_KEYWORDS if kw in combined]
+        if len(autonomy_matches) >= 3:
+            analysis["autonomy_level"] = "high"
+        elif len(autonomy_matches) >= 1:
+            analysis["autonomy_level"] = "medium"
+        else:
+            analysis["autonomy_level"] = "low"
+
+        # Check reusability keywords
+        reusability_matches = [kw for kw in self.REUSABILITY_KEYWORDS if kw in combined]
+        if len(reusability_matches) >= 2:
+            analysis["reusability"] = "high"
+        elif len(reusability_matches) >= 1:
+            analysis["reusability"] = "medium"
+
+        # Determine complexity
+        if step_count >= 10:
+            analysis["complexity"] = "high"
+        elif step_count >= 4:
+            analysis["complexity"] = "medium"
+        else:
+            analysis["complexity"] = "low"
+
+        # Estimate lines of logic (rough heuristic)
+        instruction_lines = sum(1 for line in lines if line.strip() and not line.strip().startswith("#"))
+        if instruction_lines > 50:
+            analysis["complexity"] = "high"
+
+        # Decide pattern based on decision tree
+        if step_count >= 10 or analysis["complexity"] == "high":
+            analysis["recommended_pattern"] = "SKILL_AND_COMMAND"
+            analysis["should_create_skill"] = True
+            analysis["reasoning"].append(f"High complexity: {step_count} steps detected")
+
+        elif analysis["autonomy_level"] == "high":
+            analysis["recommended_pattern"] = "SKILL_AND_COMMAND"
+            analysis["should_create_skill"] = True
+            analysis["reasoning"].append(f"High autonomy: matched keywords {autonomy_matches[:3]}")
+
+        elif analysis["reusability"] == "high":
+            if step_count <= 3:
+                analysis["recommended_pattern"] = "SKILL_ONLY"
+                analysis["should_create_skill"] = True
+                analysis["reasoning"].append("High reusability but low complexity: create skill only")
+            else:
+                analysis["recommended_pattern"] = "SKILL_AND_COMMAND"
+                analysis["should_create_skill"] = True
+                analysis["reasoning"].append(f"High reusability with {step_count} steps: create both")
+
+        elif step_count >= 4 and step_count <= 9:
+            # Medium complexity - could go either way
+            if analysis["autonomy_level"] == "medium":
+                analysis["recommended_pattern"] = "SKILL_AND_COMMAND"
+                analysis["should_create_skill"] = True
+                analysis["reasoning"].append(f"Medium complexity ({step_count} steps) with some autonomy needs")
+            else:
+                analysis["recommended_pattern"] = "COMMAND_ONLY"
+                analysis["reasoning"].append(f"Medium complexity ({step_count} steps) but simple logic: inline is fine")
+
+        else:
+            # Low complexity - command only
+            analysis["recommended_pattern"] = "COMMAND_ONLY"
+            analysis["reasoning"].append(f"Low complexity ({step_count} steps): inline orchestration is sufficient")
+
+        # Check if execution type already specifies skill
+        if cmd_desc.get("execution_type") == "skill":
+            analysis["recommended_pattern"] = "SKILL_AND_COMMAND"
+            analysis["should_create_skill"] = True
+            analysis["reasoning"].append("Execution type explicitly set to 'skill'")
+
+        return analysis
+
     def generate_command_manifest(self, cmd_desc: Dict[str, Any]) -> str:
         """
         Generate command manifest YAML
@@ -265,8 +394,26 @@ class CommandCreator:
         try:
             print(f"🎯  meta.command - Creating command from {description_path}\n")
 
+            # Read full content for analysis
+            with open(description_path, 'r') as f:
+                full_content = f.read()
+
             # Parse description
             cmd_desc = self.parse_description(description_path)
+
+            # Analyze complexity and recommend pattern
+            analysis = self.analyze_complexity(cmd_desc, full_content)
+
+            # Display analysis
+            print(f"📊 Complexity Analysis:")
+            print(f"   Steps detected: {analysis['step_count']}")
+            print(f"   Complexity: {analysis['complexity']}")
+            print(f"   Autonomy level: {analysis['autonomy_level']}")
+            print(f"   Reusability: {analysis['reusability']}")
+            print(f"\n💡 Recommended Pattern: {analysis['recommended_pattern']}")
+            for reason in analysis['reasoning']:
+                print(f"   • {reason}")
+            print()
 
             # Generate manifest YAML
             manifest_yaml = self.generate_command_manifest(cmd_desc)
@@ -290,16 +437,34 @@ class CommandCreator:
             print(f"   Name: {cmd_desc['name']}")
             print(f"   Execution: {cmd_desc['execution_type']} → {cmd_desc['target']}")
             print(f"   Status: {cmd_desc.get('status', 'draft')}\n")
-            print(f"📝 Next steps:")
-            print(f"   1. Review the manifest: cat {manifest_file}")
-            print(f"   2. Register command: python3 skills/command.define/command_define.py {manifest_file}")
-            print(f"   3. Verify in registry: cat registry/commands.json")
+
+            # Display skill creation recommendation if needed
+            if analysis['should_create_skill']:
+                print(f"⚠️  RECOMMENDATION: Create the skill first!")
+                print(f"   Pattern: {analysis['recommended_pattern']}")
+                print(f"\n   This command delegates to a skill ({cmd_desc['target']}),")
+                print(f"   but that skill may not exist yet.\n")
+                print(f"   Suggested workflow:")
+                print(f"   1. Create skill: python3 agents/meta.skill/meta_skill.py <skill-description.md>")
+                print(f"      - Skill should implement: {cmd_desc['target']}")
+                print(f"      - Include all complex logic from the command description")
+                print(f"   2. Test skill: python3 skills/{cmd_desc['target'].replace('.', '/')}/{cmd_desc['target'].replace('.', '_')}.py")
+                print(f"   3. Review this command manifest: cat {manifest_file}")
+                print(f"   4. Register command: python3 skills/command.define/command_define.py {manifest_file}")
+                print(f"   5. Verify in registry: cat registry/commands.json")
+                print(f"\n   See docs/SKILL_COMMAND_DECISION_TREE.md for pattern details\n")
+            else:
+                print(f"📝 Next steps:")
+                print(f"   1. Review the manifest: cat {manifest_file}")
+                print(f"   2. Register command: python3 skills/command.define/command_define.py {manifest_file}")
+                print(f"   3. Verify in registry: cat registry/commands.json")
 
             result = {
                 "ok": True,
                 "status": "success",
                 "command_name": cmd_desc["name"],
-                "manifest_file": str(manifest_file)
+                "manifest_file": str(manifest_file),
+                "complexity_analysis": analysis
             }
 
             # Log traceability if requirement provided
