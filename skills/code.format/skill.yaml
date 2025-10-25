@@ -1,0 +1,56 @@
+name: code.format
+version: 0.1.0
+description: Format code using Prettier, supporting multiple languages and file types.
+  This skill can format individual files or entire directories, check formatting without
+  making changes, and respect custom Prettier configurations.
+
+inputs:
+  - name: path
+    type: string
+    required: true
+    description: File or directory path to format
+  - name: config_path
+    type: string
+    required: false
+    description: Path to custom Prettier configuration file
+  - name: check_only
+    type: boolean
+    required: false
+    default: false
+    description: Only check formatting without modifying files
+  - name: file_patterns
+    type: string
+    required: false
+    description: Comma-separated glob patterns to filter files (e.g., "**/*.js,**/*.ts")
+  - name: write
+    type: boolean
+    required: false
+    default: true
+    description: Write formatted output to files (default true, use false for dry run)
+
+outputs:
+  - name: formatting_report.json
+    type: application/json
+    description: JSON report with formatting results, files processed, and any errors
+  - name: formatted_files
+    type: text/plain
+    description: Updated files with proper formatting (when write=true)
+
+status: active
+
+permissions:
+  - filesystem:read
+  - filesystem:write
+  - process:execute
+
+entrypoints:
+  - command: /code/format
+    handler: code_format.py
+    runtime: python
+    description: Format code using Prettier
+
+artifact_metadata:
+  produces:
+    - type: formatting-report
+      format: application/json
+      description: Detailed report of formatting operation results
