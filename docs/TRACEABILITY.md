@@ -26,6 +26,28 @@ python3 agents/atum/atum.py examples/agents/code_reviewer_agent.md \
 
 # Output includes trace ID:
 # 📝 Traceability: trace-20251025-code.reviewer
+
+# Create skill with requirement linkage
+python3 agents/meta.skill/meta_skill.py examples/skills/file_compare_skill.md \
+  --requirement-id "REQ-2025-002" \
+  --requirement-description "File comparison for change detection" \
+  --issue-id "JIRA-124" \
+  --requested-by "dev-team@example.com" \
+  --rationale "Enable automated file diff analysis"
+
+# Output includes trace ID:
+# 📝 Traceability: trace-20251025-file.compare
+
+# Create hook with requirement linkage
+python3 agents/meta.hook/meta_hook.py examples/hooks/pre_commit_lint_hook.md \
+  --requirement-id "REQ-2025-003" \
+  --requirement-description "Pre-commit code quality checks" \
+  --issue-id "JIRA-125" \
+  --requested-by "qa-team@example.com" \
+  --rationale "Enforce code quality standards before commits"
+
+# Output includes trace ID:
+# 📝 Traceability: trace-20251025-hook.pre_commit_lint
 ```
 
 ### View Traceability Record
@@ -497,12 +519,12 @@ chmod 755 .betty-traces
 ## Future Enhancements
 
 Planned features:
-- Integration with meta.skill and meta.hook
-- Automatic test result capture
-- Git commit linkage
-- Change history tracking
-- Compliance report generation
-- Web UI for viewing traces
+- Automatic test result capture from pytest and other test frameworks
+- Git commit linkage for change tracking
+- Change history tracking across component versions
+- Automated compliance report generation
+- Web UI dashboard for viewing and searching traces
+- Integration with CI/CD pipelines for automated verification
 
 ## Support
 

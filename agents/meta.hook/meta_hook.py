@@ -25,6 +25,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../.
 
 from betty.config import BASE_DIR
 from betty.logging_utils import setup_logger
+from betty.traceability import get_tracer, RequirementInfo
 
 logger = setup_logger(__name__)
 
@@ -145,12 +146,17 @@ class HookCreator:
 
         return yaml.dump(hooks_yaml, default_flow_style=False, sort_keys=False)
 
-    def create_hook(self, description_path: str) -> Dict[str, Any]:
+    def create_hook(
+        self,
+        description_path: str,
+        requirement: Optional[RequirementInfo] = None
+    ) -> Dict[str, Any]:
         """
         Create hook from description file
 
         Args:
             description_path: Path to description file
+            requirement: Optional requirement information for traceability
 
         Returns:
             Dict with creation results
@@ -203,12 +209,68 @@ class HookCreator:
             print(f"   Event: {hook_desc['event']}")
             print(f"   Command: {hook_desc['command']}")
 
-            return {
+            result = {
                 "ok": True,
                 "status": "success",
                 "hook_name": hook_desc["name"],
                 "hooks_file": str(hooks_file)
             }
+
+            # Log traceability if requirement provided
+            trace_id = None
+            if requirement:
+                try:
+                    tracer = get_tracer()
+
+                    # Create component ID from hook name
+                    component_id = f"hook.{hook_desc['name'].replace('-', '_')}"
+
+                    trace_id = tracer.log_creation(
+                        component_id=component_id,
+                        component_name=hook_desc["name"],
+                        component_type="hook",
+                        component_version="0.1.0",
+                        component_file_path=str(hooks_file),
+                        input_source_path=description_path,
+                        created_by_tool="meta.hook",
+                        created_by_version="0.1.0",
+                        requirement=requirement,
+                        tags=["hook", "auto-generated", hook_desc["event"]],
+                        project="Betty Framework"
+                    )
+
+                    # Log validation check
+                    validation_details = {
+                        "checks_performed": [
+                            {"name": "hook_structure", "status": "passed"},
+                            {"name": "event_validation", "status": "passed",
+                             "message": f"Valid event type: {hook_desc['event']}"}
+                        ]
+                    }
+
+                    # Check for tool filter
+                    if hook_desc.get("tool_filter"):
+                        validation_details["checks_performed"].append({
+                            "name": "tool_filter_validation",
+                            "status": "passed",
+                            "message": f"Tool filter: {hook_desc['tool_filter']}"
+                        })
+
+                    tracer.log_verification(
+                        component_id=component_id,
+                        check_type="validation",
+                        tool="meta.hook",
+                        result="passed",
+                        details=validation_details
+                    )
+
+                    result["trace_id"] = trace_id
+                    result["component_id"] = component_id
+
+                except Exception as e:
+                    print(f"⚠️  Warning: Could not log traceability: {e}")
+
+            return result
 
         except Exception as e:
             print(f"❌ Error creating hook: {e}")
@@ -222,17 +284,63 @@ class HookCreator:
 
 def main():
     """CLI entry point"""
-    if len(sys.argv) < 2:
-        print("Usage: python3 meta_hook.py <hook_description_file>")
-        print("\nExamples:")
-        print("  python3 meta_hook.py examples/lint_hook.md")
-        print("  python3 meta_hook.py examples/notify_hook.json")
-        sys.exit(1)
+    import argparse
 
-    description_path = sys.argv[1]
+    parser = argparse.ArgumentParser(
+        description="meta.hook - Create hooks from descriptions"
+    )
+    parser.add_argument(
+        "description",
+        help="Path to hook description file (.md or .json)"
+    )
+
+    # Traceability arguments
+    parser.add_argument(
+        "--requirement-id",
+        help="Requirement identifier (e.g., REQ-2025-001)"
+    )
+    parser.add_argument(
+        "--requirement-description",
+        help="What this hook accomplishes"
+    )
+    parser.add_argument(
+        "--requirement-source",
+        help="Source document"
+    )
+    parser.add_argument(
+        "--issue-id",
+        help="Issue tracking ID (e.g., JIRA-123)"
+    )
+    parser.add_argument(
+        "--requested-by",
+        help="Who requested this"
+    )
+    parser.add_argument(
+        "--rationale",
+        help="Why this is needed"
+    )
+
+    args = parser.parse_args()
+
+    # Create requirement info if provided
+    requirement = None
+    if args.requirement_id and args.requirement_description:
+        requirement = RequirementInfo(
+            id=args.requirement_id,
+            description=args.requirement_description,
+            source=args.requirement_source,
+            issue_id=args.issue_id,
+            requested_by=args.requested_by,
+            rationale=args.rationale
+        )
 
     creator = HookCreator()
-    result = creator.create_hook(description_path)
+    result = creator.create_hook(args.description, requirement=requirement)
+
+    # Display traceability info if available
+    if result.get("trace_id"):
+        print(f"\n📝 Traceability: {result['trace_id']}")
+        print(f"   View trace: python3 betty/trace_cli.py show {result['component_id']}")
 
     sys.exit(0 if result.get("ok") else 1)
 
