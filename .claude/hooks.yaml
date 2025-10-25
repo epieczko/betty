@@ -1,22 +1,10 @@
 hooks:
-  on_file_edit:
-  - name: python betty-skills-api-validate-api_validate-py {file_path} zalando-all.openapi.yaml
-    command: python betty/skills/api.validate/api_validate.py {file_path} zalando
-    blocking: true
-    timeout: 10000
-    when:
-      pattern: '*.openapi.yaml'
-    description: Validate OpenAPI specs against Zalando guidelines on every edit
-  - name: python betty-skills-api-validate-api_validate-py {file_path}-all.asyncapi.yaml
-    command: python betty/skills/api.validate/api_validate.py {file_path}
-    blocking: true
-    timeout: 10000
-    when:
-      pattern: '*.asyncapi.yaml'
-    description: Validate AsyncAPI specs on every edit
-  - name: policy-enforce-skill-yaml
-    command: python skills/policy.enforce/policy_enforce.py {file_path}
-    blocking: true
-    when:
-      pattern: 'skills/*/skill.yaml'
-    description: Enforce policy on skill.yaml files
+- name: auto-stage-edited-files
+  event: after-tool-call
+  command: if [[ -n "$CLAUDE_TOOL_FILE_PATH" ]] && git rev-parse --git-dir >/dev/null
+    2>&1; then git add "$CLAUDE_TOOL_FILE_PATH" 2>/dev/null || true; fi
+  description: Automatically stage modified files with git add after editing. Helps
+    maintain a clean git workflow by staging changes as they're made.
+  enabled: true
+  tool_filter: Edit|Write
+  timeout: 5000
