@@ -16,18 +16,25 @@ Betty is an AI-native Software Development Life Cycle (SDLC) framework that runs
 
 - Python 3.8 or higher
 - Git 2.20 or higher
-- Claude Code CLI
+- Claude Code CLI (optional, but recommended)
 
 ## Quick Setup
 
-Run the single-command setup script:
+### Automated Setup (Recommended)
 
+**Linux/macOS:**
 ```bash
 curl -sSL https://raw.githubusercontent.com/epieczko/betty/main/scripts/quickstart.sh | bash
 ```
 
-Or manually:
+**Windows (PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/epieczko/betty/main/scripts/quickstart.ps1 | iex
+```
 
+### Manual Setup
+
+**Linux/macOS:**
 ```bash
 # Clone the repository
 git clone https://github.com/epieczko/betty.git
@@ -44,6 +51,49 @@ export BETTY_HOME="$(pwd)"
 python3 -m betty.validation
 ```
 
+**Windows (PowerShell):**
+```powershell
+# Clone the repository
+git clone https://github.com/epieczko/betty.git
+cd betty
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Set environment variables (current session)
+$env:PYTHONPATH = "$env:PYTHONPATH;$(Get-Location)"
+$env:BETTY_HOME = "$(Get-Location)"
+
+# Set environment variables (permanent - optional)
+[System.Environment]::SetEnvironmentVariable("BETTY_HOME", "$(Get-Location)", "User")
+$currentPath = [System.Environment]::GetEnvironmentVariable("PYTHONPATH", "User")
+[System.Environment]::SetEnvironmentVariable("PYTHONPATH", "$currentPath;$(Get-Location)", "User")
+
+# Verify installation
+python -m betty.validation
+```
+
+**Windows (Command Prompt):**
+```cmd
+REM Clone the repository
+git clone https://github.com/epieczko/betty.git
+cd betty
+
+REM Install dependencies
+pip install -r requirements.txt
+
+REM Set environment variables (current session)
+set PYTHONPATH=%PYTHONPATH%;%CD%
+set BETTY_HOME=%CD%
+
+REM Set environment variables (permanent - requires admin)
+setx BETTY_HOME "%CD%"
+setx PYTHONPATH "%PYTHONPATH%;%CD%"
+
+REM Verify installation
+python -m betty.validation
+```
+
 ## Create Your First Skill: Hello World
 
 Betty makes it incredibly easy to create new skills using meta-agents. Let's create a simple "Hello World" skill.
@@ -52,6 +102,7 @@ Betty makes it incredibly easy to create new skills using meta-agents. Let's cre
 
 Create a skill description file:
 
+**Linux/macOS:**
 ```bash
 cat > hello_world_description.md <<'EOF'
 # Skill: hello.world
@@ -75,18 +126,56 @@ Create a friendly greeting skill that says hello to users.
 
 ## Example Usage
 ```bash
-python3 skills/hello.world/hello_world.py --name "Alice" --greeting_style casual
+python skills/hello.world/hello_world.py --name "Alice" --greeting_style casual
 # Output: "Hey Alice! Welcome to Betty Framework!"
 ```
 EOF
 ```
 
+**Windows (PowerShell):**
+```powershell
+@'
+# Skill: hello.world
+
+## Purpose
+Create a friendly greeting skill that says hello to users.
+
+## Inputs
+- `name` (required): Name of the person to greet
+- `greeting_style` (optional): Style of greeting (casual, formal, enthusiastic). Default: casual
+
+## Outputs
+- `greeting.txt`: File containing the personalized greeting
+- Console output with the greeting message
+
+## Behavior
+1. Accept a name as input
+2. Generate a personalized greeting based on the style
+3. Save the greeting to a file
+4. Print the greeting to console
+
+## Example Usage
+```bash
+python skills/hello.world/hello_world.py --name "Alice" --greeting_style casual
+# Output: "Hey Alice! Welcome to Betty Framework!"
+```
+'@ | Out-File -FilePath hello_world_description.md -Encoding utf8
+```
+
+**Or use any text editor** (Notepad, VS Code, etc.) to create `hello_world_description.md` with the content above.
+
 ### Step 2: Generate the Skill
 
 Use the `meta.skill` agent to generate your skill:
 
+**Linux/macOS:**
 ```bash
 python3 agents/meta.skill/meta_skill.py hello_world_description.md
+```
+
+**Windows:**
+```powershell
+python agents/meta.skill/meta_skill.py hello_world_description.md
 ```
 
 This creates:
@@ -204,6 +293,7 @@ if __name__ == "__main__":
 
 Run your Hello World skill:
 
+**Linux/macOS:**
 ```bash
 # Casual greeting
 python3 skills/hello.world/hello_world.py --name "Alice"
@@ -215,9 +305,27 @@ python3 skills/hello.world/hello_world.py --name "Bob" --greeting_style formal
 python3 skills/hello.world/hello_world.py --name "Charlie" --greeting_style enthusiastic
 ```
 
+**Windows:**
+```powershell
+# Casual greeting
+python skills/hello.world/hello_world.py --name "Alice"
+
+# Formal greeting
+python skills/hello.world/hello_world.py --name "Bob" --greeting_style formal
+
+# Enthusiastic greeting
+python skills/hello.world/hello_world.py --name "Charlie" --greeting_style enthusiastic
+```
+
 Run the test suite:
 
+**Linux/macOS:**
 ```bash
+pytest skills/hello.world/test_hello_world.py -v
+```
+
+**Windows:**
+```powershell
 pytest skills/hello.world/test_hello_world.py -v
 ```
 
@@ -225,6 +333,7 @@ pytest skills/hello.world/test_hello_world.py -v
 
 Create an agent that uses your Hello World skill:
 
+**Linux/macOS:**
 ```bash
 cat > my_first_agent.yaml <<'EOF'
 name: greeter
@@ -241,6 +350,25 @@ workflow:
 EOF
 ```
 
+**Windows (PowerShell):**
+```powershell
+@'
+name: greeter
+version: 0.1.0
+description: A friendly agent that greets users
+skills:
+  - hello.world
+workflow:
+  - step: greet_user
+    skill: hello.world
+    inputs:
+      name: ${USER_NAME}
+      greeting_style: casual
+'@ | Out-File -FilePath my_first_agent.yaml -Encoding utf8
+```
+
+**Or create the file using any text editor.**
+
 ## What's Next?
 
 Congratulations! You've created your first Betty skill. Here's what to explore next:
@@ -256,6 +384,8 @@ Congratulations! You've created your first Betty skill. Here's what to explore n
 - **[Example Hooks](examples/hooks/)** - Event-driven automation
 
 ### Create More
+
+**Linux/macOS:**
 ```bash
 # Create a new skill
 python3 agents/meta.skill/meta_skill.py my_skill_description.md
@@ -267,6 +397,18 @@ python3 agents/atum/atum.py my_agent_description.md
 python3 agents/meta.hook/meta_hook.py my_hook_description.md
 ```
 
+**Windows:**
+```powershell
+# Create a new skill
+python agents/meta.skill/meta_skill.py my_skill_description.md
+
+# Create a new agent
+python agents/atum/atum.py my_agent_description.md
+
+# Create a new hook
+python agents/meta.hook/meta_hook.py my_hook_description.md
+```
+
 ### Join the Community
 - **[GitHub Issues](https://github.com/epieczko/betty/issues)** - Report bugs or request features
 - **[Discussions](https://github.com/epieczko/betty/discussions)** - Ask questions and share ideas
@@ -276,18 +418,37 @@ python3 agents/meta.hook/meta_hook.py my_hook_description.md
 ### Common Issues
 
 **Import errors:**
+
+*Linux/macOS:*
 ```bash
 export PYTHONPATH="${PYTHONPATH}:$(pwd)"
 ```
 
-**Permission denied:**
+*Windows (PowerShell):*
+```powershell
+$env:PYTHONPATH = "$env:PYTHONPATH;$(Get-Location)"
+```
+
+*Windows (Command Prompt):*
+```cmd
+set PYTHONPATH=%PYTHONPATH%;%CD%
+```
+
+**Permission denied (Linux/macOS only):**
 ```bash
 chmod +x skills/hello.world/hello_world.py
 ```
 
 **Skill not found in registry:**
+
+*Linux/macOS:*
 ```bash
 python3 skills/registry.update/registry_update.py --scan-all
+```
+
+*Windows:*
+```powershell
+python skills/registry.update/registry_update.py --scan-all
 ```
 
 ## Key Concepts
@@ -300,6 +461,7 @@ python3 skills/registry.update/registry_update.py --scan-all
 
 ## Quick Reference
 
+**Linux/macOS:**
 ```bash
 # List all skills
 cat registry/skills.json | jq '.skills[].name'
@@ -315,6 +477,24 @@ pytest tests/ -v
 
 # Validate everything
 python3 -m betty.validation
+```
+
+**Windows (PowerShell):**
+```powershell
+# List all skills
+Get-Content registry/skills.json | ConvertFrom-Json | Select-Object -ExpandProperty skills | Select-Object name
+
+# List all agents
+Get-Content registry/agents.json | ConvertFrom-Json | Select-Object -ExpandProperty agents | Select-Object name
+
+# Update registries
+python skills/registry.update/registry_update.py --scan-all
+
+# Run tests
+pytest tests/ -v
+
+# Validate everything
+python -m betty.validation
 ```
 
 ---
