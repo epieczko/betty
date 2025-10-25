@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Grpc Proto Files is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+gRPC Proto Files define service contracts for gRPC APIs using Protocol Buffers (Protobuf) Interface Definition Language (IDL). These .proto files specify service methods, message types, field definitions, and streaming patterns that enable high-performance, type-safe, bidirectional communication between microservices using HTTP/2 transport.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Built using Protocol Buffers v3 syntax, proto files leverage protoc compiler for code generation across 10+ languages (Java, Go, Python, C++, C#, Node.js, Ruby, PHP), support four streaming modes (unary, server-streaming, client-streaming, bidirectional streaming), and enable features like backward/forward compatibility, efficient binary serialization, automatic API documentation, and strongly-typed contracts for polyglot microservices architectures running on Kubernetes, service meshes (Istio, Linkerd), and cloud platforms.
 
 ### Strategic Importance
 
@@ -20,27 +20,43 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines gRPC service contracts using Protocol Buffers IDL, specifying service interfaces, RPC methods, request/response message types, streaming patterns, and data structures. It enables contract-first API development, cross-language code generation, type-safe communication, and efficient binary serialization for high-performance microservices.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Protocol Buffers v3 syntax (.proto files)
+- Service definitions with RPC methods
+- Message types and field definitions
+- Streaming modes: unary, server-streaming, client-streaming, bidirectional
+- Scalar types (int32, int64, float, double, bool, string, bytes)
+- Complex types (message, enum, oneof, map, repeated)
+- Package namespacing and imports
+- Field numbering and reserved fields
+- Options and custom options
+- Well-known types (Timestamp, Duration, Empty, Any, Struct)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- gRPC server/client implementation code
+- Interceptors and middleware logic
+- Service deployment and infrastructure
+- Load balancing and service discovery
+- TLS/SSL certificate configuration
+- Monitoring and tracing implementation
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- API Engineers designing gRPC services
+- Backend Engineers implementing microservices
+- Platform Engineers managing service contracts
+- Polyglot teams using multiple programming languages
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Software Architects reviewing API design
+- DevOps Engineers deploying gRPC services
+- QA Engineers testing service contracts
+- Mobile Engineers consuming gRPC APIs
 
 ## Document Information
 
@@ -106,19 +122,121 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Proto3 Syntax**:
+- **Always Use Proto3**: Use `syntax = "proto3";` at top of file
+- **Package Naming**: Use reverse domain notation (com.company.service.v1)
+- **File Organization**: One service per .proto file; separate messages into logical files
+- **Imports**: Use well-known types from google/protobuf when appropriate
+
+**Field Numbering**:
+- **Never Change Field Numbers**: Field numbers are part of wire format; changing breaks compatibility
+- **Reserve Deleted Fields**: Use `reserved` keyword to prevent number reuse
+- **Number Ranges**: Use 1-15 for frequently used fields (1-byte encoding)
+- **Sequential Numbering**: Number fields sequentially; don't leave gaps
+- **Reserved Ranges**: Reserve ranges for future extensions (e.g., 1000-2000)
+
+**Schema Evolution**:
+- **Backward Compatibility**: New clients can read old messages
+- **Forward Compatibility**: Old clients can read new messages
+- **Safe Changes**: Add new fields, delete optional fields, change field names
+- **Breaking Changes**: Never change field numbers or types
+- **Deprecation**: Mark deprecated fields with `[deprecated = true]`
+
+**Message Design**:
+- **Meaningful Names**: Use clear, descriptive message names (CreateUserRequest, not Req)
+- **Request/Response Pattern**: Suffix with Request/Response (GetOrderRequest, GetOrderResponse)
+- **Nested Messages**: Use nested messages for closely related types
+- **Avoid Deep Nesting**: Keep message nesting shallow (2-3 levels max)
+- **Empty Messages**: Use google.protobuf.Empty for empty requests/responses
+
+**Field Design**:
+- **Optional Fields**: All fields in proto3 are optional by default
+- **Required Data**: Use validation, not proto2 required keyword
+- **Repeated Fields**: Use `repeated` for arrays/lists
+- **Maps**: Use `map<key_type, value_type>` for key-value pairs
+- **Oneof**: Use `oneof` for mutually exclusive fields
+
+**Service Design**:
+- **Unary RPCs**: Use for simple request-response (GetUser, CreateOrder)
+- **Server Streaming**: Use for large result sets (ListUsers returns stream)
+- **Client Streaming**: Use for uploading data (UploadFile sends stream)
+- **Bidirectional Streaming**: Use for real-time communication (Chat)
+
+**Naming Conventions**:
+- **Services**: PascalCase (UserService, OrderService)
+- **Methods**: PascalCase (GetUser, CreateOrder, DeleteProduct)
+- **Messages**: PascalCase (User, Order, Product)
+- **Fields**: snake_case (user_id, created_at, first_name)
+- **Enums**: UPPER_SNAKE_CASE (USER_STATUS_ACTIVE, ORDER_TYPE_RETAIL)
+
+**Enum Design**:
+- **Zero Value**: First enum value must be zero (UNKNOWN or UNSPECIFIED)
+- **Explicit Values**: Assign explicit values to all enum constants
+- **Prefix Enums**: Prefix enum values with enum name to avoid conflicts
+- **Deprecation**: Mark deprecated enum values clearly
+
+**Well-Known Types**:
+- **Timestamp**: Use google.protobuf.Timestamp for date-time
+- **Duration**: Use google.protobuf.Duration for time spans
+- **Empty**: Use google.protobuf.Empty for void/null
+- **Any**: Use google.protobuf.Any for dynamic types (sparingly)
+- **Wrappers**: Use wrappers for nullable primitives (Int32Value, StringValue)
+
+**API Versioning**:
+- **Package Versioning**: Include version in package (com.company.service.v1)
+- **Major Versions**: Create new package for breaking changes (v1 -> v2)
+- **Multiple Versions**: Support multiple API versions simultaneously
+- **Deprecation Period**: Maintain old versions during transition
+
+**Error Handling**:
+- **Status Codes**: Use standard gRPC status codes
+- **Rich Errors**: Use google.rpc.Status for detailed error information
+- **Error Details**: Include ErrorInfo, DebugInfo, RetryInfo
+- **Client Errors**: 4xx-equivalent for client errors (INVALID_ARGUMENT, NOT_FOUND)
+- **Server Errors**: 5xx-equivalent for server errors (INTERNAL, UNAVAILABLE)
+
+**Documentation**:
+- **Comments**: Add comments to all services, methods, messages, fields
+- **Method Description**: Explain what method does, when to use it
+- **Field Description**: Document field purpose, format, constraints
+- **Examples**: Provide usage examples in comments
+
+**Code Generation**:
+- **Buf**: Use Buf for modern protobuf workflow (linting, generation, breaking change detection)
+- **Multi-Language**: Generate code for all target languages
+- **Version Control**: Check in .proto files; optionally generated code
+- **CI/CD Integration**: Auto-generate code in build pipeline
+
+**Linting & Validation**:
+- **Buf Lint**: Use Buf linting rules for consistency
+- **Breaking Changes**: Detect breaking changes in CI/CD
+- **Style Guide**: Follow Google's Protocol Buffers Style Guide
+- **Automated Checks**: Validate proto files in pull requests
+
+**Performance**:
+- **Message Size**: Keep messages small; avoid large nested structures
+- **Field Ordering**: Place frequently used fields in 1-15 range
+- **Streaming**: Use streaming for large data transfers
+- **Compression**: Enable gRPC compression for large payloads
+
+**Security**:
+- **TLS**: Always use TLS in production
+- **Authentication**: Use JWT or OAuth2 tokens in metadata
+- **Authorization**: Implement field-level authorization
+- **Input Validation**: Validate all inputs on server side
+- **Sensitive Data**: Avoid logging sensitive fields
+
+**Testing**:
+- **Contract Testing**: Test that implementations match proto definitions
+- **Backward Compatibility**: Test old clients with new servers
+- **Forward Compatibility**: Test new clients with old servers
+- **Load Testing**: Use ghz or similar for gRPC load testing
+
+**Dependency Management**:
+- **Buf Registry**: Use Buf Schema Registry for proto dependencies
+- **Versioned Dependencies**: Pin proto dependency versions
+- **Shared Protos**: Extract common types to shared proto modules
+- **Import Paths**: Use consistent import paths across projects
 
 ## Quality Criteria
 
@@ -165,9 +283,138 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Protocol Buffers**:
+- Protocol Buffers v3 (proto3 syntax)
+- Language-neutral, platform-neutral serialization
+- Binary wire format (efficient, compact)
+- Text format (for debugging, human-readable)
+- JSON mapping for interoperability
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**gRPC Framework**:
+- gRPC Core (C-based implementation)
+- HTTP/2 transport protocol
+- Multiplexing (multiple RPCs over single connection)
+- Flow control and bidirectional streaming
+- Deadline/timeout propagation
+- Metadata (headers) support
+
+**Streaming Patterns**:
+- Unary RPC: Single request, single response
+- Server streaming: Single request, stream of responses
+- Client streaming: Stream of requests, single response
+- Bidirectional streaming: Stream of requests and responses
+
+**Scalar Types**:
+- Integer types: int32, int64, uint32, uint64, sint32, sint64, fixed32, fixed64, sfixed32, sfixed64
+- Floating point: float, double
+- Boolean: bool
+- String: string (UTF-8 or 7-bit ASCII)
+- Bytes: bytes (arbitrary byte sequence)
+
+**Complex Types**:
+- message (composite types, nested messages)
+- enum (enumerated values)
+- oneof (one field active at a time)
+- map (key-value pairs: map<key_type, value_type>)
+- repeated (array/list of values)
+
+**Well-Known Types**:
+- google.protobuf.Timestamp (date-time)
+- google.protobuf.Duration (time span)
+- google.protobuf.Empty (no data)
+- google.protobuf.Any (arbitrary message type)
+- google.protobuf.Struct (JSON-like structures)
+- google.protobuf.FieldMask (field selection)
+- google.protobuf.Wrappers (nullable primitives)
+
+**Code Generation**:
+- protoc compiler (official Protocol Buffers compiler)
+- Language plugins: protoc-gen-go, protoc-gen-java, protoc-gen-python, protoc-gen-grpc-web
+- Buf (modern protoc alternative with enhanced features)
+- grpc-gateway (gRPC to REST/JSON transcoding)
+
+**Compatibility Rules**:
+- Never change field numbers of existing fields
+- Can add new fields (will be ignored by old clients)
+- Can delete optional fields (use reserved to prevent reuse)
+- Can change field names (wire format uses numbers)
+- Can't change field types (breaking change)
+
+**Service Definition**:
+- Service keyword defines RPC service
+- rpc keyword defines methods
+- Request/response message types
+- Streaming keywords: stream
+
+**gRPC Implementations**:
+- gRPC-Go (official Go implementation)
+- grpc-java (official Java implementation)
+- grpc-node (Node.js)
+- grpc-python
+- grpc-dotnet (C#/.NET)
+- grpc-web (browser support)
+- grpc-swift (iOS/macOS)
+- grpc-kotlin
+
+**Service Mesh Integration**:
+- Istio (traffic management, observability)
+- Linkerd (lightweight service mesh)
+- Envoy proxy (gRPC load balancing)
+- Consul Connect
+- AWS App Mesh
+
+**Error Handling**:
+- gRPC status codes (OK, CANCELLED, UNKNOWN, INVALID_ARGUMENT, DEADLINE_EXCEEDED, NOT_FOUND, etc.)
+- google.rpc.Status for rich error details
+- Error details with google.rpc.ErrorInfo, DebugInfo, RetryInfo
+
+**Interceptors & Middleware**:
+- Unary interceptors (before/after RPC)
+- Streaming interceptors (stream lifecycle)
+- Authentication interceptors
+- Logging and metrics interceptors
+- Retry and circuit breaker logic
+
+**Load Balancing**:
+- Client-side load balancing
+- Round-robin, least-request algorithms
+- Subchannel management
+- Health checking protocol
+
+**Security**:
+- TLS/SSL encryption (transport security)
+- OAuth2 token authentication
+- JWT (JSON Web Tokens)
+- mTLS (mutual TLS)
+- Application-level authentication
+
+**Reflection & Introspection**:
+- gRPC Server Reflection Protocol
+- grpcurl (curl for gRPC)
+- grpcui (web UI for gRPC services)
+- BloomRPC, Postman (gRPC clients)
+
+**Tooling**:
+- buf (linting, breaking change detection, dependency management)
+- grpcurl (command-line gRPC client)
+- ghz (gRPC benchmarking tool)
+- grpc-ecosystem (gateway, health checking, middleware)
+- Evans (gRPC CLI client)
+
+**API Design Patterns**:
+- Pagination (page tokens, limit)
+- Filtering and sorting
+- Field masks (partial responses)
+- Long-running operations (google.longrunning.Operation)
+- Batch operations
+
+**Cloud Platform Support**:
+- Google Cloud (Cloud Run, GKE, Endpoints)
+- AWS (App Runner, ECS, EKS, App Mesh)
+- Azure (AKS, Container Apps)
+- gRPC native support in all major clouds
+
+**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application. Refer to grpc.io and developers.google.com/protocol-buffers.
 
 ## Integration Points
 

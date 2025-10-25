@@ -2,45 +2,64 @@
 
 ## Executive Summary
 
-The Data Lineage Tracking is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Data Lineage Tracking is the operational process and technical implementation for continuously capturing, updating, and maintaining data lineage metadata in real-time as data flows through pipelines, transformations, and consumption layers. Unlike static lineage maps, lineage tracking encompasses the automated instrumentation, event capture, metadata extraction, and continuous synchronization mechanisms that keep lineage information current and accurate.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Implementation leverages OpenLineage standard events, Apache Atlas hooks, DataHub metadata change events, Collibra automated scanners, and integration with orchestration platforms (Apache Airflow, Prefect, Dagster) to emit lineage events during pipeline execution. Modern approaches treat lineage as observable telemetry alongside logs, metrics, and traces, integrating with DataOps platforms and data observability tools (Monte Carlo, Bigeye, Datafold) to provide real-time visibility aligned with DAMA DMBoK operational metadata management practices.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Real-time Accuracy**: Maintains up-to-date lineage through automated event capture, eliminating manual documentation lag
+- **Operational Observability**: Enables real-time monitoring of data flow health, transformation success, and pipeline execution
+- **Automated Compliance**: Supports continuous GDPR, BCBS 239, and SOX compliance through always-current data flow documentation
+- **Incident Response**: Accelerates root cause analysis during data quality incidents by showing actual execution paths
+- **Change Impact Detection**: Automatically identifies downstream impacts when upstream schemas or pipelines change
+- **DataOps Integration**: Embeds lineage tracking in CI/CD pipelines for automated validation before production deployment
+- **Metadata Quality**: Ensures lineage accuracy through programmatic capture versus error-prone manual documentation
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents the technical implementation, configuration, and operational procedures for automated data lineage capture, including instrumentation code, event schemas, metadata extraction schedules, and integration patterns with data platforms and catalog systems.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- OpenLineage event emission configuration for Apache Airflow, Spark, dbt, and custom pipelines
+- Apache Atlas hook implementation for Hive, HBase, Kafka, and Hadoop ecosystem lineage
+- DataHub metadata ingestion recipes and scheduled extraction from databases, ETL tools, and BI platforms
+- Collibra scanner configuration for automated metadata harvesting and lineage extraction
+- Alation query log analysis and automated lineage generation settings
+- dbt metadata artifacts generation and lineage graph export to external catalogs
+- Spark listener implementation for job-level and stage-level lineage tracking
+- SQL parser integration for extracting column-level lineage from query logs
+- Streaming lineage tracking for Kafka topic producer/consumer relationships
+- BI connector configuration for Tableau, Power BI, and Looker lineage extraction
+- Change data capture (CDC) integration for real-time lineage updates
+- Lineage API specifications for custom application integration
+- Metadata quality monitoring and lineage coverage metrics
+- Lineage event schema validation and error handling procedures
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Visual lineage map creation and documentation (covered by data-lineage-maps artifact)
+- Pipeline performance optimization (covered by performance tuning documentation)
+- Data quality rule implementation (covered by data-quality-rules artifact)
+- Access control and security policies (documented in security artifacts)
+- Cost optimization for metadata storage (covered by infrastructure cost management)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Data Engineers: Implement OpenLineage instrumentation in pipelines and configure metadata extraction
+- DataOps Engineers: Deploy and maintain lineage tracking infrastructure and monitoring
+- Platform Engineers: Configure data catalog integrations and metadata ingestion schedules
+- Analytics Engineers: Set up dbt lineage generation and integration with enterprise catalogs
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Data Architects: Define lineage tracking standards and integration architecture
+- Site Reliability Engineers: Monitor lineage tracking system health and performance
+- DevOps Engineers: Integrate lineage tracking into CI/CD pipelines
+- Compliance Officers: Validate lineage tracking coverage for regulatory requirements
 
 ## Document Information
 
@@ -106,19 +125,24 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Infrastructure as Code**: Deploy lineage tracking configuration (DataHub recipes, Atlas hooks, OpenLineage configs) using Terraform, Helm charts, or GitOps patterns
+**OpenLineage First**: Prioritize OpenLineage standard for new integrations to ensure portability across lineage tools and platforms
+**Event-Driven Architecture**: Design lineage capture as event-driven using Kafka, AWS EventBridge, or Azure Event Grid for scalability
+**Column-Level Instrumentation**: Implement SQL parsing (sqlglot, sqlparse, JSQLParser) for automatic column-level lineage extraction
+**Idempotent Events**: Ensure lineage events are idempotent to handle retries and avoid duplicate metadata creation
+**Schema Validation**: Validate OpenLineage events against official JSON schemas before emission to prevent malformed metadata
+**Monitoring & Alerting**: Monitor lineage event emission rates, processing lag, and extraction failures with Prometheus, Datadog, or CloudWatch
+**Incremental Extraction**: Configure metadata extractors for incremental updates rather than full scans to reduce load and latency
+**Multi-Environment Tracking**: Maintain separate lineage tracking for dev, test, and production with environment-specific metadata tags
+**Backward Compatibility**: Version lineage event schemas and maintain backward compatibility when evolving metadata structures
+**Error Handling**: Implement graceful degradation where lineage capture failures don't break pipeline execution
+**Sampling for Scale**: Use sampling strategies for high-volume query log analysis while maintaining representative lineage coverage
+**Custom Extractors**: Build custom DataHub extractors or Apache Atlas hooks for proprietary systems using provided SDK frameworks
+**API Rate Limiting**: Implement exponential backoff and rate limiting when calling catalog APIs to avoid throttling
+**Metadata Retention**: Define retention policies for lineage events balancing storage costs with historical analysis needs
+**Testing in CI/CD**: Validate lineage emission in pre-production using DataHub smoke tests or Atlas lineage verification scripts
+**dbt Artifacts Export**: Automate dbt manifest.json and catalog.json export to data catalogs in every dbt Cloud/Core run
+**Real-time Stream Lineage**: Use Kafka Streams applications with Schema Registry to track real-time topic lineage and transformations
 
 ## Quality Criteria
 
@@ -165,9 +189,67 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**Data Management**: DAMA-DMBOK, DCAM, Data Governance Framework
+**Lineage Tracking Standards**:
+- OpenLineage (LF AI & Data): Open standard for lineage event schemas, facets, and metadata interchange
+- OpenLineage Spec 1.0+: Run, job, dataset facets with extensible metadata model
+- PROV-DM (W3C): Provenance data model for entity, activity, and agent relationships
+- OpenMetadata: Open-source standard for metadata APIs and event-driven metadata management
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Lineage Tracking Tools & Platforms**:
+- Marquez (WeWork): Reference OpenLineage implementation with PostgreSQL backend
+- DataHub (LinkedIn): Metadata platform with OpenLineage ingestion and GraphQL API
+- Apache Atlas: Hadoop-native metadata framework with hook-based lineage capture
+- Amundsen (Lyft): Metadata discovery with lineage visualization and search
+- Collibra Catalog: Enterprise data catalog with automated scanners and lineage harvesting
+- Alation: Collaborative catalog with query log mining and automated lineage
+- Informatica Enterprise Data Catalog: AI-powered metadata discovery and lineage extraction
+
+**Orchestration Integration**:
+- Apache Airflow OpenLineage provider: Native OpenLineage emission from Airflow DAGs
+- Prefect: Modern orchestration with metadata tracking and observability
+- Dagster: Software-defined assets with automatic lineage graph generation
+- Azure Data Factory: Pipeline monitoring with lineage extraction via REST API
+- AWS Step Functions: State machine lineage through CloudTrail and EventBridge
+
+**ETL/ELT Lineage Tracking**:
+- dbt Core/Cloud: manifest.json and run_results.json for lineage export
+- Apache Spark: Spark Listener API for job, stage, and task-level lineage
+- Informatica PowerCenter: Metadata exchange (MX) for lineage extraction
+- Talend: Talend Management Console API for pipeline metadata
+- Fivetran: Metadata API for connector lineage tracking
+- Airbyte: Connector metadata for source-to-destination lineage
+
+**Streaming Lineage**:
+- Confluent Schema Registry: Schema evolution tracking for Kafka topics
+- Apache Kafka: MirrorMaker 2 for cross-cluster lineage
+- Apache Flink: Checkpointing metadata for stateful stream lineage
+- Kafka Streams: Topology metadata for stream processing lineage
+
+**SQL Parsing & Analysis**:
+- sqlglot: Python SQL parser for multi-dialect column-level lineage extraction
+- sqlparse: SQL parsing library for query analysis
+- JSQLParser: Java SQL parser for lineage extraction from queries
+- Calcite: SQL parser and optimizer for cross-database query analysis
+
+**Data Observability Platforms**:
+- Monte Carlo: Automated lineage extraction with ML-powered incident detection
+- Bigeye: Data quality monitoring with automatic lineage discovery
+- Datafold: Data diff and lineage for CI/CD validation
+- Great Expectations: Data quality with lineage integration via OpenLineage
+
+**Cloud Provider Lineage**:
+- AWS Glue Data Catalog: Automatic lineage for Glue ETL jobs and crawlers
+- Azure Purview: Automated scanning and lineage for Azure data services
+- Google Cloud Data Catalog: Metadata service with BigQuery lineage tracking
+- Databricks Unity Catalog: Lakehouse governance with automatic lineage capture
+
+**Compliance & Governance**:
+- GDPR Article 30: Automated ROPA generation from lineage metadata
+- BCBS 239: Risk data lineage requirements for banking sector
+- SOX Section 404: IT controls documentation via automated lineage
+- DAMA DMBoK Chapter 14: Operational metadata and lineage management best practices
+
+**Reference**: Consult data platform and engineering teams for tool-specific SDK documentation, API references, and integration patterns based on your technology stack
 
 ## Integration Points
 

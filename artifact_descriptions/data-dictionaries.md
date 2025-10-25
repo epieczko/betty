@@ -2,45 +2,60 @@
 
 ## Executive Summary
 
-The Data Dictionaries is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Data Dictionary is a foundational metadata management artifact that provides comprehensive documentation of data elements, business definitions, and technical specifications across an organization's data landscape. This artifact serves as the single source of truth for understanding data semantics, ensuring consistent interpretation and usage of data assets across analytics, engineering, and business teams.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a core component of enterprise data governance and metadata management programs, the Data Dictionary supports regulatory compliance (GDPR Article 30, CCPA), data quality management (ISO 8000), and metadata standardization (ISO 11179). Modern data catalog platforms like Collibra, Alation, Apache Atlas, DataHub, and Amundsen provide technical implementations of data dictionaries, enabling searchable, collaborative, and automated metadata management aligned with DAMA DMBoK best practices.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Metadata Standardization**: Implements ISO 11179 metadata registry standards for consistent data element definitions
+- **Business Glossary Integration**: Links technical metadata to business terminology using Collibra or Alation capabilities
+- **Data Governance Foundation**: Supports DCAM (Data Management Capability Assessment Model) and EDM Council frameworks
+- **Regulatory Compliance**: Enables GDPR Article 30 ROPA (Record of Processing Activities) and data classification requirements
+- **Data Quality**: Defines data types, constraints, valid values, and business rules that feed data quality frameworks
+- **Cross-functional Communication**: Bridges business analysts, data engineers, and data scientists with common vocabulary
+- **Data Lineage Support**: Provides technical metadata (tables, columns, types) that feeds data lineage tracking systems
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as a comprehensive registry of all data elements within a database, data warehouse, data lake, or data product, documenting entity definitions, attribute specifications, data types, constraints, business rules, and valid value domains. It enables consistent understanding and usage of data across technical and business stakeholders.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Entity and table definitions with business purpose and ownership
+- Attribute/column specifications including data types (VARCHAR, INTEGER, DECIMAL, TIMESTAMP, etc.)
+- Primary keys, foreign keys, and referential integrity constraints
+- Business rules, validation rules, and data quality expectations
+- Valid value domains, enumerations, and reference data specifications
+- Data sensitivity classification (PII, confidential, public) per GDPR/CCPA requirements
+- Business glossary terms mapped to technical metadata
+- Data steward assignments and ownership information
+- System of record and authoritative source identification
+- Metadata synchronized from data catalog tools (Collibra, Alation, Apache Atlas, DataHub)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Actual data lineage flows (covered by data-lineage-maps artifact)
+- Physical implementation details like indexes and partitioning (covered by physical-data-model artifact)
+- Data quality measurement results (covered by data quality reports)
+- ETL/ELT transformation logic (documented in data pipeline specifications)
+- API specifications for data access (covered by API documentation artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Data Engineers: Use data dictionaries to understand table schemas, data types, and constraints when building pipelines
+- Data Analysts: Reference business definitions and valid values when creating reports and analyses
+- Analytics Engineers: Leverage metadata for dbt model development and documentation
+- Data Stewards: Maintain and govern data element definitions and business rules
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Data Architects: Ensure consistency with logical and physical data models
+- Business Analysts: Understand data semantics and business terminology
+- Compliance Officers: Verify data classification and regulatory compliance mappings
+- Software Engineers: Reference data contracts when integrating with data platforms
 
 ## Document Information
 
@@ -106,19 +121,24 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Automated Metadata Discovery**: Leverage data catalog tools (Collibra, Alation, Apache Atlas, DataHub) to automatically harvest technical metadata from databases, reducing manual effort and ensuring accuracy
+**ISO 11179 Naming Conventions**: Follow ISO 11179 standards for data element naming including object class, property, and representation terms (e.g., customer_birth_date, product_unit_price)
+**Business Glossary Integration**: Link every technical data element to business glossary terms to ensure business context and consistent interpretation across the organization
+**Data Classification Tagging**: Apply sensitivity classifications (PII, PHI, PCI, confidential, public) to all data elements per GDPR Article 30 and CCPA requirements
+**Data Steward Assignment**: Assign both business data stewards (define semantics) and technical data custodians (manage implementation) for every critical data element
+**Mandatory Fields**: Require business definition, data type, nullability, constraints, and steward assignment for all data dictionary entries
+**Valid Value Domains**: Document enumerated values, reference data sets, and validation rules for controlled vocabularies and lookup tables
+**Source System Documentation**: Identify system of record (SOR) and authoritative sources for each data element to enable data lineage and trust assessment
+**Example Values**: Provide realistic example values (with PII redacted) to clarify format, precision, and business meaning
+**Relationship Documentation**: Document foreign key relationships and conceptual entity relationships to show how data elements connect across tables
+**Version Control**: Store data dictionaries in Git or integrate with data catalog version control to maintain complete change history
+**Search Optimization**: Use consistent tagging, synonyms, and descriptions to improve discoverability in data catalog search interfaces
+**dbt Integration**: Leverage dbt model documentation and schema.yml files to maintain data dictionaries as code alongside data transformation logic
+**Metadata Lineage**: Trace metadata changes through environments (dev, test, prod) using catalog tools to ensure consistency across SDLC
+**Regular Reconciliation**: Schedule quarterly reconciliation between data dictionary and actual database schemas using automated schema drift detection
+**Quality Metrics**: Track metadata completeness KPIs (% of tables documented, % with business definitions, % with steward assignments)
+**Cross-reference Data Models**: Ensure consistency between data dictionaries, logical data models, and physical data models
+**Retirement Tracking**: Document deprecated fields and tables with retirement dates and migration guidance to prevent continued usage
 
 ## Quality Criteria
 
@@ -165,9 +185,59 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**Data Management**: DAMA-DMBOK, DCAM, Data Governance Framework
+**Metadata Management Standards**:
+- ISO 11179: Metadata registries standard for data element definitions and naming conventions
+- ISO/IEC 8000: Data quality standards including accuracy, completeness, and consistency dimensions
+- CDMC (Common Data Management Curriculum): Metadata management competency framework
+- Dublin Core Metadata Initiative: Standardized metadata vocabulary and schema
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Data Governance Frameworks**:
+- DAMA DMBoK (Data Management Body of Knowledge): Chapter 12 - Metadata Management
+- DCAM (Data Management Capability Assessment Model): Metadata management capability areas
+- EDM Council DCAM: Financial services data management framework
+- DGI Data Governance Framework: Metadata and business glossary governance
+
+**Data Catalog & Metadata Tools**:
+- Collibra Data Intelligence Cloud: Enterprise data catalog with business glossary and stewardship workflows
+- Alation Data Catalog: Collaborative data catalog with automated metadata discovery and curation
+- Apache Atlas: Open-source metadata management and data governance platform for Hadoop ecosystems
+- DataHub (LinkedIn): Open-source metadata platform with lineage, quality, and discovery capabilities
+- Amundsen (Lyft): Open-source data discovery and metadata engine
+- AWS Glue Data Catalog: Serverless metadata repository for AWS data lakes
+- Azure Purview: Microsoft unified data governance service with automated scanning
+- Google Cloud Data Catalog: Managed metadata service for GCP data assets
+
+**Data Classification Standards**:
+- GDPR Article 30: Record of Processing Activities (ROPA) requirements for personal data inventory
+- CCPA: California Consumer Privacy Act data inventory and classification requirements
+- NIST SP 800-60: Guide for mapping types of information and information systems to security categories
+- ISO 27001 Annex A.8.2: Information classification and labeling requirements
+- PCI DSS: Payment Card Industry data classification for cardholder data elements
+
+**Business Glossary Standards**:
+- FIBO (Financial Industry Business Ontology): Financial services business semantics
+- ACORD (Association for Cooperative Operations Research and Development): Insurance industry data standards
+- HL7 FHIR: Healthcare data interoperability standards
+- MISMO (Mortgage Industry Standards Maintenance Organization): Mortgage data standards
+
+**Data Modeling Standards**:
+- ISO/IEC 11404: Language-independent data types
+- SQL:2016 Standard: Data type specifications for relational databases
+- JSON Schema: Schema vocabulary for JSON data structures
+- Apache Avro, Parquet, ORC: Modern data serialization and storage formats with schema definitions
+
+**Data Stewardship & Ownership**:
+- RACI Matrix for Data Governance: Responsible, Accountable, Consulted, Informed for data element ownership
+- Data Mesh principles: Domain-oriented data ownership with data products as first-class citizens
+- Data Ownership frameworks: Business data steward and technical data custodian assignment models
+
+**Integration Standards**:
+- OpenMetadata: Open standard for metadata interchange and collaboration
+- Common Information Model (CIM): Schema for enterprise metadata exchange
+- W3C DCAT (Data Catalog Vocabulary): RDF vocabulary for publishing data catalogs on the web
+- Schema.org Dataset markup: Structured data for dataset discoverability
+
+**Reference**: Consult organizational data architecture and governance teams for detailed guidance on framework application and tool selection based on technology stack and compliance requirements
 
 ## Integration Points
 

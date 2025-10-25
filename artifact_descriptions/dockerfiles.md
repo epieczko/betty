@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Dockerfiles is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Dockerfiles artifact defines container image build specifications that transform application source code into production-ready, immutable container images optimized for security, size, and performance. This artifact establishes multi-stage build patterns, base image selection strategies (Alpine Linux, Distroless, Ubuntu), layer optimization techniques, security hardening practices, and vulnerability scanning integration (Trivy, Grype, Snyk) to produce minimal-attack-surface container images that comply with CIS Docker Benchmark standards and organizational security policies.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a critical component of container security and CI/CD pipelines, this artifact serves DevOps Engineers implementing containerization strategies, Cloud Platform Engineers optimizing image size and build performance, Security Engineers enforcing container security baselines, and Backend Developers packaging applications for cloud-native deployment. It addresses the entire container image lifecycle from base image selection through build optimization, security scanning, signing, and registry distribution while maintaining fast build times through effective layer caching and multi-stage build patterns.
 
 ### Strategic Importance
 
@@ -20,27 +20,44 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines Dockerfile specifications to build secure, efficient, and reproducible container images that reduce image size by 60-90% through multi-stage builds, minimize vulnerabilities through minimal base images and security scanning, and optimize build performance through intelligent layer caching and BuildKit features.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Multi-stage Dockerfile patterns (builder stage, production stage, test stage)
+- Base image selection (Alpine Linux 3.18+, Distroless, Ubuntu minimal, Red Hat UBI, scratch images)
+- Layer optimization and caching strategies (COPY vs ADD, layer ordering, .dockerignore)
+- Security hardening (non-root user, minimal packages, no secrets in layers, read-only filesystem)
+- Vulnerability scanning integration (Trivy, Grype, Snyk Container, AWS ECR scanning, Anchore)
+- BuildKit features (cache mounts, secret mounts, SSH mounts, --mount=type=bind)
+- Dependency management (package manager best practices, version pinning, security updates)
+- Language-specific optimization (Node.js, Python, Java, Go, .NET, Ruby)
+- Image signing and verification (Docker Content Trust, Cosign, Notary)
+- Metadata and labels (OCI annotations, Git commit SHA, build timestamp)
+- Health check definitions (HEALTHCHECK instruction)
+- Build arguments and environment variables management
+- Registry optimization (image layer deduplication, multi-arch builds)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Container orchestration configurations (covered by docker-compose-manifests and helm-charts)
+- Runtime security policies and Pod Security Standards (covered by Kubernetes security artifacts)
+- Image registry infrastructure and access control (covered by registry management artifacts)
+- Application source code and business logic
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- DevOps Engineers implementing container build pipelines
+- Cloud Platform Engineers optimizing container infrastructure
+- Security Engineers enforcing container security baselines
+- Backend Developers containerizing applications
+- Site Reliability Engineers managing image lifecycle
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- CI/CD Engineers integrating image builds into pipelines
+- Compliance Officers validating security controls
+- Platform Engineers maintaining base image standards
 
 ## Document Information
 
@@ -106,18 +123,29 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
+**Version Control**: Store Dockerfiles in Git alongside application source code, use semantic versioning for image tags
+**Multi-Stage Builds**: Implement multi-stage builds with separate builder and production stages to reduce final image size by 60-90%
+**Minimal Base Images**: Use Alpine Linux (5MB), Distroless (<20MB), or scratch images instead of full Ubuntu/Debian (100MB+)
+**Base Image Pinning**: Pin specific base image digests (`FROM alpine:3.18.2@sha256:...`) for reproducible builds
+**Non-Root User**: Run containers as non-root user (USER 1001) to limit blast radius of container escape vulnerabilities
+**Layer Optimization**: Order Dockerfile instructions from least to most frequently changing to maximize layer cache hits
+**Package Manager Caching**: Use BuildKit cache mounts for package managers (`--mount=type=cache,target=/root/.cache/pip`)
+**Dependency Pinning**: Pin exact dependency versions in package.json, requirements.txt, go.mod to ensure reproducible builds
+**Security Scanning**: Integrate Trivy or Grype in CI pipeline, fail builds on HIGH/CRITICAL vulnerabilities
+**Secrets Management**: Never hardcode secrets in Dockerfile or layers, use BuildKit secret mounts or environment variables at runtime
+**.dockerignore**: Create comprehensive .dockerignore to exclude .git, node_modules, test files from build context
+**Image Labels**: Add OCI annotations (org.opencontainers.image.created, source, revision) for traceability
+**Health Checks**: Define HEALTHCHECK instruction for container liveness detection
+**Shell Forms vs Exec Forms**: Use exec form for ENTRYPOINT/CMD (`["executable", "arg1"]`) to ensure proper signal handling
+**Minimize Layers**: Combine RUN commands with && to reduce layer count and image size
+**Remove Build Dependencies**: In multi-stage builds, leave build tools in builder stage, copy only runtime artifacts
+**Static Binaries**: For Go, build static binaries and use scratch base image for 10MB or smaller final images
+**Vulnerability Management**: Subscribe to security advisories for base images, automate image rebuilds on security updates
+**Image Signing**: Sign production images with Cosign for supply chain security verification
+**SBOM Generation**: Generate Software Bill of Materials using Syft for vulnerability tracking and compliance
+**BuildKit Features**: Enable BuildKit for parallel builds, improved caching, and secret management
+**Multi-Architecture**: Build for multiple architectures (amd64, arm64) using docker buildx for broad platform support
+**Regular Updates**: Rebuild images monthly to pick up base image security patches, even without application changes
 **Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
 
 ## Quality Criteria
@@ -165,7 +193,107 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Container Security Standards**:
+- CIS Docker Benchmark v1.6.0
+- NIST SP 800-190 (Application Container Security Guide)
+- OWASP Docker Security Cheat Sheet
+- NSA/CISA Kubernetes Hardening Guide (Container Image Security)
+- Docker Security Best Practices
+- Snyk Container Security Best Practices
+
+**Container Specifications**:
+- OCI (Open Container Initiative) Image Specification v1.1
+- OCI Distribution Specification v1.0
+- OCI Runtime Specification
+- Docker Image Specification v1.3
+- Dockerfile Reference Documentation
+
+**Build Standards & Tools**:
+- Docker BuildKit Features and Best Practices
+- Buildpacks (Cloud Native Buildpacks) v3 Specification
+- Jib (Google Container Tools) Best Practices
+- Kaniko Best Practices (Kubernetes-native builds)
+- Skaffold Build Configuration
+
+**Base Image Standards**:
+- Alpine Linux Security Advisory Database
+- Distroless Images (Google)
+- Red Hat Universal Base Images (UBI)
+- Chainguard Images (minimal, hardened base images)
+- AWS Public Container Base Images
+- Ubuntu Minimal Images
+
+**Security Scanning Tools**:
+- Trivy (Aqua Security) v0.40+
+- Grype (Anchore) Container Scanning
+- Snyk Container Security
+- AWS ECR Image Scanning (Clair-based)
+- Google Container Analysis
+- Azure Defender for Containers
+- JFrog Xray Security Scanning
+- Anchore Engine Policy-Based Scanning
+
+**Vulnerability Databases**:
+- CVE (Common Vulnerabilities and Exposures)
+- NVD (National Vulnerability Database)
+- GHSA (GitHub Security Advisories)
+- Alpine Linux Security Database
+- Red Hat Security Advisories
+
+**Image Signing & Verification**:
+- Docker Content Trust (Notary)
+- Sigstore Cosign v2.0+
+- Notary v2 Specification
+- The Update Framework (TUF)
+- in-toto Supply Chain Security
+
+**Supply Chain Security**:
+- SLSA (Supply-chain Levels for Software Artifacts) Framework
+- SBOM (Software Bill of Materials) - SPDX, CycloneDX formats
+- Syft SBOM Generation
+- GUAC (Graph for Understanding Artifact Composition)
+
+**Cloud Platform Standards**:
+- AWS Well-Architected Framework (Security Pillar - Container Security)
+- Azure Well-Architected Framework (Security - Container Best Practices)
+- Google Cloud Architecture Framework (Container Security)
+- Docker Hub Best Practices
+- AWS ECR Best Practices
+- Google Artifact Registry Best Practices
+
+**Language-Specific Standards**:
+- Node.js Docker Best Practices
+- Python Docker Best Practices
+- Java Container Best Practices (JIB, Spring Boot)
+- Go Docker Best Practices (scratch images, static binaries)
+- .NET Container Best Practices
+- Ruby Docker Best Practices
+
+**CI/CD Integration**:
+- GitLab CI Container Scanning
+- GitHub Actions Container Scanning
+- Jenkins Docker Pipeline Best Practices
+- CircleCI Docker Build Optimization
+- Azure DevOps Container Build Tasks
+
+**Performance & Optimization**:
+- Docker Layer Caching Best Practices
+- BuildKit Cache Mounts
+- Multi-Architecture Builds (linux/amd64, linux/arm64)
+- Image Size Optimization Techniques
+
+**Compliance & Regulatory**:
+- PCI DSS 4.0 (Requirement 6.3.2 - Container Security)
+- HIPAA Security Rule (Container Data Protection)
+- SOC 2 Type II (Container Security Controls)
+- FedRAMP Container Security Requirements
+- ISO/IEC 27001:2022 (A.14.2 Security in Development)
+
+**Industry Best Practices**:
+- The Twelve-Factor App (Factor 5: Build, Release, Run)
+- Container Best Practices (Docker, Kubernetes documentation)
+- CNCF Security Technical Advisory Group (TAG) Guidelines
+- Google Cloud Build Best Practices
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

@@ -2,45 +2,62 @@
 
 ## Executive Summary
 
-The Incident Reports is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Incident Reports document the timeline, root cause analysis, impact assessment, and remediation actions for production incidents and outages. These reports are essential for conducting blameless postmortems, improving MTTR, preventing recurrence, and maintaining SRE and ITIL 4 incident management best practices.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Effective incident reports follow Google SRE principles of blameless postmortems—focusing on systems and processes, not individuals—and employ structured root cause analysis methodologies (5 Whys, Ishikawa diagrams, Pareto analysis). They integrate with incident management platforms (PagerDuty, Opsgenie, ServiceNow), capture detailed timelines with MTTD/MTTR metrics, and drive continuous improvement through actionable remediation items tracked to completion.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Learning Organization**: Enables organizational learning from failures through blameless, structured analysis
+- **MTTR Reduction**: Improves Mean Time To Recovery by documenting effective response patterns and gaps
+- **Recurrence Prevention**: Prevents repeat incidents through root cause elimination and systemic improvements
+- **SLO/Error Budget**: Tracks error budget consumption and informs SLO/SLI refinement based on real incidents
+- **Compliance**: Meets SOC 2, ISO 27001, and regulatory incident documentation requirements
+- **Knowledge Sharing**: Disseminates incident response knowledge across teams and organizations
+- **Reliability Engineering**: Drives reliability improvements through data-driven analysis of failure modes
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents incident timeline, impact assessment, root cause analysis, and remediation actions following production incidents to enable blameless learning, prevent recurrence, improve MTTR, and maintain compliance with incident management best practices.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Incident timeline (detection, escalation, mitigation, resolution with timestamps)
+- Severity classification (SEV0/P0/Critical through SEV4/P4/Low)
+- Impact assessment (users affected, revenue impact, SLO consumption, duration)
+- MTTD/MTTA/MTTR metrics (Mean Time To Detect/Acknowledge/Recover)
+- Root cause analysis (5 Whys, Ishikawa diagram, contributing factors)
+- Contributing factors (technical issues, process gaps, human errors, external dependencies)
+- Mitigation actions taken (immediate fixes, workarounds during incident)
+- Remediation action items (long-term fixes, priority, owner, due date, status)
+- Communication log (internal/external notifications, status page updates)
+- SLO/Error budget impact (error budget consumption, SLI degradation)
+- Lessons learned (what went well, what didn't, improvements needed)
+- Blameless postmortem findings (system/process improvements, no individual blame)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Planned maintenance (covered by change management)
+- Security incidents (covered by security incident response)
+- Non-production environment issues (covered by development processes)
+- Disaster recovery tests (covered by DR test reports)
+- Feature requests (covered by product management)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- SRE Teams conducting postmortems and implementing reliability improvements
+- Incident Commanders reviewing incident response effectiveness
+- Engineering Teams responsible for remediation action completion
+- On-Call Engineers learning from past incidents to improve response
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Engineering Managers tracking MTTR trends and reliability investments
+- Product Managers understanding customer impact and prioritizing fixes
+- Executive Leadership reviewing high-severity incident trends
+- Compliance Officers maintaining incident audit trail for regulatory requirements
 
 ## Document Information
 
@@ -145,19 +162,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Blameless Always**: Focus on systems and processes, never blame individuals for incidents
+**Timeline First**: Document detailed timeline with timestamps immediately after incident while memory is fresh
+**Root Cause Depth**: Use 5 Whys or similar to find true root cause, not superficial symptoms
+**Action Items Required**: Every incident must produce actionable improvement items with owners and due dates
+**Track to Completion**: Follow up on all action items until completed; remediation prevents recurrence
+**Measure MTTR**: Track MTTD, MTTA, MTTR metrics to identify response improvement opportunities
+**SLO Impact**: Document error budget consumption and SLI degradation during incidents
+**Communicate Early**: Notify stakeholders immediately; transparency builds trust during incidents
+**Status Page Updates**: Keep status page current during incidents; customers appreciate transparency
+**Postmortem Within 48hrs**: Conduct blameless postmortem within 48 hours while details are fresh
+**Facilitate Neutrally**: Use neutral facilitator for postmortems to ensure psychological safety
+**Document Contributing Factors**: Identify all contributing factors, not just single "root cause"
+**Share Learnings**: Share postmortems widely across organization; everyone learns from incidents
+**Template Consistency**: Use standard template for all incident reports to enable analysis and comparison
+**Avoid Counterfactuals**: Focus on what happened and improvements, not "should have" statements
+**Severity Criteria**: Use clear, objective criteria for severity classification
+**On-Call Rotation Health**: Monitor on-call load; too many pages indicates systemic reliability issues
+**Trend Analysis**: Regularly review incident trends to identify systemic issues requiring architecture changes
+**Runbook Updates**: Update runbooks immediately after incidents based on lessons learned
+**Celebrate Learning**: Recognize incidents as learning opportunities, not failures
 
 ## Quality Criteria
 
@@ -204,9 +228,123 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**SRE & Blameless Postmortem Principles**:
+- Google SRE Book (blameless postmortems, error budgets, toil reduction)
+- Site Reliability Engineering Workbook (postmortem culture and templates)
+- Blameless culture (focus on systems/processes, not individuals)
+- Just culture (learning from failures, psychological safety)
+- No blame, no shame postmortems (constructive, improvement-focused)
+- Error budgets (SLO-based reliability management)
+- SLI/SLO framework (Service Level Indicators and Objectives)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Incident Management Frameworks**:
+- ITIL 4 Incident Management (incident lifecycle, classification, escalation)
+- PagerDuty Incident Response (modern incident management practices)
+- Atlassian Incident Management Handbook
+- Google's Incident Management at Scale
+- Major Incident Management (MIM) best practices
+- Incident Command System (ICS, structured incident response)
+
+**Incident Severity Classifications**:
+- SEV0/P0/Critical (complete outage, all users affected, immediate response)
+- SEV1/P1/High (major functionality degraded, significant user impact)
+- SEV2/P2/Medium (partial degradation, limited user impact)
+- SEV3/P3/Low (minor issues, minimal impact)
+- SEV4/P4/Informational (no customer impact)
+- Severity escalation criteria (when to escalate severity level)
+
+**Incident Management Platforms**:
+- PagerDuty (alerting, on-call scheduling, incident tracking)
+- Opsgenie (incident management, on-call management)
+- ServiceNow (ITSM, incident tracking, change management)
+- Jira Service Management (incident and problem management)
+- VictorOps/Splunk On-Call (incident response platform)
+- Incident.io (incident management and postmortems)
+- FireHydrant (incident response and retrospectives)
+
+**Root Cause Analysis Methodologies**:
+- 5 Whys (iterative questioning to find root cause)
+- Ishikawa diagram/Fishbone diagram (categorizing contributing factors)
+- Fault Tree Analysis (FTA, systematic failure analysis)
+- Failure Mode and Effects Analysis (FMEA)
+- Pareto analysis (80/20 rule, identifying most impactful causes)
+- Timeline analysis (detailed chronological event reconstruction)
+- Contributing factors analysis (multiple causes, not single root cause)
+
+**MTTR/MTTD/MTTA Metrics**:
+- MTTD (Mean Time To Detect, time from failure to detection)
+- MTTA (Mean Time To Acknowledge, time from detection to acknowledgment)
+- MTTR (Mean Time To Recovery/Repair, time from detection to resolution)
+- MTTF (Mean Time To Failure, time between incidents)
+- MTBF (Mean Time Between Failures)
+- Incident frequency (incidents per month/quarter)
+- Repeat incident rate (percentage of recurring incidents)
+
+**SLO/Error Budget Management**:
+- SLI/SLO definition (latency, availability, error rate, throughput)
+- Error budget calculation (1 - SLO = error budget)
+- Error budget consumption (tracking budget burn during incidents)
+- Error budget policies (response when budget is exhausted)
+- SLO-based alerting (alert on SLO violations, not symptoms)
+- Burn rate analysis (how fast error budget is consumed)
+
+**Communication & Notification**:
+- Status pages (StatusPage.io, Atlassian Statuspage, custom)
+- Incident communication templates (initial, update, resolution, postmortem)
+- Stakeholder notification procedures (internal, external, regulatory)
+- War room/bridge protocols (Slack channels, Zoom bridges, communication norms)
+- Customer communication (transparency, apology, resolution timeline)
+- Regulatory notification (GDPR breach notification, industry-specific requirements)
+
+**Remediation Action Tracking**:
+- Action item management (Jira, GitHub Issues, ServiceNow)
+- Priority classification (P0/P1/P2/P3)
+- Owner assignment (responsible individual or team)
+- Due date tracking (target completion dates)
+- Status tracking (not started, in progress, completed, blocked)
+- Verification (how to confirm fix prevents recurrence)
+
+**Observability & Monitoring**:
+- Prometheus, Grafana (metrics and dashboards)
+- Datadog, New Relic (APM and infrastructure monitoring)
+- ELK Stack, Splunk (log aggregation and analysis)
+- Honeycomb, Lightstep (distributed tracing, observability)
+- Sentry (error tracking and alerting)
+- Incident response dashboards (real-time incident visibility)
+
+**Compliance & Regulatory**:
+- SOC 2 (incident response and documentation requirements)
+- ISO 27001 (information security incident management)
+- GDPR Article 33 (data breach notification within 72 hours)
+- PCI-DSS Requirement 12.10 (incident response plan)
+- HIPAA Security Rule (incident reporting for covered entities)
+- Regulatory breach notification timelines
+
+**Postmortem Documentation**:
+- Incident summary (what happened, impact, resolution)
+- Timeline (detailed chronological events with timestamps)
+- Root cause (what caused the incident)
+- Contributing factors (all factors that contributed)
+- What went well (effective response actions)
+- What went poorly (gaps, failures, areas for improvement)
+- Action items (remediation with owners and due dates)
+- Lessons learned (knowledge captured for organization)
+
+**On-Call & Escalation**:
+- On-call rotation (PagerDuty, Opsgenie schedules)
+- Escalation policies (tier 1/2/3, management escalation)
+- On-call runbooks (incident response procedures)
+- War room procedures (bridge setup, communication norms)
+- Incident commander role (single point of coordination)
+- Subject matter expert (SME) identification and engagement
+
+**Learning & Knowledge Management**:
+- Postmortem review meetings (facilitated, blameless discussions)
+- Incident knowledge base (searchable repository of past incidents)
+- Pattern recognition (identifying recurring failure modes)
+- Trend analysis (incident frequency, MTTR trends over time)
+- Training (using incidents as learning opportunities)
+- Best practice sharing (cross-team knowledge dissemination)
 
 ## Integration Points
 

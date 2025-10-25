@@ -2,45 +2,61 @@
 
 ## Executive Summary
 
-The Chaos Engineering Experiments is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Chaos Engineering Experiments are controlled, hypothesis-driven tests that inject failures into production or production-like systems to discover weaknesses before they manifest as outages. These experiments are essential for validating system resilience, improving MTTR, and building confidence in complex distributed systems aligned with Google SRE and chaos engineering principles.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Modern chaos engineering leverages specialized platforms (Chaos Monkey, Gremlin, Litmus Chaos, Chaos Mesh) to systematically inject failures—network latency, service crashes, resource exhaustion, dependency failures—while carefully monitoring system behavior and user impact. By proactively discovering failure modes in controlled conditions, teams reduce blast radius, improve incident response, and build antifragile systems that improve under stress.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Proactive Failure Discovery**: Identify weaknesses before they cause customer-impacting outages
+- **MTTR Improvement**: Reduce Mean Time To Recovery through practiced failure scenarios and runbook validation
+- **Resilience Validation**: Verify that redundancy, failover, and circuit breakers work as designed
+- **Error Budget Management**: Validate SLO adherence under degraded conditions and failure scenarios
+- **GameDay Preparation**: Train incident response teams through realistic failure simulation
+- **Blast Radius Containment**: Verify that failures are properly isolated and don't cascade
+- **Confidence Building**: Increase confidence in system reliability through empirical testing
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents planned chaos engineering experiments including hypothesis, failure injection methodology, blast radius controls, monitoring approach, rollback procedures, and success criteria to systematically validate system resilience and discover failure modes before they impact production users.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Experiment design and hypothesis formulation (steady-state definition, predicted outcomes)
+- Failure injection scenarios (pod kills, network failures, resource exhaustion, dependency failures)
+- Chaos engineering platform configurations (Chaos Monkey, Gremlin, Litmus Chaos, Chaos Mesh)
+- Blast radius controls (percentage rollout, canary experiments, kill switches)
+- Monitoring and observability setup (metrics, logs, traces during experiments)
+- Safety guardrails and abort criteria (automatic rollback triggers, SLO thresholds)
+- GameDay exercise planning (team coordination, scenario walkthroughs)
+- Experiment execution procedures (pre-checks, monitoring, rollback steps)
+- Results documentation (observations, failures discovered, remediation actions)
+- Continuous chaos (automated, ongoing chaos in production)
+- Multi-region and multi-AZ failure scenarios
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Incident response after real outages (covered by incident reports)
+- Load and performance testing (covered by performance test artifacts)
+- Security penetration testing (covered by security test artifacts)
+- Disaster recovery full failovers (covered by DR test reports)
+- Application bug fixes (covered by defect logs)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- SRE Teams designing and executing chaos experiments
+- Platform Engineers implementing chaos engineering infrastructure
+- Chaos Engineers specializing in resilience engineering
+- Incident Commanders using experiments to validate runbooks
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- DevOps Engineers supporting chaos tooling integration
+- Engineering Managers approving production chaos experiments
+- Product Managers understanding system resilience capabilities
+- Security Teams evaluating blast radius and safety controls
 
 ## Document Information
 
@@ -106,19 +122,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Start Small**: Begin with smallest possible blast radius (single instance, 1% traffic, test environment)
+**Hypothesis First**: Always define clear hypothesis and success criteria before running experiments
+**Monitor Everything**: Ensure comprehensive monitoring (metrics, logs, traces) before injecting failures
+**Automated Rollback**: Implement automatic abort triggers based on SLO breaches or error rate thresholds
+**Business Hours Only**: Run initial experiments during business hours with full team availability
+**Notify On-Call**: Alert incident response teams before running production chaos experiments
+**Document Runbooks**: Validate incident runbooks exist before testing failure scenarios
+**Progressive Rollout**: Increase blast radius gradually (1% → 5% → 25% → 50% → 100%)
+**Time Limits**: Set maximum experiment duration with automatic termination
+**Kill Switch Ready**: Have manual abort procedure immediately available during experiments
+**GameDay Practice**: Run team GameDays to practice incident response before real chaos
+**Blameless Culture**: Treat failures discovered as learning opportunities, not blame assignments
+**Measure MTTR**: Track Mean Time To Recovery during experiments to validate incident response
+**Chaos as Code**: Store chaos experiment definitions in version control (GitOps approach)
+**Continuous Chaos**: Progress from manual experiments to automated, continuous chaos in production
+**Safety First**: Never compromise safety; abort immediately if unexpected impact observed
+**Validate Alerts**: Ensure monitoring alerts fire correctly during experiments
+**Test Runbooks**: Use chaos to validate and improve incident response runbooks
+**Cross-Team Coordination**: Coordinate with all teams that might be affected by experiments
+**Learn and Improve**: Document every failure discovered and track remediation to completion
 
 ## Quality Criteria
 
@@ -165,9 +188,113 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Chaos Engineering Platforms & Tools**:
+- Chaos Monkey (Netflix OSS, random instance termination, AWS-focused)
+- Gremlin (enterprise chaos platform, attack library, safety controls)
+- Litmus Chaos (CNCF, Kubernetes-native, chaos workflows, hub of experiments)
+- Chaos Mesh (CNCF, Kubernetes chaos testing, physical node failures)
+- AWS Fault Injection Simulator (FIS, managed AWS chaos service)
+- Azure Chaos Studio (managed Azure chaos engineering service)
+- Google Cloud Chaos Engineering (GCP fault injection tools)
+- Chaos Toolkit (open-source, extensible chaos automation)
+- PowerfulSeal (Kubernetes-focused chaos engineering)
+- Pumba (Docker chaos testing tool)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Principles of Chaos Engineering** (from Netflix and community):
+- Define steady state as measurable output indicating normal behavior
+- Hypothesize that steady state continues in both control and experimental groups
+- Introduce variables reflecting real-world events (server crashes, network failures)
+- Try to disprove hypothesis by looking for differences in steady state
+- Run experiments in production with minimal blast radius
+- Automate experiments to run continuously
+- Minimize blast radius (start small, expand carefully)
+
+**Failure Injection Types**:
+- Infrastructure failures (instance termination, AZ outage, region failure)
+- Network failures (latency injection, packet loss, network partition)
+- Resource exhaustion (CPU stress, memory pressure, disk fill)
+- Application failures (process kill, service crash, panic injection)
+- Dependency failures (API errors, database unavailability, cache failure)
+- State corruption (data inconsistency, clock skew, disk corruption)
+- Security events (certificate expiration, credential rotation)
+
+**Kubernetes Chaos Engineering**:
+- Litmus Chaos experiments (pod kill, network loss, container kill)
+- Chaos Mesh experiments (pod failure, network chaos, stress testing)
+- Kube-monkey (Kubernetes version of Chaos Monkey)
+- Pod Disruption Budgets (PDBs, limit disruption during chaos)
+- Pod anti-affinity (spread pods across failure domains)
+- Health checks (readiness, liveness probes during chaos)
+
+**GameDay & Resilience Testing**:
+- GameDays (scheduled resilience testing events with team participation)
+- DiRT (Disaster Recovery Testing at Google)
+- Wheel of Misfortune (failure scenario training exercise)
+- Chaos engineering runbooks (scenario scripts, expected behaviors)
+- Incident command practice (simulated incident response)
+- Cross-team coordination exercises
+
+**SRE & Resilience Principles**:
+- Google SRE Book (error budgets, toil reduction, blameless postmortems)
+- Site Reliability Engineering Workbook (chaos engineering case studies)
+- Chaos Engineering: System Resiliency in Practice (O'Reilly book)
+- Antifragile systems (systems that improve under stress)
+- Graceful degradation (maintaining core functionality during failures)
+- Circuit breakers (Hystrix, Resilience4j, preventing cascade failures)
+
+**Observability During Chaos**:
+- Prometheus, Grafana (metrics collection and visualization during experiments)
+- Datadog, New Relic (APM and infrastructure monitoring)
+- Honeycomb, Lightstep (distributed tracing, observability)
+- ELK Stack, Splunk (log aggregation and analysis)
+- Service meshes (Istio, Linkerd traffic shaping and observability)
+- SLI/SLO monitoring (validating SLO adherence during chaos)
+
+**Blast Radius Control**:
+- Progressive rollout (start with 1%, increase gradually)
+- Canary experiments (single instance before full rollout)
+- Automated rollback triggers (SLO breaches, error rate thresholds)
+- Manual abort procedures (kill switch, emergency stop)
+- Time-limited experiments (automatic termination after duration)
+- Audience targeting (test users, internal employees, percentage of traffic)
+
+**Safety & Governance**:
+- Change Advisory Board (CAB) approval for production chaos
+- Incident notification protocols (alert on-call before experiments)
+- Business hours only (avoid high-traffic periods initially)
+- Runbook validation (ensure runbooks exist for experiment failures)
+- Monitoring validation (verify alerting works before chaos)
+- Stakeholder communication (notify product, business teams)
+
+**Continuous Chaos**:
+- Automated chaos schedules (daily, weekly automated experiments)
+- Chaos as part of CI/CD (pre-production chaos tests)
+- Continuous validation (ongoing low-level chaos in production)
+- Chaos engineering metrics (experiments run, failures discovered, MTTR)
+- Chaos maturity model (progression from manual to fully automated)
+
+**Failure Domain Testing**:
+- Multi-AZ failures (Availability Zone outage simulation)
+- Multi-region failures (regional failover validation)
+- Cross-region replication testing (data consistency during failures)
+- DNS failures (Route 53, CloudFlare unavailability)
+- CDN failures (CloudFront, Akamai degradation)
+- Third-party dependency failures (payment gateway, auth provider)
+
+**Chaos Metrics & Analysis**:
+- Experiment success rate (hypothesis validated vs disproven)
+- MTTR during chaos (Mean Time To Recovery)
+- Blast radius measurements (users impacted, error rates)
+- SLO adherence during experiments
+- Failures discovered per experiment
+- Resilience improvement trends over time
+
+**Documentation & Reporting**:
+- Experiment templates (hypothesis, blast radius, rollback)
+- Results documentation (observations, metrics, screenshots)
+- Failure analysis (root cause, remediation actions)
+- Lessons learned (system improvements, architecture changes)
+- Chaos engineering catalog (library of validated experiments)
 
 ## Integration Points
 

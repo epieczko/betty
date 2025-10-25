@@ -2,45 +2,61 @@
 
 ## Executive Summary
 
-The Data Lineage Maps is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Data Lineage Maps are visual and technical documentation artifacts that trace the complete end-to-end flow of data from source systems through transformations, integrations, and consumption points. These artifacts provide critical transparency into how data moves, transforms, and derives through ETL/ELT pipelines, streaming architectures, and analytical workflows, enabling impact analysis, root cause diagnosis, and regulatory compliance.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Modern data lineage solutions leverage automated metadata extraction from Apache Atlas, DataHub, Amundsen, Collibra Lineage, Alation, and Informatica Enterprise Data Catalog to capture column-level lineage across diverse technology stacks. Implementation follows emerging standards like OpenLineage (LF AI & Data Foundation), PROV-DM (W3C Provenance Data Model), and integrates with orchestration platforms (Apache Airflow, Prefect, Dagster) to maintain real-time lineage accuracy aligned with DAMA DMBoK data lineage management practices.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Impact Analysis**: Enables upstream/downstream impact assessment before making schema changes or retiring data sources
+- **Root Cause Analysis**: Accelerates troubleshooting of data quality issues by tracing problems to source systems or transformation logic
+- **Regulatory Compliance**: Supports GDPR Article 30, BCBS 239, SOX, and CCPA requirements for data flow documentation and auditability
+- **Data Governance**: Provides visibility into data provenance, transformation logic, and business rule implementation for stewardship
+- **Migration Planning**: Facilitates system modernization and cloud migration by documenting complete data dependencies
+- **Trust & Transparency**: Builds confidence in analytics and reporting by showing complete data transformation history
+- **Technical Debt Management**: Identifies redundant pipelines, unused transformations, and complex dependencies for optimization
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents the complete data flow topology from source extraction through transformation pipelines to consumption endpoints, capturing table-level and column-level lineage, transformation logic, data dependencies, and processing sequences. It enables impact analysis, debugging, compliance documentation, and data trustworthiness assessment.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Source-to-target mappings across ETL/ELT pipelines (Informatica, Talend, Azure Data Factory, AWS Glue, dbt)
+- Column-level lineage showing field-to-field transformations and derivations
+- Data flow through streaming platforms (Apache Kafka, AWS Kinesis, Azure Event Hubs, Confluent)
+- Transformation logic documentation including SQL queries, Python/Scala scripts, and business rules
+- Dependencies between datasets, tables, views, and materialized views
+- Orchestration flow captured from Apache Airflow, Prefect, Dagster, or Azure Data Factory DAGs
+- BI report and dashboard dependencies (Tableau, Power BI, Looker, Qlik)
+- Data lake/lakehouse lineage across bronze/silver/gold layers (Delta Lake, Apache Iceberg, Apache Hudi)
+- Real-time and batch processing lineage
+- OpenLineage event streams for automated lineage capture
+- Impact analysis visualizations showing upstream/downstream dependencies
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Actual ETL/ELT code implementation (documented in pipeline repositories)
+- Data quality measurement results (covered by data quality reports)
+- Performance metrics and SLA monitoring (covered by observability tools)
+- Access control and data security policies (documented in security artifacts)
+- Physical infrastructure topology (covered by infrastructure architecture diagrams)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Data Engineers: Understand data flow dependencies when modifying pipelines or troubleshooting data issues
+- Analytics Engineers: Trace dbt model dependencies and transformations for impact analysis
+- Data Architects: Design and validate end-to-end data architecture and integration patterns
+- Data Stewards: Validate data provenance and ensure compliance with data governance policies
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Business Analysts: Understand how reports and KPIs are calculated from source data
+- Compliance Officers: Audit data flows for GDPR, CCPA, SOX, and BCBS 239 compliance
+- Data Scientists: Trace feature engineering pipelines and understand data preparation steps
+- DevOps/DataOps Engineers: Manage CI/CD pipelines and monitor data pipeline health
 
 ## Document Information
 
@@ -106,19 +122,24 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Automate Lineage Capture**: Implement automated lineage harvesting using OpenLineage, DataHub extractors, or Apache Atlas hooks to avoid manual documentation drift
+**Column-Level Granularity**: Capture field-level lineage wherever possible to enable precise impact analysis and debugging of data quality issues
+**dbt DAG Integration**: Leverage dbt's built-in lineage graph generation and integrate with DataHub or Collibra for enterprise-wide visibility
+**OpenLineage Events**: Emit OpenLineage events from Airflow, Spark, and custom pipelines to maintain real-time lineage accuracy
+**Bi-directional Lineage**: Capture both upstream (where data comes from) and downstream (where data is used) lineage for comprehensive impact analysis
+**Transformation Logic Documentation**: Include SQL snippets, transformation rules, and business logic in lineage nodes for debugging context
+**Version Control Lineage Metadata**: Store lineage definitions (YAML, JSON) in Git alongside pipeline code for change tracking and audit
+**Impact Analysis Automation**: Build automated impact analysis reports that show all affected downstream assets when upstream changes occur
+**Lineage Validation**: Regularly reconcile lineage maps against actual data flows using query log analysis and metadata extraction
+**Visual Complexity Management**: Use hierarchical views and filtering to manage complex lineage graphs with hundreds of nodes
+**Cross-Platform Coverage**: Ensure lineage spans all technology layers (databases, ETL, streaming, BI) not just single platforms
+**Real-time Streaming Lineage**: Capture Kafka topic lineage showing producer/consumer relationships and schema evolution
+**BI Dependency Tracking**: Extract lineage from Tableau, Power BI, and Looker to show report dependencies on data models
+**Data Lakehouse Layers**: Map lineage across medallion architecture (bronze/silver/gold) in Delta Lake, Iceberg, or Hudi environments
+**Metadata as Code**: Treat lineage configuration as infrastructure-as-code using Terraform, Pulumi, or declarative YAML specifications
+**Lineage Quality Metrics**: Track lineage coverage (% of pipelines documented), accuracy (validated vs. actual), and freshness (last update)
+**GDPR Data Flow Mapping**: Maintain lineage for all personal data flows to support Article 30 ROPA and data subject access requests
+**Deprecation Tracking**: Document deprecated data sources and migration paths in lineage to prevent continued dependencies
 
 ## Quality Criteria
 
@@ -165,9 +186,62 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**Data Management**: DAMA-DMBOK, DCAM, Data Governance Framework
+**Data Lineage Standards**:
+- OpenLineage (LF AI & Data Foundation): Open standard for capturing and sharing data lineage metadata across platforms
+- PROV-DM (W3C Provenance Data Model): Standard for representing and exchanging provenance information
+- OSLC (Open Services for Lifecycle Collaboration): Integration specification for lineage across lifecycle tools
+- ISO/IEC 11179-6: Metadata registry standard for data provenance and lineage documentation
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Data Governance & Management Frameworks**:
+- DAMA DMBoK Chapter 14: Data Lineage and impact analysis best practices
+- DCAM (Data Management Capability Assessment Model): Lineage capability assessment criteria
+- EDM Council DCAM: Financial services critical data element (CDE) lineage requirements
+- Data Mesh principles: Data product lineage and observability as key components
+
+**Regulatory Compliance Requirements**:
+- GDPR Article 30: Record of Processing Activities requiring data flow documentation
+- BCBS 239 (Basel Committee): Risk data aggregation and reporting lineage requirements for banking
+- SOX (Sarbanes-Oxley): Financial data lineage for audit trail and controls documentation
+- CCPA: Consumer data flow mapping for privacy compliance
+- FDA 21 CFR Part 11: Pharmaceutical data lineage and audit trail requirements
+- HIPAA: Healthcare data flow documentation and access tracking
+
+**Data Lineage & Catalog Tools**:
+- Apache Atlas: Open-source metadata framework with native lineage capabilities for Hadoop/Spark ecosystems
+- DataHub (LinkedIn): Automated lineage extraction from dbt, Airflow, Spark, and SQL queries
+- Amundsen (Lyft): Data discovery platform with table and column-level lineage visualization
+- Collibra Lineage: Enterprise lineage harvesting across ETL tools, databases, and BI platforms
+- Alation Data Catalog: Automated lineage from query logs, ETL metadata, and BI tools
+- Informatica Enterprise Data Catalog: Cross-platform lineage with AI-powered scanner technology
+- Manta Data Lineage: Automated end-to-end lineage across on-premise and cloud platforms
+- Azure Purview: Microsoft lineage capabilities for Azure data services
+- AWS Glue Data Catalog: Lineage tracking for AWS data pipeline and analytics services
+- Marquez (WeWork): OpenLineage reference implementation for metadata collection
+
+**ETL/ELT & Orchestration Platforms**:
+- dbt (data build tool): Lineage graph generation from SQL transformations and model dependencies
+- Apache Airflow: DAG-based lineage with OpenLineage integration via Marquez
+- Prefect: Modern workflow orchestration with built-in lineage tracking
+- Dagster: Software-defined assets with automatic lineage graph generation
+- Azure Data Factory: Visual pipeline lineage and impact analysis
+- AWS Glue: Managed ETL with automatic lineage capture in Glue Data Catalog
+- Informatica PowerCenter: Enterprise ETL with comprehensive metadata and lineage extraction
+- Talend: Open-source and enterprise ETL with lineage documentation capabilities
+
+**Streaming & Real-time Lineage**:
+- Apache Kafka: Stream lineage tracking using Confluent Schema Registry and Streams
+- Confluent Platform: Real-time data lineage for Kafka topics and stream processing
+- Apache Flink: Stream processing lineage through Apache Atlas integration
+- Apache Spark Structured Streaming: Lineage via Spark listener integration with DataHub/Atlas
+
+**BI & Analytics Lineage**:
+- Tableau: Lineage extraction via Tableau Metadata API and catalog integration
+- Power BI: Lineage tracking through Power BI REST API and scanner API
+- Looker: LookML-based lineage generation and catalog integration
+- Qlik Sense: Metadata extraction for lineage visualization
+- Looker: Git-based LookML lineage with dbt integration capabilities
+
+**Reference**: Consult data engineering and architecture teams for platform-specific lineage implementation patterns and automated metadata harvesting configuration
 
 ## Integration Points
 
