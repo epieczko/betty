@@ -1,0 +1,35 @@
+name: /code-review
+version: 0.1.0
+description: Perform intelligent code review with context-aware analysis
+parameters:
+- name: file_path
+  type: string
+  description: Path to file or directory to review
+  required: true
+- name: severity
+  type: enum
+  description: Minimum severity to report
+  required: false
+  default: all
+  values:
+  - all
+  - critical
+  - high
+  - medium
+  - low
+- name: format
+  type: enum
+  description: Output format
+  required: false
+  default: markdown
+  values:
+  - markdown
+  - json
+execution:
+  type: agent
+  target: code.reviewer
+status: active
+tags:
+- code-review
+- quality
+- agent-example

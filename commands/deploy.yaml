@@ -1,0 +1,30 @@
+name: /deploy
+version: 0.1.0
+description: Deploy application to target environment with full pipeline
+parameters:
+- name: environment
+  type: enum
+  description: Target environment
+  required: true
+  values:
+  - dev
+  - staging
+  - production
+- name: version
+  type: string
+  description: Version tag to deploy
+  required: true
+- name: skip_tests
+  type: boolean
+  description: Skip test execution
+  required: false
+  default: false
+execution:
+  type: workflow
+  target: workflows/deploy-pipeline.yaml
+status: active
+tags:
+- deployment
+- workflow
+- pipeline
+- workflow-example

@@ -1,0 +1,109 @@
+name: deploy-pipeline
+version: 0.1.0
+description: |
+  Deployment pipeline that orchestrates testing, building, and deploying
+  applications to target environments with validation and rollback capabilities.
+
+parameters:
+  environment:
+    type: enum
+    values: [dev, staging, production]
+    required: true
+    description: "Target deployment environment"
+
+  version:
+    type: string
+    required: true
+    description: "Version tag to deploy"
+
+  skip_tests:
+    type: boolean
+    default: false
+    description: "Skip test execution (not recommended for production)"
+
+steps:
+  # Phase 1: Validation
+  - name: validate-version
+    type: skill
+    target: version.validate
+    inputs:
+      version: "{{parameters.version}}"
+    on_failure: abort
+
+  # Phase 2: Testing (can be skipped)
+  - name: run-tests
+    type: skill
+    target: test.run
+    inputs:
+      test_suite: "all"
+    condition: "{{parameters.skip_tests}} == false"
+    on_failure: abort
+
+  # Phase 3: Build (parallel tasks)
+  - name: build-artifacts
+    parallel:
+      - name: build-backend
+        type: skill
+        target: build.create
+        inputs:
+          component: "backend"
+          version: "{{parameters.version}}"
+
+      - name: build-frontend
+        type: skill
+        target: build.create
+        inputs:
+          component: "frontend"
+          version: "{{parameters.version}}"
+
+    on_failure: abort
+
+  # Phase 4: Deploy
+  - name: deploy-services
+    type: agent
+    target: deploy.orchestrator
+    inputs:
+      environment: "{{parameters.environment}}"
+      version: "{{parameters.version}}"
+      artifacts:
+        - "{{steps.build-backend.output.artifact_path}}"
+        - "{{steps.build-frontend.output.artifact_path}}"
+    on_failure: rollback
+
+  # Phase 5: Verification
+  - name: verify-deployment
+    type: skill
+    target: deploy.verify
+    inputs:
+      environment: "{{parameters.environment}}"
+      version: "{{parameters.version}}"
+    on_failure: rollback
+
+  # Phase 6: Notification
+  - name: notify-success
+    type: skill
+    target: notification.send
+    inputs:
+      channel: "deployments"
+      message: "Successfully deployed {{parameters.version}} to {{parameters.environment}}"
+    on_failure: continue
+
+rollback:
+  - name: rollback-deployment
+    type: agent
+    target: deploy.rollback
+    inputs:
+      environment: "{{parameters.environment}}"
+
+  - name: notify-rollback
+    type: skill
+    target: notification.send
+    inputs:
+      channel: "deployments"
+      message: "Rolled back deployment to {{parameters.environment}}"
+
+timeout: 3600  # 1 hour
+tags:
+  - deployment
+  - pipeline
+  - workflow-example

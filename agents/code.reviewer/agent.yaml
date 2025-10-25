@@ -1,32 +1,28 @@
 name: code.reviewer
-description: Analyzes code changes and provides comprehensive feedback on code quality,
-  security vulnerabilities, performance issues, and adherence to best practices.
-skills_available: []
-permissions: []
+version: 0.1.0
+description: |
+  Intelligent code review agent that analyzes code quality, identifies issues,
+  and provides actionable recommendations for improvement.
+
 artifact_metadata:
   consumes:
-  - type: code-diff
-    description: Input artifact of type code-diff
-  - type: coding-standards
-    description: Input artifact of type coding-standards
+    - type: source-code
+      file_pattern: "**/*.{py,js,ts,go,java,rs}"
+      content_type: "text/plain"
+      description: "Source code files to review"
+
   produces:
-  - type: review-report
-    description: Output artifact of type review-report
-  - type: suggestion-list
-    description: Output artifact of type suggestion-list
-  - type: static-analysis
-    description: Output artifact of type static-analysis
-  - type: security-scan
-    description: Output artifact of type security-scan
-  - type: style-check
-    description: Output artifact of type style-check
-  - type: List of issues found with line numbers
-    description: Output artifact of type List of issues found with line numbers
-  - type: Severity and category for each issue
-    description: Output artifact of type Severity and category for each issue
-  - type: Suggested fixes with code examples
-    description: Output artifact of type Suggested fixes with code examples
-  - type: Overall code quality score
-    description: Output artifact of type Overall code quality score
-  - type: Compliance status with coding standards
-    description: Output artifact of type Compliance status with coding standards
+    - type: code-review-report
+      file_pattern: "reports/code-review-*.md"
+      content_type: "text/markdown"
+      description: "Comprehensive code review report"
+
+permissions:
+  - filesystem:read
+  - filesystem:write
+
+system_prompt: |
+  You are code.reviewer, an intelligent code review agent.
+  
+  Analyze code with reasoning and context understanding to identify issues
+  and provide actionable recommendations for improvement.
