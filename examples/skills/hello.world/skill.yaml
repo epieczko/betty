@@ -1,0 +1,79 @@
+name: hello.world
+version: 0.1.0
+description: A simple greeting skill that demonstrates Betty Framework basics
+category: examples
+tags:
+  - quickstart
+  - tutorial
+  - example
+  - beginner
+
+inputs:
+  - name: name
+    type: string
+    required: true
+    description: Name of the person to greet
+  - name: greeting_style
+    type: string
+    required: false
+    default: casual
+    description: Style of greeting (casual, formal, enthusiastic)
+    allowed_values:
+      - casual
+      - formal
+      - enthusiastic
+
+outputs:
+  - name: greeting.txt
+    type: text/plain
+    description: File containing the personalized greeting
+  - name: result
+    type: application/json
+    description: JSON output with execution results
+
+status: active
+
+permissions:
+  - filesystem:write
+  - stdout:write
+
+entrypoints:
+  - command: /hello/world
+    handler: hello_world.py
+    runtime: python
+    description: Generate a personalized greeting
+    parameters:
+      - name
+      - greeting_style
+
+artifact_metadata:
+  produces:
+    - type: greeting
+      format: text/plain
+      description: Personalized greeting message
+  consumes: []
+
+examples:
+  - description: Casual greeting
+    command: python3 hello_world.py --name "Alice"
+    expected_output: "Hey Alice! Welcome to Betty Framework!"
+
+  - description: Formal greeting
+    command: python3 hello_world.py --name "Bob" --greeting_style formal
+    expected_output: "Good day, Bob. Welcome to the Betty Framework."
+
+  - description: Enthusiastic greeting
+    command: python3 hello_world.py --name "Charlie" --greeting_style enthusiastic
+    expected_output: "🎉 Hello Charlie! We're SO excited to have you here! 🚀"
+
+dependencies:
+  python: ">=3.8"
+  packages: []
+
+author: Betty Framework Team
+license: MIT
+repository: https://github.com/epieczko/betty
+
+documentation:
+  quickstart: ../../../QUICKSTART.md
+  readme: README.md
