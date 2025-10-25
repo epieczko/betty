@@ -1,0 +1,21 @@
+name: test.example
+version: 0.1.0
+description: A simple test skill for validating the meta.create orchestrator workflow
+inputs:
+- input_data (string) - Test input data
+outputs:
+- output_result (string) - Processed result
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /test/example
+  handler: test_example.py
+  runtime: python
+  description: A simple test skill for validating the meta.create orchestrator workflow
+artifact_metadata:
+  produces:
+  - type: test.result
+  consumes:
+  - type: test.input
+    required: true
