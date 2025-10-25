@@ -12,6 +12,7 @@ import subprocess
 from typing import Dict, Any, Optional, List
 from datetime import datetime, timezone
 from packaging import version as version_parser
+from pydantic import ValidationError as PydanticValidationError
 
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
@@ -22,6 +23,7 @@ from betty.validation import validate_path
 from betty.logging_utils import setup_logger
 from betty.errors import RegistryError, format_error_response
 from betty.telemetry_capture import capture_execution
+from betty.models import SkillManifest
 
 logger = setup_logger(__name__)
 
@@ -63,6 +65,35 @@ def load_manifest(path: str) -> Dict[str, Any]:
         raise RegistryError(f"Manifest file not found: {path}")
     except yaml.YAMLError as e:
         raise RegistryError(f"Invalid YAML in manifest: {e}")
+
+
+def validate_manifest_schema(manifest: Dict[str, Any]) -> None:
+    """
+    Validate manifest using Pydantic schema.
+
+    Args:
+        manifest: Manifest data dictionary
+
+    Raises:
+        RegistryError: If schema validation fails with type "SchemaError"
+    """
+    try:
+        SkillManifest.model_validate(manifest)
+        logger.info("Pydantic schema validation passed for manifest")
+    except PydanticValidationError as exc:
+        logger.error("Pydantic schema validation failed")
+        # Convert Pydantic errors to human-readable messages
+        error_messages = []
+        for error in exc.errors():
+            field = ".".join(str(loc) for loc in error["loc"])
+            message = error["msg"]
+            error_type = error["type"]
+            error_messages.append(f"Schema validation error at '{field}': {message} (type: {error_type})")
+
+        error_detail = "\n".join(error_messages)
+        raise RegistryError(
+            f"Manifest schema validation failed:\n{error_detail}"
+        ) from exc
 
 
 def enforce_policy(manifest_path: str) -> Dict[str, Any]:
@@ -370,11 +401,14 @@ def update_registry_data(manifest_path: str, auto_version: bool = False) -> Dict
     # Validate path
     validate_path(manifest_path, must_exist=True)
 
-    # Enforce policy before updating registry
-    policy_result = enforce_policy(manifest_path)
-
     # Load manifest
     manifest = load_manifest(manifest_path)
+
+    # Validate manifest schema with Pydantic
+    validate_manifest_schema(manifest)
+
+    # Enforce policy before updating registry
+    policy_result = enforce_policy(manifest_path)
 
     if not manifest.get("name"):
         raise RegistryError("Manifest missing required 'name' field")
@@ -531,6 +565,12 @@ def main():
     except RegistryError as e:
         logger.error(str(e))
         error_info = format_error_response(e)
+
+        # Check if this is a schema validation error
+        is_schema_error = "schema validation failed" in str(e).lower()
+        if is_schema_error:
+            error_info["type"] = "SchemaError"
+
         response = build_response(
             False,
             path=manifest_path,
