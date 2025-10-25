@@ -2,45 +2,60 @@
 
 ## Executive Summary
 
-The Stakeholder Map is a critical deliverable within the Inception / Strategy phase, supporting Business & Strategy activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Stakeholder Map is a strategic engagement planning artifact that identifies, analyzes, and categorizes all stakeholders relevant to an initiative or organization, using frameworks like the Power-Interest Grid to determine appropriate engagement strategies. This foundational governance tool visualizes stakeholder influence, concerns, communication preferences, and engagement cadence, enabling Engineering Managers, Product Leaders, and Program Managers to build support, manage resistance, and ensure critical stakeholders are appropriately involved throughout the initiative lifecycle.
 
-As a core component of the Business & Strategy practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Building on stakeholder analysis methodologies including RACI for stakeholder roles, Power-Interest matrices (Keep Satisfied, Manage Closely, Monitor, Keep Informed), and influence mapping, this artifact transforms stakeholder complexity into actionable engagement plans. It identifies executive sponsors, decision-makers, influencers, end-users, and blockers, defining tailored communication strategies, meeting cadence, and escalation paths that build alignment, secure buy-in, and navigate organizational politics effectively.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Influence Mapping**: Identifies stakeholders with power to approve, block, or influence outcomes
+- **Power-Interest Analysis**: Categorizes stakeholders by influence and interest for targeted engagement
+- **Communication Planning**: Defines who needs what information, how often, and through which channels
+- **Risk Mitigation**: Identifies potential blockers and resistance early for proactive management
+- **Sponsor Engagement**: Ensures executive sponsors are appropriately engaged and supportive
+- **Alignment Building**: Coordinates messaging across diverse stakeholder groups with different concerns
+- **Political Navigation**: Maps informal influence networks and coalition-building opportunities
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact identifies and analyzes all stakeholders who can impact or are impacted by an initiative, categorizing them by influence and interest to develop targeted engagement strategies that build support, address concerns, and navigate organizational dynamics effectively.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Stakeholder identification: executives, managers, teams, end-users, external partners
+- Power-Interest Grid classification: High Power/High Interest (Manage Closely), High Power/Low Interest (Keep Satisfied), Low Power/High Interest (Keep Informed), Low Power/Low Interest (Monitor)
+- RACI for stakeholders: who approves, who must be consulted, who should be informed
+- Influence mapping: formal authority vs. informal influence networks
+- Stakeholder concerns: what each stakeholder cares about and potential objections
+- Communication preferences: preferred channels (Slack, email, meetings), detail level, frequency
+- Engagement cadence: weekly updates, monthly steering committee, quarterly business reviews
+- Escalation paths: who to engage when issues arise, chain of command
+- Coalition building: identifying allies and building support networks
+- Resistance management: identifying blockers and strategies to address concerns
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed project RACI assignments (see raci-per-workstream)
+- Team organizational structure (see team-topology-map)
+- Individual skill assessments (see skills-matrix)
+- Service ownership (see ownership-charters)
+- Initiative-level OKRs and success criteria (see initiative-charter)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Engineering Managers navigating stakeholder engagement for technical initiatives
+- Product Leaders building alignment across cross-functional stakeholders
+- Program Managers coordinating complex, multi-stakeholder initiatives
+- Team Leads understanding who to engage for approvals and support
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Executive sponsors understanding stakeholder landscape and engagement approach
+- Organizational change managers planning change adoption strategies
+- Communications teams developing targeted messaging for different audiences
+- HR/People Teams supporting organizational change and stakeholder alignment
 
 ## Document Information
 
@@ -119,9 +134,52 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 **Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
 **Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
 **Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
-**Market Validation**: Validate assumptions with market research and customer feedback
-**Financial Rigor**: Use discounted cash flow, NPV, and scenario analysis for financial projections
-**Competitive Intelligence**: Incorporate competitive analysis and market positioning
+**Stakeholder Identification and Analysis**:
+- **Comprehensive Discovery**: Brainstorm all potential stakeholders (executives, managers, teams, end-users, external)
+- **Power-Interest Grid**: Plot stakeholders on High/Low Power x High/Low Interest matrix
+- **RACI Assignment**: Clarify who Approves, who must be Consulted, who should be Informed
+- **Influence Mapping**: Identify formal authority vs. informal influence (SMEs, opinion leaders)
+- **Concern Analysis**: Document what each stakeholder cares about and potential objections
+- **Ally Identification**: Find champions and sponsors who will advocate for initiative
+
+**Engagement Strategy Development**:
+- **Manage Closely (High Power/High Interest)**: Close partnership, co-creation, frequent engagement
+- **Keep Satisfied (High Power/Low Interest)**: Concise updates, respect their time, easy to digest
+- **Keep Informed (Low Power/High Interest)**: Regular updates, forums for input, community building
+- **Monitor (Low Power/Low Interest)**: Minimal effort, general announcements, self-service info
+- **Tailored Messaging**: Adapt message to stakeholder concerns (technical, business, user impact)
+- **Multi-Channel**: Use preferred communication channels (Slack, email, meetings, dashboards)
+
+**Communication Planning**:
+- **Cadence Definition**: Daily, weekly, monthly, quarterly engagement per stakeholder group
+- **Channel Selection**: Meetings for high-power stakeholders, async for low-power/low-interest
+- **Message Customization**: Frame same information differently for different audiences (technical vs. executive)
+- **Two-Way Dialogue**: Create opportunities for stakeholder input, questions, and concerns
+- **Escalation Paths**: Document who to engage when issues arise or decisions are blocked
+- **Status Updates**: Regular, predictable updates build trust and manage expectations
+
+**Political Navigation**:
+- **Coalition Building**: Identify allies and build support networks before major decisions
+- **Executive Sponsorship**: Secure and maintain visible support from high-power champions
+- **Resistance Management**: Address concerns proactively, find win-win solutions, negotiate compromises
+- **Influence Without Authority**: Use persuasion, relationship building, and reciprocity
+- **Bridge Silos**: Build relationships across organizational boundaries for cross-functional alignment
+- **Timing and Sequencing**: Engage stakeholders in right order (sponsors first, then broader audience)
+
+**Concern and Risk Management**:
+- **Anticipate Objections**: Identify likely concerns and prepare responses
+- **Address Early**: Engage resisters early to understand and address concerns
+- **Find Common Ground**: Frame initiative in terms of stakeholder interests and priorities
+- **Manage Expectations**: Be realistic about benefits, timelines, and tradeoffs
+- **Track Concerns**: Document and resolve stakeholder concerns systematically
+- **Escalation When Needed**: Use sponsors to address blockers and unresolved conflicts
+
+**Tools and Visualization**:
+- **Visual Stakeholder Maps**: Use Miro, Mural, LucidChart for collaborative stakeholder mapping
+- **Power-Interest Grid**: Color-coded 2x2 matrix showing stakeholder positioning
+- **Influence Diagrams**: Show relationships, reporting lines, and informal influence connections
+- **Engagement Tracker**: Spreadsheet or tool tracking last contact, next action, status
+- **RACI Matrix**: Clarify stakeholder roles in decision-making and communication
 
 ## Quality Criteria
 
@@ -168,7 +226,120 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Stakeholder Analysis Models**:
+- Power-Interest Grid: High/Low Power x High/Low Interest quadrants
+- Power-Interest matrix strategies: Manage Closely, Keep Satisfied, Keep Informed, Monitor
+- Salience Model: Power, Legitimacy, Urgency dimensions
+- Stakeholder Circle: power, proximity, urgency, impact analysis
+- Mendelow's Matrix: alternative name for Power-Interest Grid
+- RACI for Stakeholders: Responsible, Accountable, Consulted, Informed roles
+
+**Influence Mapping**:
+- Formal authority: organizational chart, decision rights, budget authority
+- Informal influence: subject matter expertise, relationships, reputation
+- Opinion leaders and influencers: those others listen to
+- Gatekeepers: controlling access to information or decision-makers
+- Champions and sponsors: advocates who actively support initiative
+- Blockers and resisters: stakeholders likely to oppose or slow progress
+
+**Communication Planning**:
+- Communication matrix: stakeholder x message x channel x frequency
+- Stakeholder engagement plan: tailored strategies per stakeholder group
+- Communication preferences: meetings, email, Slack, dashboards, reports
+- Message framing: adapting message to stakeholder concerns and priorities
+- Cadence planning: daily standups, weekly updates, monthly reviews, quarterly business reviews
+- Escalation protocols: when and how to escalate issues to stakeholders
+
+**Change Management**:
+- ADKAR Model: Awareness, Desire, Knowledge, Ability, Reinforcement
+- Kotter's 8-Step Change Model: building guiding coalitions, communicating vision
+- Stakeholder resistance patterns: rational, emotional, political resistance
+- Adoption curve: innovators, early adopters, early majority, late majority, laggards
+- Change agents: identifying and empowering champions of change
+- Resistance management: addressing concerns, building consensus, managing blockers
+
+**Political Navigation**:
+- Organizational politics: understanding power dynamics and alliances
+- Coalition building: identifying allies and building support networks
+- Influence without authority: persuasion, relationship building, reciprocity
+- Win-win negotiation: finding mutually beneficial solutions
+- Conflict resolution: addressing stakeholder disagreements constructively
+- Executive sponsorship: securing and maintaining high-level support
+
+**Engagement Strategies**:
+- High Power/High Interest (Manage Closely): regular engagement, close partnership, co-creation
+- High Power/Low Interest (Keep Satisfied): keep informed, easy to digest updates, minimal burden
+- Low Power/High Interest (Keep Informed): regular updates, forums for input, community building
+- Low Power/Low Interest (Monitor): minimal effort, general announcements, as-needed updates
+
+**Stakeholder Concerns and Needs**:
+- WIIFM (What's In It For Me): understanding stakeholder motivations
+- Jobs-to-be-Done: what stakeholders are trying to accomplish
+- Pains and gains: what frustrates stakeholders, what would delight them
+- Risk tolerance: how comfortable stakeholders are with change and uncertainty
+- Success criteria: what stakeholders consider a successful outcome
+- Constraints and preferences: stakeholder requirements and preferences
+
+**Organizational Dynamics**:
+- Organizational culture: Westrum typology (Pathological, Bureaucratic, Generative)
+- Silo mentality: cross-functional collaboration challenges
+- Matrix organization complexity: functional vs. project reporting lines
+- Decision-making patterns: consensus vs. command, centralized vs. distributed
+- Meeting culture: synchronous vs. asynchronous, decision-making in meetings
+- Information flow: formal channels vs. informal networks
+
+**Visualization and Tools**:
+- Stakeholder maps: visual diagrams showing relationships and influence
+- Power-Interest Grid matrices: 2x2 quadrant visualizations
+- Influence diagrams: showing connections and relationships
+- Organizational network analysis: mapping communication and influence networks
+- Tools: Miro, Mural, LucidChart for stakeholder mapping
+- CRM systems: tracking stakeholder interactions and engagement
+
+**Project Management Frameworks**:
+- PMI PMBOK: Stakeholder management knowledge area
+- PRINCE2: stakeholder engagement and communication management
+- Agile stakeholder engagement: Product Owner as stakeholder proxy
+- SAFe: stakeholder engagement in program increment (PI) planning
+- Portfolio governance: stakeholder engagement at portfolio level
+
+**Governance and Oversight**:
+- Steering committees: composition, meeting cadence, decision authority
+- Project boards: governance oversight and decision-making forums
+- Business reviews: quarterly or monthly stakeholder review meetings
+- Executive sponsors: roles, responsibilities, engagement expectations
+- Advisory boards: subject matter expert consultation forums
+
+**Communication Channels and Tools**:
+- Synchronous: meetings, video calls, in-person conversations
+- Asynchronous: email, Slack, project management tools, dashboards
+- Broadcast: all-hands, town halls, newsletters, announcements
+- Targeted: one-on-one conversations, small group meetings, workshops
+- Self-service: wikis, documentation, dashboards, status pages
+- Tools: Slack, Microsoft Teams, email, Zoom, Confluence, SharePoint
+
+**Metrics and Success Measurement**:
+- Stakeholder satisfaction surveys: measuring engagement effectiveness
+- Net Promoter Score (NPS) for internal stakeholders
+- Engagement tracking: participation in forums, response rates, attendance
+- Support level: advocates, supporters, neutral, resisters, blockers
+- Concern resolution: tracking and closing stakeholder concerns
+- Communication effectiveness: message reach, comprehension, action
+
+**Cross-Functional Stakeholders**:
+- Engineering: technical teams, architecture, platform, security
+- Product: product managers, product marketing, user research
+- Design: UX, UI, design systems, brand
+- Business: finance, legal, compliance, procurement
+- Operations: IT operations, support, customer success
+- External: customers, partners, vendors, regulators
+
+**Related Standards**:
+- ISO 21500: Project management guidance including stakeholder management
+- ISO 9001: Quality management stakeholder requirements
+- PMI Standards: Project stakeholder management
+- ITIL 4: Service management stakeholder engagement
+- AA1000 Stakeholder Engagement Standard
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

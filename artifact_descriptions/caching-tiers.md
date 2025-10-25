@@ -2,45 +2,59 @@
 
 ## Executive Summary
 
-The Caching Tiers is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Caching Tiers artifact documents multi-layer caching strategy across browser cache, CDN (CloudFront, Akamai, Cloudflare), application cache (Redis, Memcached), and database cache layers, defining cache hit ratio targets (>80%), TTL policies, invalidation strategies, and cache warming procedures. Effective caching reduces latency, decreases backend load, lowers infrastructure costs, and improves user experience by serving frequently accessed data from faster storage tiers.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Caching tiers transform system performance by avoiding expensive operations (database queries, API calls, computations) through strategic data placement at multiple levels. Browser caching eliminates network requests entirely, CDN caching serves static assets from geographically distributed edge locations, application caching (Redis/Memcached) provides sub-millisecond access to frequently used data, and database query caching reduces disk I/O. With appropriate TTL policies and cache hit ratios >80%, caching can reduce response times by 10-100x and infrastructure costs by 50%+.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Latency Reduction**: Cache hits provide sub-millisecond to low-millisecond response times vs. 10-100ms+ for origin requests
+- **Throughput Scaling**: Cache layers handle 10-100x more requests than origin servers at fraction of cost
+- **Cost Optimization**: Reduces backend compute, database, and bandwidth costs by serving cached responses
+- **Availability Improvement**: Cache layers provide resilience when origin servers are slow or unavailable
+- **Global Performance**: CDN caching delivers content from edge locations close to users worldwide
+- **Database Protection**: Application caching reduces database query load and connection pool pressure
+- **User Experience**: Fast cache hits improve page load times, API response times, and Apdex scores
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents multi-tier caching architecture including browser cache, CDN layer, application cache (Redis/Memcached), and database cache, defining cache policies (TTL, eviction), hit ratio targets (>80%), invalidation strategies, monitoring metrics, and cache warming procedures to optimize performance and reduce infrastructure costs.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Browser caching: HTTP cache headers (Cache-Control, ETag, Last-Modified), service workers, local storage
+- CDN caching: CloudFront, Akamai, Cloudflare, Fastly configuration, edge caching policies, regional distribution
+- Application cache: Redis, Memcached deployment, cache-aside/read-through/write-through patterns, clustering
+- Database cache: Query result caching, connection pooling, prepared statement caching, buffer pools
+- Cache hit ratio targets: Overall >80%, static assets >95%, API responses >70%, database queries >60%
+- TTL policies: Static assets (1 year), API responses (5-60 minutes), session data (30 minutes), personalized content (no cache)
+- Eviction policies: LRU (Least Recently Used), LFU (Least Frequently Used), TTL expiration
+- Invalidation strategies: Time-based expiration, event-driven invalidation, cache tagging, purge APIs
+- Cache warming: Pre-population on deployment, background refresh, lazy loading strategies
+- Monitoring metrics: Hit ratio, miss ratio, eviction rate, memory usage, latency (cache vs. origin)
+- Cache sizing: Memory requirements based on working set, growth projections, cost optimization
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed CDN configuration and management (vendor-specific documentation)
+- Database-specific tuning beyond caching (covered in database optimization artifacts)
+- Application code implementation details
+- Infrastructure provisioning and deployment automation
+- Detailed cost analysis (covered in cloud-cost-optimization-reports)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Backend Engineers implementing caching strategies and cache invalidation logic
+- Platform Engineers deploying and configuring Redis, Memcached, CDN services
+- SRE Teams monitoring cache performance and optimizing hit ratios
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Performance Engineers using caching to meet latency targets
+- Cloud Architects designing multi-tier caching architectures
+- FinOps Teams understanding cost benefits of caching vs. origin requests
 
 ## Document Information
 
@@ -165,9 +179,82 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**CDN Providers**:
+- CloudFront: AWS CDN with global edge locations, Lambda@Edge for edge computing
+- Akamai: Enterprise CDN with extensive edge network and advanced security features
+- Cloudflare: CDN with DDoS protection, Workers for edge computing, free tier available
+- Fastly: Developer-friendly CDN with real-time purging and VCL configuration
+- Azure CDN: Microsoft CDN integrated with Azure services
+- Google Cloud CDN: GCP CDN integrated with Cloud Load Balancing
+- CloudFlare Workers: Edge computing platform for custom logic at CDN edge
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Application Cache Technologies**:
+- Redis: In-memory data store with pub/sub, transactions, persistence, clustering, Lua scripting
+- Memcached: High-performance distributed memory caching, simple key-value store
+- Hazelcast: Distributed in-memory data grid with Java integration
+- Apache Ignite: Distributed database and caching platform
+- Ehcache: Java caching library, local and distributed modes
+- Caffeine: High-performance Java caching library with advanced eviction policies
+
+**Caching Patterns**:
+- Cache-Aside (Lazy Loading): Application checks cache, loads from DB on miss, writes to cache
+- Read-Through: Cache automatically loads data from DB on miss
+- Write-Through: Writes go to cache and DB synchronously
+- Write-Behind (Write-Back): Writes go to cache, asynchronously written to DB
+- Refresh-Ahead: Proactively refresh cache before expiration
+- Cache Warming: Pre-populate cache on deployment or schedule
+
+**HTTP Caching Headers**:
+- Cache-Control: Directives for caching (max-age, no-cache, no-store, public, private, must-revalidate)
+- ETag: Entity tags for validation-based caching
+- Last-Modified: Timestamp-based validation
+- Expires: Legacy expiration header (superseded by Cache-Control)
+- Vary: Cache variations based on request headers (Accept-Encoding, Accept-Language)
+- Surrogate-Control: CDN-specific caching directives
+
+**Eviction Policies**:
+- LRU (Least Recently Used): Evict items not accessed recently (most common)
+- LFU (Least Frequently Used): Evict items accessed least often
+- FIFO (First In First Out): Evict oldest items
+- TTL (Time To Live): Automatic expiration after configured duration
+- Random Replacement: Random eviction (simple but less effective)
+- Adaptive Replacement Cache (ARC): Balances recency and frequency
+
+**Cache Invalidation Strategies**:
+- Time-Based Expiration: TTL expiration, suitable for data with predictable staleness tolerance
+- Event-Driven Invalidation: Invalidate on writes, updates, deletes (cache coherency)
+- Cache Tagging: Group related cache entries for bulk invalidation (Varnish, CloudFront)
+- Cache Purging: Manual or API-driven purge for specific keys or patterns
+- Versioned Keys: Append version to cache key (user:123:v2), change version to invalidate
+- Background Refresh: Asynchronously update cache before expiration
+
+**CDN Best Practices**:
+- Cache-Control Headers: Set appropriate max-age for different content types
+- Origin Shield: Additional caching layer between edge and origin to reduce origin load
+- Edge Computing: Lambda@Edge, Cloudflare Workers for personalization at edge
+- Cache Key Optimization: Normalize query parameters, exclude session cookies from static assets
+- Regional Caching: Multi-tier caching with regional POPs and edge locations
+- Cache Warming: Pre-fetch popular content to edge locations
+
+**Redis Deployment Patterns**:
+- Redis Standalone: Single instance for development/testing
+- Redis Sentinel: High availability with automatic failover
+- Redis Cluster: Horizontal scaling with data sharding across nodes
+- Redis on Kubernetes: Stateful sets with persistent volumes
+- AWS ElastiCache: Managed Redis service with auto-failover
+- Azure Cache for Redis: Managed Redis on Azure
+- Google Cloud Memorystore: Managed Redis on GCP
+
+**Monitoring & Metrics**:
+- Cache Hit Ratio: (hits / (hits + misses)) × 100, target >80%
+- Miss Ratio: Percentage of requests served from origin
+- Eviction Rate: Items evicted per second, indicates undersized cache
+- Memory Usage: Current memory vs. allocated, watch for approaching limits
+- Latency: Cache access time (sub-ms) vs. origin time (10-100ms+)
+- Throughput: Requests per second served from cache
+- Network Bandwidth Savings: Reduced bandwidth from cache hits vs. origin requests
+
+**Reference**: Consult platform engineering and performance teams for caching architecture and implementation guidance
 
 ## Integration Points
 

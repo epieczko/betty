@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The User Journeys is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+User Journey Maps are comprehensive visualizations that document end-to-end user experiences across all touchpoints, channels, and interactions with a product or service, capturing user actions, thoughts, emotions, pain points, and opportunities for improvement. Created using frameworks like Jobs-to-be-Done (JTBD), service design blueprints, and experience mapping methodologies, these artifacts leverage tools like Miro, Mural, Smaply, or UXPressia to provide holistic views of user experiences that inform product strategy, feature prioritization, and experience optimization.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+These empathy-driven artifacts map the complete user journey from initial awareness through purchase, onboarding, active use, and renewal/advocacy, documenting personas, goals, tasks, touchpoints, channels, emotions, pain points, moments of truth, and improvement opportunities at each journey stage. Following design thinking and human-centered design principles, user journey maps integrate insights from user research, analytics, customer feedback, and stakeholder interviews to create shared understanding of user needs and drive experience improvements across product management, UX design, marketing, customer success, and development teams.
 
 ### Strategic Importance
 
@@ -20,27 +20,49 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as a visual narrative documenting the complete user experience journey, capturing user goals, actions, touchpoints, emotions, pain points, and opportunities across all stages of interaction. It provides shared empathy and understanding of user needs to inform product decisions, prioritize features, and optimize experiences.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- User personas and their characteristics (demographics, goals, motivations, behaviors)
+- Journey stages (awareness, consideration, purchase, onboarding, active use, retention, advocacy)
+- User goals and jobs-to-be-done at each journey stage
+- User actions and tasks performed at each stage
+- Touchpoints and channels (web, mobile, email, phone, in-person, etc.)
+- User thoughts and emotions at each touchpoint (emotion curve)
+- Pain points, frustrations, and barriers
+- Moments of truth and delight
+- Opportunities for improvement and innovation
+- Supporting evidence (research quotes, analytics, customer feedback)
+- Stakeholder ownership for each touchpoint
+- Current state vs. future state journey maps
+- Quantitative metrics (conversion rates, satisfaction scores, time on task)
+- Cross-channel experiences and omnichannel journeys
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed feature specifications (covered in FRS)
+- Technical implementation details
+- Project schedules and resource allocation
+- Detailed UI wireframes and mockups
+- Internal business processes (use service blueprints)
+- Comprehensive usability test results (reference findings)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Product Managers who prioritize features based on journey insights
+- UX Designers who design experiences addressing pain points
+- UX Researchers who conduct research informing journey maps
+- Business Analysts who understand user needs and workflows
+- Customer Success teams who optimize user onboarding and adoption
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Marketing teams who optimize acquisition and conversion journeys
+- Development Teams who understand user context for features
+- Executive stakeholders who align strategy with user needs
+- Customer Support teams who identify common user issues
+- Sales teams who understand buyer journey and decision points
 
 ## Document Information
 
@@ -106,19 +128,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Evidence-Based**: Ground journey maps in real user research (interviews, observations, analytics) not assumptions
+**Persona-Specific**: Create separate journey maps for distinct personas; avoid generic "all users" journeys
+**End-to-End Coverage**: Map complete journey from awareness/need recognition through advocacy/renewal
+**Emotion Curve**: Include emotional dimension showing user feelings (frustration, delight, confusion) throughout journey
+**Pain Point Identification**: Clearly highlight pain points, friction, and barriers at each stage
+**Quantitative Validation**: Support qualitative insights with metrics (conversion rates, time on task, NPS, CSAT)
+**Touchpoint Mapping**: Document all touchpoints and channels where user interacts with product/service
+**Jobs-to-be-Done**: Frame journey stages around jobs user is trying to accomplish, not just features used
+**Moments of Truth**: Identify critical moments that significantly impact user perception and decision-making
+**Opportunity Spotting**: Convert pain points into actionable improvement opportunities with priority
+**Collaborative Creation**: Involve cross-functional stakeholders in journey mapping workshops
+**Current vs. Future State**: Create current state journey first, then envision future optimized journey
+**Visual Storytelling**: Use visual timeline format that tells compelling narrative of user experience
+**Supporting Quotes**: Include actual user quotes from research to build empathy
+**Touchpoint Ownership**: Assign stakeholder ownership for each touchpoint to enable accountability
+**Regular Updates**: Update journey maps as user behaviors evolve and new research emerges
+**Journey Metrics**: Define metrics to measure journey improvements (stage completion rates, satisfaction, time)
 
 ## Quality Criteria
 
@@ -165,7 +191,108 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Journey Mapping Frameworks**:
+- Customer Journey Mapping: End-to-end customer experience documentation
+- User Journey Maps: Product-focused user interaction mapping
+- Experience Maps: Broader ecosystem and emotional journey visualization
+- Service Blueprints: Journey mapping with front-stage and back-stage processes
+- Jobs-to-be-Done (JTBD): Clayton Christensen framework for understanding user motivations
+- Touchpoint Matrix: Systematically mapping all interaction points
+
+**Journey Mapping Tools**:
+- Miro: Collaborative online whiteboarding and journey mapping
+- Mural: Digital workspace for visual collaboration and mapping
+- Smaply: Dedicated journey mapping and persona tool
+- UXPressia: Journey maps, personas, and impact maps
+- Custellence: Customer journey mapping platform
+- Lucidchart: Diagramming tool with journey map templates
+- Microsoft Visio: Diagramming with journey mapping templates
+- Adobe XD: Journey map creation with design integration
+- Figma/FigJam: Collaborative design and journey mapping
+
+**Design Thinking and Research Methods**:
+- Design Thinking (IDEO, Stanford d.school): Human-centered design methodology
+- Double Diamond (Design Council): Discover, Define, Develop, Deliver framework
+- Empathy Mapping: Tool for understanding user thoughts, feelings, actions
+- Five Whys: Root cause analysis technique for understanding pain points
+- Contextual Inquiry: Observational research in user environment
+- Diary Studies: Longitudinal research capturing user experiences over time
+- Ethnographic Research: Deep immersion in user context and culture
+
+**Persona Development**:
+- User Personas: Representative archetypes of user segments
+- Buyer Personas: B2B focused decision-maker profiles
+- Proto-Personas: Assumption-based personas validated through research
+- Data-Driven Personas: Personas created from analytics and behavioral data
+- Jobs-to-be-Done Personas: Personas organized around jobs and outcomes
+
+**User Research Methods**:
+- User Interviews: One-on-one conversations about experiences and needs
+- Usability Testing: Observing users completing tasks to identify friction
+- Surveys and Questionnaires: Quantitative data on user behaviors and satisfaction
+- Analytics Analysis: Behavioral data from tools like Google Analytics, Mixpanel, Amplitude
+- Session Recordings: Tools like Hotjar, FullStory, LogRocket
+- Heatmaps and Click Tracking: Understanding user interaction patterns
+- A/B Testing: Validating journey improvements through experiments
+
+**Journey Stages and Models**:
+- AIDA Model: Awareness, Interest, Desire, Action
+- Purchase Funnel: Awareness, Consideration, Decision, Retention, Advocacy
+- Pirate Metrics (AARRR): Acquisition, Activation, Retention, Revenue, Referral
+- Customer Lifecycle: Awareness, Acquisition, Onboarding, Engagement, Retention, Growth
+- McKinsey Consumer Decision Journey: Consider, Evaluate, Buy, Experience, Advocate, Bond
+
+**Emotion and Experience Measurement**:
+- Net Promoter Score (NPS): Likelihood to recommend measurement
+- Customer Satisfaction (CSAT): Transaction-specific satisfaction scores
+- Customer Effort Score (CES): Ease of accomplishing tasks
+- System Usability Scale (SUS): Standardized usability questionnaire
+- Emotion Curve Analysis: Tracking emotional highs and lows through journey
+- Sentiment Analysis: Analyzing feedback for emotional tone
+
+**Service Design Frameworks**:
+- Service Design Thinking: Holistic approach to service innovation
+- Service Blueprints: Linking front-stage customer actions with back-stage operations
+- Moments of Truth: Jan Carlzon's critical interaction points
+- Peak-End Rule: Kahneman's principle that experiences are judged by peaks and endings
+- Kano Model: Categorizing features by customer delight (basic, performance, excitement)
+
+**Touchpoint and Channel Mapping**:
+- Omnichannel Experience Design: Consistent experience across all channels
+- Cross-Channel Journey: Tracking user movement between channels
+- Touchpoint Inventory: Cataloging all customer interaction points
+- Channel Attribution: Understanding which touchpoints drive conversions
+- Multi-Device Experience: Journey across desktop, mobile, tablet, IoT
+
+**Opportunity Identification**:
+- Pain Point Analysis: Systematic identification of user frustrations
+- Gap Analysis: Current state vs. desired state comparison
+- Innovation Opportunities: Converting insights into product improvements
+- Value Proposition Canvas: Aligning products with customer jobs and pains
+- Lean Canvas: Business model aligned with customer needs
+
+**Metrics and Analytics Tools**:
+- Google Analytics: Web and app analytics
+- Mixpanel: Product analytics and user behavior tracking
+- Amplitude: Product analytics and journey analysis
+- Heap: Automatic event tracking and user journey analysis
+- Segment: Customer data platform for journey tracking
+- Qualtrics: Experience management and journey analytics
+- Medallia: Customer experience management platform
+
+**Visualization and Communication**:
+- Storyboarding: Visual narrative of user journey
+- Customer Journey Timeline: Chronological journey visualization
+- Swim Lane Diagrams: Showing parallel tracks (customer, front-stage, back-stage)
+- Empathy Maps: Visualizing user thoughts, feelings, actions, pain points
+- Journey Presentations: Communicating insights to stakeholders
+
+**Academic and Industry References**:
+- "This is Service Design Doing" by Marc Stickdorn
+- "Mapping Experiences" by James Kalbach
+- "The Elements of User Experience" by Jesse James Garrett
+- Nielsen Norman Group: Journey mapping research and best practices
+- Adaptive Path (Capital One): Journey mapping pioneers
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

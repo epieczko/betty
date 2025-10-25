@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Use Case Diagrams is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Use Case Diagrams are UML 2.5 visual models that depict system functionality from an external user perspective, showing actors (users, external systems), use cases (system capabilities), system boundary, and relationships (associations, includes, extends, generalizations). Following IEEE 29148 and UML standards, these diagrams are created using tools like Enterprise Architect, Lucidchart, Draw.io, PlantUML, or Visual Paradigm to provide high-level functional scope visualization that supports requirements elicitation, stakeholder communication, and system boundary definition.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+These standardized diagrams complement textual requirements by visualizing who interacts with the system (actors), what the system does (use cases), relationships between use cases, and the system boundary separating internal functionality from external interactions. Use case diagrams serve as essential communication artifacts between business stakeholders, business analysts, requirements engineers, system architects, and development teams, providing a shared visual language for discussing system scope and user interactions.
 
 ### Strategic Importance
 
@@ -20,27 +20,44 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as a visual representation of system functionality showing actors, use cases, system boundary, and relationships using standardized UML 2.5 notation. It supports requirements elicitation by providing a high-level view of what the system does, who uses it, and how use cases relate to each other, facilitating stakeholder communication and scope validation.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Actors (primary users, secondary users, external systems, time triggers)
+- Use cases representing system capabilities and user goals
+- System boundary showing internal vs. external scope
+- Actor-to-use case associations (which actors interact with which use cases)
+- Use case relationships: Include (required sub-functionality), Extend (optional variations), Generalization (inheritance)
+- Actor generalizations (role hierarchies)
+- UML 2.5 standard notation and semantics
+- Context diagrams showing system in broader environment
+- Package diagrams for organizing large use case models
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed use case specifications with flows (covered in Use Case Models)
+- Implementation details and design decisions
+- User interface designs and wireframes
+- Detailed business process flows (use BPMN for processes)
+- Sequence diagrams showing interaction timing
+- Data models and entity relationships
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Business Analysts who create and maintain use case diagrams
+- Requirements Engineers who validate functional scope coverage
+- Product Managers who review and approve system scope
+- System Architects who understand functional requirements visually
+- UX Designers who understand user interactions with system
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Business stakeholders who validate system capabilities
+- Development Teams who understand high-level functional scope
+- QA Engineers who identify test scenarios from use cases
+- Project Managers who estimate effort from use case complexity
+- Technical Writers who document user-facing functionality
 
 ## Document Information
 
@@ -106,19 +123,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**UML 2.5 Compliance**: Follow standard UML notation (stick figures for actors, ovals for use cases, rectangles for system boundary)
+**User-Goal Orientation**: Name use cases as user goals (verb-noun format like "Process Payment" not "Payment Processing")
+**Appropriate Granularity**: Keep diagrams at appropriate abstraction level; avoid overly detailed or overly abstract use cases
+**Actor Identification**: Identify all primary actors (initiate use cases), secondary actors (support), and external systems
+**System Boundary**: Clearly delineate system boundary; place use cases inside, actors outside the boundary
+**Limited Include/Extend**: Use <<include>> for required common functionality, <<extend>> for optional variations; avoid overuse
+**Actor Generalization**: Use generalization to show role hierarchies (e.g., Admin generalizes from User)
+**One Primary Actor**: Each use case should have one primary actor who initiates and benefits from the use case
+**Readable Layout**: Organize diagrams for readability; group related use cases, minimize crossing lines
+**Consistent Naming**: Use consistent naming conventions across diagrams; maintain glossary of terms
+**Package Organization**: For large systems, organize use cases into packages by subsystem or functional area
+**Complementary Documentation**: Link use case diagrams to detailed use case specifications
+**Stakeholder Review**: Review diagrams with stakeholders to validate scope and actor identification
+**Tool-Based Creation**: Use modeling tools (Enterprise Architect, Lucidchart, PlantUML) for maintainability
+**Version Control**: Store diagram source files (not just images) in version control
+**Traceability**: Link use cases to functional requirements and user stories in RTM
+**Avoid Design**: Keep diagrams at requirements level; avoid including design or implementation details
 
 ## Quality Criteria
 
@@ -165,7 +186,76 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**UML Standards and Specifications**:
+- UML 2.5.1: Unified Modeling Language specification by OMG (use case diagram notation)
+- ISO/IEC 19505-2: UML Superstructure specification
+- OMG UML: Object Management Group UML standards and best practices
+- Use Case 2.0: Ivar Jacobson's modern use case practices (use case slices, stories)
+
+**Use Case Methodologies**:
+- Alistair Cockburn Use Case Writing: Goal-oriented use case templates and best practices
+- Ivar Jacobson Use Cases: Original use case methodology and notation
+- ICONIX Process: Use case-driven development methodology
+- User-Goal Technique: Focus on user goals rather than system functions
+- Essential Use Cases: Technology-free use case specifications
+
+**Modeling Tools**:
+- Enterprise Architect: Sparx Systems UML and use case modeling
+- Visual Paradigm: UML, BPMN, and use case diagram tool
+- Lucidchart: Cloud-based diagramming with UML support
+- Draw.io (diagrams.net): Free open-source diagramming tool
+- PlantUML: Text-based UML diagram generation
+- StarUML: Open-source UML modeling tool
+- ArgoUML: Open-source UML modeling tool
+- MagicDraw/Cameo: NoMagic UML and SysML modeling
+- IBM Rational Software Architect: UML and requirements modeling
+- Creately: Online collaborative diagramming
+- Miro: Collaborative whiteboarding with UML templates
+- Microsoft Visio: General-purpose diagramming with UML stencils
+
+**Requirements Engineering Integration**:
+- IEEE 29148: Requirements engineering (use cases as requirements specification technique)
+- IREB/CPRE: Use case analysis in requirements engineering curriculum
+- BABOK v3: Use case modeling in business analysis practices
+- Use Case Points: Effort estimation technique based on use cases
+
+**Related Modeling Techniques**:
+- BPMN 2.0: Business Process Model and Notation for detailed process flows
+- Activity Diagrams: UML diagrams showing workflow and control flow
+- Sequence Diagrams: UML interaction diagrams showing message timing
+- Context Diagrams: System context and external entity identification
+- User Story Mapping: Agile alternative/complement to use case diagrams
+- Event Storming: Collaborative domain modeling technique
+
+**Use Case Testing and Validation**:
+- Use Case-Based Testing: Deriving test scenarios from use cases
+- Scenario-Based Testing: Testing based on use case scenarios
+- Acceptance Testing: Validating use cases with stakeholders
+- Use Case Walkthroughs: Reviewing use case diagrams with stakeholders
+
+**Systems Modeling Integration**:
+- SysML: Systems Modeling Language (extends UML for systems engineering)
+- OOSEM: Object-Oriented Systems Engineering Method (use case-driven)
+- Harmony-SE: Systems engineering process with use case analysis
+- Use Cases in Model-Based Systems Engineering (MBSE)
+
+**Agile and Lean Integration**:
+- User Stories: Agile lightweight alternative to detailed use cases
+- Epics and Features: Agile hierarchy mapping to use case packages
+- Story Mapping: Jeff Patton's user story mapping (visual use case alternative)
+- Use Case Slicing: Breaking use cases into Minimal Marketable Features
+
+**Documentation Standards**:
+- Use Case Specifications: Detailed textual descriptions complementing diagrams
+- Use Case Templates: Structured formats (brief, casual, fully-dressed)
+- Glossary: Common terminology for actors and use cases
+- Supplementary Specifications: Non-functional requirements complementing use cases
+
+**Academic and Industry References**:
+- "Writing Effective Use Cases" by Alistair Cockburn
+- "Use Case Modeling" by Kurt Bittner and Ian Spence
+- "Applying UML and Patterns" by Craig Larman
+- IEEE Software Engineering Standards Collection
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

@@ -2,45 +2,60 @@
 
 ## Executive Summary
 
-The Capacity Models is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Capacity Models artifact applies queueing theory, Little's Law, and empirical performance data to predict system behavior under varying loads and inform infrastructure sizing decisions. Capacity models document resource utilization targets (CPU <70%, memory <80%), scaling characteristics (linear vs. sub-linear), bottleneck analysis, and growth projections to ensure systems maintain performance SLOs while optimizing infrastructure costs through right-sizing.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Capacity models translate load profiles and performance test results into infrastructure requirements. Using principles like Little's Law (L = λW relating concurrency, arrival rate, and service time) and queueing models (M/M/1, M/M/c for server pools), capacity planners predict required compute, memory, storage, and network resources. Models account for non-linear scaling effects, resource headroom for bursts, and cost optimization through horizontal vs. vertical scaling trade-offs.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Infrastructure Sizing**: Determines compute, memory, storage, and network requirements to meet performance SLOs
+- **Cost Optimization**: Balances performance requirements against infrastructure costs through right-sizing
+- **Scaling Strategy**: Informs horizontal vs. vertical scaling decisions and auto-scaling policy configuration
+- **Headroom Planning**: Ensures sufficient capacity buffer (typically 30-50%) for traffic bursts and failover scenarios
+- **Growth Planning**: Projects future capacity needs based on business growth and usage trend analysis
+- **SLO Achievement**: Validates infrastructure capacity supports defined Service Level Objectives for latency and throughput
+- **Budget Forecasting**: Enables accurate infrastructure budget planning based on predictable capacity requirements
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact applies capacity planning methodologies (queueing theory, Little's Law, empirical scaling analysis) to translate performance requirements and load profiles into specific infrastructure sizing recommendations, resource utilization targets, and scaling policies that ensure systems meet SLOs while optimizing costs.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Resource utilization targets: CPU <70%, memory <80%, disk I/O <60%, network bandwidth <50%
+- Little's Law application: L = λW to model concurrency requirements from throughput and latency targets
+- Queueing models: M/M/1, M/M/c for request queuing, thread pools, database connection pools
+- Scaling characteristics: linear, sub-linear, or super-linear scaling behavior from load tests
+- Headroom requirements: reserve capacity for traffic bursts, failover scenarios, deployment headroom
+- Compute sizing: vCPU/core requirements based on CPU-bound vs. I/O-bound workload characteristics
+- Memory sizing: heap requirements, cache sizes, buffer pools, OS page cache considerations
+- Storage capacity: data volume growth, IOPS requirements, throughput requirements, retention policies
+- Network capacity: bandwidth requirements, connection limits, regional distribution
+- Database capacity: connection pool sizing, query throughput limits, storage growth projections
+- Cache sizing: Redis/Memcached memory requirements based on hit ratio targets (>80%)
+- Growth modeling: 12-24 month capacity projections based on business growth and usage trends
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Load profile definitions (covered in load-profiles)
+- Performance test execution results (covered in performance-test-results)
+- Auto-scaling policy implementation details (covered in scaling-policies)
+- Detailed cost analysis and optimization (covered in cloud-cost-optimization-reports)
+- Real-time monitoring and alerting configuration
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Capacity Planners sizing infrastructure to meet performance and growth requirements
+- SRE Teams configuring resource limits and designing for reliability
+- Cloud Architects making infrastructure decisions (instance types, scaling approaches)
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- FinOps Teams planning infrastructure budgets based on capacity requirements
+- Engineering Managers understanding infrastructure costs and scaling limitations
+- Performance Engineers validating capacity assumptions from load test results
 
 ## Document Information
 
@@ -227,9 +242,78 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Capacity Planning Methodologies**:
+- Little's Law: L = λW (system concurrency = arrival rate × average service time)
+- Queueing Theory: M/M/1 (single server), M/M/c (multiple servers), M/M/∞ (unlimited servers)
+- Universal Scalability Law: Model scalability limits from contention and coherency costs
+- Utilization Law: U = λS (utilization = arrival rate × service time)
+- Response Time Law: R = N/X - Z (response time from users, throughput, think time)
+- Little's Law Extensions: Applied to thread pools, connection pools, message queues
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Resource Utilization Targets**:
+- CPU Utilization: <70% sustained for headroom, <50% for burst-heavy workloads
+- Memory Utilization: <80% to avoid swapping and GC pressure
+- Disk I/O: <60% sustained to prevent queue buildup
+- Network Bandwidth: <50% for TCP efficiency and burst capacity
+- Connection Pools: <80% utilization to prevent connection exhaustion
+- Queue Depths: Monitor for sustained >0 indicating saturation
+
+**Scaling Models**:
+- Linear Scaling: Throughput doubles when resources double (ideal but rare)
+- Sub-Linear Scaling: Diminishing returns from contention (databases, shared state)
+- Super-Linear Scaling: Better than linear (cache effects, reduced GC)
+- Amdahl's Law: Theoretical speedup limits from sequential portions
+- Horizontal Scaling: Add instances (stateless services, read replicas)
+- Vertical Scaling: Larger instances (databases, memory-intensive apps)
+
+**Capacity Planning Tools**:
+- Spreadsheet Models: Excel/Google Sheets with formulas for scenarios
+- Capacity Planning Software: PlanITROI, TeamQuest, BMC Capacity Optimization
+- Simulation Tools: Arena, AnyLogic for complex queueing systems
+- Cloud Cost Calculators: AWS Calculator, Azure Pricing Calculator, GCP Pricing Calculator
+- Performance Modeling: Queueing network models, discrete event simulation
+
+**Infrastructure Sizing Considerations**:
+- Compute Sizing: vCPU based on CPU profiles, burst credits (t-series), CPU architecture
+- Memory Sizing: Application heap + buffer cache + OS overhead + headroom
+- Storage Types: SSD vs. HDD, provisioned IOPS (gp3, io1), throughput requirements
+- Network Performance: Enhanced networking, placement groups, network bandwidth tiers
+- Database Sizing: Connection pools, query concurrency, replication lag, backup windows
+- Cache Sizing: Working set analysis, eviction rates, hit ratio targets (>80%)
+
+**Auto-Scaling Frameworks**:
+- Kubernetes HPA: Horizontal Pod Autoscaler based on CPU, memory, custom metrics
+- Kubernetes VPA: Vertical Pod Autoscaler for right-sizing pod requests/limits
+- Kubernetes Cluster Autoscaler: Add/remove nodes based on pending pods
+- AWS Auto Scaling: EC2 Auto Scaling Groups, target tracking, step scaling, scheduled scaling
+- Azure VMSS: Virtual Machine Scale Sets with auto-scaling rules
+- GCP Autoscaler: MIG autoscaling based on CPU, load balancing, custom metrics
+- KEDA: Kubernetes Event-Driven Autoscaling for queue-based scaling
+
+**Monitoring & Analysis Tools**:
+- Prometheus: Metrics collection for utilization analysis and capacity trending
+- Grafana: Visualization of capacity metrics and utilization trends
+- Datadog: Infrastructure monitoring and capacity analytics
+- New Relic: Application and infrastructure capacity insights
+- CloudWatch: AWS resource utilization and auto-scaling metrics
+- Azure Monitor: Azure resource metrics and capacity planning
+- GCP Cloud Monitoring: GCP resource monitoring and alerting
+
+**Capacity Planning Best Practices**:
+- Google SRE Book: Capacity planning chapter with demand forecasting
+- The Art of Capacity Planning (Allspaw): Practical capacity planning methodologies
+- Guerrilla Capacity Planning (Gunther): Performance modeling with queueing theory
+- Systems Performance (Gregg): USE method for capacity analysis
+- Database Reliability Engineering (Campbell/Majors): Database capacity planning
+
+**Cost Optimization Frameworks**:
+- Reserved Instances/Savings Plans: Commit to 1-3 year usage for 30-70% savings
+- Spot Instances: Up to 90% savings for fault-tolerant, flexible workloads
+- Right-sizing: Match instance types to actual utilization patterns
+- Storage Optimization: Tiering (S3 Standard → Glacier), snapshot management, lifecycle policies
+- Compute Savings Plans: Flexible commitment across instance families and regions
+
+**Reference**: Consult capacity planning, SRE, and FinOps teams for methodology selection and tool guidance
 
 ## Integration Points
 

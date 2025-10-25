@@ -2,45 +2,61 @@
 
 ## Executive Summary
 
-The Scaling Policies is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Scaling Policies artifact defines auto-scaling configuration for Kubernetes HPA/VPA, AWS Auto Scaling Groups, Azure VMSS, or GCP Managed Instance Groups, documenting target utilization thresholds (70% CPU, 80% memory), scale-up/scale-down rules, cooldown periods, and minimum/maximum instance counts. Effective auto-scaling ensures applications maintain performance SLOs during traffic spikes while minimizing infrastructure costs during low-traffic periods through automatic capacity adjustment.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Scaling policies translate capacity models and load profiles into automated infrastructure responses. They specify when to add instances (CPU >70% for 3 minutes), how quickly to scale (add 20% capacity, max 10 instances at once), and when to scale down (CPU <30% for 10 minutes to avoid thrashing). Policies balance responsiveness (scale quickly during spikes), stability (avoid oscillation), and cost (scale down during low traffic), with different strategies for predictable patterns (scheduled scaling) vs. reactive scaling (metric-based).
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Performance Assurance**: Automatically adds capacity during traffic spikes to maintain response time SLOs
+- **Cost Optimization**: Scales down during low-traffic periods to minimize idle resource costs (30-50% savings typical)
+- **Availability Protection**: Ensures sufficient capacity for failover scenarios and unexpected traffic surges
+- **Operational Efficiency**: Eliminates manual intervention for routine capacity adjustments
+- **Predictability**: Scheduled scaling handles known patterns (business hours, batch jobs, seasonal events)
+- **Burst Handling**: Reactive scaling responds to unexpected traffic increases within minutes
+- **Resource Efficiency**: Maintains target utilization (70% CPU) avoiding both under-utilization and saturation
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents auto-scaling policies for Kubernetes (HPA/VPA), AWS (Auto Scaling Groups), Azure (VMSS), or GCP (MIG), defining target metrics (CPU 70%, memory 80%, custom metrics), scale-up/scale-down thresholds, cooldown periods, rate limits, and scheduled scaling to automatically adjust capacity based on load while optimizing costs.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Kubernetes HPA: Horizontal Pod Autoscaler configuration, target CPU/memory utilization, custom metrics (RPS, queue depth)
+- Kubernetes VPA: Vertical Pod Autoscaler for right-sizing resource requests/limits
+- Kubernetes Cluster Autoscaler: Node pool scaling based on pending pods and resource requests
+- AWS Auto Scaling Groups: EC2 instance scaling, target tracking, step scaling, scheduled scaling
+- Azure VMSS: Virtual Machine Scale Sets auto-scaling based on metrics or schedule
+- GCP Autoscaler: Managed Instance Group scaling policies
+- KEDA: Kubernetes Event-Driven Autoscaling for queue-based, event-driven scaling
+- Target utilization: CPU 60-70%, memory 70-80%, custom metrics (RPS, latency, queue depth)
+- Scale-up policies: Threshold (CPU >70%), evaluation periods (3 minutes), increment (20% or 2 instances)
+- Scale-down policies: Threshold (CPU <30%), cooldown (10 minutes), decrement (10% or 1 instance)
+- Minimum/maximum capacity: Min instances for availability, max for cost control
+- Cooldown periods: Prevent thrashing by waiting after scaling actions (5-15 minutes typical)
+- Scheduled scaling: Time-based scaling for predictable patterns (business hours, batch jobs)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed capacity planning models (covered in capacity-models)
+- Infrastructure-as-Code implementation (Terraform, CloudFormation, ARM templates)
+- Load balancer configuration and health checks
+- Application-level circuit breakers and rate limiting
+- Database auto-scaling (separate database scaling policies)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Platform Engineers implementing auto-scaling policies for applications
+- SRE Teams ensuring availability and performance through appropriate scaling
+- Cloud Architects designing scalable, cost-efficient infrastructure
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Development Teams understanding how applications scale under load
+- FinOps Teams optimizing infrastructure costs through effective auto-scaling
+- Capacity Planners validating scaling policies against growth projections
 
 ## Document Information
 
@@ -165,9 +181,88 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Kubernetes Auto-Scaling**:
+- Horizontal Pod Autoscaler (HPA): Scale pods based on CPU, memory, or custom metrics
+- Vertical Pod Autoscaler (VPA): Adjust resource requests/limits based on actual usage
+- Cluster Autoscaler: Add/remove nodes based on pending pods and resource availability
+- KEDA: Event-driven autoscaling for queues (SQS, RabbitMQ, Kafka), databases, HTTP traffic
+- Metrics Server: Provides resource metrics (CPU, memory) for HPA
+- Custom Metrics API: Prometheus adapter for custom metrics (RPS, latency, queue depth)
+- External Metrics API: Cloud provider metrics (CloudWatch, Azure Monitor, GCP Monitoring)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**AWS Auto-Scaling**:
+- EC2 Auto Scaling Groups: Scale EC2 instances based on CloudWatch metrics
+- Target Tracking Scaling: Maintain target metric (CPU 70%, ALB requests per target)
+- Step Scaling: Different scaling amounts based on alarm severity
+- Scheduled Scaling: Time-based scaling for predictable patterns
+- Predictive Scaling: ML-based forecasting for proactive scaling
+- Warm Pools: Pre-initialized instances for faster scale-up
+- Lifecycle Hooks: Custom actions during instance launch/termination
+
+**Azure Auto-Scaling**:
+- Virtual Machine Scale Sets (VMSS): Auto-scaling for Azure VMs
+- Azure Monitor Autoscale: Metric-based and schedule-based scaling
+- Azure Kubernetes Service (AKS): HPA and cluster autoscaler
+- Application Gateway Autoscaling: Scale application gateway instances
+- App Service Autoscale: Scale App Service plans based on metrics
+
+**GCP Auto-Scaling**:
+- Managed Instance Groups (MIG): Auto-scaling for Compute Engine VMs
+- GKE Autoscaling: HPA and cluster autoscaler for Kubernetes
+- Cloud Run: Automatic scaling to zero for serverless containers
+- App Engine: Automatic scaling for App Engine applications
+- Stackdriver Monitoring: Metrics for auto-scaling decisions
+
+**Scaling Metrics**:
+- CPU Utilization: Most common, target 60-70% for headroom
+- Memory Utilization: Target 70-80%, watch for OOM kills
+- Request Rate: Requests per second per instance (e.g., 100 RPS/instance)
+- Latency: P95 or P99 response time as scaling trigger
+- Queue Depth: Pending items in message queue (SQS, RabbitMQ, Kafka)
+- Custom Metrics: Application-specific metrics via Prometheus, CloudWatch, etc.
+- Connection Count: Active connections per instance (databases, websockets)
+
+**Scaling Strategies**:
+- Reactive Scaling: Scale based on current metrics (CPU, memory, RPS)
+- Predictive Scaling: ML-based forecasting and proactive capacity addition
+- Scheduled Scaling: Time-based scaling for known patterns (business hours, batch jobs)
+- Event-Driven Scaling: KEDA for queue-based workloads, scale to zero when idle
+- Hybrid Approach: Scheduled baseline + reactive scaling for bursts
+- Scale-to-Zero: Serverless patterns (Cloud Run, Knative, Lambda) for sporadic workloads
+
+**Scaling Configuration Best Practices**:
+- Target Utilization: CPU 60-70%, memory 70-80% for headroom
+- Minimum Instances: At least 2 for availability, more for high-traffic services
+- Maximum Instances: Set based on cost limits and downstream capacity (database connections)
+- Scale-Up Speed: Aggressive (add 20-50% capacity) to handle spikes quickly
+- Scale-Down Speed: Conservative (remove 10% capacity) to avoid thrashing
+- Cooldown Periods: 5-10 minutes for scale-up, 10-15 minutes for scale-down
+- Evaluation Periods: 2-3 data points before scaling to avoid noise
+
+**Anti-Thrashing Techniques**:
+- Cooldown Periods: Wait after scaling before evaluating again
+- Different Up/Down Thresholds: Scale up at 70%, down at 30% (hysteresis)
+- Longer Evaluation for Scale-Down: Require sustained low utilization
+- Gradual Scale-Down: Remove instances slowly (1 at a time vs. percentage)
+- Scheduled Minimums: Maintain baseline during business hours even if metrics low
+
+**Cost Optimization with Auto-Scaling**:
+- Reserved Instances/Savings Plans: Cover baseline capacity, auto-scale on-demand instances
+- Spot Instances: Use for fault-tolerant workloads in auto-scaling groups (70-90% cost savings)
+- Scale-to-Zero: Serverless or KEDA for non-production or sporadic workloads
+- Scheduled Scale-Down: Reduce capacity during off-hours (nights, weekends)
+- Right-Sizing: Use VPA or monitoring data to optimize resource requests
+- Cluster Autoscaler: Remove underutilized nodes automatically
+
+**Monitoring & Observability**:
+- Scaling Events: Track scale-up/scale-down actions, timing, reasons
+- Capacity Metrics: Current instances vs. min/max, utilization trends
+- Latency Impact: Response times before/during/after scaling events
+- Cost Metrics: Instance costs correlated with auto-scaling behavior
+- Throttling Events: Downstream systems unable to handle scale-up
+- Scale-Up Lag: Time from trigger to new capacity serving traffic
+
+**Reference**: Consult platform engineering and SRE teams for auto-scaling configuration and optimization guidance
 
 ## Integration Points
 
