@@ -19,12 +19,12 @@ Analyzes agent compatibility and discovers multi-agent workflows based on artifa
 ### Find Compatible Agents
 
 ```bash
-python3 agents/meta.compatibility/meta_compatibility.py find-compatible atum
+python3 agents/meta.compatibility/meta_compatibility.py find-compatible meta.agent
 ```
 
 Output:
 ```
-Agent: atum
+Agent: meta.agent
 Produces: agent-definition, agent-documentation
 Consumes: agent-description
 
@@ -32,7 +32,7 @@ Consumes: agent-description
    • meta.compatibility (via agent-definition)
 
 ⚠️  Gaps (1):
-   • agent-description: No agents produce 'agent-description' (required by atum)
+   • agent-description: No agents produce 'agent-description' (required by meta.agent)
 ```
 
 ### Suggest Pipeline
@@ -43,17 +43,17 @@ python3 agents/meta.compatibility/meta_compatibility.py suggest-pipeline "Create
 
 Output:
 ```
-📋 Pipeline 1: Atum Pipeline
-   Pipeline starting with atum
+📋 Pipeline 1: meta.agent Pipeline
+   Pipeline starting with meta.agent
    Steps:
-      1. atum - Meta-agent that creates other agents...
+      1. meta.agent - Meta-agent that creates other agents...
       2. meta.compatibility - Analyzes agent and skill compatibility...
 ```
 
 ### Analyze Agent
 
 ```bash
-python3 agents/meta.compatibility/meta_compatibility.py analyze atum
+python3 agents/meta.compatibility/meta_compatibility.py analyze meta.agent
 ```
 
 ### List All Compatibility
@@ -153,7 +153,7 @@ Human-readable output with emojis and formatting.
 Machine-readable JSON for programmatic use.
 
 ```bash
-python3 agents/meta.compatibility/meta_compatibility.py find-compatible atum --format json > atum_compatibility.json
+python3 agents/meta.compatibility/meta_compatibility.py find-compatible meta.agent --format json > meta_agent_compatibility.json
 ```
 
 ### YAML
@@ -215,13 +215,12 @@ Uses keyword matching and artifact analysis:
 
 ## Integration
 
-### With meta.agent (Atum)
-
+### With meta.agent 
 After creating an agent, analyze its compatibility:
 
 ```bash
 # Create agent
-python3 agents/atum/atum.py description.md
+python3 agents/meta.agent/meta_agent.py description.md
 
 # Analyze compatibility
 python3 agents/meta.compatibility/meta_compatibility.py analyze new-agent
@@ -235,7 +234,7 @@ python3 agents/meta.compatibility/meta_compatibility.py find-compatible new-agen
 meta.suggest uses meta.compatibility to make recommendations:
 
 ```bash
-python3 agents/meta.suggest/meta_suggest.py --context atum
+python3 agents/meta.suggest/meta_suggest.py --context meta.agent
 ```
 
 Internally calls meta.compatibility to find next steps.
@@ -249,7 +248,7 @@ Internally calls meta.compatibility to find next steps.
 python3 agents/meta.compatibility/meta_compatibility.py list-all
 
 # Analyze each agent
-for agent in atum meta.artifact meta.compatibility meta.suggest; do
+for agent in meta.agent meta.artifact meta.compatibility meta.suggest; do
     echo "=== $agent ==="
     python3 agents/meta.compatibility/meta_compatibility.py analyze $agent
 done
@@ -337,7 +336,7 @@ Missing artifacts in the ecosystem.
 ```
 
 Means:
-- atum needs agent-description input
+- meta.agent needs agent-description input
 - No agent produces it (it's user-provided)
 - This is expected for user inputs
 
@@ -440,7 +439,7 @@ meta.compatibility
 See test runs:
 ```bash
 # Example 1: Find compatible agents
-python3 agents/meta.compatibility/meta_compatibility.py find-compatible atum
+python3 agents/meta.compatibility/meta_compatibility.py find-compatible meta.agent
 
 # Example 2: Suggest pipeline
 python3 agents/meta.compatibility/meta_compatibility.py suggest-pipeline "Create agent and check compatibility"

@@ -17,7 +17,7 @@ All records are stored as JSON files in `.betty-traces/` for easy loading into d
 
 ```bash
 # Create agent with requirement linkage
-python3 agents/atum/atum.py examples/agents/code_reviewer_agent.md \
+python3 agents/meta.agent/meta_agent.py examples/agents/code_reviewer_agent.md \
   --requirement-id "REQ-2025-001" \
   --requirement-description "Automated code review for security" \
   --issue-id "JIRA-123" \
@@ -283,7 +283,7 @@ Track requirement → implementation → testing:
 
 ```bash
 # Create component with SOC2 requirement
-python3 agents/atum/atum.py security_agent.md \
+python3 agents/meta.agent/meta_agent.py security_agent.md \
   --requirement-id "SOC2-AC-2.1" \
   --requirement-description "Implement automated access control review" \
   --requirement-source "SOC2 Controls Matrix" \
@@ -299,7 +299,7 @@ Document security controls:
 
 ```bash
 # Create security control
-python3 agents/atum/atum.py access_monitor.md \
+python3 agents/meta.agent/meta_agent.py access_monitor.md \
   --requirement-id "ISO-A.9.2.1" \
   --requirement-description "User access provisioning monitoring" \
   --requirement-source "ISO 27001:2013 Annex A" \
@@ -312,7 +312,7 @@ Track data processing components:
 
 ```bash
 # Create data handler
-python3 agents/atum/atum.py data_anonymizer.md \
+python3 agents/meta.agent/meta_agent.py data_anonymizer.md \
   --requirement-id "GDPR-Art25" \
   --requirement-description "Data protection by design" \
   --requirement-source "GDPR Article 25" \
@@ -325,7 +325,7 @@ Electronic records and signatures:
 
 ```bash
 # Create audit logging component
-python3 agents/atum/atum.py audit_logger.md \
+python3 agents/meta.agent/meta_agent.py audit_logger.md \
   --requirement-id "21CFR11-10" \
   --requirement-description "Audit trail for record changes" \
   --requirement-source "21 CFR Part 11.10" \
@@ -442,13 +442,13 @@ db.traces.aggregate([
 
 ```bash
 # ✅ Good: Full requirement linkage
-python3 agents/atum/atum.py agent.md \
+python3 agents/meta.agent/meta_agent.py agent.md \
   --requirement-id "REQ-2025-001" \
   --requirement-description "Clear description" \
   --issue-id "JIRA-123"
 
 # ❌ Bad: No traceability
-python3 agents/atum/atum.py agent.md
+python3 agents/meta.agent/meta_agent.py agent.md
 ```
 
 ### 2. Use Descriptive Requirement IDs

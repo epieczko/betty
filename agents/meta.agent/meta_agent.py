@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Atum - Meta-agent that creates other agents
+meta.agent - Meta-agent that creates other agents
 
-Named after the Egyptian deity who creates by speaking existence into being.
-Transforms natural language descriptions into complete, functional agents.
+Transforms natural language descriptions into complete, functional agents
+by composing skills and generating proper artifact metadata.
 """
 
 import json
@@ -327,7 +327,7 @@ betty agent run {name} --input <path>
 
 ## Created By
 
-This agent was created by **Atum**, the meta-agent that speaks agents into existence.
+This agent was created by **meta.agent**, the meta-agent for creating agents.
 
 ---
 
@@ -468,7 +468,7 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser(
-        description="Atum - Create agents from natural language descriptions"
+        description="meta.agent - Create agents from natural language descriptions"
     )
     parser.add_argument(
         "description",
@@ -527,7 +527,7 @@ def main():
     # Create agent
     creator = AgentCreator()
 
-    print(f"🔮 Atum speaks {args.description} into existence...")
+    print(f"🔮 meta.agent creating agent from {args.description}...")
 
     try:
         result = creator.create_agent(

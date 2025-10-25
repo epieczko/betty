@@ -397,7 +397,7 @@ python3 agents/meta.skill/meta_skill.py file_compressor.md
 
 ## Integration
 
-### With meta.agent (Atum)
+### With meta.agent
 
 Create an agent that uses the skill:
 

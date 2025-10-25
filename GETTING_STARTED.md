@@ -20,7 +20,7 @@ Betty Framework provides **6 meta-agents** that help you create and manage frame
 
 | Meta-Agent | Creates | Purpose |
 |------------|---------|---------|
-| **meta.agent** (atum) | Agents | Build agents from descriptions |
+| **meta.agent** | Agents | Build agents from descriptions |
 | **meta.skill** | Skills | Generate skills from descriptions |
 | **meta.hook** | Hooks | Create event-driven automation |
 | **meta.artifact** | Artifact types | Define data standards |
@@ -50,7 +50,7 @@ cat > /tmp/my_agent.md <<'EOF'
 - api-spec
 EOF
 
-python3 agents/atum/atum.py /tmp/my_agent.md
+python3 agents/meta.agent/meta_agent.py /tmp/my_agent.md
 
 # 3. Verify it works
 python3 agents/meta.compatibility/meta_compatibility.py analyze api.designer
@@ -149,7 +149,7 @@ EOF
 ### Step 2: Generate Agent
 
 ```bash
-python3 agents/atum/atum.py examples/my_first_agent.md
+python3 agents/meta.agent/meta_agent.py examples/my_first_agent.md
 ```
 
 Output:
@@ -443,9 +443,9 @@ python3 agents/meta.artifact/meta_artifact.py create examples/code_diff_artifact
 python3 agents/meta.artifact/meta_artifact.py create examples/review_report_artifact.md
 
 # 2. Create agents
-python3 agents/atum/atum.py examples/code_analyzer.md     # Produces: review-report
-python3 agents/atum/atum.py examples/fix_suggester.md     # Consumes: review-report
-python3 agents/atum/atum.py examples/code_formatter.md    # Consumes: review-report
+python3 agents/meta.agent/meta_agent.py examples/code_analyzer.md     # Produces: review-report
+python3 agents/meta.agent/meta_agent.py examples/fix_suggester.md     # Consumes: review-report
+python3 agents/meta.agent/meta_agent.py examples/code_formatter.md    # Consumes: review-report
 
 # 3. Discover pipeline
 python3 agents/meta.compatibility/meta_compatibility.py \
@@ -573,7 +573,7 @@ Create artifact types before agents that use them:
 python3 agents/meta.artifact/meta_artifact.py create artifact.md
 
 # 2. Then create agents
-python3 agents/atum/atum.py agent.md
+python3 agents/meta.agent/meta_agent.py agent.md
 ```
 
 ### 4. Leverage Compatibility Analysis
@@ -656,7 +656,7 @@ cat .claude/hooks.yaml
 ```bash
 # Meta-Agents
 python3 agents/meta.artifact/meta_artifact.py create <file>
-python3 agents/atum/atum.py <description>
+python3 agents/meta.agent/meta_agent.py <description>
 python3 agents/meta.skill/meta_skill.py <description>
 python3 agents/meta.hook/meta_hook.py <description>
 python3 agents/meta.compatibility/meta_compatibility.py <command>

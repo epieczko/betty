@@ -308,7 +308,7 @@ Check logs:
 ```bash
 # Betty logs to stdout by default
 # Redirect to file for debugging
-python3 agents/atum/atum.py example.md 2>&1 | tee betty.log
+python3 agents/meta.agent/meta_agent.py example.md 2>&1 | tee betty.log
 ```
 
 ## Platform-Specific Notes

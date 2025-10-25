@@ -391,7 +391,7 @@ Congratulations! You've created your first Betty skill. Here's what to explore n
 python3 agents/meta.skill/meta_skill.py my_skill_description.md
 
 # Create a new agent
-python3 agents/atum/atum.py my_agent_description.md
+python3 agents/meta.agent/meta_agent.py my_agent_description.md
 
 # Create a new hook
 python3 agents/meta.hook/meta_hook.py my_hook_description.md
@@ -403,7 +403,7 @@ python3 agents/meta.hook/meta_hook.py my_hook_description.md
 python agents/meta.skill/meta_skill.py my_skill_description.md
 
 # Create a new agent
-python agents/atum/atum.py my_agent_description.md
+python agents/meta.agent/meta_agent.py my_agent_description.md
 
 # Create a new hook
 python agents/meta.hook/meta_hook.py my_hook_description.md

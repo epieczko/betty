@@ -87,7 +87,7 @@ Output includes:
 ### Certify a New Agent
 
 ```bash
-python3 agents/atum/atum.py description.md \
+python3 agents/meta.agent/meta_agent.py description.md \
   --requirement-id "REQ-2025-002" \
   --requirement-description "Automated code review" \
   --issue-id "JIRA-124" \

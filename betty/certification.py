@@ -159,7 +159,7 @@ class ComponentCertification:
                 f"Betty Framework requires full traceability for all components.\n"
                 f"To certify this component, create it with requirement linkage:\n\n"
                 f"  For agents:\n"
-                f"    python3 agents/atum/atum.py description.md \\\n"
+                f"    python3 agents/meta.agent/meta_agent.py description.md \\\n"
                 f"      --requirement-id REQ-XXX \\\n"
                 f"      --requirement-description '...'\n\n"
                 f"  For skills:\n"
