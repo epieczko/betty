@@ -25,6 +25,110 @@ Betty uses a **3-tier artifact system**:
 
 ---
 
+## Directory Structure & Organization
+
+**Design Decision: Separation of Descriptions from Implementations**
+
+Betty maintains separate directories for **comprehensive guides** (descriptions) and **implementation artifacts** (templates/code):
+
+### Structure Overview
+
+```
+betty/
+├── artifact_descriptions/    # Comprehensive guides (~400 lines each)
+│   ├── business-case.md
+│   ├── threat-model.md
+│   └── ...
+│
+├── templates/                 # Ready-to-use templates (~100 lines each)
+│   ├── governance/
+│   │   ├── business-case.yaml
+│   │   └── ...
+│   └── security/
+│       ├── threat-model.yaml
+│       └── ...
+│
+├── agent_descriptions/        # Agent purpose, inputs, outputs
+│   ├── data.architect.md
+│   └── ...
+│
+├── agents/                    # Agent implementations
+│   ├── data.architect/
+│   │   ├── agent.yaml
+│   │   └── README.md
+│   └── ...
+│
+├── skill_descriptions/        # Skill specifications
+└── skills/                    # Skill implementations
+```
+
+### Why Separate?
+
+This separation serves multiple purposes:
+
+#### 1. **Clean Templates**
+- Templates remain focused and uncluttered (~100 lines)
+- Only structure and TODO placeholders, no extensive guidance
+- Quick to scan and understand what needs to be filled in
+- Easy to copy and customize
+
+#### 2. **Rich Guidance When Needed**
+- Description files provide comprehensive guidance (~400 lines)
+- Include best practices, quality criteria, common pitfalls
+- Explain standards, compliance requirements, review processes
+- Reference examples and detailed methodology
+- Users consult descriptions when they need deep help
+
+#### 3. **Independent Evolution**
+- Templates can be updated for structure changes
+- Descriptions can be enhanced with better guidance
+- No coupling between "what to fill in" and "how to do it well"
+- Different maintainers can work on templates vs. guidance
+
+#### 4. **Better Discoverability**
+- Browse all artifact types: `ls artifact_descriptions/`
+- Browse all templates: `ls templates/governance/`
+- Clear separation makes it obvious where to look
+- AI agents can more easily discover available artifact types
+
+#### 5. **Workflow Support**
+The separation supports the intended usage pattern:
+
+```bash
+# Step 1: Copy clean template
+cp templates/governance/business-case.yaml my-project/
+
+# Step 2: Edit the template
+vim my-project/business-case.yaml
+
+# Step 3: Reference comprehensive guidance when needed
+less artifact_descriptions/business-case.md
+```
+
+### Alternative Considered
+
+We considered co-locating them:
+```
+templates/
+└── governance/
+    └── business-case/
+        ├── template.yaml    (the template)
+        └── guide.md         (the description)
+```
+
+**Why we didn't:** This creates deeper nesting, makes browsing harder, and couples two artifacts that evolve at different rates. The current flat structure with clear naming (`artifact_descriptions/`, `templates/`) is more discoverable and maintainable.
+
+### Applies to All Betty Components
+
+This pattern extends throughout Betty:
+- **`agent_descriptions/`** → **`agents/`**: Agent specs vs. implementations
+- **`skill_descriptions/`** → **`skills/`**: Skill specs vs. implementations
+- **`artifact_descriptions/`** → **`templates/`**: Artifact guides vs. templates
+
+Each description folder serves as a **registry of capabilities** while implementation folders contain **working code/templates**.
+
+---
+
 ## Artifact Metadata Reusability
 
 **Key Principle: Artifact metadata is defined once at the skill level and automatically inherited by all agents that use those skills.**
