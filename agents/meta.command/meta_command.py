@@ -34,6 +34,20 @@ from betty.traceability import get_tracer, RequirementInfo
 
 logger = setup_logger(__name__)
 
+# Import artifact validation from artifact.define skill
+try:
+    import importlib.util
+    artifact_define_path = Path(__file__).parent.parent.parent / "skills" / "artifact.define" / "artifact_define.py"
+    spec = importlib.util.spec_from_file_location("artifact_define", artifact_define_path)
+    artifact_define_module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(artifact_define_module)
+
+    validate_artifact_type = artifact_define_module.validate_artifact_type
+    KNOWN_ARTIFACT_TYPES = artifact_define_module.KNOWN_ARTIFACT_TYPES
+    ARTIFACT_VALIDATION_AVAILABLE = True
+except Exception as e:
+    ARTIFACT_VALIDATION_AVAILABLE = False
+
 
 class CommandCreator:
     """Creates command manifests from descriptions"""
@@ -128,6 +142,23 @@ class CommandCreator:
         if context_section:
             cmd_desc["execution_context"] = self._parse_context(context_section.group(1))
 
+        # Parse artifact metadata sections
+        produces_section = re.search(
+            r"#\s*Produces\s*Artifacts:\s*\n(.*?)(?=\n#|\Z)",
+            content,
+            re.DOTALL | re.IGNORECASE
+        )
+        if produces_section:
+            cmd_desc["artifact_produces"] = self._parse_artifact_list(produces_section.group(1))
+
+        consumes_section = re.search(
+            r"#\s*Consumes\s*Artifacts:\s*\n(.*?)(?=\n#|\Z)",
+            content,
+            re.DOTALL | re.IGNORECASE
+        )
+        if consumes_section:
+            cmd_desc["artifact_consumes"] = self._parse_artifact_list(consumes_section.group(1))
+
         # Validate required fields
         required = ["name", "description", "execution_type", "target"]
         missing = [f for f in required if f not in cmd_desc]
@@ -218,6 +249,22 @@ class CommandCreator:
                     context[key] = value.strip()
 
         return context
+
+    def _parse_artifact_list(self, artifact_text: str) -> List[str]:
+        """Parse artifact list from markdown text"""
+        artifacts = []
+
+        for line in artifact_text.split("\n"):
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+
+            # Match lines starting with - or *
+            match = re.match(r"[-*]\s*`?([a-z0-9-]+)`?", line)
+            if match:
+                artifacts.append(match.group(1))
+
+        return artifacts
 
     def analyze_complexity(self, cmd_desc: Dict[str, Any], full_content: str = "") -> Dict[str, Any]:
         """
@@ -374,7 +421,102 @@ class CommandCreator:
         if cmd_desc.get("tags"):
             manifest["tags"] = cmd_desc["tags"]
 
+        # Add artifact metadata if present
+        if cmd_desc.get("artifact_produces") or cmd_desc.get("artifact_consumes"):
+            artifact_metadata = {}
+
+            if cmd_desc.get("artifact_produces"):
+                artifact_metadata["produces"] = [
+                    {"type": art_type} for art_type in cmd_desc["artifact_produces"]
+                ]
+
+            if cmd_desc.get("artifact_consumes"):
+                artifact_metadata["consumes"] = [
+                    {"type": art_type, "required": True}
+                    for art_type in cmd_desc["artifact_consumes"]
+                ]
+
+            manifest["artifact_metadata"] = artifact_metadata
+
         return yaml.dump(manifest, default_flow_style=False, sort_keys=False)
+
+    def validate_artifacts(self, cmd_desc: Dict[str, Any]) -> List[str]:
+        """
+        Validate that artifact types exist in the known registry.
+
+        Args:
+            cmd_desc: Parsed command description
+
+        Returns:
+            List of warning messages
+        """
+        warnings = []
+
+        if not ARTIFACT_VALIDATION_AVAILABLE:
+            warnings.append(
+                "Artifact validation skipped: artifact.define skill not available"
+            )
+            return warnings
+
+        # Validate produced artifacts
+        for artifact_type in cmd_desc.get("artifact_produces", []):
+            is_valid, warning = validate_artifact_type(artifact_type)
+            if not is_valid and warning:
+                warnings.append(f"Produces: {warning}")
+
+        # Validate consumed artifacts
+        for artifact_type in cmd_desc.get("artifact_consumes", []):
+            is_valid, warning = validate_artifact_type(artifact_type)
+            if not is_valid and warning:
+                warnings.append(f"Consumes: {warning}")
+
+        return warnings
+
+    def validate_target(self, cmd_desc: Dict[str, Any]) -> List[str]:
+        """
+        Validate that the target skill or agent exists.
+
+        Args:
+            cmd_desc: Parsed command description
+
+        Returns:
+            List of warning messages
+        """
+        warnings = []
+        execution_type = cmd_desc.get("execution_type", "").lower()
+        target = cmd_desc.get("target", "")
+
+        if execution_type == "skill":
+            # Check if skill exists in registry or skills directory
+            skill_registry = self.base_dir / "registry" / "skills.json"
+            skill_dir = self.base_dir / "skills" / target.replace(".", "/")
+
+            skill_exists = False
+            if skill_registry.exists():
+                try:
+                    with open(skill_registry) as f:
+                        registry = json.load(f)
+                        if target in registry.get("skills", {}):
+                            skill_exists = True
+                except Exception:
+                    pass
+
+            if not skill_exists and not skill_dir.exists():
+                warnings.append(
+                    f"Target skill '{target}' not found in registry or skills directory. "
+                    f"You may need to create it using meta.skill first."
+                )
+
+        elif execution_type == "agent":
+            # Check if agent exists in agents directory
+            agent_dir = self.base_dir / "agents" / target
+            if not agent_dir.exists():
+                warnings.append(
+                    f"Target agent '{target}' not found in agents directory. "
+                    f"You may need to create it using meta.agent first."
+                )
+
+        return warnings
 
     def create_command(
         self,
@@ -400,6 +542,22 @@ class CommandCreator:
 
             # Parse description
             cmd_desc = self.parse_description(description_path)
+
+            # Validate artifacts
+            artifact_warnings = self.validate_artifacts(cmd_desc)
+            if artifact_warnings:
+                print("\n⚠️  Artifact Validation Warnings:")
+                for warning in artifact_warnings:
+                    print(f"   {warning}")
+                print()
+
+            # Validate target skill/agent
+            target_warnings = self.validate_target(cmd_desc)
+            if target_warnings:
+                print("\n⚠️  Target Validation Warnings:")
+                for warning in target_warnings:
+                    print(f"   {warning}")
+                print()
 
             # Analyze complexity and recommend pattern
             analysis = self.analyze_complexity(cmd_desc, full_content)
@@ -464,7 +622,9 @@ class CommandCreator:
                 "status": "success",
                 "command_name": cmd_desc["name"],
                 "manifest_file": str(manifest_file),
-                "complexity_analysis": analysis
+                "complexity_analysis": analysis,
+                "artifact_warnings": artifact_warnings,
+                "target_warnings": target_warnings
             }
 
             # Log traceability if requirement provided
