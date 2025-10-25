@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Content Strategy is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Content Strategy is the systematic planning, creation, delivery, and governance of useful, usable content across the entire content lifecycle. This artifact applies frameworks from Kristina Halvorson's "Content Strategy for the Web," the Diátaxis documentation system, and Content Design London methodologies to solve the core problem of content chaos—duplicated, outdated, inconsistent, or trivial content that frustrates users and wastes organizational resources.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+This strategic document defines what content exists, why it exists, how it's structured (information architecture), who creates and maintains it (governance), and how success is measured. Drawing on content auditing techniques, content modeling practices, editorial workflow design, and IA best practices from the Information Architecture Institute, it serves Content Strategists, UX Writers, Product Managers, and Marketing Leads who need to transform ad-hoc content creation into a scalable, user-centered content system that delivers the right content to the right user at the right time in the right format.
 
 ### Strategic Importance
 
@@ -20,27 +20,43 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact establishes the strategic foundation for all content decisions—from information architecture and content modeling to editorial governance and measurement frameworks. It solves the "content sprawl" problem where organizations produce massive volumes of unmaintained, unfindable, or contradictory content, supporting data-driven decisions about what content to create, maintain, retire, and how to structure it for multi-channel delivery (web, mobile, voice, AR/VR).
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Content audit methodology and inventory (quantitative and qualitative analysis)
+- Information architecture (IA) including taxonomy, ontology, metadata schema, and navigation design
+- Content models and structured content specifications (COPE: Create Once, Publish Everywhere)
+- Content governance framework (roles, workflows, approval processes, ownership model)
+- Editorial calendar and content production workflows
+- Voice, tone, and style guidelines integration
+- Content lifecycle management (creation, review, publication, maintenance, archival, deletion)
+- Multi-channel content strategy and adaptive content design
+- Content performance measurement and KPIs
+- Content technology stack requirements (CMS, DAM, PIM evaluation criteria)
+- Content migration strategy and gap analysis
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed UX copywriting and microcopy (covered by microcopy-guides and style guides)
+- Technical CMS implementation and development (covered by technical architecture docs)
+- SEO keyword research and optimization tactics (covered by SEO strategy)
+- Social media content calendars and community management (covered by social strategy)
+- Individual content pieces or editorial assignments (covered by content briefs)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Content Strategists defining holistic content approach
+- UX Designers integrating content into experience design
+- Product Managers aligning content with product roadmap
+- Content Operations Managers implementing governance and workflows
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Marketing Leadership approving content investment and resource allocation
+- Engineering Teams building content management infrastructure
+- Information Architects structuring content taxonomies and metadata
+- SEO/Growth Teams optimizing for discovery and engagement
 
 ## Document Information
 
@@ -106,19 +122,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Start with Content Audit**: Conduct comprehensive content inventory (quantitative) + content audit (qualitative) before strategizing; use tools like Screaming Frog, Content Analysis Tool, or custom scripts to catalog existing content
+**User Research Foundation**: Base content strategy on actual user research—task analysis, search query analysis, customer support tickets, user interviews; avoid assumption-based content planning
+**Content-First Design**: Develop content strategy before visual design; "lorem ipsum" delays content problems until it's expensive to fix; use realistic content in prototypes
+**Define Core Model First**: Establish content models (content types, attributes, relationships) early; changing content structure after CMS implementation costs 10x more
+**Structured Content Thinking**: Design content as structured chunks, not pages; enables COPE (Create Once, Publish Everywhere) across web, mobile, voice, email, print
+**Governance Before Scale**: Establish clear ownership, workflows, and approval processes before ramping up content production; ungoverned content becomes legacy debt
+**Measure What Matters**: Define content KPIs aligned with business objectives—task completion, time-to-answer, search success, conversion paths—not vanity metrics like page views
+**Content Lifecycle Planning**: Every content piece needs creation, review, update, and retirement plans; orphaned content becomes misinformation and SEO liability
+**Taxonomy Discipline**: Develop controlled vocabularies through card sorting and tree testing; organic tagging without governance creates noise, not findability
+**Editorial Calendar Realism**: Plan content production capacity based on actual team velocity; chronic backlog indicates strategy-resource mismatch
+**Mobile-First Content**: Design content for smallest screen first; content that works in 320px viewport works everywhere; desktop-first content fails on mobile
+**Voice & Tone Consistency**: Document voice (personality) and tone (mood variations) with specific examples; integrate with content review checklist
+**Accessibility from Start**: Write for 8th grade reading level (Hemingway Editor); use semantic structure; provide alt text strategy; test with screen readers
+**ROT Identification**: During content audit, ruthlessly identify Redundant, Outdated, Trivial content; archive or delete rather than migrate technical debt
+**Cross-Functional Workshops**: Run content strategy workshops with Product, Design, Engineering, Marketing, Legal, Support; siloed strategy fails in implementation
+**Prototype with Real Content**: Test information architecture and navigation with actual representative content, not category labels; reveals structural problems early
+**Version Control for Content**: Treat content as code; use Git for documentation, markdown for portability, structured formats for content source of truth
+**CMS Evaluation Framework**: Assess content platforms against content model requirements, not feature checklists; CMS should serve strategy, not dictate it
+**Content Debt Management**: Track and prioritize content technical debt (outdated, broken, inconsistent) like engineering manages code debt; allocate capacity for remediation
+**Continuous Content Operations**: Establish ongoing content maintenance cycles, not one-time projects; 80% of content value comes from 20% that's actively maintained
 
 ## Quality Criteria
 
@@ -165,9 +188,37 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Content Strategy Frameworks**: Content Strategy for the Web (Kristina Halvorson), The Elements of Content Strategy (Erin Kissane), Content Strategy Toolkit (Meghan Casey), Designing Connected Content (Mike Atherton & Carrie Hane), Strategic Writing for UX (Torrey Podmajersky)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Documentation Systems**: Diátaxis documentation framework (tutorials, how-to guides, reference, explanation), Docs-as-Code, Information 4.0, DITA (Darwin Information Typing Architecture), Topic-based authoring
+
+**Information Architecture**: Information Architecture for the World Wide Web (Polar Bear Book), How to Make Sense of Any Mess (Abby Covert), Information Architecture Institute principles, Card sorting methodology, Tree testing, IA Heuristics
+
+**Content Modeling**: Content Modeling (Cleve Moler), Structured content design, Domain modeling, Content types and attributes, Metadata schemas, Taxonomy design, Ontology development
+
+**Content Governance**: Content governance models (centralized, distributed, hybrid), Brain Traffic governance framework, GatherContent workflow templates, Responsibility assignment matrix (RACI), Content ownership models
+
+**Content Operations Tools**: GatherContent, Sanity CMS, Contentful, Contentstack, Strapi, Prismic, DatoCMS, Craft CMS, WordPress (headless), Drupal, Adobe Experience Manager, Sitecore, Kentico
+
+**Content Auditing**: Content audit methodologies (quantitative/qualitative), Content Science Review, Content analysis frameworks, ROT analysis (Redundant, Outdated, Trivial), Content scoring models
+
+**Editorial & Workflow**: Editorial calendar tools (Airtable, Monday.com, CoSchedule, DivvyHQ), Kanban for content, Agile content development, Content sprints, Review workflows
+
+**Style & Voice Guidance**: Content Design London principles, Gov.uk content design, MailChimp Voice & Tone, Microsoft Writing Style Guide, Google Developer Documentation Style Guide, Chicago Manual of Style, AP Stylebook
+
+**Structured Content**: Structured authoring, Semantic HTML, Schema.org markup, JSON-LD, Microformats, Markdown-based workflows, YAML front matter, MDX (Markdown + JSX)
+
+**Multi-Channel Publishing**: COPE (Create Once, Publish Everywhere), Adaptive content, Content chunking, Progressive disclosure, Responsive content, Headless CMS architecture, JAMstack content delivery
+
+**Content Performance**: Content analytics (Google Analytics 4, Adobe Analytics, Heap), Content Intelligence tools (Acrolinx, Writer.com), Readability metrics (Flesch-Kincaid, Gunning Fog), SEO content scoring (Clearscope, MarketMuse, Frase)
+
+**Content Accessibility**: WCAG 2.1/2.2 content guidelines, Plain language standards, Hemingway Editor, Readable.com, WebAIM content guidance, Section 508 compliance
+
+**Industry Organizations**: Content Marketing Institute, Society for Technical Communication (STC), Information Architecture Institute, UX Writers Collective, Write the Docs community
+
+**Jobs to Be Done**: Jobs Stories for content, User stories for content requirements, Job mapping for content needs analysis
+
+**Reference**: Consult Content Strategy Forum, Confab events, Button conference, and professional content strategy communities (Content Strategy Slack, Content+ community) for evolving best practices and emerging methodologies
 
 ## Integration Points
 

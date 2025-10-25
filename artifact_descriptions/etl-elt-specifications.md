@@ -2,45 +2,57 @@
 
 ## Executive Summary
 
-The Etl Elt Specifications is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The ETL/ELT Specifications artifact is a comprehensive technical document for data engineering teams, defining Extract-Transform-Load (ETL) or Extract-Load-Transform (ELT) processes using modern data integration platforms and transformation frameworks. This artifact specifies data extraction from source systems, transformation logic using tools like dbt, Informatica, Talend, AWS Glue, Azure Data Factory, Fivetran, or Airbyte, and loading strategies into target data warehouses, data lakes, or lakehouse architectures.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As organizations transition from traditional ETL batch processing to cloud-native ELT patterns with transformation-in-warehouse using dbt, Snowflake, BigQuery, or Databricks, this artifact serves Data Engineers designing ingestion pipelines, Analytics Engineers implementing dbt models following Medallion architecture (bronze/silver/gold layers), Platform Engineers configuring orchestration and monitoring, and Data Governance teams ensuring data quality, lineage, and compliance. It bridges source system integration with analytical data models, enabling reliable, scalable, and maintainable data transformation workflows.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Data Integration Architecture**: Defines modern ELT patterns using cloud data warehouses (Snowflake, BigQuery, Redshift, Databricks) with transformation-in-warehouse
+- **Transformation Framework**: Specifies dbt models, Informatica mappings, Talend jobs, AWS Glue ETL scripts, or Azure Data Factory pipelines
+- **Medallion Architecture**: Implements bronze (raw), silver (cleaned/conformed), gold (aggregated/business) data layers for data lakehouse patterns
+- **Data Quality**: Defines validation rules, data profiling, anomaly detection, schema enforcement, and quality metrics using Great Expectations, dbt tests, or Monte Carlo
+- **Change Data Capture**: Specifies CDC mechanisms (Debezium, AWS DMS, Fivetran CDC) for real-time or incremental data synchronization
+- **Performance Optimization**: Documents partitioning strategies, incremental loading, materialized views, clustering keys, and query optimization
+- **Data Lineage**: Enables end-to-end traceability from source systems through transformations to analytical models using OpenLineage or platform-native lineage
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact specifies comprehensive ETL/ELT process designs including source system extraction, data transformation logic (SQL, Python, dbt models), loading patterns, data quality validations, incremental strategies, and orchestration dependencies. It enables Data Engineers and Analytics Engineers to implement reliable, performant, and maintainable data pipelines following modern ELT best practices.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Source extraction: Database connectors (JDBC, ODBC), API integrations, file ingestion (S3, SFTP, blob storage), streaming (Kafka, Kinesis)
+- Data ingestion tools: Fivetran, Airbyte, Stitch, AWS DMS, Azure Data Factory, Talend, Informatica
+- dbt transformations: Models, sources, tests, macros, documentation, snapshots, incremental models
+- Medallion architecture: Bronze layer (raw data), Silver layer (cleansed/conformed), Gold layer (business aggregates)
+- Data quality: dbt tests (unique, not_null, relationships, accepted_values), Great Expectations suites, custom validation
+- Incremental patterns: Timestamp-based, CDC (Change Data Capture), merge/upsert strategies, SCD Type 2
+- Transformation logic: SQL transformations, Python UDFs, window functions, pivoting/unpivoting, complex joins
+- Performance optimization: Partitioning (date, category), clustering, materialized views, incremental materialization
+- Orchestration dependencies: Airflow DAG integration, dbt run/test scheduling, dependency chains
+- Data lineage: Column-level lineage, impact analysis, upstream/downstream dependencies
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Target data warehouse infrastructure (sizing, networking, security configuration)
+- BI tool integration and semantic layer design (covered in BI/Analytics artifacts)
+- Real-time streaming transformation (covered in Streaming Architecture artifacts)
+- Machine learning feature engineering (covered in ML Pipeline artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Data Engineers implementing extraction and loading pipelines
+- Analytics Engineers developing dbt transformation models
+- ETL Developers maintaining legacy Informatica/Talend workflows
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Data Platform Architects defining data integration standards
+- Data Governance teams ensuring data quality and lineage
+- DevOps Engineers implementing CI/CD for data pipelines
 
 ## Document Information
 
@@ -168,19 +180,19 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**ELT Over ETL**: Prefer ELT pattern with transformation-in-warehouse for cloud data platforms, leverage compute scalability of Snowflake/BigQuery/Databricks
+**Medallion Architecture**: Implement bronze (raw), silver (cleansed), gold (business) layers for clear data maturity progression
+**Incremental Loading**: Use incremental strategies (timestamp, CDC) instead of full refreshes, implement proper merge/upsert logic
+**dbt Best Practices**: Use staging models (stg_), intermediate models (int_), marts (marts_), follow dbt style guide, implement macros for reusability
+**Data Quality First**: Implement dbt tests for all models, use Great Expectations for complex validation, fail pipeline on critical quality issues
+**Idempotency**: Design transformations to be idempotent and rerunnable without data corruption or duplication
+**Version Control**: Store all transformation code in Git, use feature branches, implement code review process, tag releases
+**Testing Strategy**: Unit test SQL logic, integration test with sample data, validate data quality with automated tests
+**Performance Optimization**: Partition large tables by date, use clustering for frequently filtered columns, materialize expensive transformations
+**Documentation**: Document all models in dbt with descriptions and column definitions, maintain data dictionary, explain business logic
+**Schema Evolution**: Handle schema changes gracefully, use schema tests, version data models, maintain backwards compatibility
+**Monitoring**: Track pipeline run times, data freshness, row counts, data quality metrics, set up alerting for failures
+**CI/CD**: Implement automated testing in CI, deploy to dev/staging before production, use dbt Cloud or custom deployment pipelines
 
 ## Quality Criteria
 
@@ -227,9 +239,79 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Transformation Frameworks**:
+- dbt (data build tool) - SQL-based transformation framework with version control, testing, documentation
+- Informatica PowerCenter - Enterprise ETL platform
+- Talend Data Integration - Open-source ETL/ELT platform
+- AWS Glue - Serverless ETL service with Python/Scala Spark jobs
+- Azure Data Factory - Cloud ETL/ELT service with visual designer
+- Google Dataflow - Apache Beam-based stream/batch processing
+- Matillion - Cloud-native ETL for Snowflake, BigQuery, Redshift
+- Fivetran Transformations - SQL-based transformations in Fivetran
+- Apache NiFi - Data flow automation platform
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Data Ingestion Tools**:
+- Fivetran - Managed ELT connectors for 150+ sources
+- Airbyte - Open-source data integration platform
+- Stitch - Singer-based data ingestion
+- Debezium - CDC platform for databases
+- AWS Database Migration Service (DMS)
+- StreamSets - DataOps platform for data ingestion
+- Hevo Data - No-code data pipeline platform
+- Meltano - Open-source ELT platform
+
+**Cloud Data Warehouses**:
+- Snowflake - Cloud data warehouse with separation of compute and storage
+- Google BigQuery - Serverless data warehouse
+- Amazon Redshift - Managed data warehouse
+- Databricks Lakehouse - Unified data lakehouse platform
+- Azure Synapse Analytics - Integrated analytics service
+- ClickHouse - Open-source OLAP database
+
+**Data Architecture Patterns**:
+- Medallion Architecture (Bronze/Silver/Gold layers)
+- Lambda Architecture (batch + real-time layers)
+- Kappa Architecture (streaming-only)
+- Data Lakehouse (unified lake + warehouse)
+- Data Vault 2.0 modeling
+- Kimball Dimensional Modeling
+- Slowly Changing Dimensions (SCD Type 1, 2, 3)
+
+**Data Quality Frameworks**:
+- Great Expectations - Data validation framework
+- dbt tests (schema tests, data tests, custom tests)
+- Monte Carlo Data - Data observability platform
+- Soda SQL - Data quality testing framework
+- Apache Griffin - Data quality solution
+- Data quality dimensions (accuracy, completeness, consistency, timeliness, validity, uniqueness)
+
+**Change Data Capture (CDC)**:
+- Debezium (Kafka-based CDC)
+- AWS DMS CDC
+- Fivetran CDC connectors
+- Oracle GoldenGate
+- HVR CDC
+- Qlik Replicate
+- Log-based CDC vs. trigger-based CDC
+
+**Data Lineage & Governance**:
+- OpenLineage (open standard for data lineage)
+- Apache Atlas - Metadata management
+- Alation Data Catalog
+- Collibra Data Intelligence Cloud
+- Atlan - Modern data catalog
+- dbt documentation and lineage
+- Column-level lineage tracking
+
+**Performance Optimization**:
+- Partitioning strategies (date, range, hash)
+- Clustering and sorting keys
+- Materialized views vs. incremental tables
+- Query optimization techniques
+- Warehouse sizing and auto-scaling
+- Result caching strategies
+
+**Reference**: Consult organizational data platform and analytics engineering standards team for detailed guidance on framework application
 
 ## Integration Points
 

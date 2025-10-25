@@ -2,45 +2,57 @@
 
 ## Executive Summary
 
-The Promotion Workflows is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Promotion Workflows artifact documents automated environment promotion processes for progressing code, configuration, infrastructure, and data artifacts through development, staging, and production environments. This artifact specifies GitOps-based promotion workflows using Argo CD, Flux CD, or Jenkins X, manual approval gates, automated testing requirements, rollback procedures, and change management integration for safe, reliable production deployments.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As organizations adopt GitOps patterns and infrastructure-as-code, this artifact serves Platform Engineers implementing automated promotion pipelines, DevOps Engineers configuring approval workflows, Release Managers coordinating production deployments, and SRE Teams ensuring deployment safety and rollback capability. It transforms ad-hoc promotion processes into standardized, auditable workflows with automated quality gates, security scanning, and compliance validation at each promotion stage.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **GitOps Automation**: Implements declarative environment promotion using Argo CD, Flux CD, or Jenkins X with Git as source of truth
+- **Environment Progression**: Defines promotion path (dev → staging → production) with automated and manual gates at each stage
+- **Approval Workflows**: Specifies approval requirements (peer review, tech lead approval, change advisory board), ServiceNow integration for change tickets
+- **Quality Gates**: Implements automated gates including test pass rates, code coverage thresholds, security scan results, performance benchmarks
+- **Progressive Delivery**: Enables canary deployments, blue/green switches, feature flag rollouts, traffic shifting strategies
+- **Audit Trail**: Maintains complete deployment history, approval evidence, rollback records for compliance and troubleshooting
+- **Rollback Capability**: Documents automated and manual rollback procedures, maintains previous deployment state, defines rollback SLAs
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines environment promotion workflows including GitOps promotion patterns (pull request-based, automated sync), approval gate configuration, automated testing requirements, deployment validation, rollback procedures, and change management integration. It enables teams to safely promote changes from development through production with appropriate quality controls and audit trails.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Environment topology: Development, staging, pre-production, production environments and their relationships
+- GitOps promotion: Argo CD Application promotion, Flux Kustomization updates, Git branch/tag promotion strategies
+- Approval gates: Manual approval requirements, approver roles, approval timeouts, emergency bypass procedures
+- Automated gates: Test execution (unit, integration, E2E), code coverage thresholds, security scanning pass/fail criteria
+- Deployment strategies: Blue/green promotion, canary rollout percentages, progressive traffic shifting, feature flag controls
+- Validation steps: Smoke tests, health checks, performance validation, data integrity checks post-deployment
+- Rollback procedures: Automated rollback triggers, manual rollback commands, rollback testing, state recovery
+- Change management: ServiceNow/Jira integration, change ticket creation, CAB approval, deployment windows
+- Notification workflows: Slack/Teams alerts, email notifications, status dashboard updates, incident escalation
+- Artifact promotion: Docker image promotion across registries, Helm chart versioning, configuration promotion
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Individual application deployment configurations (covered in Deployment Specifications)
+- Infrastructure provisioning code (covered in Infrastructure as Code artifacts)
+- Monitoring and alerting configuration (covered in Observability artifacts)
+- Incident response procedures (covered in Incident Runbooks)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Platform Engineers implementing promotion automation
+- DevOps Engineers configuring CI/CD pipelines and approval workflows
+- Release Managers coordinating production deployments
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- SRE Teams ensuring deployment reliability and rollback capability
+- Security teams validating security gates in promotion workflows
+- Compliance teams auditing change management processes
 
 ## Document Information
 
@@ -106,19 +118,19 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**GitOps Pattern**: Use Git as single source of truth, all promotions via pull requests, maintain environment-specific branches/overlays
+**Progressive Promotion**: Promote through dev → staging → production sequentially, require successful validation at each stage
+**Automated Validation**: Implement comprehensive automated testing at each promotion gate, fail fast on quality issues
+**Manual Approvals**: Require explicit approval for production promotions, implement four-eyes principle, document approval criteria
+**Immutable Artifacts**: Promote same Docker image/artifact across environments, only change configuration/secrets
+**Canary Deployments**: Start with small percentage traffic, monitor metrics, gradually increase or rollback
+**Rollback Readiness**: Test rollback procedures regularly, maintain previous deployment state, automate rollback triggers
+**Change Windows**: Define approved deployment windows for production, implement emergency change procedures
+**Audit Logging**: Log all promotion activities, approval decisions, deployment outcomes, rollback events
+**Notification Strategy**: Alert stakeholders at key promotion milestones, escalate on failures, provide deployment status visibility
+**Environment Consistency**: Use infrastructure-as-code to ensure environment parity, minimize configuration drift
+**Deployment Frequency**: Optimize for frequent small deployments over large infrequent releases, reduce blast radius
+**Smoke Testing**: Run automated smoke tests immediately post-deployment, validate critical paths before declaring success
 
 ## Quality Criteria
 
@@ -165,9 +177,64 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**GitOps Tools**:
+- Argo CD - Declarative GitOps continuous delivery for Kubernetes
+- Flux CD - GitOps operator for Kubernetes with Flagger for progressive delivery
+- Jenkins X - Cloud-native CI/CD for Kubernetes with automated promotion
+- Argo Rollouts - Progressive delivery controller (blue/green, canary)
+- Flagger - Progressive delivery operator for Kubernetes
+- Spinnaker - Multi-cloud continuous delivery platform
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Approval & Change Management**:
+- ServiceNow Change Management - CAB approval, change tickets, deployment windows
+- Jira Service Management - Change requests and approvals
+- PagerDuty - Incident management and escalation
+- Opsgenie - Alert management and on-call scheduling
+- GitHub/GitLab approvals - Pull request approval workflows, CODEOWNERS
+
+**Progressive Delivery**:
+- Canary deployments - Gradual traffic shifting with metrics-based promotion
+- Blue/Green deployments - Full environment swap with instant rollback
+- Feature flags - LaunchDarkly, Unleash, Flagsmith, Split.io
+- Traffic management - Istio, Linkerd, AWS App Mesh, NGINX ingress
+
+**Deployment Strategies**:
+- Rolling updates - Kubernetes native rolling deployment
+- Recreate - Stop old, start new (downtime)
+- A/B testing - Traffic splitting for feature validation
+- Shadow deployment - Parallel deployment for testing
+
+**Environment Management**:
+- Kustomize - Kubernetes configuration management with overlays
+- Helm - Kubernetes package manager with environment-specific values
+- Terraform - Infrastructure-as-code with workspaces per environment
+- Environment branches - main/develop branches, environment-specific branches
+
+**Testing & Validation**:
+- Smoke tests - Critical path validation post-deployment
+- Integration tests - Cross-service validation
+- Performance tests - Load testing, stress testing
+- Chaos engineering - Gremlin, Chaos Monkey, Litmus
+
+**Audit & Compliance**:
+- SOC 2 - Change management controls
+- ISO 27001 - Configuration and change management
+- ITIL Change Management - CAB process, change types (standard, normal, emergency)
+- Audit trails - Complete deployment history with approval evidence
+
+**Deployment Metrics (DORA)**:
+- Deployment frequency - How often deploying to production
+- Lead time for changes - Time from commit to production
+- Mean time to recovery (MTTR) - Time to restore service
+- Change failure rate - Percentage of deployments causing failure
+
+**Rollback Mechanisms**:
+- Helm rollback - helm rollback command
+- Argo CD rollback - argocd app rollback command
+- kubectl rollout undo - Kubernetes native rollback
+- Git revert - Revert commits in GitOps repositories
+
+**Reference**: Consult organizational platform engineering and release management standards team for detailed guidance on framework application
 
 ## Integration Points
 

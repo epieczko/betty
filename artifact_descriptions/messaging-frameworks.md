@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Messaging Frameworks is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Messaging Frameworks provide the strategic architecture for how an organization talks about itself, its products, and its value—ensuring consistency across all customer touchpoints from website copy to sales conversations to product documentation. This artifact applies proven positioning methodologies including Message House frameworks, Value Proposition Canvas, FAB (Features-Advantages-Benefits) models, and Jobs-to-be-Done messaging to solve the problem of fragmented, inconsistent, or ineffective market communication that confuses prospects and dilutes brand impact.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Drawing on product marketing best practices from Pragmatic Institute, Product Marketing Alliance, and positioning frameworks like April Dunford's "Obviously Awesome," this document defines the core narrative (what we do, who it's for, why it matters), competitive differentiation, proof points, and message variations for different audiences and stages of the buyer journey. It serves Product Marketing Managers, Content Strategists, Sales Enablement teams, and executive leadership who need to align internal stakeholders around a unified story that resonates with target personas and drives measurable business outcomes.
 
 ### Strategic Importance
 
@@ -20,27 +20,45 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact creates a single source of truth for product and company messaging that cascades across all marketing, sales, and product touchpoints. It solves the "thousand flowers blooming" problem where every team crafts different messages, leading to confused prospects who can't understand what you do or why they should care. This framework supports strategic decisions about market positioning, competitive differentiation, and narrative evolution as products mature and markets shift.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Message architecture and hierarchy (company > product > feature level)
+- Value proposition statements and elevator pitches (30-second, 2-minute, 5-minute versions)
+- Positioning statements (For [target audience] who [statement of need], [product/company] is a [market category] that [statement of benefit])
+- Message pillars and supporting proof points
+- Persona-specific messaging variations (economic buyer, technical buyer, end user)
+- Competitive messaging and differentiation claims
+- Benefit laddering (features → advantages → benefits → business outcomes)
+- Message maps for buyer journey stages (awareness, consideration, decision, retention)
+- Key messaging do's and don'ts (approved claims vs. prohibited statements)
+- Industry/vertical-specific message customization
+- Objection handling statements and competitive traps
+- Proof point library (customer stories, statistics, third-party validation)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed copywriting for specific assets (covered by content briefs and style guides)
+- Sales conversation scripts (covered by demo-scripts and sales playbooks)
+- Technical product specifications (covered by product documentation)
+- Brand identity and visual design guidelines (covered by brand guidelines)
+- PR messaging and media pitches (covered by communications plans)
+- Social media voice and tone (covered by social media guidelines)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Product Marketing Managers developing go-to-market messaging
+- Content Marketing Teams creating demand generation assets
+- Sales Enablement professionals training revenue teams
+- Product Managers aligning product narrative with strategy
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Sales Representatives delivering consistent value messaging
+- Customer Success teams reinforcing value during onboarding and expansion
+- Executive Leadership communicating vision to investors and partners
+- Partner Marketing adapting messaging for channel programs
 
 ## Document Information
 
@@ -106,19 +124,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Start with Customer Insights**: Base messaging on win-loss interviews, customer research, and actual buyer language; avoid inside-out product-speak that doesn't resonate with market
+**Positioning Before Messaging**: Nail strategic positioning first (target audience, market category, unique value); messaging without positioning clarity produces generic corporate speak
+**Hierarchy is Critical**: Structure messages from company level → product level → feature level; ensure alignment so every feature message ladders to company narrative
+**Proof Points Always**: Every claim needs evidence—customer quote, metric, third-party validation, or comparative data; unsubstantiated claims erode credibility
+**Test with Real Buyers**: Validate messaging with target personas using Wynter, UserTesting, or customer interviews; internal consensus doesn't equal market resonance
+**Benefits Over Features**: Lead with business outcomes and customer benefits, not product capabilities; translate features using "which means" test (Feature → which means → Benefit)
+**Differentiation Discipline**: Articulate what's unique about your approach, not just better/faster/cheaper; "we're better" isn't positioning, it's aspiration
+**Persona Customization**: Tailor message emphasis for economic buyer (ROI, risk mitigation) vs. technical buyer (architecture, integration) vs. end user (usability, productivity)
+**Objection Preemption**: Address common objections proactively in messaging; if prospects always ask "How is this different from X?", answer it upfront
+**Consistency Across Channels**: Audit website, sales decks, product docs, ads for message alignment; inconsistent messaging confuses buyers and dilutes brand
+**Version Control Rigor**: Maintain messaging framework in centralized repository (Confluence, Notion, Highspot); outdated messaging in sales decks undermines new positioning
+**Quarterly Refresh Cycle**: Review messaging quarterly based on competitive moves, product releases, win-loss themes; stale messaging loses to dynamic competitors
+**Sales Enablement Integration**: Don't just publish messaging doc—train sales team on how to use it, role-play objection handling, provide talk tracks and email templates
+**Avoid Jargon Traps**: Test messaging with someone outside your industry; if they can't explain what you do, your messaging is too insider-focused
+**Competitive Messaging Discipline**: Know competitor messaging intimately; position against their weaknesses and create traps that make their strengths seem like limitations
+**Simplicity Test**: If you can't explain your value in one sentence that a 12-year-old understands, your messaging is too complex; simplify ruthlessly
+**A/B Test Core Messages**: Test alternative value props on landing pages, ads, email subject lines; data beats opinions in message optimization
+**Narrative Arc Structure**: Build messaging as story with tension (problem), resolution (solution), and transformation (outcome); lists of features don't sell, stories do
+**Voice Consistency**: Align messaging tone with brand personality; B2B doesn't require corporate-speak; authentic, human voice builds connection
+**Legal Review Early**: Get legal sign-off on competitive claims, performance metrics, security assertions early; late legal changes break campaign timing
 
 ## Quality Criteria
 
@@ -165,9 +190,39 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Positioning Frameworks**: Obviously Awesome (April Dunford), Crossing the Chasm (Geoffrey Moore), Play Bigger (category design), Positioning statement template (Geoffrey Moore), Blue Ocean Strategy positioning canvas
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Messaging Methodologies**: Message House framework, FAB framework (Features-Advantages-Benefits), Value Proposition Canvas (Strategyzer), Benefit laddering, Message mapping, AIDA framework (Attention-Interest-Desire-Action), PAS framework (Problem-Agitate-Solve)
+
+**Product Marketing Frameworks**: Pragmatic Marketing Framework, Product Marketing Alliance frameworks, Simon Sinek's Golden Circle (Why-How-What), Jobs-to-be-Done messaging, Outcome-driven innovation messaging
+
+**Value Articulation**: Value selling methodology, Economic Value to Customer (EVC), ROI messaging frameworks, TCO (Total Cost of Ownership) messaging, Business case narrative structures
+
+**Competitive Positioning**: Competitive battlecards structure, Competitive messaging matrices, Win-loss analysis messaging insights, Gartner Magic Quadrant positioning, Forrester Wave positioning
+
+**Audience Segmentation**: Buyer persona frameworks (Adele Revella), Decision-making unit (DMU) messaging, Technographics segmentation (Forrester), Firmographics-based messaging, Psychographic messaging frameworks
+
+**Message Testing Tools**: Message testing platforms (Wynter, Helpfully, Wynter.com), UserTesting for message validation, Quantitative message testing (MaxDiff analysis), A/B testing for messaging
+
+**Sales Methodologies**: MEDDIC/MEDDPICC messaging alignment, Challenger Sale messaging (Teach-Tailor-Take Control), SPIN Selling question frameworks, Solution Selling value messaging, Consultative selling messaging approaches
+
+**Category Creation**: Play Bigger category design framework, Category POV (Point of View), Educational marketing for new categories, Thought leadership positioning
+
+**Content Frameworks**: StoryBrand framework (Donald Miller), Building a StoryBrand messaging, Narrative structure (hero's journey for B2B), Before-After-Bridge copywriting framework
+
+**Differentiation Models**: Unique Value Proposition frameworks, USP (Unique Selling Proposition) development, Points of Parity vs. Points of Difference, Keller's Brand Resonance Model
+
+**Go-to-Market Alignment**: GTM messaging alignment frameworks, Sales-Marketing alignment models (SLA structure), Product-Marketing-Sales triad messaging consistency
+
+**Industry Standards**: Product Marketing Alliance certification frameworks, Pragmatic Institute PMM training materials, B2B Marketing messaging benchmarks
+
+**Message Platforms**: Highspot messaging module, Seismic content library organization, Showpad sales content structure, Guru knowledge management, Notion messaging hub
+
+**Brand Narrative Tools**: Brand voice and tone frameworks, MailChimp Voice & Tone, Verbal identity guidelines, Naming and terminology guidelines
+
+**Research & Validation**: Message market testing, Win-loss interview analysis for messaging insights, Customer advisory board feedback, Voice of Customer (VoC) programs for message validation
+
+**Reference**: Consult Product Marketing Alliance, Pragmatic Institute resources, and messaging communities (PMM Circle, Product Marketing Community) for evolving frameworks and competitive messaging best practices
 
 ## Integration Points
 

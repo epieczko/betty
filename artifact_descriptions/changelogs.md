@@ -2,43 +2,67 @@
 
 ## Executive Summary
 
-The Changelogs is a critical governance and audit artifact that provides a chronological record of changelogs throughout the General phase. This structured log serves as both a real-time management tool and a historical record for post-project reviews, audits, and lessons learned activities.
+The Changelog artifact is a human-readable, chronologically-ordered record of all notable changes across software versions, documenting features, bug fixes, deprecations, security patches, and breaking changes. Following Keep a Changelog format standards, changelogs provide stakeholders with transparent version history, enabling upgrade decisions, regression troubleshooting, and compliance auditing.
 
-As a cornerstone of program governance, this artifact enables transparency, accountability, and informed decision-making by providing stakeholders with immediate visibility into key events, decisions, and their outcomes. It supports root cause analysis, trend identification, and continuous improvement by maintaining a complete audit trail.
+Changelogs serve as the comprehensive change history complement to version-specific release notes, maintaining a complete historical record of software evolution. They integrate with Semantic Versioning 2.0.0, Conventional Commits standards, and automated changelog generation tools (conventional-changelog, semantic-release, release-please). Changelogs support open-source transparency, customer upgrade planning, security audit trails, and regulatory compliance documentation (SOC 2, ISO 27001).
 
 ### Strategic Importance
 
-- **Governance Excellence**: Demonstrates rigorous program management and adherence to organizational standards
-- **Risk Mitigation**: Early identification of patterns and trends enables proactive intervention
-- **Audit Readiness**: Provides comprehensive trail for internal and external audits
-- **Knowledge Capture**: Preserves institutional knowledge beyond individual personnel tenure
-- **Continuous Improvement**: Enables data-driven process improvements through trend analysis
+- **Version Transparency**: Maintains complete historical record of changes across all versions with Keep a Changelog format
+- **Automated Generation**: Supports conventional-changelog, semantic-release, and release-please for git commit-based automation
+- **Upgrade Planning**: Enables customers and internal teams to assess upgrade impact by reviewing consolidated change history
+- **Security Audit Trail**: Documents all security patches with CVE references for compliance and audit requirements
+- **Deprecation Tracking**: Provides clear visibility into deprecated features and their sunset timelines across versions
+- **Regression Troubleshooting**: Helps identify when specific changes were introduced for debugging and root cause analysis
+- **Compliance Documentation**: Supports SOC 2, ISO 27001, and regulatory change tracking audit requirements
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+Changelogs provide a comprehensive, chronological record of all notable software changes across versions using Keep a Changelog format (Added, Changed, Deprecated, Removed, Fixed, Security). They document version history for upgrade planning, regression analysis, security auditing, and compliance tracking, integrating with Semantic Versioning 2.0.0 and Conventional Commits for automated generation.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Keep a Changelog format with standardized sections (Added, Changed, Deprecated, Removed, Fixed, Security)
+- Semantic Versioning 2.0.0 (MAJOR.MINOR.PATCH) for all version entries
+- Chronological version ordering (newest first) with ISO 8601 release dates
+- Conventional Commits categorization (feat, fix, refactor, perf, chore, docs, test)
+- Breaking changes with BREAKING CHANGE: notation and migration guidance references
+- Security patches with CVE identifiers and CVSS severity scores
+- Deprecated features with sunset dates and alternative recommendations
+- Bug fixes with issue tracker references (GitHub, Jira, Linear)
+- Performance improvements with benchmark data or metrics
+- Dependency updates for major version bumps
+- API changes, configuration modifications, database migrations
+- Unreleased section for work in progress between releases
+- Yanked releases documentation (versions withdrawn due to critical bugs)
+- Links to detailed release notes, pull requests, and documentation
+- Automated generation metadata (conventional-changelog, semantic-release, release-please)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed version-specific deployment procedures (handled by release notes)
+- Internal development workflow details (handled by git commit history)
+- Release certification and quality gates (handled by release-certification.md)
+- Risk assessments and deployment strategies (handled by release-risk-assessment.md)
+- Individual git commit messages (source for automated changelog generation)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Software Engineers reviewing change history for debugging and understanding code evolution
+- DevOps Engineers planning upgrades and assessing deployment impact across versions
+- Release Managers coordinating releases and communicating changes to stakeholders
+- Product Managers tracking feature delivery and understanding product evolution
+- Open Source Contributors understanding project history and contribution areas
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Security Teams auditing security patch history and vulnerability remediation timelines
+- Compliance Officers providing change audit trails for SOC 2, ISO 27001 audits
+- Customer Success Teams helping customers plan upgrade timelines and assess impact
+- Technical Writers updating documentation based on feature additions and changes
+- QA Teams identifying changes requiring regression testing across versions
 
 ## Document Information
 
@@ -104,19 +128,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Keep a Changelog Format**: Use standardized sections (Added, Changed, Deprecated, Removed, Fixed, Security) for consistency
+**Automate from Commits**: Use conventional-changelog or semantic-release to generate from Conventional Commits
+**Chronological Ordering**: List versions newest-first with ISO 8601 dates (YYYY-MM-DD)
+**Unreleased Section**: Maintain [Unreleased] section at top for changes between releases
+**Semantic Versioning**: Follow SemVer 2.0.0 strictly - document version bumps clearly
+**Breaking Changes First**: Highlight breaking changes prominently at top of version section
+**Link to Details**: Include links to pull requests, issues, CVEs, and detailed documentation
+**User-Focused Language**: Write for end users, not just developers - explain impact, not just implementation
+**Security Transparency**: Document all security fixes with CVE identifiers and severity levels
+**Deprecation Warnings**: Announce deprecations before removal with clear sunset dates
+**Migration Guidance Links**: Reference detailed migration guides for breaking changes
+**Compare Links**: Provide git diff comparison links between versions (e.g., v1.0.0...v1.1.0)
+**Human-Readable**: Keep machine-readable but prioritize human comprehension over perfect automation
+**Group Related Changes**: Combine related changes into coherent entries, not one entry per commit
+**Omit Trivial Changes**: Exclude internal refactoring, test updates, doc typos unless user-impacting
+**Yanked Versions**: Document withdrawn versions with reasons (e.g., [1.0.1] - 2024-03-15 [YANKED])
+**Consistent Voice**: Use consistent tense and voice (usually past tense: "Added feature X", "Fixed bug Y")
+**Reference Issue Trackers**: Link GitHub issues, Jira tickets, Linear issues for detailed context
+**Validate Against Commits**: Ensure changelog entries map to actual git commit history
+**Pre-Release Suffixes**: Use -alpha, -beta, -rc suffixes for pre-production versions
 
 ## Quality Criteria
 
@@ -163,7 +194,91 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Changelog Standards & Format**:
+- Keep a Changelog - Standardized changelog format (keepachangelog.com)
+- Keep a Changelog Sections - Added, Changed, Deprecated, Removed, Fixed, Security
+- Semantic Versioning 2.0.0 - MAJOR.MINOR.PATCH version numbering
+- Conventional Commits - Structured commit messages (feat:, fix:, BREAKING CHANGE:)
+- ISO 8601 Date Format - YYYY-MM-DD for release dates
+- CommonChangelog - Open changelog format specification
+- YAML Changelog Format - Machine-readable changelog alternative
+
+**Automated Changelog Generation**:
+- conventional-changelog - Automated changelog from git commits
+- semantic-release - Fully automated versioning and changelog generation
+- standard-version - Automate versioning and CHANGELOG generation
+- release-please - Automated release PRs with generated changelogs
+- auto - Generate releases based on semantic version labels
+- lerna-changelog - Monorepo changelog generation from git/PR history
+- git-cliff - Highly customizable changelog generator from git history
+- changelogger - Changelog generation with custom templates
+
+**Version Control Integration**:
+- Git Tags - Annotated tags for version tracking (v1.2.3)
+- GitHub Releases - Release notes and changelog hosting
+- GitLab Release Notes - Integrated release documentation
+- Commit Conventions - Angular, Karma, Ember commit message standards
+- Squash and Merge - Consolidated commit messages for changelog clarity
+- Pull Request Templates - Structured PR descriptions for changelog generation
+
+**Commit Message Standards**:
+- Conventional Commits Specification - feat, fix, docs, style, refactor, perf, test, chore
+- Angular Commit Message Guidelines - Google's commit format standard
+- Karma Git Commit Msg - Karma runner commit convention
+- Commitizen - Interactive commit message tool
+- Commitlint - Lint commit messages against conventions
+- Husky - Git hooks for commit message validation
+
+**Breaking Change Documentation**:
+- BREAKING CHANGE: notation in commit body/footer
+- Major version bumps (SemVer MAJOR) for breaking changes
+- Migration guides linked from changelog entries
+- Deprecation warnings in prior versions before breaking changes
+- RFC process for major API changes
+
+**Security Documentation**:
+- CVE (Common Vulnerabilities and Exposures) - Security issue identifiers
+- CVSS (Common Vulnerability Scoring System) - Severity ratings
+- Security Advisories - GitHub Security Advisories, npm audit
+- OWASP Dependency-Check - Vulnerability changelog tracking
+- Snyk Vulnerability Database - Security patch documentation
+
+**Package Manager Changelogs**:
+- npm CHANGELOG.md - Standard changelog location for npm packages
+- RubyGems Changelog - Gem changelog documentation
+- PyPI Release History - Python package change tracking
+- Maven/Gradle Release Notes - JVM artifact versioning
+- NuGet Release Notes - .NET package changelog
+- Cargo (Rust) Changelog - Rust crate change documentation
+- Go Module Releases - go.mod version tracking
+
+**Monorepo Changelog Management**:
+- lerna-changelog - Multi-package changelog generation
+- changesets - Version and changelog management for monorepos
+- Rush.js Changelogs - Monorepo changelog aggregation
+- Nx Release - Monorepo versioning and changelog generation
+- Turborepo Releases - Monorepo release coordination
+
+**API Versioning & Deprecation**:
+- OpenAPI/Swagger - API change documentation
+- GraphQL Schema Changelog - Field deprecation tracking
+- REST API Versioning - URL path/header-based versioning changelog
+- Deprecation Headers - Sunset header (RFC 8594) for API lifecycle
+- API Evolution Guidelines - Backward compatibility rules
+
+**Compliance & Audit**:
+- SOC 2 Type 2 - Change management audit trails
+- ISO 27001 - Information security change documentation
+- NIST Cybersecurity Framework - Configuration change tracking
+- GDPR/Privacy - Data handling change documentation
+- FDA 21 CFR Part 11 - Electronic records for regulated industries
+
+**Release Management Integration**:
+- ITIL 4 Release Management - Release documentation practices
+- Change Advisory Board (CAB) - Change approval and documentation
+- ServiceNow Change Management - Change tracking integration
+- Jira Release Notes - Issue tracker release documentation
+- Linear Release Notes - Modern issue tracker changelog generation
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

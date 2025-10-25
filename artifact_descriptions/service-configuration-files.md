@@ -2,45 +2,60 @@
 
 ## Executive Summary
 
-The Service Configuration Files is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Service Configuration Files are the foundational artifacts that define runtime behavior, environment-specific settings, and operational parameters for cloud-native applications. Primarily manifested as Kubernetes ConfigMaps, Secrets, environment variables, and external configuration stores (Vault, AWS Secrets Manager, SOPS), these files enable the separation of configuration from code—a critical principle of the Twelve-Factor App methodology.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+In modern cloud-native architectures, configuration management extends beyond simple key-value pairs to include sophisticated secret rotation, dynamic configuration injection, GitOps-based configuration delivery, and integration with service mesh configuration sources. This artifact ensures applications remain portable, secure, and adaptable across multiple environments while maintaining audit trails and compliance requirements.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Environment Portability**: Enables consistent application behavior across dev, staging, production, and multi-cloud environments
+- **Security & Compliance**: Provides secure secret management with encryption at rest, access controls, and audit logging
+- **Zero-Downtime Updates**: Supports dynamic configuration reloading without application restarts or pod disruption
+- **GitOps Alignment**: Treats configuration as code with version control, peer review, and declarative management
+- **Secret Sprawl Prevention**: Centralizes sensitive data management through tools like Vault, External Secrets Operator, and sealed-secrets
+- **Configuration Drift Detection**: Enables automated detection and remediation of configuration inconsistencies
+- **Compliance Automation**: Enforces policy-as-code for configuration validation using OPA/Gatekeeper and Kyverno
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines all configuration data required by applications and services at runtime, including environment variables, feature flags, database connection strings, API endpoints, resource limits, and sensitive credentials. It ensures configuration is externalized, versioned, and managed through secure, auditable processes.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Kubernetes ConfigMaps for non-sensitive application configuration
+- Kubernetes Secrets (with encryption at rest via KMS or etcd encryption)
+- External secret management (Vault, AWS Secrets Manager, Azure Key Vault, Google Secret Manager)
+- External Secrets Operator configurations for automatic secret synchronization
+- SOPS (Secrets OPerationS) encrypted files for GitOps workflows
+- sealed-secrets (Bitnami) for encrypting secrets in Git repositories
+- Environment variable injection patterns (envFrom, valueFrom)
+- ConfigMap and Secret mounting strategies (volume mounts, environment variables, projected volumes)
+- Dynamic configuration providers (Spring Cloud Config, Consul KV, etcd)
+- Secret rotation policies and automated rotation mechanisms
+- Configuration schema validation and policy enforcement
+- Service mesh configuration integration (Envoy bootstrap, Istio ConfigMap)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Application source code (maintained in application repositories)
+- Infrastructure-as-code for provisioning resources (handled by Terraform/Pulumi/Crossplane)
+- Service mesh traffic routing rules (covered by service-mesh-configurations)
+- Platform-level Kubernetes manifests (managed through kustomize-manifests and installer-manifests)
+- CI/CD pipeline configurations (maintained in pipeline repositories)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- DevOps Engineers managing application configuration lifecycle
+- Application Developers consuming configuration in microservices
+- Platform Engineers providing configuration management infrastructure
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Security Engineers auditing secret access and rotation compliance
+- SRE Teams troubleshooting configuration-related incidents
+- Compliance Officers ensuring configuration meets regulatory requirements
 
 ## Document Information
 
@@ -106,19 +121,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Never Commit Secrets**: Never store unencrypted secrets in Git; use SOPS, sealed-secrets, or external secret references
+**Immutable ConfigMaps**: Use immutable ConfigMaps to prevent accidental modifications and enable safe rollbacks
+**Least Privilege Access**: Apply RBAC to restrict ConfigMap/Secret access to only authorized service accounts and users
+**Encryption at Rest**: Enable Kubernetes etcd encryption and integrate with cloud KMS providers (AWS KMS, Azure Key Vault, GCP KMS)
+**Secret Rotation**: Implement automated secret rotation with tools like External Secrets Operator and Vault
+**Configuration Schema**: Define and validate configuration schemas using JSON Schema, CUE, or OPA policies
+**Namespace Isolation**: Use namespace-scoped ConfigMaps and Secrets to enforce tenant isolation
+**GitOps for Configuration**: Manage all configuration through Git with PR-based reviews and automated sync via ArgoCD/Flux
+**Environment Parity**: Maintain consistent configuration structure across environments while varying only values
+**Avoid Hardcoding**: Never hardcode configuration in container images; always inject at runtime
+**Secret Scanning**: Implement pre-commit hooks and CI/CD checks to prevent accidental secret commits (TruffleHog, GitGuardian)
+**Audit Logging**: Enable Kubernetes audit logging for all ConfigMap and Secret access and modifications
+**Dynamic References**: Prefer dynamic secret fetching over static mounting when using Vault or cloud secret managers
+**Configuration Drift Detection**: Monitor for configuration drift between desired (Git) and actual (cluster) state
+**Documentation**: Document all configuration parameters, their purpose, allowed values, and dependencies
+**Testing**: Test configuration changes in non-production environments before promoting to production
+**Versioning**: Use labels and annotations to track configuration versions and link to source commits
+**Rollback Strategy**: Maintain previous ConfigMap/Secret versions to enable quick rollbacks during incidents
+**Size Limits**: Keep ConfigMaps under 1MB; use external storage for larger configuration files
+**Hot Reloading**: Implement configuration watchers to reload config without pod restarts when possible
 
 ## Quality Criteria
 
@@ -165,9 +187,82 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Configuration Management Patterns**:
+- Twelve-Factor App (Config as environment variables)
+- Kubernetes ConfigMaps and Secrets API
+- Environment variable injection patterns (env, envFrom, valueFrom)
+- Volume mount patterns for configuration files
+- Projected volumes for combining multiple sources
+- Immutable ConfigMaps and Secrets
+- Configuration hot-reloading patterns
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Secret Management**:
+- HashiCorp Vault (dynamic secrets, encryption as a service)
+- External Secrets Operator (ESO) for syncing secrets
+- AWS Secrets Manager and AWS Systems Manager Parameter Store
+- Azure Key Vault integration
+- Google Cloud Secret Manager
+- SOPS (Secrets OPerationS) with age/PGP encryption
+- sealed-secrets by Bitnami for GitOps-friendly encryption
+- Kubernetes encryption at rest (KMS integration, etcd encryption)
+
+**GitOps & Version Control**:
+- GitOps principles for configuration management
+- ArgoCD Application sync policies
+- Flux Kustomization and Helm release configurations
+- Git repository structure for configuration files
+- Branch strategies for environment-specific configs
+- Secret scanning tools (TruffleHog, GitGuardian, git-secrets)
+
+**Policy & Validation**:
+- OPA (Open Policy Agent) for configuration validation
+- Gatekeeper constraint templates
+- Kyverno policies for ConfigMap/Secret mutation
+- Admission controllers for configuration enforcement
+- JSON Schema and OpenAPI validation
+- CUE language for configuration validation
+
+**Secret Rotation & Lifecycle**:
+- Automatic secret rotation patterns
+- Certificate lifecycle management (cert-manager)
+- Just-in-time secret provisioning
+- Vault dynamic database credentials
+- AWS IAM Roles for Service Accounts (IRSA)
+- Azure Workload Identity
+- Google Workload Identity Federation
+- SPIFFE/SPIRE for workload identity
+
+**Configuration Sources**:
+- Spring Cloud Config Server
+- Consul KV store
+- etcd distributed key-value store
+- Redis for dynamic configuration
+- AWS AppConfig
+- Azure App Configuration
+- Feature flag systems (LaunchDarkly, Split, Unleash)
+
+**Kubernetes Extensions**:
+- Kustomize configMapGenerator and secretGenerator
+- Helm values files and values schema
+- Kubernetes ConfigConnector for GCP resources
+- AWS Controllers for Kubernetes (ACK)
+- Azure Service Operator
+
+**Security Standards**:
+- CIS Kubernetes Benchmark (secret security)
+- NIST SP 800-53 configuration management controls
+- SOC 2 configuration change management
+- GDPR data protection for sensitive configuration
+- PCI-DSS for payment-related configuration
+- HIPAA for healthcare configuration data
+
+**Observability**:
+- Configuration change tracking in audit logs
+- ConfigMap/Secret watch events
+- Kubernetes audit logging
+- Change management integration (ServiceNow, Jira)
+
+**Reference**: Consult organizational security, platform engineering, and compliance teams for detailed guidance on configuration management strategy
 
 ## Integration Points
 

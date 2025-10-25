@@ -2,45 +2,60 @@
 
 ## Executive Summary
 
-The Installer Manifests is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Installer Manifests are packaged, versioned deployment artifacts that encapsulate complex application and infrastructure installations through standardized formats including Helm charts, Kubernetes Operators, Carvel packages, and OLM (Operator Lifecycle Manager) bundles. These manifests provide repeatable, auditable, and upgradable deployment mechanisms that abstract the complexity of multi-resource Kubernetes applications into cohesive, manageable units.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As cloud-native packaging standards, installer manifests enable organizations to distribute internal platform services, third-party software, and complex stateful applications with embedded lifecycle management, dependency resolution, upgrade paths, and rollback capabilities. They form the foundation of application catalogs, platform service offerings, and GitOps-based continuous delivery pipelines.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Repeatable Installations**: Ensures consistent deployment across environments, clusters, and clouds
+- **Lifecycle Management**: Provides automated upgrade, rollback, and uninstall capabilities
+- **Dependency Resolution**: Manages complex application dependencies and prerequisites automatically
+- **Version Control**: Enables semantic versioning of application packages with upgrade compatibility matrices
+- **Configuration Management**: Supports parameterized installations through values files and overlays
+- **Security & Compliance**: Enables scanning, signing, and validation of packaged artifacts before deployment
+- **Ecosystem Integration**: Leverages community charts, operators, and packages while maintaining organizational customizations
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines packaged installation manifests for applications, infrastructure components, and platform services using Helm charts, Kubernetes Operators, Carvel packages, and OLM bundles. It provides standardized mechanisms for installing, upgrading, configuring, and managing complex Kubernetes workloads with embedded lifecycle automation.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Helm charts (Chart.yaml, values.yaml, templates/, charts/ for dependencies)
+- Helm chart repositories (ChartMuseum, Harbor, Artifact Hub, OCI registries)
+- Helm values files for environment-specific configurations
+- Helm chart hooks for lifecycle automation (pre-install, post-install, pre-upgrade, post-upgrade)
+- Kubernetes Operators built with Operator SDK, Kubebuilder, or KUDO
+- Operator CRDs (Custom Resource Definitions) and CR (Custom Resource) examples
+- Operator Lifecycle Manager (OLM) bundles, ClusterServiceVersions (CSVs), and catalogs
+- Carvel packages (ytt templates, kapp deployment, imgpkg bundles, kbld image management)
+- Carvel Package, PackageRepository, and PackageInstall resources
+- Application manifests for GitOps (ArgoCD Application, Flux HelmRelease/Kustomization)
+- Package dependency declarations and version constraints
+- Installation documentation, upgrade guides, and troubleshooting runbooks
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Raw Kubernetes manifests without packaging (covered by kustomize-manifests)
+- Infrastructure-as-code for cloud resources (Terraform, Pulumi, CloudFormation)
+- Application source code and build processes
+- Container image building and registry management
+- Environment-specific configurations without packaging context
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Platform Engineers packaging platform services and infrastructure components
+- DevOps Engineers installing and maintaining packaged applications
+- Operator Developers building and distributing Kubernetes Operators
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Application Developers consuming Helm charts and operators
+- SRE Teams troubleshooting packaged application deployments
+- Security Engineers scanning and validating package artifacts
 
 ## Document Information
 
@@ -106,19 +121,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Semantic Versioning**: Follow SemVer (MAJOR.MINOR.PATCH) for chart/package versions with clear upgrade compatibility
+**Values Schema**: Define values.schema.json for Helm charts to validate user-provided configurations
+**Comprehensive Docs**: Include README.md with installation instructions, configuration options, and troubleshooting guides
+**Default Security**: Embed security best practices in default values (resource limits, security contexts, network policies)
+**Dependency Pinning**: Pin chart/package dependencies to specific versions for reproducibility
+**Testing Automation**: Implement automated testing in CI pipelines (helm lint, chart-testing, operator scorecard)
+**Upgrade Paths**: Document and test upgrade paths from previous versions, including breaking changes
+**Rollback Support**: Ensure installations are rollback-safe with proper resource cleanup
+**Secrets Externalization**: Never include secrets in charts; use external-secrets or sealed-secrets patterns
+**Resource Requests**: Include sensible default resource requests/limits for all workloads
+**GitOps Compatible**: Design charts to work seamlessly with ArgoCD and Flux
+**Minimal Values**: Keep default values minimal; use values for environment-specific overrides only
+**Idempotent Operations**: Ensure installations and upgrades are idempotent and can be safely retried
+**Health Checks**: Include liveness and readiness probes for all deployments
+**Monitoring Integration**: Bundle ServiceMonitor resources for Prometheus integration
+**OCI Storage**: Store Helm charts in OCI registries for standardized artifact management
+**Signed Packages**: Sign charts and operator bundles for supply chain security
+**Version Matrix**: Document compatibility matrix (Kubernetes versions, dependencies, operators)
+**Pre-flight Checks**: Implement validation to check cluster prerequisites before installation
+**Namespace Scoping**: Make charts namespace-scoped by default, support cluster-wide installation as option
 
 ## Quality Criteria
 
@@ -165,9 +187,116 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Helm Charts**:
+- Helm (CNCF graduated project)
+- Chart.yaml specification (apiVersion, name, version, appVersion, dependencies)
+- values.yaml for configuration parameters
+- values.schema.json for validation
+- Chart templates with Go templating
+- Chart hooks (pre-install, post-install, pre-upgrade, post-upgrade, pre-delete, post-delete)
+- Chart dependencies and requirements
+- Helm repositories (HTTP, OCI registries)
+- Helm library charts for reusable components
+- Helm chart signing and provenance
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Helm Repositories**:
+- ChartMuseum (open source Helm chart repository)
+- Harbor (CNCF graduated container registry with Helm support)
+- Artifact Hub (CNCF public chart discovery)
+- OCI registries (Docker Hub, ECR, GCR, ACR) for Helm charts
+- GitHub Pages for static chart repositories
+
+**Kubernetes Operators**:
+- Operator SDK (Red Hat)
+- Kubebuilder (Kubernetes SIG)
+- KUDO (Kubernetes Universal Declarative Operator)
+- Operator pattern and controller-runtime
+- Custom Resource Definitions (CRDs)
+- Custom Resources (CRs) for operator configuration
+- Reconciliation loops and controller logic
+- Operator maturity model (Basic, Seamless, Full Lifecycle, Deep Insights, Auto Pilot)
+
+**Operator Lifecycle Manager (OLM)**:
+- ClusterServiceVersion (CSV) manifests
+- CRD definitions and owned/required resources
+- Operator bundles and bundle images
+- Operator catalogs (CatalogSource)
+- Subscription and InstallPlan resources
+- Operator upgrade channels (stable, candidate, alpha)
+- Operator dependencies and required CRDs
+
+**Carvel Tools**:
+- ytt (YAML templating and overlay tool)
+- kapp (Kubernetes application deployment tool)
+- kbld (container image management)
+- imgpkg (bundle packaging for container registries)
+- vendir (declarative directory syncing)
+- kapp-controller for GitOps-style package management
+- Package and PackageRepository CRDs
+- PackageInstall for declarative installation
+
+**GitOps Application Manifests**:
+- ArgoCD Application and ApplicationSet
+- ArgoCD App of Apps pattern
+- Flux HelmRelease for Helm charts
+- Flux Kustomization for Kustomize overlays
+- Flux OCIRepository for OCI artifacts
+- GitOps sync policies and automation
+
+**Package Standards**:
+- Open Application Model (OAM)
+- Cloud Native Application Bundle (CNAB)
+- OCI artifact specifications
+- Semantic versioning (SemVer) for package versions
+- Package dependency resolution
+- Version constraints and compatibility matrices
+
+**Lifecycle Management**:
+- Installation pre-flight checks
+- Upgrade strategies (rolling, blue-green, canary)
+- Rollback procedures and validation
+- Uninstallation and cleanup
+- Backup and restore integration
+- Health checks and readiness probes
+
+**Security & Signing**:
+- Helm chart signing with GPG
+- Cosign for container image signing
+- Notary for content signing
+- SBOM (Software Bill of Materials) generation
+- Vulnerability scanning (Trivy, Grype, Snyk)
+- Admission controller integration (OPA, Kyverno)
+
+**Testing & Validation**:
+- Helm test for chart validation
+- helm lint for chart structure validation
+- Chart-testing (ct) for CI/CD pipelines
+- Operator SDK scorecard for operator validation
+- Integration tests for operator reconciliation
+- End-to-end installation testing
+
+**Registry & Distribution**:
+- OCI registries for chart/package storage
+- Multi-tenancy and RBAC for repositories
+- Artifact scanning and quarantine
+- Replication and geo-distribution
+- Private mirrors for air-gapped environments
+
+**Observability & Monitoring**:
+- Prometheus Operator for monitoring
+- ServiceMonitor and PodMonitor resources
+- Grafana dashboards in packages
+- Logging aggregation configuration
+- Distributed tracing setup
+
+**Configuration Management**:
+- Helm values inheritance and override patterns
+- Environment-specific values files
+- Secrets management in charts (external-secrets, sealed-secrets)
+- ConfigMap management
+- Dynamic configuration with admission webhooks
+
+**Reference**: Consult organizational platform engineering and package management teams for detailed guidance on packaging standards and distribution
 
 ## Integration Points
 

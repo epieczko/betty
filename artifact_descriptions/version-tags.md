@@ -2,45 +2,66 @@
 
 ## Executive Summary
 
-The Version Tags is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Version Tags artifact defines version identification standards for software artifacts, container images, git releases, and deployed services using Semantic Versioning 2.0.0 (SemVer) conventions. Version tags enable precise artifact tracking, reproducible builds, deployment traceability, and rollback operations across CI/CD pipelines, container registries (Docker Hub, ECR, GCR, ACR), and artifact repositories (npm, Maven, PyPI, NuGet).
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Version tags integrate with git tagging (annotated tags like v1.2.3), OCI image specifications for container versioning, GitVersion for automated SemVer calculation, and semantic-release for automated tag creation. They support deployment tracking in Kubernetes (image tags), infrastructure as code (Terraform module versions), and observability platforms (Datadog deployment markers, New Relic change tracking). Version tags provide audit trails for compliance (SOC 2, ISO 27001), enable precise rollback to known-good versions, and support canary deployments with specific version targeting.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Artifact Traceability**: Enables precise tracking of code versions through git tags, container images, and deployed services
+- **Semantic Versioning**: Enforces SemVer 2.0.0 (MAJOR.MINOR.PATCH) for clear breaking change communication
+- **Reproducible Builds**: Ensures identical artifacts can be rebuilt from specific git tags and commit SHAs
+- **Deployment Precision**: Enables targeting specific versions for blue-green, canary, and rollback deployments
+- **Container Image Management**: Supports immutable container tags in OCI registries (never reuse tags like latest)
+- **Automated Version Calculation**: Integrates GitVersion, semantic-release for CI/CD automation
+- **Compliance Audit Trail**: Provides version tracking evidence for SOC 2, ISO 27001, regulatory requirements
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+Version tags define naming conventions and versioning strategies for git tags, container images, artifacts, and deployed services following Semantic Versioning 2.0.0. They enable artifact identification, deployment targeting, rollback operations, and compliance audit trails across development, CI/CD, and production environments.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Semantic Versioning 2.0.0 (MAJOR.MINOR.PATCH) for all version identifiers
+- Git annotated tags (v1.2.3) with release metadata and GPG signatures
+- Container image tags (myapp:1.2.3, myapp:1.2.3-alpine, myapp:sha-abc123f)
+- Pre-release version suffixes (1.0.0-alpha.1, 1.0.0-beta.2, 1.0.0-rc.1)
+- Build metadata suffixes (1.0.0+20240315.build.123, 1.0.0+sha.abc123f)
+- Immutable tag policies (never reuse version tags, avoid mutable tags like latest)
+- OCI Image Specification compliance for container registries
+- Package manager version conventions (npm, Maven, PyPI, NuGet, RubyGems, Cargo)
+- Calendar versioning (CalVer) alternatives for time-based releases (YYYY.MM.DD)
+- GitVersion configuration for automated SemVer calculation from git history
+- semantic-release automated tag creation and version bumping
+- Kubernetes image tag references (deployment manifests, Helm values)
+- Infrastructure as Code version tags (Terraform modules, Ansible roles, CloudFormation)
+- Artifact repository versioning (Docker Hub, Amazon ECR, Google GCR, Azure ACR, Artifactory, Nexus)
+- Deployment marker integration (Datadog, New Relic, Sentry release tracking)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed release note content for each version (handled by release-notes.md)
+- Change history documentation (handled by changelogs.md)
+- Version release risk assessment (handled by release-risk-assessment.md)
+- Release certification criteria (handled by release-certification.md)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- DevOps Engineers managing CI/CD pipelines and artifact versioning automation
+- Release Managers coordinating version releases and deployment tracking
+- SRE Teams deploying specific versions and performing rollback operations
+- Build Engineers configuring automated versioning in CI/CD systems
+- Container Platform Engineers managing image registries and tag policies
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Software Engineers understanding version tagging for local development
+- Security Teams tracking deployed versions for vulnerability management
+- Compliance Officers auditing version history for regulatory requirements
+- Infrastructure Engineers versioning IaC modules and configurations
+- QA Teams identifying tested versions and release candidate tracking
 
 ## Document Information
 
@@ -106,19 +127,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Semantic Versioning Compliance**: Strictly follow SemVer 2.0.0 - MAJOR.MINOR.PATCH with clear breaking change communication
+**Immutable Tags**: Never reuse or overwrite version tags - each version is immutable forever
+**Annotated Git Tags**: Use git annotated tags (git tag -a v1.2.3) with release descriptions, not lightweight tags
+**v-Prefix Convention**: Prefix git tags with 'v' (v1.2.3) to distinguish from other tag types
+**Automated Tagging**: Use GitVersion or semantic-release for consistent, automated version calculation
+**Multi-Tag Strategy**: Tag container images with version, SHA, and conditional latest (myapp:1.2.3, myapp:sha-abc123, myapp:latest)
+**Avoid Latest Tag**: Minimize use of 'latest' tag in production deployments - always use specific versions
+**Image Digest Pinning**: Reference container images by SHA256 digest in production for absolute immutability
+**Pre-Release Suffixes**: Use standard suffixes (alpha, beta, rc) for pre-production versions (1.0.0-beta.2)
+**Build Metadata**: Include commit SHA and build info in metadata suffix (1.0.0+sha.abc123f.build.456)
+**Git Tag Protection**: Enable tag protection in GitHub/GitLab to prevent unauthorized tag modification
+**GPG Sign Tags**: Sign release tags with GPG for cryptographic verification (git tag -s v1.2.3)
+**Tag Synchronization**: Ensure git tags, container tags, and artifact versions match exactly
+**Deployment Markers**: Send version tags to observability platforms (Datadog, New Relic, Sentry) for deployment tracking
+**Tag Retention Policy**: Define lifecycle policies for old container image tags to reduce storage costs
+**Version Documentation**: Document version in git tag annotation with release notes summary and links
+**Rollback Version Access**: Maintain all historical versions in registries for potential rollback needs
+**Environment-Specific Suffixes**: Use suffixes for environment variants (1.2.3-staging, 1.2.3-production) sparingly
+**Monorepo Versioning**: Consider independent versioning per package vs unified version in monorepos
+**Version Validation**: Implement CI checks to validate version format and SemVer compliance
 
 ## Quality Criteria
 
@@ -165,7 +193,102 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Semantic Versioning**:
+- Semantic Versioning 2.0.0 (SemVer) - MAJOR.MINOR.PATCH version standard
+- SemVer Pre-Release Versions - Alpha, beta, rc (release candidate) suffixes
+- SemVer Build Metadata - Build number, commit SHA, date suffixes
+- Calendar Versioning (CalVer) - YYYY.MM.DD time-based versioning alternative
+- ZeroVer - 0.x.y versioning for pre-1.0 software
+- Romantic Versioning - Alternative versioning philosophies
+
+**Git Tagging**:
+- Git Annotated Tags - Metadata-rich tags (git tag -a v1.2.3 -m "Release 1.2.3")
+- Git Lightweight Tags - Simple commit pointers (git tag v1.2.3)
+- GPG Signed Tags - Cryptographically signed release tags (git tag -s)
+- Tag Naming Conventions - v-prefix (v1.2.3) vs no prefix (1.2.3)
+- Git Tag Push - Remote tag synchronization (git push --tags, git push origin v1.2.3)
+- Tag Protection - GitHub/GitLab tag protection rules
+- GitHub Releases - Tag-based release documentation
+
+**Automated Version Calculation**:
+- GitVersion - Automatic SemVer from git history (mainline, GitFlow, GitHubFlow modes)
+- semantic-release - Fully automated versioning and releases
+- standard-version - Manual trigger automated versioning
+- release-please - Automated release PRs with version bumping
+- bump2version / bumpversion - Python version bumping tool
+- cargo-release - Rust crate release automation
+- npm version - npm built-in version bumping (major, minor, patch)
+
+**Container Image Tagging**:
+- OCI Image Specification - Open Container Initiative standards
+- Docker Image Tags - Immutable versioning best practices
+- Container Registry Standards - Docker Hub, Amazon ECR, Google GCR, Azure ACR
+- Image Digest (SHA256) - Immutable image identification
+- Multi-Tag Strategy - Version tag + latest + SHA tags
+- Immutable Tags - Never reuse version tags policy
+- Tag Retention Policies - Automatic old tag cleanup
+- Vulnerability Scanning Tags - Integration with Trivy, Clair, Snyk
+
+**Package Manager Versioning**:
+- npm Semantic Versioning - package.json version field and version ranges
+- Maven Versioning - POM version conventions (SNAPSHOT, release versions)
+- PyPI Versioning - PEP 440 version identification and ordering
+- NuGet Semantic Versioning - .NET package versioning
+- RubyGems Versioning - Gem specification versioning
+- Cargo (Rust) Versioning - Semantic versioning for crates
+- Go Module Versioning - go.mod major version in import path (v2, v3)
+- Gradle Version Catalogs - Centralized dependency version management
+
+**Kubernetes & Container Orchestration**:
+- Kubernetes Image Tags - Pod spec container image references
+- Helm Chart Versioning - Chart.yaml version and appVersion fields
+- Kustomize Image Tags - Image transformer version management
+- ArgoCD Image Updater - Automated image version updates
+- Flux CD Image Automation - GitOps-based image version updates
+- Deployment Rollback - kubectl rollout undo using image tags
+
+**Infrastructure as Code Versioning**:
+- Terraform Module Versioning - Git tags for module source references
+- Terraform Registry - Module versioning standards
+- Ansible Role Versioning - Galaxy role version tags
+- CloudFormation Template Versions - Stack template versioning
+- Pulumi Stack Tags - Infrastructure state versioning
+- CDK Version Management - Cloud Development Kit versioning
+
+**Artifact Repository Management**:
+- Docker Hub - Public and private container registry
+- Amazon ECR - Elastic Container Registry versioning and lifecycle
+- Google Artifact Registry (GCR) - Container and artifact storage
+- Azure Container Registry (ACR) - Container image versioning
+- JFrog Artifactory - Universal artifact repository
+- Sonatype Nexus - Artifact repository manager
+- GitHub Packages - Native GitHub artifact hosting
+- GitLab Container Registry - Integrated container storage
+
+**Deployment Tracking & Observability**:
+- Datadog Deployment Tracking - Version deployment markers
+- New Relic Change Tracking - Release version monitoring
+- Sentry Release Tracking - Error tracking with version context
+- PagerDuty Change Events - Version deployment notifications
+- Prometheus Deployment Annotations - Metric annotation with versions
+- Grafana Deployment Annotations - Dashboard version markers
+- Honeycomb Deployment Markers - Observability context with versions
+
+**CI/CD Integration**:
+- GitHub Actions - Automated tagging workflows
+- GitLab CI/CD - Version tag-based pipelines
+- Jenkins Versioning - Build number and version management
+- CircleCI - Tag-based deployment workflows
+- Azure DevOps Pipelines - Semantic versioning integration
+- AWS CodePipeline - Version-based deployment stages
+- Argo Workflows - Version-aware workflow execution
+
+**Compliance & Audit**:
+- SOC 2 Type 2 - Version control and change tracking evidence
+- ISO 27001 - Configuration management and version control
+- NIST Cybersecurity Framework - Asset management and versioning
+- Software Bill of Materials (SBOM) - Version inventory tracking
+- Provenance Attestation - SLSA framework version verification
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

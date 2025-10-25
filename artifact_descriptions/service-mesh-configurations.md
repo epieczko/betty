@@ -2,45 +2,62 @@
 
 ## Executive Summary
 
-The Service Mesh Configurations is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Service Mesh Configurations define the sophisticated traffic management, security, and observability policies that govern service-to-service communication within distributed microservices architectures. Built on platforms like Istio, Linkerd, Consul Connect, and AWS App Mesh, these configurations implement advanced patterns including intelligent routing, circuit breaking, mutual TLS (mTLS), fault injection, and distributed tracing without requiring application code changes.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+The service mesh operates as a dedicated infrastructure layer that abstracts networking complexity from application developers while providing platform teams with centralized control over security policies, traffic behavior, and observability instrumentation. This separation of concerns enables organizations to enforce zero-trust security, implement sophisticated deployment strategies (canary, blue-green, A/B testing), and gain deep visibility into distributed system behavior.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Zero-Trust Security**: Enforces mutual TLS (mTLS) for all service-to-service communication with automatic certificate rotation
+- **Traffic Management**: Enables advanced routing, load balancing, retries, timeouts, and circuit breaking without code changes
+- **Progressive Delivery**: Supports canary releases, blue-green deployments, and traffic mirroring for safe rollouts
+- **Observability Excellence**: Provides automatic distributed tracing, metrics collection, and service topology visualization
+- **Multi-Cluster & Multi-Cloud**: Facilitates service communication across Kubernetes clusters and cloud providers
+- **Fault Resilience**: Implements chaos engineering patterns through fault injection and failure simulation
+- **Regulatory Compliance**: Meets requirements for encryption in transit, audit logging, and service access controls
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines service mesh traffic management rules, security policies, and observability configurations that control communication between microservices. It enables platform teams to implement sophisticated networking patterns, enforce security boundaries, and instrument distributed systems for observability without modifying application code.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Istio configurations (VirtualService, DestinationRule, Gateway, ServiceEntry, PeerAuthentication, AuthorizationPolicy)
+- Linkerd configurations (ServiceProfile, TrafficSplit, Server, ServerAuthorization)
+- Consul Connect intentions, service defaults, and service routers
+- AWS App Mesh virtual services, virtual nodes, virtual routers, and routes
+- Envoy proxy configurations (filters, listeners, clusters, routes)
+- Service Mesh Interface (SMI) specifications (TrafficTarget, TrafficSplit, TrafficMetrics)
+- Mutual TLS (mTLS) policies and certificate management
+- Traffic routing rules (path-based, header-based, weighted routing)
+- Retry policies, timeout configurations, and circuit breakers
+- Fault injection for chaos engineering (delays, aborts, HTTP errors)
+- Rate limiting and quota management
+- Ingress and egress gateway configurations
+- Multi-cluster service mesh federation
+- Service mesh observability (Prometheus metrics, Jaeger tracing, Kiali visualization)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Application-level service code and business logic
+- Kubernetes NetworkPolicy for L3/L4 network segmentation (covered by network-policies)
+- Base Kubernetes service discovery (Services, Endpoints, EndpointSlices)
+- Infrastructure provisioning for service mesh control plane (managed by IaC)
+- Application ConfigMaps and Secrets (covered by service-configuration-files)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Platform Engineers managing service mesh infrastructure and policies
+- SRE Teams implementing reliability patterns and traffic management
+- Network Engineers defining service-to-service communication rules
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Security Engineers enforcing zero-trust networking and mTLS policies
+- Application Developers understanding traffic behavior and debugging connectivity
+- DevOps Engineers integrating service mesh with CI/CD pipelines
 
 ## Document Information
 
@@ -106,19 +123,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Enable mTLS by Default**: Enforce mutual TLS for all service-to-service communication with STRICT mode
+**Progressive Rollout**: Use canary deployments with automated analysis before full production rollout
+**GitOps Management**: Store all service mesh configurations in Git and deploy via ArgoCD/Flux with automated validation
+**Namespace Isolation**: Apply service mesh policies at namespace boundaries to enforce tenant isolation
+**Least Privilege Authorization**: Use AuthorizationPolicy to enforce fine-grained access control based on service identity
+**Resource Limits**: Configure sidecar proxy resource requests and limits to prevent resource exhaustion
+**Observability First**: Enable distributed tracing and metrics collection before moving to production
+**Circuit Breaker Configuration**: Implement outlier detection to prevent cascading failures
+**Timeout Policies**: Set appropriate timeouts for all service calls with retry budgets
+**Test Fault Injection**: Regularly test resilience patterns using fault injection in non-production environments
+**Gateway Hardening**: Secure ingress gateways with rate limiting, WAF integration, and DDoS protection
+**Certificate Management**: Automate certificate rotation with reasonable TTLs (24 hours or less)
+**Sidecar Injection Strategy**: Use namespace-level auto-injection with explicit opt-out rather than opt-in
+**Performance Monitoring**: Monitor proxy CPU/memory usage and latency impact of service mesh
+**Version Compatibility**: Maintain compatibility between control plane and data plane (sidecar) versions
+**Gradual Migration**: Migrate services to service mesh incrementally, not all at once
+**ServiceEntry Management**: Explicitly declare external dependencies using ServiceEntry for better visibility
+**Header Propagation**: Ensure distributed tracing headers are propagated through all service calls
+**Envoy Filter Caution**: Use custom Envoy filters sparingly and test thoroughly before production
+**Documentation**: Document traffic routing logic, security policies, and troubleshooting runbooks
 
 ## Quality Criteria
 
@@ -165,9 +189,106 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Service Mesh Platforms**:
+- Istio (Envoy-based service mesh with rich feature set)
+- Linkerd (lightweight, Rust-based service mesh)
+- Consul Connect (HashiCorp's service mesh with service discovery)
+- AWS App Mesh (managed service mesh for AWS)
+- Open Service Mesh (OSM) - CNCF graduated project
+- Kuma (Kong's service mesh based on Envoy)
+- Traefik Mesh (lightweight service mesh from Traefik Labs)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Service Mesh Interface (SMI)**:
+- SMI Traffic Access Control (TrafficTarget)
+- SMI Traffic Specs (HTTPRouteGroup, TCPRoute)
+- SMI Traffic Split (weighted routing for canary deployments)
+- SMI Traffic Metrics (standard metrics API)
+
+**Istio Resource Types**:
+- VirtualService (traffic routing rules)
+- DestinationRule (load balancing, connection pool, outlier detection)
+- Gateway (ingress/egress gateway configuration)
+- ServiceEntry (external service registration)
+- Sidecar (sidecar proxy configuration)
+- PeerAuthentication (mTLS policy)
+- AuthorizationPolicy (access control)
+- RequestAuthentication (JWT validation)
+- WorkloadEntry (non-Kubernetes workload registration)
+- WorkloadGroup (workload grouping)
+- Telemetry (observability configuration)
+- WasmPlugin (WebAssembly extensions)
+
+**Linkerd Resource Types**:
+- ServiceProfile (per-route metrics, retries, timeouts)
+- TrafficSplit (traffic splitting for canary/blue-green)
+- Server (protocol detection and policy)
+- ServerAuthorization (authorization policy)
+- AuthorizationPolicy (access control)
+- HTTPRoute (traffic routing)
+
+**Envoy Proxy**:
+- Envoy xDS APIs (CDS, EDS, LDS, RDS, SDS)
+- Envoy filters (HTTP, network, listener filters)
+- Envoy rate limiting (local and global)
+- Envoy access logging
+- Envoy health checking
+- Envoy load balancing algorithms
+
+**Traffic Management Patterns**:
+- Canary deployments (weighted traffic splitting)
+- Blue-green deployments (instant traffic switching)
+- A/B testing (header-based routing)
+- Dark launches (traffic mirroring)
+- Gradual rollouts (progressive traffic shifting)
+- Geographic routing (locality-based load balancing)
+- Sticky sessions (consistent hash load balancing)
+
+**Resilience Patterns**:
+- Circuit breakers (outlier detection)
+- Retries with exponential backoff
+- Timeout policies
+- Bulkhead isolation
+- Fault injection (delay, abort, HTTP errors)
+- Rate limiting and throttling
+- Connection pooling
+
+**Security & Identity**:
+- Mutual TLS (mTLS) with automatic certificate rotation
+- SPIFFE/SPIRE for workload identity
+- Certificate management (cert-manager, Vault PKI)
+- JWT authentication and authorization
+- OAuth2/OIDC integration
+- External authorization (OPA, custom auth services)
+- Service-to-service authorization policies
+
+**Observability**:
+- Distributed tracing (Jaeger, Zipkin, OpenTelemetry)
+- Prometheus metrics (RED metrics, golden signals)
+- Service graphs and topology visualization (Kiali, Grafana)
+- Access logging (JSON, custom formats)
+- Traffic metrics (requests, latency, errors)
+- Service Level Indicators (SLIs) and Service Level Objectives (SLOs)
+
+**Multi-Cluster & Federation**:
+- Istio multi-primary and primary-remote topologies
+- Linkerd multi-cluster with service mirroring
+- Consul federation and WAN gossip
+- Service mesh federation standards
+
+**GitOps Integration**:
+- ArgoCD integration with service mesh resources
+- Flux integration for service mesh configuration
+- Progressive delivery with Flagger
+- Canary analysis and automated rollback
+
+**Standards & Protocols**:
+- gRPC load balancing
+- HTTP/2 and HTTP/3 support
+- WebSocket proxying
+- TCP and TLS passthrough
+- PROXY protocol
+
+**Reference**: Consult organizational platform engineering, SRE, and security teams for detailed guidance on service mesh architecture and policy implementation
 
 ## Integration Points
 

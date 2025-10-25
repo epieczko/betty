@@ -2,45 +2,62 @@
 
 ## Executive Summary
 
-The Kustomize Manifests is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Kustomize Manifests are declarative Kubernetes configuration artifacts that enable template-free, environment-specific customization of YAML manifests through a layered overlay approach. As a native Kubernetes configuration management tool (kubectl apply -k), Kustomize uses bases, overlays, patches, and generators to maintain DRY (Don't Repeat Yourself) principles while supporting GitOps workflows and progressive delivery patterns.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Unlike templating systems (Helm, Jsonnet), Kustomize operates on pure Kubernetes YAML through strategic merge patches, JSON patches, and resource transformers, preserving the declarative nature of Kubernetes manifests while enabling composition, reuse, and environment-specific variations. This approach aligns with GitOps principles by keeping all configuration in version control with clear provenance and auditability.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Template-Free Customization**: Maintains pure Kubernetes YAML without introducing templating languages or complex abstractions
+- **GitOps Native**: Seamlessly integrates with ArgoCD and Flux for declarative, Git-based configuration management
+- **Environment Parity**: Enables consistent base configurations with minimal, explicit environment-specific overrides
+- **Composition & Reuse**: Supports component-based architecture through bases, overlays, and remote references
+- **Validation & Testing**: Enables automated validation and testing of composed manifests before cluster application
+- **Configuration DRY**: Eliminates duplication through strategic merge patches, JSON patches, and resource generators
+- **Progressive Delivery**: Facilitates canary and blue-green deployments through overlay-based configuration variations
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines the Kustomize directory structure, kustomization.yaml files, bases, overlays, patches, and resource generators that compose environment-specific Kubernetes manifests. It enables teams to maintain a single source of truth for base configurations while applying targeted customizations for development, staging, production, and multi-region deployments.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- kustomization.yaml files defining resources, generators, transformers, and patches
+- Base directories containing common Kubernetes manifests
+- Overlay directories for environment-specific customizations (dev, staging, production)
+- Strategic merge patches for partial resource modifications
+- JSON patches (RFC 6902) for precise field updates
+- ConfigMap generators (configMapGenerator) from files, literals, or env files
+- Secret generators (secretGenerator) with similar sourcing options
+- Resource transformers (namePrefix, nameSuffix, namespace, labels, annotations)
+- Image transformers for container image references
+- Replica count transformers for scaling
+- Remote bases and components (Git repositories, HTTP URLs)
+- Component composition and inheritance patterns
+- Multi-base and multi-overlay architectures
+- Kustomize plugins and custom transformers
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Helm charts and Helm-specific templating (covered by installer-manifests)
+- Raw Kubernetes manifests without Kustomize organization
+- Infrastructure provisioning outside Kubernetes (Terraform, Pulumi, CloudFormation)
+- CI/CD pipeline definitions (maintained in pipeline repositories)
+- Application source code (managed in application repositories)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Platform Engineers designing Kustomize structure and reusable components
+- DevOps Engineers managing environment-specific overlays and deployments
+- Application Developers consuming base configurations and creating service-specific overlays
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- SRE Teams reviewing configuration changes and troubleshooting deployments
+- Security Engineers auditing configuration transformations and patches
+- GitOps Operators (ArgoCD, Flux) consuming kustomization.yaml for automated sync
 
 ## Document Information
 
@@ -106,19 +123,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Minimal Overlays**: Keep overlays small - override only what differs from base, avoiding duplication
+**Base Reusability**: Design bases to be reusable across multiple environments and teams
+**Semantic Versioning**: Version remote bases using Git tags following semantic versioning
+**Hash Suffixes**: Enable hash suffixes for ConfigMaps/Secrets to trigger rolling updates on changes
+**Strategic Merge First**: Prefer strategic merge patches over JSON patches for better readability
+**Component Composition**: Extract cross-cutting concerns into components (monitoring, security, networking)
+**Clear Directory Structure**: Maintain consistent directory structure (base/, overlays/env/, components/)
+**Validate Before Merge**: Run kustomize build and schema validation in CI before merging changes
+**Document Patches**: Add comments explaining why patches are necessary and what they modify
+**Avoid Vars**: Use replacements instead of deprecated vars functionality
+**Test Compositions**: Test complete kustomizations with kubeval and conftest in pipelines
+**GitOps Workflow**: Store all Kustomize manifests in Git and deploy via ArgoCD/Flux
+**Image Digests**: Use image digests instead of tags for immutability and security
+**Namespace Consistency**: Set namespace in kustomization.yaml rather than individual resources
+**Remote Base Pinning**: Pin remote bases to specific Git commits or tags, not branches
+**Patch Ordering**: Understand patch application order (strategic merge, then JSON, then inline)
+**Label Standards**: Use consistent labels across all resources (app, version, component, part-of, managed-by)
+**Resource Limits**: Include resource requests/limits in base, override in overlays for environment-specific tuning
+**ConfigMap Generation**: Use configMapGenerator instead of static ConfigMaps for better change tracking
+**Immutable Configs**: Generate immutable ConfigMaps/Secrets for safer rollbacks
 
 ## Quality Criteria
 
@@ -165,9 +189,108 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Kustomize Core**:
+- Kustomize (SIG CLI, native kubectl integration with kubectl apply -k)
+- kustomization.yaml specification
+- kustomize build command for manifest generation
+- kustomize edit commands for declarative updates
+- API versioning (kustomize.config.k8s.io/v1beta1)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Resource Management**:
+- resources field (list of manifest files and directories)
+- Remote resources (Git repos, HTTP URLs)
+- Component resources for modular composition
+- CRDs (Custom Resource Definitions) handling
+- Namespace-scoped vs cluster-scoped resources
+
+**Generators**:
+- configMapGenerator (from files, literals, envs)
+- secretGenerator (from files, literals, envs, with encryption options)
+- generatorOptions (labels, annotations, disableNameSuffixHash)
+- Automatic hash suffixing for ConfigMaps/Secrets
+- Immutable ConfigMaps and Secrets generation
+
+**Transformers**:
+- namePrefix and nameSuffix for resource naming
+- namespace transformer for resource scoping
+- commonLabels and commonAnnotations
+- images transformer for container image management
+- replicas transformer for scaling
+- Label and annotation selectors
+
+**Patches**:
+- Strategic merge patches (patchesStrategicMerge)
+- JSON patches (patchesJson6902) following RFC 6902
+- Inline patches (patches field with target selectors)
+- Patch target selectors (group, version, kind, name, namespace, labelSelector, annotationSelector)
+
+**Composition Patterns**:
+- Base and overlay architecture
+- Multi-layer overlays (base -> common -> environment-specific)
+- Component-based composition
+- Inheritance and override patterns
+- Remote base references
+
+**GitOps Integration**:
+- ArgoCD Kustomize support and integration
+- Flux Kustomization CRD
+- Automatic sync and drift detection
+- Kustomize build caching
+- Progressive delivery with overlays
+
+**Directory Structure Patterns**:
+- Base directory with common manifests
+- Overlays directory with environment subdirectories (dev, staging, prod)
+- Components directory for reusable modules
+- Environment-specific overlay structure
+
+**Validation & Testing**:
+- kustomize build for dry-run validation
+- kubeval for Kubernetes schema validation
+- conftest for policy-as-code testing
+- kustomize-controller reconciliation
+- Pre-merge validation in CI pipelines
+
+**Advanced Features**:
+- Kustomize plugins (KRM functions)
+- Exec plugins for custom transformations
+- Go plugins (deprecated in favor of KRM)
+- vars and variable substitution (deprecated, use replacements)
+- replacements for field value substitution
+
+**Best Practice Patterns**:
+- Minimal overlays (override only what differs)
+- Avoid duplication between environments
+- Use components for cross-cutting concerns
+- Remote bases for shared platform components
+- Semantic versioning for remote bases
+
+**Security & Secrets**:
+- SOPS integration for encrypted secrets
+- sealed-secrets generator integration
+- Secret generators with encryption
+- External Secrets Operator integration
+- Avoiding plaintext secrets in Git
+
+**Multi-Cluster Management**:
+- Per-cluster overlays
+- Cluster-specific configurations
+- Federation patterns with Kustomize
+- Multi-region deployment configurations
+
+**CI/CD Integration**:
+- kustomize build in CI pipelines
+- Automated validation and testing
+- Image digest updates via kustomize edit set image
+- GitOps PR workflows with Kustomize
+
+**Kubernetes Compatibility**:
+- kubectl apply -k native support (v1.14+)
+- API version compatibility
+- Resource ordering and dependencies
+- CRD handling and validation
+
+**Reference**: Consult organizational platform engineering and GitOps teams for detailed guidance on Kustomize architecture patterns and best practices
 
 ## Integration Points
 

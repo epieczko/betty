@@ -2,45 +2,57 @@
 
 ## Executive Summary
 
-The Pipeline Definitions is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Pipeline Definitions artifact is a comprehensive specification for CI/CD (Continuous Integration/Continuous Deployment) pipelines, documenting build, test, security scanning, and deployment automation using platforms like Jenkins, GitLab CI, GitHub Actions, CircleCI, Azure DevOps, or Tekton. This artifact defines pipeline stages, job configurations, artifact management, deployment strategies, and quality gates that enable teams to deliver software reliably, securely, and at scale.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As organizations adopt DevOps practices and shift-left security, this artifact serves DevOps Engineers implementing pipeline automation, Platform Engineers managing CI/CD infrastructure, SRE Teams ensuring deployment reliability, Security Engineers integrating security scanning (SAST, DAST, SCA), and Software Engineers contributing to pipeline-as-code. It transforms manual deployment processes into automated, repeatable workflows with built-in quality controls, security checks, and compliance validation.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Automated Software Delivery**: Defines CI/CD pipelines using Jenkins (Jenkinsfile), GitLab CI (.gitlab-ci.yml), GitHub Actions (.github/workflows), CircleCI, Azure Pipelines
+- **Pipeline Stages**: Specifies build, test, security scan, package, deploy stages with dependencies and quality gates
+- **Quality Automation**: Implements automated testing (unit, integration, E2E), code quality checks (SonarQube), security scanning (Snyk, Trivy, OWASP Dependency-Check)
+- **Artifact Management**: Defines Docker image builds, package registry integration (npm, Maven, NuGet), versioning strategies, artifact signing
+- **Deployment Strategies**: Documents blue/green deployments, canary releases, rolling updates, feature flags, rollback procedures
+- **Infrastructure as Code**: Integrates Terraform, CloudFormation, Pulumi, Ansible deployment within pipelines
+- **Observability**: Enables pipeline metrics, build success rates, deployment frequency (DORA metrics), mean time to recovery (MTTR)
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents CI/CD pipeline configurations including pipeline YAML definitions (Jenkinsfile, .gitlab-ci.yml, .github/workflows/*.yml), stage specifications, job dependencies, quality gates, deployment strategies, and environment configurations. It enables DevOps teams to implement automated, secure, and reliable software delivery pipelines.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Pipeline configuration files: Jenkinsfile (declarative/scripted), .gitlab-ci.yml, .github/workflows/*.yml, azure-pipelines.yml
+- Stage definitions: Build, test, scan, package, deploy stages with triggers and dependencies
+- Build jobs: Compile code, install dependencies, generate artifacts, version tagging
+- Test automation: Unit tests, integration tests, E2E tests, test coverage thresholds, test result reporting
+- Security scanning: SAST (SonarQube, CodeQL), DAST (OWASP ZAP), SCA (Snyk, Dependabot), container scanning (Trivy, Clair)
+- Artifact management: Docker image builds, multi-stage builds, registry push (Docker Hub, ECR, ACR, GCR), package publishing
+- Deployment strategies: Blue/green, canary, rolling updates, recreate, A/B testing
+- Environment promotion: Dev, staging, production pipeline flows, approval gates, manual triggers
+- Secrets management: Vault integration, CI/CD variables, secret scanning, credential rotation
+- Pipeline optimization: Caching strategies, parallel execution, matrix builds, conditional stages
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Application source code and business logic (covered in code repositories)
+- Infrastructure provisioning code (covered in Infrastructure as Code artifacts)
+- Kubernetes manifests and Helm charts (covered in Deployment Configuration artifacts)
+- Monitoring and logging infrastructure (covered in Observability artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- DevOps Engineers implementing and maintaining CI/CD pipelines
+- Platform Engineers managing CI/CD infrastructure and tooling
+- Software Engineers contributing to pipeline-as-code
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- SRE Teams ensuring deployment reliability and rollback procedures
+- Security Engineers implementing security scanning and compliance checks
+- Release Managers coordinating deployment schedules and approvals
 
 ## Document Information
 
@@ -106,19 +118,19 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Pipeline as Code**: Store all pipeline definitions in version control alongside application code, enable code review for pipeline changes
+**Fail Fast**: Run fast tests and checks early in pipeline, fail quickly on errors to provide rapid feedback
+**Idempotency**: Design pipeline stages to be idempotent and rerunnable without side effects
+**Modular Design**: Break pipelines into reusable stages/jobs, use shared libraries (Jenkins shared libraries, GitHub Actions composite actions)
+**Security First**: Integrate security scanning at every stage (SAST, DAST, SCA, secrets scanning), fail on critical vulnerabilities
+**Least Privilege**: Use minimal permissions for pipeline execution, rotate credentials regularly, avoid hardcoded secrets
+**Environment Parity**: Maintain consistency across dev/staging/prod, use infrastructure as code for environment provisioning
+**Approval Gates**: Require manual approval for production deployments, implement change advisory board (CAB) integration
+**Automated Testing**: Achieve high test coverage, run tests in parallel for speed, maintain fast feedback loops
+**Artifact Traceability**: Tag artifacts with commit SHA, build number, semantic version, maintain artifact provenance
+**Caching Strategy**: Cache dependencies and build outputs, use layer caching for Docker builds, optimize build times
+**Monitoring**: Track pipeline metrics (build duration, success rate, deployment frequency), alert on failures, dashboard DORA metrics
+**Rollback Capability**: Always maintain ability to rollback deployments, test rollback procedures regularly
 
 ## Quality Criteria
 
@@ -165,9 +177,69 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**CI/CD Platforms**:
+- Jenkins - Open-source automation server with Jenkinsfile (declarative/scripted pipelines)
+- GitLab CI/CD - Built-in CI/CD with .gitlab-ci.yml configuration
+- GitHub Actions - Workflow automation with .github/workflows/*.yml
+- CircleCI - Cloud CI/CD platform with config.yml
+- Azure DevOps Pipelines - Microsoft CI/CD with azure-pipelines.yml
+- Tekton - Kubernetes-native CI/CD framework
+- Argo Workflows - Kubernetes workflow engine
+- Spinnaker - Multi-cloud continuous delivery platform
+- Travis CI - Cloud CI service for GitHub
+- Drone - Container-native CI/CD platform
+- Concourse CI - Pipeline-based CI system
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Security Scanning Tools**:
+- SAST (Static Application Security Testing): SonarQube, CodeQL, Checkmarx, Fortify
+- DAST (Dynamic Application Security Testing): OWASP ZAP, Burp Suite
+- SCA (Software Composition Analysis): Snyk, WhiteSource, Black Duck, OWASP Dependency-Check
+- Container Scanning: Trivy, Clair, Anchore, Aqua Security
+- Secret Scanning: GitGuardian, TruffleHog, detect-secrets
+- Infrastructure Scanning: Checkov, tfsec, Terrascan
+
+**Testing Frameworks**:
+- Unit Testing: JUnit, pytest, Jest, Mocha, NUnit
+- Integration Testing: Postman, REST Assured, Pact
+- E2E Testing: Selenium, Cypress, Playwright, Puppeteer
+- Performance Testing: JMeter, Gatling, K6, Locust
+- Test Coverage: JaCoCo, Istanbul, Coverage.py
+
+**Artifact Registries**:
+- Docker Registries: Docker Hub, Amazon ECR, Azure ACR, Google GCR, Harbor
+- Package Registries: npm, Maven Central, NuGet, PyPI, RubyGems
+- Artifact Repositories: JFrog Artifactory, Sonatype Nexus, AWS CodeArtifact
+- Helm Registries: ChartMuseum, Harbor, JFrog Artifactory
+
+**Deployment Strategies**:
+- Blue/Green Deployment - Two identical environments with traffic switch
+- Canary Deployment - Gradual rollout to subset of users
+- Rolling Deployment - Sequential updates across instances
+- Recreate Deployment - Stop old, start new (downtime)
+- A/B Testing - Traffic splitting for feature testing
+- Feature Flags - LaunchDarkly, Unleash, Flagsmith, Split
+
+**GitOps Tools**:
+- Argo CD - Declarative GitOps for Kubernetes
+- Flux CD - GitOps operator for Kubernetes
+- Jenkins X - Cloud-native CI/CD for Kubernetes
+- Argo Rollouts - Progressive delivery for Kubernetes
+
+**DORA Metrics**:
+- Deployment Frequency - How often deploying to production
+- Lead Time for Changes - Time from commit to production
+- Mean Time to Recovery (MTTR) - Time to restore service after incident
+- Change Failure Rate - Percentage of deployments causing failure
+
+**Compliance & Governance**:
+- SOC 2 - Security and availability controls
+- PCI DSS - Payment card industry security
+- HIPAA - Healthcare data protection
+- ISO 27001 - Information security management
+- FedRAMP - Federal government cloud security
+- Audit logging and evidence collection
+
+**Reference**: Consult organizational DevOps and platform engineering standards team for detailed guidance on framework application
 
 ## Integration Points
 

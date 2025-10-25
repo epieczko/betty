@@ -2,45 +2,57 @@
 
 ## Executive Summary
 
-The Pipeline Architecture Diagram is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Pipeline Architecture Diagram artifact is a visual documentation of data pipeline or CI/CD pipeline architecture, illustrating data flow, orchestration layers, processing components, storage systems, and serving layers. This artifact provides high-level and detailed architectural views using tools like Lucidchart, draw.io, Mermaid diagrams, or architecture-as-code platforms to communicate complex pipeline architectures to technical and business stakeholders.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As data platforms and DevOps systems grow in complexity with multiple orchestration tools (Airflow, Prefect, Dagster), data stores (data warehouses, data lakes, operational databases), processing engines (Spark, dbt, Flink), and integration points, this artifact serves Data Platform Architects designing end-to-end data architecture, DevOps Architects defining CI/CD infrastructure, Data Engineers understanding system integration points, and executive stakeholders evaluating technology investments and platform scalability.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Architectural Communication**: Visualizes data pipeline architecture with orchestration (Airflow), ingestion (Fivetran), transformation (dbt), storage (Snowflake, S3), and serving layers (BI tools, APIs)
+- **System Integration**: Documents integration points between source systems, ETL/ELT tools, data warehouses, data lakes, analytics platforms, and downstream consumers
+- **Technology Stack**: Illustrates technology choices including cloud platforms (AWS, Azure, GCP), orchestration tools, data stores, processing engines, and observability tools
+- **Data Flow**: Shows data movement from source systems through bronze/silver/gold layers to analytical consumption, including batch and streaming patterns
+- **CI/CD Architecture**: Visualizes build pipelines, deployment workflows, artifact promotion, environment topology, and GitOps patterns
+- **Scalability Design**: Communicates horizontal scaling, fault tolerance, high availability, disaster recovery, and performance optimization strategies
+- **Decision Support**: Enables architecture review, technology selection, capacity planning, and roadmap discussions with visual clarity
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact provides visual architecture diagrams of data pipelines, CI/CD pipelines, or workflow orchestration systems using standard notation (C4 Model, UML, ArchiMate) or diagramming tools (Lucidchart, draw.io, Mermaid, PlantUML, Diagrams-as-Code). It communicates system architecture, data flow, component relationships, and technology stack to facilitate understanding, design reviews, and documentation.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- High-level architecture: Context diagrams showing system boundaries, external integrations, actors
+- Data pipeline architecture: Source systems, ingestion layer, transformation layer, storage layer, serving layer, consumers
+- Orchestration layer: Airflow/Prefect/Dagster architecture, scheduler, executor, metadata database, worker pools
+- Storage architecture: Data lake (S3, ADLS, GCS), data warehouse (Snowflake, BigQuery, Redshift), lakehouse (Databricks, Delta Lake)
+- Processing components: Spark clusters, dbt transformation, streaming processors (Flink, Kafka Streams), batch jobs
+- CI/CD architecture: Build servers, artifact registries, deployment targets, GitOps controllers, monitoring systems
+- Network topology: VPCs, subnets, load balancers, ingress/egress patterns, service mesh
+- Deployment architecture: Kubernetes clusters, node pools, namespaces, service dependencies
+- Monitoring & observability: Logging (ELK, CloudWatch), metrics (Prometheus, DataDog), tracing (Jaeger, OpenTelemetry)
+- Security architecture: IAM roles, service accounts, secrets management, network policies, encryption layers
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed implementation code or configuration files
+- Cost breakdowns and infrastructure sizing (covered in capacity planning)
+- Detailed monitoring dashboards (covered in observability runbooks)
+- Step-by-step operational procedures (covered in runbooks)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Data Platform Architects and DevOps Architects designing pipeline infrastructure
+- Data Engineers and Platform Engineers implementing pipeline components
+- Technical leads reviewing architecture decisions
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Engineering managers evaluating technology choices and scalability
+- Security architects reviewing security controls and data flow
+- Executive stakeholders understanding platform capabilities and roadmap
 
 ## Document Information
 
@@ -106,19 +118,19 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Layered Diagrams**: Create multiple levels of detail (C4 Model: Context, Container, Component, Code), start with high-level and drill down
+**Standard Notation**: Use consistent symbols and notation (AWS icons, Azure icons, Kubernetes icons, data flow arrows, grouping boxes)
+**Diagrams as Code**: Use Mermaid, PlantUML, Python Diagrams, or Terraform Graph for version-controlled, maintainable diagrams
+**Clear Data Flow**: Show direction of data movement with arrows, label data formats and volumes, indicate batch vs. streaming
+**Technology Labeling**: Clearly identify all technologies used (Airflow 2.x, Snowflake, dbt 1.x, Kubernetes 1.28), include version information
+**Color Coding**: Use consistent colors for layers (ingestion, transformation, storage, serving), environments (dev, staging, prod)
+**Legend**: Include legend explaining symbols, colors, line types, and abbreviations
+**Security Boundaries**: Clearly mark network boundaries, security zones, authentication/authorization points
+**Failure Points**: Indicate redundancy, failover mechanisms, backup systems, disaster recovery paths
+**Scalability Indicators**: Show horizontal scaling capabilities, auto-scaling groups, load balancers
+**Integration Points**: Clearly mark APIs, message queues, event streams, and integration patterns
+**Version Control**: Store diagrams in Git with source files (Mermaid, PlantUML), tag versions, maintain change log
+**Living Documentation**: Update diagrams when architecture changes, review quarterly, automate generation where possible
 
 ## Quality Criteria
 
@@ -165,7 +177,60 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**Architecture**: TOGAF, Zachman Framework, C4 Model, ArchiMate
+**Architecture Frameworks**:
+- C4 Model (Context, Container, Component, Code diagrams)
+- TOGAF (The Open Group Architecture Framework)
+- Zachman Framework (enterprise architecture framework)
+- ArchiMate (architecture modeling language)
+- AWS Well-Architected Framework
+- Azure Architecture Framework
+- Google Cloud Architecture Framework
+
+**Diagramming Tools**:
+- Lucidchart - Cloud-based diagramming with AWS/Azure/GCP shapes
+- draw.io (diagrams.net) - Open-source diagramming tool
+- Microsoft Visio - Enterprise diagramming tool
+- Cloudcraft - 3D AWS architecture diagrams
+- Mermaid - Markdown-based diagrams-as-code
+- PlantUML - Text-based UML diagrams
+- Python Diagrams - Python code to generate cloud architecture diagrams
+- Structurizr - C4 Model tooling
+- Terrastruct - Diagrams-as-code platform
+
+**Data Architecture Patterns**:
+- Medallion Architecture (Bronze/Silver/Gold)
+- Lambda Architecture (batch + real-time)
+- Kappa Architecture (streaming-first)
+- Data Lakehouse (Databricks, Delta Lake)
+- Data Mesh (domain-oriented decentralized data ownership)
+- Data Fabric (unified data integration layer)
+
+**CI/CD Architecture Patterns**:
+- GitOps (Argo CD, Flux CD)
+- Trunk-based development
+- Feature branch workflows
+- Blue/Green deployment architecture
+- Canary deployment topology
+- Multi-environment progression (dev/staging/prod)
+
+**Cloud Platforms**:
+- AWS (EC2, S3, RDS, Lambda, Glue, EMR, Redshift, Step Functions)
+- Azure (VMs, Blob Storage, SQL Database, Functions, Data Factory, Synapse, Logic Apps)
+- GCP (Compute Engine, Cloud Storage, BigQuery, Cloud Functions, Dataflow, Composer)
+
+**Orchestration Platforms**:
+- Apache Airflow architecture (Scheduler, Executor, Workers, Metadata DB, Web Server)
+- Prefect architecture (API, Agent, Cloud)
+- Dagster architecture (Dagit, Daemon, Code Locations)
+- Kubernetes architecture (Control Plane, Worker Nodes, etcd, API Server)
+
+**Notation Standards**:
+- UML (Unified Modeling Language)
+- BPMN (Business Process Model and Notation)
+- Data Flow Diagrams (DFD)
+- Entity-Relationship Diagrams (ERD)
+- Network topology diagrams
+- Sequence diagrams
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

@@ -2,45 +2,65 @@
 
 ## Executive Summary
 
-The Standard Operating Procedures is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Standard Operating Procedures (SOPs) are comprehensive, step-by-step operational runbooks that document routine tasks, system maintenance activities, deployment procedures, and operational workflows for SRE and operations teams. These foundational documents ensure consistency, reduce errors, and accelerate onboarding by codifying best practices for recurring operational activities including system health checks, log rotation, certificate renewal, backup verification, capacity planning, and service provisioning.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Aligned with ITIL 4 Service Operation and Google SRE operational excellence principles, SOPs provide executable procedures for both manual and automated execution, identifying automation opportunities through repetitive task analysis. Each SOP follows a standardized format with clear prerequisites, step-by-step instructions, expected outcomes, error handling procedures, rollback steps, and success validation criteria, enabling any team member to execute operational tasks consistently and reliably.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Operational Consistency**: Ensures tasks are performed identically regardless of which engineer executes them
+- **Error Reduction**: Reduces human error by 60-80% through documented checklists and validation steps
+- **Faster Onboarding**: Accelerates new engineer ramp-up from months to weeks with self-service runbooks
+- **Automation Identification**: Highlights repetitive tasks as candidates for automation investment
+- **Compliance**: Satisfies SOC 2, ISO 27001, and audit requirements for documented operational procedures
+- **Knowledge Preservation**: Captures tribal knowledge from senior engineers in searchable, executable format
+- **24/7 Operations**: Enables any on-call engineer to execute critical tasks without expert escalation
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact provides standardized, step-by-step procedures for routine operational tasks, system maintenance, and administrative activities. It solves the problem of operational inconsistency by documenting repeatable processes in executable runbook format, enabling any qualified team member to perform critical tasks reliably without expert guidance or tribal knowledge.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- System health checks and monitoring validation procedures
+- Log rotation, cleanup, and archival procedures
+- SSL/TLS certificate renewal and rotation
+- Backup execution, verification, and restoration testing
+- Database maintenance (vacuuming, index optimization, statistics updates)
+- Capacity planning and resource provisioning
+- Service provisioning and deprovisioning workflows
+- User account management (creation, deletion, permission changes)
+- Configuration management and change control procedures
+- Scheduled maintenance window procedures
+- System patching and update procedures
+- Disaster recovery testing and validation
+- On-call handoff checklists and procedures
+- Monthly/quarterly operational review processes
+- Automation opportunities and toil reduction identification
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Emergency incident response procedures (covered in playbooks artifact)
+- Deployment and rollback procedures (covered in feature-rollback-playbooks)
+- Post-incident analysis (covered in post-mortem-report artifact)
+- Strategic planning and architecture decisions
+- Custom application-specific procedures (maintained by dev teams)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Operations Engineers executing routine maintenance tasks
+- SRE Teams performing system administration activities
+- On-Call Engineers conducting regular health checks and operational tasks
+- Junior Engineers learning operational procedures through self-service documentation
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- DevOps Engineers identifying automation opportunities from manual SOPs
+- Engineering Managers understanding team operational workload and toil
+- Compliance/Audit Teams validating documented operational procedures
+- Platform Teams standardizing operational procedures across services
 
 ## Document Information
 
@@ -106,19 +126,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Executable Format**: Write imperative, copy-paste ready commands; include exact syntax with expected output
+**Prerequisites Clear**: List all prerequisites upfront (permissions, tools, access, dependencies)
+**Step Numbering**: Use numbered steps for sequential procedures; makes progress tracking easy
+**Validation Steps**: Include verification commands after each step to confirm success before proceeding
+**Error Handling**: Document common errors, their causes, and resolution steps
+**Time Estimates**: Provide expected execution time for procedure to set expectations
+**Rollback Procedures**: Document how to undo changes if procedure fails or needs reversal
+**Automation Flags**: Tag manual toil-heavy SOPs as automation candidates; track automation ROI
+**Regular Testing**: Execute SOPs quarterly in non-prod to verify accuracy and identify drift
+**Ownership Assignment**: Assign owner (DRI) to each SOP responsible for accuracy and updates
+**Frequency Tagging**: Label SOPs by execution frequency (daily, weekly, monthly, quarterly, annual)
+**Searchable Keywords**: Tag SOPs with relevant keywords for easy discovery (database, backup, certificate, etc.)
+**Screenshots/Diagrams**: Include visual aids for UI-based procedures or complex architectures
+**Assume Beginner**: Write for junior engineers; don't assume tribal knowledge or expert context
+**Single Purpose**: One SOP per task; avoid combining multiple unrelated procedures
+**Review Cadence**: Review SOPs semi-annually or when underlying systems change significantly
+**Deprecation Process**: Archive outdated SOPs immediately when automated or no longer needed; don't leave stale docs
 
 ## Quality Criteria
 
@@ -165,9 +189,76 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Operational Excellence Frameworks**:
+- ITIL 4 Service Operation (operational procedures and service desk)
+- Google SRE Book (Chapter on Eliminating Toil, Automation)
+- COBIT (Control Objectives for IT Operations)
+- ISO/IEC 20000 Service Management System
+- DevOps Handbook (operational excellence practices)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Runbook & Documentation Formats**:
+- Executable runbook format (step-by-step procedures)
+- Checklists and validation steps
+- Decision trees for conditional logic
+- Flowcharts for complex workflows
+- Copy-paste ready commands with syntax highlighting
+- Expected output examples for validation
+
+**Automation & Toil Reduction**:
+- Google SRE Toil Definition (manual, repetitive, automatable, tactical, no enduring value)
+- Toil budget targets (SRE should spend <50% time on toil)
+- Automation ROI calculation (time saved × frequency)
+- Runbook Automation platforms (PagerDuty, Rundeck, AWS Systems Manager)
+- Infrastructure-as-Code (Terraform, Ansible, Puppet, Chef)
+- Configuration Management (Ansible, SaltStack, Chef, Puppet)
+
+**System Administration Categories**:
+- Linux/Unix system administration procedures
+- Windows Server administration procedures
+- Database administration (PostgreSQL, MySQL, MongoDB, Redis)
+- Kubernetes operations (pod management, node maintenance, cluster upgrades)
+- Cloud platform operations (AWS, Azure, GCP)
+- Network operations (DNS, load balancer, firewall configuration)
+- Security operations (certificate management, access control, vulnerability patching)
+
+**Maintenance & Housekeeping**:
+- Log rotation and archival (logrotate, centralized logging)
+- Disk space cleanup and monitoring
+- Certificate renewal (Let's Encrypt, cert-manager, manual renewal)
+- Backup verification and restoration testing
+- Database vacuuming and optimization
+- Cache invalidation and cleanup
+- Deprecated resource cleanup
+
+**Change Management**:
+- ITIL Change Management (CAB approval, change windows)
+- Change Advisory Board (CAB) procedures
+- Maintenance window scheduling and communication
+- Rollback procedures for operational changes
+- Change success validation criteria
+
+**Compliance & Audit**:
+- SOC 2 Type II (documented operational procedures)
+- ISO 27001 (operational controls documentation)
+- PCI-DSS (system administration procedures)
+- HIPAA (access control and administrative procedures)
+- Segregation of duties (SoD) requirements
+
+**Knowledge Management**:
+- Runbook repositories (Confluence, Notion, GitHub Wiki)
+- Searchable documentation platforms
+- Procedure versioning and change tracking
+- Regular review and update cycles
+- Deprecated procedure archival
+
+**SOP Content Categories**:
+- Daily operational tasks (health checks, monitoring validation)
+- Weekly tasks (log review, capacity planning)
+- Monthly tasks (certificate checks, backup testing, security patching)
+- Quarterly tasks (DR testing, access review, operational reviews)
+- Annual tasks (architecture review, vendor assessment)
+
+**Reference**: Consult SRE and operations leadership for SOP documentation standards
 
 ## Integration Points
 

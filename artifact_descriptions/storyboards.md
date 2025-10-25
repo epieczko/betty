@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Storyboards is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Storyboards are visual narratives that map user journeys through product experiences, illustrating the sequence of interactions, emotional states, pain points, and moments of delight from the user's perspective. This artifact applies user journey mapping methodologies, service design blueprinting, and scenario-based design to solve the problem of designing features in isolation without understanding the broader context of how, when, and why users will engage with them.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Drawing on techniques from UX research (Nielsen Norman Group journey mapping), service design (Adaptive Path service blueprints), and Jobs-to-be-Done frameworks, storyboards visualize the complete user experience—from initial trigger through task completion—revealing friction points, missing features, and opportunities for innovation that static wireframes miss. Created using tools like Figma, Miro, Sketch, or specialized storyboarding platforms, they serve UX Designers, Product Managers, User Researchers, and cross-functional teams who need a shared understanding of user context to design solutions that fit seamlessly into users' lives and workflows.
 
 ### Strategic Importance
 
@@ -20,27 +20,45 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+Storyboards create empathy and alignment by making user journeys visible and tangible, enabling teams to identify gaps between current and desired experiences before investing in detailed design or development. They solve the "feature factory" problem where teams build requested features without understanding the user's full journey, supporting strategic decisions about where to focus effort, what problems to solve first, and how different features connect across the experience.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- User journey storyboards (current state "as-is" and future state "to-be")
+- Scenario-based storyboards for specific use cases and personas
+- Wireflow diagrams combining wireframes with user flow arrows
+- Service blueprints showing frontstage (user-visible) and backstage (system) actions
+- Emotional journey maps with sentiment tracking across touchpoints
+- Day-in-the-life scenarios illustrating context of use
+- Multi-channel journey visualization (web, mobile, in-person, phone)
+- Trigger-action-outcome sequences
+- Pain point and opportunity identification
+- Persona-based scenario variations
+- Touchpoint inventory and interaction mapping
+- Moments that matter (critical decision/emotion points)
+- Alternative path scenarios (happy path, error states, edge cases)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed UI wireframes and mockups (covered by design specifications)
+- Technical architecture and system diagrams (covered by technical docs)
+- Quantitative user analytics and metrics (covered by analytics reports)
+- Detailed user research findings and reports (covered by research deliverables)
+- Implementation specifications and acceptance criteria (covered by user stories)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- UX Designers visualizing and communicating user experiences
+- Product Managers understanding user context for feature prioritization
+- User Researchers presenting journey research findings
+- Service Designers mapping cross-channel experiences
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Engineering Teams understanding user flow requirements
+- Stakeholders and executives seeing big-picture user experience
+- Marketing Teams understanding customer journey for messaging
+- Customer Success identifying friction points in onboarding and adoption
 
 ## Document Information
 
@@ -106,19 +124,30 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Ground in Research**: Base storyboards on actual user research—interviews, contextual inquiry, diary studies—not assumptions; fiction masquerading as user journey wastes everyone's time
+**Specific Persona Context**: Start each storyboard with specific persona, trigger event, and goal; "A user wants to..." is too vague; "Sarah, a project manager with 3 active projects, receives urgent client request while commuting..." provides context
+**Show Emotional Arc**: Track user's emotional state throughout journey—anticipation, confusion, frustration, relief, delight; emotions reveal where experience succeeds or fails
+**Include Environmental Context**: Show where user is (home office, coffee shop, subway), what else they're doing, time pressure, distractions; context shapes design requirements
+**Identify Pain Points Explicitly**: Mark friction moments—where user gets stuck, confused, frustrated, or abandons; these are your design opportunities
+**Capture Actual Quotes**: Include real user quotes from research to bring journey to life; "I had no idea what to click next" is more powerful than "User was confused"
+**Map All Touchpoints**: Show complete journey across channels—mobile app, website, email, phone support, in-person; handoffs between channels are common failure points
+**Current vs. Future State**: Create "as-is" storyboard showing problems in existing experience, then "to-be" storyboard illustrating your proposed solution
+**Collaborative Creation**: Run storyboarding workshops with cross-functional teams; collective creation builds shared understanding and buy-in
+**Low-Fidelity for Speed**: Sketch-quality storyboards work better than polished illustrations for early exploration; don't over-invest before validation
+**Sequential Panel Format**: Use comic-strip format with numbered panels showing progression; this makes sequence clear and easy to follow
+**Annotation Layers**: Include annotations explaining user thoughts, system actions, pain points, opportunities; visual alone may miss important context
+**Alternative Paths**: Show happy path but also document error states, edge cases, alternate routes; real users rarely follow ideal path
+**Time Indicators**: Show how long each step takes; "3-minute task" that takes 15 minutes in reality reveals usability problems
+**Backend Visibility**: For service blueprints, show what happens behind scenes—system processes, staff actions, business rules—that user doesn't see but experiences consequences of
+**Moments That Matter**: Highlight critical decision points, emotional peaks, trust-building moments; these disproportionately impact overall experience
+**Multi-Device Scenarios**: Show device switching ("start on mobile, finish on desktop"); many journeys span multiple devices
+**Integration Points**: Identify where your product connects to other tools, services, or systems; integration friction is common pain point
+**Test with Users**: Validate storyboards with actual users—"Does this reflect your experience?"—to catch assumption gaps
+**Living Document**: Update storyboards as you learn from research, analytics, and user feedback; static storyboard becomes obsolete quickly
+**Shareable Format**: Export as PDF or embed in documentation tools (Confluence, Notion) for easy sharing; Figma-only access limits audience
+**Scale Appropriately**: Quick 3-panel storyboard works for simple feature; complex cross-channel journey may need 20+ panels or swim-lane blueprint
+**Link to Metrics**: Connect journey stages to quantitative data—dropoff rates, time on task, support tickets—to prioritize improvement areas
+**Competitive Comparison**: Map competitor journeys alongside yours to identify differentiation opportunities and gaps
 
 ## Quality Criteria
 
@@ -165,9 +194,43 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Journey Mapping Methods**: Customer Journey Mapping (Adaptive Path), Experience Mapping vs. Journey Mapping (Nielsen Norman Group), Jobs-to-be-Done journey mapping, Empathy mapping, Mental model diagrams
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Service Design**: Service Blueprint methodology (Lynn Shostack), Touchpoint analysis, Frontstage/backstage mapping, Evidence and support processes, Physical evidence mapping, Service safari research
+
+**Storyboarding Techniques**: Film storyboarding adapted for UX, Comic-strip format narratives, Illustrated scenario sequences, Photo-based storyboards, Low-fidelity sketch storyboards, Digital storyboarding
+
+**User Flow Documentation**: Wireflows (combination of wireframes + flowcharts), User flow diagrams, Task flow analysis, Swimlane diagrams for multi-actor journeys, Decision trees
+
+**Scenario-Based Design**: Scenario development methodologies, Use case narratives, User story mapping (Jeff Patton), Story mapping workshops, Scenario validation techniques
+
+**Emotional Journey Mapping**: Sentiment tracking across journey stages, Emotional highs and lows visualization, Trust-building moments, Frustration and delight mapping, Peak-end rule application
+
+**Tools & Platforms**: Figma (FigJam for journey mapping), Miro (journey mapping templates), Sketch, Adobe XD, UXPressia, Smaply, Custellence, Lucidchart, Mural, RealtimeBoard, InVision Freehand
+
+**Research Methods**: Contextual inquiry for journey research, Diary studies, Experience sampling, Shadowing and observation, Customer interviews, Service safaris, Touchpoint audits
+
+**Workshop Facilitation**: Journey mapping workshops, Collaborative storyboarding sessions, Assumption validation workshops, Stakeholder alignment sessions, Cross-functional journey review
+
+**Persona Integration**: Persona-based journey variations, Behavioral segmentation in journeys, Jobs-to-be-Done persona alignment, Day-in-the-life scenarios, Persona empathy exercises
+
+**UX Frameworks**: JTBD (Jobs-to-be-Done) framework, User-Centered Design process, Design Thinking journey stages, Lean UX customer journey, Double Diamond process mapping
+
+**Moment Mapping**: Moments that Matter identification, Peak moments (The Power of Moments - Chip Heath), Micro-moments (Google), Critical touchpoints, Emotional turning points
+
+**Cross-Channel Mapping**: Omnichannel journey design, Channel switching points, Device handoff scenarios, Online-to-offline (O2O) journeys, Multi-device usage patterns
+
+**Pain Point Analysis**: Friction logging, Usability issue mapping, Gap analysis (current vs. ideal), Red route analysis (critical paths), Task failure analysis
+
+**Opportunity Identification**: Innovation opportunity mapping, Unmet needs discovery, Feature gap analysis, Competitive journey comparison, Blue Ocean opportunity spaces
+
+**Visualization Standards**: Information visualization best practices (Edward Tufte), Visual storytelling principles, Comic composition for narrative, Sequential art techniques (Scott McCloud)
+
+**Accessibility Considerations**: Journey mapping for assistive technology users, Inclusive design journeys, Accessibility barrier identification, Universal design journey principles
+
+**Industry Resources**: Nielsen Norman Group journey mapping research, Adaptive Path resources, Service Design Network, UX Mastery journey mapping guide, IDEO design thinking resources
+
+**Reference**: Consult Service Design Network, Nielsen Norman Group journey mapping research, and UX communities (IxDA, UX Collective) for evolving journey mapping methodologies and storyboarding best practices
 
 ## Integration Points
 
