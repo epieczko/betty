@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-25T20:32:23.668282+00:00",
+  "generated_at": "2025-10-25T20:53:58.801205+00:00",
   "skills": [
     {
       "name": "test.hello",
@@ -2610,6 +2610,31 @@
         }
       ],
       "updated_at": "2025-10-25T20:32:23.668271+00:00"
+    },
+    {
+      "name": "test.metaskill",
+      "version": "0.1.0",
+      "description": "This is a test skill to validate meta.skill generates compliant skills.",
+      "inputs": [
+        "test_input"
+      ],
+      "outputs": [
+        "test_output"
+      ],
+      "status": "active",
+      "permissions": [
+        "filesystem:read",
+        "filesystem:write"
+      ],
+      "entrypoints": [
+        {
+          "command": "/test/metaskill",
+          "handler": "test_metaskill.py",
+          "runtime": "python",
+          "description": "This is a test skill to validate meta.skill generates compliant skills."
+        }
+      ],
+      "updated_at": "2025-10-25T20:53:58.801198+00:00"
     }
   ]
 }

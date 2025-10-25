@@ -3832,5 +3832,26 @@
     "caller": "cli",
     "error": "Exited with code 1",
     "exit_code": 1
+  },
+  {
+    "timestamp": "2025-10-25T20:53:58.808186+00:00",
+    "execution_id": "43cf0f49-53a4-4c12-9a9c-9e4573ca063a",
+    "skill": "registry.update",
+    "inputs": {
+      "manifest_path": "/tmp/test.metaskill/skill.yaml",
+      "skill_name": "test.metaskill"
+    },
+    "status": "success",
+    "duration_ms": 8,
+    "caller": "cli",
+    "registry_path": "/home/user/betty/registry/skills.json",
+    "total_skills": 43,
+    "policy_enforced": true,
+    "diff": {
+      "operation": "add",
+      "skill_name": "test.metaskill",
+      "skills_before": 42,
+      "skills_after": 43
+    }
   }
 ]
