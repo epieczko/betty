@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Automated Test Scripts is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Automated Test Scripts artifact comprises executable test code implementing unit tests (JUnit, Jest, pytest, RSpec), integration tests, end-to-end tests (Selenium WebDriver, Cypress, Playwright, TestCafe), API tests (REST Assured, Postman/Newman, Pact), and BDD specifications (Cucumber, SpecFlow, Behave) with Gherkin syntax. These scripts execute in CI/CD pipelines to provide continuous validation of functionality, regression prevention, and quality feedback with target execution time <30 minutes for full suite.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As the executable foundation of quality automation, this artifact serves QA automation engineers, SDET (Software Development Engineer in Test) roles, developers practicing TDD (Test-Driven Development), and DevOps engineers who integrate tests into deployment pipelines. Test scripts follow the test pyramid pattern (70% unit tests for fast feedback, 20% integration tests for component interaction, 10% E2E tests for critical user journeys), implement page object model (POM) design pattern for maintainability, use data-driven testing with parameterized inputs, include explicit waits and synchronization strategies, generate detailed test reports (Allure, ExtentReports, Mochawesome), and achieve 80%+ code coverage measured by JaCoCo, Istanbul, or Coverage.py.
 
 ### Strategic Importance
 
@@ -20,27 +20,48 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the executable test automation codebase providing automated validation of application functionality, performance, security, and accessibility requirements. Scripts execute continuously in CI/CD pipelines to catch defects early, prevent regressions, and enable rapid feedback for development teams practicing agile and DevOps.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Unit tests (JUnit 5, Jest, pytest, RSpec, NUnit, xUnit) - 70% of test pyramid
+- Integration tests (Spring Test, Testcontainers, MockMvc) - 20% of test pyramid
+- End-to-end tests (Selenium WebDriver, Cypress, Playwright, TestCafe) - 10% of test pyramid
+- API/service tests (REST Assured, Postman/Newman, Karate, Pact for contract testing)
+- BDD test specifications (Cucumber with Gherkin, SpecFlow, Behave, JBehave)
+- Component tests (Cypress Component Testing, Testing Library, Enzyme)
+- Mobile app testing (Appium, Espresso for Android, XCUITest for iOS)
+- Database testing (DbUnit, Liquibase testing, test data setup/teardown)
+- Performance testing scripts (JMeter, Gatling, K6, Locust)
+- Security testing automation (OWASP ZAP API, Burp Suite automation)
+- Accessibility testing integration (axe-core, Pa11y, jest-axe, cypress-axe)
+- Visual regression testing (Percy, Applitools, BackstopJS)
+- Test data generation and management (Faker, TestDataBuilder pattern)
+- Page Object Model (POM) implementation for UI tests
+- Test configuration and environment management
+- Test reporting and result aggregation (Allure, ExtentReports, Mochawesome)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Manual test cases and exploratory testing (separate QA activity)
+- Production monitoring scripts (observability platform)
+- Infrastructure provisioning scripts (infrastructure as code)
+- Application source code (maintained in application repositories)
+- Performance monitoring in production (APM tools)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- QA Automation Engineers who develop, maintain, and enhance test automation frameworks
+- SDET (Software Development Engineer in Test) who architect test automation strategy
+- Software Developers practicing TDD/BDD who write unit and integration tests
+- DevOps Engineers who integrate and execute tests in CI/CD pipelines
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- QA Managers who track automation coverage and ROI metrics
+- Development Team Leads who review test quality and coverage
+- Product Owners who validate BDD scenarios match acceptance criteria
+- Release Managers who depend on test results for go/no-go decisions
 
 ## Document Information
 
@@ -169,9 +190,113 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Testing Standards & Methodologies**:
+- ISO/IEC/IEEE 29119 (Software Testing standard)
+- ISTQB (International Software Testing Qualifications Board)
+- ISTQB Advanced Test Automation Engineer certification
+- Test Pyramid (Martin Fowler) - 70% unit, 20% integration, 10% E2E
+- Test-Driven Development (TDD) - Red-Green-Refactor cycle
+- Behavior-Driven Development (BDD) - Given-When-Then scenarios
+- Shift-Left Testing - Testing early in development lifecycle
+- Continuous Testing - Testing integrated into CI/CD
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Unit Testing Frameworks**:
+- JUnit 5 (Java) - Industry-standard Java testing framework
+- Jest (JavaScript/TypeScript) - React and Node.js testing
+- pytest (Python) - Full-featured Python testing framework
+- RSpec (Ruby) - BDD testing framework for Ruby
+- NUnit (C#/.NET) - .NET testing framework
+- xUnit (C#/.NET) - Modern .NET testing framework
+- Mocha (JavaScript) - Flexible JavaScript test framework
+- Jasmine (JavaScript) - BDD framework for JavaScript
+
+**Integration Testing**:
+- Spring Boot Test (Java) - Spring application testing
+- Testcontainers - Docker containers for integration tests
+- MockMvc - Spring MVC testing without HTTP server
+- WireMock - HTTP API mocking for integration tests
+- TestServer (ASP.NET) - In-memory server for integration testing
+
+**End-to-End Testing Frameworks**:
+- Selenium WebDriver - Browser automation standard (W3C)
+- Cypress - JavaScript E2E testing framework
+- Playwright (Microsoft) - Cross-browser automation
+- TestCafe - Node.js E2E testing without WebDriver
+- Puppeteer (Google) - Headless Chrome automation
+- WebdriverIO - Next-gen WebDriver test framework
+- Protractor (Angular) - E2E framework for Angular apps
+
+**Mobile Testing Frameworks**:
+- Appium - Cross-platform mobile app automation (iOS/Android)
+- Espresso (Google) - Native Android UI testing
+- XCUITest (Apple) - Native iOS UI testing
+- Detox (React Native) - Gray box E2E testing for mobile
+
+**API Testing Tools**:
+- REST Assured (Java) - REST API testing and validation
+- Postman/Newman - API testing and collection runner
+- Karate (Intuit) - API test automation with BDD syntax
+- Pact - Consumer-driven contract testing
+- Spring Cloud Contract - Contract testing for microservices
+- SoapUI - SOAP and REST API testing
+- Frisby.js - REST API testing with Jest
+
+**BDD Frameworks**:
+- Cucumber - BDD framework with Gherkin syntax (Java, Ruby, JS)
+- SpecFlow - BDD for .NET with Gherkin
+- Behave - BDD framework for Python
+- JBehave - BDD framework for Java
+- Gauge - BDD test automation with Markdown specs
+
+**Test Design Patterns**:
+- Page Object Model (POM) - UI test maintainability pattern
+- Page Factory - Lazy initialization for page objects
+- Screenplay Pattern - Serenity BDD task-oriented approach
+- Builder Pattern - Test data creation
+- Fluent Interface - Readable test API design
+- AAA Pattern - Arrange-Act-Assert structure
+
+**Test Execution & Reporting**:
+- Allure Framework - Multi-language test reporting
+- ExtentReports - Interactive HTML test reports
+- Mochawesome - Mermaid-powered Mocha reporter
+- ReportPortal - AI-powered test automation dashboard
+- TestNG (Java) - Testing framework with advanced reporting
+- Serenity BDD - BDD framework with living documentation
+
+**Test Data Management**:
+- Faker.js/Python Faker - Realistic fake data generation
+- Test Data Builder Pattern - Complex object creation
+- DBUnit - Database testing with datasets
+- Liquibase/Flyway - Database schema and test data versioning
+
+**CI/CD Integration**:
+- Jenkins Pipeline - Test execution in Jenkins
+- GitLab CI/CD - Built-in test execution
+- GitHub Actions - Workflow-based test automation
+- Azure Pipelines - Test execution and reporting
+- CircleCI - Cloud-based test execution
+
+**Code Coverage Tools**:
+- JaCoCo (Java) - Java code coverage library
+- Istanbul/nyc (JavaScript) - JavaScript coverage tool
+- Coverage.py (Python) - Python code coverage measurement
+- Coverlet (C#) - .NET code coverage framework
+- Target: 80%+ line coverage, 70%+ branch coverage
+
+**Performance Testing**:
+- JMeter - Load testing and performance measurement
+- Gatling - Scala-based performance testing
+- K6 - Modern load testing with JavaScript
+- Locust - Python-based load testing
+
+**Accessibility Testing**:
+- axe-core - Accessibility testing engine
+- jest-axe - Jest integration for accessibility
+- cypress-axe - Cypress accessibility testing
+- Pa11y - Automated accessibility testing tool
+
+**Reference**: Consult test automation architects, QA engineering leads, and DevOps teams for detailed guidance on framework selection and test automation best practices
 
 ## Integration Points
 

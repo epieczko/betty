@@ -2,45 +2,67 @@
 
 ## Executive Summary
 
-The Model Risk Assessments is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Model Risk Assessments are comprehensive evaluations of ML model risks including model performance risk, implementation risk, data quality risk, algorithmic bias risk, and operational risk. These assessments align with SR 11-7 (banking), OCC 2011-12, and NIST AI RMF to classify model risk tiers, identify vulnerabilities, and define risk mitigation controls.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+This assessment documents quantitative risk analysis including back-testing results, stress testing scenarios, sensitivity analysis, and out-of-sample validation. It evaluates model limitations, assumptions, data quality, bias testing results, explainability, and operational controls (monitoring, incident response, change management) to provide holistic risk evaluation.
+
+The assessment supports Model Risk Managers in risk classification and mitigation planning, Model Risk Committee in approval decisions, AI Governance Teams in risk-based oversight prioritization, and regulators in demonstrating sound model risk management. It informs model approval gates, monitoring thresholds, validation frequency, and capital allocation for model risk.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Regulatory Compliance**: Demonstrates adherence to SR 11-7, OCC 2011-12, EU AI Act, and industry-specific regulations
+- **Risk Quantification**: Provides quantitative risk metrics (VaR, expected loss, risk scores) for portfolio management
+- **Approval Evidence**: Supports Model Risk Committee approval with comprehensive risk analysis
+- **Mitigation Planning**: Identifies specific risks and defines mitigation controls and monitoring requirements
+- **Capital Allocation**: Informs risk-based capital requirements and model risk reserves (banking)
+- **Audit Defense**: Provides documentation for internal audit, regulatory exams, and third-party assessments
+- **Risk-Based Oversight**: Enables prioritization of governance resources based on model risk tier
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact provides comprehensive risk assessment of ML models to classify risk tier, identify vulnerabilities, quantify potential impact, and define risk mitigation controls. It supports risk-based model governance decisions including approval, validation frequency, and monitoring requirements.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Risk classification: High, Medium, Low risk tier determination per SR 11-7 framework
+- Model performance risk: Accuracy degradation, overfitting, underfitting, generalization failure
+- Implementation risk: Coding errors, integration issues, incorrect model use
+- Data quality risk: Data errors, missing values, data drift, training-serving skew
+- Algorithmic bias risk: Discriminatory outcomes, fairness violations, disparate impact
+- Model complexity risk: Interpretability challenges, validation difficulty, opacity
+- Operational risk: Monitoring failures, incident response gaps, change management issues
+- Back-testing: Historical performance validation, out-of-time testing
+- Stress testing: Extreme scenario analysis, adversarial testing, edge case evaluation
+- Sensitivity analysis: Feature importance, hyperparameter sensitivity, input perturbation
+- Assumption testing: Validation of modeling assumptions, stationarity tests
+- Limitations documentation: Known model limitations, out-of-scope use cases, failure modes
+- Third-party model risk: Vendor model due diligence, black-box risk, vendor dependency
+- Concentration risk: Over-reliance on single model, correlated model failures
+- Control effectiveness: Evaluation of monitoring, validation, governance controls
+- Residual risk: Risk remaining after mitigation controls
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed bias testing (handled by dedicated bias assessments)
+- Ongoing monitoring results (handled by monitoring reports)
+- Technical implementation details (handled by technical documentation)
+- Business case and ROI (handled by business justification documents)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Model Risk Managers: Conduct risk assessments, classify risk tiers, recommend mitigation
+- Model Risk Committee: Review assessments, approve high-risk models, set validation frequency
+- Model Validators: Independent validation based on risk assessment findings
+- Regulatory Examiners: Review model risk management practices (bank exams)
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- ML Engineers & Data Scientists: Understand risk findings, implement mitigation controls
+- AI Governance Teams: Prioritize oversight based on risk classification
+- Internal Audit: Evaluate model risk management control effectiveness
+- Executive Leadership: Understand model risk exposure and mitigation status
 
 ## Document Information
 
@@ -149,19 +171,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Risk-Based Approach**: Apply SR 11-7 risk classification factors (materiality, complexity, business context) consistently
+**Quantitative Analysis**: Include quantitative risk metrics (VaR, expected loss, risk scores) not just qualitative assessments
+**Back-Testing Required**: Always conduct back-testing on holdout data or out-of-time validation set
+**Stress Testing**: Test model under adverse scenarios relevant to business context (market crash, recession, outliers)
+**Sensitivity Analysis**: Identify most influential features and hyperparameters; test robustness to perturbations
+**Assumption Documentation**: Explicitly document all modeling assumptions and test their validity
+**Limitations First**: Start assessment by documenting known model limitations and failure modes
+**Independent Validation**: Ensure model validator is independent from model development team
+**Control Evaluation**: Assess effectiveness of monitoring, validation, and governance controls
+**Residual Risk Quantification**: Calculate residual risk after mitigation controls applied
+**Third-Party Rigor**: Apply same risk assessment rigor to vendor models as internal models
+**Bias Risk Mandatory**: Include algorithmic bias risk assessment for all models impacting individuals
+**Comparative Analysis**: Compare model risk to baseline models, prior versions, and industry benchmarks
+**Scenario Planning**: Develop specific failure scenarios and document potential impacts
+**Mitigation Specificity**: Define specific, measurable risk mitigation controls not generic statements
+**Control Ownership**: Assign clear ownership for each mitigation control with accountability
+**Risk Register Integration**: Log all identified risks in centralized risk register with tracking
+**Approval Workflow**: Route high-risk models through Model Risk Committee for formal approval
+**Validation Frequency**: Set validation frequency based on risk tier (annual/biennial/triennial)
+**Living Document**: Update risk assessment when model changes, retraining occurs, or incidents happen
 
 ## Quality Criteria
 
@@ -208,9 +237,78 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**Risk Management**: ISO 31000, COSO ERM, FAIR, NIST RMF
+**Model Risk Management Regulations**:
+- SR 11-7 (Federal Reserve): Supervisory Guidance on Model Risk Management for banking
+- OCC 2011-12: Sound Practices for Model Risk Management (OCC bulletin)
+- CCAR/DFAST: Comprehensive Capital Analysis and Review stress testing requirements
+- Basel Committee BCBS 239: Risk data aggregation and risk reporting principles
+- Solvency II: Insurance model risk management (EIOPA guidelines)
+- MAS TRM Guidelines: Singapore Monetary Authority technology risk management
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Risk Classification Frameworks**:
+- Three-tier model: High, Medium, Low risk
+- SR 11-7 factors: Materiality, complexity, business context
+- EU AI Act: Unacceptable, High-risk, Limited risk, Minimal risk
+- Quantitative risk tiers: Risk score > 70 (high), 40-70 (medium), < 40 (low)
+
+**Risk Types & Categories**:
+- Model development risk: Data quality, methodology, assumptions
+- Model implementation risk: Coding errors, integration, incorrect use
+- Model usage risk: Misapplication, overreliance, misinterpretation
+- Operational risk: Monitoring, controls, change management, incident response
+- Compliance risk: Regulatory violations, bias/discrimination, privacy
+
+**Quantitative Risk Methods**:
+- Back-testing: Compare model predictions to actual outcomes over historical period
+- Stress testing: Evaluate model under extreme scenarios, market shocks
+- Sensitivity analysis: Measure impact of input changes on model outputs
+- Scenario analysis: Assess model behavior under specific business scenarios
+- Monte Carlo simulation: Stochastic risk quantification
+- Value at Risk (VaR): Quantify potential loss at confidence level
+- Expected Shortfall: Conditional VaR, tail risk measurement
+
+**Model Validation Standards**:
+- Conceptual soundness: Theory, methodology, assumptions, limitations
+- Ongoing monitoring: Performance tracking, drift detection, threshold violations
+- Outcomes analysis: Back-testing, benchmark comparison, profitability analysis
+- Independent validation: Three Lines of Defense model
+- Validation frequency: Annual (high-risk), biennial (medium), triennial (low)
+
+**Bias & Fairness Risk**:
+- Disparate impact analysis: 80% rule (EEOC), four-fifths rule
+- Fairness metrics: Demographic parity, equalized odds, calibration
+- ProPublica COMPAS analysis: Case study for algorithmic bias risk
+- EU AI Act Article 9: Risk management system for high-risk AI
+- Protected classes: Race, gender, age, disability, religion, national origin
+
+**Operational Risk Standards**:
+- ISO 31000: Risk management principles and guidelines
+- COSO ERM: Enterprise risk management integrated framework
+- NIST AI RMF: AI risk management framework (Map, Measure, Manage, Govern)
+- FAIR: Factor Analysis of Information Risk quantitative framework
+- Bow-tie analysis: Causal and consequence analysis visualization
+
+**Third-Party Model Risk**:
+- Vendor due diligence: Model documentation, validation, performance evidence
+- Black-box risk: Lack of transparency, vendor dependency, limited control
+- Escrow agreements: Access to model code and documentation
+- Ongoing monitoring: Vendor model performance tracking, incident reporting
+
+**Documentation Standards**:
+- Model Cards: Include limitations and ethical considerations sections
+- Model Risk Assessment templates: SR 11-7 compliant format
+- Validation reports: Independent validator assessment of model risk
+- Risk register: Centralized tracking of model risks and mitigation status
+
+**Regulatory Examination Focus**:
+- Model inventory completeness: All material models identified and classified
+- Governance framework: Policies, Model Risk Committee, roles/responsibilities
+- Validation independence: Separation between model development and validation
+- Ongoing monitoring: Automated monitoring, threshold violations, incident response
+- Documentation quality: Risk assessments, validation reports, approval evidence
+- Issue tracking: Findings log, remediation plans, aging analysis
+
+**Reference**: Consult Model Risk Management Office and Regulatory Compliance for jurisdiction-specific requirements
 
 ## Integration Points
 

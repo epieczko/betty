@@ -2,45 +2,68 @@
 
 ## Executive Summary
 
-The Ai Use Case Inventory is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The AI Use Case Inventory is a comprehensive catalog of all machine learning models and AI systems across the organization, providing centralized visibility into the AI portfolio for governance, risk management, and regulatory compliance. This artifact tracks model metadata, risk classifications, deployment status, and ownership information to enable effective AI governance at scale.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+This inventory aligns with EU AI Act risk classification requirements (unacceptable, high-risk, limited risk, minimal risk), NIST AI RMF use case documentation, and Model Registry best practices from MLflow, AWS SageMaker Model Registry, and Azure ML Model Registry. It documents model lineage, training data sources, performance metrics, fairness assessments, and approval status to support model lifecycle management.
+
+The inventory enables AI Governance Teams to conduct portfolio-wide risk assessments, identify high-risk AI systems requiring enhanced oversight per EU AI Act Article 6, track model retirement schedules, manage model versioning, and ensure compliance with organizational AI policies. It integrates with MLOps platforms (MLflow, Kubeflow, Vertex AI) to automatically sync model metadata and deployment status.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Portfolio Visibility**: Provides enterprise-wide view of all AI/ML models across business units and applications
+- **Risk Classification**: Categorizes AI systems by risk tier (EU AI Act: high-risk, limited risk, minimal risk)
+- **Regulatory Compliance**: Supports EU AI Act Article 16 record-keeping, NYC Local Law 144, and sector-specific regulations
+- **Resource Optimization**: Identifies duplicate models, consolidation opportunities, and underutilized AI investments
+- **Governance Enforcement**: Enables policy compliance monitoring, approval gate enforcement, and audit readiness
+- **Model Lifecycle Management**: Tracks models from development through production to retirement
+- **Incident Response**: Provides rapid model identification for security incidents, bias concerns, or performance degradation
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the single source of truth for all AI/ML models and use cases across the organization, enabling centralized governance, risk management, and regulatory compliance tracking. It supports model discovery, duplicate identification, risk-based prioritization, and audit preparedness.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Model catalog: All ML models (supervised, unsupervised, reinforcement learning, LLMs, GenAI)
+- Risk classification: EU AI Act risk tiers (unacceptable, high-risk, limited risk, minimal risk)
+- Model metadata: Model type, algorithm, framework (TensorFlow, PyTorch, scikit-learn)
+- Deployment status: Development, staging, production, retired, deprecated
+- Model ownership: Model owner, data science team, business sponsor
+- Training data lineage: Data sources, dataset versions, data quality scores
+- Performance metrics: Accuracy, precision, recall, F1, AUC-ROC by model version
+- Fairness assessment status: Bias testing completed, fairness metrics, mitigation applied
+- Model versioning: Version history, champion/challenger status, A/B test results
+- Regulatory classification: High-risk determination, compliance requirements, approval status
+- Business use case: Problem statement, business value, KPIs, ROI
+- Technical architecture: Serving infrastructure, API endpoints, batch vs. real-time
+- Integration points: Upstream data sources, downstream consumers, system dependencies
+- Approval workflow: Development approval, UAT approval, production approval dates
+- Monitoring status: Performance monitoring, drift detection, fairness monitoring
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Model training code (stored in Git repositories)
+- Detailed model documentation (handled by Model Cards)
+- Training datasets themselves (stored in data lakes/warehouses)
+- Model explainability reports (separate artifacts)
+- Detailed risk assessments (separate Model Risk Assessment artifacts)
+- Production monitoring dashboards (MLOps platform tools)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- AI Governance Teams: Oversee AI portfolio, enforce policies, conduct risk assessments
+- Model Risk Managers: Identify high-risk models, prioritize risk reviews, track remediation
+- ML Engineers: Register models, update metadata, track deployment status
+- Data Scientists: Document use cases, report performance metrics, manage model versions
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Compliance Officers: Audit AI inventory for regulatory compliance (EU AI Act, sector regulations)
+- Executive Leadership: Understand AI portfolio composition, risk exposure, investment priorities
+- Product Managers: Identify AI capabilities, assess model readiness, plan feature releases
+- Internal Audit: Verify model governance controls, review approval evidence, assess compliance
 
 ## Document Information
 
@@ -106,19 +129,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Automated Registration**: Integrate model registration into CI/CD pipelines; auto-register models from MLflow, SageMaker, or Vertex AI
+**Unique Model IDs**: Assign globally unique identifiers (UUIDs) to each model; maintain ID consistency across environments
+**Complete Metadata**: Require mandatory fields (owner, risk tier, business use case, training data) before production promotion
+**Risk Classification**: Apply EU AI Act risk classification framework; document classification rationale and evidence
+**Regular Reconciliation**: Quarterly reconciliation between inventory and production deployments; identify shadow AI
+**Automated Sync**: Use APIs to sync model metadata from MLflow, SageMaker, or Vertex AI; avoid manual data entry
+**Version Control**: Track all model versions with semantic versioning; link to Git commits and training run IDs
+**Ownership Assignment**: Assign clear model owner (accountable), data science lead (responsible), and business sponsor
+**Lifecycle Status**: Maintain accurate deployment status (dev, staging, production, retired); automate status updates
+**Retirement Tracking**: Define model retention policies; track deprecated models and ensure complete decommissioning
+**High-Risk Flagging**: Prominently flag EU AI Act high-risk systems; trigger enhanced governance workflows
+**Search & Discovery**: Implement full-text search, faceted filtering, and tagging for model discovery
+**Dashboard Views**: Provide executive dashboards showing model counts by risk tier, status, and business unit
+**Audit Trail**: Log all inventory changes with timestamp, user, and change reason; maintain immutable audit log
+**Access Control**: Restrict edit permissions; implement approval workflows for metadata changes
+**Integration Testing**: Validate inventory integrations with MLOps platforms quarterly; test API endpoints
+**Data Quality**: Implement validation rules for required fields, enum values, and data formats
+**Duplication Detection**: Use NLP similarity matching to identify duplicate or redundant models
+**Portfolio Analytics**: Generate reports on model age, retraining frequency, risk distribution, and compliance gaps
+**Stakeholder Communication**: Notify model owners of upcoming reviews, compliance requirements, and policy changes
 
 ## Quality Criteria
 
@@ -165,9 +195,61 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**AI Governance Frameworks**:
+- NIST AI Risk Management Framework (AI RMF): Use case documentation and risk management
+- EU AI Act: Risk classification system (Annex III high-risk AI systems)
+- ISO/IEC 42001: AI Management System inventory requirements
+- ISO/IEC 23894: AI Risk Management
+- Singapore Model AI Governance Framework: AI inventory and documentation
+- OECD AI Principles: Transparency and accountability through documentation
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Model Registry Standards & Tools**:
+- MLflow Model Registry: Open-source model versioning and lifecycle management
+- AWS SageMaker Model Registry: Model packaging, versioning, and deployment
+- Azure ML Model Registry: Centralized model storage and management
+- Google Vertex AI Model Registry: Model versioning and monitoring
+- Databricks MLflow: Unified model tracking and registry
+- Kubeflow Model Registry: Kubernetes-native model management
+
+**EU AI Act Risk Classifications**:
+- Prohibited AI (Unacceptable Risk): Social scoring, real-time biometric identification
+- High-Risk AI Systems (Annex III): Employment, credit scoring, law enforcement, critical infrastructure
+- Limited Risk AI: Chatbots, deepfakes (transparency obligations)
+- Minimal Risk AI: Spam filters, video games (no specific obligations)
+
+**Model Lifecycle Management**:
+- MLOps maturity model: Level 0 (manual) to Level 4 (full automation)
+- Model versioning: Semantic versioning for ML models
+- Champion/Challenger framework: A/B testing and gradual rollout
+- Model retirement policies: Deprecation schedules and sunset procedures
+
+**Industry-Specific Frameworks**:
+- SR 11-7 (Banking): Model inventory and risk tiering requirements
+- OCC 2011-12 (Banking): Sound practices for model risk management
+- FDA AI/ML Software as Medical Device: Predetermined change control plan
+- HIPAA (Healthcare): PHI protection in ML models
+- GDPR Article 22: Automated decision-making documentation
+
+**Metadata Standards**:
+- Model Cards for Model Reporting (Mitchell et al., 2019)
+- Datasheets for Datasets (Gebru et al., 2018)
+- FactSheets (IBM): Comprehensive AI system documentation
+- ML Model Schema (ml-metadata): Standardized model metadata format
+
+**Risk Tiering Methodologies**:
+- Three-tier model: High, Medium, Low risk
+- Four-tier model: Critical, High, Moderate, Low risk
+- EU AI Act four-tier: Unacceptable, High, Limited, Minimal risk
+- NIST AI RMF: Context-specific risk assessment
+
+**Compliance & Regulatory**:
+- NYC Local Law 144: Automated employment decision tool registry
+- Colorado AI Act (SB 24-205): High-risk AI system disclosure
+- Illinois AI Video Interview Act: AI system inventory for employment
+- California Delete Act: AI system data handling documentation
+- White House AI Bill of Rights: Impact assessment documentation
+
+**Reference**: Consult AI Governance Office and Legal Counsel for jurisdiction-specific classification and documentation requirements
 
 ## Integration Points
 

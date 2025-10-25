@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Accessibility Audits is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Accessibility Audits artifact documents comprehensive evaluations of digital products and services against accessibility standards including WCAG 2.1/2.2 (Levels A, AA, AAA), Section 508, EN 301 549, and ADA compliance requirements. This artifact provides structured findings from manual and automated testing using tools such as axe DevTools, WAVE, Lighthouse, JAWS, NVDA, VoiceOver, and keyboard navigation assessments.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a critical quality assurance deliverable, this artifact serves accessibility specialists, QA engineers, development teams, product managers, and compliance officers who need detailed technical findings to remediate barriers and ensure inclusive digital experiences. It combines automated scan results (covering 30-40% of accessibility issues) with expert manual testing (required for 60-70% of WCAG criteria), keyboard navigation testing, screen reader compatibility validation, and color contrast analysis. Typical audits evaluate compliance across multiple criteria: perceivable (text alternatives, time-based media, adaptable content, distinguishable), operable (keyboard accessible, sufficient time, seizures prevention, navigable), understandable (readable, predictable, input assistance), and robust (compatible with assistive technologies).
 
 ### Strategic Importance
 
@@ -20,27 +20,42 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the authoritative record of accessibility conformance testing results, identifying WCAG 2.1/2.2 violations, ARIA implementation issues, keyboard navigation barriers, screen reader compatibility problems, and color contrast deficiencies. It provides prioritized remediation recommendations with severity ratings (Critical, High, Medium, Low) based on impact to users with disabilities and legal/compliance risk.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- WCAG 2.1 and WCAG 2.2 conformance testing (Level A, AA, AAA)
+- ARIA 1.2 (Accessible Rich Internet Applications) implementation validation
+- Keyboard navigation and focus management testing
+- Screen reader compatibility (JAWS, NVDA, VoiceOver, TalkBack)
+- Color contrast analysis (minimum 4.5:1 for normal text, 3:1 for large text)
+- Automated testing with axe DevTools, WAVE, Lighthouse, Pa11y, HTML_CodeSniffer
+- Manual testing of dynamic content, forms, modals, and interactive components
+- Document accessibility (PDFs, Word, PowerPoint) per PDF/UA standards
+- Mobile accessibility (iOS VoiceOver, Android TalkBack)
+- Video/audio accessibility (captions, transcripts, audio descriptions)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Usability testing with actual users with disabilities (separate user research)
+- Accessibility training for development teams (separate training initiative)
+- Ongoing accessibility monitoring (handled by continuous testing)
+- Legal risk assessment and compliance certification (legal team responsibility)
+- Remediation implementation work (development team responsibility)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Accessibility Specialists who conduct audits and provide expert guidance
+- QA Engineers who validate remediation efforts and regression testing
+- UX/UI Designers who need to understand design-related barriers
+- Frontend Developers who implement ARIA, semantic HTML, and keyboard support
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Product Managers who prioritize accessibility backlog items
+- Compliance Officers who track regulatory adherence
+- Legal Counsel who assess ADA and Section 508 compliance risk
+- Executive Leadership who need accessibility program status updates
 
 ## Document Information
 
@@ -208,9 +223,58 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Accessibility Standards**:
+- WCAG 2.1 (Web Content Accessibility Guidelines) - W3C Recommendation
+- WCAG 2.2 (Web Content Accessibility Guidelines) - W3C Recommendation
+- Section 508 (US Federal accessibility standard - 36 CFR Part 1194)
+- ADA Title III (Americans with Disabilities Act digital accessibility)
+- EN 301 549 (European accessibility standard for ICT products/services)
+- ARIA 1.2 (Accessible Rich Internet Applications) - WAI-ARIA specification
+- PDF/UA (ISO 14289 - PDF Universal Accessibility)
+- ATAG 2.0 (Authoring Tool Accessibility Guidelines)
+- UAAG 2.0 (User Agent Accessibility Guidelines)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Testing Tools & Frameworks**:
+- axe DevTools (Deque) - Automated accessibility testing
+- WAVE (WebAIM) - Web accessibility evaluation tool
+- Lighthouse (Google) - Accessibility auditing in Chrome DevTools
+- Pa11y - Command-line accessibility testing tool
+- HTML_CodeSniffer - Client-side accessibility testing
+- Tenon.io - API-based accessibility testing
+- Accessibility Insights (Microsoft) - WCAG 2.1 AA assessment
+- Color Contrast Analyzer (TPGi) - WCAG contrast validation
+
+**Screen Readers & Assistive Technology**:
+- JAWS (Job Access With Speech) - Windows screen reader
+- NVDA (NonVisual Desktop Access) - Open-source Windows screen reader
+- VoiceOver - macOS and iOS screen reader
+- TalkBack - Android screen reader
+- ZoomText - Screen magnification software
+- Dragon NaturallySpeaking - Voice recognition software
+
+**Methodologies & Best Practices**:
+- WebAIM Million (Annual accessibility analysis of top 1M sites)
+- Inclusive Design Principles (Microsoft, UK Government Digital Service)
+- WAI-ARIA Authoring Practices Guide (APG)
+- WCAG Quick Reference Guide
+- Accessible Name and Description Computation (ARIA accname spec)
+- HTML5 Accessibility (W3C specification)
+
+**Compliance & Legal Frameworks**:
+- ADA Title II (State and local government digital accessibility)
+- Section 504 (Rehabilitation Act)
+- Section 255 (Telecommunications Act accessibility)
+- CVAA (21st Century Communications and Video Accessibility Act)
+- Ontario AODA (Accessibility for Ontarians with Disabilities Act)
+- EU Web Accessibility Directive (2016/2102)
+
+**Testing Standards**:
+- ISO/IEC 40500:2012 (WCAG 2.0 as ISO standard)
+- ISTQB Test Specialist certification in Accessibility Testing
+- W3C Easy Checks - Preliminary Review of Web Accessibility
+- UK Government Digital Service (GDS) Accessibility Guidelines
+
+**Reference**: Consult accessibility team and legal counsel for detailed guidance on standard application and compliance requirements
 
 ## Integration Points
 

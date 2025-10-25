@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Business Process Models is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Business Process Models artifact provides visual and structured documentation of business processes using BPMN 2.0 (Business Process Model and Notation) standard, swimlane diagrams, value stream maps, and SIPOC (Suppliers, Inputs, Process, Outputs, Customers) analysis. This artifact enables process optimization through Lean Six Sigma methodologies, process mining, and workflow automation while supporting regulatory compliance (SOX, ISO 9001, ISO 27001) and operational excellence initiatives.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a foundational component of Business Process Management (BPM) and continuous improvement programs, this artifact supports Business Analysts, Process Owners, Operations Teams, and Product Managers in identifying inefficiencies, bottlenecks, and automation opportunities. The models leverage industry-standard notation systems (BPMN 2.0, UML Activity Diagrams, EPC) and are created using tools such as Lucidchart, Visio, Bizagi, Signavio, or Camunda Modeler to enable process simulation, analysis, and optimization.
 
 ### Strategic Importance
 
@@ -20,27 +20,41 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the definitive visual representation of how work flows through the organization, using BPMN 2.0 notation to document as-is and to-be process states. It identifies process inefficiencies, handoffs, bottlenecks, and automation opportunities while providing the foundation for workflow automation, RPA (Robotic Process Automation), and BPM system implementation.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- BPMN 2.0 process diagrams with standard notation (tasks, gateways, events, flows)
+- Swimlane diagrams showing cross-functional responsibilities and handoffs
+- Value Stream Maps (VSM) documenting cycle time, lead time, and wait states
+- SIPOC diagrams (Suppliers, Inputs, Process, Outputs, Customers)
+- Process hierarchies (Level 0/1/2/3 decomposition)
+- As-Is process documentation and To-Be target state models
+- Process metrics: cycle time, throughput, error rates, cost per transaction
+- Integration points with systems and applications
+- Decision points, business rules, and exception handling flows
+- Process pain points, bottlenecks, and improvement opportunities
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed business rules logic (covered in Business Rules Catalog)
+- System technical specifications (covered in Technical Design)
+- Organizational change management plans
+- Employee training materials and procedures
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Business Analysts: Process documentation and improvement analysis
+- Process Owners: Process performance monitoring and optimization
+- Operations Managers: Operational efficiency and resource allocation
+- Product Managers: Product workflow and user journey design
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Business Process Management (BPM) teams: Workflow automation implementation
+- Lean Six Sigma practitioners: Process improvement initiatives (DMAIC)
+- Compliance and Audit teams: Control validation and SOX compliance
+- RPA developers: Automation opportunity identification
 
 ## Document Information
 
@@ -181,6 +195,14 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 **Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
 **Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
 **Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**BPMN 2.0 Compliance**: Strictly adhere to BPMN 2.0 notation standards for consistency and tool compatibility
+**Process Walking**: Validate processes by walking through actual operations with process performers
+**Swimlane Clarity**: Clearly define organizational units, roles, or systems in each swimlane
+**Process Metrics**: Include quantitative metrics (cycle time, error rates, cost) for baseline measurement
+**Exception Handling**: Explicitly document exception flows and error handling paths
+**Tool Standardization**: Use organization-approved modeling tools (Visio, Lucidchart, Bizagi, Signavio, Camunda)
+**Layered Decomposition**: Use hierarchical levels (L0, L1, L2, L3) to manage complexity
+**As-Is and To-Be**: Document current state first, then design optimized future state with gap analysis
 
 ## Quality Criteria
 
@@ -227,9 +249,64 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Process Modeling Standards**:
+- BPMN 2.0 (Business Process Model and Notation) - OMG standard
+- UML Activity Diagrams (Unified Modeling Language)
+- EPC (Event-driven Process Chain) notation
+- IDEF0 (Integration Definition for Function Modeling)
+- Flowcharting standards (ANSI/ISO)
+- RACI matrix (Responsible, Accountable, Consulted, Informed)
+- Process Architecture Framework (APQC, SCOR, eTOM)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Process Improvement Methodologies**:
+- Lean methodology and Lean principles (7 wastes identification)
+- Six Sigma and DMAIC (Define, Measure, Analyze, Improve, Control)
+- Lean Six Sigma integration
+- Kaizen continuous improvement
+- Theory of Constraints (TOC) and bottleneck analysis
+- Value Stream Mapping (VSM) methodology
+- Process reengineering (BPR - Business Process Reengineering)
+- Agile process design and iterative improvement
+
+**Process Analysis Tools**:
+- SIPOC (Suppliers, Inputs, Process, Outputs, Customers)
+- Spaghetti diagrams for workflow visualization
+- Takt time analysis
+- Cycle time and lead time measurement
+- Process capability analysis (Cp, Cpk)
+- Root cause analysis (5 Whys, Fishbone/Ishikawa)
+- Process mining and discovery tools
+
+**Business Process Management (BPM)**:
+- BPM lifecycle (Design, Model, Execute, Monitor, Optimize)
+- Workflow automation and orchestration
+- Business Process Management Systems (BPMS)
+- Case management (CMMN - Case Management Model and Notation)
+- Decision Model and Notation (DMN) integration
+- Process simulation and optimization
+
+**Quality & Compliance Standards**:
+- ISO 9001 (Quality Management Systems)
+- ISO 27001 (Information Security Management)
+- Sarbanes-Oxley (SOX) process controls
+- FDA 21 CFR Part 11 (pharmaceutical processes)
+- ITIL for IT service management processes
+- COBIT for IT governance processes
+
+**Industry Frameworks**:
+- APQC Process Classification Framework
+- SCOR Model (Supply Chain Operations Reference)
+- eTOM (Telecom Operations Map)
+- TOGAF Business Architecture
+- Value Chain Analysis (Porter)
+
+**Automation & Technology**:
+- Robotic Process Automation (RPA) candidate assessment
+- Low-code/no-code platform process design
+- Workflow engines and orchestration platforms
+- API integration and system handoff documentation
+
+**Reference**: Consult organizational process excellence, BPM, and Lean Six Sigma teams for detailed guidance on methodology and notation standards
 
 ## Integration Points
 

@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Bounded Context Map is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Bounded Context Map is a strategic design artifact from Domain-Driven Design (DDD) that visualizes the boundaries between different domains, their relationships, and integration patterns. This artifact, rooted in Eric Evans' DDD and refined by Vaughn Vernon's strategic design patterns, defines context boundaries, identifies upstream/downstream relationships, and specifies integration patterns (Shared Kernel, Customer-Supplier, Conformist, Anti-Corruption Layer, Published Language, Open Host Service, Separate Ways).
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+The context map provides critical input for microservices decomposition, team organization (aligned with Conway's Law), and integration architecture decisions. It identifies autonomous bounded contexts with clear ownership and ubiquitous language, maps context relationships to determine integration complexity, and highlights where anti-corruption layers are needed to protect domain integrity. The artifact integrates with C4 Model container diagrams to show physical system boundaries and with team topologies to align organizational structure with architectural boundaries.
 
 ### Strategic Importance
 
@@ -20,27 +20,50 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines strategic domain boundaries and integration patterns for complex systems, enabling microservices decomposition, team organization, and integration architecture design. It supports decisions about service boundaries, API contracts, data ownership, and organizational structure aligned with domain model.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Bounded contexts: autonomous domains with clear boundaries, single ubiquitous language, and dedicated team ownership
+- Context boundaries: explicit demarcation of what is inside vs. outside each bounded context
+- Context relationships: upstream/downstream, customer/supplier, shared kernel, conformist patterns
+- Integration patterns: Published Language (APIs), Open Host Service (generic interface), Anti-Corruption Layer (translation)
+- Shared Kernel: overlapping models shared between contexts with joint ownership and synchronized changes
+- Customer-Supplier: upstream context serves downstream context's needs through negotiated contracts
+- Conformist: downstream context accepts upstream's model without negotiation
+- Anti-Corruption Layer (ACL): translation layer protecting downstream context from upstream changes
+- Published Language: well-defined, documented integration language (OpenAPI, AsyncAPI, Protobuf)
+- Open Host Service: generic service interface supporting multiple downstream consumers
+- Separate Ways: contexts with no integration relationship, operating independently
+- Partnership: two contexts with mutual dependency requiring coordinated changes
+- Core domains: high-value, differentiating domains requiring custom development and domain expertise
+- Supporting subdomains: necessary but not differentiating, candidates for COTS or low-cost development
+- Generic subdomains: solved problems available as standard solutions (payment, auth, email)
+- Context ownership: team responsibility for each bounded context (aligning with Team Topologies)
+- Ubiquitous language: domain-specific vocabulary consistent within context boundary
+- Data ownership: which context owns master data for entities, preventing distributed data ownership issues
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Internal domain model details (aggregates, entities, value objects) - handled in detailed domain models
+- API specifications and contracts - referenced from API documentation
+- Database schemas and data models - captured in data architecture artifacts
+- Implementation details and code structure - documented in code repositories
+- Business processes and workflows - captured in business process models
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Enterprise Architects: understand domain boundaries for microservices decomposition and enterprise integration
+- Solution Architects: design integration patterns and API contracts between bounded contexts
+- Technical Architects: implement anti-corruption layers, adapters, and integration infrastructure
+- Architecture Review Board (ARB) Members: evaluate context boundaries and integration approach
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Domain Experts: validate context boundaries align with business domain understanding
+- Product Owners: understand service boundaries for feature planning and team coordination
+- Development Teams: implement within bounded context using ubiquitous language
+- Engineering Managers: organize teams aligned with bounded contexts (Team Topologies)
 
 ## Document Information
 
@@ -106,19 +129,27 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Event Storming Workshops**: Use collaborative Event Storming to discover bounded contexts with domain experts, developers, architects; identify domain events, aggregates, context boundaries
+**Business Capability Alignment**: Align bounded contexts with business capabilities; avoid technical decomposition (database, UI, API); follow domain boundaries not technical layers
+**Ubiquitous Language**: Ensure each bounded context has consistent vocabulary; same term may mean different things in different contexts (e.g., "Customer" in Sales vs. Support)
+**Single Team Ownership**: Assign one team per bounded context; avoid shared ownership to maintain autonomy and reduce coordination overhead (Team Topologies stream-aligned teams)
+**Right-Size Contexts**: Balance context size - too large loses modularity benefits, too small creates integration complexity; typical microservice 100-1000 lines of domain logic
+**Explicit Relationships**: Clearly label all context relationships with specific patterns (Shared Kernel, Customer-Supplier, ACL); avoid ambiguous "depends on" arrows
+**Minimize Shared Kernel**: Shared Kernel creates tight coupling requiring synchronized changes; prefer Customer-Supplier or Published Language for loose coupling
+**Anti-Corruption Layers**: Implement ACL when integrating with legacy systems or external APIs to protect domain model from foreign concepts
+**Published Language for APIs**: Define explicit Published Language using OpenAPI, AsyncAPI, or Protobuf; version APIs to manage evolution
+**Core Domain Protection**: Identify core domains (high business value, competitive differentiation); invest in deep domain modeling; protect with anti-corruption layers
+**Generic Subdomain COTS**: Use commercial off-the-shelf (COTS) or open-source solutions for generic subdomains (auth, email, payments); avoid custom development
+**Context Map Evolution**: Treat context map as living document; update as domain understanding deepens; refactor contexts when boundaries proven wrong
+**Upstream-Downstream Clarity**: Explicitly identify upstream (provider) and downstream (consumer) in relationships; upstream changes impact downstream
+**Conway's Law Alignment**: Align team boundaries with context boundaries; architecture will mirror communication structure
+**Database Per Context**: Each bounded context owns its database; avoid shared databases causing tight coupling and conflicting transaction boundaries
+**Asynchronous Integration**: Prefer event-driven asynchronous integration between contexts for loose coupling; synchronous APIs create temporal coupling
+**Eventual Consistency**: Accept eventual consistency across bounded contexts; implement saga patterns or choreography for distributed transactions
+**Strangler Fig for Legacy**: Wrap legacy monoliths in bubble contexts; gradually extract bounded contexts using Strangler Fig pattern
+**Visualization Tools**: Use Context Mapper DSL, C4 Model, or hand-drawn diagrams; store as code (PlantUML, Mermaid) for version control
+**Domain Expert Validation**: Review context boundaries with domain experts; ensure contexts match real-world domain concepts and responsibilities
+**Integration Complexity**: Minimize number of integration points; consolidate through API gateways or event buses where appropriate
 
 ## Quality Criteria
 
@@ -165,9 +196,109 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Domain-Driven Design (DDD)**:
+- Eric Evans' "Domain-Driven Design" - bounded contexts, ubiquitous language, strategic design patterns
+- Vaughn Vernon's "Implementing Domain-Driven Design" - context mapping patterns, practical DDD application
+- DDD Strategic Design - core domains, supporting subdomains, generic subdomains classification
+- Context Mapping Patterns - Shared Kernel, Customer-Supplier, Conformist, Anti-Corruption Layer, Published Language, Open Host Service, Separate Ways, Partnership, Big Ball of Mud
+- Ubiquitous Language - domain-specific vocabulary consistent within bounded context
+- Aggregates - consistency boundaries within bounded contexts, transactional boundaries
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Microservices Architecture**:
+- Microservices Patterns (Chris Richardson) - service decomposition by business capability and subdomain
+- Building Microservices (Sam Newman) - defining service boundaries, distributed systems patterns
+- Bounded Context as Service Boundary - one microservice per bounded context (typical pattern)
+- API Gateway Pattern - single entry point for client access to multiple bounded contexts
+- Service Mesh - infrastructure layer for service-to-service communication (Istio, Linkerd, Consul Connect)
+- Database per Service - each bounded context owns its data, no shared databases
+
+**Integration Patterns**:
+- Enterprise Integration Patterns (Hohpe & Woolf) - messaging, routing, transformation patterns
+- Published Language - well-defined APIs using OpenAPI/Swagger, AsyncAPI, GraphQL, gRPC/Protobuf
+- Open Host Service - generic service interface serving multiple downstream contexts
+- Anti-Corruption Layer - translator/adapter preventing upstream model from polluting downstream
+- Shared Kernel - overlapping model elements with synchronized changes across contexts
+- Customer-Supplier - upstream provides services to downstream with negotiated contracts
+- Conformist - downstream accepts upstream's model without influence
+- Partnership - bidirectional dependency requiring coordinated evolution
+- Separate Ways - no integration, independent operation with duplicate functionality if needed
+
+**API Design**:
+- OpenAPI 3.0 (Swagger) - RESTful API specification for Published Language
+- AsyncAPI - asynchronous/event-driven API specification
+- GraphQL - query language for flexible client-driven APIs
+- gRPC/Protocol Buffers - high-performance RPC with strong typing
+- JSON:API - specification for building APIs in JSON with hypermedia
+- HAL (Hypertext Application Language) - hypermedia API standard
+
+**Event-Driven Architecture**:
+- Event Sourcing - storing state changes as sequence of events within bounded context
+- CQRS (Command Query Responsibility Segregation) - separate read and write models
+- Domain Events - events published by bounded context for integration with other contexts
+- Event Storming - collaborative workshop for discovering domain events and bounded contexts
+- Saga Pattern - distributed transaction coordination across bounded contexts
+- Event Streaming - Kafka, Pulsar, Kinesis for asynchronous context integration
+
+**Team Organization**:
+- Team Topologies (Skelton & Pais) - stream-aligned teams, enabling teams, complicated subsystem teams, platform teams
+- Conway's Law - organizational structure reflects communication structure, align teams with bounded contexts
+- Inverse Conway Maneuver - designing team boundaries to achieve desired architecture
+- Stream-Aligned Teams - teams organized around flow of work through bounded context
+- Cognitive Load - limiting team responsibility to manageable bounded context scope
+
+**Context Mapping Notation**:
+- Context Map Visualization - boxes for contexts, arrows for relationships, labels for patterns
+- UML Component Diagrams - representing contexts as components with interfaces
+- C4 Model Context/Container Diagrams - showing bounded contexts as containers
+- ArchiMate Application Collaboration - modeling context relationships
+- PlantUML/Mermaid - text-based context map diagrams
+
+**Strategic Design**:
+- Core Domain Chart - identifying core, supporting, and generic subdomains
+- Domain Vision Statement - articulating the core domain's strategic value
+- Context Distillation - identifying and protecting the core domain
+- Big Ball of Mud - identifying legacy systems as monolithic contexts requiring anti-corruption layers
+- Bubble Context - introducing bounded context as wrapper around legacy system
+
+**Data Management**:
+- Database per Service Pattern - each bounded context owns its data
+- Shared Database Anti-Pattern - avoiding coupling through database integration
+- Data Ownership - master data source identified per entity type
+- Eventual Consistency - accepting data consistency delays across contexts
+- CQRS - separate read models for cross-context queries
+- Data Mesh - domain-oriented decentralized data ownership aligned with bounded contexts
+
+**Service Communication**:
+- Synchronous Communication - REST APIs, GraphQL, gRPC for request-response
+- Asynchronous Communication - events, messages for loose coupling
+- Choreography - distributed coordination through events
+- Orchestration - centralized coordination through orchestrator (anti-pattern in DDD)
+- Backend for Frontend (BFF) - context-specific APIs for different client types
+
+**Legacy Integration**:
+- Strangler Fig Pattern - incrementally replacing legacy monolith with bounded contexts
+- Anti-Corruption Layer - protecting new contexts from legacy system models
+- Bubble Context - wrapping legacy system in DDD-friendly interface
+- Branch by Abstraction - introducing abstraction layer for parallel implementation
+- Parallel Run - operating legacy and new context simultaneously during migration
+
+**Tools & Modeling**:
+- Context Mapper - DSL and tools for context mapping (contextmapper.org)
+- Event Storming - collaborative workshop for discovering contexts and events
+- Domain Storytelling - collaborative modeling using pictographs
+- C4 Model - hierarchical architecture diagrams including bounded contexts
+- ArchiMate - enterprise architecture modeling with application components
+- PlantUML/Mermaid - text-based context map diagrams
+- Structurizr - architecture as code including context boundaries
+
+**Quality Attributes**:
+- Modularity - bounded contexts provide modular decomposition
+- Autonomy - contexts operate independently with loose coupling
+- Scalability - contexts can scale independently based on load
+- Team Autonomy - teams own contexts end-to-end reducing coordination overhead
+- Deployability - contexts deployed independently enabling continuous delivery
+
+**Reference**: Consult organizational architecture team for context mapping standards, microservices decomposition guidelines, and integration pattern governance
 
 ## Integration Points
 
