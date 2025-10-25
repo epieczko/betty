@@ -1584,8 +1584,7 @@
 <p>Meta-agents are specialized agents that create and manage other agents, skills, hooks, and framework components. They operate at a higher abstraction level than regular agents.</p>
 <h2 id="meta-agent-registry">Meta-Agent Registry<a class="headerlink" href="#meta-agent-registry" title="Permanent link">&para;</a></h2>
 <h3 id="metaagent-agent-creator">meta.agent - Agent Creator<a class="headerlink" href="#metaagent-agent-creator" title="Permanent link">&para;</a></h3>
-<p><strong>Current name:</strong> <code>atum</code> (Egyptian god who speaks existence into being)
-<strong>Aliases:</strong> <code>atum</code>, <code>meta.agent</code>, <code>agent.create</code></p>
+<p><strong>Current name:</strong> <code>meta.agent</code></p>
 <p><strong>Purpose:</strong> Creates complete, functional agents from natural language descriptions</p>
 <p><strong>Produces:</strong>
 - <code>agent-definition</code> (agent.yaml)
@@ -1595,11 +1594,11 @@
 - <code>agent.compose</code> - Find compatible skills
 - <code>artifact.define</code> - Generate artifact metadata</p>
 <p><strong>Usage:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Using descriptive name</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>betty<span class="w"> </span>meta<span class="w"> </span>agent<span class="w"> </span>create<span class="w"> </span>examples/my_agent_description.md
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Using the agent directly</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>python3<span class="w"> </span>agents/meta.agent/meta_agent.py<span class="w"> </span>examples/my_agent_description.md
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Using legacy name (Atum)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>python3<span class="w"> </span>agents/atum/atum.py<span class="w"> </span>examples/my_agent_description.md
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Or via betty CLI (if available)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>betty<span class="w"> </span>meta<span class="w"> </span>agent<span class="w"> </span>create<span class="w"> </span>examples/my_agent_description.md
 </code></pre></div></p>
 <hr />
 <h3 id="metaskill-skill-creator">meta.skill - Skill Creator<a class="headerlink" href="#metaskill-skill-creator" title="Permanent link">&para;</a></h3>
@@ -1742,20 +1741,20 @@
 - <code>list-all</code> - List all agents with their artifact metadata</p>
 <p><strong>Usage:</strong>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Find compatible agents</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>python3<span class="w"> </span>agents/meta.compatibility/meta_compatibility.py<span class="w"> </span>find-compatible<span class="w"> </span>atum
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>python3<span class="w"> </span>agents/meta.compatibility/meta_compatibility.py<span class="w"> </span>find-compatible<span class="w"> </span>meta.agent
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
 <a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Suggest pipeline for task</span>
 <a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>python3<span class="w"> </span>agents/meta.compatibility/meta_compatibility.py<span class="w"> </span>suggest-pipeline<span class="w"> </span><span class="s2">&quot;Validate and optimize API specs&quot;</span>
 <a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
 <a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="c1"># Analyze specific agent</span>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>python3<span class="w"> </span>agents/meta.compatibility/meta_compatibility.py<span class="w"> </span>analyze<span class="w"> </span>agents/atum/agent.yaml
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>python3<span class="w"> </span>agents/meta.compatibility/meta_compatibility.py<span class="w"> </span>analyze<span class="w"> </span>agents/meta.agent/agent.yaml
 <a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
 <a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c1"># List all agents (JSON or YAML output)</span>
 <a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>python3<span class="w"> </span>agents/meta.compatibility/meta_compatibility.py<span class="w"> </span>--format<span class="w"> </span>json<span class="w"> </span>list-all
 </code></pre></div></p>
 <p><strong>Output Example:</strong>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;atum&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;meta.agent&quot;</span><span class="p">,</span>
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">&quot;compatible_agents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="nt">&quot;produces_for&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">      </span><span class="p">{</span>
@@ -1789,23 +1788,23 @@
 - <code>analyze-project</code> - Analyze entire project and suggest workflows</p>
 <p><strong>Usage:</strong>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Get suggestions after running an agent</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>python3<span class="w"> </span>agents/meta.suggest/meta_suggest.py<span class="w"> </span>suggest<span class="w"> </span>agents/atum/agent.yaml
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>python3<span class="w"> </span>agents/meta.suggest/meta_suggest.py<span class="w"> </span>suggest<span class="w"> </span>agents/meta.agent/agent.yaml
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
 <a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Analyze entire project</span>
 <a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>python3<span class="w"> </span>agents/meta.suggest/meta_suggest.py<span class="w"> </span>analyze-project
 <a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
 <a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># Output in JSON format</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>python3<span class="w"> </span>agents/meta.suggest/meta_suggest.py<span class="w"> </span>--format<span class="w"> </span>json<span class="w"> </span>suggest<span class="w"> </span>agents/atum/agent.yaml
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>python3<span class="w"> </span>agents/meta.suggest/meta_suggest.py<span class="w"> </span>--format<span class="w"> </span>json<span class="w"> </span>suggest<span class="w"> </span>agents/meta.agent/agent.yaml
 </code></pre></div></p>
 <p><strong>Output Example:</strong>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">{</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="nt">&quot;agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;atum&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="nt">&quot;agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;meta.agent&quot;</span><span class="p">,</span>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="nt">&quot;suggestions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="p">{</span>
 <a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">      </span><span class="nt">&quot;priority&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;high&quot;</span><span class="p">,</span>
 <a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;next_agent&quot;</span><span class="p">,</span>
 <a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Use meta.compatibility to find agents that can consume agent-definition&quot;</span><span class="p">,</span>
-<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python3 agents/meta.compatibility/meta_compatibility.py find-compatible atum&quot;</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python3 agents/meta.compatibility/meta_compatibility.py find-compatible meta.agent&quot;</span>
 <a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">  </span><span class="p">]</span>
 <a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="p">}</span>
@@ -1825,7 +1824,7 @@
 </ul>
 <h3 id="aliases">Aliases<a class="headerlink" href="#aliases" title="Permanent link">&para;</a></h3>
 <p>Some meta-agents may have poetic or legacy aliases:
-- <code>atum</code> → <code>meta.agent</code> (poetic: Egyptian god of creation)
+- <code>meta.agent</code> - Agent creation through skill composition
 - Future: <code>thoth</code> → <code>meta.artifact</code> (if we want to keep thematic naming)</p>
 <h3 id="discovery">Discovery<a class="headerlink" href="#discovery" title="Permanent link">&para;</a></h3>
 <p>List all meta-agents:
@@ -1904,7 +1903,7 @@
 </li>
 <li>
 <p><strong>Create the agent</strong>:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>python3<span class="w"> </span>agents/atum/atum.py<span class="w"> </span>examples/api_designer.md
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>python3<span class="w"> </span>agents/meta.agent/meta_agent.py<span class="w"> </span>examples/api_designer.md
 </code></pre></div></p>
 </li>
 <li>
@@ -1915,7 +1914,7 @@
 <li>
 <p><strong>Get suggestions for next steps</strong>:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>python3<span class="w"> </span>agents/meta.suggest/meta_suggest.py<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">  </span>--context<span class="w"> </span>atum<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">  </span>--context<span class="w"> </span>meta.agent<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">  </span>--artifacts<span class="w"> </span>agents/api.designer/agent.yaml
 </code></pre></div></p>
 </li>
@@ -2045,7 +2044,7 @@
 <li>
 <p><strong>Create agents to fill gaps</strong>:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># Create agent that produces api-requirements</span>
-<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>python3<span class="w"> </span>agents/atum/atum.py<span class="w"> </span>examples/requirements_analyzer.md
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>python3<span class="w"> </span>agents/meta.agent/meta_agent.py<span class="w"> </span>examples/requirements_analyzer.md
 <a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>
 <a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="c1"># Verify gap is filled</span>
 <a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>python3<span class="w"> </span>agents/meta.compatibility/meta_compatibility.py<span class="w"> </span>list-all
@@ -2075,7 +2074,7 @@
 </code></pre></div></p>
 </li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>python3<span class="w"> </span>agents/atum/atum.py<span class="w"> </span>examples/security_auditor.md
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>python3<span class="w"> </span>agents/meta.agent/meta_agent.py<span class="w"> </span>examples/security_auditor.md
 </code></pre></div>
 <ol>
 <li><strong>Create agent that consumes it</strong>:
@@ -2088,7 +2087,7 @@
 <a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="k">-</span><span class="w"> </span>openapi-spec (fixed version)
 </code></pre></div></li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>python3<span class="w"> </span>agents/atum/atum.py<span class="w"> </span>examples/security_fixer.md
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>python3<span class="w"> </span>agents/meta.agent/meta_agent.py<span class="w"> </span>examples/security_fixer.md
 </code></pre></div>
 <ol>
 <li><strong>Verify compatibility</strong>:
@@ -2306,20 +2305,20 @@
 <h3 id="common-patterns">Common Patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h3>
 <h4 id="pattern-1-create-analyze-enhance">Pattern 1: Create → Analyze → Enhance<a class="headerlink" href="#pattern-1-create-analyze-enhance" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="c1"># Create component</span>
-<a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>python3<span class="w"> </span>agents/atum/atum.py<span class="w"> </span>description.md
+<a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>python3<span class="w"> </span>agents/meta.agent/meta_agent.py<span class="w"> </span>description.md
 <a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a>
 <a id="__codelineno-53-4" name="__codelineno-53-4" href="#__codelineno-53-4"></a><span class="c1"># Analyze compatibility</span>
 <a id="__codelineno-53-5" name="__codelineno-53-5" href="#__codelineno-53-5"></a>python3<span class="w"> </span>agents/meta.compatibility/meta_compatibility.py<span class="w"> </span>analyze<span class="w"> </span>NEW_AGENT
 <a id="__codelineno-53-6" name="__codelineno-53-6" href="#__codelineno-53-6"></a>
 <a id="__codelineno-53-7" name="__codelineno-53-7" href="#__codelineno-53-7"></a><span class="c1"># Get enhancement suggestions</span>
-<a id="__codelineno-53-8" name="__codelineno-53-8" href="#__codelineno-53-8"></a>python3<span class="w"> </span>agents/meta.suggest/meta_suggest.py<span class="w"> </span>--context<span class="w"> </span>atum
+<a id="__codelineno-53-8" name="__codelineno-53-8" href="#__codelineno-53-8"></a>python3<span class="w"> </span>agents/meta.suggest/meta_suggest.py<span class="w"> </span>--context<span class="w"> </span>meta.agent
 </code></pre></div>
 <h4 id="pattern-2-define-register-use">Pattern 2: Define → Register → Use<a class="headerlink" href="#pattern-2-define-register-use" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="c1"># Define artifact type</span>
 <a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>python3<span class="w"> </span>agents/meta.artifact/meta_artifact.py<span class="w"> </span>create<span class="w"> </span>artifact.md
 <a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a>
 <a id="__codelineno-54-4" name="__codelineno-54-4" href="#__codelineno-54-4"></a><span class="c1"># Register in agent</span>
-<a id="__codelineno-54-5" name="__codelineno-54-5" href="#__codelineno-54-5"></a><span class="c1"># (atum will automatically use registered types)</span>
+<a id="__codelineno-54-5" name="__codelineno-54-5" href="#__codelineno-54-5"></a><span class="c1"># (meta.agent will automatically use registered types)</span>
 <a id="__codelineno-54-6" name="__codelineno-54-6" href="#__codelineno-54-6"></a>
 <a id="__codelineno-54-7" name="__codelineno-54-7" href="#__codelineno-54-7"></a><span class="c1"># Verify usage</span>
 <a id="__codelineno-54-8" name="__codelineno-54-8" href="#__codelineno-54-8"></a>python3<span class="w"> </span>agents/meta.compatibility/meta_compatibility.py<span class="w"> </span>list-all
@@ -2423,7 +2422,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 25, 2025 00:48:53 UTC">October 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 25, 2025 18:19:38 UTC">October 25, 2025</span>
   </span>
 
     
