@@ -113,5 +113,118 @@
     "status": "success",
     "duration_ms": 3,
     "caller": "cli"
+  },
+  {
+    "timestamp": "2025-10-24T21:25:13.261475+00:00",
+    "execution_id": "393398ad-919f-4eff-b46b-968b63ce5de5",
+    "skill": "registry.update",
+    "inputs": {
+      "manifest_path": "skills/registry.update/skill.yaml",
+      "skill_name": "registry.update"
+    },
+    "status": "success",
+    "duration_ms": 7,
+    "caller": "cli",
+    "registry_path": "/home/user/betty/registry/skills.json",
+    "total_skills": 9,
+    "policy_enforced": true,
+    "diff": {
+      "operation": "add",
+      "skill_name": "registry.update",
+      "skills_before": 8,
+      "skills_after": 9
+    }
+  },
+  {
+    "timestamp": "2025-10-24T21:25:20.977528+00:00",
+    "execution_id": "819e6c4c-a2b0-457c-8964-c687d7d3fdd9",
+    "skill": "registry.update",
+    "inputs": {
+      "manifest_path": "skills/registry.update/skill.yaml",
+      "skill_name": "registry.update"
+    },
+    "status": "success",
+    "duration_ms": 5,
+    "caller": "cli",
+    "registry_path": "/home/user/betty/registry/skills.json",
+    "total_skills": 9,
+    "policy_enforced": true,
+    "diff": {
+      "operation": "update",
+      "skill_name": "registry.update",
+      "skills_before": 9,
+      "skills_after": 9
+    }
+  },
+  {
+    "timestamp": "2025-10-24T21:26:11.171786+00:00",
+    "execution_id": "1b2072e3-c8dc-48a2-b8b1-31a10bddfb0a",
+    "skill": "registry.update",
+    "inputs": {
+      "manifest_path": "skills/registry.update/skill.yaml",
+      "skill_name": "registry.update"
+    },
+    "status": "success",
+    "duration_ms": 6,
+    "caller": "cli",
+    "registry_path": "/home/user/betty/registry/skills.json",
+    "total_skills": 9,
+    "policy_enforced": true,
+    "diff": {
+      "operation": "update",
+      "skill_name": "registry.update",
+      "skills_before": 9,
+      "skills_after": 9
+    }
+  },
+  {
+    "timestamp": "2025-10-24T21:24:58.108018+00:00",
+    "execution_id": "473850d1-d250-4dcc-80cf-c513cb64fa28",
+    "skill": "test.example",
+    "inputs": {
+      "cli_args": []
+    },
+    "status": "success",
+    "duration_ms": 100,
+    "caller": "cli",
+    "exit_code": 0
+  },
+  {
+    "timestamp": "2025-10-24T21:24:58.124272+00:00",
+    "execution_id": "b0ef1c1b-71ff-4ab2-b70b-0632edba3b8f",
+    "skill": "test.failure",
+    "inputs": {
+      "cli_args": []
+    },
+    "status": "failed",
+    "duration_ms": 0,
+    "caller": "cli",
+    "exit_code": 1
+  },
+  {
+    "timestamp": "2025-10-24T21:24:58.127757+00:00",
+    "execution_id": "00498cfb-bac8-43b9-bb9a-450016e4a2fc",
+    "skill": "test_auto_detect",
+    "inputs": {
+      "cli_args": []
+    },
+    "status": "success",
+    "duration_ms": 0,
+    "caller": "cli",
+    "exit_code": 0
+  },
+  {
+    "timestamp": "2025-10-24T21:25:27.374353+00:00",
+    "execution_id": "3393d60d-2473-41ea-b4e7-5cc3ad8dae66",
+    "skill": "plugin.build",
+    "inputs": {
+      "cli_args": [
+        "--help"
+      ]
+    },
+    "status": "success",
+    "duration_ms": 4,
+    "caller": "cli",
+    "exit_code": 0
   }
 ]

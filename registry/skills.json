@@ -1,14 +1,20 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-23T19:59:00.000000+00:00",
+  "generated_at": "2025-10-24T21:26:11.166217+00:00",
   "skills": [
     {
       "name": "workflow.validate",
       "version": "0.1.0",
       "description": "Validates Betty workflow YAML definitions to ensure correct structure and required fields.\n",
-      "inputs": ["workflow.yaml"],
-      "outputs": ["validation_result.json"],
-      "dependencies": ["context.schema"],
+      "inputs": [
+        "workflow.yaml"
+      ],
+      "outputs": [
+        "validation_result.json"
+      ],
+      "dependencies": [
+        "context.schema"
+      ],
       "status": "active",
       "entrypoints": [
         {
@@ -102,17 +108,27 @@
           "description": "Path to .claude/hooks.yaml file"
         }
       ],
-      "dependencies": ["context.schema"],
+      "dependencies": [
+        "context.schema"
+      ],
       "entrypoints": [
         {
           "command": "/skill/hook/define",
           "handler": "hook_define.py",
           "runtime": "python",
-          "permissions": ["filesystem:read", "filesystem:write"]
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
         }
       ],
       "status": "active",
-      "tags": ["hooks", "validation", "automation", "claude-code"]
+      "tags": [
+        "hooks",
+        "validation",
+        "automation",
+        "claude-code"
+      ]
     },
     {
       "name": "api.validate",
@@ -157,17 +173,28 @@
           "description": "Version of guidelines used for validation"
         }
       ],
-      "dependencies": ["context.schema"],
+      "dependencies": [
+        "context.schema"
+      ],
       "entrypoints": [
         {
           "command": "/skill/api/validate",
           "handler": "api_validate.py",
           "runtime": "python",
-          "permissions": ["filesystem:read", "network:http"]
+          "permissions": [
+            "filesystem:read",
+            "network:http"
+          ]
         }
       ],
       "status": "active",
-      "tags": ["api", "validation", "openapi", "asyncapi", "zalando"]
+      "tags": [
+        "api",
+        "validation",
+        "openapi",
+        "asyncapi",
+        "zalando"
+      ]
     },
     {
       "name": "api.define",
@@ -221,25 +248,42 @@
           "description": "Generated specification content"
         }
       ],
-      "dependencies": ["context.schema"],
+      "dependencies": [
+        "context.schema"
+      ],
       "entrypoints": [
         {
           "command": "/skill/api/define",
           "handler": "api_define.py",
           "runtime": "python",
-          "permissions": ["filesystem:read", "filesystem:write"]
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
         }
       ],
       "status": "active",
-      "tags": ["api", "openapi", "asyncapi", "scaffolding", "zalando"]
+      "tags": [
+        "api",
+        "openapi",
+        "asyncapi",
+        "scaffolding",
+        "zalando"
+      ]
     },
     {
       "name": "docs.sync.plugin_manifest",
       "version": "0.1.0",
       "description": "Reconciles plugin.yaml with Betty Framework registries to ensure consistency. Identifies missing, orphaned, and mismatched command entries and suggests corrections.",
       "inputs": [],
-      "outputs": ["plugin.preview.yaml", "plugin_manifest_diff.md"],
-      "dependencies": ["plugin.sync", "registry.update"],
+      "outputs": [
+        "plugin.preview.yaml",
+        "plugin_manifest_diff.md"
+      ],
+      "dependencies": [
+        "plugin.sync",
+        "registry.update"
+      ],
       "status": "active",
       "entrypoints": [
         {
@@ -248,18 +292,33 @@
           "runtime": "python",
           "description": "Reconcile plugin.yaml with registry files. Identifies discrepancies and generates plugin.preview.yaml with suggested updates and a detailed diff report.",
           "parameters": [],
-          "permissions": ["filesystem:read", "filesystem:write"]
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
         }
       ],
-      "tags": ["docs", "plugin", "registry", "validation", "reconciliation", "infrastructure"]
+      "tags": [
+        "docs",
+        "plugin",
+        "registry",
+        "validation",
+        "reconciliation",
+        "infrastructure"
+      ]
     },
     {
       "name": "docs.sync.readme",
       "version": "0.1.0",
       "description": "Regenerate the top-level README.md to reflect all current registered skills and agents. Pulls from registry/skills.json and registry/agents.json, groups by category, and updates documentation sections while maintaining repo style and tone.\n",
       "inputs": [],
-      "outputs": ["README.md", "sync_report.json"],
-      "dependencies": ["registry.update"],
+      "outputs": [
+        "README.md",
+        "sync_report.json"
+      ],
+      "dependencies": [
+        "registry.update"
+      ],
       "status": "active",
       "entrypoints": [
         {
@@ -268,7 +327,61 @@
           "runtime": "python",
           "description": "Sync README.md with current registry state. Updates skills tables, agents links, and documentation map to reflect all registered skills and agents.\n",
           "parameters": [],
-          "permissions": ["filesystem:read", "filesystem:write"]
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "tags": [
+        "docs",
+        "documentation",
+        "registry",
+        "automation",
+        "maintenance"
+      ]
+    },
+    {
+      "name": "registry.update",
+      "version": "0.2.1",
+      "description": "Updates the Betty Framework Skill Registry by adding or modifying entries based on validated skill manifests. Supports automatic version bumping based on semantic versioning rules.\n",
+      "inputs": [
+        "manifest_path",
+        "auto_version"
+      ],
+      "outputs": [
+        "registry_update_result.json"
+      ],
+      "dependencies": [
+        "skill.define",
+        "registry.diff"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/registry/update",
+          "handler": "registry_update.py",
+          "runtime": "python",
+          "description": "Add or update entries in the Skill Registry with optional automatic version bumping.\n",
+          "parameters": [
+            {
+              "name": "manifest_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to the skill manifest (.skill.yaml) being added or updated."
+            },
+            {
+              "name": "auto_version",
+              "type": "boolean",
+              "required": false,
+              "description": "Enable automatic version bumping based on changes detected. Rules: field removed → major bump, field/permission added → minor bump, other changes → patch bump.\n"
+            }
+          ],
+          "permissions": [
+            "filesystem",
+            "read",
+            "write"
+          ]
         }
       ],
       "tags": ["docs", "documentation", "registry", "automation", "maintenance"]
