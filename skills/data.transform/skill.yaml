@@ -1,0 +1,26 @@
+name: data.transform
+version: 0.1.0
+description: Transform data between different formats (JSON, YAML, XML, CSV) with
+  validation and error handling
+inputs:
+- input_file_path
+- source_format
+- target_format
+- schema_path (optional)
+outputs:
+- transformed_file
+- transformation_report.json
+status: active
+permissions:
+- filesystem:read
+- filesystem:write
+entrypoints:
+- command: /data/transform
+  handler: data_transform.py
+  runtime: python
+  description: Transform data between different formats (JSON, YAML, XML, CSV) with
+    validation and error handling
+artifact_metadata:
+  produces:
+  - type: transformed-data
+  - type: transformation-report

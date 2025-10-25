@@ -1,0 +1,22 @@
+name: file.compare
+version: 0.1.0
+description: Compare two files and generate detailed diff reports showing line-by-line
+  differences
+inputs:
+- file_path_1
+- file_path_2
+- output_format (optional)
+outputs:
+- diff_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /file/compare
+  handler: file_compare.py
+  runtime: python
+  description: Compare two files and generate detailed diff reports showing line-by-line
+    differences
+artifact_metadata:
+  produces:
+  - type: diff-report
