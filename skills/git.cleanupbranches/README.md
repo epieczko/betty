@@ -1,0 +1,50 @@
+# git.cleanupbranches
+
+Clean up merged and stale git branches both locally and remotely. Analyzes branch status, identifies branches that are safe to delete (merged or stale), and provides interactive cleanup with safety checks. - git-repository - Local git repository with branch information - branch-metadata - Branch merge status and last commit dates - branch-cleanup-report - Report of branches analyzed and deleted - cleanup-summary - Summary with statistics (branches deleted, kept, errors) - dry_run (boolean): Show what would be deleted without deleting (default: true) - include_remote (boolean): Also clean up remote branches (default: false) - stale_days (integer): Consider branches stale after N days of no commits (default: 30) - protected_branches (array): Branches to never delete (default: ["main", "master", "develop", "development"]) - interactive (boolean): Ask for confirmation before deleting (default: true) - merged_only (boolean): Only delete merged branches, ignore stale (default: false) - git command line tool - Access to git repository (read for analysis, write for deletion) - Access to remote repository (if include_remote=true) 1. Validate we're in a git repository 2. Get list of all local branches 3. Identify current branch (never delete) 4. For each branch: - Check if in protected list - Check if merged into main/master/develop - Check last commit date for staleness - Calculate deletion recommendation 5. Build list of branches to delete (merged or stale) 6. Display analysis results to user 7. If interactive, ask for confirmation 8. If confirmed (or not interactive): - Delete local branches - If include_remote, delete from remote - Track successes and failures 9. Generate cleanup report with statistics 10. Return structured results - Never deletes current branch - Never deletes protected branches (main, master, develop) - Default is dry_run=true (shows what would happen) - Interactive confirmation by default - Detailed logging of all operations - Rollback information provided ```python python3 skills/git.cleanupbranches/git_cleanupbranches.py --dry-run python3 skills/git.cleanupbranches/git_cleanupbranches.py --no-dry-run python3 skills/git.cleanupbranches/git_cleanupbranches.py --no-dry-run --stale-days 60 python3 skills/git.cleanupbranches/git_cleanupbranches.py --no-dry-run --include-remote python3 skills/git.cleanupbranches/git_cleanupbranches.py --no-dry-run --no-interactive --merged-only ``` ```json { "status": "success", "analyzed": 25, "deleted": 5, "kept": 20, "branches_deleted": ["feature/old-feature", "fix/old-bug"], "branches_kept": ["feature/active", "main", "develop"], "protected": 3, "dry_run": false, "errors": [] } ``` - git - cleanup - maintenance - branches - automation This skill requires SKILL_AND_COMMAND pattern due to: - 8-10 steps (exceeds threshold) - Medium autonomy (analyzes and recommends deletions) - Reusable for CI/CD and release workflows - Complex logic with safety checks and interactive confirmation
+
+## Overview
+
+**Purpose:** Clean up merged and stale git branches both locally and remotely. Analyzes branch status, identifies branches that are safe to delete (merged or stale), and provides interactive cleanup with safety checks. - git-repository - Local git repository with branch information - branch-metadata - Branch merge status and last commit dates - branch-cleanup-report - Report of branches analyzed and deleted - cleanup-summary - Summary with statistics (branches deleted, kept, errors) - dry_run (boolean): Show what would be deleted without deleting (default: true) - include_remote (boolean): Also clean up remote branches (default: false) - stale_days (integer): Consider branches stale after N days of no commits (default: 30) - protected_branches (array): Branches to never delete (default: ["main", "master", "develop", "development"]) - interactive (boolean): Ask for confirmation before deleting (default: true) - merged_only (boolean): Only delete merged branches, ignore stale (default: false) - git command line tool - Access to git repository (read for analysis, write for deletion) - Access to remote repository (if include_remote=true) 1. Validate we're in a git repository 2. Get list of all local branches 3. Identify current branch (never delete) 4. For each branch: - Check if in protected list - Check if merged into main/master/develop - Check last commit date for staleness - Calculate deletion recommendation 5. Build list of branches to delete (merged or stale) 6. Display analysis results to user 7. If interactive, ask for confirmation 8. If confirmed (or not interactive): - Delete local branches - If include_remote, delete from remote - Track successes and failures 9. Generate cleanup report with statistics 10. Return structured results - Never deletes current branch - Never deletes protected branches (main, master, develop) - Default is dry_run=true (shows what would happen) - Interactive confirmation by default - Detailed logging of all operations - Rollback information provided ```python python3 skills/git.cleanupbranches/git_cleanupbranches.py --dry-run python3 skills/git.cleanupbranches/git_cleanupbranches.py --no-dry-run python3 skills/git.cleanupbranches/git_cleanupbranches.py --no-dry-run --stale-days 60 python3 skills/git.cleanupbranches/git_cleanupbranches.py --no-dry-run --include-remote python3 skills/git.cleanupbranches/git_cleanupbranches.py --no-dry-run --no-interactive --merged-only ``` ```json { "status": "success", "analyzed": 25, "deleted": 5, "kept": 20, "branches_deleted": ["feature/old-feature", "fix/old-bug"], "branches_kept": ["feature/active", "main", "develop"], "protected": 3, "dry_run": false, "errors": [] } ``` - git - cleanup - maintenance - branches - automation This skill requires SKILL_AND_COMMAND pattern due to: - 8-10 steps (exceeds threshold) - Medium autonomy (analyzes and recommends deletions) - Reusable for CI/CD and release workflows - Complex logic with safety checks and interactive confirmation
+
+**Command:** `/git/cleanupbranches`
+
+## Usage
+
+### Basic Usage
+
+```bash
+python3 skills/git/cleanupbranches/git_cleanupbranches.py
+```
+
+### With Arguments
+
+```bash
+python3 skills/git/cleanupbranches/git_cleanupbranches.py \
+  --output-format json
+```
+
+## Integration
+
+This skill can be used in agents by including it in `skills_available`:
+
+```yaml
+name: my.agent
+skills_available:
+  - git.cleanupbranches
+```
+
+## Testing
+
+Run tests with:
+
+```bash
+pytest skills/git/cleanupbranches/test_git_cleanupbranches.py -v
+```
+
+## Created By
+
+This skill was generated by **meta.skill**, the skill creator meta-agent.
+
+---
+
+*Part of the Betty Framework*
