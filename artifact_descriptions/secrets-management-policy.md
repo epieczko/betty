@@ -2,43 +2,58 @@
 
 ## Executive Summary
 
-The Secrets Management Policy is a formal directive that establishes organizational rules, standards, and requirements for secrets management. This governance artifact provides mandatory guidance that applies across the organization, ensuring consistency, compliance, and risk management.
+The Secrets Management Policy defines mandatory requirements for storing, accessing, rotating, and auditing secrets (API keys, passwords, certificates, encryption keys, database credentials) using centralized secrets vaults (HashiCorp Vault, AWS Secrets Manager, Azure Key Vault). Following zero-trust security principles and least-privilege access, this policy prohibits hardcoded secrets, requires automated rotation, enforces audit logging, and mandates encryption at rest and in transit for all secrets.
 
-As a cornerstone of organizational governance, policies translate strategic intent and risk appetite into concrete requirements. They establish the "rules of the road" that guide behavior, decision-making, and operational activities while providing the foundation for controls, procedures, and audit criteria.
+As the foundation for preventing credential compromise and unauthorized access, this policy provides security teams with enforceable secrets management standards, developers with clear requirements for secrets usage, DevOps teams with centralized secrets infrastructure guidance, and auditors with controls demonstrating secrets protection. It transforms ad-hoc secrets handling into systematic, auditable, and secure secrets lifecycle management.
 
 ### Strategic Importance
 
-- **Risk Management**: Mitigates organizational risk through standardized requirements
-- **Compliance Assurance**: Ensures adherence to regulatory and legal obligations
-- **Consistency**: Drives uniform approach across business units and geographies
-- **Accountability**: Establishes clear expectations and consequences
-- **Efficiency**: Reduces redundant decision-making through established standards
+- **Breach Prevention**: Eliminates hardcoded credentials and exposed secrets as attack vectors
+- **Least Privilege**: Enforces minimal necessary access to secrets based on identity and context
+- **Automated Rotation**: Requires periodic rotation reducing window of compromise from leaked secrets
+- **Audit Trail**: Provides complete logging of secret access for forensics and compliance
+- **Zero Trust**: Validates identity and authorization for every secret access request
+- **Compliance**: Satisfies PCI-DSS 8.2, SOC 2 CC6.1, ISO 27001 A.9.4.3 secrets protection requirements
+- **Detection**: Enables alerting on anomalous secret access patterns or unauthorized attempts
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+The Secrets Management Policy mandates centralized, audited, and encrypted storage and access for all organizational secrets using approved secrets management solutions, prohibits hardcoded secrets, requires automated rotation, and enforces least-privilege access.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Secret types: API keys, service account credentials, database passwords, TLS/SSL certificates, encryption keys, OAuth tokens, SSH keys
+- Secrets vaults: HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, Google Secret Manager, CyberArk
+- Prohibited practices: Hardcoded secrets in code, secrets in config files, secrets in environment variables (unless injected), secrets in version control
+- Storage requirements: Encryption at rest (AES-256), encryption in transit (TLS 1.3), access via vault API only
+- Access control: Identity-based authentication, role-based access control (RBAC), MFA for human access, service identity for applications
+- Rotation requirements: Automated rotation schedules (90 days for long-lived secrets, shorter for high-privilege)
+- Audit logging: All secret read operations logged with requestor identity, timestamp, secret accessed
+- Secrets scanning: Pre-commit hooks, CI/CD scanning (TruffleHog, git-secrets, Gitleaks) to prevent secret commits
+- Emergency procedures: Break-glass access, emergency rotation, compromise response
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Encryption key management for data encryption (covered in Data Encryption Policy)
+- Identity and access management strategy (covered in IAM Policy)
+- Incident response procedures (covered in Incident Management Plan)
+- Application-specific implementation details (guidance in Secrets Management Standards)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Software Developers storing and accessing secrets in applications
+- DevOps/Platform Engineers implementing secrets management infrastructure
+- Security Engineers enforcing policy and secrets scanning
+- Application Security Teams reviewing code for secrets exposure
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- CISOs and Security Leadership defining security posture
+- Compliance Teams demonstrating secrets protection for audits
+- IT Operations rotating and managing infrastructure secrets
+- Third-Party Developers accessing organization secrets through APIs
 
 ## Document Information
 
