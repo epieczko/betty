@@ -41,6 +41,30 @@ Betty doesn’t modify the Claude Code runtime—it **configures and disciplines
 
 ---
 
+## 🚀 Quick Start
+
+**New to Betty?** Get started in 5 minutes:
+
+```bash
+# One-command setup
+curl -sSL https://raw.githubusercontent.com/epieczko/betty/main/scripts/quickstart.sh | bash
+
+# Or manually
+git clone https://github.com/epieczko/betty.git
+cd betty
+pip install -r requirements.txt
+export PYTHONPATH="${PYTHONPATH}:$(pwd)"
+```
+
+**Try your first skill:**
+```bash
+python3 examples/skills/hello.world/hello_world.py --name "YourName"
+```
+
+📖 **Full Tutorial**: [QUICKSTART.md](QUICKSTART.md) — Betty in 5 minutes with a complete Hello World example
+
+---
+
 ## 🧩 Current Core Skills
 
 Betty's self-referential "kernel" of skills bootstraps the rest of the system:
@@ -201,6 +225,12 @@ Each step logs to `/registry/skills.json` and `/registry/workflow_history.json`.
 ---
 
 ## 📚 Documentation
+
+### Getting Started
+
+* [Quickstart Tutorial](QUICKSTART.md) — Betty in 5 minutes with Hello World example
+* [Getting Started Guide](GETTING_STARTED.md) — Comprehensive getting started guide
+* [Installation Guide](INSTALLATION.md) — Detailed installation instructions
 
 ### Architecture & Design
 
