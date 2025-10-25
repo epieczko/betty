@@ -1,0 +1,121 @@
+name: build.optimize
+version: 0.1.0
+description: |
+  Comprehensive build process optimization and analysis.
+
+  Analyzes build systems (Webpack, Vite, Rollup, TypeScript, etc.) and provides
+  actionable recommendations for improving build speed and efficiency.
+
+  Covers:
+  - Build system identification and analysis
+  - Dependency optimization
+  - Caching strategies
+  - Bundle analysis and code splitting
+  - TypeScript compilation optimization
+  - Parallelization opportunities
+  - Memory usage optimization
+  - CI/CD build improvements
+
+parameters:
+  - name: project_path
+    type: string
+    required: false
+    default: "."
+    description: "Path to project root directory"
+
+  - name: format
+    type: enum
+    values: [json, human]
+    default: human
+    description: "Output format"
+
+  - name: apply
+    type: boolean
+    default: false
+    description: "Apply recommended optimizations interactively"
+
+returns:
+  type: object
+  description: "Build optimization analysis results"
+  schema:
+    project_path: string
+    timestamp: string
+    build_system:
+      type: string
+      configs: array
+    analysis:
+      dependencies: object
+      caching: object
+      bundling: object
+      typescript: object
+      parallelization: object
+    recommendations: array
+    estimated_improvement: string
+
+execution:
+  type: script
+  entry_point: build_optimize.py
+  runtime: python3
+
+dependencies:
+  - python: ">=3.8"
+
+tags:
+  - build
+  - optimization
+  - performance
+  - webpack
+  - vite
+  - typescript
+
+status: active
+
+examples:
+  - name: "Analyze current project"
+    command: "python3 skills/build.optimize/build_optimize.py"
+    description: "Analyze build configuration in current directory"
+
+  - name: "Analyze specific project"
+    command: "python3 skills/build.optimize/build_optimize.py /path/to/project"
+    description: "Analyze build configuration in specified directory"
+
+  - name: "JSON output"
+    command: "python3 skills/build.optimize/build_optimize.py --format=json"
+    description: "Output analysis results as JSON"
+
+documentation:
+  overview: |
+    The build.optimize skill provides comprehensive analysis of build processes
+    and generates prioritized recommendations for optimization.
+
+  features:
+    - Automatic build system detection
+    - Dependency impact analysis
+    - Caching configuration review
+    - Bundle size and code splitting analysis
+    - TypeScript compilation optimization
+    - Parallel processing recommendations
+    - Estimated improvement calculations
+
+  usage: |
+    Basic usage:
+      python3 skills/build.optimize/build_optimize.py
+
+    For specific project:
+      python3 skills/build.optimize/build_optimize.py /path/to/project
+
+    Machine-readable output:
+      python3 skills/build.optimize/build_optimize.py --format=json
+
+  best_practices:
+    - Run analysis before making changes to establish baseline
+    - Address high-priority recommendations first
+    - Test build times before and after optimizations
+    - Keep cache directories in .gitignore
+    - Enable caching in CI/CD pipelines
+
+  troubleshooting:
+    - If build system not detected, ensure package.json exists
+    - Some optimizations require manual configuration file edits
+    - TypeScript analysis requires valid tsconfig.json
+    - Results are most accurate with complete project structure
