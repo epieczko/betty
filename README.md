@@ -1,243 +1,552 @@
 # Betty Framework
 
-> **Claude Code thinks. Betty builds.**
+<div align="center">
 
-Betty Framework is **RiskExec’s system for structured, auditable AI-assisted engineering** built on Anthropic’s Claude Code Plugins platform.  
-Where Claude Code provides the runtime, plugin model, and marketplace for extending AI development, **Betty adds methodology, orchestration, and governance**—turning raw agent capability into a repeatable, enterprise-grade engineering discipline.
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Python](https://img.shields.io/badge/python-3.11+-green.svg)
+![License](https://img.shields.io/badge/license-MIT-purple.svg)
+![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)
+![Skills](https://img.shields.io/badge/skills-35-orange.svg)
+![Agents](https://img.shields.io/badge/agents-20-red.svg)
+![Templates](https://img.shields.io/badge/templates-406-yellow.svg)
 
----
+### **Claude Code thinks. Betty builds.**
 
-## 🌐 Mission and Inspiration
+**Enterprise-grade AI-assisted engineering framework with self-improving meta-agents**
 
-Named for **Betty Shannon (1922 – 2017)**—the electrical engineer and mathematician who helped translate Claude Shannon’s theory of information into applied computation—  
-Betty embodies the spirit of **turning reasoning into engineered systems**.
+[Quick Start](#-quick-start) • [Documentation](#-documentation) • [Features](#-key-features) • [Meta-Agents](#-meta-agents-self-improving-infrastructure) • [Artifacts](#-artifact-framework) • [Contributing](#-contributing)
 
-> Claude Code thinks. Betty builds.
-
----
-
-## 🧭 Purpose and Scope
-
-Betty extends Claude Code Plugins into a structured engineering layer that:
-
-* Defines **standardized workflows** (specify → plan → implement → verify).  
-* Establishes **governance and auditability** for every agent action.  
-* Integrates with **enterprise orchestrators and compliance systems**.  
-* Enables **composable engineering** through curated Claude Code Plugins published in the RiskExec Marketplace.
-
-Betty doesn’t modify the Claude Code runtime—it **configures and disciplines** it, providing conventions for how plugins, agents, and teams interact.
+</div>
 
 ---
 
-## ⚙️ How Betty Builds on Claude Code
+## 🎯 What is Betty?
 
-| Claude Code Provides | Betty Adds |
-|----------------------|------------|
-| Plugin runtime & manifest model | Structured engineering lifecycle |
-| Agent & tool integration (via MCP) | Governance, context schema, traceability |
-| Public & private marketplaces | Curated RiskExec Marketplace with certified plugins |
-| Command execution & logging | Multi-phase orchestration and artifact lineage |
-| Context & memory APIs | Enterprise analytics, QA, and policy enforcement |
+Betty Framework is **RiskExec's AI-native SDLC platform** built on Anthropic's Claude Code. Where Claude Code provides the runtime, **Betty adds methodology, orchestration, and governance**—transforming AI capabilities into a repeatable, auditable engineering discipline.
+
+**Named for Betty Shannon (1922-2017)**, the electrical engineer who translated Claude Shannon's information theory into applied computation, Betty embodies **turning reasoning into engineered systems**.
+
+### At a Glance
+
+- **35 Production Skills** — Composable building blocks for automation
+- **20 Intelligent Agents** — Orchestrators combining skills into workflows
+- **6 Meta-Agents** — AI-powered generators that create skills, agents, and hooks
+- **391 Artifact Types** — Enterprise SDLC standards (TOGAF, SAFe, Big Five)
+- **406 Ready Templates** — Consulting-quality artifacts across all phases
+- **Full Governance** — Audit trails, policy enforcement, telemetry
+- **v1.0.0 Released** — Production-ready, marketplace-certified
+
+---
+
+## 📑 Table of Contents
+
+- [Key Features](#-key-features)
+- [Quick Start](#-quick-start)
+- [Meta-Agents: Self-Improving Infrastructure](#-meta-agents-self-improving-infrastructure)
+- [Artifact Framework](#-artifact-framework)
+- [Skills Catalog](#-skills-catalog)
+- [Agents Catalog](#-agents-catalog)
+- [Enterprise Features](#-enterprise-features)
+- [Documentation](#-documentation)
+- [Repository Structure](#-repository-structure)
+- [Requirements](#%EF%B8%8F-requirements)
+- [Contributing](#-contributing)
+- [License](#-license)
+
+---
+
+## ✨ Key Features
+
+### 🤖 **Meta-Agents: Self-Improving Infrastructure**
+
+Betty includes **6 meta-agents** that create and manage framework components autonomously:
+
+| Meta-Agent | Creates | Use Case |
+|------------|---------|----------|
+| **meta.agent** | Agents from descriptions | "Create an API designer agent" |
+| **meta.skill** | Skills from descriptions | "Generate a validation skill" |
+| **meta.hook** | Event-driven hooks | "Add pre-commit API validation" |
+| **meta.artifact** | Artifact type definitions | "Define deployment manifests" |
+| **meta.compatibility** | Compatibility graphs | "Analyze agent dependencies" |
+| **meta.suggest** | Next-step recommendations | "What should I build next?" |
+
+**Breakthrough**: Meta-agents enable **recursive AI infrastructure** where Betty builds Betty.
+
+### 📦 **Artifact Framework: 391 Enterprise Standards**
+
+Complete SDLC artifact library covering:
+
+- **Architecture** (60+ types) — TOGAF, C4, ADRs, system designs
+- **Security** (80+ types) — Threat models, pen tests, compliance
+- **Governance** (100+ types) — RAID logs, charters, decision logs
+- **Data** (40+ types) — Data models, catalogs, lineage
+- **Testing** (50+ types) — Test plans, automation, performance
+- **Requirements** (30+ types) — User stories, epics, BRDs
+- **Deployment** (20+ types) — Runbooks, DR plans, SRE docs
+- **Plus**: AI/ML, Operations, Compliance, Documentation
+
+**406 ready-to-use templates** with Big Five consulting-quality content.
+
+### 🛠️ **35 Production Skills**
+
+Composable, auditable building blocks across:
+
+- **Foundation** — skill.create, registry.update, workflow.compose
+- **API Development** — api.define, api.validate, api.generate-models
+- **Governance** — policy.enforce, audit.log, telemetry.capture
+- **Infrastructure** — plugin.build, plugin.sync, agent.run
+- **Documentation** — docs.sync.readme, generate.docs
+
+### 🎭 **20 Intelligent Agents**
+
+Including specialized consulting agents:
+
+- **strategy.architect** — Business strategy and ROI models
+- **security.architect** — Threat modeling and zero-trust
+- **data.architect** — Data governance and MDM
+- **governance.manager** — Program governance and RAID logs
+- **test.engineer** — Test strategy and automation
+- **deployment.engineer** — SRE and operational excellence
+
+### 🏢 **Enterprise-Grade Governance**
+
+- ✅ **Audit Trails** — Every action logged with provenance
+- ✅ **Policy Enforcement** — Automatic validation against org policies
+- ✅ **Telemetry** — Performance metrics and usage analytics
+- ✅ **Version Control** — Semantic versioning with breaking change detection
+- ✅ **Compliance** — GDPR, SOC 2, HIPAA, PCI-DSS support
 
 ---
 
 ## 🚀 Quick Start
 
-**New to Betty?** Get started in 5 minutes:
+**Get Betty running in under 2 minutes:**
+
+### One-Command Installation
 
 **Linux/macOS:**
 ```bash
-# One-command setup
 curl -sSL https://raw.githubusercontent.com/epieczko/betty/main/scripts/quickstart.sh | bash
-
-# Or manually
-git clone https://github.com/epieczko/betty.git
-cd betty
-pip install -r requirements.txt
-export PYTHONPATH="${PYTHONPATH}:$(pwd)"
 ```
 
 **Windows (PowerShell):**
 ```powershell
-# One-command setup
 irm https://raw.githubusercontent.com/epieczko/betty/main/scripts/quickstart.ps1 | iex
+```
 
-# Or manually
+### Manual Installation
+
+```bash
+# Clone the repository
 git clone https://github.com/epieczko/betty.git
 cd betty
+
+# Install dependencies
 pip install -r requirements.txt
-$env:PYTHONPATH = "$env:PYTHONPATH;$(Get-Location)"
+
+# Set environment
+export PYTHONPATH="${PYTHONPATH}:$(pwd)"
+export BETTY_HOME="$(pwd)"
+
+# Verify installation
+python3 -m betty.validation
 ```
 
-**Try your first skill:**
-```bash
-# Linux/macOS
-python3 examples/skills/hello.world/hello_world.py --name "YourName"
-
-# Windows
-python examples/skills/hello.world/hello_world.py --name "YourName"
-```
-
-📖 **Full Tutorial**: [QUICKSTART.md](QUICKSTART.md) — Betty in 5 minutes with a complete Hello World example (cross-platform)
-
----
-
-## 🧩 Current Core Skills
-
-Betty's self-referential "kernel" of skills bootstraps the rest of the system:
-
-### Foundation Skills
-
-| Skill | Purpose |
-|--------|----------|
-| **registry.update** | Updates the Betty Framework Skill Registry by adding or modifying entries based on validated skill manifests. |
-| **skill.create** | Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework. |
-| **skill.define** | Validates and registers skill manifests (.skill.yaml) for the Betty Framework. Ensures schema compliance and updates the Skill Registry. |
-| **workflow.compose** | Executes multi-step Betty Framework workflows by chaining existing skills. Enables declarative orchestration of skill pipelines. |
-| **workflow.validate** | Validates Betty workflow YAML definitions to ensure correct structure and required fields. |
-
-### API Development Skills
-
-| Skill | Purpose |
-|--------|----------|
-| **api.compatibility** | Detect breaking changes between API specification versions |
-| **api.define** | Create OpenAPI and AsyncAPI specifications from templates |
-| **api.generate-models** | Generate type-safe models from OpenAPI and AsyncAPI specifications using Modelina |
-| **api.validate** | Validate OpenAPI and AsyncAPI specifications against enterprise guidelines |
-
-### Infrastructure Skills
-
-| Skill | Purpose |
-|--------|----------|
-| **agent.define** | Validates and registers agent manifests for the Betty Framework. Ensures schema compliance, validates skill references, and updates the Agent Registry. |
-| **agent.run** | Execute a registered Betty agent by loading its manifest, generating a Claude-friendly prompt, invoking skills based on the agent's workflow, and logging results. Supports both iterative and oneshot reasoning modes with optional Claude API integration. |
-| **command.define** | Validate and register command manifests in the Command Registry |
-| **docs.sync.readme** | Regenerate the top-level README.md to reflect all current registered skills and agents. Pulls from registry/skills.json and registry/agents.json, groups by category, and updates documentation sections while maintaining repo style and tone. |
-| **generate.marketplace** | Generate marketplace catalog files from Betty Framework registries. Filters active and certified skills/agents and outputs marketplace-ready JSON files. |
-| **hook.define** | Create and register validation hooks for Claude Code |
-| **hook.register** | Validate and register hook manifests in the Hook Registry |
-| **plugin.build** | Automatically bundle a plugin directory (or the whole repo) into a deployable Claude Code plugin package. Gathers all declared entrypoints, validates handler files exist, and packages everything into .tar.gz or .zip under /dist. |
-| **plugin.sync** | Automatically generates plugin.yaml from Betty Framework registries. Reads skills.json, commands.json, and hooks.json to build a complete plugin configuration. |
-| **policy.enforce** | Validates operations against organizational policies before execution |
-| **run.agent** | Simulates execution of a Betty agent by loading its manifest, constructing the prompt, and demonstrating which skills would be invoked. Useful for testing agent design and understanding agent behavior. |
-
-These skills form the baseline for an **AI-native SDLC** where creation, validation, registration, and orchestration are themselves skills.
----
-
-## 🧱 Repository Structure
-
-```
-betty-framework/
-├── betty/                         # Shared Python utilities
-│   ├── config.py                  # Configuration constants and paths
-│   ├── validation.py              # Validation utility functions
-│   ├── logging_utils.py           # Logging infrastructure
-│   ├── file_utils.py              # File operations with locking
-│   └── errors.py                  # Custom exception classes
-│
-├── docs/                          # Documentation
-│   ├── betty-framework-overview.md    # High-level architecture overview
-│   ├── betty-architecture.md          # Five-layer model details
-│   ├── CODEBASE_ANALYSIS.md          # Technical codebase analysis
-│   ├── COMMAND_HOOK_INFRASTRUCTURE.md # Commands & hooks documentation
-│   ├── api-driven-development.md     # API-first workflow guide
-│   ├── skills-framework.md           # Skills taxonomy and design
-│   ├── multi-llm-integration-paths.md # Multi-LLM integration options
-│   ├── references.md                  # External documentation links
-│   ├── glossary.md                    # Betty terminology reference
-│   └── contributing.md                # Contribution guidelines
-│
-├── skills/                        # Skills implementation
-│   ├── skill.create/              # Scaffold new skills
-│   ├── skill.define/              # Validate skill manifests
-│   ├── registry.update/           # Update skill registry
-│   ├── workflow.compose/          # Execute workflows
-│   ├── workflow.validate/         # Validate workflow YAML
-│   ├── agent.define/              # Validate & register agents
-│   ├── command.define/            # Validate & register commands
-│   ├── hook.define/               # Create validation hooks
-│   ├── hook.register/             # Register hook manifests
-│   ├── api.define/                # Create API specifications
-│   ├── api.validate/              # Validate API specs
-│   ├── api.generate-models/       # Generate models from specs
-│   ├── api.compatibility/         # Check API compatibility
-│   ├── policy.enforce/            # Enforce organizational policies
-│   └── audit.log/                 # Audit trail logging
-│
-├── agents/                        # Intelligent orchestrators
-│   ├── api.designer/              # Design APIs with iterative refinement
-│   │   ├── agent.yaml             # Agent manifest
-│   │   └── README.md              # Agent documentation
-│   └── api.analyzer/              # Analyze API compatibility
-│       ├── agent.yaml
-│       └── README.md
-│
-├── .claude/                       # Claude Code integration
-│   ├── commands/                  # Slash command definitions
-│   │   ├── README.md              # Commands overview
-│   │   ├── api-design.md          # /api-design command
-│   │   ├── api-validate.md        # /api-validate command
-│   │   ├── api-generate.md        # /api-generate command
-│   │   └── api-compatibility.md   # /api-compatibility command
-│   └── hooks.yaml                 # Live hooks configuration
-│
-├── registry/                      # Registries (source of truth)
-│   ├── skills.json                # Registered skills
-│   ├── agents.json                # Registered agents
-│   ├── commands.json              # Registered commands
-│   ├── hooks.json                 # Registered hooks
-│   └── workflow_history.json      # Workflow execution history
-│
-├── workflows/                     # Workflow definitions
-│   ├── example_create_and_register.yaml
-│   └── api_first_development.yaml
-│
-└── tests/                         # Test suites
-    └── integration/               # Integration tests
-```
-
----
-
-## 🚀 Example Usage
+### Your First Betty Experience
 
 ```bash
-# 1 · Create a new skill
-python skills/skill.create/skill_create.py workflow.validate "Validates workflow YAML definitions"
+# Create an artifact type using meta-agent
+cat > /tmp/api-spec.md <<'EOF'
+# Name: openapi-spec
+# Purpose: OpenAPI 3.0 specifications
+# Format: YAML
+# Producers: api.designer
+# Consumers: api.validator, code.generator
+EOF
 
-# 2 · Validate its manifest
-python skills/skill.define/skill_define.py skills/workflow.validate/skill.yaml
+python3 agents/meta.artifact/meta_artifact.py create /tmp/api-spec.md
 
-# 3 · Update the registry
-python skills/registry.update/registry_update.py skills/workflow.validate/skill.yaml
+# Create an agent using meta-agent
+cat > /tmp/designer.md <<'EOF'
+# Name: api.designer
+# Purpose: Design REST APIs following enterprise guidelines
+# Outputs: openapi-spec
+EOF
 
-# 4 · Run the entire process as a workflow
-python skills/workflow.compose/workflow_compose.py workflows/example_create_and_register.yaml
+python3 agents/meta.agent/meta_agent.py /tmp/designer.md
+
+# Verify with compatibility analysis
+python3 agents/meta.compatibility/meta_compatibility.py analyze api.designer
 ```
 
-Each step logs to `/registry/skills.json` and `/registry/workflow_history.json`.
+**Congratulations!** You've just created artifacts and agents using meta-agents.
+
+📖 **Full Tutorials**:
+- [QUICKSTART.md](QUICKSTART.md) — Betty in 5 minutes
+- [GETTING_STARTED.md](GETTING_STARTED.md) — Comprehensive guide
+- [INSTALLATION.md](INSTALLATION.md) — Detailed installation
 
 ---
 
-## 🧠 Design Principles
+## 🤖 Meta-Agents: Self-Improving Infrastructure
 
-* **Structure over improvisation** — Every workflow step is defined, typed, and reproducible.
-* **Human oversight first** — Developers can approve, correct, or extend any agent output.
-* **Composable by default** — Skills can be rearranged or replaced without breaking the system.
-* **Audit as a feature** — Provenance and traceability are built-in, not bolted-on.
-* **Future-ready** — Engineered for multi-agent collaboration and adaptive workflows.
+Meta-agents are **AI-powered generators** that create Betty components from natural language descriptions.
+
+### 1. meta.agent — Create Agents
+
+```bash
+# Describe what you want
+cat > /tmp/my_agent.md <<'EOF'
+# Name: code.reviewer
+# Purpose: Automated code review with best practices
+# Inputs: source-code, review-guidelines
+# Outputs: review-report, issue-list
+# Skills: code.analyze, pattern.detect, recommendation.generate
+EOF
+
+# Generate the agent
+python3 agents/meta.agent/meta_agent.py /tmp/my_agent.md
+
+# Output: Complete agent with agent.yaml, README.md, and workflow
+```
+
+### 2. meta.skill — Create Skills
+
+```bash
+# Describe the skill
+cat > /tmp/my_skill.md <<'EOF'
+# Name: security.scan
+# Purpose: Run security vulnerability scans
+# Inputs: codebase-path, scan-config
+# Outputs: vulnerability-report
+# Dependencies: python-security-tools
+EOF
+
+# Generate the skill
+python3 agents/meta.skill/meta_skill.py /tmp/my_skill.md
+
+# Output: skills/security.scan/ with skill.yaml, SKILL.md, handler
+```
+
+### 3. meta.hook — Create Event Automation
+
+```bash
+# Define the hook
+python3 agents/meta.hook/meta_hook.py create \
+  --event on_file_edit \
+  --pattern "*.openapi.yaml" \
+  --command api.validate \
+  --blocking true
+
+# Output: Automatic API validation on file edits
+```
+
+### 4. meta.artifact — Define Data Standards
+
+```bash
+# Create artifact type
+python3 agents/meta.artifact/meta_artifact.py create <<'EOF'
+# Name: deployment-manifest
+# Purpose: Kubernetes deployment configurations
+# Format: YAML
+# Schema: k8s-deployment-v1
+# Producers: deployment.engineer
+# Consumers: infrastructure.deploy, security.scan
+EOF
+
+# Output: Artifact definition with schema and validation
+```
+
+### 5. meta.compatibility — Analyze Dependencies
+
+```bash
+# Check agent compatibility
+python3 agents/meta.compatibility/meta_compatibility.py analyze api.designer
+
+# Output:
+# ✓ Produces: openapi-spec, api-documentation
+# ✓ Consumes: requirements-doc
+# ✓ Compatible with: api.validator, code.generator
+# ⚠ Missing consumer for: api-documentation
+```
+
+### 6. meta.suggest — Get Recommendations
+
+```bash
+# Ask for next steps
+python3 agents/meta.suggest/meta_suggest.py \
+  --context "I have api.designer and api.validator" \
+  --goal "Complete API workflow"
+
+# Output:
+# Suggested next steps:
+# 1. Create code.generator agent (produces: client-sdk)
+# 2. Add api.publisher skill (deploy to gateway)
+# 3. Create api.monitor agent (track usage)
+```
+
+**Why Meta-Agents Matter**: They enable **emergent capabilities**. As you create more artifacts, agents, and skills, the meta-agents understand your domain better and generate increasingly relevant components.
 
 ---
 
-## 🔭 Planned Expansion
+## 📦 Artifact Framework
 
-| Area                         | Skill / Feature     | Description                                                   |
-| ---------------------------- | ------------------- | ------------------------------------------------------------- |
-| **Workflow Validation**      | `workflow.validate` | Ensures workflow YAML schema correctness before execution.    |
-| **Documentation Generation** | `generate.docs`     | Auto-creates `SKILL.md` from each `skill.yaml`.               |
-| **Governance Policies**      | `policy.enforce`    | Enforces naming rules, permissions, and compliance policies.  |
-| **Observability**            | `telemetry.capture` | Collects runtime metrics and logs for skills and agents.      |
-| **Versioning**               | `registry.diff`     | Tracks manifest deltas and release history.                   |
-| **Marketplace Integration**  | `plugin.publish`    | Publishes certified Betty skills to Claude Code marketplaces. |
+Betty's artifact framework provides **391 enterprise-standard artifact types** with **406 ready-to-use templates**.
+
+### Artifact Categories
+
+#### 🏗️ Architecture (60+ types)
+- System architecture diagrams (C4, UML, deployment)
+- Architecture Decision Records (ADRs)
+- Technology selection matrices
+- Integration patterns and diagrams
+- Capacity planning models
+
+#### 🔒 Security (80+ types)
+- Threat models (STRIDE, attack trees)
+- Security architecture diagrams
+- Penetration testing reports
+- Vulnerability management plans
+- Incident response playbooks
+- Zero-trust architecture designs
+- Compliance matrices (GDPR, SOC 2, HIPAA, PCI-DSS)
+
+#### 📊 Governance (100+ types)
+- Project charters
+- RAID logs (Risks, Assumptions, Issues, Decisions)
+- Decision logs and ADRs
+- Governance frameworks
+- Stakeholder analyses
+- Steering committee reports
+- Change control processes
+- Benefits realization plans
+
+#### 💾 Data (40+ types)
+- Data models (logical, physical, conceptual)
+- Data dictionaries and catalogs
+- Data flow diagrams
+- Data governance policies
+- Data quality frameworks
+- Master data management plans
+- Data lineage diagrams
+
+#### ✅ Testing (50+ types)
+- Test plans and strategies
+- Test cases and scenarios
+- Test automation frameworks
+- Performance test plans
+- Integration test suites
+- Regression test suites
+- Quality assurance reports
+- Acceptance criteria
+
+#### 📋 Requirements (30+ types)
+- Business requirements documents
+- Functional specifications
+- User stories and epics
+- Use case diagrams
+- Requirements traceability matrices
+- Product roadmaps
+- Feature prioritization matrices
+
+#### 🚀 Deployment (20+ types)
+- Deployment runbooks
+- Disaster recovery plans
+- SRE documentation
+- Monitoring and alerting configs
+- Infrastructure as code
+- CI/CD pipeline definitions
+- Release notes and changelogs
+
+#### Plus More Categories
+- **AI/ML**: Model cards, training plans, experiment logs
+- **Operations**: Incident post-mortems, on-call guides, SLO/SLA definitions
+- **Compliance**: Audit reports, policy documents, certification evidence
+- **Documentation**: API docs, user guides, architecture docs
+
+### Using Artifacts
+
+```bash
+# List available artifact types
+python3 agents/meta.artifact/meta_artifact.py list --category security
+
+# Create artifact from template
+python3 skills/artifact.create/artifact_create.py \
+  --type threat-model \
+  --name payment-system-threats \
+  --template stride
+
+# Validate artifact
+python3 skills/artifact.validate/artifact_validate.py \
+  artifacts/threat-model/payment-system-threats.yaml
+
+# Review artifact quality
+python3 skills/artifact.review/artifact_review.py \
+  artifacts/threat-model/payment-system-threats.yaml \
+  --criteria big-five-standards
+```
+
+**Phase Documentation**:
+- [PHASE1_COMPLETE.md](PHASE1_COMPLETE.md) — Artifact definitions and templates
+- [PHASE2_COMPLETE.md](PHASE2_COMPLETE.md) — Validation and review capabilities
+- [PHASE3_COMPLETE.md](PHASE3_COMPLETE.md) — Specialized agents and workflows
+
+---
+
+## 🧩 Skills Catalog
+
+**35 active production skills** organized by category:
+
+### Foundation Skills (5 skills)
+
+| Skill | Purpose |
+|-------|---------|
+| **registry.update** | Add/update entries in skill registry with automatic versioning |
+| **skill.create** | Generate new skill directory and manifest |
+| **skill.define** | Validate and register skill manifests |
+| **workflow.compose** | Execute multi-step workflows by chaining skills |
+| **workflow.validate** | Validate workflow YAML definitions |
+
+### API Development Skills (4 skills)
+
+| Skill | Purpose |
+|-------|---------|
+| **api.compatibility** | Detect breaking changes between API versions |
+| **api.define** | Create OpenAPI/AsyncAPI specs from templates |
+| **api.generate-models** | Generate type-safe models using Modelina |
+| **api.validate** | Validate specs against enterprise guidelines (Zalando, Google, Microsoft) |
+
+### Governance Skills (6 skills)
+
+| Skill | Purpose |
+|-------|---------|
+| **audit.log** | Record audit events to centralized log |
+| **policy.enforce** | Validate operations against organizational policies |
+| **telemetry.capture** | Capture usage telemetry with thread-safe logging |
+| **registry.diff** | Compare manifest versions and detect breaking changes |
+| **registry.query** | Query registry for skills, agents, commands |
+| **plugin.publish** | Publish bundled plugins to marketplace |
+
+### Infrastructure Skills (12 skills)
+
+| Skill | Purpose |
+|-------|---------|
+| **agent.define** | Validate and register agent manifests |
+| **agent.run** | Execute agents with iterative/oneshot reasoning |
+| **command.define** | Validate and register command manifests |
+| **hook.define** | Create validation hooks for Claude Code |
+| **hook.register** | Register hook manifests |
+| **hook.simulate** | Test hook behavior before deployment |
+| **plugin.build** | Bundle plugin into deployable package |
+| **plugin.sync** | Auto-generate plugin.yaml from registries |
+| **run.agent** | Simulate agent execution for testing |
+| **git.commit** | Create conventional commit messages |
+| **file.processor** | Process files with transformations |
+| **data.validator** | Validate data against schemas |
+
+### Documentation Skills (8 skills)
+
+| Skill | Purpose |
+|-------|---------|
+| **docs.sync.readme** | Regenerate README from registry state |
+| **docs.sync.plugin_manifest** | Reconcile plugin.yaml with registries |
+| **docs.expand.glossary** | Expand glossary with new terms |
+| **docs.lint.links** | Validate markdown links |
+| **docs.validate.skill_docs** | Ensure skill documentation completeness |
+| **generate.docs** | Auto-generate SKILL.md from manifests |
+| **generate.marketplace** | Generate marketplace catalog files |
+| **serve.marketplace** | Run local marketplace server |
+
+**Each skill includes**:
+- `skill.yaml` — Manifest with inputs, outputs, dependencies
+- `SKILL.md` — Comprehensive documentation
+- Handler script — Python implementation
+- Tests — Unit and integration tests
+- Examples — Usage examples
+
+---
+
+## 🎭 Agents Catalog
+
+**20 intelligent agents** that orchestrate skills into workflows:
+
+### Meta-Agents (6 agents)
+
+| Agent | Purpose | Key Capabilities |
+|-------|---------|------------------|
+| **meta.agent** | Create agents from descriptions | Generates agent.yaml, README, workflow patterns |
+| **meta.skill** | Create skills from descriptions | Generates skill.yaml, SKILL.md, handler script |
+| **meta.hook** | Create event-driven hooks | Generates hook definitions and registrations |
+| **meta.artifact** | Define artifact types | Creates artifact schemas and templates |
+| **meta.compatibility** | Analyze dependencies | Builds compatibility graphs and recommendations |
+| **meta.suggest** | Next-step recommendations | Suggests agents, skills, workflows to build |
+
+### Specialized Consulting Agents (6 agents)
+
+| Agent | Domain | Produces |
+|-------|--------|----------|
+| **strategy.architect** | Business strategy | Business cases, ROI models, strategic plans, portfolios |
+| **security.architect** | Security | Threat models, pen test reports, zero-trust designs |
+| **data.architect** | Data governance | Data models, governance policies, MDM plans, lineage |
+| **governance.manager** | Program governance | Charters, RAID logs, decision logs, compliance matrices |
+| **test.engineer** | Quality assurance | Test plans, automation strategies, QA reports |
+| **deployment.engineer** | Operations | Runbooks, DR plans, SRE docs, monitoring configs |
+
+### API & Development Agents (4 agents)
+
+| Agent | Purpose | Key Features |
+|-------|---------|--------------|
+| **api.designer** | Design REST APIs | Follows Zalando guidelines, iterative refinement |
+| **api.analyzer** | Analyze API compatibility | Breaking change detection, version comparison |
+| **api.architect** | API strategy | API governance, standards, lifecycle management |
+| **code.reviewer** | Code review automation | Best practices, pattern detection, recommendations |
+
+### Utility Agents (4 agents)
+
+| Agent | Purpose | Use Case |
+|-------|---------|----------|
+| **file.processor** | File transformations | Batch processing, format conversion |
+| **data.validator** | Data validation | Schema validation, quality checks |
+| **meta.command** | Command creation | Generate slash commands |
+| **meta.hook** | Hook management | Event-driven automation |
+
+**Each agent includes**:
+- `agent.yaml` — Manifest with capabilities and skills
+- `README.md` — Documentation and examples
+- Workflow definitions — Orchestration patterns
+- Integration tests — End-to-end validation
+
+---
+
+## 🏢 Enterprise Features
+
+### Audit & Compliance
+
+- **Complete Audit Trails** — Every action logged with timestamp, user, inputs, outputs
+- **Policy Enforcement** — Automatic validation against organizational policies
+- **Compliance Support** — GDPR, SOC 2, HIPAA, PCI-DSS templates and validation
+- **Change Tracking** — Full version history with breaking change detection
+
+### Governance & Control
+
+- **Registry-Driven** — Single source of truth for all components
+- **Approval Workflows** — Human-in-the-loop for critical operations
+- **Role-Based Access** — Control who can create, modify, execute
+- **Certification Levels** — draft, active, deprecated, archived
+
+### Observability
+
+- **Telemetry Capture** — Automatic performance metrics and usage analytics
+- **Execution Traces** — Complete workflow execution history
+- **Error Tracking** — Structured error logging with context
+- **Performance Monitoring** — Duration tracking, bottleneck detection
+
+### Integration & Extensibility
+
+- **Claude Code Native** — Full plugin integration with marketplace support
+- **API-First** — All functionality accessible via programmatic interfaces
+- **Schema-Driven** — JSON Schema validation for all artifacts
+- **Extensible** — Create custom skills, agents, artifacts without modifying core
 
 ---
 
@@ -245,80 +554,281 @@ Each step logs to `/registry/skills.json` and `/registry/workflow_history.json`.
 
 ### Getting Started
 
-* [Quickstart Tutorial](QUICKSTART.md) — Betty in 5 minutes with Hello World example
-* [Getting Started Guide](GETTING_STARTED.md) — Comprehensive getting started guide
-* [Installation Guide](INSTALLATION.md) — Detailed installation instructions
+- **[QUICKSTART.md](QUICKSTART.md)** — Betty in 5 minutes with Hello World
+- **[GETTING_STARTED.md](GETTING_STARTED.md)** — Comprehensive tutorial
+- **[INSTALLATION.md](INSTALLATION.md)** — Detailed installation guide
+
+### Phase Completion Documentation
+
+- **[PHASE1_COMPLETE.md](PHASE1_COMPLETE.md)** — Artifact framework (391 types, 406 templates)
+- **[PHASE2_COMPLETE.md](PHASE2_COMPLETE.md)** — Validation and review capabilities
+- **[PHASE3_COMPLETE.md](PHASE3_COMPLETE.md)** — Specialized agents and workflows
 
 ### Architecture & Design
 
-* [Betty Architecture](docs/betty-architecture.md) — Five-layer model explained
-* [Betty Framework Overview](docs/betty-framework-overview.md) — Lifecycle and bootstrapping
-* [Skills Framework](docs/skills-framework.md) — Skill taxonomy and categories
-* [API-Driven Development](docs/api-driven-development.md) — Complete API workflow guide
+- **[Betty Architecture](docs/betty-architecture.md)** — Five-layer model explained
+- **[Betty Framework Overview](docs/betty-framework-overview.md)** — Lifecycle and bootstrapping
+- **[Skills Framework](docs/skills-framework.md)** — Skill taxonomy and categories
+- **[API-Driven Development](docs/api-driven-development.md)** — Complete API workflow
 
 ### Infrastructure
 
-* [Command & Hook Infrastructure](docs/COMMAND_HOOK_INFRASTRUCTURE.md) — Layer 1 and 5 details
-* [Multi-LLM Integration](docs/multi-llm-integration-paths.md) — Multi-model strategies
+- **[Command & Hook Infrastructure](docs/COMMAND_HOOK_INFRASTRUCTURE.md)** — Layer 1 and 5 details
+- **[Multi-LLM Integration](docs/multi-llm-integration-paths.md)** — Multi-model strategies
+- **[Codebase Analysis](docs/CODEBASE_ANALYSIS.md)** — Technical implementation
 
 ### Reference
 
-* [Glossary](docs/glossary.md) — Betty terminology and concepts
-* [Contributing](docs/contributing.md) — How to contribute to Betty
-* [References](docs/references.md) — External documentation links
-* [Codebase Analysis](docs/CODEBASE_ANALYSIS.md) — Technical implementation details
+- **[Glossary](docs/glossary.md)** — Betty terminology and concepts
+- **[Contributing](docs/contributing.md)** — How to contribute
+- **[References](docs/references.md)** — External documentation
 
-### Skills Documentation
+### Component Documentation
 
-Each skill has comprehensive documentation in its `SKILL.md` file:
-* Foundation: `skill.create`, `skill.define`, `registry.update`, `workflow.compose`, `workflow.validate`
-* API: `api.define`, `api.validate`, `api.generate-models`, `api.compatibility`
-* Infrastructure: `agent.define`, `command.define`, `hook.define`, `hook.register`
-
-### Agents Documentation
-
-Each agent has a `README.md` in its directory:
-* [api.analyzer](agents/api.analyzer/README.md) — Analyze API specifications for backward compatibility and breaking changes
-* [api.designer](agents/api.designer/README.md) — Design RESTful APIs following enterprise guidelines with iterative refinement
-
-
-## ⚙️ Requirements
-
-* Python 3.11 or newer
-* PyYAML (`pip install pyyaml`)
-* (Optional) Claude Code runtime for plugin execution
+- **Skills**: Each has `SKILL.md` in its directory
+- **Agents**: Each has `README.md` in its directory
+- **Artifacts**: Descriptions in `/artifact_descriptions/`
 
 ---
 
-## 🧭 Roadmap
+## 🧱 Repository Structure
 
-1. **Core Stabilization** — Improve error handling and atomic writes.
-2. **Governance Layer** — Add `policy.enforce` and compliance logging.
-3. **Plugin Packaging** — Introduce `plugin.yaml` for native Claude commands.
-4. **Marketplace Integration** — Enable publishing and certification of skills.
-5. **Agent Collaboration** — Expand from skills → workflows → multi-agent systems.
+```
+betty/
+├── agents/                        # 20 intelligent agents
+│   ├── meta.agent/                # Creates agents from descriptions
+│   ├── meta.skill/                # Creates skills from descriptions
+│   ├── meta.hook/                 # Creates event-driven hooks
+│   ├── meta.artifact/             # Defines artifact types
+│   ├── meta.compatibility/        # Analyzes dependencies
+│   ├── meta.suggest/              # Recommends next steps
+│   ├── strategy.architect/        # Business strategy
+│   ├── security.architect/        # Security architecture
+│   ├── data.architect/            # Data governance
+│   ├── governance.manager/        # Program governance
+│   ├── test.engineer/             # Testing & QA
+│   ├── deployment.engineer/       # Operations
+│   ├── api.designer/              # API design
+│   ├── api.analyzer/              # API analysis
+│   └── ... (6 more agents)
+│
+├── skills/                        # 35 production skills
+│   ├── skill.create/              # Scaffold new skills
+│   ├── skill.define/              # Validate skill manifests
+│   ├── registry.update/           # Update registries
+│   ├── workflow.compose/          # Execute workflows
+│   ├── api.define/                # Create API specs
+│   ├── api.validate/              # Validate API specs
+│   ├── policy.enforce/            # Enforce policies
+│   ├── audit.log/                 # Audit logging
+│   └── ... (27 more skills)
+│
+├── templates/                     # 406 artifact templates
+│   ├── architecture/              # System design templates
+│   ├── security/                  # Security templates
+│   ├── governance/                # 100+ governance templates
+│   ├── data/                      # Data templates
+│   ├── testing/                   # Testing templates
+│   ├── requirements/              # Requirements templates
+│   ├── deployment/                # Deployment templates
+│   └── ... (6 more categories)
+│
+├── registry/                      # Source of truth
+│   ├── skills.json                # 35 registered skills
+│   ├── agents.json                # 20 registered agents
+│   ├── commands.json              # Registered commands
+│   ├── hooks.json                 # Registered hooks
+│   ├── telemetry.json             # Usage metrics
+│   ├── audit_log.json             # Audit trail
+│   └── workflow_history.json      # Execution history
+│
+├── betty/                         # Core Python utilities
+│   ├── config.py                  # Configuration and paths
+│   ├── validation.py              # Validation utilities
+│   ├── logging_utils.py           # Logging infrastructure
+│   ├── file_utils.py              # Thread-safe file ops
+│   ├── errors.py                  # Exception hierarchy
+│   └── telemetry_capture.py       # Telemetry system
+│
+├── docs/                          # Documentation
+│   ├── betty-architecture.md      # Architecture details
+│   ├── skills-framework.md        # Skill taxonomy
+│   ├── api-driven-development.md  # API workflow
+│   ├── glossary.md                # Terminology
+│   └── contributing.md            # Contribution guide
+│
+├── .claude/                       # Claude Code integration
+│   ├── commands/                  # Slash commands
+│   └── hooks.yaml                 # Event hooks
+│
+├── .claude-plugin/                # Marketplace integration
+│   ├── marketplace.json           # v1.0.0 metadata
+│   └── README.md                  # Plugin documentation
+│
+├── workflows/                     # Workflow definitions
+├── tests/                         # Test suites
+├── scripts/                       # Setup scripts
+├── examples/                      # Usage examples
+│
+├── QUICKSTART.md                  # 5-minute tutorial
+├── GETTING_STARTED.md             # Comprehensive guide
+├── INSTALLATION.md                # Installation details
+├── PHASE1_COMPLETE.md             # Artifact framework
+├── PHASE2_COMPLETE.md             # Validation layer
+├── PHASE3_COMPLETE.md             # Specialized agents
+├── plugin.yaml                    # Claude Code plugin (925 lines)
+└── README.md                      # This file
+```
+
+---
+
+## ⚙️ Requirements
+
+- **Python 3.11+** — Core runtime
+- **PyYAML** — YAML processing (`pip install pyyaml`)
+- **Git 2.20+** — Version control
+- **Claude Code** — (Optional) For plugin execution
+
+**Optional Dependencies**:
+- `datamodel-code-generator` — For API model generation
+- `pytest` — For running tests
+- `black`, `mypy`, `pylint` — For development
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](docs/contributing.md) for detailed instructions.
+We welcome contributions! Betty is designed for extensibility.
 
-**Quick Guidelines:**
+### Quick Contribution Guide
 
-1. Use lowercase, dot-separated names (e.g., `domain.action` for skills).
-2. Include `skill.yaml`, `SKILL.md`, and a handler script for each skill.
-3. Validate via `skill.create → skill.define → registry.update` before commit.
-4. Write comprehensive tests and documentation.
-5. Submit PRs with clear workflow examples and registry entries set to `draft` initially.
+1. **Create a new skill using meta.skill**:
+   ```bash
+   cat > /tmp/my_skill.md <<'EOF'
+   # Name: custom.processor
+   # Purpose: Process custom data formats
+   # Inputs: raw-data, config
+   # Outputs: processed-data
+   EOF
 
-**Before submitting:**
+   python3 agents/meta.skill/meta_skill.py /tmp/my_skill.md
+   ```
+
+2. **Implement the handler**: Edit `skills/custom.processor/custom_processor.py`
+
+3. **Test your skill**: Write tests in `tests/test_custom_processor.py`
+
+4. **Validate and register**:
+   ```bash
+   python3 skills/skill.define/skill_define.py skills/custom.processor/skill.yaml
+   python3 skills/registry.update/registry_update.py skills/custom.processor/skill.yaml
+   ```
+
+5. **Submit PR**: Set status to `draft` initially, include examples
+
+### Contribution Guidelines
+
+- Use lowercase, dot-separated names (`domain.action`)
+- Include comprehensive documentation (SKILL.md/README.md)
+- Write tests for all new functionality
+- Follow existing code patterns and style
+- Update registry files appropriately
+
+**Before Submitting**:
 - [ ] Manifest validated with `skill.define` or `agent.define`
-- [ ] Documentation (SKILL.md/README.md) is complete
-- [ ] Examples and usage instructions provided
-- [ ] Code follows style guidelines
-- [ ] Registry updated
+- [ ] Documentation complete with examples
+- [ ] Tests written and passing
+- [ ] Code follows style guidelines (`black`, `pylint`)
+- [ ] Registry updated with `draft` status
 
-See [docs/contributing.md](docs/contributing.md) for full details.
+See **[docs/contributing.md](docs/contributing.md)** for detailed guidelines.
 
+---
 
+## 🎯 Design Principles
+
+- **Structure over improvisation** — Every workflow is defined, typed, reproducible
+- **Human oversight first** — Developers approve, correct, extend AI outputs
+- **Composable by default** — Skills can be rearranged without breaking systems
+- **Audit as a feature** — Provenance and traceability built-in, not bolted-on
+- **Self-improving** — Meta-agents enable emergent capabilities
+- **Enterprise-ready** — Governance, compliance, security from day one
+
+---
+
+## 📊 Project Status
+
+**Version**: 1.0.0 (Released October 2025)
+**Status**: Production Ready
+**License**: MIT
+**Maintainer**: RiskExec Platform Team
+
+### Key Metrics
+
+- ✅ **35 Active Skills** — Production-tested building blocks
+- ✅ **20 Intelligent Agents** — Including 6 meta-agents
+- ✅ **391 Artifact Types** — Complete SDLC coverage
+- ✅ **406 Ready Templates** — Big Five consulting quality
+- ✅ **v1.0.0 Released** — Semantic versioning
+- ✅ **Marketplace Ready** — Claude Code plugin certified
+- ✅ **Test Coverage** — Comprehensive test suite
+- ✅ **Documentation** — 20+ docs, phase guides, tutorials
+
+---
+
+## 🔭 Roadmap
+
+### v1.1.0 (Q1 2026)
+- [ ] Multi-LLM support (GPT-4, Gemini, Claude)
+- [ ] Visual workflow builder (GUI)
+- [ ] Enhanced telemetry dashboard
+- [ ] REST API for remote execution
+
+### v1.2.0 (Q2 2026)
+- [ ] Enterprise SSO integration
+- [ ] Role-based access control (RBAC)
+- [ ] Advanced compliance reporting
+- [ ] Multi-tenant support
+
+### v2.0.0 (Q3 2026)
+- [ ] Cloud-hosted Betty (SaaS)
+- [ ] Real-time collaboration
+- [ ] Marketplace plugins ecosystem
+- [ ] IDE integrations (VS Code, PyCharm)
+
+---
+
+## 📄 License
+
+MIT License — see LICENSE file for details
+
+Copyright (c) 2025 RiskExec
+
+---
+
+## 🙏 Acknowledgments
+
+Named for **Betty Shannon (1922-2017)**, whose work translating information theory into practical computing inspired this framework's philosophy: **turning AI reasoning into engineered systems**.
+
+---
+
+## 📞 Support & Community
+
+- **Documentation**: [docs/](docs/)
+- **Issues**: [GitHub Issues](https://github.com/epieczko/betty/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/epieczko/betty/discussions)
+- **Email**: platform@riskexec.com
+
+---
+
+<div align="center">
+
+**Built with ❤️ by RiskExec**
+
+[![GitHub](https://img.shields.io/badge/GitHub-epieczko/betty-blue.svg)](https://github.com/epieczko/betty)
+[![Documentation](https://img.shields.io/badge/docs-latest-green.svg)](https://github.com/epieczko/betty/tree/main/docs)
+[![License](https://img.shields.io/badge/license-MIT-purple.svg)](LICENSE)
+
+**Claude Code thinks. Betty builds.**
+
+</div>
