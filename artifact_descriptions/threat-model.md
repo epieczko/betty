@@ -2,45 +2,57 @@
 
 ## Executive Summary
 
-The Threat Model is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Threat Model is a critical security artifact that systematically identifies, analyzes, and prioritizes potential threats to a system, application, or service. Using structured methodologies like STRIDE, PASTA, or attack trees, this artifact enables security teams, architects, and developers to proactively identify vulnerabilities and design appropriate countermeasures before deployment.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a foundational security engineering deliverable, the threat model bridges the gap between architecture design and security controls implementation. It provides actionable intelligence for security architects who need to design defense-in-depth strategies, developers who must implement secure coding practices, and risk teams who need to understand and communicate the organization's threat landscape to leadership.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Proactive Security**: Identifies threats early in the development lifecycle when remediation costs are lowest
+- **Risk-Based Prioritization**: Uses frameworks like DREAD or CVSS to prioritize threats by severity and likelihood
+- **Regulatory Compliance**: Supports SOC 2, ISO 27001, PCI-DSS, and other frameworks requiring systematic threat analysis
+- **Attack Surface Reduction**: Maps entry points, trust boundaries, and data flows to minimize exposure
+- **Security Architecture Validation**: Ensures security controls align with identified threats and attack vectors
+- **Common Threat Language**: Establishes shared understanding using industry frameworks like MITRE ATT&CK
+- **Continuous Security**: Enables threat model updates as systems evolve and new attack patterns emerge
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+The Threat Model systematically identifies security threats, attack vectors, and vulnerabilities in a system by analyzing its architecture, data flows, entry points, and trust boundaries. It enables teams to understand "what can go wrong" from an attacker's perspective and prioritize security controls based on realistic threat scenarios and business impact.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- System architecture decomposition identifying components, data flows, and trust boundaries
+- Threat identification using STRIDE, PASTA, or similar methodologies
+- Attack vector analysis including threat actors, capabilities, and motivations
+- Asset classification and data flow mapping
+- Threat prioritization using DREAD, CVSS, or risk matrices
+- Security control recommendations mapped to identified threats
+- Integration with MITRE ATT&CK framework for common attack patterns
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed security control implementation (covered in Security Architecture)
+- Penetration testing execution (covered in Penetration Testing Report)
+- Incident response procedures (covered in Incident Management Plan)
+- Compliance audit evidence (covered in Control Test Evidence Packs)
+- Code-level vulnerability analysis (covered in Security Test Results)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Security Architects who design defense-in-depth strategies and security controls
+- Application Security Engineers who validate security requirements
+- Software Developers who implement secure coding practices based on identified threats
+- Security Operations teams who configure detection rules for identified attack patterns
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Risk Management teams assessing likelihood and impact of security incidents
+- Compliance teams demonstrating systematic threat analysis for regulatory frameworks
+- Product Managers prioritizing security features based on threat severity
+- Executive Leadership understanding the organization's threat landscape and security posture
 
 ## Document Information
 
@@ -168,19 +180,20 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Methodology Selection**: Choose threat modeling methodology based on system type (STRIDE for applications, PASTA for risk-centric analysis, Attack Trees for specific scenarios)
+**Early Integration**: Conduct threat modeling during design phase when architecture changes are less costly
+**Architecture Decomposition**: Create detailed data flow diagrams (DFDs) showing processes, data stores, data flows, and trust boundaries
+**Asset Identification**: Clearly identify and classify assets (data, systems, credentials) by sensitivity and business criticality
+**Threat Actor Profiling**: Define realistic threat actors with specific capabilities, motivations, and resources (e.g., nation-state, organized crime, insider, opportunistic)
+**STRIDE Coverage**: Systematically apply all STRIDE categories to each trust boundary crossing and data flow
+**Attack Tree Development**: Build attack trees for high-value assets showing multiple attack paths and prerequisites
+**Prioritization Framework**: Use consistent scoring (DREAD, CVSS, or risk matrix) to prioritize threats objectively
+**Control Mapping**: Map each identified threat to existing or proposed security controls (preventive, detective, corrective)
+**MITRE ATT&CK Integration**: Reference specific ATT&CK techniques to leverage community threat intelligence
+**Collaborative Sessions**: Conduct threat modeling workshops with security, development, and architecture teams
+**Tool Support**: Use threat modeling tools (Microsoft Threat Modeling Tool, OWASP Threat Dragon, IriusRisk) for consistency
+**Living Document**: Update threat model when architecture changes, new threats emerge, or incidents reveal gaps
+**Traceability**: Link threats to security requirements, security controls, and test cases for end-to-end validation
 
 ## Quality Criteria
 
@@ -227,9 +240,27 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Threat Modeling Methodologies**:
+- **STRIDE**: Microsoft's threat classification (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege)
+- **PASTA**: Process for Attack Simulation and Threat Analysis (7-stage risk-centric methodology)
+- **LINDDUN**: Privacy threat modeling framework complementary to STRIDE
+- **Attack Trees**: Hierarchical diagrams representing attack scenarios and paths
+- **DREAD**: Risk rating model (Damage, Reproducibility, Exploitability, Affected Users, Discoverability)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Industry Frameworks**:
+- **MITRE ATT&CK**: Knowledge base of adversary tactics, techniques, and procedures (TTPs)
+- **OWASP Threat Modeling**: Open-source threat modeling guidance and tools
+- **NIST SP 800-30**: Guide for conducting risk assessments
+- **ISO 27005**: Information security risk management
+- **CVSS**: Common Vulnerability Scoring System for threat severity rating
+- **CWE**: Common Weakness Enumeration for categorizing security weaknesses
+
+**Security Architecture**:
+- **SABSA**: Sherwood Applied Business Security Architecture
+- **NIST Cybersecurity Framework**: Identify, Protect, Detect, Respond, Recover
+- **Zero Trust Architecture** (NIST SP 800-207): Never trust, always verify principles
+
+**Reference**: Consult organizational security architecture team for guidance on methodology selection and framework application
 
 ## Integration Points
 

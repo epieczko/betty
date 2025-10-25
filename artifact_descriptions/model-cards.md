@@ -2,45 +2,60 @@
 
 ## Executive Summary
 
-The Model Cards is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Model Cards are structured documentation artifacts that transparently communicate ML model characteristics, intended use, performance metrics, limitations, and ethical considerations. Introduced by Google Research (Mitchell et al., 2019) and now an industry standard, model cards enable responsible AI deployment by providing stakeholders with the information needed to assess whether a model is appropriate for their use case and to understand its potential risks and biases.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a cornerstone of responsible AI and ML governance, model cards provide ML engineers with performance benchmarks across demographic groups, product teams with clear guidance on appropriate model use, compliance teams with evidence of fairness testing, and end users with transparency about automated decisions that affect them. They serve as both technical documentation and ethical accountability mechanisms for AI systems.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Responsible AI**: Documents fairness, bias, and ethical considerations required by AI governance frameworks
+- **Regulatory Compliance**: Supports EU AI Act, GDPR Article 22 (automated decision-making), and algorithmic transparency requirements
+- **Bias & Fairness**: Reports disaggregated performance metrics across demographic groups to identify disparate impact
+- **Model Governance**: Enables model risk management, validation, and monitoring throughout the ML lifecycle
+- **Transparency & Trust**: Provides stakeholders with clear understanding of model capabilities and limitations
+- **Safe Deployment**: Prevents model misuse by documenting out-of-scope use cases and known failure modes
+- **Continuous Monitoring**: Establishes baseline performance for detecting model drift and degradation
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+Model Cards document ML model details, intended use, training data, performance metrics (overall and disaggregated by demographic groups), limitations, bias testing results, and ethical considerations to enable informed decisions about model deployment and use while promoting transparency and accountability in AI systems.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Model details: Architecture, training data, preprocessing, features, hyperparameters
+- Intended use: Primary use cases, target population, appropriate applications
+- Out-of-scope use: Explicitly documented inappropriate or unsafe applications
+- Performance metrics: Accuracy, precision, recall, F1, AUC-ROC overall and by demographic groups
+- Fairness metrics: Disparate impact, equalized odds, demographic parity across protected attributes
+- Bias testing: Results of fairness audits, synthetic data testing, adversarial testing
+- Limitations: Known failure modes, edge cases, distributional shift sensitivity
+- Training data: Dataset characteristics, sampling bias, data quality issues, consent/licensing
+- Ethical considerations: Privacy implications, potential for harm, fairness trade-offs
+- Model provenance: Versioning, lineage, responsible parties, approval status
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed model code and implementation (covered in Model Repository)
+- Real-time model monitoring dashboards (covered in ML Model Monitoring Dashboard)
+- Model deployment infrastructure (covered in MLOps Pipeline Documentation)
+- Data governance policies (covered in Model Governance Policy)
+- Incident response for model failures (covered in Incident Management Plan)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- ML Engineers and Data Scientists documenting and maintaining models
+- Model Validation teams assessing model risk and fairness
+- Product Managers deciding whether to deploy models in specific use cases
+- AI Ethics/Responsible AI teams reviewing models for bias and fairness
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Regulatory/Compliance teams demonstrating AI transparency and accountability
+- Legal teams understanding model risks and limitations for liability assessment
+- End Users understanding how automated decisions affecting them are made
+- External Auditors reviewing AI governance practices
 
 ## Document Information
 
@@ -227,9 +242,44 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Model Documentation Standards**:
+- **Model Cards for Model Reporting (Google Research, 2019)**: Original Mitchell et al. framework and specification
+- **FactSheets (IBM Research)**: Supplier's Declaration of Conformity for AI systems
+- **Datasheets for Datasets**: Companion documentation standard for training data (Gebru et al., 2018)
+- **System Cards**: Broader documentation for AI systems beyond individual models
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Responsible AI & Ethics**:
+- **EU AI Act**: High-risk AI system transparency and documentation requirements
+- **NIST AI Risk Management Framework**: Trustworthy and responsible AI practices
+- **UNESCO Recommendation on AI Ethics**: Global AI ethics principles
+- **OECD AI Principles**: International AI governance standards
+- **IEEE P7000 Standards**: Model Process for Addressing Ethical Concerns, Algorithmic Bias
+
+**Fairness & Bias**:
+- **Fairness Indicators**: TensorFlow toolkit for computing fairness metrics
+- **Aequitas**: Open-source bias and fairness audit toolkit
+- **AI Fairness 360 (IBM)**: Open-source fairness metrics and mitigation algorithms
+- **What-If Tool (Google)**: Visual interface for probing ML model behavior
+
+**ML Governance**:
+- **ISO/IEC 23894**: Information technology — AI — Risk management
+- **ISO/IEC 42001**: AI management system standard
+- **NIST Special Publication 1270**: Framework for AI Risk Management
+- **Model Risk Management (SR 11-7)**: US Federal Reserve guidance on model governance
+
+**Regulatory Requirements**:
+- **GDPR Article 22**: Right to explanation for automated decision-making
+- **Fair Credit Reporting Act (FCRA)**: Adverse action notices for credit decisions
+- **Equal Credit Opportunity Act (ECOA)**: Fairness in lending
+- **NYC Local Law 144**: Automated Employment Decision Tools (AEDT) bias audits
+
+**Industry Frameworks**:
+- **MLOps Principles**: ML model lifecycle management best practices
+- **Google's Responsible AI Practices**: Practical guidance for ML development
+- **Microsoft Responsible AI Standard**: Corporate AI governance framework
+- **Partnership on AI**: Multi-stakeholder AI ethics and best practices
+
+**Reference**: Consult organizational AI governance, responsible AI, and ML engineering teams for guidance on model documentation standards, fairness metrics, and regulatory requirements
 
 ## Integration Points
 

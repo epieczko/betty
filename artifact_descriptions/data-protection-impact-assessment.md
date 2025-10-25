@@ -2,45 +2,58 @@
 
 ## Executive Summary
 
-The Data Protection Impact Assessment is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Data Protection Impact Assessment (DPIA) is a mandatory privacy governance artifact required by GDPR Article 35 and other global privacy regulations when processing personal data presents high risk to individuals' rights and freedoms. Following ICO, CNIL, and EDPB guidance, this assessment systematically identifies privacy risks, evaluates necessity and proportionality, and documents mitigation measures to ensure lawful, fair, and transparent data processing.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a cornerstone of Privacy by Design and Default (GDPR Article 25), the DPIA provides Data Protection Officers with evidence of compliance, privacy engineers with specific technical safeguards to implement, and executive leadership with risk-informed decisions on whether to proceed with, modify, or halt data processing activities. It serves as both a compliance requirement and a practical tool for embedding privacy protection into systems and processes.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Regulatory Compliance**: Mandatory under GDPR Article 35 for high-risk processing; required before processing begins
+- **Privacy Risk Management**: Identifies and mitigates risks to individuals' privacy, freedom, and fundamental rights
+- **Accountability Demonstration**: Provides documented evidence of GDPR compliance for supervisory authority audits
+- **Penalty Avoidance**: Prevents fines up to €20M or 4% of global revenue for failure to conduct required DPIAs
+- **Privacy by Design**: Embeds data protection into system architecture and business processes from inception
+- **Stakeholder Trust**: Demonstrates organizational commitment to privacy protection and ethical data use
+- **Cross-Border Compliance**: Satisfies similar requirements under CCPA, LGPD, PIPEDA, and other global privacy laws
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+The DPIA systematically assesses whether planned data processing activities present high risk to individuals' rights and freedoms, evaluates the necessity and proportionality of processing, identifies privacy risks and mitigation measures, and documents the decision-making process for regulatory accountability and supervisory authority consultation when required.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Necessity and proportionality assessment: Legal basis, purpose limitation, data minimization evaluation
+- High-risk trigger analysis: Automated decision-making, large-scale profiling, special category data, biometric data, systematic monitoring
+- Data flow mapping: Personal data categories, processing activities, data subjects, recipients, international transfers
+- Privacy risk identification: Risks to confidentiality, integrity, availability, and individual rights
+- Technical and organizational measures: Pseudonymization, encryption, access controls, retention limits
+- Data subject rights: Access, rectification, erasure, data portability, objection mechanisms
+- Third-party risk assessment: Processor DPIAs, vendor privacy due diligence
+- Consultation requirements: When to consult supervisory authority for high residual risk
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- General cybersecurity risk assessment (covered in Threat Model, Risk Assessment)
+- Detailed technical security controls (covered in Security Architecture)
+- Data retention policy details (covered in Data Retention Plan)
+- Breach notification procedures (covered in Incident Management Plan)
+- Non-personal data governance (covered in Data Governance Framework)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Data Protection Officers (DPOs) conducting mandatory privacy assessments
+- Privacy Engineers implementing Privacy by Design technical safeguards
+- Legal/Compliance teams evaluating regulatory requirements and legal basis
+- Product/Project Managers responsible for processing activity decisions
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Executive Leadership approving or halting high-risk processing activities
+- Supervisory Authorities reviewing DPIAs during audits or prior consultations
+- Security teams implementing technical protection measures
+- Business stakeholders understanding privacy obligations and constraints
 
 ## Document Information
 
@@ -208,9 +221,36 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**Data Management**: DAMA-DMBOK, DCAM, Data Governance Framework
+**Privacy Regulations**:
+- **GDPR**: Article 35 (DPIA requirement), Article 36 (Prior consultation with supervisory authority)
+- **CCPA/CPRA**: California Consumer Privacy Act risk assessment requirements
+- **LGPD**: Brazilian General Data Protection Law (Lei Geral de Proteção de Dados)
+- **PIPEDA**: Canadian Personal Information Protection and Electronic Documents Act
+- **UK GDPR**: Post-Brexit UK data protection requirements
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**DPIA Guidance**:
+- **ICO DPIA Guidance**: UK Information Commissioner's Office DPIA framework and templates
+- **CNIL DPIA Methodology**: French supervisory authority DPIA approach (PIA methodology)
+- **EDPB Guidelines 3/2019**: European Data Protection Board criteria for DPIA necessity
+- **WP29 Guidelines (WP248)**: Article 29 Working Party guidance on DPIAs (superseded by EDPB but still referenced)
+- **IAPP Resources**: International Association of Privacy Professionals DPIA tools
+
+**Privacy Frameworks**:
+- **NIST Privacy Framework**: Risk-based approach to privacy (Identify, Govern, Control, Communicate, Protect)
+- **ISO/IEC 29134**: Privacy impact assessment methodology and guidance
+- **ISO/IEC 27701**: Privacy information management system extension to ISO 27001
+- **AICPA Privacy Management Framework**: Privacy program management
+
+**Privacy Engineering**:
+- **Privacy by Design**: Ann Cavoukian's 7 foundational principles
+- **Privacy Patterns**: GDPR-Patterns.org, Privacy Patterns Project for technical implementation
+- **NIST Privacy Engineering**: Privacy engineering objectives and privacy controls (SP 800-53 Rev. 5)
+
+**Data Protection Principles**:
+- **GDPR Principles**: Lawfulness, fairness, transparency, purpose limitation, data minimization, accuracy, storage limitation, integrity/confidentiality, accountability (Article 5)
+- **Data Subject Rights**: Access, rectification, erasure, restriction, portability, objection, automated decision-making (Articles 15-22)
+
+**Reference**: Consult organizational Data Protection Officer and privacy team for guidance on DPIA requirements, supervisory authority expectations, and privacy framework application
 
 ## Integration Points
 
