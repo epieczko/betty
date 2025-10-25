@@ -1,0 +1,29 @@
+name: story.write
+version: 0.1.0
+description: Convert decomposed items from epic.decompose into fully formatted user
+  stories. Generates individual Markdown files for each story following standard user
+  story format.
+inputs:
+- 'stories_file (string, required): Path to the stories.json file from epic.decompose'
+- 'epic_reference (string, optional): Reference to the source Epic for traceability'
+- 'output_dir (string, optional): Directory to save story files (default: ./stories/)'
+outputs:
+- 'story_<n>.md: Markdown file per story with persona, goal, benefit, acceptance criteria,
+  and metadata'
+- 'stories_index.md: Summary index of all created stories'
+status: active
+permissions:
+- filesystem:read
+- filesystem:write
+entrypoints:
+- command: /story/write
+  handler: story_write.py
+  runtime: python
+  description: Convert decomposed items from epic.decompose into fully formatted user
+    stories. Generates individual
+artifact_metadata:
+  produces:
+  - type: user-story
+  consumes:
+  - type: user-stories-list
+    required: true
