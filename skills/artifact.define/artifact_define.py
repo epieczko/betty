@@ -27,103 +27,103 @@ KNOWN_ARTIFACT_TYPES = {
         "schema": "schemas/openapi-spec.json",
         "file_pattern": "*.openapi.yaml",
         "content_type": "application/yaml",
-        "description": "OpenAPI 3.0+ specification"
+        "description": "OpenAPI 3.0+ specification for Architecture and API Development. Part of Application and Integration documentation and deliverables."
     },
     "validation-report": {
         "schema": "schemas/validation-report.json",
         "file_pattern": "*.validation.json",
         "content_type": "application/json",
-        "description": "Structured validation results"
+        "description": "Structured validation results for Testing and Quality Assurance. Part of Quality Assurance documentation and deliverables."
     },
     "workflow-definition": {
         "schema": "schemas/workflow-definition.json",
         "file_pattern": "*.workflow.yaml",
         "content_type": "application/yaml",
-        "description": "Betty workflow definition"
+        "description": "Betty workflow definition for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables."
     },
     "hook-config": {
         "schema": "schemas/hook-config.json",
         "file_pattern": "hooks.yaml",
         "content_type": "application/yaml",
-        "description": "Claude Code hook configuration"
+        "description": "Claude Code hook configuration for CI/CD, Build, and Provenance. Part of Build & Release Automation documentation and deliverables."
     },
     "api-models": {
         "file_pattern": "*.{py,ts,go}",
-        "description": "Generated API data models"
+        "description": "Generated API data models for Implementation and Development. Part of Development documentation and deliverables."
     },
     "agent-description": {
         "schema": "schemas/agent-description.json",
         "file_pattern": "**/agent_description.md",
         "content_type": "text/markdown",
-        "description": "Natural language description of agent purpose and requirements"
+        "description": "Natural language description of agent purpose and requirements for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables."
     },
     "agent-definition": {
         "schema": "schemas/agent-definition.json",
         "file_pattern": "agents/*/agent.yaml",
         "content_type": "application/yaml",
-        "description": "Complete agent configuration with skills and metadata"
+        "description": "Complete agent configuration with skills and metadata for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables."
     },
     "agent-documentation": {
         "file_pattern": "agents/*/README.md",
         "content_type": "text/markdown",
-        "description": "Human-readable agent documentation"
+        "description": "Human-readable agent documentation for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables."
     },
     "optimization-report": {
         "schema": "schemas/optimization-report.json",
         "file_pattern": "*.optimization.json",
         "content_type": "application/json",
-        "description": "Performance and security optimization recommendations for APIs and workflows. Contains actionable suggestions for improving efficiency, security posture, and adherence to best practices."
+        "description": "Performance and security optimization recommendations for Architecture and Performance Engineering. Part of Application and Integration documentation and deliverables."
     },
     "compatibility-graph": {
         "schema": "schemas/compatibility-graph.json",
         "file_pattern": "*.compatibility.json",
         "content_type": "application/json",
-        "description": "Agent relationship graph showing which agents can work together based on artifact flows. Maps producers to consumers, enabling intelligent multi-agent orchestration."
+        "description": "Agent relationship graph showing which agents can work together for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables."
     },
     "pipeline-suggestion": {
         "schema": "schemas/pipeline-suggestion.json",
         "file_pattern": "*.pipeline.json",
         "content_type": "application/json",
-        "description": "Suggested multi-agent workflow with step-by-step execution plan. Ensures artifact compatibility and provides rationale for agent selection."
+        "description": "Suggested multi-agent workflow with step-by-step execution plan for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables."
     },
     "suggestion-report": {
         "schema": "schemas/suggestion-report.json",
         "file_pattern": "*.suggestions.json",
         "content_type": "application/json",
-        "description": "Context-aware recommendations for what to do next after an agent completes. Includes ranked suggestions with rationale, required artifacts, and expected outcomes."
+        "description": "Context-aware recommendations for what to do next for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables."
     },
     "skill-description": {
         "schema": "schemas/skill-description.json",
         "file_pattern": "**/skill_description.md",
         "content_type": "text/markdown",
-        "description": "Natural language description of a skill's requirements, inputs, outputs, and implementation details. Used by meta.skill to generate complete skill implementations."
+        "description": "Natural language description of a skill's requirements, inputs, outputs, and implementation details for Implementation and Development. Part of Development documentation and deliverables."
     },
     "agile-epic": {
         "file_pattern": "*.epic.md",
         "content_type": "text/markdown",
-        "description": "Agile Epic document with structured fields including title, summary, background, acceptance criteria, stakeholders, and next steps. Created by epic.write skill."
+        "description": "Agile Epic document with structured fields for Product Management and GTM. Part of Product & Market documentation and deliverables."
     },
     "user-stories-list": {
         "file_pattern": "*.stories.json",
         "content_type": "application/json",
-        "description": "Structured JSON list of user story summaries with persona, goal, benefit, and acceptance criteria. Created by epic.decompose skill."
+        "description": "Structured JSON list of user story summaries for Product Management and GTM. Part of Product & Market documentation and deliverables."
     },
     "user-story": {
         "file_pattern": "story_*.md",
         "content_type": "text/markdown",
-        "description": "Fully formatted user story document following standard format (As a/I want/So that) with acceptance criteria, INVEST validation, and metadata. Created by story.write skill."
+        "description": "Fully formatted user story document following standard format for Product Management and GTM. Part of Product & Market documentation and deliverables."
     },
     "skill-definition": {
         "schema": "schemas/skill-definition.json",
         "file_pattern": "skills/*/skill.yaml",
         "content_type": "application/yaml",
-        "description": "Complete skill configuration in YAML format. Defines skill metadata, inputs, outputs, artifact metadata, permissions, and entrypoints."
+        "description": "Complete skill configuration in YAML format for Implementation and Development. Part of Development documentation and deliverables."
     },
     "hook-description": {
         "schema": "schemas/hook-description.json",
         "file_pattern": "**/hook_description.md",
         "content_type": "text/markdown",
-        "description": "Natural language description of a Claude Code hook's purpose, trigger event, and command to execute. Used by meta.hook to generate hook configurations."
+        "description": "Natural language description of a Claude Code hook's purpose, trigger event, and command to execute for CI/CD, Build, and Provenance. Part of Build & Release Automation documentation and deliverables."
     },
     "acceptable-use-policy": {
         "file_pattern": "*.acceptable-use-policy.md",
