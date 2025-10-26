@@ -7,8 +7,10 @@ Complete installation and setup instructions for the Betty Framework.
 ## Table of Contents
 
 - [System Requirements](#system-requirements)
-- [Installation](#installation)
-- [Configuration](#configuration)
+- [Canonical Setup](#canonical-setup)
+  - [Linux and macOS](#linux-and-macos)
+  - [Windows (PowerShell)](#windows-powershell)
+  - [Persist Environment Variables (Optional)](#persist-environment-variables-optional)
 - [Verification](#verification)
 - [Troubleshooting](#troubleshooting)
 - [Uninstallation](#uninstallation)
@@ -32,134 +34,100 @@ Complete installation and setup instructions for the Betty Framework.
 - Minimum: 50 MB (framework only)
 - Recommended: 200 MB (with examples and documentation)
 
-## Installation
+## Canonical Setup
 
-### Method 1: Clone from Repository (Recommended)
+The commands below are the single source of truth for setting up a local Betty development environment. Every other guide in the repository links back to this sequence—if you keep these steps up to date, the rest of the documentation stays consistent.
+
+Replace `https://github.com/your-org/betty.git` with the URL of your fork or the repository you intend to use.
+
+### Linux and macOS
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/betty.git
+# 1. Clone the repository
+git clone https://github.com/your-org/betty.git
 cd betty
 
-# Install Python dependencies
+# 2. (Recommended) Create an isolated Python environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# 3. Install Python dependencies
+python -m pip install --upgrade pip
 pip install -r requirements.txt
 
-# Verify installation
-python3 -m betty.config
+# 4. Configure environment variables for the current shell
+export BETTY_HOME="$(pwd)"
+export PYTHONPATH="${PYTHONPATH}:${BETTY_HOME}"
+
+# 5. Verify the installation
+python -m betty.validation
 ```
 
-### Method 2: Download Release
+### Windows (PowerShell)
 
-```bash
-# Download latest release
-curl -L https://github.com/yourusername/betty/archive/refs/tags/v1.0.0.tar.gz -o betty.tar.gz
+```powershell
+# 1. Clone the repository
+git clone https://github.com/your-org/betty.git
+cd betty
 
-# Extract
-tar -xzf betty.tar.gz
-cd betty-1.0.0
+# 2. (Recommended) Create an isolated Python environment
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 
-# Install dependencies
+# 3. Install Python dependencies
+python -m pip install --upgrade pip
 pip install -r requirements.txt
+
+# 4. Configure environment variables for the current session
+$env:BETTY_HOME = (Get-Location)
+$env:PYTHONPATH = "$env:PYTHONPATH;$env:BETTY_HOME"
+
+# 5. Verify the installation
+python -m betty.validation
 ```
 
-### Python Dependencies
+### Persist Environment Variables (Optional)
 
-Betty requires the following Python packages (automatically installed with `requirements.txt`):
+Persisting the environment variables prevents you from having to set them on every new shell session.
 
-```
-pyyaml>=6.0
-jsonschema>=4.17.0
-```
-
-Install manually if needed:
+**Linux/macOS:**
 
 ```bash
-pip install pyyaml jsonschema
+echo 'export BETTY_HOME="/absolute/path/to/betty"' >> ~/.bashrc   # or ~/.zshrc
+echo 'export PYTHONPATH="${PYTHONPATH}:${BETTY_HOME}"' >> ~/.bashrc
 ```
 
-## Configuration
-
-### 1. Environment Setup
-
-Add Betty to your Python path:
-
-```bash
-# Add to ~/.bashrc or ~/.zshrc
-export PYTHONPATH="${PYTHONPATH}:/path/to/betty"
-export BETTY_HOME="/path/to/betty"
-```
-
-Apply changes:
+Reload your shell profile afterwards:
 
 ```bash
 source ~/.bashrc  # or ~/.zshrc
 ```
 
-### 2. Claude Code Integration
+**Windows (PowerShell):**
 
-If using with Claude Code, configure the plugin marketplace:
-
-```bash
-# Betty creates this automatically
-cat .claude-plugin/marketplace.json
+```powershell
+[System.Environment]::SetEnvironmentVariable("BETTY_HOME", (Get-Location), "User")
+$existingPath = [System.Environment]::GetEnvironmentVariable("PYTHONPATH", "User")
+[System.Environment]::SetEnvironmentVariable(
+    "PYTHONPATH",
+    "$existingPath;$((Get-Location).Path)",
+    "User"
+)
 ```
 
-Example output:
+Restart PowerShell to load the new values.
 
-```json
-{
-  "name": "Betty Framework",
-  "version": "1.0.0",
-  "description": "Plugin-based agent orchestration framework",
-  "plugin_dir": ".claude-plugin",
-  "plugins": []
-}
-```
-
-### 3. Directory Structure
-
-Betty uses the following directory structure:
-
-```
-betty/
-├── agents/          # Agent definitions
-├── skills/          # Skill implementations
-├── docs/            # Documentation
-├── schemas/         # JSON schemas
-├── examples/        # Example components
-├── tests/           # Test suites
-├── betty/           # Core framework code
-└── .claude-plugin/  # Claude Code integration
-```
-
-### 4. Configuration File (Optional)
-
-Create `betty_config.yaml` for custom settings:
-
-```yaml
-# betty_config.yaml
-betty:
-  base_dir: /path/to/betty
-  agents_dir: agents
-  skills_dir: skills
-  schemas_dir: schemas
-
-logging:
-  level: INFO
-  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-
-meta_agents:
-  enabled: true
-  auto_register: true
-```
+---
 
 ## Verification
+
+After completing the canonical setup, you can run additional checks to make sure your environment is healthy.
 
 ### 1. Verify Framework Installation
 
 ```bash
 # Check Python imports
-python3 -c "from betty.config import BASE_DIR; print(f'Betty installed at: {BASE_DIR}')"
+python -c "from betty.config import BASE_DIR; print(f'Betty installed at: {BASE_DIR}')"
 ```
 
 Expected output:
@@ -174,7 +142,7 @@ Betty installed at: /path/to/betty
 ls -la agents/meta.*/
 
 # Test meta.artifact
-python3 agents/meta.artifact/meta_artifact.py check agent-definition
+python agents/meta.artifact/meta_artifact.py check agent-definition
 ```
 
 Expected output:
@@ -214,7 +182,7 @@ cat > /tmp/test_artifact.md <<'EOF'
 # Consumers: test.consumer
 EOF
 
-python3 agents/meta.artifact/meta_artifact.py create /tmp/test_artifact.md
+python agents/meta.artifact/meta_artifact.py create /tmp/test_artifact.md
 ```
 
 Expected output:
@@ -233,7 +201,7 @@ Expected output:
 **Solution**:
 ```bash
 # Add to PYTHONPATH
-export PYTHONPATH="${PYTHONPATH}:/path/to/betty"
+export PYTHONPATH="${PYTHONPATH}:${BETTY_HOME:-/path/to/betty}"
 
 # Or install in development mode
 cd /path/to/betty
@@ -261,7 +229,7 @@ chmod +x tests/**/*.sh
 pip install --upgrade pyyaml jsonschema
 
 # Check Python version
-python3 --version  # Should be 3.8+
+python --version  # Should be 3.8+
 ```
 
 #### 4. Tests Fail
@@ -290,7 +258,7 @@ bash tests/integration/test_meta_agents.sh
 cat .claude-plugin/marketplace.json
 
 # Regenerate if needed
-python3 skills/plugin.sync/plugin_sync.py
+python skills/plugin.sync/plugin_sync.py
 ```
 
 ### Logs and Debugging
@@ -302,7 +270,7 @@ Enable debug logging:
 export BETTY_LOG_LEVEL=DEBUG
 
 # Run with verbose output
-python3 agents/meta.artifact/meta_artifact.py create example.md --verbose
+python agents/meta.artifact/meta_artifact.py create example.md --verbose
 ```
 
 Check logs:
@@ -310,7 +278,7 @@ Check logs:
 ```bash
 # Betty logs to stdout by default
 # Redirect to file for debugging
-python3 agents/meta.agent/meta_agent.py example.md 2>&1 | tee betty.log
+python agents/meta.agent/meta_agent.py example.md 2>&1 | tee betty.log
 ```
 
 ## Platform-Specific Notes
@@ -322,7 +290,8 @@ python3 agents/meta.agent/meta_agent.py example.md 2>&1 | tee betty.log
 brew install python@3.11 git
 
 # Add to .zshrc (default shell on macOS)
-echo 'export PYTHONPATH="${PYTHONPATH}:/path/to/betty"' >> ~/.zshrc
+echo 'export BETTY_HOME="/absolute/path/to/betty"' >> ~/.zshrc
+echo 'export PYTHONPATH="${PYTHONPATH}:${BETTY_HOME}"' >> ~/.zshrc
 source ~/.zshrc
 ```
 
@@ -334,7 +303,8 @@ sudo apt-get update
 sudo apt-get install python3 python3-pip git
 
 # Add to .bashrc
-echo 'export PYTHONPATH="${PYTHONPATH}:/path/to/betty"' >> ~/.bashrc
+echo 'export BETTY_HOME="/absolute/path/to/betty"' >> ~/.bashrc
+echo 'export PYTHONPATH="${PYTHONPATH}:${BETTY_HOME}"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
@@ -406,8 +376,8 @@ After successful installation:
 ## Support
 
 - **Documentation**: [docs/](docs/)
-- **Issues**: https://github.com/yourusername/betty/issues
-- **Discussions**: https://github.com/yourusername/betty/discussions
+- **Issues**: https://github.com/your-org/betty/issues
+- **Discussions**: https://github.com/your-org/betty/discussions
 
 ## License
 

@@ -20,7 +20,11 @@ Betty is an AI-native Software Development Life Cycle (SDLC) framework that runs
 
 ## Quick Setup
 
+Start by following the [canonical setup sequence](INSTALLATION.md#canonical-setup). Those commands cover cloning the repository, creating a virtual environment, installing dependencies, setting environment variables, and verifying the installation on Linux, macOS, and Windows.
+
 ### Automated Setup (Recommended)
+
+Prefer a scripted install? The quickstart scripts wrap the same canonical steps:
 
 **Linux/macOS:**
 ```bash
@@ -30,68 +34,6 @@ curl -sSL https://raw.githubusercontent.com/epieczko/betty/main/scripts/quicksta
 **Windows (PowerShell):**
 ```powershell
 irm https://raw.githubusercontent.com/epieczko/betty/main/scripts/quickstart.ps1 | iex
-```
-
-### Manual Setup
-
-**Linux/macOS:**
-```bash
-# Clone the repository
-git clone https://github.com/epieczko/betty.git
-cd betty
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Set environment variables
-export PYTHONPATH="${PYTHONPATH}:$(pwd)"
-export BETTY_HOME="$(pwd)"
-
-# Verify installation
-python3 -m betty.validation
-```
-
-**Windows (PowerShell):**
-```powershell
-# Clone the repository
-git clone https://github.com/epieczko/betty.git
-cd betty
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Set environment variables (current session)
-$env:PYTHONPATH = "$env:PYTHONPATH;$(Get-Location)"
-$env:BETTY_HOME = "$(Get-Location)"
-
-# Set environment variables (permanent - optional)
-[System.Environment]::SetEnvironmentVariable("BETTY_HOME", "$(Get-Location)", "User")
-$currentPath = [System.Environment]::GetEnvironmentVariable("PYTHONPATH", "User")
-[System.Environment]::SetEnvironmentVariable("PYTHONPATH", "$currentPath;$(Get-Location)", "User")
-
-# Verify installation
-python -m betty.validation
-```
-
-**Windows (Command Prompt):**
-```cmd
-REM Clone the repository
-git clone https://github.com/epieczko/betty.git
-cd betty
-
-REM Install dependencies
-pip install -r requirements.txt
-
-REM Set environment variables (current session)
-set PYTHONPATH=%PYTHONPATH%;%CD%
-set BETTY_HOME=%CD%
-
-REM Set environment variables (permanent - requires admin)
-setx BETTY_HOME "%CD%"
-setx PYTHONPATH "%PYTHONPATH%;%CD%"
-
-REM Verify installation
-python -m betty.validation
 ```
 
 ## Create Your First Skill: Hello World
@@ -170,7 +112,7 @@ Use the `meta.skill` agent to generate your skill:
 
 **Linux/macOS:**
 ```bash
-python3 agents/meta.skill/meta_skill.py hello_world_description.md
+python agents/meta.skill/meta_skill.py hello_world_description.md
 ```
 
 **Windows:**
@@ -296,13 +238,13 @@ Run your Hello World skill:
 **Linux/macOS:**
 ```bash
 # Casual greeting
-python3 skills/hello.world/hello_world.py --name "Alice"
+python skills/hello.world/hello_world.py --name "Alice"
 
 # Formal greeting
-python3 skills/hello.world/hello_world.py --name "Bob" --greeting_style formal
+python skills/hello.world/hello_world.py --name "Bob" --greeting_style formal
 
 # Enthusiastic greeting
-python3 skills/hello.world/hello_world.py --name "Charlie" --greeting_style enthusiastic
+python skills/hello.world/hello_world.py --name "Charlie" --greeting_style enthusiastic
 ```
 
 **Windows:**
@@ -388,13 +330,13 @@ Congratulations! You've created your first Betty skill. Here's what to explore n
 **Linux/macOS:**
 ```bash
 # Create a new skill
-python3 agents/meta.skill/meta_skill.py my_skill_description.md
+python agents/meta.skill/meta_skill.py my_skill_description.md
 
 # Create a new agent
-python3 agents/meta.agent/meta_agent.py my_agent_description.md
+python agents/meta.agent/meta_agent.py my_agent_description.md
 
 # Create a new hook
-python3 agents/meta.hook/meta_hook.py my_hook_description.md
+python agents/meta.hook/meta_hook.py my_hook_description.md
 ```
 
 **Windows:**
@@ -443,7 +385,7 @@ chmod +x skills/hello.world/hello_world.py
 
 *Linux/macOS:*
 ```bash
-python3 skills/registry.update/registry_update.py --scan-all
+python skills/registry.update/registry_update.py --scan-all
 ```
 
 *Windows:*
@@ -470,13 +412,13 @@ cat registry/skills.json | jq '.skills[].name'
 cat registry/agents.json | jq '.agents[].name'
 
 # Update registries
-python3 skills/registry.update/registry_update.py --scan-all
+python skills/registry.update/registry_update.py --scan-all
 
 # Run tests
 pytest tests/ -v
 
 # Validate everything
-python3 -m betty.validation
+python -m betty.validation
 ```
 
 **Windows (PowerShell):**

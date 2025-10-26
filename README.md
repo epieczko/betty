@@ -136,21 +136,7 @@ irm https://raw.githubusercontent.com/epieczko/betty/main/scripts/quickstart.ps1
 
 ### Manual Installation
 
-```bash
-# Clone the repository
-git clone https://github.com/epieczko/betty.git
-cd betty
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Set environment
-export PYTHONPATH="${PYTHONPATH}:$(pwd)"
-export BETTY_HOME="$(pwd)"
-
-# Verify installation
-python3 -m betty.validation
-```
+The authoritative setup commands live in [INSTALLATION.md](INSTALLATION.md#canonical-setup). Follow that sequence for Linux, macOS, or Windows, then return here to continue with the quick start walkthrough.
 
 ### Your First Betty Experience
 
@@ -164,7 +150,7 @@ cat > /tmp/api-spec.md <<'EOF'
 # Consumers: api.validator, code.generator
 EOF
 
-python3 agents/meta.artifact/meta_artifact.py create /tmp/api-spec.md
+python agents/meta.artifact/meta_artifact.py create /tmp/api-spec.md
 
 # Create an agent using meta-agent
 cat > /tmp/designer.md <<'EOF'
@@ -173,10 +159,10 @@ cat > /tmp/designer.md <<'EOF'
 # Outputs: openapi-spec
 EOF
 
-python3 agents/meta.agent/meta_agent.py /tmp/designer.md
+python agents/meta.agent/meta_agent.py /tmp/designer.md
 
 # Verify with compatibility analysis
-python3 agents/meta.compatibility/meta_compatibility.py analyze api.designer
+python agents/meta.compatibility/meta_compatibility.py analyze api.designer
 ```
 
 **Congratulations!** You've just created artifacts and agents using meta-agents.
@@ -205,7 +191,7 @@ cat > /tmp/my_agent.md <<'EOF'
 EOF
 
 # Generate the agent
-python3 agents/meta.agent/meta_agent.py /tmp/my_agent.md
+python agents/meta.agent/meta_agent.py /tmp/my_agent.md
 
 # Output: Complete agent with agent.yaml, README.md, and workflow
 ```
@@ -223,7 +209,7 @@ cat > /tmp/my_skill.md <<'EOF'
 EOF
 
 # Generate the skill
-python3 agents/meta.skill/meta_skill.py /tmp/my_skill.md
+python agents/meta.skill/meta_skill.py /tmp/my_skill.md
 
 # Output: skills/security.scan/ with skill.yaml, SKILL.md, handler
 ```
@@ -232,7 +218,7 @@ python3 agents/meta.skill/meta_skill.py /tmp/my_skill.md
 
 ```bash
 # Define the hook
-python3 agents/meta.hook/meta_hook.py create \
+python agents/meta.hook/meta_hook.py create \
   --event on_file_edit \
   --pattern "*.openapi.yaml" \
   --command api.validate \
@@ -245,7 +231,7 @@ python3 agents/meta.hook/meta_hook.py create \
 
 ```bash
 # Create artifact type
-python3 agents/meta.artifact/meta_artifact.py create <<'EOF'
+python agents/meta.artifact/meta_artifact.py create <<'EOF'
 # Name: deployment-manifest
 # Purpose: Kubernetes deployment configurations
 # Format: YAML
@@ -261,7 +247,7 @@ EOF
 
 ```bash
 # Check agent compatibility
-python3 agents/meta.compatibility/meta_compatibility.py analyze api.designer
+python agents/meta.compatibility/meta_compatibility.py analyze api.designer
 
 # Output:
 # ✓ Produces: openapi-spec, api-documentation
@@ -274,7 +260,7 @@ python3 agents/meta.compatibility/meta_compatibility.py analyze api.designer
 
 ```bash
 # Ask for next steps
-python3 agents/meta.suggest/meta_suggest.py \
+python agents/meta.suggest/meta_suggest.py \
   --context "I have api.designer and api.validator" \
   --goal "Complete API workflow"
 
@@ -368,20 +354,20 @@ Betty's artifact framework provides **391 enterprise-standard artifact types** w
 
 ```bash
 # List available artifact types
-python3 agents/meta.artifact/meta_artifact.py list --category security
+python agents/meta.artifact/meta_artifact.py list --category security
 
 # Create artifact from template
-python3 skills/artifact.create/artifact_create.py \
+python skills/artifact.create/artifact_create.py \
   --type threat-model \
   --name payment-system-threats \
   --template stride
 
 # Validate artifact
-python3 skills/artifact.validate/artifact_validate.py \
+python skills/artifact.validate/artifact_validate.py \
   artifacts/threat-model/payment-system-threats.yaml
 
 # Review artifact quality
-python3 skills/artifact.review/artifact_review.py \
+python skills/artifact.review/artifact_review.py \
   artifacts/threat-model/payment-system-threats.yaml \
   --criteria big-five-standards
 ```
@@ -723,7 +709,7 @@ We welcome contributions! Betty is designed for extensibility.
    # Outputs: processed-data
    EOF
 
-   python3 agents/meta.skill/meta_skill.py /tmp/my_skill.md
+   python agents/meta.skill/meta_skill.py /tmp/my_skill.md
    ```
 
 2. **Implement the handler**: Edit `skills/custom.processor/custom_processor.py`
@@ -732,8 +718,8 @@ We welcome contributions! Betty is designed for extensibility.
 
 4. **Validate and register**:
    ```bash
-   python3 skills/skill.define/skill_define.py skills/custom.processor/skill.yaml
-   python3 skills/registry.update/registry_update.py skills/custom.processor/skill.yaml
+   python skills/skill.define/skill_define.py skills/custom.processor/skill.yaml
+   python skills/registry.update/registry_update.py skills/custom.processor/skill.yaml
    ```
 
 5. **Submit PR**: Set status to `draft` initially, include examples
