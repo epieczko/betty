@@ -50,6 +50,11 @@ class RegistryError(BettyError):
     pass
 
 
+class VersionConflictError(RegistryError):
+    """Raised when attempting to overwrite an active version or downgrade."""
+    pass
+
+
 class WorkflowError(BettyError):
     """Raised when workflow execution fails."""
     pass
