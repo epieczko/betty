@@ -4,10 +4,12 @@ Tests for hook.define and hook.register skills - validates hook event triggers a
 
 import os
 import json
-import tempfile
-import pytest
 from pathlib import Path
+from typing import Callable
 from unittest.mock import patch, MagicMock
+
+import pytest
+import yaml
 
 # Import the hook modules
 from betty.skills.hook.define.hook_define import (
@@ -28,6 +30,19 @@ from betty.skills.hook.register.hook_register import (
 )
 from betty.enums import HookEvent, HookStatus
 from betty.validation import validate_hook_name, validate_hook_event, ValidationError
+
+
+@pytest.fixture
+def write_hook_manifest(tmp_path) -> Callable[[dict, str], str]:
+    """Write hook manifest content to a temporary file and ensure it exists."""
+
+    def _writer(content: dict, filename: str = "hook-manifest.yaml") -> str:
+        manifest_path = tmp_path / filename
+        manifest_path.write_text(yaml.safe_dump(content))
+        assert manifest_path.exists(), "Expected hook manifest fixture to be created"
+        return str(manifest_path)
+
+    return _writer
 
 
 class TestHookNameValidation:
@@ -94,47 +109,44 @@ class TestHookEventValidation:
 class TestHookManifestLoading:
     """Tests for loading hook manifests from YAML files."""
 
-    def test_load_valid_hook_manifest(self):
+    def test_load_valid_hook_manifest(self, write_hook_manifest):
         """Test loading a valid hook manifest."""
-        manifest_path = "examples/test-hook.yaml"
-        if os.path.exists(manifest_path):
-            manifest = load_hook_manifest(manifest_path)
-            assert manifest is not None
-            assert manifest["name"] == "test-validation-hook"
-            assert manifest["version"] == "0.1.0"
-            assert manifest["event"] == "on_file_edit"
-            assert "command" in manifest
+        manifest_content = {
+            "name": "test-validation-hook",
+            "version": "0.1.0",
+            "description": "Hook manifest fixture for loading test",
+            "event": "on_file_edit",
+            "command": "/test-command",
+        }
+
+        manifest_path = write_hook_manifest(manifest_content, "test-hook.yaml")
+        manifest = load_hook_manifest(manifest_path)
+
+        assert manifest is not None
+        assert manifest["name"] == "test-validation-hook"
+        assert manifest["version"] == "0.1.0"
+        assert manifest["event"] == "on_file_edit"
+        assert "command" in manifest
 
     def test_load_nonexistent_hook_manifest(self):
         """Test that loading nonexistent file raises error."""
         with pytest.raises(HookValidationError, match="not found"):
             load_hook_manifest("/nonexistent/hook.yaml")
 
-    def test_load_invalid_hook_yaml(self):
+    def test_load_invalid_hook_yaml(self, tmp_path):
         """Test that loading invalid YAML raises error."""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as f:
-            f.write("invalid: yaml: content:\n  - missing bracket")
-            temp_path = f.name
+        temp_path = tmp_path / "invalid-hook.yaml"
+        temp_path.write_text("invalid: yaml: content:\n  - missing bracket")
+        assert temp_path.exists(), "Expected invalid hook manifest fixture to exist"
 
-        try:
-            with pytest.raises(HookValidationError, match="Failed to parse YAML"):
-                load_hook_manifest(temp_path)
-        finally:
-            os.unlink(temp_path)
+        with pytest.raises(HookValidationError, match="Failed to parse YAML"):
+            load_hook_manifest(str(temp_path))
 
 
 class TestHookManifestValidation:
     """Tests for comprehensive hook manifest validation."""
 
-    def create_temp_hook_manifest(self, content):
-        """Helper to create temporary hook manifest file."""
-        import yaml
-        f = tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False)
-        yaml.dump(content, f)
-        f.close()
-        return f.name
-
-    def test_valid_hook_manifest(self):
+    def test_valid_hook_manifest(self, write_hook_manifest):
         """Test validation of a complete valid hook manifest."""
         manifest_content = {
             "name": "test-hook",
@@ -147,16 +159,13 @@ class TestHookManifestValidation:
             "status": "active"
         }
 
-        manifest_path = self.create_temp_hook_manifest(manifest_content)
-        try:
-            result = validate_hook_manifest(manifest_path)
-            assert result["valid"] is True
-            assert result["errors"] == []
-            assert "manifest" in result
-        finally:
-            os.unlink(manifest_path)
+        manifest_path = write_hook_manifest(manifest_content, "valid-hook.yaml")
+        result = validate_hook_manifest(manifest_path)
+        assert result["valid"] is True
+        assert result["errors"] == []
+        assert "manifest" in result
 
-    def test_missing_required_fields(self):
+    def test_missing_required_fields(self, write_hook_manifest):
         """Test that missing required fields are detected."""
         manifest_content = {
             "name": "test-hook",
@@ -164,15 +173,12 @@ class TestHookManifestValidation:
             # Missing: version, event, command
         }
 
-        manifest_path = self.create_temp_hook_manifest(manifest_content)
-        try:
-            result = validate_hook_manifest(manifest_path)
-            assert result["valid"] is False
-            assert "Missing required fields" in result["errors"][0]
-        finally:
-            os.unlink(manifest_path)
+        manifest_path = write_hook_manifest(manifest_content, "missing-fields.yaml")
+        result = validate_hook_manifest(manifest_path)
+        assert result["valid"] is False
+        assert any("Missing required fields" in error for error in result["errors"])
 
-    def test_invalid_hook_name_format(self):
+    def test_invalid_hook_name_format(self, write_hook_manifest):
         """Test that invalid name format is detected."""
         manifest_content = {
             "name": "Invalid-Hook-Name",  # Uppercase not allowed
@@ -182,15 +188,12 @@ class TestHookManifestValidation:
             "command": "python test.py"
         }
 
-        manifest_path = self.create_temp_hook_manifest(manifest_content)
-        try:
-            result = validate_hook_manifest(manifest_path)
-            assert result["valid"] is False
-            assert any("Invalid name" in error for error in result["errors"])
-        finally:
-            os.unlink(manifest_path)
+        manifest_path = write_hook_manifest(manifest_content, "invalid-name.yaml")
+        result = validate_hook_manifest(manifest_path)
+        assert result["valid"] is False
+        assert any("Invalid name" in error for error in result["errors"])
 
-    def test_invalid_event_type(self):
+    def test_invalid_event_type(self, write_hook_manifest):
         """Test that invalid event type is detected."""
         manifest_content = {
             "name": "test-hook",
@@ -200,15 +203,12 @@ class TestHookManifestValidation:
             "command": "python test.py"
         }
 
-        manifest_path = self.create_temp_hook_manifest(manifest_content)
-        try:
-            result = validate_hook_manifest(manifest_path)
-            assert result["valid"] is False
-            assert any("Invalid event" in error for error in result["errors"])
-        finally:
-            os.unlink(manifest_path)
+        manifest_path = write_hook_manifest(manifest_content, "invalid-event.yaml")
+        result = validate_hook_manifest(manifest_path)
+        assert result["valid"] is False
+        assert any("event" in error and "Input should be" in error for error in result["errors"])
 
-    def test_empty_command(self):
+    def test_empty_command(self, write_hook_manifest):
         """Test that empty command is detected."""
         manifest_content = {
             "name": "test-hook",
@@ -218,15 +218,12 @@ class TestHookManifestValidation:
             "command": ""  # Empty command
         }
 
-        manifest_path = self.create_temp_hook_manifest(manifest_content)
-        try:
-            result = validate_hook_manifest(manifest_path)
-            assert result["valid"] is False
-            assert any("command cannot be empty" in error for error in result["errors"])
-        finally:
-            os.unlink(manifest_path)
+        manifest_path = write_hook_manifest(manifest_content, "empty-command.yaml")
+        result = validate_hook_manifest(manifest_path)
+        assert result["valid"] is False
+        assert any("command" in error and "at least 1 character" in error for error in result["errors"])
 
-    def test_invalid_blocking_type(self):
+    def test_invalid_blocking_type(self, write_hook_manifest):
         """Test that invalid blocking type is detected."""
         manifest_content = {
             "name": "test-hook",
@@ -237,15 +234,12 @@ class TestHookManifestValidation:
             "blocking": "yes"  # Should be boolean
         }
 
-        manifest_path = self.create_temp_hook_manifest(manifest_content)
-        try:
-            result = validate_hook_manifest(manifest_path)
-            assert result["valid"] is False
-            assert any("blocking must be a boolean" in error for error in result["errors"])
-        finally:
-            os.unlink(manifest_path)
+        manifest_path = write_hook_manifest(manifest_content, "invalid-blocking.yaml")
+        result = validate_hook_manifest(manifest_path)
+        assert result["valid"] is False
+        assert any("blocking must be a boolean" in error for error in result["errors"])
 
-    def test_invalid_timeout(self):
+    def test_invalid_timeout(self, write_hook_manifest):
         """Test that invalid timeout is detected."""
         manifest_content = {
             "name": "test-hook",
@@ -256,15 +250,12 @@ class TestHookManifestValidation:
             "timeout": -1000  # Negative timeout
         }
 
-        manifest_path = self.create_temp_hook_manifest(manifest_content)
-        try:
-            result = validate_hook_manifest(manifest_path)
-            assert result["valid"] is False
-            assert any("timeout must be a positive number" in error for error in result["errors"])
-        finally:
-            os.unlink(manifest_path)
+        manifest_path = write_hook_manifest(manifest_content, "invalid-timeout.yaml")
+        result = validate_hook_manifest(manifest_path)
+        assert result["valid"] is False
+        assert any("timeout" in error and "greater than 0" in error for error in result["errors"])
 
-    def test_invalid_status(self):
+    def test_invalid_status(self, write_hook_manifest):
         """Test that invalid status is detected."""
         manifest_content = {
             "name": "test-hook",
@@ -275,15 +266,12 @@ class TestHookManifestValidation:
             "status": "invalid_status"
         }
 
-        manifest_path = self.create_temp_hook_manifest(manifest_content)
-        try:
-            result = validate_hook_manifest(manifest_path)
-            assert result["valid"] is False
-            assert any("Invalid status" in error for error in result["errors"])
-        finally:
-            os.unlink(manifest_path)
+        manifest_path = write_hook_manifest(manifest_content, "invalid-status.yaml")
+        result = validate_hook_manifest(manifest_path)
+        assert result["valid"] is False
+        assert any("Invalid status" in error for error in result["errors"])
 
-    def test_invalid_when_pattern(self):
+    def test_invalid_when_pattern(self, write_hook_manifest):
         """Test that invalid when.pattern is detected."""
         manifest_content = {
             "name": "test-hook",
@@ -296,13 +284,10 @@ class TestHookManifestValidation:
             }
         }
 
-        manifest_path = self.create_temp_hook_manifest(manifest_content)
-        try:
-            result = validate_hook_manifest(manifest_path)
-            assert result["valid"] is False
-            assert any("when.pattern must be a non-empty string" in error for error in result["errors"])
-        finally:
-            os.unlink(manifest_path)
+        manifest_path = write_hook_manifest(manifest_content, "invalid-when.yaml")
+        result = validate_hook_manifest(manifest_path)
+        assert result["valid"] is False
+        assert any("when.pattern must be a non-empty string" in error for error in result["errors"])
 
 
 class TestHookConfigCreation:
