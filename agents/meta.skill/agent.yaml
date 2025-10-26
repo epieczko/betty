@@ -1,4 +1,5 @@
 name: meta.skill
+version: 0.1.0
 description: |
   Creates complete, functional skills from natural language descriptions.
 
@@ -41,9 +42,16 @@ artifact_metadata:
       content_type: "text/markdown"
       description: "Skill documentation and usage guide"
 
+status: draft
+reasoning_mode: iterative
+capabilities:
+  - Convert skill concepts into production-ready packages with tests and docs
+  - Ensure generated skills follow registry, artifact, and permission conventions
+  - Coordinate registration and documentation updates for new skills
 skills_available:
+  - skill.create
+  - skill.define
   - artifact.define    # Generate artifact metadata
-  - meta.artifact      # Define new artifact types if needed
 
 permissions:
   - filesystem:read

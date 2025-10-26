@@ -12,8 +12,6 @@ from typing import Dict, Any, List, Optional
 from datetime import datetime, timezone
 from pydantic import ValidationError as PydanticValidationError
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from betty.config import (
     BASE_DIR,
@@ -21,9 +19,8 @@ from betty.config import (
     COMMANDS_REGISTRY_FILE,
     REGISTRY_FILE,
     AGENTS_REGISTRY_FILE,
-    CommandExecutionType,
-    CommandStatus
 )
+from betty.enums import CommandExecutionType, CommandStatus
 from betty.validation import (
     validate_path,
     validate_manifest_fields,
@@ -245,44 +242,42 @@ def validate_manifest(path: str) -> Dict[str, Any]:
             "path": path
         }
 
-    # Validate with Pydantic schema first
+    # Check required fields first so the message appears before schema errors
+    missing = validate_manifest_fields(manifest, REQUIRED_COMMAND_FIELDS)
+    if missing:
+        missing_message = f"Missing required fields: {', '.join(missing)}"
+        errors.append(missing_message)
+        logger.warning(f"Missing required fields: {missing}")
+
+    # Validate with Pydantic schema (keep going to surface custom errors too)
     schema_errors = validate_command_schema(manifest)
     errors.extend(schema_errors)
 
-    # Check required fields
-    missing = validate_manifest_fields(manifest, REQUIRED_COMMAND_FIELDS)
-    if missing:
-        errors.append(f"Missing required fields: {', '.join(missing)}")
-        logger.warning(f"Missing required fields: {missing}")
+    name = manifest.get("name")
+    if name is not None:
+        try:
+            validate_command_name(name)
+        except Exception as e:
+            errors.append(f"Invalid name: {str(e)}")
+            logger.warning(f"Invalid name: {e}")
 
-    # If missing required fields, return early
-    if errors:
-        return {
-            "valid": False,
-            "errors": errors,
-            "path": path
-        }
+    version = manifest.get("version")
+    if version is not None:
+        try:
+            validate_version(version)
+        except Exception as e:
+            errors.append(f"Invalid version: {str(e)}")
+            logger.warning(f"Invalid version: {e}")
 
-    # Validate name format
-    try:
-        validate_command_name(manifest["name"])
-    except Exception as e:
-        errors.append(f"Invalid name: {str(e)}")
-        logger.warning(f"Invalid name: {e}")
-
-    # Validate version format
-    try:
-        validate_version(manifest["version"])
-    except Exception as e:
-        errors.append(f"Invalid version: {str(e)}")
-        logger.warning(f"Invalid version: {e}")
-
-    # Validate execution configuration
-    execution = manifest.get("execution", {})
-    if not isinstance(execution, dict):
+    execution = manifest.get("execution")
+    if execution is None:
+        if "execution" not in missing:
+            errors.append("execution must be provided")
+            logger.warning("Execution configuration missing")
+    elif not isinstance(execution, dict):
         errors.append("execution must be an object")
+        logger.warning("Execution configuration is not a dictionary")
     else:
-        # Validate execution type
         exec_type = execution.get("type")
         if not exec_type:
             errors.append("execution.type is required")
@@ -293,7 +288,6 @@ def validate_manifest(path: str) -> Dict[str, Any]:
                 errors.append(f"Invalid execution.type: {str(e)}")
                 logger.warning(f"Invalid execution type: {e}")
 
-        # Validate execution target exists
         if exec_type:
             target_errors = validate_execution_target(execution)
             errors.extend(target_errors)

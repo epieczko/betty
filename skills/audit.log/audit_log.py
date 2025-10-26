@@ -8,7 +8,6 @@ from typing import Any, Dict, List, Optional
 from datetime import datetime, timezone
 
 # Ensure project root on path for betty imports when executed directly
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from betty.config import REGISTRY_DIR  # noqa: E402
 from betty.errors import SkillValidationError  # noqa: E402

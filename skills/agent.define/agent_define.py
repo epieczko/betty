@@ -12,17 +12,14 @@ from typing import Dict, Any, List, Optional
 from datetime import datetime, timezone
 from pydantic import ValidationError as PydanticValidationError
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from betty.config import (
     BASE_DIR,
     REQUIRED_AGENT_FIELDS,
     AGENTS_REGISTRY_FILE,
     REGISTRY_FILE,
-    ReasoningMode,
-    AgentStatus
 )
+from betty.enums import AgentStatus, ReasoningMode
 from betty.validation import (
     validate_path,
     validate_manifest_fields,
@@ -172,44 +169,43 @@ def validate_manifest(path: str) -> Dict[str, Any]:
             "path": path
         }
 
-    # Validate with Pydantic schema first
+    # Check required fields first so high-level issues are reported clearly
+    missing = validate_manifest_fields(manifest, REQUIRED_AGENT_FIELDS)
+    if missing:
+        missing_message = f"Missing required fields: {', '.join(missing)}"
+        errors.append(missing_message)
+        logger.warning(f"Missing required fields: {missing}")
+
+    # Validate with Pydantic schema while continuing custom validation
     schema_errors = validate_agent_schema(manifest)
     errors.extend(schema_errors)
 
-    # Check required fields
-    missing = validate_manifest_fields(manifest, REQUIRED_AGENT_FIELDS)
-    if missing:
-        errors.append(f"Missing required fields: {', '.join(missing)}")
-        logger.warning(f"Missing required fields: {missing}")
+    name = manifest.get("name")
+    if name is not None:
+        try:
+            validate_agent_name(name)
+        except Exception as e:
+            errors.append(f"Invalid name: {str(e)}")
+            logger.warning(f"Invalid name: {e}")
 
-    # If missing required fields, return early
-    if errors:
-        return {
-            "valid": False,
-            "errors": errors,
-            "path": path
-        }
+    version = manifest.get("version")
+    if version is not None:
+        try:
+            validate_version(version)
+        except Exception as e:
+            errors.append(f"Invalid version: {str(e)}")
+            logger.warning(f"Invalid version: {e}")
 
-    # Validate name format
-    try:
-        validate_agent_name(manifest["name"])
-    except Exception as e:
-        errors.append(f"Invalid name: {str(e)}")
-        logger.warning(f"Invalid name: {e}")
-
-    # Validate version format
-    try:
-        validate_version(manifest["version"])
-    except Exception as e:
-        errors.append(f"Invalid version: {str(e)}")
-        logger.warning(f"Invalid version: {e}")
-
-    # Validate reasoning mode
-    try:
-        validate_reasoning_mode(manifest["reasoning_mode"])
-    except Exception as e:
-        errors.append(f"Invalid reasoning_mode: {str(e)}")
-        logger.warning(f"Invalid reasoning_mode: {e}")
+    reasoning_mode = manifest.get("reasoning_mode")
+    if reasoning_mode is not None:
+        try:
+            validate_reasoning_mode(reasoning_mode)
+        except Exception as e:
+            errors.append(f"Invalid reasoning_mode: {str(e)}")
+            logger.warning(f"Invalid reasoning_mode: {e}")
+    elif "reasoning_mode" not in missing:
+        errors.append("reasoning_mode must be provided")
+        logger.warning("Reasoning mode missing")
 
     # Validate capabilities is non-empty
     capabilities = manifest.get("capabilities", [])

@@ -9,12 +9,7 @@ import time
 import inspect
 from typing import Any, Callable, Dict, Optional
 from pathlib import Path
-import sys
-
-# Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent))
-
-from telemetry_capture import TelemetryCapture
+from .telemetry_capture import TelemetryCapture
 
 
 def capture_telemetry(

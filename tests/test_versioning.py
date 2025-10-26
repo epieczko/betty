@@ -291,7 +291,7 @@ class TestRegistryVersionEnforcement:
     def test_registry_requires_version_field(self):
         """Test that registry requires explicit version field."""
         from betty.errors import RegistryError
-        from skills.registry.update.registry_update import enforce_version_constraints
+        from betty.skills.registry.update.registry_update import enforce_version_constraints
 
         manifest = {
             "name": "test.skill",
@@ -305,7 +305,7 @@ class TestRegistryVersionEnforcement:
     def test_registry_rejects_active_version_overwrite(self):
         """Test that registry refuses to overwrite active versions."""
         from betty.errors import VersionConflictError
-        from skills.registry.update.registry_update import enforce_version_constraints
+        from betty.skills.registry.update.registry_update import enforce_version_constraints
 
         manifest = {
             "name": "test.skill",
@@ -328,7 +328,7 @@ class TestRegistryVersionEnforcement:
     def test_registry_rejects_downgrades(self):
         """Test that registry enforces monotonic version increases."""
         from betty.errors import VersionConflictError
-        from skills.registry.update.registry_update import enforce_version_constraints
+        from betty.skills.registry.update.registry_update import enforce_version_constraints
 
         manifest = {
             "name": "test.skill",
@@ -350,7 +350,7 @@ class TestRegistryVersionEnforcement:
 
     def test_registry_allows_draft_same_version(self):
         """Test that registry allows same version for draft skills."""
-        from skills.registry.update.registry_update import enforce_version_constraints
+        from betty.skills.registry.update.registry_update import enforce_version_constraints
 
         manifest = {
             "name": "test.skill",
@@ -372,7 +372,7 @@ class TestRegistryVersionEnforcement:
 
     def test_registry_allows_version_increase(self):
         """Test that registry allows monotonic version increases."""
-        from skills.registry.update.registry_update import enforce_version_constraints
+        from betty.skills.registry.update.registry_update import enforce_version_constraints
 
         manifest = {
             "name": "test.skill",
@@ -394,7 +394,7 @@ class TestRegistryVersionEnforcement:
 
     def test_registry_allows_new_entry(self):
         """Test that registry allows new entries."""
-        from skills.registry.update.registry_update import enforce_version_constraints
+        from betty.skills.registry.update.registry_update import enforce_version_constraints
 
         manifest = {
             "name": "new.skill",
@@ -415,7 +415,7 @@ class TestWorkflowVersionConstraints:
         import tempfile
         import os
         import yaml
-        from skills.workflow.validate.workflow_validate import validate_workflow
+        from betty.skills.workflow.validate.workflow_validate import validate_workflow
 
         workflow_data = {
             "name": "test-workflow",
@@ -445,7 +445,7 @@ class TestWorkflowVersionConstraints:
         import tempfile
         import os
         import yaml
-        from skills.workflow.validate.workflow_validate import validate_workflow
+        from betty.skills.workflow.validate.workflow_validate import validate_workflow
 
         workflow_data = {
             "name": "test-workflow",
@@ -477,7 +477,7 @@ class TestWorkflowVersionConstraints:
         import os
         import yaml
         import json
-        from skills.workflow.validate.workflow_validate import validate_workflow
+        from betty.skills.workflow.validate.workflow_validate import validate_workflow
 
         # Create a workflow that references an existing skill
         workflow_data = {

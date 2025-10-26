@@ -5,16 +5,10 @@ Tests immutability and retention policy enforcement.
 """
 
 import pytest
-import sys
-import os
 import json
 from pathlib import Path
 from datetime import datetime, timedelta
 from typing import Dict, Any
-
-# Add betty module to path
-BASE_PATH = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(BASE_PATH))
 
 from betty.governance import (
     enforce_governance,

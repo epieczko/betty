@@ -12,13 +12,7 @@ import pytest
 import yaml
 
 # Import the hook modules
-import sys
-
-# Add paths for hook modules
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "skills", "hook.define")))
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "skills", "hook.register")))
-
-from hook_define import (
+from betty.skills.hook.define.hook_define import (
     define_hook,
     create_hook_config,
     add_hook_to_config,
@@ -26,7 +20,7 @@ from hook_define import (
     save_hooks_config,
     VALID_EVENTS
 )
-from hook_register import (
+from betty.skills.hook.register.hook_register import (
     validate_manifest as validate_hook_manifest,
     load_hook_manifest,
     update_hook_registry,
@@ -34,7 +28,7 @@ from hook_register import (
     HookValidationError,
     HookRegistryError
 )
-from betty.config import HookEvent, HookStatus
+from betty.enums import HookEvent, HookStatus
 from betty.validation import validate_hook_name, validate_hook_event, ValidationError
 
 

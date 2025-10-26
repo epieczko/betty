@@ -11,7 +11,6 @@ import yaml
 from pydantic import ValidationError as PydanticValidationError
 
 # Ensure project root on path for betty imports when executed directly
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from betty.errors import SkillValidationError, WorkflowError  # noqa: E402
 from betty.logging_utils import setup_logger  # noqa: E402

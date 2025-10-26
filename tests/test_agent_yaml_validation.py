@@ -10,17 +10,7 @@ import pytest
 from pathlib import Path
 from glob import glob
 
-# Import the agent.define functions
-import sys
-
-sys.path.insert(
-    0,
-    os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "..", "skills", "agent.define")
-    ),
-)
-
-from agent_define import (
+from betty.skills.agent.define.agent_define import (
     validate_manifest,
     load_agent_manifest,
     AgentValidationError,
@@ -239,7 +229,7 @@ class TestAgentManifestStructure:
 
     def test_agent_has_valid_reasoning_mode(self):
         """Test that all agents have valid reasoning modes."""
-        from betty.config import ReasoningMode
+        from betty.enums import ReasoningMode
 
         valid_modes = [mode.value for mode in ReasoningMode]
         agents_dir = os.path.join(BASE_DIR, "agents")

@@ -14,7 +14,6 @@ from pathlib import Path
 from typing import Dict, Any, List, Tuple
 
 # Add betty module to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from betty.logging_utils import setup_logger
 from betty.errors import format_error_response, BettyError

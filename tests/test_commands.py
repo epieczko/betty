@@ -11,10 +11,7 @@ import pytest
 import yaml
 
 # Import the command.define functions
-import sys
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "skills", "command.define")))
-
-from command_define import (
+from betty.skills.command.define.command_define import (
     validate_manifest,
     load_command_manifest,
     update_command_registry,
@@ -23,7 +20,6 @@ from command_define import (
     CommandValidationError,
     CommandRegistryError
 )
-
 
 @pytest.fixture
 def write_command_manifest(tmp_path) -> Callable[[dict, str], str]:
@@ -36,11 +32,9 @@ def write_command_manifest(tmp_path) -> Callable[[dict, str], str]:
         return str(manifest_path)
 
     return _writer
-from betty.config import (
-    COMMANDS_REGISTRY_FILE,
-    CommandExecutionType,
-    CommandStatus
-)
+
+from betty.config import COMMANDS_REGISTRY_FILE
+from betty.enums import CommandExecutionType, CommandStatus
 from betty.validation import (
     validate_command_name,
     validate_command_execution_type,
@@ -315,9 +309,6 @@ class TestCommandExecutionTargetValidation:
             "target": "api.validate"
         }
         errors = validate_execution_target(execution)
-        # api.validate should exist in the registry
-        # If it doesn't, the test will show an error
-        # This is acceptable as it tests the validation logic
 
     def test_validate_skill_target_not_exists(self):
         """Test validation of skill target that doesn't exist."""
@@ -343,7 +334,6 @@ class TestCommandExecutionTargetValidation:
         """Test validation when target is missing."""
         execution = {
             "type": "skill"
-            # Missing: target
         }
         errors = validate_execution_target(execution)
         assert len(errors) > 0
@@ -362,7 +352,6 @@ class TestCommandRegistry:
 
     def test_update_command_registry(self):
         """Test updating command registry with new command."""
-        # Create a test manifest
         manifest = {
             "name": "/test-registry-command",
             "version": "1.0.0",
@@ -375,18 +364,15 @@ class TestCommandRegistry:
             "tags": ["test"]
         }
 
-        # Update registry
         result = update_command_registry(manifest)
         assert result is True
 
-        # Verify it was added
         registry = load_command_registry()
         command_names = [cmd["name"] for cmd in registry["commands"]]
         assert "/test-registry-command" in command_names
 
     def test_update_existing_command(self):
         """Test updating an existing command in registry."""
-        # First, add a command
         manifest = {
             "name": "/test-update-command",
             "version": "1.0.0",
@@ -398,13 +384,11 @@ class TestCommandRegistry:
         }
         update_command_registry(manifest)
 
-        # Now update it
         manifest["version"] = "1.0.1"
         manifest["description"] = "Updated description"
         result = update_command_registry(manifest)
         assert result is True
 
-        # Verify it was updated
         registry = load_command_registry()
         updated_cmd = next(
             (cmd for cmd in registry["commands"] if cmd["name"] == "/test-update-command"),
@@ -420,7 +404,6 @@ class TestCommandWorkflow:
 
     def test_complete_command_registration_workflow(self, write_command_manifest):
         """Test complete workflow: create manifest -> validate -> register."""
-        # Create a complete command manifest
         manifest_content = {
             "name": "/test-workflow-command",
             "version": "1.0.0",
@@ -443,16 +426,13 @@ class TestCommandWorkflow:
 
         manifest_path = write_command_manifest(manifest_content, "workflow-command.yaml")
 
-        # Step 1: Validate manifest
         validation = validate_manifest(manifest_path)
         assert validation["valid"] is True
         assert validation["errors"] == []
 
-        # Step 2: Register command
         result = update_command_registry(validation["manifest"])
         assert result is True
 
-        # Step 3: Verify registration
         registry = load_command_registry()
         command = next(
             (cmd for cmd in registry["commands"] if cmd["name"] == "/test-workflow-command"),
@@ -467,16 +447,13 @@ class TestCommandWorkflow:
 
     def test_invalid_command_workflow(self, write_command_manifest):
         """Test workflow with invalid command manifest."""
-        # Create an invalid manifest (missing required fields)
         manifest_content = {
             "name": "/test-invalid",
             "description": "Invalid command"
-            # Missing: version, execution
         }
 
         manifest_path = write_command_manifest(manifest_content, "invalid-workflow.yaml")
 
-        # Validation should fail
         validation = validate_manifest(manifest_path)
         assert validation["valid"] is False
         assert len(validation["errors"]) > 0

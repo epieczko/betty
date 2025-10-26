@@ -1,8 +1,17 @@
 name: meta.hook
 version: 0.1.0
 description: Hook creator meta-agent that generates Claude Code hooks from descriptions
-status: active
+status: draft
+reasoning_mode: iterative
+capabilities:
+  - Translate natural language specifications into validated hook manifests
+  - Recommend appropriate hook events, commands, and execution patterns
+  - Simulate and document hook behavior for developer adoption
 type: meta-agent
+skills_available:
+  - hook.define
+  - hook.register
+  - hook.simulate
 
 artifact_metadata:
   consumes:
