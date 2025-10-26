@@ -2635,6 +2635,76 @@
         }
       ],
       "updated_at": "2025-10-25T20:53:58.801198+00:00"
+    },
+    {
+      "name": "artifact.create",
+      "version": "0.1.0",
+      "description": "Generate new artifact deliverables and supporting documentation for Betty workflows.",
+      "inputs": [],
+      "outputs": [],
+      "status": "draft",
+      "entrypoints": [],
+      "updated_at": "2025-10-26T00:00:00+00:00"
+    },
+    {
+      "name": "artifact.validate",
+      "version": "0.1.0",
+      "description": "Validate artifact structure and content against registered standards.",
+      "inputs": [],
+      "outputs": [],
+      "status": "draft",
+      "entrypoints": [],
+      "updated_at": "2025-10-26T00:00:00+00:00"
+    },
+    {
+      "name": "artifact.review",
+      "version": "0.1.0",
+      "description": "Review artifacts for completeness, quality, and compliance.",
+      "inputs": [],
+      "outputs": [],
+      "status": "draft",
+      "entrypoints": [],
+      "updated_at": "2025-10-26T00:00:00+00:00"
+    },
+    {
+      "name": "build.optimize",
+      "version": "0.1.0",
+      "description": "Optimize build artifacts by applying compression and caching strategies.",
+      "inputs": [],
+      "outputs": [],
+      "status": "draft",
+      "entrypoints": [],
+      "updated_at": "2025-10-26T00:00:00+00:00"
+    },
+    {
+      "name": "code.format",
+      "version": "0.1.0",
+      "description": "Format source code according to repository style guides.",
+      "inputs": [],
+      "outputs": [],
+      "status": "draft",
+      "entrypoints": [],
+      "updated_at": "2025-10-26T00:00:00+00:00"
+    },
+    {
+      "name": "meta.compatibility",
+      "version": "0.1.0",
+      "description": "Analyze agent and skill registries to discover compatibility relationships.",
+      "inputs": [],
+      "outputs": [],
+      "status": "draft",
+      "entrypoints": [],
+      "updated_at": "2025-10-26T00:00:00+00:00"
+    },
+    {
+      "name": "workflow.orchestrate",
+      "version": "0.1.0",
+      "description": "Compose and execute multi-step workflows that coordinate agents and skills.",
+      "inputs": [],
+      "outputs": [],
+      "status": "draft",
+      "entrypoints": [],
+      "updated_at": "2025-10-26T00:00:00+00:00"
     }
   ]
 }

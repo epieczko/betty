@@ -8,8 +8,8 @@ from betty.config import (
     get_skill_path,
     get_skill_manifest_path,
     get_skill_handler_path,
-    SkillStatus
 )
+from betty.enums import SkillStatus
 
 
 class TestSkillPaths:

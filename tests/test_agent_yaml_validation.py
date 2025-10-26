@@ -229,7 +229,7 @@ class TestAgentManifestStructure:
 
     def test_agent_has_valid_reasoning_mode(self):
         """Test that all agents have valid reasoning modes."""
-        from betty.config import ReasoningMode
+        from betty.enums import ReasoningMode
 
         valid_modes = [mode.value for mode in ReasoningMode]
         agents_dir = os.path.join(BASE_DIR, "agents")

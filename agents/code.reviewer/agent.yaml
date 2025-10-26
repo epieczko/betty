@@ -1,7 +1,17 @@
 name: code.reviewer
+version: 0.1.0
 description: Analyzes code changes and provides comprehensive feedback on code quality,
   security vulnerabilities, performance issues, and adherence to best practices.
-skills_available: []
+status: draft
+reasoning_mode: iterative
+capabilities:
+  - Review diffs for quality, security, and maintainability concerns
+  - Generate prioritized issue lists with remediation guidance
+  - Summarize overall code health and compliance with standards
+skills_available:
+  - code.format
+  - test.workflow.integration
+  - policy.enforce
 permissions: []
 artifact_metadata:
   consumes:

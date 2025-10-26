@@ -12,7 +12,7 @@ capabilities:
 skills_available:
   - api.define
   - api.validate
-  - api.generate-models
+  - api.generatemodels
   - api.compatibility
 
 reasoning_mode: iterative

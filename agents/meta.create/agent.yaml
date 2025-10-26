@@ -15,6 +15,13 @@ description: |
   This is the primary entry point for creating Betty components from natural
   language descriptions.
 
+status: draft
+reasoning_mode: iterative
+capabilities:
+  - Diagnose component needs and recommend skills, commands, or agents to create
+  - Generate scaffolding for new framework components with proper metadata
+  - Coordinate validation steps to ensure compatibility before registration
+
 skills_available:
   - registry.query
   - agent.compose

@@ -4,8 +4,16 @@ Centralizes all paths, constants, and configuration settings.
 """
 
 import os
-from enum import Enum
-from typing import Optional
+
+from betty.enums import (
+    AgentStatus,
+    CommandExecutionType,
+    CommandStatus,
+    HookEvent,
+    HookStatus,
+    ReasoningMode,
+    SkillStatus,
+)
 
 # Betty Framework version
 VERSION = "1.0.0"
@@ -43,63 +51,6 @@ REQUIRED_COMMAND_FIELDS = ["name", "version", "description", "execution"]
 
 # Hook manifest required fields
 REQUIRED_HOOK_FIELDS = ["name", "version", "description", "event", "command"]
-
-
-class SkillStatus(Enum):
-    """Valid skill status values."""
-    DRAFT = "draft"
-    ACTIVE = "active"
-    DEPRECATED = "deprecated"
-    ARCHIVED = "archived"
-
-
-class AgentStatus(Enum):
-    """Valid agent status values."""
-    DRAFT = "draft"
-    ACTIVE = "active"
-    DEPRECATED = "deprecated"
-    ARCHIVED = "archived"
-
-
-class ReasoningMode(Enum):
-    """Valid agent reasoning modes."""
-    ITERATIVE = "iterative"
-    ONESHOT = "oneshot"
-
-
-class CommandExecutionType(Enum):
-    """Valid command execution types."""
-    AGENT = "agent"
-    SKILL = "skill"
-    WORKFLOW = "workflow"
-
-
-class HookEvent(Enum):
-    """Valid hook event types."""
-    ON_FILE_EDIT = "on_file_edit"
-    ON_FILE_SAVE = "on_file_save"
-    ON_COMMIT = "on_commit"
-    ON_PUSH = "on_push"
-    ON_TOOL_USE = "on_tool_use"
-    ON_AGENT_START = "on_agent_start"
-    ON_WORKFLOW_END = "on_workflow_end"
-
-
-class CommandStatus(Enum):
-    """Valid command status values."""
-    DRAFT = "draft"
-    ACTIVE = "active"
-    DEPRECATED = "deprecated"
-    ARCHIVED = "archived"
-
-
-class HookStatus(Enum):
-    """Valid hook status values."""
-    DRAFT = "draft"
-    ACTIVE = "active"
-    DISABLED = "disabled"
-    ARCHIVED = "archived"
-
 
 def get_skill_path(skill_name: str) -> str:
     """Get the directory path for a skill."""

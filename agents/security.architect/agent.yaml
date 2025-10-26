@@ -1,9 +1,16 @@
 name: security.architect
+version: 0.1.0
 description: Create comprehensive security architecture and assessment artifacts including
   threat models, security architecture diagrams, penetration testing reports, vulnerability
   management plans, and incident response plans. Applies security frameworks (STRIDE,
   NIST, ISO 27001, OWASP) and creates artifacts ready for security review and compliance
   audit.
+status: draft
+reasoning_mode: iterative
+capabilities:
+  - Perform structured threat modeling and control gap assessments
+  - Produce security architecture and testing documentation for reviews
+  - Recommend remediation and governance improvements for security programs
 skills_available:
   - artifact.create
   - artifact.validate

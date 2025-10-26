@@ -1,4 +1,5 @@
 name: meta.agent
+version: 0.1.0
 description: |
   Meta-agent that creates other agents by composing skills based on natural
   language descriptions. Transforms natural language descriptions into complete,
@@ -26,10 +27,16 @@ artifact_metadata:
       content_type: "text/markdown"
       description: "Human-readable agent documentation"
 
+status: draft
+reasoning_mode: iterative
+capabilities:
+  - Analyze agent requirements and identify compatible skills and capabilities
+  - Generate complete agent manifests, documentation, and supporting assets
+  - Validate registry consistency before registering new agents
 skills_available:
   - agent.compose      # Find compatible skills based on requirements
   - artifact.define    # Generate artifact metadata for the new agent
-  - registry.certify   # Validate generated agent (optional)
+  - registry.update    # Validate and register generated agents
 
 permissions:
   - filesystem:read

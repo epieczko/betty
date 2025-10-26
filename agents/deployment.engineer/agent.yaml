@@ -1,9 +1,16 @@
 name: deployment.engineer
+version: 0.1.0
 description: Create comprehensive deployment and release artifacts including deployment
   plans, CI/CD pipelines, release checklists, rollback procedures, runbooks, and infrastructure-as-code
   configurations. Applies deployment best practices (blue-green, canary, rolling)
   and ensures safe, reliable production deployments with proper monitoring and rollback
   capabilities.
+status: draft
+reasoning_mode: iterative
+capabilities:
+  - Design deployment strategies with rollback and validation procedures
+  - Automate delivery pipelines and operational runbooks
+  - Coordinate release governance, approvals, and compliance requirements
 skills_available:
   - artifact.create
   - artifact.validate

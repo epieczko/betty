@@ -1,9 +1,16 @@
 name: data.validator
+version: 0.1.0
 description: Validates data files against schemas, business rules, and data quality
   standards. Ensures data integrity, completeness, and compliance.
+status: draft
+reasoning_mode: iterative
+capabilities:
+  - Validate datasets against structural and semantic rules
+  - Generate detailed issue reports with remediation recommendations
+  - Track quality metrics and highlight compliance gaps
 skills_available:
-- workflow.validate
-- api.validate
+  - workflow.validate
+  - api.validate
 permissions: []
 artifact_metadata:
   consumes:
