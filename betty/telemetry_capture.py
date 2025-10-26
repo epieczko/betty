@@ -429,11 +429,9 @@ def capture_audit_entry(
         metadata: Additional metadata
     """
     try:
-        from betty.config import get_skill_handler_path
-        import subprocess
+        from betty.skill_executor import execute_skill_in_process
 
-        audit_handler = get_skill_handler_path("audit.log")
-        args = [sys.executable, audit_handler, skill_name, status]
+        args = [skill_name, status]
 
         if duration_ms is not None:
             args.append(str(duration_ms))
@@ -448,17 +446,9 @@ def capture_audit_entry(
         if metadata:
             args.append(json.dumps(metadata))
 
-        result = subprocess.run(
-            args,
-            capture_output=True,
-            text=True,
-            timeout=10
-        )
+        result = execute_skill_in_process("audit.log", args, timeout=10)
 
-        if result.returncode != 0:
-            logger.debug(f"Failed to log audit entry for {skill_name}: {result.stderr}")
-    except FileNotFoundError:
-        # audit.log skill not found, skip audit logging
-        pass
+        if result["returncode"] != 0:
+            logger.debug(f"Failed to log audit entry for {skill_name}: {result['stderr']}")
     except Exception as e:
         logger.debug(f"Failed to log audit entry for {skill_name}: {e}")
