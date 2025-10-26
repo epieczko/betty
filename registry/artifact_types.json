@@ -1,0 +1,2869 @@
+{
+  "version": "1.0.0",
+  "generated_at": "2025-10-26T18:25:56.288409+00:00",
+  "artifact_types": [
+    {
+      "name": "acceptable-use-policy",
+      "description": "Acceptable Use Policy for Public-Facing and Legal. Part of Legal & External documentation and deliverables.",
+      "file_pattern": "*.acceptable-use-policy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "acceptance-criteria",
+      "description": "Acceptance criteria for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.acceptance-criteria.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "access-recertification-plan",
+      "description": "Access recertification plan for Architecture. Part of Security Architecture documentation and deliverables.",
+      "file_pattern": "*.access-recertification-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "access-review-logs",
+      "description": "Access review logs for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.access-review-logs.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "accessibility-audits",
+      "description": "Accessibility audits for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.accessibility-audits.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "accessibility-requirements",
+      "description": "Accessibility requirements for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.accessibility-requirements.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "admin-guides",
+      "description": "Admin guides for Documentation, Support, and Training. Part of Knowledge & Enablement documentation and deliverables.",
+      "file_pattern": "*.admin-guides.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "adr-index",
+      "description": "ADR index for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.adr-index.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "adversary-emulation-documents",
+      "description": "Adversary emulation documents for Architecture. Part of Security Architecture documentation and deliverables.",
+      "file_pattern": "*.adversary-emulation-documents.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "agent-definition",
+      "description": "Complete agent configuration with skills and metadata for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "agents/*/agent.yaml",
+      "content_type": "application/yaml",
+      "schema": "schemas/agent-definition.json"
+    },
+    {
+      "name": "agent-description",
+      "description": "Natural language description of agent purpose and requirements for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "**/agent_description.md",
+      "content_type": "text/markdown",
+      "schema": "schemas/agent-description.json"
+    },
+    {
+      "name": "agent-documentation",
+      "description": "Human-readable agent documentation for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "agents/*/README.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "agile-epic",
+      "description": "Agile Epic document with structured fields for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.epic.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "ai-ethics-and-bias-assessment",
+      "description": "AI ethics and bias assessment for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.ai-ethics-and-bias-assessment.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "ai-use-case-inventory",
+      "description": "AI use-case inventory for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.ai-use-case-inventory.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "alert-catalogs",
+      "description": "Alert catalogs for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.alert-catalogs.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "analytics-model-documentation",
+      "description": "Analytics model documentation for Data Engineering and Analytics. Part of Data Platform documentation and deliverables.",
+      "file_pattern": "*.analytics-model-documentation.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "api-catalogs",
+      "description": "API catalogs for Documentation, Support, and Training. Part of Knowledge & Enablement documentation and deliverables.",
+      "file_pattern": "*.api-catalogs.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "api-models",
+      "description": "Generated API data models for Implementation and Development. Part of Development documentation and deliverables.",
+      "file_pattern": "*.{py,ts,go}",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "api-versioning-policy",
+      "description": "API versioning policy for Architecture. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.api-versioning-policy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "app-store-metadata",
+      "description": "App store metadata for Mobile, Desktop, and Distribution. Part of Client Distribution documentation and deliverables.",
+      "file_pattern": "*.app-store-metadata.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "approval-evidence",
+      "description": "Approval evidence for HR, Access, and Lifecycle. Part of Access & Identity documentation and deliverables.",
+      "file_pattern": "*.approval-evidence.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "architecture-approvals",
+      "description": "Architecture approvals for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.architecture-approvals.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "architecture-overview",
+      "description": "Architecture overview for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.architecture-overview.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "architecture-review-board-minutes",
+      "description": "Architecture review board minutes for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.architecture-review-board-minutes.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "architecture-vision",
+      "description": "Architecture vision for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.architecture-vision.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "architecture-waivers",
+      "description": "Architecture waivers for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.architecture-waivers.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "archival-plan",
+      "description": "Archival plan for Closure and Archival. Part of Project Closure documentation and deliverables.",
+      "file_pattern": "*.archival-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "artifact-registry-policies",
+      "description": "Artifact registry policies for Deployment and Release. Part of Release Management documentation and deliverables.",
+      "file_pattern": "*.artifact-registry-policies.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "artifact-store-policies",
+      "description": "Artifact store policies for CI/CD, Build, and Provenance. Part of Build & Release Automation documentation and deliverables.",
+      "file_pattern": "*.artifact-store-policies.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "asyncapi-specification",
+      "description": "AsyncAPI specification for Architecture. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.asyncapi-specification.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "attribution-files",
+      "description": "Attribution files for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.attribution-files.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "audit-readiness-workbook",
+      "description": "Audit readiness workbook for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.audit-readiness-workbook.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "auto-update-policies",
+      "description": "Auto-update policies for Mobile, Desktop, and Distribution. Part of Client Distribution documentation and deliverables.",
+      "file_pattern": "*.auto-update-policies.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "automated-quality-gates",
+      "description": "Automated quality gates for CI/CD, Build, and Provenance. Part of Build & Release Automation documentation and deliverables.",
+      "file_pattern": "*.automated-quality-gates.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "automated-test-scripts",
+      "description": "Automated test scripts for Testing. Part of Quality Assurance documentation and deliverables.",
+      "file_pattern": "*.automated-test-scripts.txt",
+      "content_type": "text/plain",
+      "schema": ""
+    },
+    {
+      "name": "backup-and-recovery-plan",
+      "description": "Backup and recovery plan for Architecture. Part of Data and Information documentation and deliverables.",
+      "file_pattern": "*.backup-and-recovery-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "backup-verification-logs",
+      "description": "Backup verification logs for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.backup-verification-logs.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "baseline-hardening-guides",
+      "description": "Baseline hardening guides for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.baseline-hardening-guides.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "battlecards",
+      "description": "Battlecards for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.battlecards.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "benefits-realization-plan",
+      "description": "Benefits realization plan for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.benefits-realization-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "benefits-realization-report",
+      "description": "Benefits realization report for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.benefits-realization-report.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "bias-and-fairness-reports",
+      "description": "Bias and fairness reports for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.bias-and-fairness-reports.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "bounded-context-map",
+      "description": "Bounded context map for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.bounded-context-map.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "budget-forecast",
+      "description": "Budget forecast for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.budget-forecast.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "bug-bounty-brief",
+      "description": "Bug bounty brief for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.bug-bounty-brief.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "build-reproducibility-notes",
+      "description": "Build reproducibility notes for CI/CD, Build, and Provenance. Part of Build & Release Automation documentation and deliverables.",
+      "file_pattern": "*.build-reproducibility-notes.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "build-scripts",
+      "description": "Build scripts for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.build-scripts.txt",
+      "content_type": "text/plain",
+      "schema": ""
+    },
+    {
+      "name": "business-associate-agreement",
+      "description": "Business Associate Agreement (BAA) for Public-Facing and Legal. Part of Legal & External documentation and deliverables.",
+      "file_pattern": "*.business-associate-agreement.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "business-case",
+      "description": "Business case for Inception / Strategy. Part of Business & Strategy documentation and deliverables.",
+      "file_pattern": "*.business-case.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "business-process-models",
+      "description": "Business process models (BPMN, flowcharts) for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.business-process-models.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "business-rules-catalog",
+      "description": "Business rules catalog for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.business-rules-catalog.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "cab-approvals",
+      "description": "CAB approvals for Deployment and Release. Part of Release Management documentation and deliverables.",
+      "file_pattern": "*.cab-approvals.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "caching-strategy",
+      "description": "Caching strategy for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.caching-strategy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "caching-tiers",
+      "description": "Caching tiers for Performance, Capacity, and Cost. Part of Performance & Optimization documentation and deliverables.",
+      "file_pattern": "*.caching-tiers.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "capability-model",
+      "description": "Capability model for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.capability-model.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "capacity-models",
+      "description": "Capacity models for Performance, Capacity, and Cost. Part of Performance & Optimization documentation and deliverables.",
+      "file_pattern": "*.capacity-models.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "capacity-plan",
+      "description": "Capacity plan for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.capacity-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "capitalization-policy",
+      "description": "Capitalization policy for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.capitalization-policy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "carbon-footprint-analysis",
+      "description": "Carbon footprint analysis for Performance, Capacity, and Cost. Part of Performance & Optimization documentation and deliverables.",
+      "file_pattern": "*.carbon-footprint-analysis.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "cdn-and-waf-configs",
+      "description": "CDN and WAF configs for Infrastructure and Platform Engineering. Part of Platform Engineering documentation and deliverables.",
+      "file_pattern": "*.cdn-and-waf-configs.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "certificate-policy",
+      "description": "Certificate policy for Architecture. Part of Security Architecture documentation and deliverables.",
+      "file_pattern": "*.certificate-policy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "certification-exams",
+      "description": "Certification exams for Documentation, Support, and Training. Part of Knowledge & Enablement documentation and deliverables.",
+      "file_pattern": "*.certification-exams.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "change-control-plan",
+      "description": "Change control plan for Inception / Strategy. Part of Business & Strategy documentation and deliverables.",
+      "file_pattern": "*.change-control-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "change-log",
+      "description": "Change log for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.change-log.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "changelogs",
+      "description": "Changelogs for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.changelogs.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "chaos-engineering-experiments",
+      "description": "Chaos engineering experiments for Testing. Part of Quality Assurance documentation and deliverables.",
+      "file_pattern": "*.chaos-engineering-experiments.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "ci-cd-pipeline-definitions",
+      "description": "CI/CD pipeline definitions for Deployment and Release. Part of Release Management documentation and deliverables.",
+      "file_pattern": "*.ci-cd-pipeline-definitions.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "circuit-breaker-configurations",
+      "description": "Circuit breaker configurations for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.circuit-breaker-configurations.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "class-diagrams",
+      "description": "Class diagrams for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.class-diagrams.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "cloud-cost-optimization-reports",
+      "description": "Cloud cost optimization reports for Performance, Capacity, and Cost. Part of Performance & Optimization documentation and deliverables.",
+      "file_pattern": "*.cloud-cost-optimization-reports.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "cloud-landing-zone-design",
+      "description": "Cloud landing zone design for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.cloud-landing-zone-design.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "cmp-configurations",
+      "description": "CMP configurations for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.cmp-configurations.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "code-coverage-reports",
+      "description": "Code coverage reports for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.code-coverage-reports.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "code-review-records",
+      "description": "Code review records for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.code-review-records.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "code-signing-records",
+      "description": "Code signing records for Mobile, Desktop, and Distribution. Part of Client Distribution documentation and deliverables.",
+      "file_pattern": "*.code-signing-records.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "coding-standards-and-style-guides",
+      "description": "Coding standards and style guides for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.coding-standards-and-style-guides.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "commit-logs",
+      "description": "Commit logs for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.commit-logs.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "communication-plan",
+      "description": "Communication plan for Inception / Strategy. Part of Business & Strategy documentation and deliverables.",
+      "file_pattern": "*.communication-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "compatibility-graph",
+      "description": "Agent relationship graph showing which agents can work together for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.compatibility.json",
+      "content_type": "application/json",
+      "schema": "schemas/compatibility-graph.json"
+    },
+    {
+      "name": "competitive-analysis",
+      "description": "Competitive analysis for Inception / Strategy. Part of Business & Strategy documentation and deliverables.",
+      "file_pattern": "*.competitive-analysis.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "component-diagrams",
+      "description": "Component diagrams for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.component-diagrams.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "component-model",
+      "description": "Component model for Architecture. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.component-model.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "configuration-design",
+      "description": "Configuration design for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.configuration-design.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "configuration-drift-reports",
+      "description": "Configuration drift reports for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.configuration-drift-reports.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "consent-models",
+      "description": "Consent models for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.consent-models.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "consent-receipts",
+      "description": "Consent receipts for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.consent-receipts.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "content-strategy",
+      "description": "Content strategy for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.content-strategy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "context-diagrams",
+      "description": "Context diagrams for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.context-diagrams.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "continuous-improvement-plan",
+      "description": "Continuous improvement plan for Closure and Archival. Part of Project Closure documentation and deliverables.",
+      "file_pattern": "*.continuous-improvement-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "contributing-guide",
+      "description": "CONTRIBUTING guide for Documentation, Support, and Training. Part of Knowledge & Enablement documentation and deliverables.",
+      "file_pattern": "CONTRIBUTING.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "contributor-license-agreements",
+      "description": "Contributor License Agreements (CLAs) for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.contributor-license-agreements.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "control-test-evidence-packs",
+      "description": "Control test evidence packs for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.control-test-evidence-packs.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "cookie-policy",
+      "description": "Cookie Policy for Public-Facing and Legal. Part of Legal & External documentation and deliverables.",
+      "file_pattern": "*.cookie-policy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "cookie-policy-inventory",
+      "description": "Cookie policy inventory for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.cookie-policy-inventory.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "cosign-signatures",
+      "description": "Cosign signatures for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.cosign-signatures.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "cost-anomaly-alerts",
+      "description": "Cost anomaly alerts for Performance, Capacity, and Cost. Part of Performance & Optimization documentation and deliverables.",
+      "file_pattern": "*.cost-anomaly-alerts.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "cost-tagging-policy",
+      "description": "Cost tagging policy for Infrastructure and Platform Engineering. Part of Platform Engineering documentation and deliverables.",
+      "file_pattern": "*.cost-tagging-policy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "crash-reporting-taxonomy",
+      "description": "Crash reporting taxonomy for Mobile, Desktop, and Distribution. Part of Client Distribution documentation and deliverables.",
+      "file_pattern": "*.crash-reporting-taxonomy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "crash-triage-playbooks",
+      "description": "Crash triage playbooks for Mobile, Desktop, and Distribution. Part of Client Distribution documentation and deliverables.",
+      "file_pattern": "*.crash-triage-playbooks.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "customer-communication-templates",
+      "description": "Customer communication templates for Documentation, Support, and Training. Part of Knowledge & Enablement documentation and deliverables.",
+      "file_pattern": "*.customer-communication-templates.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "customer-data-return-procedures",
+      "description": "Customer data return procedures for Closure and Archival. Part of Project Closure documentation and deliverables.",
+      "file_pattern": "*.customer-data-return-procedures.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "customer-onboarding-plan",
+      "description": "Customer onboarding plan for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.customer-onboarding-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "cutover-checklist",
+      "description": "Cutover checklist for Deployment and Release. Part of Release Management documentation and deliverables.",
+      "file_pattern": "*.cutover-checklist.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "dag-definitions",
+      "description": "DAG definitions for Data Engineering and Analytics. Part of Data Platform documentation and deliverables.",
+      "file_pattern": "*.dag-definitions.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "data-contracts",
+      "description": "Data contracts for Architecture. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.data-contracts.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "data-dictionaries",
+      "description": "Data dictionaries for Architecture. Part of Data and Information documentation and deliverables.",
+      "file_pattern": "*.data-dictionaries.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "data-export-procedures",
+      "description": "Data export procedures for Closure and Archival. Part of Project Closure documentation and deliverables.",
+      "file_pattern": "*.data-export-procedures.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "data-flow-diagrams",
+      "description": "Data flow diagrams (DFDs) for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.data-flow-diagrams.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "data-freshness-slas",
+      "description": "Data freshness SLAs for Architecture. Part of Data and Information documentation and deliverables.",
+      "file_pattern": "*.data-freshness-slas.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "data-lineage-maps",
+      "description": "Data lineage maps for Architecture. Part of Data and Information documentation and deliverables.",
+      "file_pattern": "*.data-lineage-maps.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "data-lineage-tracking",
+      "description": "Data lineage tracking for Data Engineering and Analytics. Part of Data Platform documentation and deliverables.",
+      "file_pattern": "*.data-lineage-tracking.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "data-map",
+      "description": "Data map for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.data-map.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "data-processing-addendum",
+      "description": "Data Processing Addendum (DPA) for Public-Facing and Legal. Part of Legal & External documentation and deliverables.",
+      "file_pattern": "*.data-processing-addendum.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "data-product-specification",
+      "description": "Data product specification for Data Engineering and Analytics. Part of Data Platform documentation and deliverables.",
+      "file_pattern": "*.data-product-specification.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "data-protection-impact-assessment",
+      "description": "Data Protection Impact Assessment (DPIA) for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.data-protection-impact-assessment.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "data-quality-rules",
+      "description": "Data quality rules for Architecture. Part of Data and Information documentation and deliverables.",
+      "file_pattern": "*.data-quality-rules.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "data-residency-plan",
+      "description": "Data residency plan for Architecture. Part of Data and Information documentation and deliverables.",
+      "file_pattern": "*.data-residency-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "data-retention-plan",
+      "description": "Data retention plan for Architecture. Part of Data and Information documentation and deliverables.",
+      "file_pattern": "*.data-retention-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "database-schema-ddl",
+      "description": "Database schema DDL for Architecture. Part of Data and Information documentation and deliverables.",
+      "file_pattern": "*.database-schema-ddl.txt",
+      "content_type": "text/plain",
+      "schema": ""
+    },
+    {
+      "name": "dataset-documentation",
+      "description": "Dataset documentation for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.dataset-documentation.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "ddos-posture-assessments",
+      "description": "DDoS posture assessments for Infrastructure and Platform Engineering. Part of Platform Engineering documentation and deliverables.",
+      "file_pattern": "*.ddos-posture-assessments.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "decision-log",
+      "description": "Decision log for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.decision-log.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "decommissioning-plan",
+      "description": "Decommissioning plan for Closure and Archival. Part of Project Closure documentation and deliverables.",
+      "file_pattern": "*.decommissioning-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "defect-log",
+      "description": "Defect log for Testing. Part of Quality Assurance documentation and deliverables.",
+      "file_pattern": "*.defect-log.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "demo-scripts",
+      "description": "Demo scripts for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.demo-scripts.txt",
+      "content_type": "text/plain",
+      "schema": ""
+    },
+    {
+      "name": "dependency-graph",
+      "description": "Dependency graph for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.dependency-graph.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "deployment-diagram",
+      "description": "Deployment diagram for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.deployment-diagram.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "deployment-plan",
+      "description": "Deployment plan (blue-green, canary, rolling) for Deployment and Release. Part of Release Management documentation and deliverables.",
+      "file_pattern": "*.deployment-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "deployment-topology-diagram",
+      "description": "Deployment topology diagram for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.deployment-topology-diagram.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "deprecation-policy",
+      "description": "Deprecation policy for Architecture. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.deprecation-policy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "developer-handbook",
+      "description": "Developer handbook for Documentation, Support, and Training. Part of Knowledge & Enablement documentation and deliverables.",
+      "file_pattern": "*.developer-handbook.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "disaster-recovery-runbooks",
+      "description": "Disaster recovery runbooks for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.disaster-recovery-runbooks.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "discount-guardrails",
+      "description": "Discount guardrails for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.discount-guardrails.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "dns-configurations",
+      "description": "DNS configurations for Infrastructure and Platform Engineering. Part of Platform Engineering documentation and deliverables.",
+      "file_pattern": "*.dns-configurations.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "docker-compose-manifests",
+      "description": "Docker Compose manifests for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.docker-compose-manifests.yaml",
+      "content_type": "application/yaml",
+      "schema": "schemas/docker-compose-manifests.json"
+    },
+    {
+      "name": "dockerfiles",
+      "description": "Dockerfiles for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.dockerfiles.txt",
+      "content_type": "text/plain",
+      "schema": ""
+    },
+    {
+      "name": "domain-model",
+      "description": "Domain model for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.domain-model.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "dr-test-reports",
+      "description": "DR test reports for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.dr-test-reports.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "drift-detection-reports",
+      "description": "Drift detection reports for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.drift-detection-reports.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "dsar-playbooks",
+      "description": "DSAR playbooks for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.dsar-playbooks.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "eccn-classification",
+      "description": "ECCN classification for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.eccn-classification.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "encryption-and-key-management-design",
+      "description": "Encryption and key management design for Architecture. Part of Security Architecture documentation and deliverables.",
+      "file_pattern": "*.encryption-and-key-management-design.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "engagement-plan",
+      "description": "Engagement plan for Inception / Strategy. Part of Business & Strategy documentation and deliverables.",
+      "file_pattern": "*.engagement-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "enterprise-data-model",
+      "description": "Enterprise data model for Architecture. Part of Data and Information documentation and deliverables.",
+      "file_pattern": "*.enterprise-data-model.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "enterprise-risk-register",
+      "description": "Enterprise risk register for Inception / Strategy. Part of Business & Strategy documentation and deliverables.",
+      "file_pattern": "*.enterprise-risk-register.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "environment-matrix",
+      "description": "Environment matrix for Infrastructure and Platform Engineering. Part of Platform Engineering documentation and deliverables.",
+      "file_pattern": "*.environment-matrix.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "environment-promotion-rules",
+      "description": "Environment promotion rules for CI/CD, Build, and Provenance. Part of Build & Release Automation documentation and deliverables.",
+      "file_pattern": "*.environment-promotion-rules.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "epic-charter",
+      "description": "Epic charter for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.epic-charter.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "er-diagrams",
+      "description": "ER diagrams for Architecture. Part of Data and Information documentation and deliverables.",
+      "file_pattern": "*.er-diagrams.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "error-budget-policy",
+      "description": "Error budget policy for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.error-budget-policy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "error-taxonomy",
+      "description": "Error taxonomy for Architecture. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.error-taxonomy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "escalation-matrix",
+      "description": "Escalation matrix for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.escalation-matrix.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "etl-elt-specifications",
+      "description": "ETL/ELT specifications for Data Engineering and Analytics. Part of Data Platform documentation and deliverables.",
+      "file_pattern": "*.etl-elt-specifications.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "evaluation-protocols",
+      "description": "Evaluation protocols for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.evaluation-protocols.txt",
+      "content_type": "text/plain",
+      "schema": ""
+    },
+    {
+      "name": "event-schemas",
+      "description": "Event schemas (Avro, JSON, Protobuf) for Architecture. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.event-schemas.json",
+      "content_type": "application/json",
+      "schema": "schemas/event-schemas.json"
+    },
+    {
+      "name": "eviction-policies",
+      "description": "Eviction policies for Performance, Capacity, and Cost. Part of Performance & Optimization documentation and deliverables.",
+      "file_pattern": "*.eviction-policies.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "exception-log",
+      "description": "Exception log for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.exception-log.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "exception-register",
+      "description": "Exception register for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.exception-register.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "experiment-tracking-logs",
+      "description": "Experiment tracking logs for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.experiment-tracking-logs.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "explainability-reports",
+      "description": "Explainability reports (SHAP, LIME) for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.explainability-reports.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "export-control-screening",
+      "description": "Export control screening for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.export-control-screening.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "faq",
+      "description": "FAQ for Documentation, Support, and Training. Part of Knowledge & Enablement documentation and deliverables.",
+      "file_pattern": "*.faq.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "feasibility-study",
+      "description": "Feasibility study for Inception / Strategy. Part of Business & Strategy documentation and deliverables.",
+      "file_pattern": "*.feasibility-study.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "feature-flag-registry",
+      "description": "Feature flag registry for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.feature-flag-registry.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "feature-rollback-playbooks",
+      "description": "Feature rollback playbooks for Deployment and Release. Part of Release Management documentation and deliverables.",
+      "file_pattern": "*.feature-rollback-playbooks.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "feature-store-contracts",
+      "description": "Feature store contracts for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.feature-store-contracts.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "finops-dashboards",
+      "description": "FinOps dashboards for Infrastructure and Platform Engineering. Part of Platform Engineering documentation and deliverables.",
+      "file_pattern": "*.finops-dashboards.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "firewall-rules",
+      "description": "Firewall rules for Infrastructure and Platform Engineering. Part of Platform Engineering documentation and deliverables.",
+      "file_pattern": "*.firewall-rules.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "functional-requirements-specification",
+      "description": "Functional Requirements Specification (FRS) for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.functional-requirements-specification.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "genai-safety-evaluations",
+      "description": "GenAI safety evaluations for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.genai-safety-evaluations.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "glossary-and-taxonomy-index",
+      "description": "Glossary and taxonomy index for Documentation, Support, and Training. Part of Knowledge & Enablement documentation and deliverables.",
+      "file_pattern": "*.glossary-and-taxonomy-index.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "go-no-go-minutes",
+      "description": "Go/no-go minutes for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.go-no-go-minutes.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "golden-path-guide",
+      "description": "Golden path guide for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.golden-path-guide.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "governance-charter",
+      "description": "Governance charter for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.governance-charter.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "graphql-schema",
+      "description": "GraphQL schema for Architecture. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.graphql-schema.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "great-expectations-suites",
+      "description": "Great Expectations suites for Architecture. Part of Data and Information documentation and deliverables.",
+      "file_pattern": "*.great-expectations-suites.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "grpc-proto-files",
+      "description": "gRPC proto files for Architecture. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.grpc-proto-files.txt",
+      "content_type": "text/plain",
+      "schema": ""
+    },
+    {
+      "name": "gtm-checklist",
+      "description": "GTM checklist for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.gtm-checklist.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "helm-charts",
+      "description": "Helm charts for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*/Chart.yaml",
+      "content_type": "application/yaml",
+      "schema": "schemas/helm-charts.json"
+    },
+    {
+      "name": "high-fidelity-mockups",
+      "description": "High-fidelity mockups for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.high-fidelity-mockups.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "hook-config",
+      "description": "Claude Code hook configuration for CI/CD, Build, and Provenance. Part of Build & Release Automation documentation and deliverables.",
+      "file_pattern": "hooks.yaml",
+      "content_type": "application/yaml",
+      "schema": "schemas/hook-config.json"
+    },
+    {
+      "name": "hook-description",
+      "description": "Natural language description of a Claude Code hook's purpose, trigger event, and command to execute for CI/CD, Build, and Provenance. Part of Build & Release Automation documentation and deliverables.",
+      "file_pattern": "**/hook_description.md",
+      "content_type": "text/markdown",
+      "schema": "schemas/hook-description.json"
+    },
+    {
+      "name": "hsm-procedures",
+      "description": "HSM procedures for Architecture. Part of Security Architecture documentation and deliverables.",
+      "file_pattern": "*.hsm-procedures.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "hyperparameter-configurations",
+      "description": "Hyperparameter configurations for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.hyperparameter-configurations.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "iac-module-registry",
+      "description": "IaC module registry for Infrastructure and Platform Engineering. Part of Platform Engineering documentation and deliverables.",
+      "file_pattern": "*.iac-module-registry.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "iam-design",
+      "description": "IAM design for Architecture. Part of Security Architecture documentation and deliverables.",
+      "file_pattern": "*.iam-design.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "idempotency-and-replay-protection-policy",
+      "description": "Idempotency and replay protection policy for Architecture. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.idempotency-and-replay-protection-policy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "incident-management-plan",
+      "description": "Incident management plan for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.incident-management-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "incident-reports",
+      "description": "Incident reports for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.incident-reports.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "information-architecture",
+      "description": "Information architecture for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.information-architecture.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "initiative-charter",
+      "description": "Initiative charter for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.initiative-charter.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "installation-guides",
+      "description": "Installation guides for Documentation, Support, and Training. Part of Knowledge & Enablement documentation and deliverables.",
+      "file_pattern": "*.installation-guides.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "installer-manifests",
+      "description": "Installer manifests for Mobile, Desktop, and Distribution. Part of Client Distribution documentation and deliverables.",
+      "file_pattern": "*.installer-manifests.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "interactive-prototypes",
+      "description": "Interactive prototypes for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.interactive-prototypes.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "interface-control-document",
+      "description": "Interface Control Document (ICD) for Architecture. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.interface-control-document.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "ip-register",
+      "description": "IP register for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.ip-register.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "iso-27001-mapping",
+      "description": "ISO 27001 mapping for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.iso-27001-mapping.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "joiner-mover-leaver-workflows",
+      "description": "Joiner-Mover-Leaver workflows for HR, Access, and Lifecycle. Part of Access & Identity documentation and deliverables.",
+      "file_pattern": "*.joiner-mover-leaver-workflows.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "key-ceremony-records",
+      "description": "Key ceremony records for Architecture. Part of Security Architecture documentation and deliverables.",
+      "file_pattern": "*.key-ceremony-records.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "kill-switch-designs",
+      "description": "Kill-switch designs for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.kill-switch-designs.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "knowledge-base-articles",
+      "description": "Knowledge base articles for Documentation, Support, and Training. Part of Knowledge & Enablement documentation and deliverables.",
+      "file_pattern": "*.knowledge-base-articles.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "kpi-framework",
+      "description": "KPI framework for Inception / Strategy. Part of Business & Strategy documentation and deliverables.",
+      "file_pattern": "*.kpi-framework.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "kustomize-manifests",
+      "description": "Kustomize manifests for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.kustomize-manifests.yaml",
+      "content_type": "application/yaml",
+      "schema": "schemas/kustomize-manifests.json"
+    },
+    {
+      "name": "labs-and-workshops",
+      "description": "Labs and workshops for Documentation, Support, and Training. Part of Knowledge & Enablement documentation and deliverables.",
+      "file_pattern": "*.labs-and-workshops.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "legal-hold-procedures",
+      "description": "Legal hold procedures for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.legal-hold-procedures.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "lessons-learned-document",
+      "description": "Lessons learned document for Closure and Archival. Part of Project Closure documentation and deliverables.",
+      "file_pattern": "*.lessons-learned-document.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "load-balancer-configurations",
+      "description": "Load balancer configurations for Infrastructure and Platform Engineering. Part of Platform Engineering documentation and deliverables.",
+      "file_pattern": "*.load-balancer-configurations.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "load-profiles",
+      "description": "Load profiles for Performance, Capacity, and Cost. Part of Performance & Optimization documentation and deliverables.",
+      "file_pattern": "*.load-profiles.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "load-test-report",
+      "description": "Load test report for Testing. Part of Quality Assurance documentation and deliverables.",
+      "file_pattern": "*.load-test-report.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "locale-files",
+      "description": "Locale files for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.locale-files.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "localization-plan",
+      "description": "Localization plan for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.localization-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "logging-taxonomy",
+      "description": "Logging taxonomy for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.logging-taxonomy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "logical-architecture-diagram",
+      "description": "Logical architecture diagram for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.logical-architecture-diagram.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "logical-data-model",
+      "description": "Logical data model for Architecture. Part of Data and Information documentation and deliverables.",
+      "file_pattern": "*.logical-data-model.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "market-analysis",
+      "description": "Market analysis for Inception / Strategy. Part of Business & Strategy documentation and deliverables.",
+      "file_pattern": "*.market-analysis.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "messaging-frameworks",
+      "description": "Messaging frameworks for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.messaging-frameworks.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "metadata-catalogs",
+      "description": "Metadata catalogs for Architecture. Part of Data and Information documentation and deliverables.",
+      "file_pattern": "*.metadata-catalogs.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "metric-catalog",
+      "description": "Metric catalog for Data Engineering and Analytics. Part of Data Platform documentation and deliverables.",
+      "file_pattern": "*.metric-catalog.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "microcopy-guides",
+      "description": "Microcopy guides for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.microcopy-guides.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "migration-scripts",
+      "description": "Migration scripts (Liquibase/Flyway) for Architecture. Part of Data and Information documentation and deliverables.",
+      "file_pattern": "*.migration-scripts.txt",
+      "content_type": "text/plain",
+      "schema": ""
+    },
+    {
+      "name": "mission-statement",
+      "description": "Mission statement for Inception / Strategy. Part of Business & Strategy documentation and deliverables.",
+      "file_pattern": "*.mission-statement.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "model-cards",
+      "description": "Model cards for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.model-cards.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "model-governance-policy",
+      "description": "Model governance policy for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.model-governance-policy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "model-registry-entries",
+      "description": "Model registry entries for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.model-registry-entries.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "model-risk-assessments",
+      "description": "Model risk assessments for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.model-risk-assessments.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "monitoring-and-observability-design",
+      "description": "Monitoring and observability design for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.monitoring-and-observability-design.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "monitoring-dashboards",
+      "description": "Monitoring dashboards for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.monitoring-dashboards.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "multi-region-active-active-plan",
+      "description": "Multi-region active-active plan for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.multi-region-active-active-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "network-policies",
+      "description": "Network policies for Infrastructure and Platform Engineering. Part of Platform Engineering documentation and deliverables.",
+      "file_pattern": "*.network-policies.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "network-topology-diagram",
+      "description": "Network topology diagram for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.network-topology-diagram.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "non-functional-requirements-matrix",
+      "description": "Non-Functional Requirements (NFR) matrix for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.non-functional-requirements-matrix.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "notarization-records",
+      "description": "Notarization records for Mobile, Desktop, and Distribution. Part of Client Distribution documentation and deliverables.",
+      "file_pattern": "*.notarization-records.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "offboarding-checklist",
+      "description": "Offboarding checklist for HR, Access, and Lifecycle. Part of Access & Identity documentation and deliverables.",
+      "file_pattern": "*.offboarding-checklist.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "okr-definitions",
+      "description": "OKR definitions for Inception / Strategy. Part of Business & Strategy documentation and deliverables.",
+      "file_pattern": "*.okr-definitions.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "on-call-handbook",
+      "description": "On-call handbook for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.on-call-handbook.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "onboarding-checklist",
+      "description": "Onboarding checklist for HR, Access, and Lifecycle. Part of Access & Identity documentation and deliverables.",
+      "file_pattern": "*.onboarding-checklist.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "onboarding-guide",
+      "description": "Onboarding guide for Documentation, Support, and Training. Part of Knowledge & Enablement documentation and deliverables.",
+      "file_pattern": "*.onboarding-guide.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "open-source-license-bom",
+      "description": "Open source license BoM for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.open-source-license-bom.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "openapi-spec",
+      "description": "OpenAPI 3.0+ specification for Architecture and API Development. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.openapi.yaml",
+      "content_type": "application/yaml",
+      "schema": "schemas/openapi-spec.json"
+    },
+    {
+      "name": "openapi-specification",
+      "description": "OpenAPI specification for Architecture. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.openapi-specification.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "operational-acceptance-certificate",
+      "description": "Operational acceptance certificate for Closure and Archival. Part of Project Closure documentation and deliverables.",
+      "file_pattern": "*.operational-acceptance-certificate.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "operations-manual",
+      "description": "Operations manual for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.operations-manual.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "optimization-report",
+      "description": "Performance and security optimization recommendations for Architecture and Performance Engineering. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.optimization.json",
+      "content_type": "application/json",
+      "schema": "schemas/optimization-report.json"
+    },
+    {
+      "name": "ownership-charters",
+      "description": "Ownership charters for Data Engineering and Analytics. Part of Data Platform documentation and deliverables.",
+      "file_pattern": "*.ownership-charters.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "patterns-and-anti-patterns-library",
+      "description": "Patterns and anti-patterns library for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.patterns-and-anti-patterns-library.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "penetration-testing-report",
+      "description": "Penetration testing report for Testing. Part of Quality Assurance documentation and deliverables.",
+      "file_pattern": "*.penetration-testing-report.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "performance-strategy",
+      "description": "Performance strategy for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.performance-strategy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "performance-test-plan",
+      "description": "Performance test plan for Testing. Part of Quality Assurance documentation and deliverables.",
+      "file_pattern": "*.performance-test-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "performance-test-results",
+      "description": "Performance test results for Performance, Capacity, and Cost. Part of Performance & Optimization documentation and deliverables.",
+      "file_pattern": "*.performance-test-results.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "physical-architecture-diagram",
+      "description": "Physical architecture diagram for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.physical-architecture-diagram.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "physical-data-model",
+      "description": "Physical data model for Architecture. Part of Data and Information documentation and deliverables.",
+      "file_pattern": "*.physical-data-model.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "pipeline-architecture-diagram",
+      "description": "Pipeline architecture diagram for CI/CD, Build, and Provenance. Part of Build & Release Automation documentation and deliverables.",
+      "file_pattern": "*.pipeline-architecture-diagram.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "pipeline-definitions",
+      "description": "Pipeline definitions for CI/CD, Build, and Provenance. Part of Build & Release Automation documentation and deliverables.",
+      "file_pattern": "*.pipeline-definitions.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "pipeline-suggestion",
+      "description": "Suggested multi-agent workflow with step-by-step execution plan for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.pipeline.json",
+      "content_type": "application/json",
+      "schema": "schemas/pipeline-suggestion.json"
+    },
+    {
+      "name": "platform-services-catalog",
+      "description": "Platform services catalog for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.platform-services-catalog.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "playbooks",
+      "description": "Playbooks for Deployment and Release. Part of Release Management documentation and deliverables.",
+      "file_pattern": "*.playbooks.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "portfolio-roadmap",
+      "description": "Portfolio roadmap for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.portfolio-roadmap.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "positioning-documents",
+      "description": "Positioning documents for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.positioning-documents.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "post-implementation-review",
+      "description": "Post-implementation review for Deployment and Release. Part of Release Management documentation and deliverables.",
+      "file_pattern": "*.post-implementation-review.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "post-mortem-report",
+      "description": "Post-mortem report for Closure and Archival. Part of Project Closure documentation and deliverables.",
+      "file_pattern": "*.post-mortem-report.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "price-books",
+      "description": "Price books for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.price-books.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "pricing-and-packaging-strategy",
+      "description": "Pricing and packaging strategy for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.pricing-and-packaging-strategy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "privacy-impact-assessment",
+      "description": "Privacy Impact Assessment (PIA) for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.privacy-impact-assessment.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "privacy-labels",
+      "description": "Privacy labels for Mobile, Desktop, and Distribution. Part of Client Distribution documentation and deliverables.",
+      "file_pattern": "*.privacy-labels.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "privacy-policy",
+      "description": "Privacy Policy for Public-Facing and Legal. Part of Legal & External documentation and deliverables.",
+      "file_pattern": "*.privacy-policy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "product-launch-plan",
+      "description": "Product launch plan for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.product-launch-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "product-requirements-document",
+      "description": "Product Requirements Document (PRD) for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.product-requirements-document.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "product-strategy",
+      "description": "Product strategy for Inception / Strategy. Part of Business & Strategy documentation and deliverables.",
+      "file_pattern": "*.product-strategy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "production-hygiene-checklist",
+      "description": "Production hygiene checklist for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.production-hygiene-checklist.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "program-increment-plan",
+      "description": "Program increment plan for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.program-increment-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "promotion-rules",
+      "description": "Promotion rules for Infrastructure and Platform Engineering. Part of Platform Engineering documentation and deliverables.",
+      "file_pattern": "*.promotion-rules.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "promotion-workflows",
+      "description": "Promotion workflows for Deployment and Release. Part of Release Management documentation and deliverables.",
+      "file_pattern": "*.promotion-workflows.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "prompt-engineering-policy",
+      "description": "Prompt engineering policy for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.prompt-engineering-policy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "provenance-attestations",
+      "description": "Provenance attestations (in-toto) for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.provenance-attestations.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "provenance-chain-documentation",
+      "description": "Provenance chain documentation (SLSA) for CI/CD, Build, and Provenance. Part of Build & Release Automation documentation and deliverables.",
+      "file_pattern": "*.provenance-chain-documentation.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "pseudo-localization-reports",
+      "description": "Pseudo-localization reports for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.pseudo-localization-reports.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "pull-request-summaries",
+      "description": "Pull request summaries for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.pull-request-summaries.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "purple-team-reports",
+      "description": "Purple team reports for Architecture. Part of Security Architecture documentation and deliverables.",
+      "file_pattern": "*.purple-team-reports.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "qbr-templates",
+      "description": "QBR templates for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.qbr-templates.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "quarterly-access-reviews",
+      "description": "Quarterly access reviews for HR, Access, and Lifecycle. Part of Access & Identity documentation and deliverables.",
+      "file_pattern": "*.quarterly-access-reviews.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "raci-per-workstream",
+      "description": "RACI per workstream for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.raci-per-workstream.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "raid-log",
+      "description": "RAID log for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.raid-log.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "rate-limiting-policy",
+      "description": "Rate limiting policy for Architecture. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.rate-limiting-policy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "rbac-abac-matrix",
+      "description": "RBAC/ABAC matrix for Architecture. Part of Security Architecture documentation and deliverables.",
+      "file_pattern": "*.rbac-abac-matrix.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "rbac-abac-policy",
+      "description": "RBAC/ABAC policy for HR, Access, and Lifecycle. Part of Access & Identity documentation and deliverables.",
+      "file_pattern": "*.rbac-abac-policy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "readme",
+      "description": "README for Documentation, Support, and Training. Part of Knowledge & Enablement documentation and deliverables.",
+      "file_pattern": "README.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "records-of-processing-activities",
+      "description": "Records of Processing Activities (RoPA) for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.records-of-processing-activities.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "red-team-reports",
+      "description": "Red team reports for Architecture. Part of Security Architecture documentation and deliverables.",
+      "file_pattern": "*.red-team-reports.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "red-teaming-reports",
+      "description": "Red-teaming reports for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.red-teaming-reports.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "reference-architectures",
+      "description": "Reference architectures for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.reference-architectures.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "regression-test-suite",
+      "description": "Regression test suite for Testing. Part of Quality Assurance documentation and deliverables.",
+      "file_pattern": "*.regression-test-suite.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "regulatory-mapping",
+      "description": "Regulatory mapping (SOC2, ISO, NIST, HIPAA, PCI, FedRAMP) for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.regulatory-mapping.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "release-certification",
+      "description": "Release certification for Deployment and Release. Part of Release Management documentation and deliverables.",
+      "file_pattern": "*.release-certification.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "release-notes",
+      "description": "Release notes for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.release-notes.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "release-plan",
+      "description": "Release plan for Deployment and Release. Part of Release Management documentation and deliverables.",
+      "file_pattern": "*.release-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "release-risk-assessment",
+      "description": "Release risk assessment for Deployment and Release. Part of Release Management documentation and deliverables.",
+      "file_pattern": "*.release-risk-assessment.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "remediation-tracker",
+      "description": "Remediation tracker for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.remediation-tracker.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "renewal-playbooks",
+      "description": "Renewal playbooks for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.renewal-playbooks.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "reproducibility-checklists",
+      "description": "Reproducibility checklists for Data Engineering and Analytics. Part of Data Platform documentation and deliverables.",
+      "file_pattern": "*.reproducibility-checklists.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "requirements-traceability-matrix",
+      "description": "Requirements traceability matrix for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.requirements-traceability-matrix.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "resource-plan",
+      "description": "Resource plan for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.resource-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "retention-schedule",
+      "description": "Retention schedule for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.retention-schedule.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "reverse-etl-playbooks",
+      "description": "Reverse ETL playbooks for Data Engineering and Analytics. Part of Data Platform documentation and deliverables.",
+      "file_pattern": "*.reverse-etl-playbooks.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "risk-appetite-statement",
+      "description": "Risk appetite statement for Inception / Strategy. Part of Business & Strategy documentation and deliverables.",
+      "file_pattern": "*.risk-appetite-statement.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "roi-model",
+      "description": "ROI model for Inception / Strategy. Part of Business & Strategy documentation and deliverables.",
+      "file_pattern": "*.roi-model.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "roi-tco-calculators",
+      "description": "ROI/TCO calculators for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.roi-tco-calculators.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "role-catalog",
+      "description": "Role catalog for HR, Access, and Lifecycle. Part of Access & Identity documentation and deliverables.",
+      "file_pattern": "*.role-catalog.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "rollback-plan",
+      "description": "Rollback plan for Deployment and Release. Part of Release Management documentation and deliverables.",
+      "file_pattern": "*.rollback-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "root-cause-analyses",
+      "description": "Root cause analyses (RCA) for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.root-cause-analyses.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "runbooks",
+      "description": "Runbooks for Deployment and Release. Part of Release Management documentation and deliverables.",
+      "file_pattern": "*.runbooks.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "safety-filter-configurations",
+      "description": "Safety filter configurations for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.safety-filter-configurations.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "sales-enablement-kits",
+      "description": "Sales enablement kits for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.sales-enablement-kits.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "sbom-policy",
+      "description": "SBOM policy for CI/CD, Build, and Provenance. Part of Build & Release Automation documentation and deliverables.",
+      "file_pattern": "*.sbom-policy.json",
+      "content_type": "application/json",
+      "schema": "schemas/sbom-policy.json"
+    },
+    {
+      "name": "sbom-verification-reports",
+      "description": "SBOM verification reports for Deployment and Release. Part of Release Management documentation and deliverables.",
+      "file_pattern": "*.sbom-verification-reports.json",
+      "content_type": "application/json",
+      "schema": "schemas/sbom-verification-reports.json"
+    },
+    {
+      "name": "scaling-policies",
+      "description": "Scaling policies for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.scaling-policies.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "scheduling-slas",
+      "description": "Scheduling SLAs for Data Engineering and Analytics. Part of Data Platform documentation and deliverables.",
+      "file_pattern": "*.scheduling-slas.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "schema-evolution-policy",
+      "description": "Schema evolution policy for Architecture. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.schema-evolution-policy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "secret-rotation-schedule",
+      "description": "Secret rotation schedule for Infrastructure and Platform Engineering. Part of Platform Engineering documentation and deliverables.",
+      "file_pattern": "*.secret-rotation-schedule.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "secrets-management-policy",
+      "description": "Secrets management policy for Infrastructure and Platform Engineering. Part of Platform Engineering documentation and deliverables.",
+      "file_pattern": "*.secrets-management-policy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "secure-coding-checklist",
+      "description": "Secure coding checklist for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.secure-coding-checklist.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "secure-coding-policy",
+      "description": "Secure coding policy for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.secure-coding-policy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "security-architecture-diagram",
+      "description": "Security architecture diagram for Architecture. Part of Security Architecture documentation and deliverables.",
+      "file_pattern": "*.security-architecture-diagram.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "security-detections-catalog",
+      "description": "Security detections catalog (MITRE ATT&CK) for Architecture. Part of Security Architecture documentation and deliverables.",
+      "file_pattern": "*.security-detections-catalog.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "security-policy-library",
+      "description": "Security policy library for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.security-policy-library.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "security-test-results",
+      "description": "Security test results (SAST, DAST, IAST) for Testing. Part of Quality Assurance documentation and deliverables.",
+      "file_pattern": "*.security-test-results.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "semantic-layer-definitions",
+      "description": "Semantic layer definitions (dbt, LookML) for Architecture. Part of Data and Information documentation and deliverables.",
+      "file_pattern": "*.semantic-layer-definitions.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "sequence-diagrams",
+      "description": "Sequence diagrams for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.sequence-diagrams.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "service-configuration-files",
+      "description": "Service configuration files for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.service-configuration-files.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "service-decomposition",
+      "description": "Service decomposition for Architecture. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.service-decomposition.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "service-dependency-graph",
+      "description": "Service dependency graph for Architecture. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.service-dependency-graph.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "service-level-objectives",
+      "description": "Service-level objectives (SLOs) for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.service-level-objectives.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "service-mesh-configurations",
+      "description": "Service mesh configurations for Infrastructure and Platform Engineering. Part of Platform Engineering documentation and deliverables.",
+      "file_pattern": "*.service-mesh-configurations.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "shadow-canary-deployment-scorecards",
+      "description": "Shadow/canary deployment scorecards for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.shadow-canary-deployment-scorecards.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "showback-and-chargeback-reports",
+      "description": "Showback and chargeback reports for Infrastructure and Platform Engineering. Part of Platform Engineering documentation and deliverables.",
+      "file_pattern": "*.showback-and-chargeback-reports.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "sig-questionnaires",
+      "description": "SIG questionnaires for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.sig-questionnaires.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "skill-definition",
+      "description": "Complete skill configuration in YAML format for Implementation and Development. Part of Development documentation and deliverables.",
+      "file_pattern": "skills/*/skill.yaml",
+      "content_type": "application/yaml",
+      "schema": "schemas/skill-definition.json"
+    },
+    {
+      "name": "skill-description",
+      "description": "Natural language description of a skill's requirements, inputs, outputs, and implementation details for Implementation and Development. Part of Development documentation and deliverables.",
+      "file_pattern": "**/skill_description.md",
+      "content_type": "text/markdown",
+      "schema": "schemas/skill-description.json"
+    },
+    {
+      "name": "skills-matrix",
+      "description": "Skills matrix for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.skills-matrix.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "sla-slo-schedules",
+      "description": "SLA/SLO schedules for Public-Facing and Legal. Part of Legal & External documentation and deliverables.",
+      "file_pattern": "*.sla-slo-schedules.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "soc-2-control-implementation-matrix",
+      "description": "SOC 2 control implementation matrix for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.soc-2-control-implementation-matrix.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "sod-conflict-matrices",
+      "description": "SoD conflict matrices for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.sod-conflict-matrices.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "sod-matrix",
+      "description": "SoD matrix for Architecture. Part of Security Architecture documentation and deliverables.",
+      "file_pattern": "*.sod-matrix.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "software-bill-of-materials",
+      "description": "Software Bill of Materials (SBOM) for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.software-bill-of-materials.json",
+      "content_type": "application/json",
+      "schema": "schemas/software-bill-of-materials.json"
+    },
+    {
+      "name": "solution-briefs",
+      "description": "Solution briefs for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.solution-briefs.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "source-code-repositories",
+      "description": "Source code repositories for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.source-code-repositories.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "sprint-goals",
+      "description": "Sprint goals for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.sprint-goals.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "staffing-plan",
+      "description": "Staffing plan for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.staffing-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "stakeholder-map",
+      "description": "Stakeholder map for Inception / Strategy. Part of Business & Strategy documentation and deliverables.",
+      "file_pattern": "*.stakeholder-map.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "standard-contractual-clauses",
+      "description": "Standard Contractual Clauses (SCCs) for Public-Facing and Legal. Part of Legal & External documentation and deliverables.",
+      "file_pattern": "*.standard-contractual-clauses.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "standard-operating-procedures",
+      "description": "Standard operating procedures (SOPs) for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.standard-operating-procedures.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "state-diagrams",
+      "description": "State diagrams for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.state-diagrams.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "static-analysis-reports",
+      "description": "Static analysis reports for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.static-analysis-reports.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "status-page-communication-templates",
+      "description": "Status page communication templates for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.status-page-communication-templates.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "steering-committee-minutes",
+      "description": "Steering committee minutes for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.steering-committee-minutes.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "storyboards",
+      "description": "Storyboards for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.storyboards.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "subprocessor-notifications",
+      "description": "Subprocessor notifications for Public-Facing and Legal. Part of Legal & External documentation and deliverables.",
+      "file_pattern": "*.subprocessor-notifications.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "success-plan-templates",
+      "description": "Success plan templates for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.success-plan-templates.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "suggestion-report",
+      "description": "Context-aware recommendations for what to do next for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.suggestions.json",
+      "content_type": "application/json",
+      "schema": "schemas/suggestion-report.json"
+    },
+    {
+      "name": "sustainability-reports",
+      "description": "Sustainability reports for Performance, Capacity, and Cost. Part of Performance & Optimization documentation and deliverables.",
+      "file_pattern": "*.sustainability-reports.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "sync-contracts",
+      "description": "Sync contracts for Data Engineering and Analytics. Part of Data Platform documentation and deliverables.",
+      "file_pattern": "*.sync-contracts.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "synthetic-data-generation-plan",
+      "description": "Synthetic data generation plan for Testing. Part of Quality Assurance documentation and deliverables.",
+      "file_pattern": "*.synthetic-data-generation-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "system-requirements-specification",
+      "description": "System Requirements Specification (SRS) for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.system-requirements-specification.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "target-state-evolution-map",
+      "description": "Target-state evolution map for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.target-state-evolution-map.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "team-topology-map",
+      "description": "Team topology map for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.team-topology-map.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "technology-standards-catalog",
+      "description": "Technology standards catalog for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.technology-standards-catalog.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "telemetry-schema",
+      "description": "Telemetry schema for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.telemetry-schema.txt",
+      "content_type": "text/plain",
+      "schema": ""
+    },
+    {
+      "name": "tenancy-and-isolation-model",
+      "description": "Tenancy and isolation model for Architecture. Part of High-Level and Platform documentation and deliverables.",
+      "file_pattern": "*.tenancy-and-isolation-model.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "terms-of-service",
+      "description": "Terms of Service for Public-Facing and Legal. Part of Legal & External documentation and deliverables.",
+      "file_pattern": "*.terms-of-service.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "test-case-specifications",
+      "description": "Test case specifications for Testing. Part of Quality Assurance documentation and deliverables.",
+      "file_pattern": "*.test-case-specifications.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "test-data-specification",
+      "description": "Test data specification for Testing. Part of Quality Assurance documentation and deliverables.",
+      "file_pattern": "*.test-data-specification.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "test-plan",
+      "description": "Test plan for Testing. Part of Quality Assurance documentation and deliverables.",
+      "file_pattern": "*.test-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "test-strategy",
+      "description": "Test strategy for Testing. Part of Quality Assurance documentation and deliverables.",
+      "file_pattern": "*.test-strategy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "third-party-risk-assessments",
+      "description": "Third-party risk assessments for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.third-party-risk-assessments.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "threat-model",
+      "description": "Threat model (STRIDE, attack trees) for Architecture. Part of Security Architecture documentation and deliverables.",
+      "file_pattern": "*.threat-model.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "time-allocation-worksheets",
+      "description": "Time allocation worksheets for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.time-allocation-worksheets.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "toil-reduction-plan",
+      "description": "Toil reduction plan for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.toil-reduction-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "topic-and-queue-catalog",
+      "description": "Topic and queue catalog for Architecture. Part of Application and Integration documentation and deliverables.",
+      "file_pattern": "*.topic-and-queue-catalog.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "traceability-matrix",
+      "description": "Traceability matrix for Testing. Part of Quality Assurance documentation and deliverables.",
+      "file_pattern": "*.traceability-matrix.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "trademark-guidance",
+      "description": "Trademark guidance for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.trademark-guidance.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "training-curriculum",
+      "description": "Training curriculum for Documentation, Support, and Training. Part of Knowledge & Enablement documentation and deliverables.",
+      "file_pattern": "*.training-curriculum.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "training-data-cards",
+      "description": "Training data cards for AI/ML and Model Ops. Part of Model Development & Governance documentation and deliverables.",
+      "file_pattern": "*.training-data-cards.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "triage-rules",
+      "description": "Triage rules for Testing. Part of Quality Assurance documentation and deliverables.",
+      "file_pattern": "*.triage-rules.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "troubleshooting-trees",
+      "description": "Troubleshooting trees for Documentation, Support, and Training. Part of Knowledge & Enablement documentation and deliverables.",
+      "file_pattern": "*.troubleshooting-trees.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "trust-center-content-plan",
+      "description": "Trust center content plan for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.trust-center-content-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "trust-center-evidence-summaries",
+      "description": "Trust center evidence summaries for Public-Facing and Legal. Part of Legal & External documentation and deliverables.",
+      "file_pattern": "*.trust-center-evidence-summaries.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "uat-plan",
+      "description": "UAT plan for Testing. Part of Quality Assurance documentation and deliverables.",
+      "file_pattern": "*.uat-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "uat-sign-off-document",
+      "description": "UAT sign-off document for Testing. Part of Quality Assurance documentation and deliverables.",
+      "file_pattern": "*.uat-sign-off-document.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "upgrade-guides",
+      "description": "Upgrade guides for Documentation, Support, and Training. Part of Knowledge & Enablement documentation and deliverables.",
+      "file_pattern": "*.upgrade-guides.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "uptime-methodology",
+      "description": "Uptime methodology for Public-Facing and Legal. Part of Legal & External documentation and deliverables.",
+      "file_pattern": "*.uptime-methodology.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "use-case-diagrams",
+      "description": "Use-case diagrams for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.use-case-diagrams.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "use-case-models",
+      "description": "Use-case models for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.use-case-models.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "user-journeys",
+      "description": "User journeys for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.user-journeys.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "user-manuals",
+      "description": "User manuals for Documentation, Support, and Training. Part of Knowledge & Enablement documentation and deliverables.",
+      "file_pattern": "*.user-manuals.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "user-stories",
+      "description": "User stories for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.user-stories.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "user-stories-list",
+      "description": "Structured JSON list of user story summaries for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "*.stories.json",
+      "content_type": "application/json",
+      "schema": ""
+    },
+    {
+      "name": "user-story",
+      "description": "Fully formatted user story document following standard format for Product Management and GTM. Part of Product & Market documentation and deliverables.",
+      "file_pattern": "story_*.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "validation-report",
+      "description": "Structured validation results for Testing and Quality Assurance. Part of Quality Assurance documentation and deliverables.",
+      "file_pattern": "*.validation.json",
+      "content_type": "application/json",
+      "schema": "schemas/validation-report.json"
+    },
+    {
+      "name": "velocity-and-burndown-reports",
+      "description": "Velocity and burndown reports for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.velocity-and-burndown-reports.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "vendor-management-pack",
+      "description": "Vendor management pack for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.vendor-management-pack.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "vendor-scorecards",
+      "description": "Vendor scorecards for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.vendor-scorecards.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "version-tags",
+      "description": "Version tags for Implementation. Part of Development documentation and deliverables.",
+      "file_pattern": "*.version-tags.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "vision-statement",
+      "description": "Vision statement for Inception / Strategy. Part of Business & Strategy documentation and deliverables.",
+      "file_pattern": "*.vision-statement.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "vpat-acr-results",
+      "description": "VPAT/ACR results for Requirements and Analysis. Part of Requirements & Analysis documentation and deliverables.",
+      "file_pattern": "*.vpat-acr-results.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "vulnerability-disclosure-policy",
+      "description": "Vulnerability disclosure policy for Security, Privacy, Audit, and Compliance. Part of Governance, Risk & Compliance documentation and deliverables.",
+      "file_pattern": "*.vulnerability-disclosure-policy.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "vulnerability-management-plan",
+      "description": "Vulnerability management plan for Operations, SRE, and Maintenance. Part of Operations & Reliability documentation and deliverables.",
+      "file_pattern": "*.vulnerability-management-plan.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    },
+    {
+      "name": "wireframes",
+      "description": "Wireframes for Design. Part of Design & UX documentation and deliverables.",
+      "file_pattern": "*.wireframes.*",
+      "content_type": "",
+      "schema": ""
+    },
+    {
+      "name": "workflow-definition",
+      "description": "Betty workflow definition for Portfolio, Governance, and Delivery Ops. Part of Governance & Planning documentation and deliverables.",
+      "file_pattern": "*.workflow.yaml",
+      "content_type": "application/yaml",
+      "schema": "schemas/workflow-definition.json"
+    },
+    {
+      "name": "zero-trust-design",
+      "description": "Zero trust design for Architecture. Part of Security Architecture documentation and deliverables.",
+      "file_pattern": "*.zero-trust-design.md",
+      "content_type": "text/markdown",
+      "schema": ""
+    }
+  ]
+}
