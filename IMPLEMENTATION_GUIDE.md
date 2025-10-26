@@ -4,6 +4,8 @@
 
 ✅ **Analysis Complete!** All 9 git-workflow commands have been analyzed using the meta-agent decision framework.
 
+> 📚 Need additional context? Explore the [Documentation Guide](README.md#-documentation-guide) for audience-specific references.
+
 ## Decision Results
 
 | Command | Pattern | Skill Name | Priority |
