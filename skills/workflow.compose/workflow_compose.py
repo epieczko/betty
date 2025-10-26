@@ -20,6 +20,7 @@ from betty.errors import WorkflowError, format_error_response
 from betty.telemetry_capture import capture_skill_execution
 from betty.models import WorkflowDefinition
 from betty.skill_executor import execute_skill_in_process
+from betty.provenance import compute_hash, get_provenance_logger
 from utils.telemetry_utils import capture_telemetry
 logger = setup_logger(__name__)
 
@@ -133,20 +134,43 @@ def run_skill(skill_name: str, args: List[str]) -> Dict[str, Any]:
         raise WorkflowError(f"Failed to execute skill: {e}")
 def save_workflow_history(log: Dict[str, Any]) -> None:
     """
-    Save workflow execution history.
+    Save workflow execution history with content hashing for provenance.
     Args:
         log: Workflow execution log
     """
-    def update_fn(history_data):
-        """Update function for safe_update_json."""
-        if not isinstance(history_data, list):
-            history_data = []
-        history_data.append(log)
-        # Keep only last 100 workflow runs
-        return history_data[-100:]
     try:
+        # Compute content hash for provenance tracking
+        content_hash = compute_hash(log)
+        log["content_hash"] = content_hash
+
+        # Log to provenance system
+        provenance = get_provenance_logger()
+        workflow_name = log.get("workflow", "unknown")
+        artifact_id = f"workflow.execution.{workflow_name}"
+
+        provenance.log_artifact(
+            artifact_id=artifact_id,
+            version=log.get("started_at", "unknown"),
+            content_hash=content_hash,
+            artifact_type="workflow-execution",
+            metadata={
+                "workflow": workflow_name,
+                "status": log.get("status", "unknown"),
+                "total_steps": len(log.get("steps", [])),
+            }
+        )
+
+        # Save to history file
+        def update_fn(history_data):
+            """Update function for safe_update_json."""
+            if not isinstance(history_data, list):
+                history_data = []
+            history_data.append(log)
+            # Keep only last 100 workflow runs
+            return history_data[-100:]
+
         safe_update_json(WORKFLOW_HISTORY_FILE, update_fn, default=[])
-        logger.info(f"Workflow history saved to {WORKFLOW_HISTORY_FILE}")
+        logger.info(f"Workflow history saved to {WORKFLOW_HISTORY_FILE} with hash {content_hash[:8]}...")
     except Exception as e:
         logger.warning(f"Failed to save workflow history: {e}")
 def execute_workflow(workflow_file: str) -> Dict[str, Any]:

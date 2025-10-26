@@ -18,6 +18,9 @@ from collections import defaultdict
 parent_dir = str(Path(__file__).parent.parent.parent)
 sys.path.insert(0, parent_dir)
 
+from betty.provenance import compute_hash, get_provenance_logger
+from betty.config import REGISTRY_FILE, REGISTRY_DIR
+
 
 class CompatibilityAnalyzer:
     """Analyzes agent compatibility based on artifact flows"""
@@ -414,6 +417,119 @@ class CompatibilityAnalyzer:
 
         return compatibility
 
+    def verify_registry_integrity(self) -> Dict[str, Any]:
+        """
+        Verify integrity of registry files using provenance hashes.
+
+        Returns:
+            Dictionary with verification results
+        """
+        provenance = get_provenance_logger()
+
+        results = {
+            "verified": [],
+            "failed": [],
+            "missing": [],
+            "summary": {
+                "total_checked": 0,
+                "verified_count": 0,
+                "failed_count": 0,
+                "missing_count": 0
+            }
+        }
+
+        # List of registry files to verify
+        registry_files = [
+            ("skills.json", REGISTRY_FILE),
+            ("agents.json", str(Path(REGISTRY_DIR) / "agents.json")),
+            ("workflow_history.json", str(Path(REGISTRY_DIR) / "workflow_history.json")),
+        ]
+
+        for artifact_id, file_path in registry_files:
+            results["summary"]["total_checked"] += 1
+
+            # Check if file exists
+            if not os.path.exists(file_path):
+                results["missing"].append({
+                    "artifact": artifact_id,
+                    "path": file_path,
+                    "reason": "File does not exist"
+                })
+                results["summary"]["missing_count"] += 1
+                continue
+
+            try:
+                # Load the registry file
+                with open(file_path, 'r') as f:
+                    content = json.load(f)
+
+                # Get stored hash from file (if present)
+                stored_hash = content.get("content_hash")
+
+                # Remove content_hash field to compute original hash
+                content_without_hash = {k: v for k, v in content.items() if k != "content_hash"}
+
+                # Compute current hash
+                current_hash = compute_hash(content_without_hash)
+
+                # Get latest hash from provenance log
+                latest_provenance_hash = provenance.get_latest_hash(artifact_id)
+
+                # Verify
+                if stored_hash and stored_hash == current_hash:
+                    # Hash matches what's in the file
+                    verification_status = "verified"
+
+                    # Also check against provenance log
+                    if latest_provenance_hash:
+                        provenance_match = (stored_hash == latest_provenance_hash)
+                    else:
+                        provenance_match = None
+
+                    results["verified"].append({
+                        "artifact": artifact_id,
+                        "path": file_path,
+                        "hash": current_hash[:16] + "...",
+                        "stored_hash_valid": True,
+                        "provenance_logged": latest_provenance_hash is not None,
+                        "provenance_match": provenance_match
+                    })
+                    results["summary"]["verified_count"] += 1
+
+                elif stored_hash and stored_hash != current_hash:
+                    # Hash mismatch - file may have been modified
+                    results["failed"].append({
+                        "artifact": artifact_id,
+                        "path": file_path,
+                        "reason": "Content hash mismatch",
+                        "stored_hash": stored_hash[:16] + "...",
+                        "computed_hash": current_hash[:16] + "...",
+                        "severity": "high"
+                    })
+                    results["summary"]["failed_count"] += 1
+
+                else:
+                    # No hash stored in file
+                    results["missing"].append({
+                        "artifact": artifact_id,
+                        "path": file_path,
+                        "reason": "No content_hash field in file",
+                        "computed_hash": current_hash[:16] + "...",
+                        "provenance_available": latest_provenance_hash is not None
+                    })
+                    results["summary"]["missing_count"] += 1
+
+            except Exception as e:
+                results["failed"].append({
+                    "artifact": artifact_id,
+                    "path": file_path,
+                    "reason": f"Verification error: {str(e)}",
+                    "severity": "high"
+                })
+                results["summary"]["failed_count"] += 1
+
+        return results
+
 
 def main():
     """CLI entry point"""
@@ -440,6 +556,9 @@ def main():
 
     # List all command
     list_parser = subparsers.add_parser('list-all', help='List all compatibility')
+
+    # Verify integrity command
+    verify_parser = subparsers.add_parser('verify-integrity', help='Verify registry integrity using provenance hashes')
 
     # Output format
     parser.add_argument(
@@ -530,6 +649,38 @@ def main():
                 print(f"\n⚠️  Global Gaps ({len(result['gaps'])}):")
                 for gap in result['gaps']:
                     print(f"   • {gap['artifact']}: {gap['issue']}")
+
+    elif args.command == 'verify-integrity':
+        print("🔐 Verifying registry integrity using provenance hashes...\n")
+        result = analyzer.verify_registry_integrity()
+
+        if args.format == "text":
+            summary = result['summary']
+            print(f"Total Checked: {summary['total_checked']}")
+            print(f"✅ Verified: {summary['verified_count']}")
+            print(f"❌ Failed: {summary['failed_count']}")
+            print(f"⚠️  Missing Hash: {summary['missing_count']}")
+
+            if result['verified']:
+                print(f"\n✅ Verified Artifacts ({len(result['verified'])}):")
+                for item in result['verified']:
+                    print(f"   • {item['artifact']}: {item['hash']}")
+                    if item.get('provenance_logged'):
+                        match_status = "✓" if item.get('provenance_match') else "✗"
+                        print(f"     Provenance: {match_status}")
+
+            if result['failed']:
+                print(f"\n❌ Failed Verifications ({len(result['failed'])}):")
+                for item in result['failed']:
+                    print(f"   • {item['artifact']}: {item['reason']}")
+                    if 'stored_hash' in item:
+                        print(f"     Expected: {item['stored_hash']}")
+                        print(f"     Computed: {item['computed_hash']}")
+
+            if result['missing']:
+                print(f"\n⚠️  Missing Hashes ({len(result['missing'])}):")
+                for item in result['missing']:
+                    print(f"   • {item['artifact']}: {item['reason']}")
 
     # Output result
     if result:
