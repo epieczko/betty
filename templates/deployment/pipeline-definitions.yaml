@@ -1,57 +1,936 @@
 # Pipeline Definitions
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/pipeline-definitions.md for complete guidance
+# A comprehensive specification for CI/CD pipelines documenting build, test, security scanning, and deployment automation
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
+  created: "2024-01-15"
+  lastModified: "2024-01-15"
+  status: "Active"
+  pipelinePlatform: "GitHub Actions"  # or GitLab CI, Jenkins, Azure DevOps, CircleCI
+  documentOwner: "Platform Engineering Team"
+  classification: "Internal"
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Sarah Chen"
+      role: "DevOps Lead"
+      date: "2024-01-15"
+    - name: "Marcus Rodriguez"
+      role: "Security Architect"
+      date: "2024-01-15"
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# =============================================================================
+# GITHUB ACTIONS PIPELINE EXAMPLE
+# =============================================================================
 
+githubActionsPipeline:
+  name: "main-ci-cd-pipeline"
+  workflowPath: ".github/workflows/ci-cd.yml"
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/pipeline-definitions.md for detailed structure
+  triggers:
+    push:
+      branches:
+        - "main"
+        - "develop"
+        - "release/**"
+    pullRequest:
+      branches:
+        - "main"
+        - "develop"
+    schedule:
+      - cron: "0 2 * * *"  # Nightly security scan
+    workflowDispatch:
+      enabled: true
+      inputs:
+        environment:
+          description: "Target environment"
+          required: true
+          type: "choice"
+          options: ["dev", "staging", "production"]
+        skipTests:
+          description: "Skip test execution"
+          required: false
+          type: "boolean"
+          default: false
 
-content:
-  overview: |
-    TODO: Provide overview
+  environmentVariables:
+    global:
+      NODE_VERSION: "20.x"
+      PYTHON_VERSION: "3.11"
+      JAVA_VERSION: "17"
+      DOCKER_REGISTRY: "ghcr.io"
+      ARTIFACT_RETENTION_DAYS: "30"
 
-  details: |
-    TODO: Add detailed content
+  stages:
+    - name: "build"
+      displayName: "Build & Compile"
+      condition: "always()"
+      jobs:
+        - jobName: "compile-application"
+          runsOn: "ubuntu-latest"
+          timeout: 15
+          steps:
+            - name: "Checkout code"
+              action: "actions/checkout@v4"
+              with:
+                fetchDepth: 0  # Full history for SonarQube
 
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
+            - name: "Setup Node.js"
+              action: "actions/setup-node@v4"
+              with:
+                nodeVersion: "${{ env.NODE_VERSION }}"
+                cache: "npm"
 
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
+            - name: "Install dependencies"
+              command: "npm ci"
 
-# Notes
-notes: |
-  TODO: Add any additional notes or context
+            - name: "Build application"
+              command: "npm run build"
 
-# Change History
+            - name: "Upload build artifacts"
+              action: "actions/upload-artifact@v4"
+              with:
+                name: "build-output"
+                path: "dist/"
+                retentionDays: 7
+
+    - name: "test"
+      displayName: "Test & Quality"
+      dependsOn: ["build"]
+      condition: "success()"
+      parallelJobs: true
+      jobs:
+        - jobName: "unit-tests"
+          runsOn: "ubuntu-latest"
+          timeout: 20
+          steps:
+            - name: "Checkout code"
+              action: "actions/checkout@v4"
+
+            - name: "Download build artifacts"
+              action: "actions/download-artifact@v4"
+              with:
+                name: "build-output"
+                path: "dist/"
+
+            - name: "Run unit tests"
+              command: "npm run test:unit -- --coverage"
+
+            - name: "Upload coverage to Codecov"
+              action: "codecov/codecov-action@v3"
+              with:
+                files: "./coverage/coverage-final.json"
+                flags: "unittests"
+                failCiIfError: true
+
+        - jobName: "integration-tests"
+          runsOn: "ubuntu-latest"
+          timeout: 30
+          services:
+            postgres:
+              image: "postgres:15-alpine"
+              env:
+                POSTGRES_PASSWORD: "test123"
+                POSTGRES_DB: "testdb"
+              ports:
+                - "5432:5432"
+              options: "--health-cmd pg_isready --health-interval 10s"
+            redis:
+              image: "redis:7-alpine"
+              ports:
+                - "6379:6379"
+          steps:
+            - name: "Run integration tests"
+              command: "npm run test:integration"
+              env:
+                DATABASE_URL: "postgresql://postgres:test123@localhost:5432/testdb"
+                REDIS_URL: "redis://localhost:6379"
+
+        - jobName: "e2e-tests"
+          runsOn: "ubuntu-latest"
+          timeout: 45
+          steps:
+            - name: "Install Playwright"
+              command: "npx playwright install --with-deps"
+
+            - name: "Run E2E tests"
+              command: "npm run test:e2e"
+
+            - name: "Upload test reports"
+              if: "always()"
+              action: "actions/upload-artifact@v4"
+              with:
+                name: "playwright-report"
+                path: "playwright-report/"
+
+    - name: "security"
+      displayName: "Security Scanning"
+      dependsOn: ["build"]
+      condition: "success()"
+      jobs:
+        - jobName: "sast-scan"
+          runsOn: "ubuntu-latest"
+          steps:
+            - name: "Run Semgrep SAST"
+              action: "returntocorp/semgrep-action@v1"
+              with:
+                config: "p/security-audit p/secrets"
+
+            - name: "SonarCloud scan"
+              action: "SonarSource/sonarcloud-github-action@v2"
+              env:
+                GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+                SONAR_TOKEN: "${{ secrets.SONAR_TOKEN }}"
+
+        - jobName: "dependency-scan"
+          runsOn: "ubuntu-latest"
+          steps:
+            - name: "Run Snyk dependency scan"
+              action: "snyk/actions/node@master"
+              env:
+                SNYK_TOKEN: "${{ secrets.SNYK_TOKEN }}"
+              with:
+                command: "test"
+                args: "--severity-threshold=high"
+
+        - jobName: "secrets-scan"
+          runsOn: "ubuntu-latest"
+          steps:
+            - name: "TruffleHog secrets scan"
+              action: "trufflesecurity/trufflehog@main"
+              with:
+                path: "./"
+                base: "${{ github.event.repository.default_branch }}"
+                head: "HEAD"
+
+    - name: "build-container"
+      displayName: "Container Build"
+      dependsOn: ["test", "security"]
+      condition: "and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))"
+      jobs:
+        - jobName: "docker-build-push"
+          runsOn: "ubuntu-latest"
+          permissions:
+            contents: "read"
+            packages: "write"
+            idToken: "write"  # For OIDC
+          steps:
+            - name: "Setup Docker Buildx"
+              action: "docker/setup-buildx-action@v3"
+
+            - name: "Login to GitHub Container Registry"
+              action: "docker/login-action@v3"
+              with:
+                registry: "ghcr.io"
+                username: "${{ github.actor }}"
+                password: "${{ secrets.GITHUB_TOKEN }}"
+
+            - name: "Extract metadata"
+              id: "meta"
+              action: "docker/metadata-action@v5"
+              with:
+                images: "ghcr.io/${{ github.repository }}"
+                tags: |
+                  type=ref,event=branch
+                  type=ref,event=pr
+                  type=semver,pattern={{version}}
+                  type=semver,pattern={{major}}.{{minor}}
+                  type=sha,prefix={{branch}}-
+
+            - name: "Build and push image"
+              action: "docker/build-push-action@v5"
+              with:
+                context: "."
+                push: true
+                tags: "${{ steps.meta.outputs.tags }}"
+                labels: "${{ steps.meta.outputs.labels }}"
+                cache-from: "type=gha"
+                cache-to: "type=gha,mode=max"
+                platforms: "linux/amd64,linux/arm64"
+                buildArgs: |
+                  BUILD_VERSION=${{ github.sha }}
+                  BUILD_DATE=${{ github.event.head_commit.timestamp }}
+
+            - name: "Sign container image with Cosign"
+              action: "sigstore/cosign-installer@v3"
+
+            - name: "Sign the images"
+              command: |
+                cosign sign --yes \
+                  ghcr.io/${{ github.repository }}@${{ steps.build.outputs.digest }}
+              env:
+                COSIGN_EXPERIMENTAL: "1"
+
+            - name: "Generate SBOM"
+              action: "anchore/sbom-action@v0"
+              with:
+                image: "ghcr.io/${{ github.repository }}:${{ github.sha }}"
+                format: "spdx-json"
+                output-file: "sbom.spdx.json"
+
+    - name: "deploy-dev"
+      displayName: "Deploy to Development"
+      dependsOn: ["build-container"]
+      condition: "and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))"
+      environment:
+        name: "development"
+        url: "https://dev.example.com"
+      jobs:
+        - jobName: "deploy-to-k8s"
+          runsOn: "ubuntu-latest"
+          steps:
+            - name: "Setup kubectl"
+              action: "azure/setup-kubectl@v3"
+
+            - name: "Configure AWS credentials"
+              action: "aws-actions/configure-aws-credentials@v4"
+              with:
+                role-to-assume: "${{ secrets.AWS_ROLE_ARN_DEV }}"
+                aws-region: "us-east-1"
+
+            - name: "Update kubeconfig"
+              command: "aws eks update-kubeconfig --name dev-cluster --region us-east-1"
+
+            - name: "Deploy with Helm"
+              command: |
+                helm upgrade --install myapp ./helm-chart \
+                  --namespace dev \
+                  --create-namespace \
+                  --set image.tag=${{ github.sha }} \
+                  --set environment=dev \
+                  --wait --timeout 5m
+
+            - name: "Run smoke tests"
+              command: "npm run test:smoke"
+              env:
+                API_URL: "https://dev.example.com/api"
+
+    - name: "deploy-staging"
+      displayName: "Deploy to Staging"
+      dependsOn: ["deploy-dev"]
+      condition: "and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))"
+      environment:
+        name: "staging"
+        url: "https://staging.example.com"
+        requiresApproval: true
+        approvers: ["platform-team"]
+      jobs:
+        - jobName: "blue-green-deployment"
+          steps:
+            - name: "Deploy to green environment"
+              command: |
+                helm upgrade --install myapp-green ./helm-chart \
+                  --namespace staging \
+                  --set image.tag=${{ github.sha }} \
+                  --set slot=green \
+                  --wait
+
+            - name: "Run health checks"
+              command: "curl -f https://staging-green.example.com/health"
+
+            - name: "Switch traffic to green"
+              command: |
+                kubectl patch service myapp-service -n staging \
+                  -p '{"spec":{"selector":{"slot":"green"}}}'
+
+            - name: "Monitor for 5 minutes"
+              command: "sleep 300 && npm run monitor:staging"
+
+    - name: "deploy-production"
+      displayName: "Deploy to Production"
+      dependsOn: ["deploy-staging"]
+      condition: "and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))"
+      environment:
+        name: "production"
+        url: "https://api.example.com"
+        requiresApproval: true
+        approvers: ["platform-team", "security-team"]
+      jobs:
+        - jobName: "canary-deployment"
+          steps:
+            - name: "Deploy canary (10%)"
+              command: |
+                helm upgrade --install myapp ./helm-chart \
+                  --namespace production \
+                  --set image.tag=${{ github.sha }} \
+                  --set replicaCount=1 \
+                  --set canary.enabled=true \
+                  --set canary.weight=10
+
+            - name: "Monitor canary metrics"
+              command: "npm run monitor:canary -- --duration=600"
+
+            - name: "Gradually increase traffic"
+              command: |
+                for weight in 25 50 75 100; do
+                  echo "Increasing traffic to ${weight}%"
+                  helm upgrade myapp ./helm-chart \
+                    --set canary.weight=${weight} --reuse-values
+                  sleep 300
+                done
+
+            - name: "Finalize deployment"
+              command: |
+                helm upgrade myapp ./helm-chart \
+                  --set canary.enabled=false \
+                  --set replicaCount=10
+
+# =============================================================================
+# GITLAB CI PIPELINE EXAMPLE
+# =============================================================================
+
+gitlabCIPipeline:
+  name: "microservice-pipeline"
+  pipelinePath: ".gitlab-ci.yml"
+
+  globalSettings:
+    image: "node:20-alpine"
+
+    variables:
+      DOCKER_DRIVER: "overlay2"
+      DOCKER_TLS_CERTDIR: "/certs"
+      POSTGRES_DB: "testdb"
+      POSTGRES_USER: "testuser"
+      POSTGRES_PASSWORD: "testpass"
+      MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+
+    cache:
+      key: "$CI_COMMIT_REF_SLUG"
+      paths:
+        - "node_modules/"
+        - ".npm/"
+        - ".m2/repository/"
+
+    before_script:
+      - "echo 'Pipeline started at $(date)'"
+      - "npm ci --cache .npm --prefer-offline"
+
+  stages:
+    - name: "build"
+      order: 1
+    - name: "test"
+      order: 2
+    - name: "security"
+      order: 3
+    - name: "package"
+      order: 4
+    - name: "deploy-dev"
+      order: 5
+    - name: "deploy-staging"
+      order: 6
+    - name: "deploy-prod"
+      order: 7
+
+  jobs:
+    buildApplication:
+      stage: "build"
+      script:
+        - "npm run build"
+        - "npm run lint"
+      artifacts:
+        paths:
+          - "dist/"
+        expire_in: "1 week"
+      rules:
+        - if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"
+        - if: "$CI_COMMIT_BRANCH == 'main'"
+        - if: "$CI_COMMIT_BRANCH == 'develop'"
+
+    unitTests:
+      stage: "test"
+      coverage: "/All files[^|]*\\|[^|]*\\s+([\\d\\.]+)/"
+      script:
+        - "npm run test:unit -- --coverage"
+      artifacts:
+        reports:
+          junit: "junit.xml"
+          coverage_report:
+            coverage_format: "cobertura"
+            path: "coverage/cobertura-coverage.xml"
+      rules:
+        - if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"
+        - if: "$CI_COMMIT_BRANCH =~ /^(main|develop)$/"
+
+    integrationTests:
+      stage: "test"
+      services:
+        - name: "postgres:15-alpine"
+          alias: "postgres"
+        - name: "redis:7-alpine"
+          alias: "redis"
+      variables:
+        DATABASE_URL: "postgresql://testuser:testpass@postgres:5432/testdb"
+        REDIS_URL: "redis://redis:6379"
+      script:
+        - "npm run test:integration"
+      artifacts:
+        when: "always"
+        reports:
+          junit: "integration-junit.xml"
+
+    sastScan:
+      stage: "security"
+      image: "returntocorp/semgrep:latest"
+      script:
+        - "semgrep --config=auto --json --output=semgrep-report.json"
+      artifacts:
+        reports:
+          sast: "semgrep-report.json"
+      allow_failure: false
+
+    dependencyScan:
+      stage: "security"
+      image: "aquasec/trivy:latest"
+      script:
+        - "trivy fs --format json --output trivy-report.json --severity HIGH,CRITICAL ."
+      artifacts:
+        reports:
+          dependency_scanning: "trivy-report.json"
+
+    containerBuild:
+      stage: "package"
+      image: "docker:24-dind"
+      services:
+        - "docker:24-dind"
+      script:
+        - "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
+        - "docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA -t $CI_REGISTRY_IMAGE:latest ."
+        - "docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA"
+        - "docker push $CI_REGISTRY_IMAGE:latest"
+      only:
+        - "main"
+        - "develop"
+
+    deployDevelopment:
+      stage: "deploy-dev"
+      image: "bitnami/kubectl:latest"
+      environment:
+        name: "development"
+        url: "https://dev.example.com"
+        on_stop: "stopDevelopment"
+        auto_stop_in: "1 day"
+      script:
+        - "kubectl config use-context $KUBE_CONTEXT_DEV"
+        - "kubectl set image deployment/myapp myapp=$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA -n dev"
+        - "kubectl rollout status deployment/myapp -n dev --timeout=5m"
+      only:
+        - "develop"
+
+    deployStaging:
+      stage: "deploy-staging"
+      environment:
+        name: "staging"
+        url: "https://staging.example.com"
+        deployment_tier: "staging"
+      script:
+        - "kubectl config use-context $KUBE_CONTEXT_STAGING"
+        - "helm upgrade --install myapp ./helm-chart --namespace staging --set image.tag=$CI_COMMIT_SHA --wait"
+      when: "manual"
+      only:
+        - "main"
+
+    deployProduction:
+      stage: "deploy-prod"
+      environment:
+        name: "production"
+        url: "https://api.example.com"
+        deployment_tier: "production"
+      script:
+        - "kubectl config use-context $KUBE_CONTEXT_PROD"
+        - |
+          helm upgrade --install myapp ./helm-chart \
+            --namespace production \
+            --set image.tag=$CI_COMMIT_SHA \
+            --set replicaCount=20 \
+            --set resources.requests.cpu=500m \
+            --set resources.requests.memory=1Gi \
+            --wait --timeout 10m
+      when: "manual"
+      only:
+        - "main"
+      needs:
+        - "deployStaging"
+
+# =============================================================================
+# JENKINS DECLARATIVE PIPELINE EXAMPLE
+# =============================================================================
+
+jenkinsPipeline:
+  name: "enterprise-monorepo-pipeline"
+  jenkinsfilePath: "Jenkinsfile"
+
+  pipelineStructure:
+    agent:
+      label: "docker"
+
+    options:
+      buildDiscarder:
+        daysToKeep: 30
+        numToKeep: 100
+      timeout:
+        time: 60
+        unit: "MINUTES"
+      timestamps: true
+      disableConcurrentBuilds: false
+      skipDefaultCheckout: false
+
+    parameters:
+      - name: "DEPLOY_ENVIRONMENT"
+        type: "choice"
+        choices: ["dev", "staging", "production"]
+        description: "Target deployment environment"
+
+      - name: "SKIP_TESTS"
+        type: "boolean"
+        defaultValue: false
+        description: "Skip test execution"
+
+      - name: "FORCE_DEPLOY"
+        type: "boolean"
+        defaultValue: false
+        description: "Force deployment without approval"
+
+    environment:
+      JAVA_HOME: "/usr/lib/jvm/java-17-openjdk"
+      MAVEN_OPTS: "-Xmx3072m -XX:MaxPermSize=512m"
+      DOCKER_REGISTRY: "docker.io/mycompany"
+      SONAR_HOST_URL: "https://sonarqube.example.com"
+      ARTIFACTORY_URL: "https://artifactory.example.com"
+
+    stages:
+      - stageName: "Checkout"
+        steps:
+          - step: "checkout"
+            scm: "git"
+            changelog: true
+            poll: true
+
+          - step: "script"
+            scriptContent: |
+              env.GIT_COMMIT_SHORT = sh(
+                script: "git rev-parse --short HEAD",
+                returnStdout: true
+              ).trim()
+              env.BUILD_VERSION = "${env.GIT_COMMIT_SHORT}-${env.BUILD_NUMBER}"
+
+      - stageName: "Build"
+        agent:
+          docker:
+            image: "maven:3.9-eclipse-temurin-17"
+            args: "-v maven-repo:/root/.m2"
+        steps:
+          - step: "sh"
+            command: "mvn clean compile -DskipTests"
+
+          - step: "stash"
+            name: "compiled-code"
+            includes: "target/**"
+
+      - stageName: "Test"
+        parallel:
+          - parallelStage: "Unit Tests"
+            agent:
+              docker: "maven:3.9-eclipse-temurin-17"
+            steps:
+              - step: "unstash"
+                name: "compiled-code"
+
+              - step: "sh"
+                command: "mvn test"
+
+              - step: "junit"
+                testResults: "**/target/surefire-reports/*.xml"
+                allowEmptyResults: false
+
+          - parallelStage: "Integration Tests"
+            agent:
+              docker: "maven:3.9-eclipse-temurin-17"
+            steps:
+              - step: "sh"
+                command: |
+                  docker-compose -f docker-compose.test.yml up -d
+                  mvn verify -Pintegration-tests
+                  docker-compose -f docker-compose.test.yml down
+
+          - parallelStage: "Code Quality"
+            steps:
+              - step: "withSonarQubeEnv"
+                envName: "SonarQube"
+                script: |
+                  mvn sonar:sonar \
+                    -Dsonar.projectKey=myapp \
+                    -Dsonar.projectName=MyApp \
+                    -Dsonar.qualitygate.wait=true
+
+      - stageName: "Security Scanning"
+        parallel:
+          - parallelStage: "SAST"
+            steps:
+              - step: "sh"
+                command: "semgrep --config=auto --json --output=semgrep.json"
+
+          - parallelStage: "Dependency Check"
+            steps:
+              - step: "dependencyCheck"
+                additionalArguments: "--scan ./ --format HTML --format JSON"
+                odcInstallation: "dependency-check-8.0"
+
+          - parallelStage: "License Compliance"
+            steps:
+              - step: "sh"
+                command: "mvn license:aggregate-third-party-report"
+
+      - stageName: "Package"
+        when:
+          branch: "main"
+        steps:
+          - step: "sh"
+            command: "mvn package -DskipTests"
+
+          - step: "archiveArtifacts"
+            artifacts: "target/*.jar"
+            fingerprint: true
+            onlyIfSuccessful: true
+
+      - stageName: "Docker Build & Push"
+        when:
+          branch: "main"
+        environment:
+          DOCKER_BUILDKIT: "1"
+        steps:
+          - step: "script"
+            scriptContent: |
+              docker.withRegistry("https://${DOCKER_REGISTRY}", 'docker-credentials') {
+                def customImage = docker.build(
+                  "${DOCKER_REGISTRY}/myapp:${BUILD_VERSION}",
+                  "--build-arg VERSION=${BUILD_VERSION} ."
+                )
+                customImage.push()
+                customImage.push('latest')
+              }
+
+      - stageName: "Deploy to Dev"
+        when:
+          branch: "develop"
+        steps:
+          - step: "sh"
+            command: |
+              kubectl config use-context dev-cluster
+              kubectl set image deployment/myapp myapp=${DOCKER_REGISTRY}/myapp:${BUILD_VERSION} -n dev
+              kubectl rollout status deployment/myapp -n dev
+
+      - stageName: "Deploy to Staging"
+        when:
+          allOf:
+            - branch: "main"
+            - expression: "params.FORCE_DEPLOY == false"
+        input:
+          message: "Deploy to staging?"
+          ok: "Deploy"
+          submitter: "platform-team,release-managers"
+          parameters:
+            - name: "STAGING_APPROVAL"
+              type: "boolean"
+              defaultValue: true
+        steps:
+          - step: "sh"
+            command: |
+              helm upgrade --install myapp ./helm-chart \
+                --namespace staging \
+                --set image.tag=${BUILD_VERSION} \
+                --set environment=staging \
+                --wait --timeout 10m
+
+      - stageName: "Deploy to Production"
+        when:
+          branch: "main"
+        input:
+          message: "Deploy to production?"
+          ok: "Deploy to Production"
+          submitter: "release-managers,cto"
+          parameters:
+            - name: "PRODUCTION_APPROVAL"
+              type: "boolean"
+              defaultValue: true
+        steps:
+          - step: "milestone"
+            ordinal: 1
+            label: "Production Deployment"
+
+          - step: "sh"
+            command: |
+              helm upgrade --install myapp ./helm-chart \
+                --namespace production \
+                --set image.tag=${BUILD_VERSION} \
+                --set environment=production \
+                --set replicaCount=50 \
+                --wait --timeout 15m
+
+          - step: "sh"
+            command: "npm run smoke-tests -- --env=production"
+
+    post:
+      always:
+        - step: "junit"
+          testResults: "**/target/*-reports/*.xml"
+          allowEmptyResults: true
+
+        - step: "publishHTML"
+          target:
+            reportDir: "target/site/jacoco"
+            reportFiles: "index.html"
+            reportName: "Code Coverage"
+
+      success:
+        - step: "slackSend"
+          channel: "#deployments"
+          color: "good"
+          message: "Build ${BUILD_NUMBER} succeeded - ${BUILD_URL}"
+
+      failure:
+        - step: "slackSend"
+          channel: "#deployments"
+          color: "danger"
+          message: "Build ${BUILD_NUMBER} failed - ${BUILD_URL}"
+
+      cleanup:
+        - step: "cleanWs"
+          deleteDirs: true
+
+# =============================================================================
+# QUALITY GATES & POLICIES
+# =============================================================================
+
+qualityGates:
+  codeQuality:
+    sonarQube:
+      qualityGateProfile: "Sonar way"
+      conditions:
+        - metric: "new_coverage"
+          operator: "LESS_THAN"
+          threshold: 80
+          failPipeline: true
+
+        - metric: "new_duplicated_lines_density"
+          operator: "GREATER_THAN"
+          threshold: 3
+          failPipeline: true
+
+        - metric: "new_violations"
+          operator: "GREATER_THAN"
+          threshold: 0
+          severity: "BLOCKER"
+          failPipeline: true
+
+  security:
+    vulnerabilityThresholds:
+      critical: 0
+      high: 0
+      medium: 5
+      low: 20
+
+    secretsScanning:
+      enabled: true
+      failOnDetection: true
+      excludePatterns:
+        - "test/**"
+        - "**/mock-data/**"
+
+    licensingPolicy:
+      allowedLicenses:
+        - "MIT"
+        - "Apache-2.0"
+        - "BSD-3-Clause"
+        - "ISC"
+      deniedLicenses:
+        - "GPL-3.0"
+        - "AGPL-3.0"
+      failOnDenied: true
+
+  testing:
+    minimumCodeCoverage: 80
+    requiredTestTypes:
+      - "unit"
+      - "integration"
+      - "e2e"
+    performanceThresholds:
+      p95ResponseTime: 200  # milliseconds
+      errorRate: 0.01  # 1%
+
+# =============================================================================
+# DEPLOYMENT STRATEGIES
+# =============================================================================
+
+deploymentStrategies:
+  canaryDeployment:
+    enabled: true
+    environments: ["staging", "production"]
+    stages:
+      - trafficPercentage: 10
+        duration: "5m"
+        healthCheckInterval: "30s"
+
+      - trafficPercentage: 25
+        duration: "10m"
+        healthCheckInterval: "30s"
+
+      - trafficPercentage: 50
+        duration: "15m"
+        healthCheckInterval: "1m"
+
+      - trafficPercentage: 100
+        duration: "0"
+
+    automaticRollback:
+      enabled: true
+      conditions:
+        - metric: "error_rate"
+          threshold: 0.05
+          window: "5m"
+
+        - metric: "p95_latency"
+          threshold: 500
+          window: "5m"
+
+  blueGreenDeployment:
+    enabled: true
+    environments: ["staging"]
+    switchStrategy: "instant"
+    healthCheckDuration: "2m"
+    rollbackWindow: "1h"
+
+  rollingUpdate:
+    enabled: true
+    environments: ["dev"]
+    maxSurge: 1
+    maxUnavailable: 0
+    healthCheckGracePeriod: "30s"
+
+# =============================================================================
+# RELATED ARTIFACTS
+# =============================================================================
+
+relatedArtifacts:
+  - type: "deployment-plan"
+    path: "deployment/deployment-plan.md"
+    relationship: "implements"
+
+  - type: "environment-matrix"
+    path: "deployment/environment-matrix.yaml"
+    relationship: "references"
+
+  - type: "release-plan"
+    path: "deployment/release-plan.md"
+    relationship: "supports"
+
+  - type: "rollback-plan"
+    path: "deployment/rollback-plan.md"
+    relationship: "depends-on"
+
+# =============================================================================
+# CHANGE HISTORY
+# =============================================================================
+
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
-    changes: "Initial version"
+    date: "2024-01-15"
+    author: "Platform Engineering Team"
+    changes: "Initial pipeline definitions with GitHub Actions, GitLab CI, and Jenkins examples"

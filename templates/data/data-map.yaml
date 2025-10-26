@@ -1,57 +1,55 @@
 # Data Map
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/data-map.md for complete guidance
+# See also: artifact_descriptions/data-map.md for complete guidance
+
+# A Data Map is a comprehensive inventory and visualization artifact that documents the location, movement, and relationships of data across an organization's entire data landscape—from source systems t...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact provides a comprehensive enterprise-level inventory of all data storage locations, data movement patterns, data ownership assignments, sensitivity classifications, and geographical data residency across the organization's data ecosystem to support governance, compliance, and strategic 
 
+# BEST PRACTICES
+# - Automated Discovery: Use data catalog tools (Collibra, Alation, Azure Purview, AWS Glue) with automated scanning to disco
+# - CMDB Integration: Integrate data map with Configuration Management Database (ServiceNow CMDB, BMC Remedy) for unified 
+# - Cloud Provider APIs: Leverage cloud provider APIs (AWS Config, Azure Resource Graph, GCP Asset Inventory) to automaticall
+# - Network Scanning: Deploy network discovery tools to identify shadow IT databases and unmanaged data stores
+# - Data Classification Automation: Use AI-powered classification tools (Microsoft Purview, BigID, OneTrust) to automatically classify d
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/data-map.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Inventory of all data stores (databases, data warehouses, data lakes, SaaS appli"
+      - "Database catalog with RDBMS (Oracle, SQL Server, PostgreSQL, MySQL), NoSQL (Mong"
+      - "Data lake/lakehouse inventory (S3, ADLS, GCS) with storage layer organization (b"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

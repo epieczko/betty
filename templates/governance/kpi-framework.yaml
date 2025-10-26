@@ -1,57 +1,55 @@
 # Kpi Framework
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/kpi-framework.md for complete guidance
+# See also: artifact_descriptions/kpi-framework.md for complete guidance
+
+# The KPI Framework defines the key performance indicators, metrics hierarchy, and measurement systems that track product health, business performance, and progress toward strategic objectives. This art...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as the comprehensive measurement framework for product performance, business health, and customer behavior. It defines what metrics to track, how to measure them, how they relate to each other (metrics tree), and how to use them for decision-making, experimentation, and reportin
 
+# BEST PRACTICES
+# - Version Control: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain comp
+# - Naming Conventions: Follow organization's document naming standards for consistency and discoverability
+# - Template Usage: Use approved templates to ensure completeness and consistency across teams
+# - Peer Review: Have at least one qualified peer review before submitting for approval
+# - Metadata Completion: Fully complete all metadata fields to enable search, classification, and lifecycle management
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/kpi-framework.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "North Star Metric definition and rationale (the single metric that best captures"
+      - "Metrics hierarchy and tree (North Star > primary drivers > input metrics)"
+      - "AARRR pirate metrics framework (Acquisition, Activation, Retention, Revenue, Ref"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

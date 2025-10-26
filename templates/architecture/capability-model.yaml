@@ -1,0 +1,55 @@
+# Capability Model
+# See also: artifact_descriptions/capability-model.md for complete guidance
+
+# The Capability Model is a strategic architecture artifact that defines and organizes business capabilities independent of organizational structure, processes, or technology implementation. This artifa...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This artifact serves as the authoritative catalog and hierarchical organization of business capabilities, defining what the organization does or must do to execute its strategy, independent of how capabilities are implemented or organized. It enables capability-based planning, gap analysis, and inve
+
+# BEST PRACTICES
+# - Hierarchical Decomposition: Structure capabilities in 3-4 levels maximum; Level 1 should be strategic, Level 2 operational, Leve
+# - Business Language: Use business terminology, not IT jargon; capabilities should be understandable to business stakehold
+# - Stable Taxonomy: Design capabilities to be relatively stable over time; they represent what organization does, not ho
+# - Outcome Focused: Define capabilities based on business outcomes and value delivered, not organizational structure or 
+# - Comprehensive Coverage: Ensure capability model covers all aspects of business operation including support functions, not ju
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Business capability taxonomy and hierarchical decomposition (Level 1 through Lev"
+      - "Capability definitions, descriptions, and business value statements"
+      - "Capability maturity assessments and target state definitions"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

@@ -1,74 +1,55 @@
 # Epic Charter
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/epic-charter.md for complete guidance
+# See also: artifact_descriptions/epic-charter.md for complete guidance
+
+# The Epic Charter is a strategic hypothesis-driven document that defines the business context, vision, success metrics, and investment boundaries for large-scale initiatives (epics) within Agile framew...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as the lightweight business case and authorization document for large initiatives (epics), defining the business problem, solution hypothesis, expected outcomes, success metrics, MVP scope, investment estimate, and go/no-go criteria. It enables portfolio-level decision-making on
 
+# BEST PRACTICES
+# - Hypothesis-Driven: Frame epic as testable hypothesis (we believe X will result in Y as measured by Z)
+# - Lean Business Case: Keep lightweight; avoid traditional heavy business case documentation
+# - Outcome-Focused: Define success by business outcomes and metrics, not outputs or features
+# - MVP Definition: Clearly define minimum viable product scope for initial validation
+# - Leading/Lagging Indicators: Specify both leading (predictive) and lagging (outcome) success metrics
 
-# Charter Overview
-purpose: |
-  TODO: Why this initiative/body exists
-  What problem it solves or opportunity it addresses
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Epic vision and strategic alignment with portfolio themes"
+      - "Business problem statement and current pain points"
+      - "Solution hypothesis (we believe... will result in... as measured by...)"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-# Scope
-scope:
-  inScope:
-    - "TODO: Area 1 within scope"
-  outOfScope:
-    - "TODO: Area 1 explicitly excluded"
-
-# Authority & Governance
-authority:
-  sponsor: "TODO: Executive sponsor"
-  decisionAuthority: "TODO: Who can make what decisions"
-  escalationPath:
-    - level: "L1"
-      role: "TODO: First escalation point"
-
-# Objectives
-objectives:
-  - "TODO: Objective 1"
-  - "TODO: Objective 2"
-
-# Success Criteria
-successCriteria:
-  - criterion: "TODO: Measurable success criterion"
-    target: "TODO: Specific target"
-
-# Stakeholders
-stakeholders:
-  - name: "TODO: Stakeholder or group"
-    role: "TODO: Their role"
-    interest: "High"  # Low | Medium | High
-    influence: "High"  # Low | Medium | High
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

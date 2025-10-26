@@ -1,57 +1,55 @@
 # Data Lineage Maps
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/data-lineage-maps.md for complete guidance
+# See also: artifact_descriptions/data-lineage-maps.md for complete guidance
+
+# Data Lineage Maps are visual and technical documentation artifacts that trace the complete end-to-end flow of data from source systems through transformations, integrations, and consumption points. Th...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact documents the complete data flow topology from source extraction through transformation pipelines to consumption endpoints, capturing table-level and column-level lineage, transformation logic, data dependencies, and processing sequences. It enables impact analysis, debugging, complian
 
+# BEST PRACTICES
+# - Automate Lineage Capture: Implement automated lineage harvesting using OpenLineage, DataHub extractors, or Apache Atlas hooks 
+# - Column-Level Granularity: Capture field-level lineage wherever possible to enable precise impact analysis and debugging of dat
+# - dbt DAG Integration: Leverage dbt's built-in lineage graph generation and integrate with DataHub or Collibra for enterpri
+# - OpenLineage Events: Emit OpenLineage events from Airflow, Spark, and custom pipelines to maintain real-time lineage accu
+# - Bi-directional Lineage: Capture both upstream (where data comes from) and downstream (where data is used) lineage for compre
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/data-lineage-maps.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Source-to-target mappings across ETL/ELT pipelines (Informatica, Talend, Azure D"
+      - "Column-level lineage showing field-to-field transformations and derivations"
+      - "Data flow through streaming platforms (Apache Kafka, AWS Kinesis, Azure Event Hu"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

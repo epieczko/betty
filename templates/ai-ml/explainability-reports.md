@@ -1,97 +1,78 @@
 # Explainability Reports
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/explainability-reports.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+The Explainability Reports provide structured, human-readable explanations of AI/ML model predictions using techniques like SHAP (Shapley values), LIME, InterpretML, and AI Explainability 360. These reports translate complex model behaviors into understandable feature importance rankings, decision b
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+This artifact serves as the documentation standard for generating and publishing AI/ML model explainability reports using SHAP, LIME, and other interpretability frameworks. Reports translate model predictions into human-understandable explanations through feature importance, decision boundaries, counterfactual scenarios, and prediction confidence intervals.
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- SHAP (Shapley Additive Explanations) feature importance reports for tabular, tree-based, and deep learning models
+- LIME (Local Interpretable Model-Agnostic Explanations) for individual prediction explanations
+- Feature importance rankings (global and local explanations)
+- Counterfactual explanations (minimal changes needed to flip prediction)
+- Partial dependence plots (how predictions change with feature values)
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered
 
-**Primary:**
-- TODO: Primary readers
+## Main Content
 
-**Secondary:**
-- TODO: Secondary readers
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
+## Best Practices
 
-## Key Findings
+**Model-Appropriate Explainer**: Use TreeExplainer for tree-based models (XGBoost, LightGBM, Random Forest), KernelExplainer for model-agnostic explanations
 
-### Finding 1: [Title]
+**SHAP for Global Importance**: Generate SHAP summary plots showing feature importance distributions across entire dataset
 
-**Severity**: High | Medium | Low
+**LIME for Individual Explanations**: Use LIME to explain specific high-stakes predictions (loan denials, fraud flags)
 
-**Description:**
-<!-- TODO: Describe the finding -->
+**Counterfactual Scenarios**: Provide actionable counterfactuals ("If income increased $5K, loan would be approved")
 
-**Impact:**
-<!-- TODO: Describe business or technical impact -->
+**Protected Class Analysis**: Always disaggregate model performance and explanations by protected classes (race, gender, age)
 
-**Recommendation:**
-<!-- TODO: Provide specific recommendation -->
+**Plain Language Explanations**: Translate technical feature names to business terms ("credit_utilization" → "percentage of available credit used")
 
-### Finding 2: [Title]
+**Visual Explanations**: Use SHAP force plots, waterfall charts, and feature importance bar charts for stakeholder communication
 
-<!-- Repeat structure for additional findings -->
+**Confidence Intervals**: Report prediction confidence alongside explanations to communicate uncertainty
 
-## Analysis
+## Related Documents
 
-<!-- TODO: Detailed analysis of findings -->
+- [Related Artifact]: Relationship description
 
-## Recommendations
+## Approvals
 
-1. **[Recommendation Title]**
-   - **Priority**: P0 | P1 | P2 | P3
-   - **Owner**: TODO: Responsible party
-   - **Timeline**: TODO: Implementation timeline
-   - **Effort**: TODO: Effort estimate
-
-## Conclusion
-
-<!-- TODO: Summarize key points and next steps -->
-
-## References
-
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/explainability-reports.md` for detailed guidance
-
-## Appendix
-
-<!-- Add supporting materials as needed -->
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

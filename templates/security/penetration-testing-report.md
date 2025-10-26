@@ -1,97 +1,78 @@
 # Penetration Testing Report
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/penetration-testing-report.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+The Penetration Testing Report documents findings, vulnerabilities, attack paths, and remediation recommendations from authorized, simulated cyberattacks against systems, applications, networks, or infrastructure. Following methodologies like PTES, OWASP Testing Guide, and OSSTMM, this report provid
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+The Penetration Testing Report documents the methodology, scope, findings, exploitation evidence, and remediation recommendations from authorized security testing that simulates real-world attacks to identify and validate exploitable security weaknesses across systems, applications, networks, APIs, and infrastructure.
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- Test methodology
+- Scope definition
+- Reconnaissance
+- Vulnerability identification
+- Exploitation
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered
 
-**Primary:**
-- TODO: Primary readers
+## Main Content
 
-**Secondary:**
-- TODO: Secondary readers
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
+## Best Practices
 
-## Key Findings
+**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
 
-### Finding 1: [Title]
+**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
 
-**Severity**: High | Medium | Low
+**Template Usage**: Use approved templates to ensure completeness and consistency across teams
 
-**Description:**
-<!-- TODO: Describe the finding -->
+**Peer Review**: Have at least one qualified peer review before submitting for approval
 
-**Impact:**
-<!-- TODO: Describe business or technical impact -->
+**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
 
-**Recommendation:**
-<!-- TODO: Provide specific recommendation -->
+**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
 
-### Finding 2: [Title]
+**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
 
-<!-- Repeat structure for additional findings -->
+**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
 
-## Analysis
+## Related Documents
 
-<!-- TODO: Detailed analysis of findings -->
+- [Related Artifact]: Relationship description
 
-## Recommendations
+## Approvals
 
-1. **[Recommendation Title]**
-   - **Priority**: P0 | P1 | P2 | P3
-   - **Owner**: TODO: Responsible party
-   - **Timeline**: TODO: Implementation timeline
-   - **Effort**: TODO: Effort estimate
-
-## Conclusion
-
-<!-- TODO: Summarize key points and next steps -->
-
-## References
-
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/penetration-testing-report.md` for detailed guidance
-
-## Appendix
-
-<!-- Add supporting materials as needed -->
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

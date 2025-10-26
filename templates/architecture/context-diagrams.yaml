@@ -1,57 +1,55 @@
 # Context Diagrams
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/context-diagrams.md for complete guidance
+# See also: artifact_descriptions/context-diagrams.md for complete guidance
+
+# The Context Diagram (C4 Model Level 1) provides the highest-level architectural view showing how the system fits within its environment, illustrating external actors, dependencies, and integration poi...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact communicates system scope and external dependencies to stakeholders, enabling understanding of what the system does, who uses it, and what it integrates with. It supports scope definition, dependency identification, privacy impact assessment, and executive communication about system pu
 
+# BEST PRACTICES
+# - Single System Focus: Create one context diagram per system; avoid enterprise-wide diagrams showing all systems (use Archi
+# - Clear System Boundary: Use distinct visual styling (bold box, shading) to clearly separate system from external entities
+# - Technology Agnostic: Avoid technical details like programming languages, databases, frameworks; keep at business capabili
+# - Named Actors: Use specific actor names (not generic "User"); distinguish personas (Customer, Administrator, Suppor
+# - Directional Arrows: Show direction of data flow and initiation (who calls whom); bidirectional when both systems initiat
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/context-diagrams.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "System boundary"
+      - "System description"
+      - "External actors"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

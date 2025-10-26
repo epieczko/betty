@@ -1,57 +1,55 @@
 # Glossary And Taxonomy Index
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/glossary-and-taxonomy-index.md for complete guidance
+# See also: artifact_descriptions/glossary-and-taxonomy-index.md for complete guidance
+
+# The Glossary and Taxonomy Index provides a centralized, authoritative index of business glossaries, data dictionaries, taxonomy structures, and controlled vocabularies managed through data governance ...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as the master index to enterprise business glossaries, data dictionaries, and taxonomy hierarchies, providing a single source of truth for data definitions across the organization. It documents where authoritative terminology is maintained, how to access it, governance approval 
 
+# BEST PRACTICES
+# - Single Source of Truth: Designate one data governance platform (Collibra, Alation, Atlas) as authoritative glossary source; 
+# - Business-First Definitions: Write glossary definitions from business perspective before technical; avoid jargon (bad: "FK to dim
+# - Data Steward Ownership: Assign explicit data steward to each glossary term with accountability for definition accuracy and c
+# - Plain Language Standard: Write definitions at 8th-grade reading level; business users should understand without technical bac
+# - Usage Examples: Include concrete examples in glossary entries (e.g., "Revenue" definition includes "Recognized when 
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/glossary-and-taxonomy-index.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Business glossary definitions (customer, product, revenue, active user, churn, c"
+      - "Data dictionary schemas (table definitions, column metadata, data types, constra"
+      - "Taxonomy hierarchies (product categories, geographic regions, cost centers, data"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

@@ -1,57 +1,55 @@
 # Customer Communication Templates
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/customer-communication-templates.md for complete guidance
+# See also: artifact_descriptions/customer-communication-templates.md for complete guidance
+
+# The Customer Communication Templates provide legally-reviewed, pre-approved templates for notifying customers of security incidents, data breaches, service degradations, and compliance events that req...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as the template library for all regulated customer notifications related to security incidents, data breaches, privacy violations, and compliance events. Templates ensure consistent, legally-compliant communication that meets regulatory notification requirements while providing 
 
+# BEST PRACTICES
+# - Legal Review Mandatory: All breach notifications must be reviewed and approved by legal counsel before sending (no exception
+# - 72-Hour GDPR Deadline: For EU data breaches, notify supervisory authority within 72 hours of becoming aware (clock starts w
+# - No Speculation: Only include confirmed facts in breach notifications; avoid speculation about attacker motives or un
+# - Specific Date/Time Ranges: Provide precise incident detection and containment timestamps in UTC (e.g., "March 15, 2025 14:23 UT
+# - Affected Data Categories: Clearly list what data types were accessed (names, emails, passwords, payment info) - be specific, n
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/customer-communication-templates.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Data breach notifications (GDPR Article 34, CCPA Section 1798.82, HIPAA Breach N"
+      - "Security incident notifications (unauthorized access, credential compromise, mal"
+      - "Service degradation notifications with security implications (availability incid"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

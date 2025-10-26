@@ -1,57 +1,55 @@
 # Accessibility Requirements
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/accessibility-requirements.md for complete guidance
+# See also: artifact_descriptions/accessibility-requirements.md for complete guidance
+
+# The Accessibility Requirements artifact documents testable, specific requirements for ensuring digital products and services comply with accessibility standards including WCAG 2.1/2.2 (Levels A, AA, A...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as the definitive specification of accessibility requirements that digital products must satisfy, establishing testable acceptance criteria for WCAG 2.1/2.2 conformance, Section 508 compliance, ADA Title III obligations, and inclusive design principles. It provides clear, implem
 
+# BEST PRACTICES
+# - Version Control: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain comp
+# - Naming Conventions: Follow organization's document naming standards for consistency and discoverability
+# - Template Usage: Use approved templates to ensure completeness and consistency across teams
+# - Peer Review: Have at least one qualified peer review before submitting for approval
+# - Metadata Completion: Fully complete all metadata fields to enable search, classification, and lifecycle management
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/accessibility-requirements.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "WCAG 2.1 Level A and AA requirements (mandatory baseline)"
+      - "WCAG 2.2 new success criteria (Focus Appearance, Dragging Movements, Target Size"
+      - "Section 508 technical standards (36 CFR 1194 - WCAG 2.0 Level AA baseline)"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

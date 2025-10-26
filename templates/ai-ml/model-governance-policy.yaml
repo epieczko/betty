@@ -1,0 +1,358 @@
+# Model Governance Policy
+# See also: artifact_descriptions/model-governance-policy.md for complete guidance
+
+metadata:
+  version: "1.0.0"
+  effectiveDate: "2025-01-01"
+  lastReviewed: "2025-10-26"
+  owner: "AI Governance Committee"
+  approvers:
+    - name: "Chief AI Officer"
+      approvalDate: "2024-12-15"
+    - name: "Chief Risk Officer"
+      approvalDate: "2024-12-15"
+    - name: "Chief Privacy Officer"
+      approvalDate: "2024-12-15"
+  classification: "Internal"
+
+# PURPOSE
+# This policy establishes organization-wide standards for AI/ML model development, deployment,
+# monitoring, and retirement following responsible AI principles and regulatory requirements (EU AI Act, NIST AI RMF).
+
+# MODEL LIFECYCLE GOVERNANCE
+
+modelLifecycle:
+  stages:
+    - stage: "Ideation & Business Case"
+      requiredArtifacts:
+        - "AI Use Case Proposal"
+        - "Risk-Benefit Analysis"
+        - "Ethical Impact Assessment"
+      approvalRequired: "AI Governance Committee"
+      exitCriteria: "Business value justified, ethical risks acceptable"
+
+    - stage: "Development"
+      requiredArtifacts:
+        - "Model Card (in progress)"
+        - "Training Data Card"
+        - "Experiment Tracking Logs"
+        - "Bias & Fairness Evaluation"
+      approvalRequired: "ML Lead + Ethics Review"
+      exitCriteria: "Model meets accuracy, fairness, and explainability thresholds"
+
+    - stage: "Validation & Testing"
+      requiredArtifacts:
+        - "Model Validation Report"
+        - "Fairness Metrics Report"
+        - "Safety & Security Testing Results"
+      approvalRequired: "Model Validation Team"
+      exitCriteria: "Model validated on holdout data, bias thresholds met"
+
+    - stage: "Deployment Approval"
+      requiredArtifacts:
+        - "Completed Model Card"
+        - "Model Risk Assessment"
+        - "Deployment Plan with Monitoring Strategy"
+      approvalRequired: "AI Governance Committee"
+      exitCriteria: "All artifacts complete, risk level acceptable"
+
+    - stage: "Production Monitoring"
+      requiredArtifacts:
+        - "Monthly Model Performance Reports"
+        - "Drift Detection Logs"
+        - "Incident Reports (if any)"
+      approvalRequired: "ML Ops Team (ongoing)"
+      exitCriteria: "Model performance within SLOs, no drift detected"
+
+    - stage: "Retraining / Retirement"
+      requiredArtifacts:
+        - "Retraining Justification"
+        - "OR Model Retirement Plan"
+      approvalRequired: "AI Governance Committee"
+      exitCriteria: "Decision to retrain or retire documented and approved"
+
+# MODEL RISK CLASSIFICATION (EU AI Act aligned)
+
+riskClassification:
+  categories:
+    unacceptable:
+      description: "Prohibited AI systems (social scoring, subliminal manipulation)"
+      examples: []
+      governance: "Not permitted"
+
+    highRisk:
+      description: "AI systems in critical domains (employment, credit scoring, law enforcement)"
+      examples:
+        - "Credit decisioning models"
+        - "Resume screening models"
+        - "Medical diagnosis assistance"
+      governance:
+        - "Mandatory human oversight"
+        - "Quarterly bias audits"
+        - "Explainability required for all decisions"
+        - "DPIA (Data Protection Impact Assessment) required"
+        - "AI Governance Committee approval required"
+
+    limitedRisk:
+      description: "AI systems with transparency obligations (chatbots)"
+      examples:
+        - "Customer service chatbots"
+        - "Content recommendation engines"
+      governance:
+        - "Disclose AI usage to users"
+        - "Bias monitoring recommended"
+        - "ML Lead approval required"
+
+    minimalRisk:
+      description: "AI systems with minimal societal impact"
+      examples:
+        - "Spam filters"
+        - "Image classification (non-sensitive)"
+      governance:
+        - "Standard software development practices"
+        - "No special approval required"
+
+# FAIRNESS & BIAS REQUIREMENTS
+
+fairnessRequirements:
+  protectedAttributes:
+    - "Race / Ethnicity"
+    - "Gender"
+    - "Age"
+    - "Disability status"
+    - "Religion"
+    - "Sexual orientation"
+    - "National origin"
+
+  fairnessMetrics:
+    required:
+      - metricName: "Demographic Parity"
+        description: "Selection rate should be similar across protected groups"
+        threshold: "Difference < 10% between groups"
+        applicability: "High-risk models (hiring, lending)"
+
+      - metricName: "Equalized Odds"
+        description: "True positive rate and false positive rate should be similar across groups"
+        threshold: "Difference < 5% for TPR and FPR"
+        applicability: "High-risk models"
+
+      - metricName: "Calibration"
+        description: "Predicted probabilities should match actual outcomes across groups"
+        threshold: "Calibration error < 0.05"
+        applicability: "Probabilistic models"
+
+  testing:
+    frequency: "Pre-deployment + quarterly in production"
+    tools: "Fairlearn, AI Fairness 360, Aequitas"
+    documentation: "Bias testing results in Model Card"
+
+# EXPLAINABILITY REQUIREMENTS
+
+explainability:
+  highRiskModels:
+    requirement: "Mandatory"
+    methods:
+      - "SHAP (Shapley Additive Explanations)"
+      - "LIME (Local Interpretable Model-Agnostic Explanations)"
+      - "Counterfactual explanations"
+    documentation: "Explain top 3 features for each prediction in user-facing applications"
+
+  limitedRiskModels:
+    requirement: "Recommended"
+    methods:
+      - "Feature importance scores"
+      - "Model documentation in Model Card"
+
+  minimalRiskModels:
+    requirement: "Optional"
+
+# HUMAN OVERSIGHT
+
+humanOversight:
+  highRiskModels:
+    requirement: "Mandatory human-in-the-loop"
+    implementation:
+      - "No automated decisions without human review option"
+      - "Human can override model prediction"
+      - "Escalation path for uncertain predictions (confidence < 70%)"
+    training: "Operators must complete AI ethics training annually"
+
+  limitedRiskModels:
+    requirement: "Human monitoring recommended"
+
+# DATA GOVERNANCE
+
+dataGovernance:
+  trainingData:
+    requirements:
+      - "Training Data Card required for all models"
+      - "Data lineage documented (source, transformations)"
+      - "Data quality checks automated (completeness, consistency)"
+      - "Sensitive data handling: PII anonymization, encryption"
+
+  dataBias:
+    requirements:
+      - "Analyze training data for representation bias"
+      - "Document data demographics in Training Data Card"
+      - "Address class imbalance (undersampling, oversampling, SMOTE)"
+
+  dataRetention:
+    trainingData: "3 years after model retirement"
+    predictionLogs: "1 year (or as required by regulation)"
+    modelArtifacts: "Indefinitely (for reproducibility and audits)"
+
+# MONITORING & ALERTING
+
+productionMonitoring:
+  requiredMetrics:
+    - metricName: "Model Accuracy / F1 Score"
+      threshold: "Must remain within 5% of validation baseline"
+      alerting: "Alert ML Ops if degradation detected"
+
+    - metricName: "Prediction Drift"
+      threshold: "KL divergence < 0.1 from training distribution"
+      alerting: "Alert if drift detected for 3 consecutive days"
+
+    - metricName: "Data Drift"
+      threshold: "Feature distributions within 2 standard deviations"
+      alerting: "Alert ML Ops if feature drift detected"
+
+    - metricName: "Fairness Metrics (in production)"
+      threshold: "Same thresholds as pre-deployment"
+      alerting: "Page on-call if fairness violation detected"
+
+  dashboards:
+    required: true
+    platform: "MLflow, Grafana, or custom dashboard"
+    refresh: "Real-time (< 5 minute delay)"
+
+# INCIDENT RESPONSE
+
+incidentResponse:
+  severity:
+    critical:
+      description: "Model causing harm (discrimination, safety risk)"
+      response: "Immediate model rollback, executive notification"
+      investigation: "Root cause analysis within 24 hours"
+
+    high:
+      description: "Model performance degraded significantly"
+      response: "Disable model, investigate within 48 hours"
+
+    medium:
+      description: "Model drift detected"
+      response: "Schedule retraining, investigate root cause"
+
+  postmortem:
+    required: true
+    timeline: "Within 7 days of incident resolution"
+    distribution: "AI Governance Committee, affected stakeholders"
+
+# DOCUMENTATION REQUIREMENTS
+
+documentation:
+  required:
+    - artifact: "Model Card"
+      template: "templates/ai-ml/model-cards.md"
+      frequency: "Created during development, updated quarterly"
+
+    - artifact: "Training Data Card"
+      template: "templates/ai-ml/training-data-cards.md"
+      frequency: "Created before training"
+
+    - artifact: "Model Risk Assessment"
+      template: "templates/ai-ml/model-risk-assessments.md"
+      frequency: "Before deployment, annually thereafter"
+
+    - artifact: "Fairness Evaluation Report"
+      template: "templates/ai-ml/bias-and-fairness-reports.md"
+      frequency: "Pre-deployment + quarterly"
+
+    - artifact: "Explainability Report"
+      template: "templates/ai-ml/explainability-reports.md"
+      frequency: "Pre-deployment (high-risk models)"
+
+# THIRD-PARTY MODELS
+
+thirdPartyModels:
+  vendorDueDiligence:
+    requirements:
+      - "Vendor must provide Model Card or equivalent documentation"
+      - "Vendor must disclose training data sources"
+      - "Vendor must provide fairness evaluation results"
+      - "Contract must include model performance SLAs"
+
+  foundationModels:
+    examples: "OpenAI GPT-4, Anthropic Claude, Google Gemini"
+    requirements:
+      - "Document foundation model limitations in Model Card"
+      - "Implement content filtering for harmful outputs"
+      - "Monitor for prompt injection attacks"
+      - "Comply with vendor's acceptable use policy"
+
+# COMPLIANCE & REGULATORY REQUIREMENTS
+
+compliance:
+  regulations:
+    - regulation: "EU AI Act (2024)"
+      applicability: "All EU customer-facing models"
+      requirements:
+        - "Maintain technical documentation (Article 11)"
+        - "Implement human oversight (Article 14)"
+        - "Transparency and information to users (Article 13)"
+
+    - regulation: "GDPR Article 22"
+      applicability: "Automated decision-making affecting EU data subjects"
+      requirements:
+        - "Right to explanation for automated decisions"
+        - "Right to human review"
+        - "Right to contest decision"
+
+    - regulation: "Fair Credit Reporting Act (FCRA)"
+      applicability: "US credit decisioning models"
+      requirements:
+        - "Adverse action notices with reason codes"
+        - "Model explainability required"
+
+# TRAINING & AWARENESS
+
+training:
+  required:
+    - course: "AI Ethics & Responsible AI Fundamentals"
+      audience: "All ML engineers, data scientists"
+      frequency: "Annually"
+
+    - course: "Bias Detection & Mitigation"
+      audience: "ML engineers developing high-risk models"
+      frequency: "Before first deployment, refresher annually"
+
+    - course: "AI Governance Policy"
+      audience: "All AI/ML practitioners"
+      frequency: "Annually + when policy updated"
+
+# GOVERNANCE COMMITTEE
+
+governanceCommittee:
+  composition:
+    - "Chief AI Officer (Chair)"
+    - "Chief Risk Officer"
+    - "Chief Privacy Officer"
+    - "Head of ML Engineering"
+    - "Legal Counsel"
+    - "Ethics Advisor (external)"
+
+  responsibilities:
+    - "Approve high-risk model deployments"
+    - "Review model incident postmortems"
+    - "Update governance policy annually"
+    - "Oversee AI ethics training program"
+
+  meetingFrequency: "Monthly"
+
+# CHANGE HISTORY
+
+changeHistory:
+  - version: "1.0.0"
+    date: "2025-01-01"
+    author: "AI Governance Committee"
+    changes: "Initial policy based on EU AI Act and NIST AI RMF"

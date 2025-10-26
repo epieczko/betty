@@ -1,57 +1,30 @@
-# Data Freshness Slas
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/data-freshness-slas.md for complete guidance
+# Data Freshness SLAs
+# See also: artifact_descriptions/data-freshness-slas.md for complete guidance
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "2025-10-26"
+  owner: "Data Platform Team"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
-  approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
-
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
-
-
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/data-freshness-slas.md for detailed structure
-
-content:
-  overview: |
-    TODO: Provide overview
-
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
-changeHistory:
-  - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
-    changes: "Initial version"
+# SLA Definitions
+slas:
+  customer_events:
+    dataset: "analytics.production.customer_events"
+    freshness_target: "15 minutes"
+    measurement: "MAX(CURRENT_TIMESTAMP - event_timestamp)"
+    
+    thresholds:
+      warning: "15 minutes"
+      critical: "30 minutes"
+    
+    monitoring:
+      frequency: "Every 5 minutes"
+      dashboard: "https://monitor.example.com/freshness/customer_events"
+    
+    alerts:
+      - severity: "warning"
+        condition: "freshness > 15 minutes"
+        notification: "Slack #data-quality"
+      - severity: "critical"
+        condition: "freshness > 30 minutes"
+        notification: "PagerDuty data-platform-oncall"

@@ -1,57 +1,55 @@
 # Terms Of Service
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/terms-of-service.md for complete guidance
+# See also: artifact_descriptions/terms-of-service.md for complete guidance
+
+# Terms of Service (ToS) are binding legal agreements governing user access to SaaS platforms, web applications, APIs, and digital services. These contracts establish acceptable use policies, service le...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact establishes the legal contract between service providers and users, defining rights, responsibilities, restrictions, and remedies for platform access and usage. It protects organizational interests through liability limitations, indemnification clauses, and termination rights while sat
 
+# BEST PRACTICES
+# - Clickwrap over Browsewrap: Use affirmative acceptance (checkbox + "I agree" button) rather than implied consent for stronger en
+# - Plain Language Drafting: Write ToS in accessible language (8th-grade reading level) to satisfy FTC reasonableness standards a
+# - Conspicuous Terms: Highlight key provisions (liability limitations, arbitration clauses) in bold or larger font to prev
+# - Separate Privacy Policy: Link to distinct Privacy Policy to satisfy GDPR Article 13 requirement for detailed data processing 
+# - Version Control: Append version number and "Last Updated" date; maintain archive of all historical versions for litig
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/terms-of-service.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Account registration, eligibility requirements (age restrictions, geographic lim"
+      - "Acceptable Use Policy (AUP)"
+      - "Service Level Agreements (SLA)"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

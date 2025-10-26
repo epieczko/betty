@@ -1,97 +1,99 @@
 # Crash Reporting Taxonomy
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/crash-reporting-taxonomy.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+<!-- Provide a 2-3 paragraph overview for executive audience -->
+<!-- What is this document about and why does it matter? -->
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+<!-- Establishes a unified taxonomy for classifying application crashes, errors, and exceptions across all platforms to enable consistent reporting, prioritization, and remediation tracking using crash mon... -->
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- Mobile crash classification (iOS, Android native crashes, ANR, OOM errors)
+- Web application errors (JavaScript exceptions, unhandled promise rejections, network failures)
+- Backend service crashes (uncaught exceptions, segmentation faults, OOM kills, panic conditions)
+- Crash severity levels with clear user impact definitions (P0
+- Error fingerprinting rules for deduplication and grouping
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered by this artifact
 
-**Primary:**
-- TODO: Primary readers
+## Target Audience
 
-**Secondary:**
-- TODO: Secondary readers
+### Primary Audience
 
+- Mobile developers (iOS, Android) classifying and triaging crashes
+- Web frontend developers handling JavaScript errors and exceptions
+- Backend engineers investigating service crashes and panics
 
-## Key Findings
+### Secondary Audience
 
-### Finding 1: [Title]
+- Additional stakeholders who may reference this document
 
-**Severity**: High | Medium | Low
+## [Main Section 1]
 
-**Description:**
-<!-- TODO: Describe the finding -->
+<!-- Complete this section with artifact-specific content -->
+<!-- Refer to the artifact description for required structure -->
 
-**Impact:**
-<!-- TODO: Describe business or technical impact -->
+## [Main Section 2]
 
-**Recommendation:**
-<!-- TODO: Provide specific recommendation -->
+<!-- Add additional sections as needed -->
 
-### Finding 2: [Title]
+## Best Practices
 
-<!-- Repeat structure for additional findings -->
+**Severity Standardization**: Define P0 (launch blocker), P1 (core feature failure), P2 (degraded experience), P3 (minor issue) with explicit user impact criteria
 
-## Analysis
+**Crash-Free Rate Targets**: Maintain >99.5% crash-free sessions for production; >98% for beta releases
 
-<!-- TODO: Detailed analysis of findings -->
+**Fingerprinting Consistency**: Use stable error fingerprints combining exception type, file path, and function name (avoid line numbers)
 
-## Recommendations
+**Symbolication Requirements**: Upload symbols within 1 hour of release to enable readable stack traces
 
-1. **[Recommendation Title]**
-   - **Priority**: P0 | P1 | P2 | P3
-   - **Owner**: TODO: Responsible party
-   - **Timeline**: TODO: Implementation timeline
-   - **Effort**: TODO: Effort estimate
+**Grouping Intelligence**: Configure smart grouping to cluster similar crashes while avoiding over-aggregation
 
-## Conclusion
+## Quality Checklist
 
-<!-- TODO: Summarize key points and next steps -->
+Before finalizing this artifact, verify:
 
-## References
+- [ ] **Completeness**: All required sections present and adequately detailed
+- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
+- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
+- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
+- [ ] **Currency**: Based on current information; outdated content removed or updated
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/crash-reporting-taxonomy.md` for detailed guidance
+## Related Documents
 
-## Appendix
+- [Related Artifact]: Description and relationship
 
-<!-- Add supporting materials as needed -->
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | Name | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

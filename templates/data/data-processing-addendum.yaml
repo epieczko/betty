@@ -1,57 +1,55 @@
 # Data Processing Addendum
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/data-processing-addendum.md for complete guidance
+# See also: artifact_descriptions/data-processing-addendum.md for complete guidance
+
+# The Data Processing Addendum (DPA) is a legally binding contract addendum that governs the processing of personal data between data controllers and data processors, as mandated by GDPR Article 28 and ...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as a contractual framework governing the relationship between data controllers and data processors to ensure GDPR Article 28 compliance, establish technical and organizational security measures, define subprocessor management procedures, grant controller audit rights, and specif
 
+# BEST PRACTICES
+# - GDPR Article 28 Compliance: Ensure all mandatory elements are present including processing instructions, confidentiality obligat
+# - Standard Contractual Clauses Integration: When processing involves international data transfers, incorporate appropriate EU SCCs (Module 2 or 
+# - Subprocessor Management: Establish clear procedures for prior authorization (general or specific), notification timelines (ty
+# - Technical and Organizational Measures (TOMs): Specify concrete security controls aligned with GDPR Article 32 such as encryption (AES-256), access
+# - Security Certifications: Reference processor certifications (ISO 27001, SOC 2 Type II, ISO 27701) and independent audit repor
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/data-processing-addendum.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "GDPR Article 28 mandatory contract terms (processing instructions, confidentiali"
+      - "Technical and organizational measures (TOMs) aligned with GDPR Article 32 securi"
+      - "Subprocessor management procedures including prior authorization, notification r"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

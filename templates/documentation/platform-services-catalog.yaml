@@ -1,0 +1,55 @@
+# Platform Services Catalog
+# See also: artifact_descriptions/platform-services-catalog.md for complete guidance
+
+# The Platform Services Catalog is the authoritative registry of all platform capabilities, self-service APIs, and developer-facing services within an Internal Developer Platform (IDP). Built on framewo...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This artifact serves as the comprehensive catalog of all platform services, APIs, and capabilities offered by the platform engineering team. It enables developers to discover and consume infrastructure resources through self-service interfaces, golden paths, and Software Templates while maintaining 
+
+# BEST PRACTICES
+# - GitOps Workflow: Store catalog definitions in version control (Git) with pull request reviews and automated validatio
+# - Semantic Versioning: Version catalog entities and templates using semantic versioning (MAJOR.MINOR.PATCH) to manage break
+# - Self-Service by Default: Design catalog entries for full self-service provisioning without requiring platform team interventi
+# - Golden Path Curation: Maintain opinionated, production-ready templates that encode organizational best practices and secur
+# - Comprehensive Documentation: Include TechDocs, runbooks, architecture diagrams, and getting-started guides for each catalog entry
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Service catalog entries in Backstage, Port, Kratix, or similar IDP frameworks"
+      - "Software Templates for common patterns (microservices, databases, message queues"
+      - "Self-service APIs and platform capabilities (namespace provisioning, DNS managem"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

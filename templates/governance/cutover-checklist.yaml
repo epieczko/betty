@@ -1,57 +1,55 @@
 # Cutover Checklist
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/cutover-checklist.md for complete guidance
+# See also: artifact_descriptions/cutover-checklist.md for complete guidance
+
+# Cutover Checklists are comprehensive go-live verification lists that ensure all prerequisites are met before production deployments, major releases, and system cutovers. These checklists are essential...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact provides a comprehensive, actionable checklist of all tasks, validations, approvals, and communication steps required for successful production deployment or system cutover, ensuring nothing is forgotten and all stakeholders are aligned before go-live.
 
+# BEST PRACTICES
+# - Comprehensive Coverage: Include every critical task; missing one item can cause deployment failure
+# - Ordered Execution: Sequence tasks in proper order with clear dependencies and prerequisites
+# - Clear Ownership: Assign each checklist item to specific person/team responsible for execution
+# - Rollback Ready: Define clear rollback criteria and validate rollback procedures before go-live
+# - Smoke Tests Mandatory: Never skip smoke tests; always validate critical functionality post-deployment
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/cutover-checklist.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Pre-deployment prerequisites (code freeze, testing complete, security scans pass"
+      - "Deployment strategy (blue-green, canary, rolling deployment, feature flags)"
+      - "Rollback criteria and procedures (performance thresholds, error rate limits, rol"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

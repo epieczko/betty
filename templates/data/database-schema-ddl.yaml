@@ -1,71 +1,55 @@
 # Database Schema Ddl
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/database-schema-ddl.md for complete guidance
+# See also: artifact_descriptions/database-schema-ddl.md for complete guidance
+
+# Database Schema DDL (Data Definition Language) are version-controlled SQL scripts defining tables, columns, indexes, constraints, and relationships that constitute the database structure. Following da...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# Database Schema DDL scripts define database structure through version-controlled, sequential migration files (CREATE TABLE, ALTER TABLE, CREATE INDEX) enabling automated, repeatable, and reversible schema deployments across all environments.
 
+# BEST PRACTICES
+# - Version Control: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain comp
+# - Naming Conventions: Follow organization's document naming standards for consistency and discoverability
+# - Template Usage: Use approved templates to ensure completeness and consistency across teams
+# - Peer Review: Have at least one qualified peer review before submitting for approval
+# - Metadata Completion: Fully complete all metadata fields to enable search, classification, and lifecycle management
 
-# Specification Overview
-specificationName: "TODO: Name of what is being specified"
-version: "1.0.0"
-status: "Draft"  # Draft | Review | Approved | Deprecated
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Table definitions"
+      - "Primary keys"
+      - "Foreign keys"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-# Requirements
-requirements:
-  functional:
-    - id: "FR-001"
-      requirement: "TODO: Functional requirement"
-      priority: "Must Have"  # Must Have | Should Have | Could Have
-
-  nonFunctional:
-    - id: "NFR-001"
-      category: "Performance"  # Performance | Security | Scalability | etc.
-      requirement: "TODO: Non-functional requirement"
-      metric: "TODO: How it's measured"
-      target: "TODO: Target value"
-
-# Design
-design:
-  architecture: |
-    TODO: High-level architecture description
-  components:
-    - name: "TODO: Component name"
-      purpose: "TODO: Component purpose"
-      interfaces:
-        - "TODO: Interface description"
-
-# Validation
-validation:
-  testCriteria:
-    - "TODO: How this specification will be validated"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

@@ -1,108 +1,78 @@
 # Microcopy Guides
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/microcopy-guides.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+Microcopy Guides are the essential reference for interface copy—the small but mighty words that guide users through products: button labels, error messages, empty states, form field instructions, tooltips, success confirmations, and all the tiny text that makes digital experiences usable or frustrat
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+This artifact provides specific, actionable guidance for every interface copy moment, ensuring consistency in voice, clarity in instruction, and empathy in error handling across the entire product experience. It solves the copy inconsistency problem where different designers use different button labels for the same action or engineers write technical error messages that confuse users, supporting r
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- Button and CTA copy patterns (primary, secondary, destructive actions)
+- Form field labels, placeholders, helper text, and validation messages
+- Error message templates (client-side validation, server errors, system failures)
+- Empty state messaging (first-use empty, user-cleared empty, error-state empty, no-results empty)
+- Success and confirmation messages
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered
 
-**Primary:**
-- TODO: Primary readers
+## Main Content
 
-**Secondary:**
-- TODO: Secondary readers
-
-
-## Overview
-
-<!-- TODO: Introduce what this guide covers -->
-
-## Prerequisites
-
-- TODO: What readers need to know before starting
-- TODO: Required access or tools
-
-## Instructions
-
-### Step 1: [Step Title]
-
-**Objective:** TODO: What this step accomplishes
-
-**Instructions:**
-1. TODO: First action
-2. TODO: Second action
-3. TODO: Third action
-
-**Expected Outcome:** TODO: What should happen
-
-**Troubleshooting:**
-- **Problem**: TODO: Common issue
-  - **Solution**: TODO: How to resolve
-
-### Step 2: [Step Title]
-
-<!-- Repeat structure for additional steps -->
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
 ## Best Practices
 
-- ✅ **DO**: TODO: Recommended practice
-- ❌ **DON'T**: TODO: Anti-pattern to avoid
+**Front-Load Value**: Start with the key word in button labels, form fields, and instructions; users scan left-to-right, so "Download report" > "Report download"
 
-## Reference
+**Action-Oriented Buttons**: Use verbs for actions ("Save changes" not "Changes"), be specific ("Create account" not "Submit"), describe the outcome ("Start 14-day trial" not "Continue")
 
-### Glossary
+**Error Messages: 3 Parts**: (1) What went wrong, (2) Why it happened, (3) How to fix it; "Invalid email" fails; "Email format incorrect. Use format: name@domain.com" succeeds
 
-- **Term 1**: Definition
-- **Term 2**: Definition
+**Avoid Placeholder Pitfalls**: Don't use placeholder text as labels (accessibility fail); use placeholders only for format examples ("MM/DD/YYYY"), never for required instructions
 
-### Related Resources
+**Empty States Tell Stories**: Transform "No items" into opportunity—explain why it's empty, what value filling it provides, and offer clear action: "No saved searches yet. Save your favorite searches for quick access."
 
-- [Resource Name](url): Description
+**Conversational but Concise**: Write like you speak to a friend who's in a hurry; cut "please," "in order to," "you can"; test: would you say this out loud?
 
-## References
+**Consistent Terminology**: Pick one term and stick with it—don't alternate between "delete/remove," "save/store," "settings/preferences"; build a terminology glossary
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/microcopy-guides.md` for detailed guidance
+**Tone Modulation**: Adjust tone to moment—onboarding is welcoming, errors are empathetic, confirmations are reassuring, destructive actions are serious
 
-## Appendix
+## Related Documents
 
-<!-- Add supporting materials as needed -->
+- [Related Artifact]: Relationship description
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

@@ -1,57 +1,55 @@
 # Solution Briefs
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/solution-briefs.md for complete guidance
+# See also: artifact_descriptions/solution-briefs.md for complete guidance
+
+# Solution Briefs are concise, executive-friendly overviews (typically 1-2 pages) that distill complex products or solutions into scannable summaries of value propositions, key capabilities, use cases, ...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact enables quick, credible communication of product value and technical fit to time-constrained buyers across the evaluation process—from initial awareness through technical validation. It solves the "too much/too little" information problem where detailed docs overwhelm while marketing f
 
+# BEST PRACTICES
+# - One-Page Executive Summary: First page must stand alone—busy execs often read only page 1; include value prop, key benefits, pro
+# - Lead with Value Not Features: Start with business outcome or pain point solved, not product description; "Reduce security incident
+# - Scannable Layout: Bullets over paragraphs, bold key phrases, visual hierarchy, white space; readers scan for relevance
+# - Quantify Everything: Vague claims ("improve efficiency") lose to specific outcomes ("reduce manual processing from 8 hour
+# - Use Case Specificity: Generic use cases bore; specific scenarios resonate; "for healthcare providers managing 500+ beds" >
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/solution-briefs.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Solution overview and value proposition (the "what" and "why")"
+      - "Key capabilities and features organized by category"
+      - "Primary use cases and application scenarios"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

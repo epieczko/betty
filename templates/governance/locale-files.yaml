@@ -1,57 +1,55 @@
 # Locale Files
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/locale-files.md for complete guidance
+# See also: artifact_descriptions/locale-files.md for complete guidance
+
+# The Locale Files artifact documents the translation resources, language-specific content, and cultural adaptations required for internationalization (i18n) and localization (l10n) of digital products ...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as the authoritative documentation of locale file structure, format specifications, translation workflows, and quality assurance procedures enabling internationalization and localization of software products across 20-150+ global markets. It solves the challenge of managing tran
 
+# BEST PRACTICES
+# - String Key Naming: Use hierarchical dot-notation (e.g., `settings.profile.email.label`) enabling logical organization, 
+# - Context Documentation: Provide screenshots, character limits, placeholder descriptions, and usage context in developer comm
+# - ICU MessageFormat: Leverage ICU syntax for pluralization, gender, and select variants preventing grammatically incorrec
+# - Translation Memory Leverage: Maximize TM match rates (70-90% matches) through consistent terminology, phraseology, and string str
+# - Pseudo-Localization Testing: Run pseudo-localization builds testing UI text expansion (+30% for German), character encoding, and 
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/locale-files.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Locale file format specifications including JSON, XLIFF 2.1, Gettext PO/POT, iOS"
+      - "Translation string organization and naming conventions ensuring consistent key s"
+      - "ICU MessageFormat syntax for pluralization rules (zero, one, two, few, many, oth"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

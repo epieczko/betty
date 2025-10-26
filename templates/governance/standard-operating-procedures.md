@@ -1,112 +1,99 @@
 # Standard Operating Procedures
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/standard-operating-procedures.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+<!-- Provide a 2-3 paragraph overview for executive audience -->
+<!-- What is this document about and why does it matter? -->
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
-
-<!-- TODO: Explain why this document exists -->
-
-### Scope
-
-**In Scope:**
-- TODO: What is covered
-
-**Out of Scope:**
-- TODO: What is not covered
-
-### Target Audience
-
-**Primary:**
-- TODO: Primary readers
-
-**Secondary:**
-- TODO: Secondary readers
-
-
-## Policy Statement
-
-<!-- TODO: Clear, concise statement of what is required, prohibited, or permitted -->
-
-## Rationale
-
-<!-- TODO: Why this policy exists, what risks it mitigates -->
+<!-- This artifact provides standardized, step-by-step procedures for routine operational tasks, system maintenance, and administrative activities. It solves the problem of operational inconsistency by doc... -->
 
 ## Scope
 
-This policy applies to:
-- TODO: Who or what is covered
+### In Scope
 
-This policy does NOT apply to:
-- TODO: Exceptions or exclusions
+- System health checks and monitoring validation procedures
+- Log rotation, cleanup, and archival procedures
+- SSL/TLS certificate renewal and rotation
+- Backup execution, verification, and restoration testing
+- Database maintenance (vacuuming, index optimization, statistics updates)
 
-## Requirements
+### Out of Scope
 
-### Requirement 1: [Title]
+- Items explicitly not covered by this artifact
 
-**Description:** TODO: Specific requirement
+## Target Audience
 
-**Rationale:** TODO: Why this is required
+### Primary Audience
 
-**Compliance:** TODO: How compliance is measured
+- Operations Engineers executing routine maintenance tasks
+- SRE Teams performing system administration activities
+- On-Call Engineers conducting regular health checks and operational tasks
 
-### Requirement 2: [Title]
+### Secondary Audience
 
-<!-- Repeat for additional requirements -->
+- Additional stakeholders who may reference this document
 
-## Roles & Responsibilities
+## [Main Section 1]
 
-| Role | Responsibilities |
-|------|------------------|
-| **[Role Name]** | TODO: What this role is responsible for |
+<!-- Complete this section with artifact-specific content -->
+<!-- Refer to the artifact description for required structure -->
 
-## Compliance & Enforcement
+## [Main Section 2]
 
-**Review Frequency:** Annual | Quarterly | Monthly
+<!-- Add additional sections as needed -->
 
-**Monitoring:** TODO: How compliance is monitored
+## Best Practices
 
-**Enforcement:** TODO: Consequences of non-compliance
+**Executable Format**: Write imperative, copy-paste ready commands; include exact syntax with expected output
 
-**Exceptions:** TODO: Process for requesting exceptions
+**Prerequisites Clear**: List all prerequisites upfront (permissions, tools, access, dependencies)
 
-## Related Policies
+**Step Numbering**: Use numbered steps for sequential procedures; makes progress tracking easy
 
-- [Policy Name]: Description and link
+**Validation Steps**: Include verification commands after each step to confirm success before proceeding
 
-## References
+**Error Handling**: Document common errors, their causes, and resolution steps
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/standard-operating-procedures.md` for detailed guidance
+## Quality Checklist
 
-## Appendix
+Before finalizing this artifact, verify:
 
-<!-- Add supporting materials as needed -->
+- [ ] **Completeness**: All required sections present and adequately detailed
+- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
+- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
+- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
+- [ ] **Currency**: Based on current information; outdated content removed or updated
+
+## Related Documents
+
+- [Related Artifact]: Description and relationship
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | Name | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

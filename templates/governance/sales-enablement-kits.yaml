@@ -1,57 +1,55 @@
 # Sales Enablement Kits
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/sales-enablement-kits.md for complete guidance
+# See also: artifact_descriptions/sales-enablement-kits.md for complete guidance
+
+# Sales Enablement Kits are comprehensive packages of battle-tested content, tools, and resources that equip revenue teams to have better conversations, handle objections, demonstrate value, and close d...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact accelerates sales velocity and increases win rates by providing revenue teams with instantly accessible, high-quality sales content organized by sales stage, buyer persona, and use case. It solves the content chaos problem where valuable sales assets are scattered across drives, outdat
 
+# BEST PRACTICES
+# - Organize by Sales Stage: Structure content by where it's used—prospecting, discovery, demo, proposal, negotiation, close; rep
+# - Persona-Specific Assets: Create separate battlecards, one-pagers, and decks for economic buyer vs. technical buyer vs. end us
+# - Make It Scannable: Sales reps have 30 seconds between calls; dense paragraphs don't get read; use bullets, bold key poi
+# - Proof Points Always: Every claim needs customer quote, metric, or third-party validation; "market-leading" without proof 
+# - Update Competitive Intel Monthly: Competitors release features, change pricing, shift messaging; stale battlecards lose deals; assign 
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/sales-enablement-kits.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Competitive battlecards (head-to-head positioning, traps, proof points)"
+      - "Product one-pagers and sell sheets (elevator pitch, key benefits, differentiator"
+      - "Sales pitch decks by persona, use case, and sales stage"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

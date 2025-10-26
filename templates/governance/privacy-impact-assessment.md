@@ -1,85 +1,99 @@
 # Privacy Impact Assessment
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/privacy-impact-assessment.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+<!-- Provide a 2-3 paragraph overview for executive audience -->
+<!-- What is this document about and why does it matter? -->
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+<!-- This artifact serves as a systematic risk assessment evaluating privacy risks to individuals from new or changed data processing operations, determining GDPR Article 35 necessity and proportionality c... -->
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- GDPR Article 35 mandatory DPIA triggers (systematic monitoring, Article 9 special categories at scale, automated decision-making per Article 22)
+- Processing operation description including data categories, purposes, recipients, retention periods, and data flows
+- Necessity and proportionality assessment evaluating whether processing is essential for stated purpose with minimal privacy intrusion
+- Privacy risk identification covering risks to individual rights (discrimination, identity theft, unauthorized disclosure, profiling harm)
+- Risk likelihood and impact assessment using privacy risk matrices (e.g., catastrophic/likely to negligible/rare scale)
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered by this artifact
 
-**Primary:**
-- TODO: Primary readers
+## Target Audience
 
-**Secondary:**
-- TODO: Secondary readers
+### Primary Audience
 
+- Data Protection Officers (DPOs) reviewing DPIAs per GDPR Article 35(2) and providing privacy risk guidance
+- Privacy Teams conducting systematic privacy risk assessments for new projects and processing operations
+- Product Managers and Business Owners understanding privacy constraints and risk mitigation requirements
 
-## Background
+### Secondary Audience
 
-<!-- TODO: Provide necessary background information -->
+- Additional stakeholders who may reference this document
 
-## Main Content
+## [Main Section 1]
 
-### Section 1
+<!-- Complete this section with artifact-specific content -->
+<!-- Refer to the artifact description for required structure -->
 
-<!-- TODO: Add content -->
+## [Main Section 2]
 
-### Section 2
+<!-- Add additional sections as needed -->
 
-<!-- TODO: Add content -->
+## Best Practices
 
-## Summary
+**Early Assessment Timing**: Conduct DPIAs at project inception before system design decisions are finalized, enabling Privacy by Design integration and cost-effective risk mitigation
 
-<!-- TODO: Summarize key points -->
+**GDPR Article 35 Trigger Check**: Systematically evaluate whether processing meets mandatory DPIA triggers (systematic monitoring, Article 9 special categories at scale, Article 22 automated decisions, EDPB criteria list)
 
-## Next Steps
+**DPO Consultation**: Seek DPO advice per GDPR Article 35(2) throughout DPIA process including assessment scoping, risk evaluation, and mitigation recommendations
 
-- [ ] TODO: Action item 1
-- [ ] TODO: Action item 2
+**Necessity and Proportionality Analysis**: Rigorously assess whether processing is necessary for stated purpose and proportionate to privacy intrusion using data minimization principles
 
-## References
+**Privacy Risk Matrix**: Apply consistent risk scoring methodology (e.g., likelihood × impact matrix) with clear definitions of catastrophic/high/medium/low/negligible risk levels
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/privacy-impact-assessment.md` for detailed guidance
+## Quality Checklist
 
-## Appendix
+Before finalizing this artifact, verify:
 
-<!-- Add supporting materials as needed -->
+- [ ] **Completeness**: All required sections present and adequately detailed
+- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
+- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
+- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
+- [ ] **Currency**: Based on current information; outdated content removed or updated
+
+## Related Documents
+
+- [Related Artifact]: Description and relationship
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | Name | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

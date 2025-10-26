@@ -1,51 +1,55 @@
 # Backup Verification Logs
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/backup-verification-logs.md for complete guidance
+# See also: artifact_descriptions/backup-verification-logs.md for complete guidance
+
+# The Backup Verification Logs is a critical operational and compliance artifact that provides structured evidence of backup integrity testing and recovery readiness validation. This comprehensive log d...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# Documents all backup verification and restore testing activities to provide verifiable evidence of backup integrity, recovery capability, and compliance with retention policies using tools like Veeam, Commvault, Rubrik, or Veritas NetBackup.
 
+# BEST PRACTICES
+# - Verification Frequency: Test full restores monthly for critical systems, quarterly for standard systems, annually for archiv
+# - 3-2-1-1-0 Rule: Maintain 3 copies on 2 media types with 1 off-site, 1 immutable/air-gapped, and 0 errors
+# - Automated Validation: Use backup software built-in verification (Veeam SureBackup, Commvault IntelliSnap validation)
+# - Restore Testing Rotation: Test different systems each cycle to achieve 100% coverage annually without overwhelming operations
+# - RTO/RPO Measurement: Document actual recovery times vs. SLA targets; escalate gaps exceeding 20% variance
 
-# Log Entries
-entries:
-  - id: "001"
-    date: "{{date}}"
-    category: "TODO: Category"  # Risk | Issue | Decision | Change
-    title: "TODO: Entry title"
-    description: |
-      TODO: Detailed description
-    status: "Open"  # Open | In Progress | Resolved | Closed
-    owner: "TODO: Owner"
-    priority: "Medium"  # Low | Medium | High | Critical
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Full and incremental backup verification test results across all data tiers"
+      - "Restore test outcomes including success rates, data integrity validation, and re"
+      - "Backup encryption validation and key management verification"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  # Add more entries as needed
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

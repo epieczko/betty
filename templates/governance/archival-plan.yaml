@@ -1,89 +1,55 @@
 # Archival Plan
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/archival-plan.md for complete guidance
+# See also: artifact_descriptions/archival-plan.md for complete guidance
+
+# The Archival Plan is a critical compliance and data governance artifact that defines the systematic approach for archiving, preserving, and managing records throughout their lifecycle in accordance wi...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact defines the comprehensive strategy for transitioning active records to archival storage, establishing retention periods aligned with legal and regulatory requirements, and implementing secure disposal processes. The plan enables organizations to maintain compliance with data retention 
 
+# BEST PRACTICES
+# - Document Management: - **Version Control**: Store in centralized version control system (Git, SharePoint with versioning,
+# - Archival Strategy & Retention: - **Regulatory Retention Mapping**: Map each record type to applicable retention requirements (SOC 2
+# - E-Discovery & Retrieval: - **Search Capability**: Ensure archived data remains searchable with <4 hour retrieval SLA for stan
+# - Security & Compliance: - **Encryption Standards**: Enforce AES-256 encryption at rest and TLS 1.3 in transit for all archiv
+# - Operational Excellence: - **Cost Monitoring**: Track storage costs monthly by tier and record type, targeting 30-50% reducti
 
-# Executive Summary
-executiveSummary: |
-  TODO: 2-3 paragraph overview
-  - What is being planned
-  - Why it matters
-  - Key success criteria
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Retention schedule definitions by record type, classification, and regulatory re"
+      - "Archival storage tier strategy (hot, warm, cold, glacier, tape) with cost optimi"
+      - "Automated lifecycle policies for transition between storage tiers"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-# Objectives
-objectives:
-  - objective: "TODO: Primary objective"
-    successCriteria:
-      - "TODO: Measurable criterion 1"
-      - "TODO: Measurable criterion 2"
-
-# Scope
-scope:
-  inScope:
-    - "TODO: What is included"
-  outOfScope:
-    - "TODO: What is excluded"
-
-# Timeline
-timeline:
-  phases:
-    - name: "Phase 1"
-      startDate: "2024-Q1"
-      endDate: "2024-Q2"
-      milestones:
-        - name: "Milestone 1"
-          date: "2024-01-31"
-          deliverables:
-            - "TODO: Deliverable"
-
-# Resources
-resources:
-  team:
-    - role: "TODO: Role"
-      allocation: "100%"  # FTE percentage
-  budget:
-    total: 0
-    breakdown:
-      - category: "Personnel"
-        amount: 0
-
-# Risks
-risks:
-  - id: "RISK-001"
-    description: "TODO: Risk description"
-    likelihood: "Medium"  # Low | Medium | High
-    impact: "High"  # Low | Medium | High
-    mitigation: "TODO: Mitigation strategy"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

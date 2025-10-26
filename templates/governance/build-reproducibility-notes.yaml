@@ -1,57 +1,55 @@
 # Build Reproducibility Notes
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/build-reproducibility-notes.md for complete guidance
+# See also: artifact_descriptions/build-reproducibility-notes.md for complete guidance
+
+# Build Reproducibility Notes document the technical specifications, environmental constraints, and verification procedures required to achieve deterministic, bit-for-bit reproducible software builds. T...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact documents the technical requirements, environmental specifications, and verification procedures necessary to achieve bit-for-bit reproducible builds, enabling independent verification of software artifacts and establishing trusted build provenance aligned with SLSA Framework and supply
 
+# BEST PRACTICES
+# - SOURCE_DATE_EPOCH: Set SOURCE_DATE_EPOCH environment variable to git commit timestamp for reproducible timestamps
+# - Pin All Dependencies: Lock every dependency to exact versions with cryptographic checksums in lock files
+# - Hermetic Builds: Isolate builds from system state; disable network access during build execution
+# - Fixed Tool Versions: Pin exact versions of all build tools, compilers, and SDKs (no "latest" tags)
+# - Deterministic Compression: Use deterministic tar/zip options (--sort=name, --mtime, --clamp-mtime)
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/build-reproducibility-notes.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Build environment specifications (OS version, tool versions, compiler flags)"
+      - "Deterministic build configurations (timestamp normalization, order independence)"
+      - "Dependency pinning and lock files (exact versions, checksums, sources)"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

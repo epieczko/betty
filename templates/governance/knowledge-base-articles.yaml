@@ -1,57 +1,55 @@
 # Knowledge Base Articles
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/knowledge-base-articles.md for complete guidance
+# See also: artifact_descriptions/knowledge-base-articles.md for complete guidance
+
+# Knowledge Base Articles provide self-service support documentation addressing common questions, troubleshooting procedures, error resolutions, and how-to guides that enable users and support teams to ...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# Knowledge Base Articles serve as the first line of self-service support, reducing support ticket volume, decreasing time-to-resolution, and empowering users to solve problems independently. They solve the problem of repetitive support questions by providing searchable, well-organized answers to comm
 
+# BEST PRACTICES
+# - User-First Writing: Write for users' goals and context (what they're trying to accomplish), use action-oriented titles (
+# - Search-Optimized Structure: Front-load important keywords in titles and first paragraph, use descriptive headings (H2, H3) that 
+# - Template-Based Authoring: Create and enforce article templates for consistency (troubleshooting template, how-to template, FAQ
+# - Visual Enhancement: Include annotated screenshots showing exact UI locations and actions, create GIF animations for mult
+# - Metadata Richness: Tag articles with comprehensive metadata (category, product, version, topic, difficulty level, user 
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/knowledge-base-articles.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Troubleshooting guides (step-by-step problem resolution, diagnostic procedures, "
+      - "How-to articles (task completion guides, feature usage instructions, configurati"
+      - "Frequently Asked Questions (FAQs) organized by category and product area"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

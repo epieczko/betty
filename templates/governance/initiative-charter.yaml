@@ -1,74 +1,55 @@
 # Initiative Charter
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/initiative-charter.md for complete guidance
+# See also: artifact_descriptions/initiative-charter.md for complete guidance
+
+# The Initiative Charter is a formal authorization and strategic planning document that establishes the business case, objectives, scope, success metrics, governance, and resource commitments for strate...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact provides formal authorization and strategic direction for initiatives by defining objectives, measurable success criteria, governance accountability, dependencies, and investment thesis, enabling aligned execution and evidence-based decision-making.
 
+# BEST PRACTICES
+# - Version Control: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain comp
+# - Naming Conventions: Follow organization's document naming standards for consistency and discoverability
+# - Template Usage: Use approved templates to ensure completeness and consistency across teams
+# - Peer Review: Have at least one qualified peer review before submitting for approval
+# - Metadata Completion: Fully complete all metadata fields to enable search, classification, and lifecycle management
 
-# Charter Overview
-purpose: |
-  TODO: Why this initiative/body exists
-  What problem it solves or opportunity it addresses
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Business case and problem statement"
+      - "Hypothesis"
+      - "OKR alignment"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-# Scope
-scope:
-  inScope:
-    - "TODO: Area 1 within scope"
-  outOfScope:
-    - "TODO: Area 1 explicitly excluded"
-
-# Authority & Governance
-authority:
-  sponsor: "TODO: Executive sponsor"
-  decisionAuthority: "TODO: Who can make what decisions"
-  escalationPath:
-    - level: "L1"
-      role: "TODO: First escalation point"
-
-# Objectives
-objectives:
-  - "TODO: Objective 1"
-  - "TODO: Objective 2"
-
-# Success Criteria
-successCriteria:
-  - criterion: "TODO: Measurable success criterion"
-    target: "TODO: Specific target"
-
-# Stakeholders
-stakeholders:
-  - name: "TODO: Stakeholder or group"
-    role: "TODO: Their role"
-    interest: "High"  # Low | Medium | High
-    influence: "High"  # Low | Medium | High
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

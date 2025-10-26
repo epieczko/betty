@@ -1,57 +1,55 @@
 # Iso 27001 Mapping
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/iso-27001-mapping.md for complete guidance
+# See also: artifact_descriptions/iso-27001-mapping.md for complete guidance
+
+# The ISO 27001 Mapping artifact provides a comprehensive traceability matrix linking organizational security controls, policies, procedures, and technical implementations to specific ISO/IEC 27001:2022...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact establishes comprehensive bidirectional traceability between organizational information security management system (ISMS) components and all 114 ISO/IEC 27001:2022 Annex A controls, enabling certification bodies to verify systematic control implementation and providing ongoing evidence
 
+# BEST PRACTICES
+# - Complete Annex A Coverage: Map all 114 ISO 27001:2022 Annex A controls with explicit applicability decisions (applicable, not a
+# - Statement of Applicability (SoA) Integration: Link control selection to risk treatment decisions documented in risk assessment, showing which risk
+# - Automated Evidence Collection: Integrate GRC platforms (Vanta, Drata, Secureframe, ISMS.online) with security tools to auto-collect
+# - Control Ownership Assignment: Designate specific individuals (not just roles) as control owners responsible for implementation, mo
+# - Evidence Timestamping: Ensure all control evidence includes collection timestamp to demonstrate recency for auditor testing
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/iso-27001-mapping.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "All 114 ISO/IEC 27001"
+      - "Mapping from each Annex A control to implemented organizational controls (polici"
+      - "Evidence collection points showing where audit evidence is generated and stored "
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

@@ -1,57 +1,55 @@
 # Auto Update Policies
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/auto-update-policies.md for complete guidance
+# See also: artifact_descriptions/auto-update-policies.md for complete guidance
+
+# The Auto Update Policies artifact defines governance rules for automated dependency, package, and system updates across infrastructure and application stacks. This policy establishes risk-based approv...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# Defines automated update policies for dependencies, packages, OS patches, and infrastructure components, specifying which updates can auto-merge, which require human approval, and testing requirements for each category to balance security patching velocity with system stability.
 
+# BEST PRACTICES
+# - Semantic Versioning Auto-Merge: Auto-merge patch versions (1.2.3 → 1.2.4) for dependencies with passing tests; require manual review
+# - Security CVE SLA Enforcement: Critical vulnerabilities (CVSS 9.0+) patched within 24 hours; High (7.0-8.9) within 7 days; Medium (
+# - Dependabot Grouped PRs: Configure Dependabot to group related dependencies (e.g., all React packages) into single PRs to red
+# - Renovate Automerge Conditions: Set Renovate to auto-merge only if CI passes, age of package >3 days (avoiding 0-day releases), and 
+# - Blue-Green Deployment for OS Patches: Deploy patches to green fleet (new instances/containers) while keeping blue fleet running; cutover t
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/auto-update-policies.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Dependabot/Renovate Bot configuration for application dependencies (npm, pip, Ma"
+      - "OS patch management policies for EC2, containers, and VMs using AWS SSM, Ansible"
+      - "Kubernetes cluster auto-upgrades (EKS, GKE, AKS control plane and node pools)"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

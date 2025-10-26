@@ -1,51 +1,55 @@
 # Logical Architecture Diagram
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/logical-architecture-diagram.md for complete guidance
+# See also: artifact_descriptions/logical-architecture-diagram.md for complete guidance
+
+# The Logical Architecture Diagram is a critical visual artifact that represents the conceptual structure and organization of a system's key components, their relationships, and logical groupings indepe...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact documents the logical architecture of a system using standardized notation (UML 2.5 Component/Package diagrams, ArchiMate, C4 Container/Component diagrams) to show functional decomposition, component responsibilities, service boundaries, and logical data flows. Created using tools like
 
+# BEST PRACTICES
+# - Version Control: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain comp
+# - Naming Conventions: Follow organization's document naming standards for consistency and discoverability
+# - Template Usage: Use approved templates to ensure completeness and consistency across teams
+# - Peer Review: Have at least one qualified peer review before submitting for approval
+# - Metadata Completion: Fully complete all metadata fields to enable search, classification, and lifecycle management
 
-# Log Entries
-entries:
-  - id: "001"
-    date: "{{date}}"
-    category: "TODO: Category"  # Risk | Issue | Decision | Change
-    title: "TODO: Entry title"
-    description: |
-      TODO: Detailed description
-    status: "Open"  # Open | In Progress | Resolved | Closed
-    owner: "TODO: Owner"
-    priority: "Medium"  # Low | Medium | High | Critical
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Logical component decomposition and service boundaries using C4 Model levels 2-3"
+      - "Logical relationships, dependencies, and integration patterns (REST, GraphQL, me"
+      - "Application of architectural patterns"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  # Add more entries as needed
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

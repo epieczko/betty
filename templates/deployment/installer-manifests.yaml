@@ -1,0 +1,55 @@
+# Installer Manifests
+# See also: artifact_descriptions/installer-manifests.md for complete guidance
+
+# Installer Manifests are packaged, versioned deployment artifacts that encapsulate complex application and infrastructure installations through standardized formats including Helm charts, Kubernetes Op...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This artifact defines packaged installation manifests for applications, infrastructure components, and platform services using Helm charts, Kubernetes Operators, Carvel packages, and OLM bundles. It provides standardized mechanisms for installing, upgrading, configuring, and managing complex Kuberne
+
+# BEST PRACTICES
+# - Semantic Versioning: Follow SemVer (MAJOR.MINOR.PATCH) for chart/package versions with clear upgrade compatibility
+# - Values Schema: Define values.schema.json for Helm charts to validate user-provided configurations
+# - Comprehensive Docs: Include README.md with installation instructions, configuration options, and troubleshooting guides
+# - Default Security: Embed security best practices in default values (resource limits, security contexts, network policie
+# - Dependency Pinning: Pin chart/package dependencies to specific versions for reproducibility
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Helm charts (Chart.yaml, values.yaml, templates/, charts/ for dependencies)"
+      - "Helm chart repositories (ChartMuseum, Harbor, Artifact Hub, OCI registries)"
+      - "Helm values files for environment-specific configurations"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

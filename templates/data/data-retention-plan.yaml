@@ -1,89 +1,55 @@
 # Data Retention Plan
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/data-retention-plan.md for complete guidance
+# See also: artifact_descriptions/data-retention-plan.md for complete guidance
+
+# The Data Retention Plan is a comprehensive governance framework that defines retention periods, deletion schedules, archival procedures, and legal hold processes for personal data and regulated inform...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as the authoritative policy defining data retention periods by category, automated deletion triggers, legal hold procedures, archival workflows, and secure disposal methods to ensure GDPR Article 5(1)(e) storage limitation compliance, support GDPR Article 17 erasure rights, sati
 
+# BEST PRACTICES
+# - Purpose-Based Retention: Define retention periods based on documented processing purpose per GDPR Article 5(1)(e) with clear 
+# - Retention Schedule Matrix: Create comprehensive retention matrix specifying data categories, retention periods, deletion trigge
+# - Automated Deletion Workflows: Implement automated retention using database TTL (Time-to-Live), S3 Lifecycle policies, Azure Blob l
+# - GDPR Article 17 Compliance: Establish 30-day deletion timeline for verified erasure requests with audit trail of deletion confir
+# - Legal Hold Integration: Implement legal hold flag mechanisms preventing automated deletion when litigation, regulatory exami
 
-# Executive Summary
-executiveSummary: |
-  TODO: 2-3 paragraph overview
-  - What is being planned
-  - Why it matters
-  - Key success criteria
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Retention schedules by data category (customer data, employee records, financial"
+      - "GDPR Article 5(1)(e) storage limitation principle implementation with documented"
+      - "GDPR Article 17 right to erasure deletion workflows and 30-day response timeline"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-# Objectives
-objectives:
-  - objective: "TODO: Primary objective"
-    successCriteria:
-      - "TODO: Measurable criterion 1"
-      - "TODO: Measurable criterion 2"
-
-# Scope
-scope:
-  inScope:
-    - "TODO: What is included"
-  outOfScope:
-    - "TODO: What is excluded"
-
-# Timeline
-timeline:
-  phases:
-    - name: "Phase 1"
-      startDate: "2024-Q1"
-      endDate: "2024-Q2"
-      milestones:
-        - name: "Milestone 1"
-          date: "2024-01-31"
-          deliverables:
-            - "TODO: Deliverable"
-
-# Resources
-resources:
-  team:
-    - role: "TODO: Role"
-      allocation: "100%"  # FTE percentage
-  budget:
-    total: 0
-    breakdown:
-      - category: "Personnel"
-        amount: 0
-
-# Risks
-risks:
-  - id: "RISK-001"
-    description: "TODO: Risk description"
-    likelihood: "Medium"  # Low | Medium | High
-    impact: "High"  # Low | Medium | High
-    mitigation: "TODO: Mitigation strategy"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

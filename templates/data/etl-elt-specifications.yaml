@@ -1,71 +1,358 @@
-# Etl Elt Specifications
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/etl-elt-specifications.md for complete guidance
+# ETL/ELT Specifications
+# See also: artifact_descriptions/etl-elt-specifications.md for complete guidance
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  pipeline_name: "customer_events_pipeline"
+  pipeline_type: "ELT"  # ETL | ELT
+  framework: "dbt + Fivetran"
+  orchestrator: "Apache Airflow"
+  created: "2025-10-26"
+  owner: "Data Engineering Team"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
-  approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+# Pipeline Overview
+overview:
+  name: "Customer Events ELT Pipeline"
+  description: |
+    Modern ELT pipeline that extracts customer events from Kafka, loads raw data into Snowflake,
+    and transforms using dbt following medallion architecture (bronze/silver/gold layers).
+  
+  business_purpose:
+    - "Real-time customer behavior analytics"
+    - "ML model training data preparation"
+    - "Executive KPI dashboards"
+  
+  architecture: "Medallion (Bronze → Silver → Gold)"
+  refresh_schedule: "Continuous streaming + hourly dbt transformations"
+  data_latency: "< 15 minutes end-to-end"
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# Extraction
+extraction:
+  source_systems:
+    - name: "Kafka Customer Events Topic"
+      type: "streaming"
+      connection:
+        platform: "Confluent Kafka"
+        bootstrap_servers: "kafka-prod.example.com:9092"
+        topic: "customer-events-prod"
+        schema_registry: "https://schema-registry.example.com"
+      
+      extraction_method: "Kafka Connect Snowflake Sink Connector"
+      extraction_pattern: "CDC streaming"
+      
+      connector_config:
+        connector_class: "com.snowflake.kafka.connector.SnowflakeSinkConnector"
+        tasks_max: 8
+        topics: "customer-events-prod"
+        snowflake_url: "https://analytics-prod.snowflakecomputing.com"
+        snowflake_user: "KAFKA_CONNECT_USER"
+        snowflake_database: "analytics"
+        snowflake_schema: "bronze"
+        snowflake_table: "raw_customer_events"
+        buffer_count_records: 10000
+        buffer_flush_time: 60
+        buffer_size_bytes: 5000000
+      
+      schema_format: "Avro"
+      schema_evolution: "Backward compatible"
+      parallelism: 8
+      batch_size: 10000
+      
+      error_handling:
+        strategy: "Dead Letter Queue"
+        dlq_topic: "customer-events-dlq"
+        max_retries: 3
+        retry_backoff_ms: 1000
 
+    - name: "PostgreSQL CRM Database"
+      type: "batch"
+      connection:
+        platform: "PostgreSQL"
+        host: "crm-db.prod.example.com"
+        port: 5432
+        database: "crm"
+        schema: "public"
+      
+      extraction_method: "Fivetran"
+      extraction_pattern: "Incremental (timestamp-based)"
+      
+      tables:
+        - table_name: "customers"
+          primary_key: "customer_id"
+          incremental_column: "updated_at"
+          target_schema: "bronze"
+          target_table: "raw_customers"
+          sync_frequency: "Every 15 minutes"
+        
+        - table_name: "orders"
+          primary_key: "order_id"
+          incremental_column: "updated_at"
+          target_schema: "bronze"
+          target_table: "raw_orders"
+          sync_frequency: "Every 15 minutes"
 
-# Specification Overview
-specificationName: "TODO: Name of what is being specified"
-version: "1.0.0"
-status: "Draft"  # Draft | Review | Approved | Deprecated
+# Loading
+loading:
+  target_platform: "Snowflake"
+  target_database: "analytics"
+  
+  bronze_layer:
+    schema: "bronze"
+    description: "Raw data exactly as received from sources"
+    format: "As-is from source (no transformation)"
+    retention: "90 days"
+    
+    tables:
+      - name: "raw_customer_events"
+        source: "Kafka customer-events-prod"
+        load_method: "Continuous streaming via Kafka Connect"
+        partitioning: "By ingestion date"
+      
+      - name: "raw_customers"
+        source: "PostgreSQL crm.public.customers"
+        load_method: "Incremental (Fivetran)"
+        merge_strategy: "UPSERT on customer_id"
+      
+      - name: "raw_orders"
+        source: "PostgreSQL crm.public.orders"
+        load_method: "Incremental (Fivetran)"
+        merge_strategy: "UPSERT on order_id"
 
-# Requirements
-requirements:
-  functional:
-    - id: "FR-001"
-      requirement: "TODO: Functional requirement"
-      priority: "Must Have"  # Must Have | Should Have | Could Have
+# Transformation (dbt)
+transformation:
+  framework: "dbt"
+  version: "1.7.0"
+  profile: "snowflake"
+  
+  silver_layer:
+    schema: "silver"
+    description: "Cleansed and conformed data"
+    materialization: "incremental"
+    
+    models:
+      - name: "stg_customer_events"
+        source: "{{ source('bronze', 'raw_customer_events') }}"
+        materialization: "incremental"
+        unique_key: "event_id"
+        incremental_strategy: "merge"
+        
+        transformations:
+          - "Cast data types (VARIANT → structured columns)"
+          - "Normalize event_type to lowercase"
+          - "Parse event_properties JSON"
+          - "Deduplicate on event_id"
+          - "Filter out test/invalid events"
+        
+        sql: |
+          {{
+            config(
+              materialized='incremental',
+              unique_key='event_id',
+              on_schema_change='append_new_columns',
+              cluster_by=['customer_id', 'event_timestamp::DATE']
+            )
+          }}
+          
+          SELECT
+            event_id,
+            customer_id,
+            LOWER(event_type) as event_type,
+            event_timestamp,
+            event_properties:page_url::STRING as page_url,
+            event_properties:product_id::STRING as product_id,
+            event_properties:order_id::STRING as order_id,
+            session_id,
+            user_agent,
+            CASE 
+              WHEN user_agent LIKE '%Mobile%' THEN 'mobile'
+              WHEN user_agent LIKE '%Tablet%' THEN 'tablet'
+              ELSE 'desktop'
+            END as device_type,
+            ip_address,
+            country_code,
+            created_at,
+            updated_at,
+            event_timestamp::DATE as partition_date
+          FROM {{ source('bronze', 'raw_customer_events') }}
+          WHERE event_type IS NOT NULL
+            AND event_timestamp >= '2024-01-01'  -- Data quality filter
+          {% if is_incremental() %}
+            AND event_timestamp > (SELECT MAX(event_timestamp) FROM {{ this }})
+          {% endif %}
+      
+      - name: "stg_customers"
+        source: "{{ source('bronze', 'raw_customers') }}"
+        materialization: "incremental"
+        unique_key: "customer_id"
+        
+        transformations:
+          - "Normalize email to lowercase"
+          - "Standardize phone numbers"
+          - "Hash PII fields for analytics"
+        
+        sql: |
+          SELECT
+            customer_id,
+            LOWER(TRIM(email)) as email_normalized,
+            first_name,
+            last_name,
+            created_at,
+            updated_at
+          FROM {{ source('bronze', 'raw_customers') }}
+          {% if is_incremental() %}
+          WHERE updated_at > (SELECT MAX(updated_at) FROM {{ this }})
+          {% endif %}
+  
+  gold_layer:
+    schema: "gold"
+    description: "Business-ready aggregates and marts"
+    materialization: "table"
+    
+    models:
+      - name: "customer_behavior_daily"
+        dependencies: ["stg_customer_events", "stg_customers"]
+        materialization: "table"
+        refresh_schedule: "Hourly"
+        
+        business_logic: |
+          Daily customer engagement metrics including event counts, session counts,
+          and behavioral patterns for analytics and ML feature generation.
+        
+        sql: |
+          {{
+            config(
+              materialized='table',
+              cluster_by=['customer_id', 'event_date']
+            )
+          }}
+          
+          SELECT
+            e.customer_id,
+            c.email_normalized,
+            e.partition_date as event_date,
+            COUNT(DISTINCT e.session_id) as session_count,
+            COUNT(*) as total_events,
+            SUM(CASE WHEN e.event_type = 'page_view' THEN 1 ELSE 0 END) as page_views,
+            SUM(CASE WHEN e.event_type = 'purchase' THEN 1 ELSE 0 END) as purchases,
+            SUM(CASE WHEN e.event_type = 'add_to_cart' THEN 1 ELSE 0 END) as cart_adds,
+            MIN(e.event_timestamp) as first_event_timestamp,
+            MAX(e.event_timestamp) as last_event_timestamp
+          FROM {{ ref('stg_customer_events') }} e
+          LEFT JOIN {{ ref('stg_customers') }} c USING (customer_id)
+          GROUP BY 1, 2, 3
 
-  nonFunctional:
-    - id: "NFR-001"
-      category: "Performance"  # Performance | Security | Scalability | etc.
-      requirement: "TODO: Non-functional requirement"
-      metric: "TODO: How it's measured"
-      target: "TODO: Target value"
+# Data Quality
+data_quality:
+  framework: "Great Expectations + dbt tests"
+  
+  bronze_validations:
+    - "Row count checks (min/max thresholds)"
+    - "Schema validation against source"
+    - "No null primary keys"
+  
+  silver_validations:
+    - test_type: "dbt generic tests"
+      tests:
+        - "not_null on primary keys"
+        - "unique on event_id"
+        - "relationships (customer_id → customers)"
+        - "accepted_values on event_type enum"
+    
+    - test_type: "Great Expectations"
+      expectations:
+        - "expect_column_values_to_be_unique(event_id)"
+        - "expect_column_values_to_not_be_null(customer_id)"
+        - "expect_column_values_to_match_regex(event_id, UUID_PATTERN)"
+  
+  gold_validations:
+    - "Data freshness < 1 hour"
+    - "Row count anomaly detection"
+    - "Referential integrity checks"
 
-# Design
-design:
-  architecture: |
-    TODO: High-level architecture description
-  components:
-    - name: "TODO: Component name"
-      purpose: "TODO: Component purpose"
-      interfaces:
-        - "TODO: Interface description"
+# Performance Optimization
+performance:
+  snowflake_warehouse:
+    name: "TRANSFORM_WH"
+    size: "LARGE"
+    auto_suspend: 300
+    auto_resume: true
+    scaling_policy: "STANDARD"
+  
+  optimizations:
+    - "Partition pruning on event_timestamp"
+    - "Clustering on customer_id for joins"
+    - "Incremental materialization for large tables"
+    - "Result caching enabled"
+    - "Query optimization via EXPLAIN plans"
 
-# Validation
-validation:
-  testCriteria:
-    - "TODO: How this specification will be validated"
+# Monitoring
+monitoring:
+  metrics:
+    - name: "pipeline_run_duration"
+      threshold: "< 60 minutes"
+      alert: "High if > 60 min"
+    
+    - name: "data_freshness"
+      threshold: "< 15 minutes"
+      alert: "Critical if > 30 min"
+    
+    - name: "dbt_test_failures"
+      threshold: "0 critical failures"
+      alert: "Critical if any failures"
+  
+  dashboards:
+    - "Airflow DAG monitoring"
+    - "dbt Cloud run history"
+    - "Snowflake query performance"
+    - "Data quality scorecards"
 
-# Notes
-notes: |
-  TODO: Add any additional notes or context
+# Orchestration (Airflow DAG)
+orchestration:
+  dag_id: "customer_events_elt_pipeline"
+  schedule: "@hourly"
+  
+  tasks:
+    - task_id: "check_bronze_data_available"
+      operator: "SnowflakeCheckOperator"
+      sql: "SELECT COUNT(*) FROM bronze.raw_customer_events WHERE created_at > CURRENT_TIMESTAMP - INTERVAL '1 hour'"
+    
+    - task_id: "dbt_run_silver"
+      operator: "BashOperator"
+      command: "dbt run --models silver.*"
+    
+    - task_id: "dbt_test_silver"
+      operator: "BashOperator"
+      command: "dbt test --models silver.*"
+    
+    - task_id: "dbt_run_gold"
+      operator: "BashOperator"
+      command: "dbt run --models gold.*"
+    
+    - task_id: "dbt_test_gold"
+      operator: "BashOperator"
+      command: "dbt test --models gold.*"
+  
+  dependencies: |
+    check_bronze_data_available >> dbt_run_silver >> dbt_test_silver >> dbt_run_gold >> dbt_test_gold
+
+# Error Handling
+error_handling:
+  retry_policy:
+    max_retries: 3
+    retry_delay: 300  # 5 minutes
+    retry_exponential_backoff: true
+  
+  alerts:
+    - condition: "Pipeline failure"
+      notification: "PagerDuty + Slack #data-alerts"
+    - condition: "Data quality failure (critical)"
+      notification: "PagerDuty + Slack #data-quality"
+    - condition: "SLA breach"
+      notification: "Email + Slack #data-sla"
 
 # Change History
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
-    changes: "Initial version"
+    date: "2025-10-26"
+    author: "Data Engineering Team"
+    changes: "Initial ELT pipeline specification"

@@ -1,108 +1,78 @@
 # Baseline Hardening Guides
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/baseline-hardening-guides.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+The Baseline Hardening Guides establish comprehensive security configuration standards for operating systems, network devices, databases, cloud platforms, and enterprise applications based on industry-recognized benchmarks including CIS (Center for Internet Security) Benchmarks, DISA STIGs (Defense 
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+This artifact provides authoritative security configuration standards, implementation procedures, validation testing methods, and automated remediation capabilities for all enterprise technology platforms. It translates high-level security policies into specific technical settings, enables Infrastructure-as-Code security integration, and establishes continuous compliance monitoring frameworks.
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- **Windows Operating Systems**
+- **Linux Operating Systems**
+- **Network Infrastructure**
+- **Virtualization & Hypervisors**
+- **Cloud Infrastructure**
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered
 
-**Primary:**
-- TODO: Primary readers
+## Main Content
 
-**Secondary:**
-- TODO: Secondary readers
-
-
-## Overview
-
-<!-- TODO: Introduce what this guide covers -->
-
-## Prerequisites
-
-- TODO: What readers need to know before starting
-- TODO: Required access or tools
-
-## Instructions
-
-### Step 1: [Step Title]
-
-**Objective:** TODO: What this step accomplishes
-
-**Instructions:**
-1. TODO: First action
-2. TODO: Second action
-3. TODO: Third action
-
-**Expected Outcome:** TODO: What should happen
-
-**Troubleshooting:**
-- **Problem**: TODO: Common issue
-  - **Solution**: TODO: How to resolve
-
-### Step 2: [Step Title]
-
-<!-- Repeat structure for additional steps -->
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
 ## Best Practices
 
-- ✅ **DO**: TODO: Recommended practice
-- ❌ **DON'T**: TODO: Anti-pattern to avoid
+**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
 
-## Reference
+**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
 
-### Glossary
+**Template Usage**: Use approved templates to ensure completeness and consistency across teams
 
-- **Term 1**: Definition
-- **Term 2**: Definition
+**Peer Review**: Have at least one qualified peer review before submitting for approval
 
-### Related Resources
+**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
 
-- [Resource Name](url): Description
+**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
 
-## References
+**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/baseline-hardening-guides.md` for detailed guidance
+**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
 
-## Appendix
+## Related Documents
 
-<!-- Add supporting materials as needed -->
+- [Related Artifact]: Relationship description
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

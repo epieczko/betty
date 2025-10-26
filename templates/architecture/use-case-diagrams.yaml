@@ -1,57 +1,55 @@
 # Use Case Diagrams
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/use-case-diagrams.md for complete guidance
+# See also: artifact_descriptions/use-case-diagrams.md for complete guidance
+
+# Use Case Diagrams are UML 2.5 visual models that depict system functionality from an external user perspective, showing actors (users, external systems), use cases (system capabilities), system bounda...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as a visual representation of system functionality showing actors, use cases, system boundary, and relationships using standardized UML 2.5 notation. It supports requirements elicitation by providing a high-level view of what the system does, who uses it, and how use cases relat
 
+# BEST PRACTICES
+# - UML 2.5 Compliance: Follow standard UML notation (stick figures for actors, ovals for use cases, rectangles for system b
+# - User-Goal Orientation: Name use cases as user goals (verb-noun format like "Process Payment" not "Payment Processing")
+# - Appropriate Granularity: Keep diagrams at appropriate abstraction level; avoid overly detailed or overly abstract use cases
+# - Actor Identification: Identify all primary actors (initiate use cases), secondary actors (support), and external systems
+# - System Boundary: Clearly delineate system boundary; place use cases inside, actors outside the boundary
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/use-case-diagrams.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Actors (primary users, secondary users, external systems, time triggers)"
+      - "Use cases representing system capabilities and user goals"
+      - "System boundary showing internal vs. external scope"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

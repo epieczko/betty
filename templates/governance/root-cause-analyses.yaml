@@ -1,57 +1,55 @@
 # Root Cause Analyses
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/root-cause-analyses.md for complete guidance
+# See also: artifact_descriptions/root-cause-analyses.md for complete guidance
+
+# Root Cause Analysis (RCA) is a systematic investigation methodology that identifies the underlying technical, process, and human factors contributing to production incidents. This analytical artifact ...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact provides systematic analysis of incident root causes using proven methodologies (5 Whys, Fishbone, Fault Tree Analysis) to identify fundamental failures and generate actionable remediation strategies. It solves the problem of recurring incidents by moving beyond surface-level fixes to 
 
+# BEST PRACTICES
+# - Blameless Approach: Focus on system failures, not individual blame; create psychological safety for honest analysis
+# - Ask Why 5 Times: Drill down from symptom to root cause; don't stop at first answer (5 Whys methodology)
+# - Precise Timeline: Reconstruct incident timeline with UTC timestamps accurate to seconds/minutes
+# - Multiple Causes: Recognize most incidents have multiple contributing factors; use Fishbone to map all contributors
+# - Data-Driven: Support analysis with logs, metrics, traces; avoid speculation without evidence
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/root-cause-analyses.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Timeline reconstruction with precise timestamps (detection, escalation, mitigati"
+      - "5 Whys analysis to drill down from symptoms to fundamental causes"
+      - "Fishbone (Ishikawa) diagram mapping contributing factors (People, Process, Techn"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

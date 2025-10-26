@@ -1,51 +1,55 @@
 # Team Topology Map
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/team-topology-map.md for complete guidance
+# See also: artifact_descriptions/team-topology-map.md for complete guidance
+
+# The Team Topology Map is a strategic organizational design artifact that visualizes team structures, boundaries, and interaction modes based on Team Topologies principles. This living document maps th...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact visualizes organizational team structure using Team Topologies principles to enable fast flow, reduce cognitive load, and optimize for autonomous delivery. It maps the four fundamental team types, their boundaries, dependencies, and interaction modes to support deliberate organizationa
 
+# BEST PRACTICES
+# - Team Topology Design Principles: - **Cognitive Load Limits**: Ensure each team owns a manageable domain (typically 1-3 bounded contex
+# - Organizational Design Best Practices: - **Inverse Conway Maneuver**: Design team structure to produce desired software architecture
+# - Interaction Mode Guidance: - **Collaboration Mode**: Use temporarily for discovering boundaries or building new capabilities (t
+# - Visualization and Communication: - **Visual-First Approach**: Use Miro, Mural, or LucidChart for collaborative mapping sessions
+# - Version Control: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain comp
 
-# Log Entries
-entries:
-  - id: "001"
-    date: "{{date}}"
-    category: "TODO: Category"  # Risk | Issue | Decision | Change
-    title: "TODO: Entry title"
-    description: |
-      TODO: Detailed description
-    status: "Open"  # Open | In Progress | Resolved | Closed
-    owner: "TODO: Owner"
-    priority: "Medium"  # Low | Medium | High | Critical
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Four fundamental team types"
+      - "Three team interaction modes"
+      - "Team APIs and boundaries defining what each team owns and provides"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  # Add more entries as needed
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

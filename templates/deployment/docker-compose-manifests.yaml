@@ -1,0 +1,55 @@
+# Docker Compose Manifests
+# See also: artifact_descriptions/docker-compose-manifests.md for complete guidance
+
+# The Docker Compose Manifests artifact defines multi-container application orchestration for local development, testing, and small-scale production deployments using Docker Compose. This artifact speci...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This artifact defines Docker Compose configurations to orchestrate multi-container applications for local development, integration testing, CI/CD pipelines, and Docker Swarm production deployments, enabling developers to spin up complete application stacks (frontend, backend, databases, caches, queu
+
+# BEST PRACTICES
+# - Version Control: Store docker-compose.yml in Git with .env.example (never commit .env with secrets)
+# - Compose File Version: Use Compose Specification or v3.8+ for latest features and Docker Swarm compatibility
+# - Service Naming: Use descriptive service names matching architecture (frontend, api, postgres, redis, nginx)
+# - Image Pinning: Always pin specific image versions (`postgres:15.3-alpine`) rather than `latest` to ensure reproduci
+# - Environment Variables: Use .env files for configuration, provide .env.example as template, add .env to .gitignore
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Docker Compose file specifications (compose file v3.8, v3.9, and Compose Specifi"
+      - "Service definitions (image, build context, ports, networks, volumes, environment"
+      - "Multi-container application orchestration (web servers, APIs, databases, caches,"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

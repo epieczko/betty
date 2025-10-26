@@ -1,0 +1,55 @@
+# Circuit Breaker Configurations
+# See also: artifact_descriptions/circuit-breaker-configurations.md for complete guidance
+
+# The Circuit Breaker Configurations document defines the resilience and fault tolerance settings for all service-to-service integrations, third-party API calls, and external system dependencies using c...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This document establishes the circuit breaker configurations for all service dependencies to prevent cascading failures, enable fast failure detection, and automate recovery during partial system outages. It solves the problem of how to fail gracefully when dependencies are unavailable by defining t
+
+# BEST PRACTICES
+# - Per-Dependency Configuration: Configure circuit breaker settings independently for each external dependency
+# - SLO-Driven Thresholds: Derive failure thresholds from error budgets and SLO commitments (e.g., 99.9% SLO → 0.1% error thres
+# - Volume Threshold: Set minimum request volume (e.g., 20 requests) before circuit evaluation to avoid false positives
+# - Fast Failure: Configure open state to fail immediately without attempting calls (fail-fast principle)
+# - Half-Open Testing: Use small number of test requests (3-5) in half-open state to probe recovery
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Circuit breaker libraries"
+      - "Service mesh circuit breaking"
+      - "API gateway circuit breaking"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

@@ -1,89 +1,55 @@
 # Trust Center Content Plan
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/trust-center-content-plan.md for complete guidance
+# See also: artifact_descriptions/trust-center-content-plan.md for complete guidance
+
+# The Trust Center Content Plan is a strategic planning artifact that establishes the comprehensive approach for creating, managing, and publishing customer-facing security and compliance content throug...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as the strategic roadmap for planning, creating, and publishing customer-facing security and compliance content through trust center platforms. It defines what compliance evidence (SOC 2 Type II reports, ISO 27001 certificates, penetration test summaries, security whitepapers) w
 
+# BEST PRACTICES
+# - Trust Center Platform Selection: Evaluate platforms (Vanta, Drata, Secureframe, OneTrust, TrustCloud) based on compliance automation 
+# - Tiered Access Model: Implement three-tier access (public badges/certifications, authenticated customer access, NDA-gated 
+# - SOC 2 Publication Timing: Publish SOC 2 Type II reports within 30 days of audit completion while report is still current (12-m
+# - Evidence Redaction: Sanitize penetration test reports to remove specific vulnerabilities, IP addresses, and exploitation
+# - Automated Sync: Configure trust center platforms to auto-sync with compliance tools (Vanta, Drata) for real-time com
 
-# Executive Summary
-executiveSummary: |
-  TODO: 2-3 paragraph overview
-  - What is being planned
-  - Why it matters
-  - Key success criteria
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Trust center platform selection and configuration (Vanta Trust Center, Drata, Se"
+      - "Publication of SOC 2 Type II reports, ISO 27001/27701 certificates, PCI DSS atte"
+      - "Security whitepapers, architecture diagrams (sanitized), penetration test execut"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-# Objectives
-objectives:
-  - objective: "TODO: Primary objective"
-    successCriteria:
-      - "TODO: Measurable criterion 1"
-      - "TODO: Measurable criterion 2"
-
-# Scope
-scope:
-  inScope:
-    - "TODO: What is included"
-  outOfScope:
-    - "TODO: What is excluded"
-
-# Timeline
-timeline:
-  phases:
-    - name: "Phase 1"
-      startDate: "2024-Q1"
-      endDate: "2024-Q2"
-      milestones:
-        - name: "Milestone 1"
-          date: "2024-01-31"
-          deliverables:
-            - "TODO: Deliverable"
-
-# Resources
-resources:
-  team:
-    - role: "TODO: Role"
-      allocation: "100%"  # FTE percentage
-  budget:
-    total: 0
-    breakdown:
-      - category: "Personnel"
-        amount: 0
-
-# Risks
-risks:
-  - id: "RISK-001"
-    description: "TODO: Risk description"
-    likelihood: "Medium"  # Low | Medium | High
-    impact: "High"  # Low | Medium | High
-    mitigation: "TODO: Mitigation strategy"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

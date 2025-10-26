@@ -1,57 +1,55 @@
 # Firewall Rules
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/firewall-rules.md for complete guidance
+# See also: artifact_descriptions/firewall-rules.md for complete guidance
+
+# The Firewall Rules artifact defines network security policies and access control rules that govern traffic flow between network segments, cloud resources, and external networks to enforce defense-in-d...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact defines comprehensive firewall rule sets to protect cloud and on-premises infrastructure by implementing least privilege access, network segmentation, micro-segmentation, and defense-in-depth security controls that prevent unauthorized access while maintaining application functionality
 
+# BEST PRACTICES
+# - Version Control: Store firewall rules as infrastructure-as-code (Terraform, CloudFormation, Pulumi) in Git for change
+# - Default Deny: Implement default deny for both ingress and egress, explicitly allow only required traffic (whitelis
+# - Least Privilege: Grant minimum required access, prefer specific IP/CIDR over 0.0.0.0/0, specific ports over port rang
+# - Rule Documentation: Document business justification, owner, and expiration date for every firewall rule
+# - Stateful Inspection: Use stateful firewalls to automatically allow return traffic for established connections
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/firewall-rules.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Cloud security groups (AWS Security Groups, Azure NSGs, GCP Firewall Rules, OCI "
+      - "Traditional firewall platforms (Palo Alto Networks, Fortinet FortiGate, Cisco AS"
+      - "Host-based firewalls (iptables/nftables, firewalld, ufw, Windows Defender Firewa"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

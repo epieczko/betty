@@ -1,57 +1,55 @@
 # Faq
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/faq.md for complete guidance
+# See also: artifact_descriptions/faq.md for complete guidance
+
+# FAQ (Frequently Asked Questions) documentation provides curated question-and-answer content addressing the most common inquiries from users, developers, administrators, and stakeholders. Organized by ...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# FAQs provide immediate, concise answers to common questions, reducing support ticket volume, decreasing time-to-answer, and improving user satisfaction through accessible self-service content. They solve the problem of users asking the same questions repeatedly by consolidating authoritative answers
 
+# BEST PRACTICES
+# - Data-Driven FAQ Selection: Analyze support tickets to identify truly frequent questions (not assumptions), mine search analytic
+# - Question-First Writing: Write questions exactly as users ask them (natural language), include variations and synonyms in met
+# - Concise, Scannable Answers: Lead with direct answer in first sentence, keep answers to 50-300 words when possible, use bullet po
+# - SEO Optimization: Implement Schema.org FAQPage markup for rich snippets, optimize for featured snippets (concise answe
+# - Smart Organization: Group by user need or journey stage (not internal organization), surface most asked questions at top
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/faq.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "General questions about product features, capabilities, and limitations"
+      - "Account and billing questions (pricing, subscriptions, payments, refunds)"
+      - "Technical questions (compatibility, requirements, performance)"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

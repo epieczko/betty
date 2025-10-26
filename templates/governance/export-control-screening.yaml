@@ -1,57 +1,55 @@
 # Export Control Screening
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/export-control-screening.md for complete guidance
+# See also: artifact_descriptions/export-control-screening.md for complete guidance
+
+# The Export Control Screening artifact documents compliance verification procedures for software, cryptography, and technology exports under U.S. Export Administration Regulations (EAR), International ...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as comprehensive documentation of export compliance verification including ECCN (Export Control Classification Number) self-classification for software and cryptography, denied party screening against BIS Denied Persons List and OFAC SDN List, license exception determination (TS
 
+# BEST PRACTICES
+# - ECCN Self-Classification: Determine ECCN for all software products before distribution; document classification rationale; ret
+# - Encryption Registration: File one-time BIS encryption registration within 30 days of first export; update annually if product
+# - Mass Market Eligibility: Verify mass market encryption criteria (≤64-bit symmetric, consumer products, retail availability) f
+# - TSU/ENC Exceptions: Leverage License Exception TSU for publicly available software; use ENC exception for encryption pro
+# - Denied Party Screening: Screen all international customers, distributors, end-users against consolidated screening lists bef
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/export-control-screening.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "ECCN classification for software (5D002 - cryptographic software, 5D992 - mass m"
+      - "Encryption strength assessment (key length, algorithms, cryptographic functions)"
+      - "BIS encryption registration and classification requests"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

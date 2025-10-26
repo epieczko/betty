@@ -1,108 +1,99 @@
 # On Call Handbook
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/on-call-handbook.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+<!-- Provide a 2-3 paragraph overview for executive audience -->
+<!-- What is this document about and why does it matter? -->
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+<!-- This artifact serves as the authoritative reference for all on-call operations, defining rotation schedules, escalation policies, SLA response times, handoff procedures, and support expectations. It s... -->
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- On-call rotation schedules (primary, secondary, tertiary) across teams and time zones
+- Escalation policies and paths (L1 → L2 → L3 → management → executive)
+- SLA response time requirements by severity level (P0/SEV0
+- Shift handoff procedures, handoff checklists, and knowledge transfer protocols
+- Integration with alerting platforms (PagerDuty, Opsgenie, VictorOps, xMatters)
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered by this artifact
 
-**Primary:**
-- TODO: Primary readers
+## Target Audience
 
-**Secondary:**
-- TODO: Secondary readers
+### Primary Audience
 
+- On-Call Engineers actively participating in rotation schedules
+- SRE Teams responsible for production system reliability
+- Incident Commanders coordinating major incident response
 
-## Overview
+### Secondary Audience
 
-<!-- TODO: Introduce what this guide covers -->
+- Additional stakeholders who may reference this document
 
-## Prerequisites
+## [Main Section 1]
 
-- TODO: What readers need to know before starting
-- TODO: Required access or tools
+<!-- Complete this section with artifact-specific content -->
+<!-- Refer to the artifact description for required structure -->
 
-## Instructions
+## [Main Section 2]
 
-### Step 1: [Step Title]
-
-**Objective:** TODO: What this step accomplishes
-
-**Instructions:**
-1. TODO: First action
-2. TODO: Second action
-3. TODO: Third action
-
-**Expected Outcome:** TODO: What should happen
-
-**Troubleshooting:**
-- **Problem**: TODO: Common issue
-  - **Solution**: TODO: How to resolve
-
-### Step 2: [Step Title]
-
-<!-- Repeat structure for additional steps -->
+<!-- Add additional sections as needed -->
 
 ## Best Practices
 
-- ✅ **DO**: TODO: Recommended practice
-- ❌ **DON'T**: TODO: Anti-pattern to avoid
+**Rotation Fairness**: Distribute on-call burden equitably across team members; use metrics to track rotation balance and alert fatigue
 
-## Reference
+**Clear Escalation Paths**: Define explicit L1 → L2 → L3 → management escalation chains with specific trigger criteria for each level
 
-### Glossary
+**SLA-Based Response Times**: Enforce response time commitments based on incident severity (P0: 15min, P1: 1hr, P2: 4hrs, P3: next business day)
 
-- **Term 1**: Definition
-- **Term 2**: Definition
+**Shift Handoff Rituals**: Conduct structured handoffs with written summaries of ongoing incidents, pending alerts, and system status
 
-### Related Resources
+**Runbook Integration**: Link common alert types to specific troubleshooting runbooks and automated remediation playbooks
 
-- [Resource Name](url): Description
+## Quality Checklist
 
-## References
+Before finalizing this artifact, verify:
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/on-call-handbook.md` for detailed guidance
+- [ ] **Completeness**: All required sections present and adequately detailed
+- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
+- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
+- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
+- [ ] **Currency**: Based on current information; outdated content removed or updated
 
-## Appendix
+## Related Documents
 
-<!-- Add supporting materials as needed -->
+- [Related Artifact]: Description and relationship
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | Name | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

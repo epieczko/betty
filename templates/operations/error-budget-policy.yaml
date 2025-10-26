@@ -1,0 +1,443 @@
+# Error Budget Policy
+# Defines organizational rules for how error budgets influence development velocity and reliability work
+# Based on Google SRE methodology for balancing innovation with stability
+
+metadata:
+  version: "1.0.0"
+  lastUpdated: "2025-10-26"
+  owner: "SRE Team + Engineering Leadership"
+  reviewCycle: "Quarterly"
+  classification: "Internal"
+  approvers:
+    - name: "VP Engineering"
+      role: "Policy Sponsor"
+      date: "2025-10-26"
+    - name: "SRE Director"
+      role: "Technical Approver"
+      date: "2025-10-26"
+
+# Policy Statement
+policyStatement: |
+  Error budgets represent the maximum allowed unreliability for services over a measurement
+  window (typically 30 days). This policy establishes how error budget consumption affects
+  deployment velocity, engineering priorities, and reliability investments to maintain
+  customer trust while enabling rapid innovation.
+
+# Purpose
+purpose: |
+  - Provide objective criteria for balancing feature velocity vs reliability
+  - Establish clear consequences when reliability targets are not met
+  - Create shared ownership between SRE and development teams
+  - Enable data-driven decision making about deployment risk
+  - Prevent burnout from unrealistic reliability expectations
+
+# Scope
+scope:
+  appliesTo:
+    - "All Tier 0 (critical) and Tier 1 (high) production services"
+    - "User-facing APIs and customer-impacting services"
+    - "Services with defined SLOs in service-level-objectives.md"
+
+  excludes:
+    - "Tier 2 (standard) and Tier 3 (best effort) services"
+    - "Internal development/staging environments"
+    - "Experimental features in beta/alpha (no SLO commitment)"
+    - "Services without established SLOs"
+
+# Error Budget Tiers
+errorBudgetTiers:
+  - tier: "Tier 0 - Critical"
+    sloTarget: 99.99%
+    monthlyErrorBudget: "4.32 minutes"
+    examples: ["Payment API", "Authentication Service"]
+    policyEnforcementLevel: "Strict"
+
+  - tier: "Tier 1 - High"
+    sloTarget: 99.9%
+    monthlyErrorBudget: "43.2 minutes"
+    examples: ["Product Search", "Shopping Cart", "User Dashboard"]
+    policyEnforcementLevel: "Standard"
+
+  - tier: "Tier 2 - Standard"
+    sloTarget: 99.5%
+    monthlyErrorBudget: "3.6 hours"
+    examples: ["Admin Tools", "Reporting", "Analytics"]
+    policyEnforcementLevel: "Relaxed"
+
+# Error Budget Status Thresholds
+errorBudgetThresholds:
+  # Error Budget > 25% Remaining
+  - status: "Healthy"
+    errorBudgetRemaining: "> 25%"
+    description: "Service reliability exceeds expectations"
+    deploymentVelocity: "Normal"
+    actions:
+      development:
+        - "Normal feature development velocity"
+        - "Launch new features without SRE approval"
+        - "Take calculated risks on performance optimizations"
+        - "Consider increasing SLO target if consistently high reliability"
+      sre:
+        - "Proactive reliability improvements encouraged but not required"
+        - "Focus on scaling, observability, and automation"
+        - "Review SLO targets quarterly - may be too lenient"
+    approvalRequirements:
+      featureDeployments: "Standard code review only"
+      architectureChanges: "Standard architecture review"
+      deploymentTiming: "No restrictions"
+    exampleScenario: |
+      Payment API has 99.995% availability (99.99% SLO). Only 21.6 minutes downtime
+      of 4.32 minute budget consumed. 50% error budget remaining.
+
+  # Error Budget 10-25% Remaining
+  - status: "Warning"
+    errorBudgetRemaining: "10-25%"
+    description: "Service reliability acceptable but trending toward budget exhaustion"
+    deploymentVelocity: "Caution"
+    actions:
+      development:
+        - "Increased deployment scrutiny"
+        - "Require canary deployments for risky changes"
+        - "Prioritize bug fixes affecting reliability"
+        - "Defer non-critical features to next sprint"
+      sre:
+        - "Increased monitoring of service health"
+        - "Review recent incidents for patterns"
+        - "Identify and address highest-impact failure modes"
+        - "SRE review required for architectural changes"
+      communication:
+        - "Weekly error budget review in team standup"
+        - "Notify stakeholders of warning status"
+        - "Identify contributors to error budget consumption"
+    approvalRequirements:
+      featureDeployments: "SRE review for risky changes"
+      architectureChanges: "Mandatory SRE approval"
+      deploymentTiming: "Avoid Fridays and weekends for risky changes"
+    exampleScenario: |
+      Search API has 99.88% availability (99.9% SLO). 51.8 minutes downtime of
+      43.2 minute budget. 20% error budget remaining.
+
+  # Error Budget 0-10% Remaining
+  - status: "Critical"
+    errorBudgetRemaining: "0-10%"
+    description: "Service reliability at risk, error budget nearly exhausted"
+    deploymentVelocity: "Restricted"
+    actions:
+      development:
+        - "Deployment freeze for non-critical features"
+        - "Only reliability improvements and critical bug fixes allowed"
+        - "Mandatory SRE approval for ALL deployments"
+        - "Daily error budget review meetings"
+        - "Root cause analysis required for all incidents"
+      sre:
+        - "Focus exclusively on improving service reliability"
+        - "Implement additional monitoring and alerting"
+        - "Conduct architecture review for systemic issues"
+        - "Consider reducing scope of service to improve reliability"
+      communication:
+        - "Daily error budget status email to leadership"
+        - "Incident postmortems within 24 hours"
+        - "Executive stakeholder notification"
+    approvalRequirements:
+      featureDeployments: "Blocked unless critical bug fix"
+      architectureChanges: "VP Engineering approval required"
+      deploymentTiming: "Business hours only, SRE on-call present"
+    exampleScenario: |
+      Payment API has 99.991% availability (99.99% SLO). 3.89 minutes downtime
+      of 4.32 minute budget. 10% error budget remaining.
+
+  # Error Budget Exhausted (< 0%)
+  - status: "Emergency"
+    errorBudgetRemaining: "< 0%"
+    description: "SLO violated, error budget exhausted"
+    deploymentVelocity: "Frozen"
+    actions:
+      development:
+        - "Complete deployment freeze (except emergency fixes)"
+        - "All engineering effort focused on reliability"
+        - "Mandatory postmortem for all incidents"
+        - "No new feature work until error budget positive"
+      sre:
+        - "War room activated for systemic reliability issues"
+        - "Identify and eliminate top failure modes"
+        - "Consider architectural changes to improve reliability"
+        - "Implement guardrails to prevent recurrence"
+      leadership:
+        - "Executive review of service reliability"
+        - "Assess need for additional resources or architectural changes"
+        - "Customer communication if SLA violated"
+        - "Reset error budget only after proven reliability improvements"
+      communication:
+        - "Twice-daily status updates to executive team"
+        - "Customer communication via status page"
+        - "Formal incident review with VP Engineering"
+    approvalRequirements:
+      featureDeployments: "Blocked - no exceptions"
+      emergencyFixes: "CTO approval required"
+      errorBudgetReset: "Only after reliability improvements proven over 72 hours"
+    exampleScenario: |
+      Authentication service has 99.986% availability (99.99% SLO). 6.05 minutes
+      downtime exceeded 4.32 minute budget. -40% error budget (exhausted).
+
+# Burn Rate Alerts and Actions
+burnRatePolicy:
+  fastBurn:
+    window: "1 hour"
+    burnRate: "14.4x"
+    exhaustionTime: "2 days"
+    severity: "Critical"
+    actions:
+      - "Page on-call immediately"
+      - "Activate incident response"
+      - "Consider rolling back recent changes"
+      - "Halt all deployments until stabilized"
+    example: |
+      If payment API (99.99% SLO) is experiencing 1.44% error rate (14.4x higher
+      than 0.1% budget allows), monthly error budget will be exhausted in 2 days.
+
+  slowBurn:
+    window: "6 hours"
+    burnRate: "6x"
+    exhaustionTime: "5 days"
+    severity: "High"
+    actions:
+      - "Alert on-call and service owner"
+      - "Begin incident investigation"
+      - "Defer non-critical deployments"
+      - "Increase monitoring and alerting"
+    example: |
+      If search API (99.9% SLO) is experiencing 0.6% error rate (6x higher than
+      0.1% budget), monthly error budget exhausted in 5 days.
+
+# Postmortem Requirements
+postmortemPolicy:
+  required:
+    - errorBudgetConsumed: "> 10%"
+      timeline: "Within 3 business days"
+      attendees: ["Service team", "SRE"]
+      deliverables: ["Root cause analysis", "Timeline", "Action items"]
+
+    - errorBudgetConsumed: "> 25%"
+      timeline: "Within 48 hours"
+      attendees: ["Service team", "SRE", "Engineering Manager"]
+      deliverables: ["Full postmortem", "Prevention plan", "Leadership brief"]
+
+    - errorBudgetExhausted: "SLO violated"
+      timeline: "Within 24 hours"
+      attendees: ["Service team", "SRE", "VP Engineering", "CTO"]
+      deliverables: ["Executive postmortem", "Remediation plan", "Customer communication"]
+
+  recommended:
+    - errorBudgetConsumed: "5-10%"
+      timeline: "Within 5 business days"
+      scope: "Optional lightweight postmortem"
+
+  notRequired:
+    - errorBudgetConsumed: "< 5%"
+      note: "Team discretion, but lessons learned encouraged"
+
+# Deployment Approval Matrix
+deploymentApprovals:
+  # Healthy status (> 25% error budget)
+  - errorBudgetStatus: "Healthy"
+    changeRisk: "Low"
+    approvals: ["Standard code review"]
+    restrictions: "None"
+    example: "Feature flag toggle, configuration change"
+
+  - errorBudgetStatus: "Healthy"
+    changeRisk: "Medium"
+    approvals: ["Code review", "Architecture review"]
+    restrictions: "Canary deployment recommended"
+    example: "New API endpoint, database schema change"
+
+  - errorBudgetStatus: "Healthy"
+    changeRisk: "High"
+    approvals: ["Code review", "Architecture review", "SRE review"]
+    restrictions: "Gradual rollout required"
+    example: "Traffic routing change, caching layer modification"
+
+  # Warning status (10-25% error budget)
+  - errorBudgetStatus: "Warning"
+    changeRisk: "Low"
+    approvals: ["Standard code review"]
+    restrictions: "Deploy during business hours only"
+    example: "UI text change, log level adjustment"
+
+  - errorBudgetStatus: "Warning"
+    changeRisk: "Medium"
+    approvals: ["Code review", "SRE review"]
+    restrictions: "Mandatory canary deployment, SRE on-call available"
+    example: "Algorithm change, dependency upgrade"
+
+  - errorBudgetStatus: "Warning"
+    changeRisk: "High"
+    approvals: ["Code review", "SRE review", "Engineering Manager approval"]
+    restrictions: "Defer until error budget healthy"
+    example: "Load balancer change, auto-scaling modification"
+
+  # Critical status (0-10% error budget)
+  - errorBudgetStatus: "Critical"
+    changeRisk: "Any"
+    approvals: ["VP Engineering approval"]
+    restrictions: "Only critical bug fixes and reliability improvements"
+    example: "Hotfix for production bug, security patch"
+
+  # Emergency status (< 0% error budget)
+  - errorBudgetStatus: "Emergency"
+    changeRisk: "Any"
+    approvals: ["CTO approval"]
+    restrictions: "Emergency fixes only, no feature work"
+    example: "Critical security fix, data corruption repair"
+
+# Error Budget Reset Policy
+errorBudgetReset:
+  resetCadence: "Monthly (30-day rolling window)"
+  automaticReset: false
+  resetCriteria:
+    - condition: "Monthly window expires"
+      action: "Automatic reset to 100%"
+      note: "Rolling 30-day window naturally resets"
+
+    - condition: "Error budget exhausted mid-month"
+      action: "Manual reset only after proven improvements"
+      requirements:
+        - "72 hours of stable operation at SLO target"
+        - "Root cause identified and mitigated"
+        - "Preventive measures implemented"
+        - "VP Engineering approval"
+
+  earlyResetProhibited: |
+    Error budgets must NOT be reset early without proven reliability improvements.
+    Resetting prematurely undermines policy effectiveness and creates moral hazard.
+
+# Exceptions and Waivers
+exceptions:
+  allowedExceptions:
+    - scenario: "Planned maintenance"
+      requirements:
+        - "72-hour advance notice to stakeholders"
+        - "Scheduled during low-traffic window"
+        - "Excluded from error budget calculation"
+      approver: "SRE Lead"
+
+    - scenario: "Upstream dependency failure"
+      requirements:
+        - "Failure demonstrably outside our control (AWS outage, third-party API)"
+        - "We implemented reasonable circuit breakers and retries"
+        - "Excluded from error budget after postmortem review"
+      approver: "VP Engineering"
+
+    - scenario: "DDoS attack or security incident"
+      requirements:
+        - "Attack confirmed by security team"
+        - "Mitigation efforts documented"
+        - "Partial exclusion based on legitimate vs attack traffic"
+      approver: "CISO + VP Engineering"
+
+  prohibitedExceptions:
+    - "Bugs in our code (always count against error budget)"
+    - "Capacity issues (we should have scaled proactively)"
+    - "Configuration errors (our operational mistake)"
+    - "Unplanned deployments gone wrong (our change management failure)"
+
+# Shared Responsibility
+sharedResponsibility:
+  productDevelopmentTeam:
+    - "Write reliable code with proper error handling"
+    - "Implement monitoring and logging"
+    - "Participate in on-call rotation"
+    - "Respect error budget policy in deployment decisions"
+    - "Own reliability of their service"
+
+  sreTeam:
+    - "Provide observability infrastructure"
+    - "Define SLOs collaboratively with product teams"
+    - "Monitor error budget consumption"
+    - "Consult on reliability improvements"
+    - "Enforce error budget policy"
+    - "Provide architectural guidance"
+
+  engineeringLeadership:
+    - "Support teams when error budget exhausted"
+    - "Allocate resources for reliability work"
+    - "Approve policy exceptions"
+    - "Balance business needs with reliability"
+    - "Hold teams accountable to policy"
+
+# Metrics and Reporting
+reporting:
+  dailyReports:
+    audience: "Service owners"
+    content:
+      - "Current error budget remaining"
+      - "Burn rate (1h, 6h, 24h, 7d)"
+      - "Recent incidents affecting error budget"
+      - "Projected exhaustion date if current trend continues"
+
+  weeklyReports:
+    audience: "Engineering managers"
+    content:
+      - "Error budget status for all services"
+      - "Services in warning/critical status"
+      - "Deployment restrictions in effect"
+      - "Upcoming SLO reviews"
+
+  monthlyReports:
+    audience: "Executive leadership"
+    content:
+      - "SLO compliance summary"
+      - "Error budget violations and root causes"
+      - "Policy effectiveness metrics"
+      - "Reliability trends"
+
+# Policy Enforcement
+enforcement:
+  automated:
+    - "CI/CD pipeline checks error budget status before deployment"
+    - "Automated deployment freeze when error budget exhausted"
+    - "PagerDuty routing changes based on error budget status"
+    - "Slack notifications when error budget thresholds crossed"
+
+  manual:
+    - "SRE review of deployment approvals"
+    - "Weekly error budget review meetings"
+    - "Postmortem enforcement and tracking"
+    - "Exception approval workflows"
+
+# Review and Updates
+policyMaintenance:
+  reviewCadence: "Quarterly"
+  reviewers: ["SRE Team", "Engineering Leadership", "Service Owners"]
+  updateTriggers:
+    - "Business requirements change"
+    - "Consistent policy violations"
+    - "SLO targets adjusted"
+    - "New service tiers introduced"
+  changeApproval: "VP Engineering"
+
+# Related Documents
+relatedDocuments:
+  - name: "Service Level Objectives (SLOs)"
+    path: "service-level-objectives.md"
+    relationship: "Defines SLO targets that error budgets derive from"
+
+  - name: "Incident Management Plan"
+    path: "incident-management-plan.md"
+    relationship: "Incident response when error budget threatened"
+
+  - name: "Alert Catalogs"
+    path: "alert-catalogs.yaml"
+    relationship: "Burn rate alerts that enforce this policy"
+
+  - name: "Postmortem Template"
+    path: "../documentation/postmortem-template.md"
+    relationship: "Required postmortems when error budget consumed"
+
+# Change History
+changeHistory:
+  - version: "1.0.0"
+    date: "2025-10-26"
+    author: "SRE Team + Engineering Leadership"
+    changes: "Initial error budget policy based on Google SRE methodology"
+    approver: "VP Engineering"

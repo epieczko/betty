@@ -1,57 +1,55 @@
 # Trust Center Evidence Summaries
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/trust-center-evidence-summaries.md for complete guidance
+# See also: artifact_descriptions/trust-center-evidence-summaries.md for complete guidance
+
+# The Trust Center Evidence Summaries artifact provides executive-friendly, customer-facing summaries of complex compliance reports and security evidence, including SOC 2 Type II audit reports, ISO 2700...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as customer-facing summaries of compliance audit reports, security testing results, and control evidence, designed to be published in trust center platforms. These summaries answer the question "What compliance certifications and security controls does this vendor have?" in a fo
 
+# BEST PRACTICES
+# - Auditor Approval Required: Obtain written approval from SOC 2 auditor before publishing any summary of audit report (AICPA atte
+# - Accuracy to Source: Ensure summary accurately reflects full report findings; never misrepresent audit opinion or testing
+# - Exception Transparency: If SOC 2 report contains exceptions or qualifications, summarize them clearly rather than omitting
+# - Validity Period Clarity: Clearly state testing period for SOC 2 (e.g., "Oct 1, 2024 - Sep 30, 2025") and certification expiry
+# - Remediation Status: For penetration test summaries, clearly indicate which findings have been remediated and which remai
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/trust-center-evidence-summaries.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "SOC 2 Type II audit report summaries (audit opinion, testing period, Trust Servi"
+      - "ISO 27001/27701 certification summaries (certifying body, certification scope, v"
+      - "Penetration test executive summaries (testing methodology, scope, high-level fin"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

@@ -1,57 +1,55 @@
 # Feature Rollback Playbooks
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/feature-rollback-playbooks.md for complete guidance
+# See also: artifact_descriptions/feature-rollback-playbooks.md for complete guidance
+
+# Feature Rollback Playbooks are prescriptive operational procedures that enable rapid, safe reversal of problematic deployments, feature releases, or configuration changes when issues are detected in p...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact provides tested, executable procedures for safely rolling back deployments, feature releases, and configuration changes when production issues are detected. It solves the problem of deployment-related incidents by enabling rapid reversion to known-good states, minimizing customer impac
 
+# BEST PRACTICES
+# - Test Rollback First: Always test rollback procedures in staging before relying on them in production
+# - Automate Rollback: Prefer automated rollback triggers (kubectl rollout undo) over manual procedures
+# - Feature Flags First: Use feature flags for instant rollback without redeployment when possible
+# - Database Backward Compatibility: Design migrations to be backward-compatible for safe rollback
+# - Pre-Rollback Checks: Verify backup exists, dependencies are stable, rollback target version is available
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/feature-rollback-playbooks.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Application code rollback procedures (Git revert, container redeployment, rollba"
+      - "Database migration rollback scripts (schema changes, data migrations, backward c"
+      - "Feature flag disabling procedures (LaunchDarkly, Split.io, Unleash, custom toggl"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

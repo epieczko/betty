@@ -1,57 +1,55 @@
 # Release Certification
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/release-certification.md for complete guidance
+# See also: artifact_descriptions/release-certification.md for complete guidance
+
+# The Release Certification artifact is a formal attestation document that verifies a software release has met all quality gates, security requirements, performance benchmarks, and operational readiness...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# Release certification formally validates that a software release has successfully completed all quality gates, security scans, performance tests, operational readiness checks, and obtained required stakeholder approvals before production deployment. It serves as the go/no-go decision artifact for IT
 
+# BEST PRACTICES
+# - Automated Quality Gates: Integrate certification checklist into CI/CD pipeline with automated pass/fail criteria
+# - Test Evidence Links: Provide direct links to test reports, security scans, performance results, and monitoring dashboards
+# - Objective Pass Criteria: Define measurable success criteria (e.g., 80% code coverage, zero critical vulnerabilities, p95 late
+# - Smoke Test Validation: Execute comprehensive smoke test suite in production-like staging environment before certification
+# - Performance Baseline: Establish and document performance baseline metrics before release for post-deployment comparison
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/release-certification.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Functional testing completion (unit, integration, end-to-end, regression test re"
+      - "Security validation (SAST, DAST, SCA, container scanning, penetration test resul"
+      - "Performance benchmarks (load testing, stress testing, capacity validation agains"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

@@ -1,51 +1,75 @@
 # Platform Services Catalog
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/platform-services-catalog.md for complete guidance
+# See also: artifact_descriptions/platform-services-catalog.md for complete guidance
+
+# The Platform Services Catalog is the authoritative registry of all platform capabilities, self-service APIs, and developer-facing services within an Internal Developer Platform (IDP). Built on framewo
 
 metadata:
   # Document Control
-  version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
+  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
+  created: "YYYY-MM-DD"  # Date this artifact was created
+  lastModified: "YYYY-MM-DD"  # Date of most recent update
+  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+
+  # Ownership & Accountability
+  author: "Author Name"  # Primary author of this artifact
+  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
   classification: "Internal"  # Public | Internal | Confidential | Restricted
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
+  # Approvals
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      approvalDate: null  # Date of approval (YYYY-MM-DD)
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as the comprehensive catalog of all platform services, APIs, and capabilities offered by the platform engineering team. It enables developers to discover and consume infrastructure resources through self-service interfaces, golden paths, and Software Templates while maintaining ...
 
+# MAIN CONTENT
+# Complete the sections below based on your specific artifact needs
 
-# Log Entries
-entries:
-  - id: "001"
-    date: "{{date}}"
-    category: "TODO: Category"  # Risk | Issue | Decision | Change
-    title: "TODO: Entry title"
-    description: |
-      TODO: Detailed description
-    status: "Open"  # Open | In Progress | Resolved | Closed
-    owner: "TODO: Owner"
-    priority: "Medium"  # Low | Medium | High | Critical
+# BEST PRACTICES:
+# - GitOps Workflow: Store catalog definitions in version control (Git) with pull request reviews and automated validatio
+# - Semantic Versioning: Version catalog entities and templates using semantic versioning (MAJOR.MINOR.PATCH) to manage break
+# - Self-Service by Default: Design catalog entries for full self-service provisioning without requiring platform team interventi
+# - Golden Path Curation: Maintain opinionated, production-ready templates that encode organizational best practices and secur
+# - Comprehensive Documentation: Include TechDocs, runbooks, architecture diagrams, and getting-started guides for each catalog entry
 
-  # Add more entries as needed
+content:
+  overview: |
+    # Provide a high-level overview of this artifact
+    # What is this document about?
+    # Why does it exist?
+    
+  scope:
+    inScope:
+      - "Service catalog entries in Backstage, Port, Kratix, or similar IDP frameworks"
+      - "Software Templates for common patterns (microservices, databases, message queues, CDN configurations)"
+      - "Self-service APIs and platform capabilities (namespace provisioning, DNS management, certificate issuance)"
+      # Add additional in-scope items
+    outOfScope:
+      - "Item explicitly out of scope"
+      # Add additional out-of-scope items
 
-# Notes
-notes: |
-  TODO: Add any additional notes or context
+  details: |
+    # Provide detailed information specific to this artifact type
+    # Include all necessary technical details
+    # Reference the artifact description for required sections
+    
+# QUALITY CHECKLIST
+# Before finalizing, verify:
+# ✓ Completeness: All required sections present and adequately detailed
+# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
+# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
+# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
+# ✓ Currency: Based on current information; outdated content removed or updated
 
-# Change History
+relatedDocuments:
+  - type: "Related Artifact Type"
+    path: "path/to/related/artifact"
+    relationship: "depends-on | references | supersedes | implements"
+
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

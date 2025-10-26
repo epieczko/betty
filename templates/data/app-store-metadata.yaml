@@ -1,57 +1,55 @@
 # App Store Metadata
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/app-store-metadata.md for complete guidance
+# See also: artifact_descriptions/app-store-metadata.md for complete guidance
+
+# App Store Metadata is a strategic asset for mobile app visibility and conversion, optimizing discoverability across Apple App Store and Google Play Console through data-driven App Store Optimization (...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact optimizes mobile app discoverability and conversion rates by providing ASO-optimized metadata for submission to Apple App Store Connect and Google Play Console. It solves the visibility problem in crowded app marketplaces where 63% of app discovery happens through search, supporting da
 
+# BEST PRACTICES
+# - Keyword Research First: Conduct comprehensive keyword research using Sensor Tower, AppTweak, or Mobile Action before writing
+# - Character Limit Optimization: Maximize every character—iOS app title (30 chars), subtitle (30 chars), keyword field (100 chars); G
+# - Front-Load Important Keywords: Place highest-value keywords in app title and subtitle for maximum search weight; avoid keyword stuf
+# - Localized Keyword Strategy: Research keywords separately for each market; "fitness app" performs differently than "aplicación de
+# - Screenshot Messaging Hierarchy: First 2-3 screenshots drive 90% of conversion decisions; lead with core value proposition, not featu
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/app-store-metadata.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "App title, subtitle, and promotional text optimization (30-50 character limits)"
+      - "Keyword field optimization (100 characters for iOS, organic for Android)"
+      - "Short and long descriptions (80 chars/4000 chars for Play Store; subtitle/descri"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

@@ -1,57 +1,55 @@
 # Disaster Recovery Runbooks
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/disaster-recovery-runbooks.md for complete guidance
+# See also: artifact_descriptions/disaster-recovery-runbooks.md for complete guidance
+
+# Disaster Recovery (DR) Runbooks are step-by-step operational procedures for restoring critical systems and data following catastrophic failures, natural disasters, or major outages. These runbooks are...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact documents detailed, executable disaster recovery procedures including failover steps, recovery validation, rollback procedures, and escalation paths to restore critical systems within defined RTO/RPO targets following catastrophic failures or disasters.
 
+# BEST PRACTICES
+# - Test Regularly: Conduct full DR tests at least quarterly; validate all runbook steps actually work
+# - Automate Everything: Automate failover procedures wherever possible; manual steps introduce delays and errors
+# - Document RTO/RPO: Clearly define and communicate RTO/RPO for each service tier; measure adherence
+# - Immutable Backups: Use immutable backups to protect against ransomware and accidental deletion
+# - 3-2-1-1-0 Rule: Follow 3 copies, 2 media types, 1 offsite, 1 offline/immutable, 0 errors in backups
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/disaster-recovery-runbooks.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Disaster scenarios and trigger criteria (region outage, data center failure, ran"
+      - "RTO/RPO targets per service tier (Tier 0"
+      - "Failover automation scripts (Terraform, Ansible, AWS Lambda, Azure Functions)"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

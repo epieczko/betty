@@ -1,57 +1,55 @@
 # Notarization Records
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/notarization-records.md for complete guidance
+# See also: artifact_descriptions/notarization-records.md for complete guidance
+
+# The Notarization Records artifact documents platform-specific software verification and malware scanning processes required for distribution on Apple platforms (macOS Gatekeeper, iOS), Windows (SmartS...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as comprehensive documentation of platform notarization workflows including submission to Apple Notary Service, Windows SmartScreen reputation building, malware scanning with antivirus engines, and automated security analysis. It provides evidence of security validation, enables
 
+# BEST PRACTICES
+# - Sign Before Notarizing: Always code sign with valid Developer ID certificate before submitting to Apple Notary Service; unsi
+# - Hardened Runtime: Enable hardened runtime for macOS apps (--options runtime); required for notarization; configure nec
+# - Timestamp Signatures: Include secure timestamp (--timestamp flag); enables signature verification after certificate expira
+# - Automated Notarization: Integrate notarization into CI/CD (notarytool in Xcode Cloud, GitHub Actions, Jenkins); avoid manual
+# - Staple Tickets: Staple notarization tickets to distributed apps (stapler staple); enables offline Gatekeeper verific
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/notarization-records.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Apple notarization (macOS apps, kernel extensions, installer packages)"
+      - "Apple Notary Service API (notarytool, Xcode Cloud, Transporter)"
+      - "Gatekeeper verification and quarantine attribute handling"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

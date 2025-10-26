@@ -1,57 +1,55 @@
 # Cost Anomaly Alerts
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/cost-anomaly-alerts.md for complete guidance
+# See also: artifact_descriptions/cost-anomaly-alerts.md for complete guidance
+
+# The Cost Anomaly Alerts artifact defines automated detection of unexpected cloud spending using AWS Cost Anomaly Detection, Azure Cost Management anomaly alerts, GCP cost anomaly detection, and FinOps...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact defines cost anomaly detection systems, budget alert configurations, spending forecasting methodologies, and cost optimization workflows. It establishes ML-powered anomaly thresholds, cost allocation tagging, unit economics tracking, and notification routing for unexpected cloud spendi
 
+# BEST PRACTICES
+# - Tagging Enforcement: Require cost allocation tags (team, project, environment, cost-center) on all resources; reject unta
+# - Tiered Alerts: Set budget alerts at 50% (info), 80% (warning), 90% (critical), 100% (breach) thresholds
+# - Anomaly Thresholds: Configure anomaly detection for >20% daily variance, >30% weekly variance from ML baseline
+# - Unit Economics: Track cost per request, cost per user, cost per GB to identify efficiency trends and regressions
+# - Daily Reviews: Review cost dashboards daily; investigate anomalies >$100/day immediately
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/cost-anomaly-alerts.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "AWS Cost Anomaly Detection"
+      - "Azure Cost Management"
+      - "GCP Cost Anomaly Detection"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

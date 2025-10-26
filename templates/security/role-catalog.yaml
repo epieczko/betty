@@ -1,0 +1,1162 @@
+# Security Role Catalog
+# Comprehensive directory of security and system roles with detailed definitions
+# Aligned with NIST RBAC model, ISO 27001, and Zero Trust principles
+
+metadata:
+  version: "2.4.0"
+  created: "2024-01-05"
+  lastModified: "2024-10-26"
+  status: "Active"
+  owner: "Identity and Access Management Team"
+  classification: "Internal"
+
+  catalog_info:
+    total_roles: 42
+    active_roles: 38
+    deprecated_roles: 4
+    last_review_date: "2024-10-15"
+    next_review_date: "2024-11-15"
+
+  approvers:
+    - name: "Patricia Williams"
+      role: "IAM Director"
+      date: "2024-10-20"
+    - name: "Michael Zhang"
+      role: "CISO"
+      date: "2024-10-19"
+
+# ==================================================
+# ROLE CATALOG - Organized by Function
+# ==================================================
+
+roles:
+  # =============================================
+  # EXECUTIVE & MANAGEMENT ROLES
+  # =============================================
+  - role_id: "EXEC-001"
+    role_name: "Chief Information Security Officer (CISO)"
+    role_type: "Executive"
+    status: "Active"
+    created_date: "2024-01-05"
+    last_modified: "2024-09-15"
+
+    business_function: "Executive Leadership"
+    department: "Information Security"
+    reports_to: "Chief Executive Officer"
+
+    description: |
+      Executive responsible for organization's information security strategy, governance,
+      risk management, and compliance programs. Sets security direction and oversees
+      all security functions.
+
+    responsibilities:
+      primary:
+        - "Define and maintain organizational security strategy and vision"
+        - "Oversee enterprise security risk management program"
+        - "Ensure compliance with regulatory and industry security requirements"
+        - "Lead security governance and policy framework"
+        - "Manage security budget and resource allocation"
+        - "Report security posture to board and executive leadership"
+
+      secondary:
+        - "Serve on enterprise risk management committee"
+        - "Approve major security architecture decisions"
+        - "Chair security steering committee"
+        - "Represent organization in security partnerships and forums"
+
+    required_skills:
+      technical:
+        - "Enterprise security architecture"
+        - "Risk management frameworks (NIST, ISO 27001)"
+        - "Security governance and compliance"
+        - "Cloud security (AWS, Azure, GCP)"
+
+      business:
+        - "Executive leadership and communication"
+        - "Strategic planning and budgeting"
+        - "Vendor and contract management"
+        - "Board-level reporting"
+
+      certifications_required:
+        - "CISSP"
+        - "CISM"
+
+      certifications_preferred:
+        - "CRISC"
+        - "CGEIT"
+
+    experience_requirements:
+      years_experience: 15
+      years_in_leadership: 10
+      industry_experience: "Technology or related field"
+
+    access_requirements:
+      clearance_level: "Executive"
+      background_check: "Enhanced"
+      mfa_required: true
+      privileged_access: true
+
+    typical_tools_systems:
+      - "Executive dashboards and BI tools"
+      - "GRC platforms (Archer, ServiceNow GRC)"
+      - "Risk management systems"
+      - "Board reporting tools"
+
+    delegation_authority:
+      budget_approval: "Unlimited"
+      personnel_actions: "Full authority for security org"
+      policy_approval: "All security policies"
+      vendor_contracts: "Up to $5M"
+
+  - role_id: "MGMT-001"
+    role_name: "Security Manager"
+    role_type: "Management"
+    status: "Active"
+
+    business_function: "Security Operations Management"
+    department: "Information Security"
+    reports_to: "CISO"
+
+    description: |
+      Manages day-to-day security operations team, including SOC analysts, incident
+      responders, and security engineers. Oversees detection, monitoring, and incident
+      response functions.
+
+    responsibilities:
+      primary:
+        - "Manage security operations center (SOC) operations"
+        - "Oversee incident response activities"
+        - "Manage security monitoring and detection capabilities"
+        - "Coordinate with IT operations and engineering teams"
+        - "Manage team hiring, development, and performance"
+        - "Ensure SLAs for security operations are met"
+
+      secondary:
+        - "Review and approve security detections"
+        - "Participate in security architecture reviews"
+        - "Manage vendor relationships for security tools"
+
+    required_skills:
+      technical:
+        - "SIEM platforms (Splunk, Elastic)"
+        - "Incident response methodologies"
+        - "Security monitoring and detection"
+        - "Threat intelligence"
+
+      business:
+        - "Team management and leadership"
+        - "Project management"
+        - "Vendor management"
+        - "Metrics and KPI reporting"
+
+      certifications_required:
+        - "CISSP or equivalent"
+
+      certifications_preferred:
+        - "GCIH"
+        - "GCIA"
+        - "CISM"
+
+    experience_requirements:
+      years_experience: 10
+      years_in_leadership: 5
+
+  # =============================================
+  # SECURITY ENGINEERING ROLES
+  # =============================================
+  - role_id: "ENG-001"
+    role_name: "Senior Security Engineer"
+    role_type: "Individual Contributor"
+    level: "Senior"
+    status: "Active"
+
+    business_function: "Security Engineering"
+    department: "Information Security"
+    reports_to: "Security Manager"
+
+    description: |
+      Senior-level security engineer responsible for designing, implementing, and
+      maintaining security controls, tools, and infrastructure. Provides technical
+      leadership and mentorship to junior engineers.
+
+    responsibilities:
+      primary:
+        - "Design and implement security controls and solutions"
+        - "Develop and maintain security automation and tooling"
+        - "Conduct security architecture reviews"
+        - "Lead security projects and initiatives"
+        - "Mentor junior security engineers"
+        - "Research and evaluate new security technologies"
+
+      secondary:
+        - "Participate in incident response as needed"
+        - "Develop security standards and guidelines"
+        - "Provide security consultation to development teams"
+
+    required_skills:
+      technical:
+        - "Cloud security (AWS, Azure, GCP)"
+        - "Infrastructure as Code (Terraform, CloudFormation)"
+        - "Security automation and scripting (Python, Go)"
+        - "Container and Kubernetes security"
+        - "Network security and architecture"
+        - "Identity and access management"
+
+      programming_languages:
+        - "Python"
+        - "Bash/Shell"
+        - "Go or Rust"
+
+      certifications_required:
+        - "CISSP, OSCP, or equivalent"
+
+      certifications_preferred:
+        - "AWS Security Specialty"
+        - "GIAC GPEN or GXPN"
+        - "CKS (Certified Kubernetes Security Specialist)"
+
+    experience_requirements:
+      years_experience: 7
+      specific_experience:
+        - "5+ years security engineering"
+        - "3+ years cloud security"
+        - "2+ years infrastructure automation"
+
+    typical_tools_systems:
+      - "Cloud platforms (AWS, Azure, GCP)"
+      - "Infrastructure as Code tools"
+      - "Security scanning tools (Prisma Cloud, Wiz)"
+      - "SIEM and logging platforms"
+      - "Secrets management (Vault, AWS Secrets Manager)"
+      - "CI/CD platforms"
+
+  - role_id: "ENG-002"
+    role_name: "Security Engineer"
+    role_type: "Individual Contributor"
+    level: "Mid-Level"
+    status: "Active"
+
+    business_function: "Security Engineering"
+    department: "Information Security"
+    reports_to: "Senior Security Engineer"
+
+    description: |
+      Implements and maintains security controls, monitors security systems, and
+      supports security initiatives across the organization.
+
+    responsibilities:
+      primary:
+        - "Implement security controls and configurations"
+        - "Maintain security tools and platforms"
+        - "Conduct security assessments and audits"
+        - "Respond to security incidents"
+        - "Develop security automation scripts"
+
+    required_skills:
+      technical:
+        - "Cloud platform security (AWS, Azure, or GCP)"
+        - "Security tools and technologies"
+        - "Scripting (Python, Bash)"
+        - "Network security fundamentals"
+        - "Linux/Windows security"
+
+      certifications_required:
+        - "Security+ or equivalent"
+
+      certifications_preferred:
+        - "CISSP"
+        - "CEH"
+        - "Cloud security certification"
+
+    experience_requirements:
+      years_experience: 4
+      specific_experience:
+        - "3+ years security operations or engineering"
+        - "1+ year cloud security"
+
+  # =============================================
+  # SECURITY OPERATIONS ROLES
+  # =============================================
+  - role_id: "SOC-001"
+    role_name: "SOC Analyst - Tier 3 (Senior)"
+    role_type: "Individual Contributor"
+    level: "Senior"
+    status: "Active"
+
+    business_function: "Security Operations"
+    department: "Security Operations Center"
+    reports_to: "Security Manager"
+
+    description: |
+      Senior SOC analyst responsible for advanced threat hunting, complex incident
+      investigation, and tier 2/3 escalations. Leads incident response efforts
+      and develops detection content.
+
+    responsibilities:
+      primary:
+        - "Conduct proactive threat hunting activities"
+        - "Lead complex security incident investigations"
+        - "Develop and tune security detection rules"
+        - "Perform malware and forensic analysis"
+        - "Mentor tier 1 and tier 2 analysts"
+        - "Coordinate with external threat intelligence sources"
+
+      secondary:
+        - "Develop incident response playbooks"
+        - "Participate in purple team exercises"
+        - "Contribute to security architecture improvements"
+
+    required_skills:
+      technical:
+        - "SIEM platforms (Splunk, Elastic, Sentinel)"
+        - "EDR/XDR platforms (CrowdStrike, SentinelOne)"
+        - "Network traffic analysis (Wireshark, Zeek)"
+        - "Malware analysis and reverse engineering"
+        - "MITRE ATT&CK framework"
+        - "Threat intelligence platforms"
+        - "Digital forensics"
+
+      analysis_skills:
+        - "Advanced log analysis"
+        - "Memory forensics"
+        - "Network forensics"
+        - "Behavioral analysis"
+
+      certifications_required:
+        - "GCIH, GCIA, or equivalent"
+
+      certifications_preferred:
+        - "GREM"
+        - "GCFA"
+        - "CISSP"
+
+    experience_requirements:
+      years_experience: 6
+      specific_experience:
+        - "5+ years SOC or incident response"
+        - "2+ years threat hunting"
+        - "Experience with multiple SIEM platforms"
+
+    work_schedule:
+      shift_work_required: true
+      on_call_required: true
+      schedule_flexibility: "Rotating shifts including nights/weekends"
+
+    typical_tools_systems:
+      - "SIEM (Splunk, Elastic Security)"
+      - "EDR platforms (CrowdStrike, SentinelOne)"
+      - "Threat intelligence platforms (MISP, ThreatConnect)"
+      - "Forensics tools (EnCase, FTK, Volatility)"
+      - "Network analysis tools (Wireshark, Zeek)"
+      - "Malware sandboxes (Cuckoo, ANY.RUN)"
+
+  - role_id: "SOC-002"
+    role_name: "SOC Analyst - Tier 2"
+    role_type: "Individual Contributor"
+    level: "Mid-Level"
+    status: "Active"
+
+    business_function: "Security Operations"
+    department: "Security Operations Center"
+    reports_to: "Security Manager"
+
+    description: |
+      Intermediate SOC analyst performing triage, investigation, and response
+      to security alerts. Handles escalations from Tier 1 and escalates complex
+      issues to Tier 3.
+
+    responsibilities:
+      primary:
+        - "Investigate security alerts and incidents"
+        - "Perform initial containment actions"
+        - "Conduct host and network-based analysis"
+        - "Document incidents and findings"
+        - "Escalate complex incidents to Tier 3"
+        - "Tune detection rules to reduce false positives"
+
+    required_skills:
+      technical:
+        - "SIEM query languages (SPL, KQL)"
+        - "Log analysis and correlation"
+        - "Basic malware analysis"
+        - "Network protocols and analysis"
+        - "Windows and Linux security"
+
+      certifications_required:
+        - "Security+ or GIAC GSEC"
+
+      certifications_preferred:
+        - "GCIH"
+        - "CEH"
+
+    experience_requirements:
+      years_experience: 3
+      specific_experience:
+        - "2+ years SOC or security operations"
+
+    work_schedule:
+      shift_work_required: true
+      on_call_required: true
+
+  - role_id: "SOC-003"
+    role_name: "SOC Analyst - Tier 1"
+    role_type: "Individual Contributor"
+    level: "Entry"
+    status: "Active"
+
+    business_function: "Security Operations"
+    department: "Security Operations Center"
+    reports_to: "SOC Team Lead"
+
+    description: |
+      Entry-level SOC analyst responsible for monitoring security alerts,
+      performing initial triage, and escalating incidents according to
+      established procedures.
+
+    responsibilities:
+      primary:
+        - "Monitor security alerts and events"
+        - "Perform initial triage and classification"
+        - "Execute runbooks and playbooks"
+        - "Escalate incidents per SOP"
+        - "Document all activities in ticketing system"
+
+    required_skills:
+      technical:
+        - "Basic networking fundamentals"
+        - "Operating system fundamentals (Windows, Linux)"
+        - "Security concepts and terminology"
+        - "Log analysis basics"
+
+      certifications_required:
+        - "Security+"
+
+      certifications_preferred:
+        - "Network+"
+        - "CySA+"
+
+    experience_requirements:
+      years_experience: 1
+      specific_experience:
+        - "IT or security internship or entry-level experience"
+
+    work_schedule:
+      shift_work_required: true
+      on_call_required: false
+
+  # =============================================
+  # INCIDENT RESPONSE ROLES
+  # =============================================
+  - role_id: "IR-001"
+    role_name: "Incident Response Lead"
+    role_type: "Individual Contributor"
+    level: "Senior"
+    status: "Active"
+
+    business_function: "Incident Response"
+    department: "Information Security"
+    reports_to: "Security Manager"
+
+    description: |
+      Leads major security incident response efforts, coordinates cross-functional
+      response teams, and manages communication with stakeholders during security
+      incidents.
+
+    responsibilities:
+      primary:
+        - "Lead major incident response activities"
+        - "Coordinate response across technical and business teams"
+        - "Manage incident communication to executives and stakeholders"
+        - "Conduct post-incident reviews and root cause analysis"
+        - "Develop and maintain incident response playbooks"
+        - "Conduct tabletop exercises and simulations"
+
+      secondary:
+        - "Provide expert forensics and analysis"
+        - "Liaison with law enforcement and external parties"
+        - "Improve incident response processes and tools"
+
+    required_skills:
+      technical:
+        - "Advanced forensics and malware analysis"
+        - "Incident management frameworks (NIST 800-61)"
+        - "Crisis management and communication"
+        - "Threat intelligence and attribution"
+
+      certifications_required:
+        - "GCIH and GCFA"
+
+      certifications_preferred:
+        - "CISSP"
+        - "GREM"
+        - "CISM"
+
+    experience_requirements:
+      years_experience: 8
+      specific_experience:
+        - "6+ years incident response"
+        - "3+ years leading major incidents"
+        - "Experience with APT investigations"
+
+    work_schedule:
+      on_call_required: true
+      on_call_frequency: "Primary rotation"
+
+  # =============================================
+  # APPLICATION SECURITY ROLES
+  # =============================================
+  - role_id: "APPSEC-001"
+    role_name: "Application Security Engineer"
+    role_type: "Individual Contributor"
+    level: "Mid-Senior"
+    status: "Active"
+
+    business_function: "Application Security"
+    department: "Information Security"
+    reports_to: "Security Manager"
+
+    description: |
+      Ensures security of applications through secure development practices,
+      security testing, code review, and developer enablement.
+
+    responsibilities:
+      primary:
+        - "Conduct application security assessments and penetration testing"
+        - "Perform security code reviews"
+        - "Develop and maintain secure coding standards"
+        - "Integrate security into CI/CD pipelines"
+        - "Train developers on secure coding practices"
+        - "Manage application security tools (SAST, DAST, SCA)"
+
+      secondary:
+        - "Participate in security architecture reviews"
+        - "Respond to application security incidents"
+        - "Evaluate and select application security tools"
+
+    required_skills:
+      technical:
+        - "Web application security (OWASP Top 10)"
+        - "Secure coding practices (Java, Python, JavaScript, Go)"
+        - "Application security testing (SAST, DAST, IAST)"
+        - "API security"
+        - "Container and serverless security"
+        - "Security testing frameworks (Burp Suite, ZAP)"
+
+      programming_languages:
+        - "At least 3 of: Java, Python, JavaScript/TypeScript, Go, C#"
+
+      certifications_required:
+        - "OSWE, GWAPT, or equivalent"
+
+      certifications_preferred:
+        - "CSSLP"
+        - "GWEB"
+
+    experience_requirements:
+      years_experience: 5
+      specific_experience:
+        - "4+ years application security"
+        - "3+ years software development or security testing"
+
+    typical_tools_systems:
+      - "SAST tools (SonarQube, Checkmarx)"
+      - "DAST tools (Burp Suite, ZAP)"
+      - "SCA tools (Snyk, Dependabot)"
+      - "CI/CD platforms"
+      - "Container security (Trivy, Grype)"
+
+  # =============================================
+  # CLOUD SECURITY ROLES
+  # =============================================
+  - role_id: "CLOUD-001"
+    role_name: "Cloud Security Architect"
+    role_type: "Individual Contributor"
+    level: "Senior/Principal"
+    status: "Active"
+
+    business_function: "Cloud Security"
+    department: "Information Security"
+    reports_to: "CISO or Security Manager"
+
+    description: |
+      Designs and implements security architectures for cloud environments,
+      ensures cloud infrastructure meets security and compliance requirements.
+
+    responsibilities:
+      primary:
+        - "Design secure cloud architectures (AWS, Azure, GCP)"
+        - "Implement cloud security controls and guardrails"
+        - "Establish cloud security baselines and standards"
+        - "Conduct cloud security assessments"
+        - "Implement infrastructure as code security"
+        - "Design zero trust network architectures"
+
+      secondary:
+        - "Evaluate cloud security tools and services"
+        - "Provide security guidance for cloud migrations"
+        - "Lead cloud security initiatives"
+
+    required_skills:
+      technical:
+        - "Multi-cloud security (AWS, Azure, GCP)"
+        - "Infrastructure as Code (Terraform, CloudFormation)"
+        - "Container orchestration security (Kubernetes)"
+        - "Cloud-native security tools (CSPM, CWPP)"
+        - "Identity and access management (IAM, RBAC)"
+        - "Zero Trust architectures"
+        - "Network security (VPC, NSG, Security Groups)"
+
+      certifications_required:
+        - "AWS Security Specialty or Azure Security Engineer"
+        - "CISSP or CCSP"
+
+      certifications_preferred:
+        - "Multi-cloud certifications"
+        - "CKS (Certified Kubernetes Security)"
+        - "Terraform Associate"
+
+    experience_requirements:
+      years_experience: 8
+      specific_experience:
+        - "6+ years cloud infrastructure"
+        - "4+ years cloud security"
+        - "3+ years security architecture"
+
+  # =============================================
+  # GOVERNANCE, RISK & COMPLIANCE ROLES
+  # =============================================
+  - role_id: "GRC-001"
+    role_name: "Security Compliance Manager"
+    role_type: "Management"
+    status: "Active"
+
+    business_function: "Governance, Risk & Compliance"
+    department: "Information Security"
+    reports_to: "CISO"
+
+    description: |
+      Manages security compliance programs including SOC 2, ISO 27001, PCI DSS,
+      and other regulatory requirements. Coordinates audits and ensures ongoing
+      compliance.
+
+    responsibilities:
+      primary:
+        - "Manage compliance programs (SOC 2, ISO 27001, PCI DSS)"
+        - "Coordinate internal and external audits"
+        - "Maintain compliance documentation and evidence"
+        - "Implement compliance controls and frameworks"
+        - "Track and report compliance metrics"
+        - "Conduct risk assessments"
+
+      secondary:
+        - "Develop security policies and procedures"
+        - "Provide compliance training"
+        - "Manage vendor risk assessments"
+
+    required_skills:
+      technical:
+        - "Compliance frameworks (SOC 2, ISO 27001, PCI DSS, NIST)"
+        - "GRC platforms (Archer, ServiceNow GRC, Vanta)"
+        - "Risk assessment methodologies"
+        - "Audit management"
+
+      business:
+        - "Project management"
+        - "Stakeholder management"
+        - "Documentation and reporting"
+
+      certifications_required:
+        - "CISSP, CISA, or CRISC"
+
+      certifications_preferred:
+        - "ISO 27001 Lead Auditor"
+        - "CISM"
+
+    experience_requirements:
+      years_experience: 7
+      specific_experience:
+        - "5+ years compliance or audit"
+        - "3+ years managing audit programs"
+
+  - role_id: "GRC-002"
+    role_name: "Security Compliance Analyst"
+    role_type: "Individual Contributor"
+    level: "Mid-Level"
+    status: "Active"
+
+    business_function: "Governance, Risk & Compliance"
+    department: "Information Security"
+    reports_to: "Security Compliance Manager"
+
+    description: |
+      Supports compliance programs by collecting evidence, tracking controls,
+      conducting assessments, and maintaining compliance documentation.
+
+    responsibilities:
+      primary:
+        - "Collect and organize compliance evidence"
+        - "Track control implementation and effectiveness"
+        - "Conduct security and privacy assessments"
+        - "Maintain compliance documentation"
+        - "Support audit activities"
+        - "Monitor compliance metrics and KPIs"
+
+    required_skills:
+      technical:
+        - "Compliance frameworks understanding"
+        - "GRC tools"
+        - "Assessment methodologies"
+
+      certifications_required:
+        - "Security+ or CISA"
+
+      certifications_preferred:
+        - "CISSP"
+        - "ISO 27001"
+
+    experience_requirements:
+      years_experience: 3
+      specific_experience:
+        - "2+ years compliance or audit"
+
+  # =============================================
+  # IDENTITY & ACCESS MANAGEMENT ROLES
+  # =============================================
+  - role_id: "IAM-001"
+    role_name: "IAM Engineer"
+    role_type: "Individual Contributor"
+    level: "Mid-Senior"
+    status: "Active"
+
+    business_function: "Identity and Access Management"
+    department: "Information Security"
+    reports_to: "Security Manager"
+
+    description: |
+      Designs, implements, and maintains identity and access management systems,
+      including SSO, MFA, privileged access management, and directory services.
+
+    responsibilities:
+      primary:
+        - "Implement and maintain IAM solutions (Okta, Azure AD)"
+        - "Configure SSO and MFA for applications"
+        - "Manage privileged access management (PAM) systems"
+        - "Implement RBAC and ABAC policies"
+        - "Conduct access reviews and certifications"
+        - "Automate identity lifecycle management"
+
+      secondary:
+        - "Integrate new applications with IAM"
+        - "Develop IAM standards and procedures"
+        - "Support compliance audits"
+
+    required_skills:
+      technical:
+        - "Identity providers (Okta, Azure AD, Ping)"
+        - "SSO protocols (SAML, OIDC, OAuth)"
+        - "Directory services (LDAP, Active Directory)"
+        - "PAM solutions (CyberArk, BeyondTrust)"
+        - "API integration and automation"
+        - "Scripting (Python, PowerShell)"
+
+      certifications_required:
+        - "Okta Certified Professional or equivalent"
+
+      certifications_preferred:
+        - "CISSP"
+        - "Azure Security Engineer"
+
+    experience_requirements:
+      years_experience: 5
+      specific_experience:
+        - "4+ years IAM engineering"
+        - "2+ years with enterprise IAM platforms"
+
+  # =============================================
+  # SECURITY ARCHITECTURE ROLES
+  # =============================================
+  - role_id: "ARCH-001"
+    role_name: "Security Architect"
+    role_type: "Individual Contributor"
+    level: "Senior/Principal"
+    status: "Active"
+
+    business_function: "Security Architecture"
+    department: "Information Security"
+    reports_to: "CISO"
+
+    description: |
+      Defines and maintains enterprise security architecture, evaluates security
+      implications of technology decisions, and provides security guidance for
+      major initiatives.
+
+    responsibilities:
+      primary:
+        - "Define enterprise security architecture and standards"
+        - "Review and approve security designs for major initiatives"
+        - "Conduct security architecture reviews"
+        - "Evaluate emerging security technologies"
+        - "Develop security reference architectures"
+        - "Provide security consultation to engineering teams"
+
+      secondary:
+        - "Lead security architecture working groups"
+        - "Participate in enterprise architecture governance"
+        - "Develop threat models"
+
+    required_skills:
+      technical:
+        - "Enterprise security architecture"
+        - "Zero Trust architectures"
+        - "Cloud security (multi-cloud)"
+        - "Network security design"
+        - "Application security architecture"
+        - "Threat modeling (STRIDE, PASTA)"
+
+      certifications_required:
+        - "CISSP-ISSAP or SABSA"
+
+      certifications_preferred:
+        - "TOGAF"
+        - "Cloud architecture certifications"
+
+    experience_requirements:
+      years_experience: 12
+      specific_experience:
+        - "10+ years security or architecture"
+        - "5+ years security architecture"
+        - "3+ years enterprise architecture"
+
+  # =============================================
+  # PENETRATION TESTING / RED TEAM ROLES
+  # =============================================
+  - role_id: "PENTEST-001"
+    role_name: "Senior Penetration Tester"
+    role_type: "Individual Contributor"
+    level: "Senior"
+    status: "Active"
+
+    business_function: "Offensive Security"
+    department: "Information Security"
+    reports_to: "Security Manager"
+
+    description: |
+      Conducts advanced penetration testing and security assessments across
+      applications, infrastructure, and networks. Simulates real-world attacks
+      to identify vulnerabilities.
+
+    responsibilities:
+      primary:
+        - "Conduct penetration tests (web, mobile, API, infrastructure)"
+        - "Perform red team exercises"
+        - "Identify and exploit vulnerabilities"
+        - "Develop proof-of-concept exploits"
+        - "Write detailed technical reports"
+        - "Provide remediation guidance to development teams"
+
+      secondary:
+        - "Develop custom testing tools and scripts"
+        - "Participate in purple team exercises"
+        - "Conduct security training for developers"
+
+    required_skills:
+      technical:
+        - "Advanced penetration testing methodologies"
+        - "Vulnerability assessment and exploitation"
+        - "Web application testing (OWASP)"
+        - "Network penetration testing"
+        - "Active Directory attacks"
+        - "Cloud penetration testing"
+        - "Social engineering techniques"
+
+      programming_languages:
+        - "Python"
+        - "Bash/PowerShell"
+        - "Go or C/C++"
+
+      certifications_required:
+        - "OSCP"
+
+      certifications_preferred:
+        - "OSEP, OSED, or OSWE"
+        - "GPEN, GXPN, or GWAPT"
+
+    experience_requirements:
+      years_experience: 6
+      specific_experience:
+        - "5+ years penetration testing"
+        - "Experience with multiple attack techniques and tools"
+
+    typical_tools_systems:
+      - "Burp Suite Professional"
+      - "Metasploit Framework"
+      - "Cobalt Strike"
+      - "BloodHound / SharpHound"
+      - "Custom exploitation tools"
+
+  # =============================================
+  # THREAT INTELLIGENCE ROLES
+  # =============================================
+  - role_id: "TI-001"
+    role_name: "Threat Intelligence Analyst"
+    role_type: "Individual Contributor"
+    level: "Mid-Senior"
+    status: "Active"
+
+    business_function: "Threat Intelligence"
+    department: "Information Security"
+    reports_to: "Security Manager"
+
+    description: |
+      Collects, analyzes, and disseminates threat intelligence to support
+      detection, response, and strategic security decisions.
+
+    responsibilities:
+      primary:
+        - "Monitor threat landscape for relevant threats"
+        - "Analyze threat actor tactics, techniques, and procedures (TTPs)"
+        - "Produce tactical, operational, and strategic intelligence reports"
+        - "Maintain threat intelligence platforms"
+        - "Collaborate with SOC on threat hunting"
+        - "Share intelligence with industry peers and ISACs"
+
+      secondary:
+        - "Develop detection signatures based on threat intelligence"
+        - "Conduct malware analysis"
+        - "Support incident response with threat context"
+
+    required_skills:
+      technical:
+        - "Threat intelligence platforms (MISP, ThreatConnect)"
+        - "MITRE ATT&CK framework"
+        - "OSINT collection and analysis"
+        - "Malware analysis basics"
+        - "Indicator enrichment and analysis"
+
+      analysis_skills:
+        - "Intelligence analysis methodologies"
+        - "Threat actor profiling"
+        - "Geopolitical analysis"
+
+      certifications_required:
+        - "GCTI or equivalent"
+
+      certifications_preferred:
+        - "GIAC GREM"
+        - "Intelligence certifications"
+
+    experience_requirements:
+      years_experience: 5
+      specific_experience:
+        - "3+ years threat intelligence or analysis"
+        - "2+ years cybersecurity operations"
+
+# ==================================================
+# ROLE HIERARCHIES AND CAREER PATHS
+# ==================================================
+
+career_paths:
+  security_operations_path:
+    entry: "SOC Analyst - Tier 1"
+    progression:
+      - level: "Entry"
+        role: "SOC Analyst - Tier 1"
+        typical_duration: "1-2 years"
+
+      - level: "Mid"
+        role: "SOC Analyst - Tier 2"
+        typical_duration: "2-3 years"
+
+      - level: "Senior"
+        role: "SOC Analyst - Tier 3"
+        typical_duration: "3+ years"
+
+      - level: "Lead"
+        role: "SOC Team Lead / Incident Response Lead"
+        typical_duration: "Variable"
+
+      - level: "Management"
+        role: "Security Manager"
+
+  engineering_path:
+    entry: "Security Engineer"
+    progression:
+      - level: "Mid"
+        role: "Security Engineer"
+        typical_duration: "2-3 years"
+
+      - level: "Senior"
+        role: "Senior Security Engineer"
+        typical_duration: "3-5 years"
+
+      - level: "Principal/Staff"
+        role: "Staff Security Engineer / Security Architect"
+        typical_duration: "5+ years"
+
+      - level: "Management"
+        role: "Security Manager / Director"
+
+  compliance_path:
+    entry: "Security Compliance Analyst"
+    progression:
+      - level: "Mid"
+        role: "Security Compliance Analyst"
+        typical_duration: "2-3 years"
+
+      - level: "Senior"
+        role: "Senior Compliance Analyst"
+        typical_duration: "3-4 years"
+
+      - level: "Management"
+        role: "Security Compliance Manager"
+
+# ==================================================
+# ROLE ASSIGNMENT POLICIES
+# ==================================================
+
+assignment_policies:
+  approval_requirements:
+    standard_roles:
+      approvers: ["Hiring Manager", "IAM Team"]
+      sla: "3 business days"
+
+    privileged_roles:
+      approvers: ["Hiring Manager", "Security Manager", "CISO"]
+      sla: "5 business days"
+      additional_requirements:
+        - "Background check completion"
+        - "Security clearance (if applicable)"
+        - "Training completion"
+
+    executive_roles:
+      approvers: ["CISO", "CEO"]
+      additional_requirements:
+        - "Enhanced background check"
+        - "Board approval (for C-level)"
+
+  onboarding_requirements:
+    all_roles:
+      - "Complete security awareness training"
+      - "Sign acceptable use policy"
+      - "MFA enrollment"
+      - "Review role-specific policies"
+
+    technical_roles:
+      - "Complete hands-on tool training"
+      - "Shadow senior team member (1 week minimum)"
+      - "Review relevant runbooks and procedures"
+
+    privileged_roles:
+      - "Enhanced security training"
+      - "Privileged access agreement signed"
+      - "Manager review of access requirements"
+
+  access_review:
+    frequency: "Quarterly"
+    scope:
+      - "Validate role assignments"
+      - "Review privileged access"
+      - "Check for role accumulation"
+      - "Verify separation of duties"
+
+    remediation_sla: "10 business days"
+
+# ==================================================
+# ROLE SEPARATION OF DUTIES MATRIX
+# ==================================================
+
+separation_of_duties:
+  conflicting_role_pairs:
+    - role_pair: ["Database Administrator", "Database Developer"]
+      reason: "Prevent unauthorized schema changes in production"
+      mitigation: "Require peer review for production changes"
+
+    - role_pair: ["Security Administrator", "System Administrator"]
+      reason: "Prevent circumvention of security controls"
+      mitigation: "Require separate individuals or manager approval for exceptions"
+
+    - role_pair: ["Developer", "Production Deployer"]
+      reason: "Prevent unauthorized code deployment"
+      mitigation: "Require DevOps or separate release manager for production"
+
+    - role_pair: ["Security Auditor", "Security Engineer"]
+      reason: "Maintain audit independence"
+      mitigation: "Strict separation; no exceptions"
+
+  allowed_combinations:
+    - roles: ["Security Engineer", "Incident Responder"]
+      justification: "Complementary skillsets for security operations"
+
+    - roles: ["Cloud Security Engineer", "Security Architect"]
+      justification: "Overlapping responsibilities in small teams"
+      constraint: "Requires manager approval"
+
+# ==================================================
+# DEPRECATED ROLES
+# ==================================================
+
+deprecated_roles:
+  - role_id: "DEP-001"
+    role_name: "Security Administrator (Legacy)"
+    deprecated_date: "2024-06-01"
+    replacement_role: "Security Engineer"
+    reason: "Consolidated into Security Engineer role with clearer responsibilities"
+    migration_plan: "All users transitioned to Security Engineer by 2024-07-01"
+
+  - role_id: "DEP-002"
+    role_name: "Network Security Engineer"
+    deprecated_date: "2024-05-15"
+    replacement_role: "Cloud Security Engineer"
+    reason: "Network security now integrated into cloud security role"
+
+# ==================================================
+# METRICS AND REPORTING
+# ==================================================
+
+role_metrics:
+  current_assignments:
+    total_active_users: 487
+    users_with_multiple_roles: 23
+    privileged_role_assignments: 156
+
+  role_distribution:
+    security_operations: 45
+    security_engineering: 28
+    compliance: 12
+    iam: 8
+    architecture: 5
+    penetration_testing: 6
+    management: 9
+
+  access_review_compliance:
+    last_review_date: "2024-10-01"
+    completion_rate: "98%"
+    findings_remediated: "45/47"
+
+# Change History
+change_history:
+  - version: "2.4.0"
+    date: "2024-10-26"
+    author: "Patricia Williams - IAM Director"
+    changes: |
+      - Added 4 new roles for cloud security specialization
+      - Updated certification requirements for all engineering roles
+      - Enhanced career path definitions
+      - Added separation of duties matrix
+    approver: "Michael Zhang - CISO"
+
+  - version: "2.0.0"
+    date: "2024-06-01"
+    author: "James Cooper - Security Architect"
+    changes: |
+      - Major restructure aligned to new security operating model
+      - Consolidated 8 legacy roles into 5 modern roles
+      - Added detailed skill and certification requirements
+      - Implemented career path framework
+    approver: "Michael Zhang - CISO"
+
+  - version: "1.0.0"
+    date: "2024-01-05"
+    author: "Patricia Williams - IAM Director"
+    changes: "Initial role catalog creation with 30 security roles"
+    approver: "Previous CISO"

@@ -1,97 +1,78 @@
 # Incident Reports
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/incident-reports.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+Incident Reports document the timeline, root cause analysis, impact assessment, and remediation actions for production incidents and outages. These reports are essential for conducting blameless postmortems, improving MTTR, preventing recurrence, and maintaining SRE and ITIL 4 incident management be
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+This artifact documents incident timeline, impact assessment, root cause analysis, and remediation actions following production incidents to enable blameless learning, prevent recurrence, improve MTTR, and maintain compliance with incident management best practices.
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- Incident timeline (detection, escalation, mitigation, resolution with timestamps)
+- Severity classification (SEV0/P0/Critical through SEV4/P4/Low)
+- Impact assessment (users affected, revenue impact, SLO consumption, duration)
+- MTTD/MTTA/MTTR metrics (Mean Time To Detect/Acknowledge/Recover)
+- Root cause analysis (5 Whys, Ishikawa diagram, contributing factors)
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered
 
-**Primary:**
-- TODO: Primary readers
+## Main Content
 
-**Secondary:**
-- TODO: Secondary readers
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
+## Best Practices
 
-## Key Findings
+**Blameless Always**: Focus on systems and processes, never blame individuals for incidents
 
-### Finding 1: [Title]
+**Timeline First**: Document detailed timeline with timestamps immediately after incident while memory is fresh
 
-**Severity**: High | Medium | Low
+**Root Cause Depth**: Use 5 Whys or similar to find true root cause, not superficial symptoms
 
-**Description:**
-<!-- TODO: Describe the finding -->
+**Action Items Required**: Every incident must produce actionable improvement items with owners and due dates
 
-**Impact:**
-<!-- TODO: Describe business or technical impact -->
+**Track to Completion**: Follow up on all action items until completed; remediation prevents recurrence
 
-**Recommendation:**
-<!-- TODO: Provide specific recommendation -->
+**Measure MTTR**: Track MTTD, MTTA, MTTR metrics to identify response improvement opportunities
 
-### Finding 2: [Title]
+**SLO Impact**: Document error budget consumption and SLI degradation during incidents
 
-<!-- Repeat structure for additional findings -->
+**Communicate Early**: Notify stakeholders immediately; transparency builds trust during incidents
 
-## Analysis
+## Related Documents
 
-<!-- TODO: Detailed analysis of findings -->
+- [Related Artifact]: Relationship description
 
-## Recommendations
+## Approvals
 
-1. **[Recommendation Title]**
-   - **Priority**: P0 | P1 | P2 | P3
-   - **Owner**: TODO: Responsible party
-   - **Timeline**: TODO: Implementation timeline
-   - **Effort**: TODO: Effort estimate
-
-## Conclusion
-
-<!-- TODO: Summarize key points and next steps -->
-
-## References
-
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/incident-reports.md` for detailed guidance
-
-## Appendix
-
-<!-- Add supporting materials as needed -->
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

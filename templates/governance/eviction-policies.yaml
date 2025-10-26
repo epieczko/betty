@@ -1,57 +1,55 @@
 # Eviction Policies
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/eviction-policies.md for complete guidance
+# See also: artifact_descriptions/eviction-policies.md for complete guidance
+
+# The Eviction Policies artifact defines strategies for removing stale, unused, or low-value data from caches, feature flag systems, and data storage layers. This artifact establishes eviction algorithm...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact defines eviction and retention policies that govern the lifecycle of cached data, feature flags, ephemeral data, and stored records. It establishes clear rules for what data to retain, when to evict or archive, and how to automate cleanup to maintain system performance, control costs, 
 
+# BEST PRACTICES
+# - Choose Appropriate Eviction Algorithm: Use LRU for general caching, LFU for stable access patterns, TTL for time-sensitive data
+# - Monitor Cache Hit Rates: Track hit rates before/after eviction changes; aim for >80% hit rate for performance-critical caches
+# - Set Memory Limits: Configure maxmemory for Redis with headroom (80-90% of available memory) to prevent OOM errors
+# - Redis Eviction Selection: Use volatile-lru for caches with explicit TTLs; allkeys-lru when all keys are candidates
+# - TTL Consistency: Set TTLs at write time; avoid infinite TTLs unless data is truly permanent
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/eviction-policies.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Cache eviction policies (LRU, LFU, LRA, TTL, random eviction)"
+      - "Redis eviction policies (volatile-lru, allkeys-lru, volatile-ttl, noeviction)"
+      - "Memcached eviction algorithms and memory management"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

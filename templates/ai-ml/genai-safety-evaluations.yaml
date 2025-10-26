@@ -1,70 +1,55 @@
 # Genai Safety Evaluations
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/genai-safety-evaluations.md for complete guidance
+# See also: artifact_descriptions/genai-safety-evaluations.md for complete guidance
+
+# The GenAI Safety Evaluations assess large language models (LLMs) and generative AI systems for safety vulnerabilities including prompt injection, jailbreaking, hallucinations, toxic content generation...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact provides comprehensive safety evaluation of LLMs and GenAI systems to identify vulnerabilities, measure safety metrics, test adversarial robustness, and validate safety controls. It supports risk-based deployment decisions and defines safety monitoring requirements for production LLMs.
 
+# BEST PRACTICES
+# - Red Team Before Deployment: Conduct structured red teaming with adversarial mindset before production deployment
+# - OWASP LLM Top 10 Coverage: Test for all OWASP LLM Top 10 vulnerabilities systematically
+# - Automated Safety Testing: Integrate safety tests (hallucination, toxicity, injection) into CI/CD pipelines
+# - Diverse Attack Vectors: Test multiple jailbreaking techniques (DAN, persona, encoding, multi-turn manipulation)
+# - Quantitative Metrics: Measure hallucination rate, toxicity scores, injection success rate, not just qualitative assessment
 
-# Assessment Overview
-assessmentType: "TODO: Type of assessment"
-assessmentDate: "{{date}}"
-assessedBy:
-  - "TODO: Assessor name and role"
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Prompt injection attacks"
+      - "Jailbreaking techniques"
+      - "Hallucination measurement"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-# Scope
-scope:
-  systemsAssessed:
-    - "TODO: System or area assessed"
-  methodology: "TODO: Assessment framework or approach"
-
-# Findings
-findings:
-  - id: "F-001"
-    title: "TODO: Finding title"
-    severity: "High"  # Low | Medium | High | Critical
-    category: "TODO: Finding category"
-    description: |
-      TODO: Detailed description
-    evidence: "TODO: Supporting evidence"
-    recommendation: "TODO: Remediation recommendation"
-    owner: "TODO: Remediation owner"
-    targetDate: "{{date}}"
-
-# Summary
-summary:
-  overallRating: "TODO: Overall assessment result"
-  keyFindings:
-    - "TODO: Key finding 1"
-  priorityActions:
-    - "TODO: Priority action 1"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

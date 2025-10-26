@@ -1,51 +1,55 @@
 # Logging Taxonomy
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/logging-taxonomy.md for complete guidance
+# See also: artifact_descriptions/logging-taxonomy.md for complete guidance
+
+# The Logging Taxonomy defines standardized logging practices including structured logging formats (JSON), log levels (TRACE, DEBUG, INFO, WARN, ERROR, FATAL), semantic field naming, and log aggregation...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact standardizes log message formats, field names, log levels, and logging patterns across applications and infrastructure. It defines JSON structured logging schemas, required/optional fields (timestamp, level, message, service, trace_id), log level usage guidelines, PII redaction rules, 
 
+# BEST PRACTICES
+# - Structured JSON: Always use JSON format with consistent field names; never use plain text logs in production
+# - ISO 8601 Timestamps: Use RFC3339/ISO 8601 timestamps with UTC timezone (2024-01-15T10:30:00Z)
+# - Log Level Discipline: DEBUG/TRACE off in production; INFO for business events; WARN for degraded state; ERROR for failures
+# - Trace Correlation: Include trace_id, span_id in all logs when request context available (OpenTelemetry auto-instrumenta
+# - Required Fields: Always include: timestamp, level, service, environment, version, message, logger
 
-# Log Entries
-entries:
-  - id: "001"
-    date: "{{date}}"
-    category: "TODO: Category"  # Risk | Issue | Decision | Change
-    title: "TODO: Entry title"
-    description: |
-      TODO: Detailed description
-    status: "Open"  # Open | In Progress | Resolved | Closed
-    owner: "TODO: Owner"
-    priority: "Medium"  # Low | Medium | High | Critical
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "JSON structured logging format with standard fields (timestamp, level, logger, m"
+      - "Log levels"
+      - "OpenTelemetry logs integration with trace_id, span_id for logs-traces correlatio"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  # Add more entries as needed
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

@@ -1,70 +1,55 @@
 # Evaluation Protocols
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/evaluation-protocols.md for complete guidance
+# See also: artifact_descriptions/evaluation-protocols.md for complete guidance
+
+# The Evaluation Protocols artifact defines standardized methodologies for evaluating machine learning models, AI systems, and data products throughout their lifecycle. This artifact establishes consist...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact establishes standardized evaluation procedures for ML models and AI systems, defining performance metrics, test datasets, validation strategies, and acceptance criteria that determine model readiness for production deployment. It ensures consistent, rigorous, and fair model evaluation 
 
+# BEST PRACTICES
+# - Establish Baselines: Always compare against simple baseline models (random, most-frequent, mean prediction) before deploy
+# - Multiple Metrics: Use multiple complementary metrics; single metric optimization can hide important model weaknesses
+# - Stratified Evaluation: Report metrics broken down by key segments (demographics, geography, time periods) to detect bias
+# - Temporal Validation: Use time-based train/test splits for time-series or sequential data to prevent data leakage
+# - Calibration Checks: Verify predicted probabilities are well-calibrated using reliability diagrams and Brier scores
 
-# Assessment Overview
-assessmentType: "TODO: Type of assessment"
-assessmentDate: "{{date}}"
-assessedBy:
-  - "TODO: Assessor name and role"
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Model evaluation metrics (classification, regression, ranking, NLP, computer vis"
+      - "Test dataset design (holdout sets, k-fold cross-validation, temporal splits)"
+      - "Offline evaluation procedures (batch evaluation on historical data)"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-# Scope
-scope:
-  systemsAssessed:
-    - "TODO: System or area assessed"
-  methodology: "TODO: Assessment framework or approach"
-
-# Findings
-findings:
-  - id: "F-001"
-    title: "TODO: Finding title"
-    severity: "High"  # Low | Medium | High | Critical
-    category: "TODO: Finding category"
-    description: |
-      TODO: Detailed description
-    evidence: "TODO: Supporting evidence"
-    recommendation: "TODO: Remediation recommendation"
-    owner: "TODO: Remediation owner"
-    targetDate: "{{date}}"
-
-# Summary
-summary:
-  overallRating: "TODO: Overall assessment result"
-  keyFindings:
-    - "TODO: Key finding 1"
-  priorityActions:
-    - "TODO: Priority action 1"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

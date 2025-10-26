@@ -1,57 +1,295 @@
 # Threat Model
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/threat-model.md for complete guidance
+# See also: artifact_descriptions/threat-model.md for complete guidance
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
 
   # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
-  approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+  author: "Security Architect Name"
+  securityReviewer: "Security Team Lead"
+  documentOwner: "Product Security Team"
+  classification: "Confidential"
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+  # System Under Analysis
+  systemName: "System or Application Name"
+  systemVersion: "1.0.0"
+  environment: "Production | Staging | Development"
 
+# Threat Modeling Methodology
+methodology: "STRIDE"  # STRIDE | PASTA | LINDDUN | Attack Trees
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/threat-model.md for detailed structure
+# System Overview
+system:
+  description: |
+    Brief description of the system being threat modeled.
+    What does it do? Who uses it? What data does it process?
 
-content:
-  overview: |
-    TODO: Provide overview
+  boundaries:
+    - name: "External Network Boundary"
+      description: "Separates internet from DMZ"
+      trustLevel: "Untrusted → Trusted"
 
-  details: |
-    TODO: Add detailed content
+    - name: "DMZ to Internal Network"
+      description: "Separates DMZ from internal systems"
+      trustLevel: "Low Trust → High Trust"
 
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
+  components:
+    - name: "Web Application Server"
+      type: "Web Service"
+      location: "DMZ"
+      technologies: ["Node.js", "Express"]
+      dataProcessed: ["User credentials", "Session tokens"]
+
+    - name: "Database Server"
+      type: "Data Store"
+      location: "Internal Network"
+      technologies: ["PostgreSQL"]
+      dataProcessed: ["User PII", "Financial records"]
+
+  dataFlows:
+    - id: "DF-001"
+      source: "Internet User"
+      destination: "Web Application Server"
+      protocol: "HTTPS"
+      dataClassification: "Public | Internal | Confidential"
+      authentication: "Required | Optional | None"
+
+# Assets
+assets:
+  - id: "ASSET-001"
+    name: "User Credentials Database"
+    type: "Data Store"
+    classification: "Highly Confidential"
+    businessValue: "Critical"
+    owner: "Security Team"
+
+  - id: "ASSET-002"
+    name: "Payment Processing API Keys"
+    type: "Credentials"
+    classification: "Restricted"
+    businessValue: "Critical"
+    owner: "Finance Team"
+
+# Threat Actors
+threatActors:
+  - name: "External Attacker"
+    type: "Opportunistic"
+    motivation: "Financial gain"
+    capabilities: "Medium"  # Low | Medium | High | Advanced
+    resources: "Limited"
+
+  - name: "Insider Threat"
+    type: "Malicious Insider"
+    motivation: "Data theft, sabotage"
+    capabilities: "High"
+    resources: "Privileged access"
+
+# Threats (STRIDE Framework)
+threats:
+  # Spoofing Identity
+  - id: "THREAT-001"
+    title: "Attacker spoofs legitimate user identity"
+    strideCategory: "Spoofing"
+    description: |
+      An attacker could steal or guess user credentials to impersonate
+      a legitimate user and gain unauthorized access to the system.
+
+    affectedAssets: ["ASSET-001"]
+    affectedComponents: ["Web Application Server"]
+    threatActor: "External Attacker"
+
+    attackScenario: |
+      1. Attacker performs credential stuffing attack
+      2. Obtains valid username/password combination
+      3. Logs in as legitimate user
+      4. Accesses sensitive user data
+
+    # DREAD Risk Rating
+    dread:
+      damage: 8              # 1-10 scale
+      reproducibility: 7
+      exploitability: 6
+      affectedUsers: 9
+      discoverability: 5
+      total: 35             # Sum / 5 = 7.0 (High)
+      rating: "High"        # Low (0-3.3) | Medium (3.4-6.6) | High (6.7-10)
+
+    # Alternative: CVSS Score
+    cvss:
+      vector: "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N"
+      score: 9.1
+      severity: "Critical"
+
+    mitigations:
+      - id: "MIT-001"
+        control: "Implement multi-factor authentication (MFA)"
+        type: "Preventive"
+        status: "Planned"
+        owner: "Engineering Team"
+        dueDate: "YYYY-MM-DD"
+
+      - id: "MIT-002"
+        control: "Rate limiting on login attempts"
+        type: "Detective"
+        status: "Implemented"
+        owner: "Security Team"
+        effectiveness: "Medium"
+
+    residualRisk: "Medium"  # After mitigations applied
+    mitreAttack: "T1110.003"  # Password Spraying
+
+  # Tampering with Data
+  - id: "THREAT-002"
+    title: "Unauthorized modification of data in transit"
+    strideCategory: "Tampering"
+    description: |
+      Attacker performs man-in-the-middle attack to intercept and
+      modify data being transmitted between client and server.
+
+    affectedAssets: ["ASSET-001"]
+    affectedComponents: ["Web Application Server"]
+    threatActor: "External Attacker"
+
+    dread:
+      damage: 7
+      reproducibility: 4
+      exploitability: 5
+      affectedUsers: 8
+      discoverability: 6
+      total: 30
+      rating: "Medium"
+
+    mitigations:
+      - id: "MIT-003"
+        control: "Enforce TLS 1.3 for all communications"
+        type: "Preventive"
+        status: "Implemented"
+        effectiveness: "High"
+
+      - id: "MIT-004"
+        control: "Implement certificate pinning in mobile apps"
+        type: "Preventive"
+        status: "Planned"
+        owner: "Mobile Team"
+
+    residualRisk: "Low"
+    mitreAttack: "T1557"  # Man-in-the-Middle
+
+  # Repudiation
+  - id: "THREAT-003"
+    title: "User denies performing unauthorized action"
+    strideCategory: "Repudiation"
+    description: "Insufficient audit logging allows users to deny actions"
+
+    affectedAssets: []
+    affectedComponents: ["Web Application Server", "Database Server"]
+
+    dread:
+      damage: 6
+      reproducibility: 8
+      exploitability: 7
+      affectedUsers: 5
+      discoverability: 4
+      total: 30
+      rating: "Medium"
+
+    mitigations:
+      - id: "MIT-005"
+        control: "Comprehensive audit logging of all user actions"
+        type: "Detective"
+        status: "In Progress"
+        owner: "Engineering Team"
+
+      - id: "MIT-006"
+        control: "Tamper-proof log storage with integrity checking"
+        type: "Detective"
+        status: "Planned"
+
+    residualRisk: "Low"
+
+# Security Controls (Mapped to Threats)
+securityControls:
+  - id: "CTRL-001"
+    name: "Multi-Factor Authentication"
+    type: "Preventive"
+    category: "Authentication"
+    implementation: "Auth0 MFA"
+    threatsAddressed: ["THREAT-001"]
+    status: "Planned"
+
+  - id: "CTRL-002"
+    name: "TLS 1.3 Encryption"
+    type: "Preventive"
+    category: "Cryptography"
+    implementation: "NGINX with TLS 1.3"
+    threatsAddressed: ["THREAT-002"]
+    status: "Implemented"
+
+# Attack Trees (Optional detailed analysis)
+attackTrees:
+  - goal: "Gain unauthorized access to user data"
+    rootNode:
+      description: "Compromise user account"
+      operator: "OR"
+      children:
+        - description: "Steal credentials"
+          operator: "OR"
+          children:
+            - description: "Phishing attack"
+              likelihood: "High"
+              impact: "High"
+            - description: "Credential stuffing"
+              likelihood: "Medium"
+              impact: "High"
+
+        - description: "Exploit authentication bypass"
+          likelihood: "Low"
+          impact: "Critical"
+
+# Risk Summary
+riskSummary:
+  critical: 0
+  high: 1
+  medium: 2
+  low: 0
+
+  overallRiskRating: "High"
+
+  topRisks:
+    - threatId: "THREAT-001"
+      summary: "Credential theft leading to account compromise"
+      priority: 1
 
 # Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
+recommendations:
+  - priority: "P0"
+    action: "Implement MFA for all user accounts"
+    owner: "Engineering Team"
+    dueDate: "YYYY-MM-DD"
 
-# Notes
-notes: |
-  TODO: Add any additional notes or context
+  - priority: "P1"
+    action: "Conduct penetration test focusing on authentication"
+    owner: "Security Team"
+    dueDate: "YYYY-MM-DD"
+
+# Approvals
+approvals:
+  - role: "Security Architect"
+    name: "Name"
+    date: null
+    status: "Pending"
+
+  - role: "CISO"
+    name: "Name"
+    date: null
+    status: "Pending"
 
 # Change History
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
-    changes: "Initial version"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial threat model"

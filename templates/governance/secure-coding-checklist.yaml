@@ -1,57 +1,55 @@
 # Secure Coding Checklist
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/secure-coding-checklist.md for complete guidance
+# See also: artifact_descriptions/secure-coding-checklist.md for complete guidance
+
+# The Secure Coding Checklist is a critical security deliverable that ensures software development practices adhere to industry-recognized secure coding standards, preventing common vulnerabilities befo...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as a systematic verification checklist ensuring code adheres to secure coding standards, preventing injection attacks (SQL, XSS, Command), broken authentication, security misconfigurations, insecure deserialization, XML External Entity (XXE) attacks, and other OWASP Top 10 vulne
 
+# BEST PRACTICES
+# - SAST Integration: Integrate static analysis tools (SonarQube, Checkmarx, Snyk Code) into CI/CD pipelines with quality 
+# - OWASP Top 10 Mapping: Map each checklist item to specific OWASP Top 10 and CWE categories for traceability and reporting
+# - Language-Specific Checks: Customize checklist per language (Python Bandit rules, JavaScript ESLint security, Java SpotBugs)
+# - Input Validation First: Prioritize allowlist-based input validation over denylist approaches; validate all inputs at trust b
+# - Cryptographic Standards: Mandate TLS 1.2+ for transport, AES-256 for encryption, secure random generation (java.security.Secu
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/secure-coding-checklist.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "OWASP Top 10 vulnerability prevention (A01-A10 coverage)"
+      - "CWE Top 25 Most Dangerous Software Weaknesses mitigation"
+      - "Input validation and sanitization (allowlist/denylist patterns)"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

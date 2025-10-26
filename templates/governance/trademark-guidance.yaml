@@ -1,57 +1,55 @@
 # Trademark Guidance
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/trademark-guidance.md for complete guidance
+# See also: artifact_descriptions/trademark-guidance.md for complete guidance
+
+# Trademark Guidance documents establish rules for using organization and third-party trademarks, logos, service marks, and brand assets in software, documentation, marketing, and community contexts. Th...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This guidance establishes permitted and prohibited uses of trademarks (word marks, logos, slogans, service marks) by internal teams, partners, community members, and third parties. It documents nominative fair use boundaries, logo usage specifications (minimum sizes, clear space, color requirements)
 
+# BEST PRACTICES
+# - Public Trademark Guidelines Page: Publish trademark policy at domain.com/trademark or /legal/trademark-policy for easy reference and l
+# - Registered Mark Documentation: Maintain registry of ® marks with USPTO registration numbers, registration dates, and renewal schedu
+# - First Use Symbol Requirements: Require ® or ™ on first prominent use in documents, presentations, and web pages (can omit in subseq
+# - Logo Asset Portal: Provide downloadable logo packages (ZIP with SVG, PNG, EPS formats) with usage guidelines PDF in bra
+# - Nominative Use Examples: Include acceptable examples: "integrates with [Trademark]", "compatible with [Product]", "migration 
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/trademark-guidance.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Trademark symbols"
+      - "Logo usage"
+      - "Nominative fair use"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

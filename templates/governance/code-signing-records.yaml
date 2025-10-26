@@ -1,57 +1,55 @@
 # Code Signing Records
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/code-signing-records.md for complete guidance
+# See also: artifact_descriptions/code-signing-records.md for complete guidance
+
+# The Code Signing Records artifact documents the usage of digital signatures to verify software authenticity, integrity, and publisher identity across platforms including Windows Authenticode, Apple De...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as authoritative documentation of code signing operations including certificate acquisition (EV, OV validation), private key protection (HSM, cloud KMS), signing workflows (automated CI/CD signing, manual signing ceremonies), timestamp authority usage (RFC 3161), and signature v
 
+# BEST PRACTICES
+# - HSM/Hardware Token Requirement: Use FIPS 140-2 Level 2+ HSM or hardware token for EV Code Signing certificates (CA/Browser Forum req
+# - Certificate Type Selection: Use EV Code Signing for public distribution (avoids SmartScreen warnings); OV acceptable for interna
+# - Private Key Protection: Never extract private keys from HSM; store in Azure Key Vault, AWS KMS, or hardware HSM; implement s
+# - Timestamp Always: Always timestamp signatures with RFC 3161 compliant TSA; enables signature validation after certific
+# - Automated Signing: Integrate signing into CI/CD (GitHub Actions, Jenkins) with HSM/KMS; avoid manual signing processes
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/code-signing-records.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Certificate lifecycle (CSR generation, CA issuance, renewal, revocation)"
+      - "Code signing certificate types (EV Code Signing, OV Code Signing, Apple Develope"
+      - "Private key storage and protection (HSM, Azure Key Vault, AWS KMS, YubiKey)"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

@@ -1,57 +1,55 @@
 # Service Dependency Graph
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/service-dependency-graph.md for complete guidance
+# See also: artifact_descriptions/service-dependency-graph.md for complete guidance
+
+# The Service Dependency Graph is a visual and machine-readable representation of all service-to-service relationships, API dependencies, database connections, message queue subscriptions, and external ...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact provides comprehensive visibility into service dependencies to support impact analysis, failure domain design, deployment orchestration, and operational troubleshooting. It solves the problem of unknown dependencies in distributed systems by automatically discovering, documenting, and 
 
+# BEST PRACTICES
+# - Automated Discovery: Use service mesh (Istio/Linkerd) and distributed tracing (Jaeger/X-Ray) for automatic dependency det
+# - Real-Time Updates: Keep graph current through continuous integration with observability platforms
+# - Multiple Views: Provide logical view (service-level), physical view (instance-level), and network view (IP/ports)
+# - Dependency Metadata: Capture call volumes, latency, error rates, timeout/retry configs for each dependency
+# - Failure Domain Mapping: Group services by failure domain boundaries (AZ, region, team, bounded context)
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/service-dependency-graph.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Synchronous service dependencies"
+      - "Asynchronous messaging dependencies"
+      - "Data dependencies"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

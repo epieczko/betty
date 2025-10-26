@@ -1,0 +1,55 @@
+# Cost Tagging Policy
+# See also: artifact_descriptions/cost-tagging-policy.md for complete guidance
+
+# The Cost Tagging Policy establishes mandatory standards for tagging cloud resources (AWS, Azure, GCP) and SaaS applications to enable accurate cost allocation, chargeback/showback, and FinOps optimiza...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This policy defines the mandatory tagging standards for all cloud and SaaS resources to enable accurate cost allocation, financial accountability, and FinOps optimization. It establishes required tags (cost center, environment, team, application), permissible values, tag inheritance rules, enforceme
+
+# BEST PRACTICES
+# - Mandatory Tag Keys: Define 5-8 mandatory tags (CostCenter, Environment, Team, Application, Owner, Project, DataClassific
+# - Environment Tag Standards: Use standardized values (prod, staging, dev, test, sandbox); avoid custom values like "production-ne
+# - CostCenter Format: Use numeric cost center codes (e.g., 10234) or department codes (eng-platform, data-analytics); avoi
+# - Team Ownership: Assign every resource to a specific team; use email distribution lists or Slack channels for contact
+# - Tag Inheritance: Leverage resource group tags (Azure), CloudFormation stack tags (AWS), namespace labels (Kubernetes)
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "AWS resource tagging (EC2, S3, RDS, Lambda, ECS, EKS resources, CloudFormation s"
+      - "Azure resource tagging (VMs, Storage, SQL, AKS, resource groups)"
+      - "GCP resource tagging (Compute Engine, Cloud Storage, BigQuery, GKE)"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

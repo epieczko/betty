@@ -1,112 +1,99 @@
 # Cost Tagging Policy
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/cost-tagging-policy.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+<!-- Provide a 2-3 paragraph overview for executive audience -->
+<!-- What is this document about and why does it matter? -->
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
-
-<!-- TODO: Explain why this document exists -->
-
-### Scope
-
-**In Scope:**
-- TODO: What is covered
-
-**Out of Scope:**
-- TODO: What is not covered
-
-### Target Audience
-
-**Primary:**
-- TODO: Primary readers
-
-**Secondary:**
-- TODO: Secondary readers
-
-
-## Policy Statement
-
-<!-- TODO: Clear, concise statement of what is required, prohibited, or permitted -->
-
-## Rationale
-
-<!-- TODO: Why this policy exists, what risks it mitigates -->
+<!-- This policy defines the mandatory tagging standards for all cloud and SaaS resources to enable accurate cost allocation, financial accountability, and FinOps optimization. It establishes required tags... -->
 
 ## Scope
 
-This policy applies to:
-- TODO: Who or what is covered
+### In Scope
 
-This policy does NOT apply to:
-- TODO: Exceptions or exclusions
+- AWS resource tagging (EC2, S3, RDS, Lambda, ECS, EKS resources, CloudFormation stacks)
+- Azure resource tagging (VMs, Storage, SQL, AKS, resource groups)
+- GCP resource tagging (Compute Engine, Cloud Storage, BigQuery, GKE)
+- Kubernetes resource labeling (namespaces, deployments, services, pods, PVCs)
+- SaaS cost allocation tags (Snowflake resource tags, Databricks cost tags, Datadog tags)
 
-## Requirements
+### Out of Scope
 
-### Requirement 1: [Title]
+- Items explicitly not covered by this artifact
 
-**Description:** TODO: Specific requirement
+## Target Audience
 
-**Rationale:** TODO: Why this is required
+### Primary Audience
 
-**Compliance:** TODO: How compliance is measured
+- FinOps Teams: Enforce tagging policy, generate chargeback reports, monitor compliance
+- Cloud Platform Engineers: Implement tag enforcement (SCPs, policies), provide tagging tooling
+- Infrastructure Engineers/SREs: Tag resources correctly, remediate non-compliant resources
 
-### Requirement 2: [Title]
+### Secondary Audience
 
-<!-- Repeat for additional requirements -->
+- Additional stakeholders who may reference this document
 
-## Roles & Responsibilities
+## [Main Section 1]
 
-| Role | Responsibilities |
-|------|------------------|
-| **[Role Name]** | TODO: What this role is responsible for |
+<!-- Complete this section with artifact-specific content -->
+<!-- Refer to the artifact description for required structure -->
 
-## Compliance & Enforcement
+## [Main Section 2]
 
-**Review Frequency:** Annual | Quarterly | Monthly
+<!-- Add additional sections as needed -->
 
-**Monitoring:** TODO: How compliance is monitored
+## Best Practices
 
-**Enforcement:** TODO: Consequences of non-compliance
+**Mandatory Tag Keys**: Define 5-8 mandatory tags (CostCenter, Environment, Team, Application, Owner, Project, DataClassification); enforce at resource creation
 
-**Exceptions:** TODO: Process for requesting exceptions
+**Environment Tag Standards**: Use standardized values (prod, staging, dev, test, sandbox); avoid custom values like "production-new" or "dev-temp"
 
-## Related Policies
+**CostCenter Format**: Use numeric cost center codes (e.g., 10234) or department codes (eng-platform, data-analytics); avoid free-form text
 
-- [Policy Name]: Description and link
+**Team Ownership**: Assign every resource to a specific team; use email distribution lists or Slack channels for contact
 
-## References
+**Tag Inheritance**: Leverage resource group tags (Azure), CloudFormation stack tags (AWS), namespace labels (Kubernetes) to reduce manual tagging
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/cost-tagging-policy.md` for detailed guidance
+## Quality Checklist
 
-## Appendix
+Before finalizing this artifact, verify:
 
-<!-- Add supporting materials as needed -->
+- [ ] **Completeness**: All required sections present and adequately detailed
+- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
+- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
+- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
+- [ ] **Currency**: Based on current information; outdated content removed or updated
+
+## Related Documents
+
+- [Related Artifact]: Description and relationship
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | Name | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

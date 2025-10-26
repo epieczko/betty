@@ -1,89 +1,55 @@
 # Customer Onboarding Plan
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/customer-onboarding-plan.md for complete guidance
+# See also: artifact_descriptions/customer-onboarding-plan.md for complete guidance
+
+# The Customer Onboarding Plan defines the comprehensive strategy, touchpoints, resources, and success metrics for transitioning new customers from signed contract to active product adoption and value r...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as the authoritative blueprint for customer onboarding orchestration, defining the end-to-end journey from contract signature through successful product adoption and business outcome achievement. It solves the coordination challenge across Sales, Customer Success, Implementation
 
+# BEST PRACTICES
+# - Customer Segmentation: Define 2-4 distinct onboarding tracks (Enterprise, Mid-Market, SMB, Self-Serve) with tailored touchp
+# - Time-to-Value Focus: Establish clear "aha moments" and first-value milestones within 7-14 days, ensuring customers experi
+# - Proactive Communication: Define cadence of touchpoints (kickoff, weekly check-ins, milestone reviews) preventing customer dis
+# - Sales Handoff Rigor: Implement structured handoff process with documented customer goals, success criteria, stakeholder m
+# - Health Scoring: Implement multi-dimensional health scores tracking product usage, engagement levels, milestone compl
 
-# Executive Summary
-executiveSummary: |
-  TODO: 2-3 paragraph overview
-  - What is being planned
-  - Why it matters
-  - Key success criteria
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Customer onboarding journey mapping from contract signature through 30/60/90-day"
+      - "Segmentation strategies defining high-touch, low-touch, and tech-touch onboardin"
+      - "Sales-to-CS handoff processes including opportunity data transfer, customer expe"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-# Objectives
-objectives:
-  - objective: "TODO: Primary objective"
-    successCriteria:
-      - "TODO: Measurable criterion 1"
-      - "TODO: Measurable criterion 2"
-
-# Scope
-scope:
-  inScope:
-    - "TODO: What is included"
-  outOfScope:
-    - "TODO: What is excluded"
-
-# Timeline
-timeline:
-  phases:
-    - name: "Phase 1"
-      startDate: "2024-Q1"
-      endDate: "2024-Q2"
-      milestones:
-        - name: "Milestone 1"
-          date: "2024-01-31"
-          deliverables:
-            - "TODO: Deliverable"
-
-# Resources
-resources:
-  team:
-    - role: "TODO: Role"
-      allocation: "100%"  # FTE percentage
-  budget:
-    total: 0
-    breakdown:
-      - category: "Personnel"
-        amount: 0
-
-# Risks
-risks:
-  - id: "RISK-001"
-    description: "TODO: Risk description"
-    likelihood: "Medium"  # Low | Medium | High
-    impact: "High"  # Low | Medium | High
-    mitigation: "TODO: Mitigation strategy"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

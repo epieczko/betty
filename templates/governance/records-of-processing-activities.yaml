@@ -1,57 +1,55 @@
 # Records Of Processing Activities
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/records-of-processing-activities.md for complete guidance
+# See also: artifact_descriptions/records-of-processing-activities.md for complete guidance
+
+# The Records of Processing Activities (ROPA), also known as Article 30 Records or Processing Register, is a comprehensive inventory documenting all personal data processing operations conducted by an o...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as a comprehensive processing register documenting all personal data processing operations to satisfy GDPR Article 30 mandatory record-keeping requirements, enable supervisory authority examinations, support Privacy Impact Assessments, facilitate data subject rights fulfillment,
 
+# BEST PRACTICES
+# - Comprehensive Processing Inventory: Document all processing activities including customer data, employee records, marketing databases, w
+# - Article 30 Mandatory Fields: Ensure each processing activity includes purposes, legal basis, data categories, data subject catego
+# - Automated Data Discovery: Deploy BigID, OneTrust Data Discovery, or Securiti.ai to automatically identify processing activitie
+# - Business Process Alignment: Organize ROPA by business processes (customer onboarding, order processing, employee recruitment) ra
+# - Legal Basis Documentation: Clearly specify GDPR Article 6 lawful basis for each processing activity (consent, contract, legal o
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/records-of-processing-activities.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "GDPR Article 30(1) controller records (name/contact, processing purposes, data s"
+      - "GDPR Article 30(2) processor records (processor/representative name, controller "
+      - "Processing purposes and legal basis (GDPR Article 6 lawful bases"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

@@ -1,108 +1,99 @@
 # Developer Handbook
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/developer-handbook.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+<!-- Provide a 2-3 paragraph overview for executive audience -->
+<!-- What is this document about and why does it matter? -->
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+<!-- The Developer Handbook serves as the single source of truth for engineering practices, accelerating developer onboarding, standardizing development workflows, and capturing institutional knowledge abo... -->
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- Development environment setup (IDE configuration, language runtimes, development tools, local database setup)
+- Coding standards and style guides (language-specific conventions, naming conventions, code formatting, linting rules)
+- Git workflow and branching strategy (GitFlow, trunk-based development, feature branches, commit message conventions)
+- Pull request and code review process (PR templates, review checklists, approval workflows)
+- CI/CD pipeline documentation (build processes, automated testing, deployment procedures, release workflows)
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered by this artifact
 
-**Primary:**
-- TODO: Primary readers
+## Target Audience
 
-**Secondary:**
-- TODO: Secondary readers
+### Primary Audience
 
+- Software Engineers (frontend, backend, full-stack) building and maintaining applications
+- New hires onboarding to engineering team and codebase
+- Junior developers learning team standards and best practices
 
-## Overview
+### Secondary Audience
 
-<!-- TODO: Introduce what this guide covers -->
+- Additional stakeholders who may reference this document
 
-## Prerequisites
+## [Main Section 1]
 
-- TODO: What readers need to know before starting
-- TODO: Required access or tools
+<!-- Complete this section with artifact-specific content -->
+<!-- Refer to the artifact description for required structure -->
 
-## Instructions
+## [Main Section 2]
 
-### Step 1: [Step Title]
-
-**Objective:** TODO: What this step accomplishes
-
-**Instructions:**
-1. TODO: First action
-2. TODO: Second action
-3. TODO: Third action
-
-**Expected Outcome:** TODO: What should happen
-
-**Troubleshooting:**
-- **Problem**: TODO: Common issue
-  - **Solution**: TODO: How to resolve
-
-### Step 2: [Step Title]
-
-<!-- Repeat structure for additional steps -->
+<!-- Add additional sections as needed -->
 
 ## Best Practices
 
-- ✅ **DO**: TODO: Recommended practice
-- ❌ **DON'T**: TODO: Anti-pattern to avoid
+**Docs-as-Code Integration**: Store developer handbook in Git repository alongside application code (monorepo or docs repository), implement pull request workflow for documentation updates, run automated testing on documentation changes (link checking, linting, code example validation), and deploy automatically on merge to main branch
 
-## Reference
+**Onboarding-First Structure**: Design table of contents to follow new developer onboarding journey (environment setup → codebase tour → first contribution → advanced topics), create "Getting Started in 30 Minutes" quick-start guide, provide setup automation scripts (bootstrap scripts, Docker Compose environments), and maintain troubleshooting section for common setup issues
 
-### Glossary
+**Code Example Standards**: Provide complete, runnable code examples that developers can copy-paste, test all code examples in CI/CD pipeline, include language-specific syntax highlighting, show both successful and error cases, add comments explaining non-obvious code, and maintain examples for all supported languages/frameworks
 
-- **Term 1**: Definition
-- **Term 2**: Definition
+**Architecture Decision Records (ADRs)**: Document significant technical decisions using ADR format (Context, Decision, Consequences), store ADRs with documentation in version control, create ADRs before implementing major changes, link ADRs to related code via comments, and maintain ADR index for discoverability
 
-### Related Resources
+**Interactive Documentation**: Embed live code playgrounds (CodeSandbox, StackBlitz, JSFiddle), provide "Try it Now" API examples with authentication, include interactive diagrams using Mermaid or PlantUML, add copy-to-clipboard buttons for code snippets, and create video walkthroughs for complex procedures
 
-- [Resource Name](url): Description
+## Quality Checklist
 
-## References
+Before finalizing this artifact, verify:
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/developer-handbook.md` for detailed guidance
+- [ ] **Completeness**: All required sections present and adequately detailed
+- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
+- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
+- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
+- [ ] **Currency**: Based on current information; outdated content removed or updated
 
-## Appendix
+## Related Documents
 
-<!-- Add supporting materials as needed -->
+- [Related Artifact]: Description and relationship
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | Name | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

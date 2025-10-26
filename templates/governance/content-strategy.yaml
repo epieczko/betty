@@ -1,57 +1,55 @@
 # Content Strategy
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/content-strategy.md for complete guidance
+# See also: artifact_descriptions/content-strategy.md for complete guidance
+
+# Content Strategy is the systematic planning, creation, delivery, and governance of useful, usable content across the entire content lifecycle. This artifact applies frameworks from Kristina Halvorson'...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact establishes the strategic foundation for all content decisions—from information architecture and content modeling to editorial governance and measurement frameworks. It solves the "content sprawl" problem where organizations produce massive volumes of unmaintained, unfindable, or contr
 
+# BEST PRACTICES
+# - Start with Content Audit: Conduct comprehensive content inventory (quantitative) + content audit (qualitative) before strategi
+# - User Research Foundation: Base content strategy on actual user research—task analysis, search query analysis, customer support
+# - Content-First Design: Develop content strategy before visual design; "lorem ipsum" delays content problems until it's expe
+# - Define Core Model First: Establish content models (content types, attributes, relationships) early; changing content structur
+# - Structured Content Thinking: Design content as structured chunks, not pages; enables COPE (Create Once, Publish Everywhere) acros
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/content-strategy.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Content audit methodology and inventory (quantitative and qualitative analysis)"
+      - "Information architecture (IA) including taxonomy, ontology, metadata schema, and"
+      - "Content models and structured content specifications (COPE"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

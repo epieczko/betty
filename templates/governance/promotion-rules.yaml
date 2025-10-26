@@ -1,57 +1,55 @@
 # Promotion Rules
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/promotion-rules.md for complete guidance
+# See also: artifact_descriptions/promotion-rules.md for complete guidance
+
+# The Promotion Rules artifact defines policy-based governance and automated rules for environment promotions, specifying quality gates, approval requirements, security controls, testing thresholds, and...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact codifies promotion governance policies as enforceable rules using policy-as-code, defining quality thresholds, security requirements, compliance validations, and approval criteria that gate environment promotions. It enables automated, consistent policy enforcement across all promotion
 
+# BEST PRACTICES
+# - Policy as Code: Store promotion rules in Git as OPA policies, Kyverno rules, or platform-specific configurations, ve
+# - Automated Enforcement: Integrate policy evaluation into CI/CD pipelines, fail builds/deployments on policy violations
+# - Clear Feedback: Provide actionable error messages when rules fail, guide developers to remediation steps
+# - Graduated Rules: Apply stricter rules for higher environments (dev → staging → production)
+# - Risk-Based Rules: Set thresholds based on risk (critical apps require higher quality gates)
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/promotion-rules.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Quality rules"
+      - "Security rules"
+      - "Compliance rules"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

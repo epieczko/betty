@@ -1,57 +1,55 @@
 # Artifact Store Policies
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/artifact-store-policies.md for complete guidance
+# See also: artifact_descriptions/artifact-store-policies.md for complete guidance
+
+# The Artifact Store Policies defines governance for centralized storage of build outputs, dependencies, and deployable packages across the software delivery lifecycle. This policy establishes rules for...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact establishes mandatory policies for artifact storage infrastructure that supports reproducible builds, dependency management, and secure software supply chains. It defines repository types (release vs snapshot, public vs private), retention rules, caching strategies for external depende
 
+# BEST PRACTICES
+# - Repository Separation: Separate release and snapshot repositories; releases are immutable, snapshots allow overwrites for d
+# - Proxy External Dependencies: Cache Maven Central, npm registry, PyPI in internal proxy repositories; reduces external dependency 
+# - Checksum Verification: Validate SHA-256 checksums for all downloaded artifacts; reject artifacts with mismatched checksums 
+# - Retention by Stability: Keep release artifacts indefinitely or per compliance requirements (7 years); auto-delete snapshots 
+# - License Compliance Scanning: Scan all artifacts for license conflicts using FOSSA, Black Duck, or Snyk; block artifacts with non-
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/artifact-store-policies.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Universal binary repositories (JFrog Artifactory Universal, Sonatype Nexus Repos"
+      - "Package-type-specific repositories (Maven, npm, Docker, PyPI, NuGet, Helm, Go mo"
+      - "Cloud-native artifact storage (AWS CodeArtifact, Google Artifact Registry, Azure"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

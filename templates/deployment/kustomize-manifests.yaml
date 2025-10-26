@@ -1,0 +1,55 @@
+# Kustomize Manifests
+# See also: artifact_descriptions/kustomize-manifests.md for complete guidance
+
+# Kustomize Manifests are declarative Kubernetes configuration artifacts that enable template-free, environment-specific customization of YAML manifests through a layered overlay approach. As a native K...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This artifact defines the Kustomize directory structure, kustomization.yaml files, bases, overlays, patches, and resource generators that compose environment-specific Kubernetes manifests. It enables teams to maintain a single source of truth for base configurations while applying targeted customiza
+
+# BEST PRACTICES
+# - Minimal Overlays: Keep overlays small - override only what differs from base, avoiding duplication
+# - Base Reusability: Design bases to be reusable across multiple environments and teams
+# - Semantic Versioning: Version remote bases using Git tags following semantic versioning
+# - Hash Suffixes: Enable hash suffixes for ConfigMaps/Secrets to trigger rolling updates on changes
+# - Strategic Merge First: Prefer strategic merge patches over JSON patches for better readability
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "kustomization.yaml files defining resources, generators, transformers, and patch"
+      - "Base directories containing common Kubernetes manifests"
+      - "Overlay directories for environment-specific customizations (dev, staging, produ"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

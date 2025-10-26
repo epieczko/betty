@@ -1,85 +1,99 @@
 # Ddos Posture Assessments
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/ddos-posture-assessments.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+<!-- Provide a 2-3 paragraph overview for executive audience -->
+<!-- What is this document about and why does it matter? -->
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+<!-- This artifact serves as the authoritative evaluation of organizational DDoS defensive capabilities, providing systematic assessment of detection, mitigation, response, and recovery controls while iden... -->
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- Network-layer DDoS attack surface and defensive capabilities (L3/L4)
+- Application-layer DDoS protection mechanisms (L7)
+- CDN and DDoS mitigation service configurations and effectiveness
+- Traffic scrubbing and filtering capabilities across edge and core infrastructure
+- Rate limiting, connection management, and resource protection controls
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered by this artifact
 
-**Primary:**
-- TODO: Primary readers
+## Target Audience
 
-**Secondary:**
-- TODO: Secondary readers
+### Primary Audience
 
+- Chief Information Security Officer (CISO) and security leadership
+- Security Operations Center (SOC) managers and analysts
+- Network security engineers and infrastructure architects
 
-## Background
+### Secondary Audience
 
-<!-- TODO: Provide necessary background information -->
+- Additional stakeholders who may reference this document
 
-## Main Content
+## [Main Section 1]
 
-### Section 1
+<!-- Complete this section with artifact-specific content -->
+<!-- Refer to the artifact description for required structure -->
 
-<!-- TODO: Add content -->
+## [Main Section 2]
 
-### Section 2
+<!-- Add additional sections as needed -->
 
-<!-- TODO: Add content -->
+## Best Practices
 
-## Summary
+**Annual Comprehensive Assessment**: Conduct thorough annual assessments with quarterly lightweight reviews to track posture evolution
 
-<!-- TODO: Summarize key points -->
+**Multi-Layer Defense Evaluation**: Assess defenses at network edge, transit providers, CDN, application layer, and origin infrastructure
 
-## Next Steps
+**Historical Attack Analysis**: Review all DDoS incidents from the past 24 months to identify patterns and test defensive efficacy
 
-- [ ] TODO: Action item 1
-- [ ] TODO: Action item 2
+**Tabletop Exercise Validation**: Conduct realistic tabletop exercises with all response teams to validate procedures
 
-## References
+**Third-Party Service Review**: Evaluate effectiveness of CDN and DDoS mitigation service configurations and response capabilities
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/ddos-posture-assessments.md` for detailed guidance
+## Quality Checklist
 
-## Appendix
+Before finalizing this artifact, verify:
 
-<!-- Add supporting materials as needed -->
+- [ ] **Completeness**: All required sections present and adequately detailed
+- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
+- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
+- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
+- [ ] **Currency**: Based on current information; outdated content removed or updated
+
+## Related Documents
+
+- [Related Artifact]: Description and relationship
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | Name | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

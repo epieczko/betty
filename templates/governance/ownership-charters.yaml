@@ -1,74 +1,55 @@
 # Ownership Charters
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/ownership-charters.md for complete guidance
+# See also: artifact_descriptions/ownership-charters.md for complete guidance
+
+# The Ownership Charters artifact defines clear service and component ownership responsibilities across engineering teams, establishing accountability for system reliability, feature development, and op...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact establishes clear ownership for services, components, and systems across the organization, defining accountability for development, operations, reliability, security, and continuous improvement. It enables autonomous teams by clarifying responsibilities and eliminating ownership gaps t
 
+# BEST PRACTICES
+# - Ownership Assignment Principles: - **Single Team Accountability**: Each service should have exactly one team as primary owner
+# - SRE and Operational Excellence: - **SLO Ownership**: Each service owner defines and monitors SLOs (availability, latency, error rate
+# - DORA Capabilities and Metrics: - **Deployment Ownership**: Teams own their CI/CD pipelines and deployment process
+# - Incident Management Best Practices: - **Clear Escalation**: Document primary on-call, secondary backup, manager escalation
+# - Platform and Service Boundaries: - **Service Catalog**: Publish what platform teams provide and support levels
 
-# Charter Overview
-purpose: |
-  TODO: Why this initiative/body exists
-  What problem it solves or opportunity it addresses
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Service ownership mapping"
+      - "Operational accountability"
+      - "DORA DevOps capabilities"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-# Scope
-scope:
-  inScope:
-    - "TODO: Area 1 within scope"
-  outOfScope:
-    - "TODO: Area 1 explicitly excluded"
-
-# Authority & Governance
-authority:
-  sponsor: "TODO: Executive sponsor"
-  decisionAuthority: "TODO: Who can make what decisions"
-  escalationPath:
-    - level: "L1"
-      role: "TODO: First escalation point"
-
-# Objectives
-objectives:
-  - "TODO: Objective 1"
-  - "TODO: Objective 2"
-
-# Success Criteria
-successCriteria:
-  - criterion: "TODO: Measurable success criterion"
-    target: "TODO: Specific target"
-
-# Stakeholders
-stakeholders:
-  - name: "TODO: Stakeholder or group"
-    role: "TODO: Their role"
-    interest: "High"  # Low | Medium | High
-    influence: "High"  # Low | Medium | High
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

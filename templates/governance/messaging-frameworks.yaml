@@ -1,57 +1,55 @@
 # Messaging Frameworks
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/messaging-frameworks.md for complete guidance
+# See also: artifact_descriptions/messaging-frameworks.md for complete guidance
+
+# Messaging Frameworks provide the strategic architecture for how an organization talks about itself, its products, and its value—ensuring consistency across all customer touchpoints from website copy t...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact creates a single source of truth for product and company messaging that cascades across all marketing, sales, and product touchpoints. It solves the "thousand flowers blooming" problem where every team crafts different messages, leading to confused prospects who can't understand what y
 
+# BEST PRACTICES
+# - Start with Customer Insights: Base messaging on win-loss interviews, customer research, and actual buyer language; avoid inside-ou
+# - Positioning Before Messaging: Nail strategic positioning first (target audience, market category, unique value); messaging without
+# - Hierarchy is Critical: Structure messages from company level → product level → feature level; ensure alignment so every fea
+# - Proof Points Always: Every claim needs evidence—customer quote, metric, third-party validation, or comparative data; unsu
+# - Test with Real Buyers: Validate messaging with target personas using Wynter, UserTesting, or customer interviews; internal 
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/messaging-frameworks.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Message architecture and hierarchy (company > product > feature level)"
+      - "Value proposition statements and elevator pitches (30-second, 2-minute, 5-minute"
+      - "Positioning statements (For [target audience] who [statement of need], [product/"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

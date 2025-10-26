@@ -1,57 +1,55 @@
 # Provenance Attestations
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/provenance-attestations.md for complete guidance
+# See also: artifact_descriptions/provenance-attestations.md for complete guidance
+
+# The Provenance Attestations artifact provides cryptographically-signed build provenance records using SLSA (Supply-chain Levels for Software Artifacts), in-toto, and Sigstore frameworks to establish t...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as the implementation guide for generating, signing, and verifying cryptographic provenance attestations using SLSA, in-toto, and Sigstore. It documents how to instrument CI/CD pipelines to automatically generate SLSA provenance, sign artifacts with Sigstore (Cosign), and verify
 
+# BEST PRACTICES
+# - SLSA Level 2 Minimum: Achieve SLSA Level 2 (hosted build, signed provenance) as baseline for all production artifacts
+# - Keyless Signing: Use Sigstore Fulcio keyless signing to avoid long-lived private key management burden
+# - Automated Provenance: Generate SLSA provenance automatically in CI/CD; never manually create provenance
+# - Builder Identity: Use OIDC identity from GitHub Actions, GitLab CI as signer identity (no service accounts with keys)
+# - Transparency Logging: Record all signatures in Rekor transparency log for public accountability
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/provenance-attestations.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "SLSA (Supply-chain Levels for Software Artifacts) provenance generation for buil"
+      - "in-toto attestations documenting build steps and artifact transformations"
+      - "Sigstore signing (Cosign for container images, Rekor transparency log, Fulcio ke"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

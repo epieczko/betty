@@ -1,53 +1,484 @@
-# Requirements Traceability Matrix
-# Auto-generated template - Customize for your needs
+# Requirements Traceability Matrix (RTM)
+# Bidirectional traceability following IEEE 29148 standards
 # See artifact_descriptions/requirements-traceability-matrix.md for complete guidance
 
 metadata:
-  # Document Control
-  version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  projectName: "Mobile Banking Application"
+  version: "2.0.0"
+  created: "2024-01-10"
+  lastModified: "2024-10-22"
+  status: "Approved"
+  author: "Amanda Rodriguez, Requirements Lead"
+  documentOwner: "Product Management"
+  classification: "Internal - Confidential"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "David Kim"
+      role: "Product Director"
+      date: "2024-10-20"
+      status: "Approved"
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+project:
+  name: "Next-Gen Mobile Banking Platform"
+  description: "iOS and Android mobile banking app with biometric authentication, P2P payments, mobile deposit, and financial insights"
+  phase: "Development (Sprint 8 of 12)"
 
+# Traceability Coverage Metrics
+coverageMetrics:
+  totalBusinessNeeds: 12
+  totalUserStories: 48
+  totalRequirements: 127
+  totalDesignElements: 89
+  totalTestCases: 342
 
-# Matrix Definition
-dimensions:
-  rows:
-    - "TODO: Row dimension 1"
-    - "TODO: Row dimension 2"
-  columns:
-    - "TODO: Column dimension 1"
-    - "TODO: Column dimension 2"
+  coverage:
+    requirementsWithTests: "124/127 (97.6%)"
+    testsWithRequirements: "338/342 (98.8%)"
+    orphanedRequirements: 3  # Requirements without test coverage
+    orphanedTests: 4  # Tests not linked to requirements
+    suspectLinks: 7  # Links affected by recent changes
 
-# Matrix Data
-data:
-  - row: "TODO: Row 1"
-    column: "TODO: Column 1"
-    value: "TODO: Value or relationship"
-    notes: "TODO: Additional context"
+  testCoverageByPriority:
+    critical: "100% (42/42 requirements)"
+    high: "98% (51/52 requirements)"
+    medium: "95% (28/29 requirements)"
+    low: "75% (3/4 requirements)"
 
-# Notes
-notes: |
-  TODO: Add any additional notes or context
+# Business Needs → User Stories → Requirements Traceability
+businessNeedsTraceability:
+  - businessNeedId: "BN-001"
+    businessNeed: "Enable instant person-to-person payments to improve customer engagement"
+    stakeholder: "Product Management, Marketing"
+    measurableGoal: "Increase app DAU (Daily Active Users) by 25%, achieve 1M P2P transactions/month"
+    priority: "Critical"
+
+    userStories:
+      - storyId: "US-010"
+        story: "As a mobile banking user, I want to send money to friends instantly, so that I can split bills and reimburse easily"
+        epic: "EP-003: Peer-to-Peer Payments"
+
+        requirements:
+          - requirementId: "REQ-P2P-001"
+            requirement: "System shall allow users to send money to other users via mobile number or email"
+            type: "Functional"
+            priority: "Must Have"
+
+            designElements:
+              - designId: "DESIGN-P2P-01"
+                design: "P2P Payment Service API"
+                artifact: "architecture/p2p-payment-service.md"
+                type: "Component Design"
+
+                implementation:
+                  - codeId: "CODE-P2P-01"
+                    module: "com.bank.p2p.PaymentService"
+                    files: ["PaymentService.java", "PaymentRepository.java", "PaymentController.java"]
+                    prNumber: "PR-1247"
+                    status: "Merged"
+
+                    tests:
+                      - testId: "TC-P2P-001"
+                        testCase: "Verify user can send $50 to recipient via mobile number"
+                        type: "Integration Test"
+                        automation: "Automated (Postman/Newman)"
+                        status: "Passed"
+                        lastRun: "2024-10-22"
+
+                      - testId: "TC-P2P-002"
+                        testCase: "Verify user can send $100 to recipient via email"
+                        type: "Integration Test"
+                        automation: "Automated"
+                        status: "Passed"
+                        lastRun: "2024-10-22"
+
+                      - testId: "TC-P2P-003"
+                        testCase: "Verify payment fails when daily limit ($1000) exceeded"
+                        type: "Integration Test"
+                        automation: "Automated"
+                        status: "Passed"
+                        lastRun: "2024-10-22"
+
+                      - testId: "TC-P2P-010"
+                        testCase: "Load test: 1000 concurrent P2P transactions"
+                        type: "Performance Test"
+                        automation: "Automated (JMeter)"
+                        status: "Passed"
+                        acceptanceCriteria: "p95 latency < 2 seconds"
+                        lastRun: "2024-10-20"
+
+          - requirementId: "REQ-P2P-002"
+            requirement: "System shall process P2P payments in real-time (< 5 seconds confirmation)"
+            type: "Non-Functional (Performance)"
+            priority: "Must Have"
+
+            designElements:
+              - designId: "DESIGN-P2P-02"
+                design: "Real-Time Payment Processing Queue (Kafka)"
+                artifact: "architecture/payment-queue-design.md"
+
+                tests:
+                  - testId: "TC-P2P-011"
+                    testCase: "Verify payment confirmation within 5 seconds"
+                    type: "Performance Test"
+                    automation: "Automated"
+                    status: "Passed"
+                    result: "Average: 2.3s, p95: 4.1s, p99: 4.8s"
+
+          - requirementId: "REQ-P2P-003"
+            requirement: "System shall send push notification to sender and recipient upon payment completion"
+            type: "Functional"
+            priority: "Should Have"
+
+            designElements:
+              - designId: "DESIGN-NOTIF-01"
+                design: "Push Notification Service (Firebase Cloud Messaging)"
+                artifact: "architecture/notification-service.md"
+
+                tests:
+                  - testId: "TC-P2P-020"
+                    testCase: "Verify sender receives push notification after payment sent"
+                    type: "Functional Test"
+                    automation: "Manual (requires device)"
+                    status: "Passed"
+
+                  - testId: "TC-P2P-021"
+                    testCase: "Verify recipient receives push notification when payment received"
+                    type: "Functional Test"
+                    automation: "Manual"
+                    status: "Passed"
+
+      - storyId: "US-011"
+        story: "As a mobile banking user, I want to request money from others, so that I can collect owed amounts easily"
+
+        requirements:
+          - requirementId: "REQ-P2P-010"
+            requirement: "System shall allow users to send payment requests with amount and note"
+            type: "Functional"
+            priority: "Should Have"
+
+            tests:
+              - testId: "TC-P2P-030"
+                testCase: "Verify user can create payment request for $25 with note"
+                type: "Functional Test"
+                automation: "Automated (Appium)"
+                status: "Passed"
+
+  - businessNeedId: "BN-002"
+    businessNeed: "Enable mobile check deposit to reduce branch traffic and improve convenience"
+    stakeholder: "Operations, Customer Experience"
+    measurableGoal: "Reduce branch check deposits by 60%, achieve 95% OCR accuracy"
+    priority: "Critical"
+
+    userStories:
+      - storyId: "US-020"
+        story: "As a mobile banking user, I want to deposit checks via photo, so that I don't need to visit a branch"
+
+        requirements:
+          - requirementId: "REQ-MCD-001"
+            requirement: "System shall capture check image (front and back) with quality validation"
+            type: "Functional"
+            priority: "Must Have"
+
+            designElements:
+              - designId: "DESIGN-MCD-01"
+                design: "Mobile Check Capture (Mitek SDK integration)"
+                artifact: "architecture/mobile-check-deposit.md"
+
+                tests:
+                  - testId: "TC-MCD-001"
+                    testCase: "Verify check front image capture with MICR line detection"
+                    type: "Functional Test"
+                    automation: "Manual (requires physical device and check)"
+                    status: "Passed"
+
+                  - testId: "TC-MCD-002"
+                    testCase: "Verify check back image capture with endorsement validation"
+                    type: "Functional Test"
+                    automation: "Manual"
+                    status: "Passed"
+
+                  - testId: "TC-MCD-003"
+                    testCase: "Verify poor quality image rejection with user guidance"
+                    type: "Functional Test"
+                    automation: "Manual"
+                    status: "Passed"
+
+          - requirementId: "REQ-MCD-002"
+            requirement: "System shall extract check details via OCR (account number, routing number, amount, payee) with 95% accuracy"
+            type: "Functional"
+            priority: "Must Have"
+
+            tests:
+              - testId: "TC-MCD-010"
+                testCase: "OCR accuracy test with 100 sample checks"
+                type: "Functional Test"
+                automation: "Automated (test image dataset)"
+                status: "Passed"
+                result: "97.3% accuracy (97/100 checks correctly parsed)"
+
+          - requirementId: "REQ-MCD-003"
+            requirement: "System shall apply daily deposit limits ($5000 per day, $10000 per month)"
+            type: "Business Rule"
+            priority: "Must Have"
+
+            tests:
+              - testId: "TC-MCD-020"
+                testCase: "Verify deposit rejected when daily limit exceeded"
+                type: "Functional Test"
+                automation: "Automated"
+                status: "Passed"
+
+  - businessNeedId: "BN-003"
+    businessNeed: "Provide biometric authentication to improve security and user experience"
+    stakeholder: "Security, Product Management"
+    measurableGoal: "70% of users enable biometrics, reduce password reset requests by 40%"
+    priority: "High"
+
+    userStories:
+      - storyId: "US-030"
+        story: "As a mobile banking user, I want to log in with Face ID/Touch ID, so that I can access my account quickly and securely"
+
+        requirements:
+          - requirementId: "REQ-AUTH-001"
+            requirement: "System shall support Face ID (iOS) and Touch ID (iOS/Android) biometric authentication"
+            type: "Functional"
+            priority: "Must Have"
+
+            designElements:
+              - designId: "DESIGN-AUTH-01"
+                design: "Biometric Authentication Service"
+                artifact: "architecture/biometric-auth.md"
+
+                tests:
+                  - testId: "TC-AUTH-001"
+                    testCase: "Verify successful login with Face ID on iPhone 14"
+                    type: "Functional Test"
+                    automation: "Manual (requires device with Face ID)"
+                    status: "Passed"
+
+                  - testId: "TC-AUTH-002"
+                    testCase: "Verify successful login with Touch ID on iPhone SE"
+                    type: "Functional Test"
+                    automation: "Manual"
+                    status: "Passed"
+
+                  - testId: "TC-AUTH-003"
+                    testCase: "Verify biometric authentication fails after 3 unsuccessful attempts, fallback to password"
+                    type: "Security Test"
+                    automation: "Manual"
+                    status: "Passed"
+
+          - requirementId: "REQ-AUTH-002"
+            requirement: "System shall encrypt biometric templates locally on device (never transmitted to server)"
+            type: "Security"
+            priority: "Must Have"
+
+            tests:
+              - testId: "TC-AUTH-010"
+                testCase: "Security audit: verify no biometric data in network traffic"
+                type: "Security Test"
+                automation: "Manual (Wireshark packet capture)"
+                status: "Passed"
+
+# Orphaned Requirements (No Test Coverage)
+orphanedRequirements:
+  - requirementId: "REQ-P2P-015"
+    requirement: "System shall support scheduled P2P payments"
+    type: "Functional"
+    priority: "Could Have"
+    reason: "Feature deprioritized to Sprint 10; tests not yet written"
+    assignedTo: "QA Team"
+    targetSprint: "Sprint 10"
+
+  - requirementId: "REQ-MCD-010"
+    requirement: "System shall detect and prevent duplicate check deposits"
+    type: "Functional"
+    priority: "Must Have"
+    reason: "Implementation delayed; integration with fraud detection service pending"
+    risk: "HIGH - duplicate deposits could result in financial loss"
+    assignedTo: "Dev Team + QA"
+    targetSprint: "Sprint 9"
+
+  - requirementId: "REQ-NOTIF-005"
+    requirement: "System shall support in-app messaging for marketing campaigns"
+    type: "Functional"
+    priority: "Nice to Have"
+    reason: "Low priority; deferred to Phase 2"
+
+# Orphaned Tests (No Requirement Link)
+orphanedTests:
+  - testId: "TC-MISC-001"
+    testCase: "Verify app displays correctly in landscape mode on iPad"
+    type: "UI Test"
+    reason: "No formal requirement documented; implied from UX design"
+    recommendation: "Create requirement REQ-UI-020 for tablet support"
+
+  - testId: "TC-PERF-050"
+    testCase: "App cold start time < 3 seconds"
+    type: "Performance Test"
+    reason: "Performance requirement not formally documented in SyRS"
+    recommendation: "Add to non-functional requirements matrix"
+
+  - testId: "TC-SEC-025"
+    testCase: "Verify app obfuscates account balance when app backgrounded"
+    type: "Security Test"
+    reason: "Security best practice; should be documented as requirement"
+    recommendation: "Add REQ-SEC-015 for screen privacy"
+
+  - testId: "TC-ACC-010"
+    testCase: "VoiceOver screen reader navigation test"
+    type: "Accessibility Test"
+    reason: "Accessibility requirement exists but not linked in RTM"
+    recommendation: "Link to REQ-ACC-001"
+
+# Suspect Links (Recent Changes Requiring Revalidation)
+suspectLinks:
+  - requirementId: "REQ-P2P-001"
+    linkedTestId: "TC-P2P-001"
+    reason: "Requirement modified 2024-10-15 to add email-based payments; test only validates mobile number"
+    recommendation: "Update TC-P2P-001 to cover both mobile and email, or create new test TC-P2P-001b"
+    assignedTo: "QA Team"
+    status: "In Progress"
+
+  - requirementId: "REQ-AUTH-001"
+    linkedDesignId: "DESIGN-AUTH-01"
+    reason: "Design updated 2024-10-18 to add Android fingerprint support; design review pending"
+    recommendation: "Requirements analyst review design change for requirement impact"
+    assignedTo: "Amanda Rodriguez"
+    status: "Pending Review"
+
+# Impact Analysis Examples
+impactAnalysisExamples:
+  - changeRequest: "CR-345: Add support for international P2P payments"
+    impactedRequirements:
+      - "REQ-P2P-001 (modify to add currency selection)"
+      - "REQ-P2P-002 (performance impact due to FX rate lookup)"
+      - "REQ-P2P-005 (new: compliance with international AML regulations)"
+    impactedDesigns:
+      - "DESIGN-P2P-01 (add FX rate service integration)"
+      - "DESIGN-P2P-03 (new: international payment routing)"
+    impactedTests:
+      - "TC-P2P-001 (modify to test USD and EUR transactions)"
+      - "TC-P2P-050 through TC-P2P-070 (new: international payment test suite)"
+    estimatedEffort: "8 story points (1 sprint)"
+    priority: "High"
+    targetRelease: "Release 3.0"
+
+# Traceability by MoSCoW Priority
+traceabilityByPriority:
+  mustHave:
+    totalRequirements: 94
+    withTests: 94
+    coverage: "100%"
+
+  shouldHave:
+    totalRequirements: 23
+    withTests: 22
+    coverage: "95.7%"
+    missingTests: ["REQ-P2P-015"]
+
+  couldHave:
+    totalRequirements: 7
+    withTests: 5
+    coverage: "71.4%"
+    missingTests: ["REQ-UI-025", "REQ-NOTIF-005"]
+
+  wontHave:
+    totalRequirements: 3
+    withTests: 3
+    coverage: "100%"
+    note: "Tests created before deprioritization decision"
+
+# Test Results Summary
+testResultsSummary:
+  totalTests: 342
+  passed: 331
+  failed: 4
+  blocked: 3
+  notRun: 4
+  passRate: "96.8%"
+
+  failedTests:
+    - testId: "TC-P2P-035"
+      testCase: "Verify payment request expiration after 7 days"
+      status: "Failed"
+      reason: "Bug BUG-892: expiration job not running; assigned to Dev Team"
+
+    - testId: "TC-MCD-025"
+      testCase: "Verify deposit holds based on customer risk profile"
+      status: "Failed"
+      reason: "Bug BUG-901: incorrect hold period calculation"
+
+    - testId: "TC-AUTH-015"
+      testCase: "Verify account lockout after 5 failed password attempts"
+      status: "Failed"
+      reason: "Bug BUG-905: lockout threshold not enforced"
+
+    - testId: "TC-PERF-020"
+      testCase: "API response time p95 < 500ms under 1000 TPS load"
+      status: "Failed"
+      reason: "Performance regression: p95 = 720ms; investigation in progress"
+
+# Regulatory Traceability (For Compliance)
+regulatoryTraceability:
+  - regulation: "PCI DSS 4.0"
+    applicableRequirements:
+      - "REQ-SEC-010: Encrypt payment card data at rest (AES-256)"
+      - "REQ-SEC-011: Mask PAN when displayed (show last 4 digits only)"
+      - "REQ-SEC-012: Tokenize card numbers for P2P (never store PAN)"
+    complianceEvidence:
+      - "TC-SEC-010: PCI data encryption test (Passed)"
+      - "TC-SEC-011: PAN masking validation (Passed)"
+      - "TC-SEC-012: Tokenization verification (Passed)"
+    auditDate: "2024-09-15"
+    auditor: "Big 4 Accounting Firm"
+    result: "Compliant - No exceptions"
+
+  - regulation: "WCAG 2.1 Level AA (Accessibility)"
+    applicableRequirements:
+      - "REQ-ACC-001: Support VoiceOver and TalkBack screen readers"
+      - "REQ-ACC-002: Minimum touch target size 44x44 pixels"
+      - "REQ-ACC-003: Color contrast ratio ≥ 4.5:1 for text"
+    complianceEvidence:
+      - "TC-ACC-001: Screen reader navigation (Passed)"
+      - "TC-ACC-002: Touch target size validation (Passed)"
+      - "TC-ACC-003: Color contrast audit with axe DevTools (Passed)"
+    auditDate: "2024-10-01"
+    result: "Compliant - 2 minor issues identified and fixed"
+
+# Traceability Tool Configuration
+toolConfiguration:
+  requirementsManagementTool: "Jira (Zephyr Scale for test management)"
+  traceabilityAutomation: "Jira advanced search and JQL queries"
+  integrations:
+    - "GitHub PR links to Jira requirements via commit messages"
+    - "Zephyr Scale test execution linked to Jira requirements"
+    - "Confluence for design documentation with requirement links"
+  reportingFrequency: "Weekly RTM coverage report to Product & QA leadership"
+
+# Best Practices Applied
+bestPracticesApplied:
+  - "Unique IDs for all traceable items (BN-xxx, US-xxx, REQ-xxx, TC-xxx, DESIGN-xxx)"
+  - "Bidirectional traceability: forward (BN → US → REQ → Design → Code → Tests) and backward (Tests → Code → Design → REQ → US → BN)"
+  - "Automated traceability where possible (GitHub PR → Jira, Test execution → Requirements)"
+  - "Regular orphan detection (weekly RTM review meetings)"
+  - "Suspect link tracking when requirements or designs change"
+  - "Impact analysis documented for all change requests"
+  - "Regulatory traceability for compliance verification"
 
 # Change History
 changeHistory:
+  - version: "2.0.0"
+    date: "2024-10-22"
+    author: "Amanda Rodriguez"
+    changes: "Sprint 8 update: added P2P payment and mobile deposit traceability; updated test results"
+
+  - version: "1.5.0"
+    date: "2024-09-15"
+    author: "Amanda Rodriguez"
+    changes: "Sprint 5 update: added biometric authentication traceability"
+
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
-    changes: "Initial version"
+    date: "2024-01-10"
+    author: "Amanda Rodriguez"
+    changes: "Initial RTM baseline for Mobile Banking 2.0 project"

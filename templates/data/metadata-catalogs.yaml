@@ -1,51 +1,55 @@
 # Metadata Catalogs
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/metadata-catalogs.md for complete guidance
+# See also: artifact_descriptions/metadata-catalogs.md for complete guidance
+
+# Metadata Catalogs are centralized inventories that document and organize technical, business, and operational metadata across data assets, systems, and analytics resources. These catalogs serve as the...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# Metadata Catalogs serve as the centralized, searchable inventory of data assets, enriched with technical specifications, business context, lineage information, and governance metadata to enable discovery, understanding, and appropriate use of organizational data.
 
+# BEST PRACTICES
+# - Automated Scanning: Use automated discovery tools to populate catalog from source systems
+# - Business Context: Enrich technical metadata with business descriptions and ownership
+# - Data Lineage: Document end-to-end data flows from source to consumption
+# - Search Optimization: Implement robust search with filters, facets, and relevance ranking
+# - Collaborative Editing: Allow business users to contribute descriptions and tag assets
 
-# Log Entries
-entries:
-  - id: "001"
-    date: "{{date}}"
-    category: "TODO: Category"  # Risk | Issue | Decision | Change
-    title: "TODO: Entry title"
-    description: |
-      TODO: Detailed description
-    status: "Open"  # Open | In Progress | Resolved | Closed
-    owner: "TODO: Owner"
-    priority: "Medium"  # Low | Medium | High | Critical
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Data source inventories (databases, data warehouses, data lakes, SaaS applicatio"
+      - "Table and column-level metadata with data types, constraints, and descriptions"
+      - "Business glossary terms and their mappings to physical data assets"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  # Add more entries as needed
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

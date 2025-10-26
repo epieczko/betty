@@ -1,57 +1,55 @@
 # Network Policies
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/network-policies.md for complete guidance
+# See also: artifact_descriptions/network-policies.md for complete guidance
+
+# Network Policies are the fundamental security constructs that implement zero-trust networking principles within Kubernetes clusters by defining granular rules for pod-to-pod, pod-to-external, and ingr...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact defines Layer 3/Layer 4 network segmentation rules that control traffic flow between pods, namespaces, and external networks within Kubernetes clusters. It implements zero-trust networking principles by specifying which workloads can communicate with each other based on labels, namespa
 
+# BEST PRACTICES
+# - Default Deny All: Implement default deny-all policies for both ingress and egress as baseline security posture
+# - Incremental Rollout: Deploy network policies incrementally, starting with audit mode before enforcement
+# - Label Standardization: Establish consistent labeling conventions for pod and namespace selectors across organization
+# - Namespace Isolation: Implement namespace-level isolation to prevent cross-tenant traffic by default
+# - DNS Allowlisting: Use FQDN-based policies (Cilium) to control egress to specific external domains
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/network-policies.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Kubernetes NetworkPolicy resources (Ingress and Egress rules)"
+      - "Calico NetworkPolicy and GlobalNetworkPolicy for advanced features"
+      - "Cilium NetworkPolicy and CiliumClusterwideNetworkPolicy with L7 awareness"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

@@ -1,0 +1,55 @@
+# Cookie Policy
+# See also: artifact_descriptions/cookie-policy.md for complete guidance
+
+# The Cookie Policy is a public-facing transparency notice disclosing website cookies, tracking technologies, and similar identifiers to satisfy ePrivacy Directive consent requirements, GDPR Article 6(1...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This artifact serves as a comprehensive transparency notice disclosing all website cookies and tracking technologies, explaining cookie purposes and categories, documenting third-party cookie setters, and enabling informed user consent through integration with cookie consent banners satisfying ePriv
+
+# BEST PRACTICES
+# - Version Control: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain comp
+# - Naming Conventions: Follow organization's document naming standards for consistency and discoverability
+# - Template Usage: Use approved templates to ensure completeness and consistency across teams
+# - Peer Review: Have at least one qualified peer review before submitting for approval
+# - Metadata Completion: Fully complete all metadata fields to enable search, classification, and lifecycle management
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Cookie categories (strictly necessary, functional/preference, analytics/performa"
+      - "First-party cookies set by website domain and third-party cookies set by externa"
+      - "HTTP cookies, Flash cookies, HTML5 local storage, session storage, and other tra"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

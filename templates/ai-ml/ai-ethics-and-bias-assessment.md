@@ -1,85 +1,78 @@
 # Ai Ethics And Bias Assessment
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/ai-ethics-and-bias-assessment.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+The AI Ethics and Bias Assessment is a critical deliverable for evaluating machine learning models and AI systems for fairness, equity, and ethical risks. This artifact provides structured analysis of protected attributes, demographic parity, disparate impact, and equalized odds across model predict
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+This artifact documents comprehensive bias and fairness analysis of ML models to identify, measure, and mitigate algorithmic discrimination across protected attributes (race, gender, age, disability). It supports go/no-go decisions for model deployment, regulatory compliance documentation, and ongoing fairness monitoring.
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- Fairness metrics analysis
+- Protected attribute analysis
+- Disparate impact testing
+- Confusion matrix by demographic groups
+- Bias detection techniques
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
-
-**Primary:**
-- TODO: Primary readers
-
-**Secondary:**
-- TODO: Secondary readers
-
-
-## Background
-
-<!-- TODO: Provide necessary background information -->
+- Items explicitly not covered
 
 ## Main Content
 
-### Section 1
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
-<!-- TODO: Add content -->
+## Best Practices
 
-### Section 2
+**Fairness Metric Selection**: Choose metrics appropriate for use case (demographic parity for equal representation, equalized odds for equal error rates); no single metric captures all fairness definitions
 
-<!-- TODO: Add content -->
+**Multiple Metrics Analysis**: Evaluate multiple fairness metrics as they can be mutually exclusive; document tradeoffs between fairness and performance
 
-## Summary
+**Intersectional Analysis**: Test for intersectional bias across compound protected classes (e.g., race AND gender); use disaggregated analysis
 
-<!-- TODO: Summarize key points -->
+**Baseline Comparison**: Compare model fairness to baseline (random classifier, simple rules, human decision-makers); establish improvement thresholds
 
-## Next Steps
+**Temporal Stability**: Test fairness across time periods and data cohorts; monitor for fairness drift in production
 
-- [ ] TODO: Action item 1
-- [ ] TODO: Action item 2
+**Proxy Variable Detection**: Use correlation analysis and SHAP values to identify features that encode protected attributes indirectly
 
-## References
+**Confusion Matrix by Group**: Always report TPR, FPR, FNR, TNR by protected class; visualize disparities with heatmaps
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/ai-ethics-and-bias-assessment.md` for detailed guidance
+**80% Rule Testing**: Apply EEOC four-fifths rule to selection rates; document when adverse impact thresholds are exceeded
 
-## Appendix
+## Related Documents
 
-<!-- Add supporting materials as needed -->
+- [Related Artifact]: Relationship description
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

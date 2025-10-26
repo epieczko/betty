@@ -1,57 +1,55 @@
 # Great Expectations Suites
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/great-expectations-suites.md for complete guidance
+# See also: artifact_descriptions/great-expectations-suites.md for complete guidance
+
+# The Great Expectations Suites artifact defines data quality validation rules, expectation suites, validation checkpoints, and automated testing procedures using Great Expectations, dbt tests, Soda Cor...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact defines comprehensive data quality validation suites that programmatically test data at rest and in motion, ensuring data meets quality standards before being consumed by downstream applications, ML models, and business intelligence tools. It prevents data quality issues from propagati
 
+# BEST PRACTICES
+# - Start with Schema Validation: Always validate schema (columns exist, types correct) before value-level validation
+# - Profile First: Use data profiling to automatically generate baseline expectations from historical data
+# - Critical vs. Warning: Distinguish critical expectations (fail pipeline) from warnings (alert but continue)
+# - Version Expectation Suites: Version control expectation suites alongside data pipeline code
+# - Test in Development: Run validation on development/staging data before deploying to production
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/great-expectations-suites.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Great Expectations expectation suites and validation definitions"
+      - "Data profiling and automatic expectation generation"
+      - "Validation checkpoints integrated into data pipelines"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

@@ -1,0 +1,55 @@
+# Service Configuration Files
+# See also: artifact_descriptions/service-configuration-files.md for complete guidance
+
+# Service Configuration Files are the foundational artifacts that define runtime behavior, environment-specific settings, and operational parameters for cloud-native applications. Primarily manifested a...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This artifact defines all configuration data required by applications and services at runtime, including environment variables, feature flags, database connection strings, API endpoints, resource limits, and sensitive credentials. It ensures configuration is externalized, versioned, and managed thro
+
+# BEST PRACTICES
+# - Never Commit Secrets: Never store unencrypted secrets in Git; use SOPS, sealed-secrets, or external secret references
+# - Immutable ConfigMaps: Use immutable ConfigMaps to prevent accidental modifications and enable safe rollbacks
+# - Least Privilege Access: Apply RBAC to restrict ConfigMap/Secret access to only authorized service accounts and users
+# - Encryption at Rest: Enable Kubernetes etcd encryption and integrate with cloud KMS providers (AWS KMS, Azure Key Vault, 
+# - Secret Rotation: Implement automated secret rotation with tools like External Secrets Operator and Vault
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Kubernetes ConfigMaps for non-sensitive application configuration"
+      - "Kubernetes Secrets (with encryption at rest via KMS or etcd encryption)"
+      - "External secret management (Vault, AWS Secrets Manager, Azure Key Vault, Google "
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

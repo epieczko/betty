@@ -1,57 +1,55 @@
 # Operational Acceptance Certificate
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/operational-acceptance-certificate.md for complete guidance
+# See also: artifact_descriptions/operational-acceptance-certificate.md for complete guidance
+
+# The Operational Acceptance Certificate is a production readiness validation artifact that verifies systems meet operational excellence criteria before SRE/Operations teams assume ongoing support respo...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as the operational readiness gate ensuring systems entering production have complete monitoring, tested recovery procedures, validated SLOs, documented runbooks, and verified operational capabilities before SRE/Operations assumes 24/7 support responsibility. It establishes accou
 
+# BEST PRACTICES
+# - SLO-First Approach: Define measurable SLOs (e.g., 99.9% availability, p95 latency <200ms) before system launch, not afte
+# - Monitoring Coverage Validation: Verify instrumentation for all critical user journeys with synthetic monitoring and real user monito
+# - Runbook Walkthrough: Require operations team to successfully execute every runbook procedure before sign-off acceptance
+# - Chaos Engineering: Conduct chaos experiments (e.g., pod failures, network partitions, zone outages) and verify system r
+# - Load Testing at Scale: Test at 150% of projected peak load to validate performance under stress conditions
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/operational-acceptance-certificate.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Service Level Objectives (SLOs) and Service Level Indicators (SLIs) definition a"
+      - "Monitoring coverage verification (metrics, logs, traces, synthetic checks)"
+      - "Alert configuration review and on-call escalation testing"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

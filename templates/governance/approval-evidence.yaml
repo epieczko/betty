@@ -1,57 +1,55 @@
 # Approval Evidence
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/approval-evidence.md for complete guidance
+# See also: artifact_descriptions/approval-evidence.md for complete guidance
+
+# The Approval Evidence artifact provides tamper-evident documentation of formal approvals required for SOC 2 Type II audits, ISO 27001 certifications, and regulatory compliance programs. This governanc...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact establishes the authoritative repository of approval records required to demonstrate compliance with SOC 2 Trust Service Criteria (particularly CC1.4, CC2.2, CC3.3), ISO 27001 Annex A controls (A.5.1, A.6.1, A.12.1), and regulatory requirements mandating documented authorization for se
 
+# BEST PRACTICES
+# - Automated Evidence Collection: Integrate approval workflows with GRC platforms (Vanta, Drata, Secureframe, ServiceNow GRC) to autom
+# - Tamper-Evident Storage: Store approval records in write-once-read-many (WORM) storage or blockchain-backed systems to preven
+# - Cryptographic Timestamping: Use RFC 3161 timestamping authorities or blockchain timestamps to create verifiable proof-of-existen
+# - Multi-Factor Approval Authentication: Require MFA for high-risk approvals (production changes, privileged access, risk acceptances) to str
+# - Segregation of Duties Validation: Implement automated checks that prevent same person from requesting and approving changes, enforcing
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/approval-evidence.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Digital signatures and e-signature platform records (DocuSign, Adobe Sign, SignN"
+      - "Email approval records with complete headers showing sender authenticity, timest"
+      - "Workflow system approvals from ServiceNow, Jira, Workday, SAP, and custom workfl"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

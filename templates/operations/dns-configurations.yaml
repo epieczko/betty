@@ -1,0 +1,55 @@
+# Dns Configurations
+# See also: artifact_descriptions/dns-configurations.md for complete guidance
+
+# DNS Configurations are the critical infrastructure artifacts that enable service discovery, load balancing, and automated certificate provisioning within cloud-native environments. Spanning from clust...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This artifact defines DNS configurations for service discovery, external DNS management, and certificate automation within Kubernetes and cloud environments. It ensures applications are addressable via human-readable names, automatically provision TLS certificates, and maintain high-availability DNS
+
+# BEST PRACTICES
+# - NodeLocal DNSCache: Deploy NodeLocal DNSCache to reduce DNS query latency and apiserver load
+# - DNS-01 for Wildcards: Use DNS-01 ACME challenges for wildcard certificates instead of HTTP-01
+# - external-dns Ownership: Configure external-dns with txt registry to prevent conflicts between multiple clusters
+# - Separate DNS Zones: Use separate DNS zones for each environment (dev, staging, production) to prevent cross-environment 
+# - Appropriate TTLs: Set short TTLs (30-60 seconds) for dynamic services, longer TTLs (300-3600 seconds) for static servi
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "CoreDNS configuration for in-cluster service discovery"
+      - "CoreDNS custom domains, conditional forwarding, and stub domains"
+      - "external-dns for automatic DNS record synchronization (Route 53, Azure DNS, Clou"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

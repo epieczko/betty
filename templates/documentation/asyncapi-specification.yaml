@@ -1,0 +1,55 @@
+# Asyncapi Specification
+# See also: artifact_descriptions/asyncapi-specification.md for complete guidance
+
+# The AsyncAPI Specification defines asynchronous, event-driven, and message-based APIs in a machine-readable format. This specification documents message channels, operations (publish/subscribe), messa...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This artifact provides a machine-readable specification for asynchronous, event-driven, and message-based APIs. It documents channels (topics, queues), operations (publish, subscribe, send, receive), message schemas, protocol bindings, and server configurations, enabling contract-first API developme
+
+# BEST PRACTICES
+# - Specification Design: - **Contract-First**: Design AsyncAPI spec before implementing producers/consumers
+# - Channel Design: - **Descriptive Names**: Use clear channel names (user.created, order.shipped)
+# - Message Schema Design: - **JSON Schema**: Use JSON Schema for validation and documentation
+# - Operations: - **Publish vs Subscribe**: Clearly distinguish publisher and subscriber operations
+# - Protocol Bindings: - **Specify Bindings**: Include protocol-specific bindings (Kafka, AMQP, MQTT)
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "AsyncAPI 2.x/3.x specification structure"
+      - "Channels/topics definition and configuration"
+      - "Operations"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

@@ -1,51 +1,55 @@
 # Network Topology Diagram
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/network-topology-diagram.md for complete guidance
+# See also: artifact_descriptions/network-topology-diagram.md for complete guidance
+
+# The Network Topology Diagram artifact provides visual representations of cloud and on-premises network architecture, documenting the logical and physical layout of network infrastructure including VPC...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact visually documents network architecture to communicate infrastructure design decisions, support security assessments and threat modeling, demonstrate compliance with network segmentation requirements (PCI DSS, HIPAA, Zero Trust), enable rapid incident response by providing clear data f
 
+# BEST PRACTICES
+# - Version Control: Store diagrams in Git alongside infrastructure-as-code, use semantic versioning, maintain diagram so
+# - Multiple View Levels: Create high-level overview for executives, detailed technical diagrams for engineers, security-focus
+# - Consistent Iconography: Use official cloud provider icons (AWS Architecture Icons, Azure Icons, GCP Icons) for consistency
+# - Color Coding: Use consistent color scheme for trust zones (red=public DMZ, yellow=private app, green=data tier, bl
+# - Layered Approach: Separate logical (VPC, subnets, routing) from physical (regions, AZs) to avoid cluttering single dia
 
-# Log Entries
-entries:
-  - id: "001"
-    date: "{{date}}"
-    category: "TODO: Category"  # Risk | Issue | Decision | Change
-    title: "TODO: Entry title"
-    description: |
-      TODO: Detailed description
-    status: "Open"  # Open | In Progress | Resolved | Closed
-    owner: "TODO: Owner"
-    priority: "Medium"  # Low | Medium | High | Critical
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Cloud network architecture (AWS VPC, Azure VNet, GCP VPC, multi-cloud topologies"
+      - "Network segmentation and trust zones (public DMZ, private app tier, data tier, m"
+      - "Availability zones, regions, and multi-region architectures"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  # Add more entries as needed
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

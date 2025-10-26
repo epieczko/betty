@@ -1,71 +1,65 @@
 # Event Schemas
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/event-schemas.md for complete guidance
+# See also: artifact_descriptions/event-schemas.md for complete guidance
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "2025-10-26"
+  schema_format: "Avro"
+  schema_registry: "Confluent Schema Registry"
+  compatibility_mode: "BACKWARD"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
-  approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
-
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
-
-
-# Specification Overview
-specificationName: "TODO: Name of what is being specified"
-version: "1.0.0"
-status: "Draft"  # Draft | Review | Approved | Deprecated
-
-# Requirements
-requirements:
-  functional:
-    - id: "FR-001"
-      requirement: "TODO: Functional requirement"
-      priority: "Must Have"  # Must Have | Should Have | Could Have
-
-  nonFunctional:
-    - id: "NFR-001"
-      category: "Performance"  # Performance | Security | Scalability | etc.
-      requirement: "TODO: Non-functional requirement"
-      metric: "TODO: How it's measured"
-      target: "TODO: Target value"
-
-# Design
-design:
-  architecture: |
-    TODO: High-level architecture description
-  components:
-    - name: "TODO: Component name"
-      purpose: "TODO: Component purpose"
-      interfaces:
-        - "TODO: Interface description"
-
-# Validation
-validation:
-  testCriteria:
-    - "TODO: How this specification will be validated"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
-changeHistory:
-  - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
-    changes: "Initial version"
+# Event Schema: OrderPlaced
+orderPlaced:
+  namespace: "com.example.orders.events"
+  name: "OrderPlaced"
+  version: "1.0.0"
+  description: "Published when customer completes order checkout"
+  
+  avro_schema: |
+    {
+      "type": "record",
+      "name": "OrderPlaced",
+      "namespace": "com.example.orders.events",
+      "doc": "Order placement event",
+      "fields": [
+        {"name": "event_id", "type": "string", "doc": "Unique event ID (UUID)"},
+        {"name": "order_id", "type": "string", "doc": "Order identifier"},
+        {"name": "customer_id", "type": "string", "doc": "Customer identifier"},
+        {"name": "order_total", "type": {"type": "bytes", "logicalType": "decimal", "precision": 10, "scale": 2}},
+        {"name": "currency", "type": "string", "default": "USD"},
+        {"name": "items", "type": {"type": "array", "items": {
+          "type": "record",
+          "name": "OrderItem",
+          "fields": [
+            {"name": "product_id", "type": "string"},
+            {"name": "quantity", "type": "int"},
+            {"name": "price", "type": {"type": "bytes", "logicalType": "decimal", "precision": 10, "scale": 2}}
+          ]
+        }}},
+        {"name": "timestamp", "type": {"type": "long", "logicalType": "timestamp-millis"}},
+        {"name": "correlation_id", "type": ["null", "string"], "default": null}
+      ]
+    }
+  
+  protobuf_schema: |
+    syntax = "proto3";
+    package com.example.orders.events;
+    
+    import "google/protobuf/timestamp.proto";
+    
+    message OrderPlaced {
+      string event_id = 1;
+      string order_id = 2;
+      string customer_id = 3;
+      double order_total = 4;
+      string currency = 5;
+      repeated OrderItem items = 6;
+      google.protobuf.Timestamp timestamp = 7;
+      optional string correlation_id = 8;
+    }
+    
+    message OrderItem {
+      string product_id = 1;
+      int32 quantity = 2;
+      double price = 3;
+    }

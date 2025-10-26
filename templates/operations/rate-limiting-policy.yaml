@@ -1,0 +1,55 @@
+# Rate Limiting Policy
+# See also: artifact_descriptions/rate-limiting-policy.md for complete guidance
+
+# The Rate Limiting Policy is a formal governance directive that establishes organizational standards for API throttling, quota management, and abuse prevention across all internal APIs, public APIs, pa...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This policy establishes mandatory requirements for rate limiting all organizational APIs to protect services from overload, ensure fair resource allocation, prevent abuse, and enable API monetization. It solves the challenge of balancing API availability with resource constraints by defining quota l
+
+# BEST PRACTICES
+# - Token Bucket Recommended: Use token bucket algorithm for most APIs - allows bursts while enforcing sustained rate
+# - Per-Consumer Rate Limiting: Rate limit by API key, user ID, or tenant - not just by IP address
+# - Multiple Time Windows: Implement rate limits at multiple granularities (per second, minute, hour, day)
+# - Generous Free Tier: Provide meaningful free tier quota for developers to build and test integrations
+# - Clear Documentation: Publish rate limits prominently in API documentation with examples
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Rate limiting algorithms"
+      - "Quota definitions"
+      - "Tiered quota models"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

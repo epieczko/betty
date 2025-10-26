@@ -1,58 +1,55 @@
 # Portfolio Roadmap
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/portfolio-roadmap.md for complete guidance
+# See also: artifact_descriptions/portfolio-roadmap.md for complete guidance
+
+# The Portfolio Roadmap is a strategic planning artifact that visualizes the product development timeline, strategic themes, major initiatives, and delivery milestones across the product portfolio. This...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as the strategic and tactical plan for product development, communicating what initiatives are being built, in what sequence, and aligned to which strategic objectives. It provides a unified view of the product portfolio, enabling resource allocation, dependency management, and 
 
+# BEST PRACTICES
+# - Version Control: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain comp
+# - Naming Conventions: Follow organization's document naming standards for consistency and discoverability
+# - Template Usage: Use approved templates to ensure completeness and consistency across teams
+# - Peer Review: Have at least one qualified peer review before submitting for approval
+# - Metadata Completion: Fully complete all metadata fields to enable search, classification, and lifecycle management
 
-# Strategic Context
-strategicAlignment:
-  objectives:
-    - "TODO: Strategic objective 1"
-    - "TODO: Strategic objective 2"
-  valueStreams:
-    - "TODO: Value stream 1"
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Now/Next/Later roadmap structure or time-boxed quarters (Q1, Q2, Q3, Q4)"
+      - "Theme-based organization (strategic themes tied to OKRs or strategic bets)"
+      - "Major initiatives, epics, and feature sets (not individual stories or tasks)"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-# Initiatives
-initiatives:
-  - id: "INIT-001"
-    name: "TODO: Initiative name"
-    description: "TODO: Describe the initiative"
-    status: "Proposed"  # Proposed | Approved | Active | Paused | Completed
-    priority: "P1"  # P0 (Critical) | P1 (High) | P2 (Medium) | P3 (Low)
-    timeline:
-      start: "2024-Q1"
-      end: "2024-Q4"
-    owner: "TODO: Business owner"
-    budget: 0  # TODO: Estimated budget
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

@@ -1,71 +1,524 @@
-# System Requirements Specification
-# Auto-generated template - Customize for your needs
+# System Requirements Specification (SyRS)
+# IEEE 29148-2018 compliant system-level requirements
 # See artifact_descriptions/system-requirements-specification.md for complete guidance
 
 metadata:
-  # Document Control
-  version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  projectName: "Healthcare Patient Portal System"
+  systemName: "NextGen Patient Portal"
+  version: "1.3.0"
+  created: "2024-03-01"
+  lastModified: "2024-10-20"
+  status: "Approved"
+  author: "Dr. Michael Zhang, Lead System Engineer"
+  documentOwner: "System Architecture Board"
+  classification: "Confidential - HIPAA PHI"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Jennifer Liu, MD"
+      role: "Chief Medical Information Officer (CMIO)"
+      date: "2024-10-18"
+      status: "Approved"
+    - name: "Robert Chen"
+      role: "VP Engineering"
+      date: "2024-10-17"
+      status: "Approved"
+    - name: "Maria Garcia"
+      role: "Security & Compliance Officer"
+      date: "2024-10-16"
+      status: "Approved with conditions"
+      conditions: "Implement FHIR R4 for all health data exchanges by Q1 2025"
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+systemOverview:
+  purpose: "Web and mobile patient portal enabling secure access to medical records, appointment scheduling, telehealth visits, prescription management, and billing for 500K+ patients"
+  scope: "Patient-facing portal integrated with Epic EHR, Cerner revenue cycle, and Zoom Healthcare telehealth platform"
+  objectives:
+    - "Improve patient engagement with self-service capabilities (reduce call center volume by 40%)"
+    - "Enable HIPAA-compliant telehealth appointments"
+    - "Provide real-time access to lab results, imaging, and clinical notes"
+    - "Streamline appointment scheduling (reduce no-show rate from 15% to 8%)"
+    - "Meet Meaningful Use Stage 3 requirements for patient portal"
+    - "Achieve patient satisfaction score > 4.5/5.0"
 
+  targetUsers:
+    - "Patients (500K active, projected 1M within 3 years)"
+    - "Authorized caregivers and family members (proxy access)"
+    - "Clinical staff (view patient-submitted forms and messages)"
+    - "IT administrators (system configuration and monitoring)"
 
-# Specification Overview
-specificationName: "TODO: Name of what is being specified"
-version: "1.0.0"
-status: "Draft"  # Draft | Review | Approved | Deprecated
+systemContext:
+  externalSystems:
+    - name: "Epic EHR"
+      interface: "HL7 v2.5.1, FHIR R4 APIs"
+      dataExchanged: "Patient demographics, clinical notes, lab results, medications, allergies, immunizations"
+      criticality: "Critical - primary source of truth for clinical data"
 
-# Requirements
-requirements:
-  functional:
-    - id: "FR-001"
-      requirement: "TODO: Functional requirement"
-      priority: "Must Have"  # Must Have | Should Have | Could Have
+    - name: "Cerner Revenue Cycle Management"
+      interface: "REST API (proprietary), HL7 ADT messages"
+      dataExchanged: "Billing statements, payment history, insurance information"
+      criticality: "High - required for billing functionality"
 
-  nonFunctional:
-    - id: "NFR-001"
-      category: "Performance"  # Performance | Security | Scalability | etc.
-      requirement: "TODO: Non-functional requirement"
-      metric: "TODO: How it's measured"
-      target: "TODO: Target value"
+    - name: "Zoom Healthcare"
+      interface: "Zoom Video SDK, OAuth 2.0"
+      dataExchanged: "Telehealth session tokens, participant information"
+      criticality: "High - enables telehealth visits"
 
-# Design
-design:
-  architecture: |
-    TODO: High-level architecture description
-  components:
-    - name: "TODO: Component name"
-      purpose: "TODO: Component purpose"
-      interfaces:
-        - "TODO: Interface description"
+    - name: "Twilio"
+      interface: "REST API, Webhooks"
+      dataExchanged: "SMS notifications, appointment reminders, MFA codes"
+      criticality: "Medium - notification channel"
 
-# Validation
-validation:
-  testCriteria:
-    - "TODO: How this specification will be validated"
+    - name: "Stripe"
+      interface: "REST API, Webhooks"
+      dataExchanged: "Payment processing, PCI-compliant card tokenization"
+      criticality: "High - payment functionality"
 
-# Notes
-notes: |
-  TODO: Add any additional notes or context
+  externalActors:
+    - "Patients: Primary users accessing health information"
+    - "Proxy Users: Authorized caregivers (parents for minors, guardians for dependents)"
+    - "Clinical Staff: Physicians, nurses reviewing patient messages"
+    - "Billing Staff: Financial counselors assisting with payment plans"
+    - "IT Operations: SRE team monitoring system health"
+
+# IEEE 29148 System Requirements
+functionalRequirements:
+  authentication:
+    - id: "SYS-FR-001"
+      requirement: "System shall authenticate users via username/password with multi-factor authentication (MFA) for initial login"
+      rationale: "HIPAA Security Rule requires strong authentication for PHI access"
+      priority: "Must Have"
+      verification: "Test"
+      acceptanceCriteria:
+        - "Support username/password with min 12 characters, complexity requirements"
+        - "MFA via SMS or authenticator app (TOTP)"
+        - "Biometric authentication for mobile apps (Face ID, Touch ID)"
+        - "Account lockout after 5 failed attempts (30-minute cooldown)"
+        - "Password reset via email with verification code"
+
+    - id: "SYS-FR-002"
+      requirement: "System shall support single sign-on (SSO) via SAML 2.0 for enterprise customers"
+      rationale: "Large employers require SSO integration for employee health portals"
+      priority: "Should Have"
+      verification: "Test, Demonstration"
+      acceptanceCriteria:
+        - "SAML 2.0 Service Provider implementation"
+        - "Support for multiple Identity Providers (IdPs) - Okta, Azure AD, Google"
+        - "Just-in-time (JIT) user provisioning from SAML assertions"
+
+  medicalRecords:
+    - id: "SYS-FR-010"
+      requirement: "System shall retrieve and display patient medical records from Epic EHR via FHIR R4 APIs within 3 seconds of request"
+      rationale: "21st Century Cures Act requires patient access to EHI without delay"
+      priority: "Must Have"
+      verification: "Test, Analysis"
+      acceptanceCriteria:
+        - "Display clinical notes within 3 seconds of request"
+        - "Display lab results with reference ranges and flagged abnormals"
+        - "Display medications with dosage, frequency, prescriber"
+        - "Display allergies with severity and reaction type"
+        - "Display immunization history with dates and lot numbers"
+        - "Support FHIR R4 resources: Patient, Condition, Observation, MedicationRequest, AllergyIntolerance, Immunization"
+
+    - id: "SYS-FR-011"
+      requirement: "System shall allow patients to download medical records in CCDA (Consolidated CDA) or FHIR JSON format"
+      rationale: "ONC Certification requires export capability in structured formats"
+      priority: "Must Have"
+      verification: "Test"
+      acceptanceCriteria:
+        - "Export as C-CDA R2.1 document"
+        - "Export as FHIR R4 JSON Bundle"
+        - "Export as PDF for human readability"
+        - "Include all available records (last 7 years per HIPAA)"
+
+    - id: "SYS-FR-012"
+      requirement: "System shall provide patient education materials linked to diagnoses from Mayo Clinic or MedlinePlus"
+      rationale: "Improve patient understanding and health literacy"
+      priority: "Could Have"
+      verification: "Demonstration"
+      acceptanceCriteria:
+        - "Link diagnoses (ICD-10 codes) to patient education content"
+        - "Display in patient's preferred language"
+
+  appointmentScheduling:
+    - id: "SYS-FR-020"
+      requirement: "System shall display provider availability from Epic EHR and allow patients to book, reschedule, or cancel appointments online"
+      rationale: "Self-service scheduling reduces call center burden and improves patient satisfaction"
+      priority: "Must Have"
+      verification: "Test"
+      acceptanceCriteria:
+        - "Display real-time provider availability (refreshed every 5 minutes)"
+        - "Support scheduling for visit types: office visit, telehealth, lab appointment"
+        - "Allow rescheduling up to 4 hours before appointment"
+        - "Allow cancellation up to 1 hour before appointment"
+        - "Send appointment confirmation via email and SMS"
+        - "Send reminder 24 hours before appointment"
+        - "Display provider profile (photo, specialty, languages, patient ratings)"
+
+    - id: "SYS-FR-021"
+      requirement: "System shall support waitlist functionality where patients can request notification if earlier appointment slots become available"
+      rationale: "Reduce no-shows by filling canceled appointments"
+      priority: "Should Have"
+      verification: "Test"
+
+  telehealth:
+    - id: "SYS-FR-030"
+      requirement: "System shall initiate HIPAA-compliant video telehealth visits via Zoom Healthcare integration"
+      rationale: "Telehealth is critical for access to care, especially in rural areas"
+      priority: "Must Have"
+      verification: "Test, Demonstration"
+      acceptanceCriteria:
+        - "Launch telehealth visit from appointment details page"
+        - "Waiting room functionality (patient waits until provider joins)"
+        - "HD video (720p minimum) and audio"
+        - "Screen sharing capability (provider can show lab results)"
+        - "Automatic session recording with BAA compliance (Zoom Healthcare)"
+        - "Session timeout after 60 minutes of inactivity"
+        - "Browser-based (no plugin required) and native mobile app support"
+
+  messaging:
+    - id: "SYS-FR-040"
+      requirement: "System shall provide secure messaging between patients and care team with message delivery confirmation"
+      rationale: "Asynchronous communication improves care coordination and reduces phone tag"
+      priority: "Must Have"
+      verification: "Test"
+      acceptanceCriteria:
+        - "Patients can send messages to provider or care team"
+        - "Message categorization (medical question, appointment, prescription, billing)"
+        - "Providers notified of new messages via in-app notification and email"
+        - "Response time SLA: urgent (4 hours), routine (24 hours)"
+        - "Message threads retain conversation history"
+        - "Attachment support (images, PDFs) up to 10MB per file"
+        - "No PHI in email notifications (notification only, view in portal)"
+
+  prescriptionManagement:
+    - id: "SYS-FR-050"
+      requirement: "System shall display current medications from Epic EHR and allow patients to request refills electronically"
+      rationale: "Medication adherence improves with easy refill process"
+      priority: "Must Have"
+      verification: "Test"
+      acceptanceCriteria:
+        - "Display active medications with dosage, frequency, remaining refills"
+        - "Request refill (sends message to provider via Epic)"
+        - "Display pharmacy information (name, address, phone)"
+        - "Allow patients to change preferred pharmacy"
+
+  billingAndPayments:
+    - id: "SYS-FR-060"
+      requirement: "System shall retrieve billing statements from Cerner and allow patients to make payments via credit card (Stripe) or ACH"
+      rationale: "Online payments reduce collection costs and improve cash flow"
+      priority: "Must Have"
+      verification: "Test"
+      acceptanceCriteria:
+        - "Display outstanding balance with itemized statements"
+        - "Payment via credit card (Visa, MasterCard, Amex, Discover)"
+        - "Payment via ACH (bank account)"
+        - "Payment plans for balances > $500 (6-month terms)"
+        - "Payment confirmation via email and SMS"
+        - "View payment history (last 24 months)"
+        - "PCI DSS Level 1 compliant (use Stripe tokenization)"
+
+  proxyAccess:
+    - id: "SYS-FR-070"
+      requirement: "System shall support proxy access where authorized caregivers can view and manage health information for dependents"
+      rationale: "Parents need access for minors; caregivers for elderly or disabled"
+      priority: "Must Have"
+      verification: "Test"
+      acceptanceCriteria:
+        - "Parent full access for children under 12"
+        - "Adolescent privacy (13-17 year-olds can restrict sensitive information)"
+        - "Caregiver access via proxy authorization form (verified by staff)"
+        - "Switch between accounts without re-authentication"
+        - "Audit log of proxy actions"
+
+# Non-Functional Requirements (System-Level)
+nonFunctionalRequirements:
+  performance:
+    - id: "SYS-NFR-001"
+      requirement: "System shall load patient dashboard within 2 seconds on broadband connection (10 Mbps)"
+      rationale: "User experience research shows 2-second load time is acceptable threshold"
+      priority: "Must Have"
+      verification: "Test"
+      measurement: "Lighthouse performance score > 85, Time to Interactive < 2s"
+
+    - id: "SYS-NFR-002"
+      requirement: "System shall support 10,000 concurrent users with < 3 second response time for API requests (p95)"
+      rationale: "Peak usage: 10K concurrent users during morning hours (8-10 AM)"
+      priority: "Must Have"
+      verification: "Test (load testing)"
+
+  availability:
+    - id: "SYS-NFR-010"
+      requirement: "System shall maintain 99.9% availability (excluding planned maintenance) measured monthly"
+      rationale: "Patients need 24/7 access to health information"
+      priority: "Must Have"
+      verification: "Demonstration, Analysis"
+      measurement: "Uptime monitoring via Pingdom, DataDog synthetic monitors"
+
+  security:
+    - id: "SYS-NFR-020"
+      requirement: "System shall encrypt all data in transit using TLS 1.3 and data at rest using AES-256"
+      rationale: "HIPAA Security Rule requires encryption of ePHI"
+      priority: "Must Have"
+      verification: "Inspection, Test"
+
+    - id: "SYS-NFR-021"
+      requirement: "System shall create audit logs for all access to PHI including user ID, timestamp, action, IP address"
+      rationale: "HIPAA Security Rule requires audit controls"
+      priority: "Must Have"
+      verification: "Test"
+      acceptanceCriteria:
+        - "Log all read/write operations on patient data"
+        - "Tamper-proof logging (write-once storage in AWS S3)"
+        - "Retention: 7 years per HIPAA"
+        - "Audit log export capability for compliance reviews"
+
+    - id: "SYS-NFR-022"
+      requirement: "System shall automatically log out inactive users after 15 minutes"
+      rationale: "HIPAA Security Rule requires automatic logoff"
+      priority: "Must Have"
+      verification: "Test"
+
+  usability:
+    - id: "SYS-NFR-030"
+      requirement: "System shall comply with WCAG 2.1 Level AA accessibility standards"
+      rationale: "Section 508 requires accessibility for federal healthcare facilities"
+      priority: "Must Have"
+      verification: "Inspection, Test"
+      acceptanceCriteria:
+        - "Keyboard navigation for all functions"
+        - "Screen reader compatible (JAWS, NVDA)"
+        - "Color contrast ratio ≥ 4.5:1"
+        - "Closed captions for instructional videos"
+
+    - id: "SYS-NFR-031"
+      requirement: "System shall support English, Spanish, Chinese (Simplified), and Vietnamese languages"
+      rationale: "Patient population demographics: 60% English, 25% Spanish, 10% Chinese, 5% Vietnamese"
+      priority: "Must Have"
+      verification: "Demonstration"
+
+  reliability:
+    - id: "SYS-NFR-040"
+      requirement: "System shall implement automated failover to secondary region within 5 minutes of primary region failure"
+      rationale: "Disaster recovery for critical patient access"
+      priority: "Should Have"
+      verification: "Test (DR drill)"
+      acceptanceCriteria:
+        - "RTO (Recovery Time Objective): 5 minutes"
+        - "RPO (Recovery Point Objective): 1 hour (data loss up to 1 hour acceptable)"
+
+# System Interfaces
+interfaces:
+  epicEHR:
+    interfaceId: "INT-001"
+    name: "Epic EHR Integration"
+    type: "External System Interface"
+    protocol: "FHIR R4 REST APIs, HL7 v2.5.1 messages"
+    dataFlow: "Bidirectional"
+    dataExchanged:
+      reads:
+        - "Patient demographics (FHIR Patient resource)"
+        - "Clinical notes (FHIR DocumentReference, DiagnosticReport)"
+        - "Lab results (FHIR Observation)"
+        - "Medications (FHIR MedicationRequest)"
+        - "Allergies (FHIR AllergyIntolerance)"
+        - "Immunizations (FHIR Immunization)"
+        - "Appointments (FHIR Appointment)"
+      writes:
+        - "Appointment booking requests (FHIR Appointment)"
+        - "Secure messages (FHIR Communication)"
+        - "Questionnaire responses (FHIR QuestionnaireResponse)"
+    authentication: "OAuth 2.0 with client credentials grant"
+    errorHandling: "Retry logic with exponential backoff (3 retries, max 30s wait)"
+    performance: "< 2 second response time for read operations (p95)"
+
+  cernerRevenueCycle:
+    interfaceId: "INT-002"
+    name: "Cerner Revenue Cycle Integration"
+    type: "External System Interface"
+    protocol: "REST API (proprietary JSON format)"
+    dataFlow: "Read-only"
+    dataExchanged:
+      reads:
+        - "Patient billing statements"
+        - "Payment history"
+        - "Insurance information"
+    authentication: "API key + TLS client certificate"
+    errorHandling: "Circuit breaker pattern (open after 5 failures, half-open after 60s)"
+
+  zoomHealthcare:
+    interfaceId: "INT-003"
+    name: "Zoom Healthcare Video Integration"
+    type: "External Service Integration"
+    protocol: "Zoom Video SDK, REST APIs"
+    dataFlow: "Bidirectional"
+    dataExchanged:
+      - "Create telehealth meeting (send)"
+      - "Join telehealth meeting (receive meeting token)"
+      - "Session recording (receive signed URL for recording)"
+    authentication: "OAuth 2.0, JWT for SDK authentication"
+    businessAssociateAgreement: "Required - HIPAA BAA signed with Zoom Video Communications"
+
+# System Modes and States
+systemModes:
+  normalOperation:
+    description: "Standard operational mode with full functionality"
+    entryConditions: "All external systems available, no degraded services"
+    exitConditions: "External system failure, scheduled maintenance"
+
+  degradedMode:
+    description: "Limited functionality when external systems unavailable"
+    entryConditions: "Epic EHR or Cerner unavailable"
+    behavior:
+      - "Display cached patient data with staleness indicator (last updated timestamp)"
+      - "Disable appointment booking (require phone call)"
+      - "Queue outbound messages for delivery when systems restored"
+      - "Banner notification: 'Some features temporarily unavailable'"
+    exitConditions: "External systems restored"
+
+  maintenanceMode:
+    description: "Scheduled maintenance window"
+    entryConditions: "Planned maintenance notification sent 7 days in advance"
+    schedule: "Sunday 2 AM - 6 AM EST (4-hour window monthly)"
+    behavior:
+      - "Display maintenance page with expected restoration time"
+      - "No user logins permitted"
+    exitConditions: "Maintenance completed, smoke tests passed"
+
+# Data Requirements
+dataRequirements:
+  patientData:
+    dataElement: "Patient Demographics"
+    source: "Epic EHR (FHIR Patient resource)"
+    format: "FHIR R4 JSON"
+    retention: "Active patients: indefinite; Deceased: 7 years post-death per HIPAA"
+    backup: "Daily incremental, weekly full backup; 30-day retention"
+    encryption: "AES-256 at rest, TLS 1.3 in transit"
+
+  clinicalData:
+    dataElement: "Clinical Notes, Lab Results, Medications"
+    source: "Epic EHR"
+    format: "FHIR R4 resources"
+    retention: "7 years per HIPAA minimum retention"
+    archival: "Move records > 7 years to cold storage (AWS S3 Glacier)"
+
+  auditLogs:
+    dataElement: "PHI Access Logs"
+    source: "Application audit logging"
+    format: "JSON logs (ELK stack)"
+    retention: "7 years per HIPAA"
+    immutability: "Write-once storage (AWS S3 Object Lock)"
+
+# Compliance Requirements
+complianceRequirements:
+  hipaa:
+    regulation: "HIPAA Privacy Rule, Security Rule, Breach Notification Rule"
+    applicableRequirements:
+      - "45 CFR §164.308: Administrative Safeguards"
+      - "45 CFR §164.310: Physical Safeguards"
+      - "45 CFR §164.312: Technical Safeguards"
+      - "45 CFR §164.314: Organizational Requirements (Business Associate Agreements)"
+    controls:
+      - "Access Controls: Role-based access, minimum necessary principle"
+      - "Audit Controls: Logging all PHI access"
+      - "Integrity Controls: Data validation, checksums"
+      - "Transmission Security: TLS 1.3 encryption"
+    evidence:
+      - "Annual HIPAA Security Risk Assessment"
+      - "Business Associate Agreements with Zoom, Stripe, Twilio"
+      - "Workforce training records (annual HIPAA training)"
+
+  meaningfulUse:
+    regulation: "ONC Health IT Certification (2015 Edition Cures Update)"
+    certificationCriteria:
+      - "§170.315(e)(1): Patient Portal View/Download/Transmit"
+      - "§170.315(g)(7): Application Access - Patient Selection (FHIR)"
+      - "§170.315(g)(8): Application Access - Data Category Request (FHIR)"
+      - "§170.315(g)(9): Application Access - All Data Request (FHIR)"
+      - "§170.315(g)(10): Standardized API for Patient and Population Services (SMART on FHIR)"
+
+  section508:
+    regulation: "Section 508 Rehabilitation Act - Web Accessibility"
+    standard: "WCAG 2.1 Level AA"
+    applicability: "Federal healthcare facilities, government contractors"
+
+# Operational Requirements
+operationalRequirements:
+  backup:
+    frequency: "Daily incremental backups at 2 AM EST, weekly full backups Sunday 1 AM EST"
+    retention: "Daily: 30 days, Weekly: 12 weeks, Monthly: 7 years (compliance)"
+    testing: "Monthly backup restore testing, annual disaster recovery drill"
+
+  monitoring:
+    healthChecks: "HTTP health endpoint (/health) responding in < 100ms"
+    metrics: "Application metrics (Datadog), Infrastructure metrics (CloudWatch)"
+    logging: "Centralized logging (ELK stack - Elasticsearch, Logstash, Kibana)"
+    alerting:
+      critical: "Page on-call engineer (PagerDuty): Availability < 99%, error rate > 1%"
+      warning: "Slack notification: High CPU (> 70%), slow queries (> 2s)"
+
+  disasterRecovery:
+    rto: "5 minutes (automated failover to secondary AWS region)"
+    rpo: "1 hour (maximum acceptable data loss)"
+    drSite: "AWS us-west-2 (primary: us-east-1)"
+    drTesting: "Quarterly DR drill, annual full failover test"
+
+# Assumptions and Constraints
+assumptions:
+  - "Epic EHR FHIR APIs available 99.9% uptime per Epic SLA"
+  - "Patients have access to email or SMS for account verification"
+  - "Zoom Healthcare BAA remains valid and compliant"
+  - "Annual patient growth rate: 20%"
+
+constraints:
+  technical:
+    - "Must integrate with Epic EHR (cannot replace existing EMR)"
+    - "Must use AWS GovCloud for federal healthcare facilities"
+    - "Must support IE11 for 6 months (sunset 2025-06-30) due to legacy user base"
+
+  regulatory:
+    - "HIPAA compliance mandatory (fines up to $1.5M per violation category)"
+    - "ONC certification required for Meaningful Use incentive payments"
+    - "State privacy laws (California CMIA, Texas HB 300)"
+
+  budgetary:
+    - "Cloud infrastructure budget: $500K annually"
+    - "Cannot exceed $50 per patient per year total cost of ownership"
+
+# Traceability
+traceability:
+  - businessNeed: "BN-001: Reduce call center volume"
+    systemRequirements: ["SYS-FR-020", "SYS-FR-040", "SYS-FR-050"]
+    verification: "Measure call center volume pre/post deployment (target: 40% reduction)"
+
+  - businessNeed: "BN-002: Improve patient engagement"
+    systemRequirements: ["SYS-FR-010", "SYS-FR-011", "SYS-FR-012", "SYS-FR-030"]
+    verification: "Patient portal login frequency, telehealth adoption rate"
+
+  - businessNeed: "BN-003: HIPAA compliance"
+    systemRequirements: ["SYS-NFR-020", "SYS-NFR-021", "SYS-NFR-022"]
+    verification: "Annual HIPAA Security Risk Assessment, compliance audit"
 
 # Change History
 changeHistory:
+  - version: "1.3.0"
+    date: "2024-10-20"
+    author: "Dr. Michael Zhang"
+    changes: "Added telehealth requirements (SYS-FR-030), updated FHIR version to R4, added Spanish language support"
+    approver: "Jennifer Liu, MD (CMIO)"
+
+  - version: "1.2.0"
+    date: "2024-07-15"
+    author: "Dr. Michael Zhang"
+    changes: "Added billing and payment requirements (SYS-FR-060), integrated Stripe payment processing"
+    approver: "System Architecture Board"
+
+  - version: "1.1.0"
+    date: "2024-05-10"
+    author: "Karen Patel"
+    changes: "Added proxy access requirements (SYS-FR-070) for caregivers"
+    approver: "Jennifer Liu, MD"
+
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
-    changes: "Initial version"
+    date: "2024-03-01"
+    author: "Dr. Michael Zhang"
+    changes: "Initial baseline approved for development"
+    approver: "System Architecture Board"

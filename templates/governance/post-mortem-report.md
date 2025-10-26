@@ -1,97 +1,78 @@
 # Post Mortem Report
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/post-mortem-report.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+The Post-Mortem Report is a comprehensive incident review document that captures what happened, why it happened, how it was resolved, and what actions will prevent recurrence. Following the blameless postmortem culture pioneered by Google SRE and Etsy, this artifact transforms production incidents i
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+This artifact documents production incidents through comprehensive, blameless analysis including detailed timelines, root causes, impact metrics, and actionable remediation plans. It transforms failure into organizational learning by systematically capturing what went wrong, why it went wrong, and how to prevent recurrence, while fostering a culture of psychological safety and continuous improveme
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- Incident overview and severity classification (P0/SEV0 through P3/SEV3)
+- Detailed timeline with UTC timestamps (detection, acknowledgment, escalation, mitigation, resolution)
+- Impact quantification (MTTR, MTTA, customers affected, revenue loss, error budget burn)
+- Root cause analysis using 5 Whys, Fishbone, or Fault Tree Analysis
+- Contributing factors across people/process/technology dimensions
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered
 
-**Primary:**
-- TODO: Primary readers
+## Main Content
 
-**Secondary:**
-- TODO: Secondary readers
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
+## Best Practices
 
-## Key Findings
+**Blameless Culture**: Explicitly state "this is a blameless post-mortem" at the start; focus on systems, not individuals
 
-### Finding 1: [Title]
+**Timely Completion**: Publish post-mortem within 48-72 hours while details are fresh; don't wait weeks
 
-**Severity**: High | Medium | Low
+**Precise Timeline**: Use UTC timestamps accurate to minutes; include detection, acknowledgment, escalation, mitigation, resolution
 
-**Description:**
-<!-- TODO: Describe the finding -->
+**Quantify Impact**: Always include MTTR, customers affected, error budget burn; use data, not vague estimates
 
-**Impact:**
-<!-- TODO: Describe business or technical impact -->
+**Honest Assessment**: Document both successes and failures; "what went well" is as important as "what went poorly"
 
-**Recommendation:**
-<!-- TODO: Provide specific recommendation -->
+**Root Cause Focus**: Apply 5 Whys or Fishbone; don't stop at symptoms; identify fundamental causes
 
-### Finding 2: [Title]
+**Actionable Items**: Every action item must have owner, deadline, and success criteria (SMART)
 
-<!-- Repeat structure for additional findings -->
+**Categorize Actions**: Separate immediate fixes (done), short-term (30 days), long-term (90+ days)
 
-## Analysis
+## Related Documents
 
-<!-- TODO: Detailed analysis of findings -->
+- [Related Artifact]: Relationship description
 
-## Recommendations
+## Approvals
 
-1. **[Recommendation Title]**
-   - **Priority**: P0 | P1 | P2 | P3
-   - **Owner**: TODO: Responsible party
-   - **Timeline**: TODO: Implementation timeline
-   - **Effort**: TODO: Effort estimate
-
-## Conclusion
-
-<!-- TODO: Summarize key points and next steps -->
-
-## References
-
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/post-mortem-report.md` for detailed guidance
-
-## Appendix
-
-<!-- Add supporting materials as needed -->
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

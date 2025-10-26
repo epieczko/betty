@@ -1,57 +1,55 @@
 # Contributor License Agreements
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/contributor-license-agreements.md for complete guidance
+# See also: artifact_descriptions/contributor-license-agreements.md for complete guidance
+
+# Contributor License Agreements (CLAs) are legal instruments that establish intellectual property terms for contributions to open-source projects or corporate codebases. CLAs grant organizations necess...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact documents the legal agreement between contributors and project maintainers, establishing copyright licensing terms, patent grants, and contribution warranties. It defines whether contributions use copyright assignment (transferring ownership), copyright license (granting broad rights w
 
+# BEST PRACTICES
+# - Foundation Template Adoption: Start with Apache or Linux Foundation CLA templates rather than drafting from scratch to leverage co
+# - CLA vs. DCO Analysis: Evaluate DCO-only approach for permissive-licensed projects to reduce contributor friction while mai
+# - Automated Enforcement: Implement GitHub CLA Assistant or EasyCLA to gate pull requests until contributors sign, preventing 
+# - Clear Documentation: Provide contributor-facing documentation explaining CLA purpose, signing process, and IP implication
+# - Employer Approval Guidance: Document when corporate CLA is required vs. individual CLA, including employee vs. contractor distin
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/contributor-license-agreements.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Individual Contributor License Agreements (ICLA) for individual developers contr"
+      - "Corporate Contributor License Agreements (CCLA) for employees contributing on be"
+      - "Developer Certificate of Origin (DCO) as lightweight alternative to traditional "
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

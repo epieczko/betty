@@ -1,57 +1,55 @@
 # Hyperparameter Configurations
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/hyperparameter-configurations.md for complete guidance
+# See also: artifact_descriptions/hyperparameter-configurations.md for complete guidance
+
+# The Hyperparameter Configurations artifact documents the hyperparameter search space, optimization methodology, tuning results, and final parameter selections for ML models. This artifact enables repr...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact documents hyperparameter search space, optimization strategy, tuning experiments, and final parameter selections to enable reproducible model training, justify modeling decisions, and provide audit trail for model governance. It serves as technical documentation for model deployment an
 
+# BEST PRACTICES
+# - Bayesian Over Random: Prefer Bayesian optimization (Optuna, Ray Tune with TPE) over random search for sample-efficient tun
+# - Log Everything: Log all hyperparameters, metrics, and artifacts to MLflow or W&B; enable experiment comparison
+# - Fixed Random Seeds: Always set random seeds for NumPy, TensorFlow, PyTorch, scikit-learn for reproducibility
+# - Search Space Design: Use log-uniform distributions for learning rates, exponential distributions for batch sizes
+# - Sufficient Budget: Allocate sufficient trials (50-100+ for Bayesian, 1000+ for random search) before declaring converge
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/hyperparameter-configurations.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Hyperparameter search space"
+      - "Optimization methodology"
+      - "Tuning framework"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

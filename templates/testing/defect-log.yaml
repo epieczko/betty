@@ -1,51 +1,55 @@
 # Defect Log
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/defect-log.md for complete guidance
+# See also: artifact_descriptions/defect-log.md for complete guidance
+
+# Defect Logs provide systematic tracking of software bugs, issues, and technical debt throughout the development lifecycle. These logs are essential for prioritizing bug fixes, measuring quality trends...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact provides centralized tracking of software defects including severity classification, workflow status, assignment, resolution timeline, and quality metrics to enable prioritized bug fixing, process improvement, and quality trend analysis.
 
+# BEST PRACTICES
+# - Clear Descriptions: Write defect descriptions with reproduction steps, expected vs actual behavior, and impact
+# - Appropriate Severity: Classify severity objectively based on impact, not emotion or urgency
+# - Reproducible Steps: Include detailed steps to reproduce; non-reproducible bugs are hard to fix
+# - Evidence Attached: Attach screenshots, logs, videos, stack traces to aid debugging
+# - Daily Triage: Triage new defects daily to ensure timely classification and assignment
 
-# Log Entries
-entries:
-  - id: "001"
-    date: "{{date}}"
-    category: "TODO: Category"  # Risk | Issue | Decision | Change
-    title: "TODO: Entry title"
-    description: |
-      TODO: Detailed description
-    status: "Open"  # Open | In Progress | Resolved | Closed
-    owner: "TODO: Owner"
-    priority: "Medium"  # Low | Medium | High | Critical
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Defect identification and description (bug reports, reproduction steps, expected"
+      - "Severity classification (Critical, High, Medium, Low based on impact and urgency"
+      - "Priority assignment (P0/P1/P2/P3 for fix ordering)"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  # Add more entries as needed
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

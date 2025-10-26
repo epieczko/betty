@@ -1,57 +1,55 @@
 # Labs And Workshops
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/labs-and-workshops.md for complete guidance
+# See also: artifact_descriptions/labs-and-workshops.md for complete guidance
+
+# Labs and Workshops provide hands-on, experiential learning materials that guide learners through practical exercises, real-world scenarios, and skill-building activities in isolated sandbox environmen...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# Labs and Workshops provide structured, hands-on training that accelerates skill development through practical application and experimentation in safe, isolated environments. They solve the problem of passive learning by engaging learners with real-world scenarios, providing immediate feedback, and b
 
+# BEST PRACTICES
+# - Learning Outcomes First: Define clear, measurable learning objectives using Bloom's Taxonomy action verbs (e.g., "By completi
+# - Scaffolded Progression: Structure labs with progressive difficulty (simple concepts first, build to complex applications), p
+# - Hands-On First Approach: Maximize active learning time (80% doing, 20% reading/watching), provide immediate feedback through 
+# - Reproducible Environments: Automate environment setup with scripts (Docker Compose, Terraform, shell scripts), version-pin all 
+# - Clear Instructions with Verification: Write step-by-step instructions with expected outcomes after each step, include verification command
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/labs-and-workshops.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Hands-on tutorials with step-by-step instructions and expected outcomes"
+      - "Interactive coding exercises with validation and automated testing"
+      - "Sandbox environments (Docker containers, VMs, cloud sandboxes, Jupyter notebooks"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

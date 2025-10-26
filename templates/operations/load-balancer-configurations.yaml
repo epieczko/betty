@@ -1,0 +1,55 @@
+# Load Balancer Configurations
+# See also: artifact_descriptions/load-balancer-configurations.md for complete guidance
+
+# The Load Balancer Configurations artifact defines traffic distribution and high availability strategies for web applications, APIs, and microservices using cloud-native and self-hosted load balancing ...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This artifact defines load balancer configurations to distribute traffic across multiple backend instances, achieve 99.95-99.99% availability through automated failover, enable zero-downtime deployments, optimize application performance through intelligent routing algorithms, and provide SSL/TLS ter
+
+# BEST PRACTICES
+# - Version Control: Store load balancer configurations as infrastructure-as-code (Terraform, CloudFormation) in Git
+# - Layer 7 for HTTP: Use Application Load Balancers (ALB) or NGINX for HTTP/HTTPS traffic to enable path-based routing an
+# - Layer 4 for TCP/UDP: Use Network Load Balancers (NLB) for ultra-low latency, high throughput, and static IP requirements
+# - Multi-AZ Deployment: Enable cross-zone load balancing for high availability across multiple availability zones
+# - Health Check Configuration: Configure aggressive health checks (5-10 second intervals) with appropriate thresholds (2 healthy, 2
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Cloud-native load balancers (AWS ALB, NLB, CLB, GWLB; Azure Load Balancer, Appli"
+      - "Kubernetes ingress controllers (NGINX Ingress Controller, Traefik, HAProxy Ingre"
+      - "Service mesh load balancing (Istio, Linkerd, Consul Connect, AWS App Mesh)"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

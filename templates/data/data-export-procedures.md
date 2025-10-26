@@ -1,112 +1,78 @@
 # Data Export Procedures
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/data-export-procedures.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+The Data Export Procedures document defines the comprehensive technical, operational, and compliance requirements for exporting customer data, system data, and organizational data from applications, databases, and SaaS platforms. These procedures ensure secure, compliant, and efficient data extracti
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
-
-<!-- TODO: Explain why this document exists -->
-
-### Scope
-
-**In Scope:**
-- TODO: What is covered
-
-**Out of Scope:**
-- TODO: What is not covered
-
-### Target Audience
-
-**Primary:**
-- TODO: Primary readers
-
-**Secondary:**
-- TODO: Secondary readers
-
-
-## Policy Statement
-
-<!-- TODO: Clear, concise statement of what is required, prohibited, or permitted -->
-
-## Rationale
-
-<!-- TODO: Why this policy exists, what risks it mitigates -->
+This artifact serves as the authoritative reference for all data export operations, defining technical procedures, security controls, compliance requirements, and operational workflows for extracting data from organizational systems. It solves the challenge of balancing data accessibility for legitimate business needs against security, privacy, and compliance requirements by establishing standardi
 
 ## Scope
 
-This policy applies to:
-- TODO: Who or what is covered
+### In Scope
 
-This policy does NOT apply to:
-- TODO: Exceptions or exclusions
+- Customer data portability requests under GDPR Article 20, CCPA Section 1798.100, and similar privacy regulations
+- System-to-system data exports for integration, synchronization, and analytics purposes (ETL/ELT pipelines)
+- Database export procedures for PostgreSQL, MySQL, Oracle, SQL Server, MongoDB, Cassandra, DynamoDB, and cloud data warehouses
+- SaaS application exports from Salesforce, Workday, ServiceNow, HubSpot, and other business applications via API, bulk export, or admin consoles
+- Data format specifications including CSV, JSON, XML, Parquet, Avro, Protocol Buffers, and proprietary formats
 
-## Requirements
+### Out of Scope
 
-### Requirement 1: [Title]
+- Items explicitly not covered
 
-**Description:** TODO: Specific requirement
+## Main Content
 
-**Rationale:** TODO: Why this is required
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
-**Compliance:** TODO: How compliance is measured
+## Best Practices
 
-### Requirement 2: [Title]
+**Encryption by Default**: Encrypt all exported data using AES-256 for data at rest and TLS 1.3 for data in transit, with no exceptions for sensitive or PII data
 
-<!-- Repeat for additional requirements -->
+**Access Control Rigor**: Implement role-based access control (RBAC) with principle of least privilege, requiring approval workflows for sensitive data exports
 
-## Roles & Responsibilities
+**Comprehensive Audit Logging**: Log all export activities capturing user identity, timestamp, data volume, destination, and business justification for compliance and security monitoring
 
-| Role | Responsibilities |
-|------|------------------|
-| **[Role Name]** | TODO: What this role is responsible for |
+**Data Validation**: Implement automated validation checks confirming export completeness, row counts, checksums, and data integrity before delivering to requesters
 
-## Compliance & Enforcement
+**Format Standardization**: Define standard export formats (CSV UTF-8, JSON, Parquet) with documented schemas preventing format inconsistency and import errors
 
-**Review Frequency:** Annual | Quarterly | Monthly
+**Incremental Exports**: Leverage incremental export strategies using change data capture (CDC) or timestamp-based filtering reducing processing time and network bandwidth
 
-**Monitoring:** TODO: How compliance is monitored
+**Parallel Processing**: Implement parallel export execution for large datasets using partitioning and multi-threading improving export performance 5-10x
 
-**Enforcement:** TODO: Consequences of non-compliance
+**Compression Standards**: Apply gzip, zip, or columnar compression (Parquet, ORC) reducing export file sizes by 60-90% for storage and transfer efficiency
 
-**Exceptions:** TODO: Process for requesting exceptions
+## Related Documents
 
-## Related Policies
+- [Related Artifact]: Relationship description
 
-- [Policy Name]: Description and link
+## Approvals
 
-## References
-
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/data-export-procedures.md` for detailed guidance
-
-## Appendix
-
-<!-- Add supporting materials as needed -->
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

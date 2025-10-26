@@ -1,57 +1,55 @@
 # Attribution Files
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/attribution-files.md for complete guidance
+# See also: artifact_descriptions/attribution-files.md for complete guidance
+
+# Attribution Files (NOTICE, LICENSE, THIRD-PARTY-NOTICES) are legal documents bundled with software distributions that acknowledge open-source components, copyright holders, and license obligations. Th...
 
 metadata:
-  # Document Control
   version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact documents all copyright notices, license texts, and attribution statements for third-party open-source components included in software distributions. It ensures compliance with license attribution clauses (Apache 2.0 Section 4, MIT/BSD copyright preservation, GPL copyright notices) by 
 
+# BEST PRACTICES
+# - Automated Generation: Generate attribution files automatically from SBOM/license scans using FOSSA, Black Duck, or languag
+# - CI/CD Integration: Regenerate attribution files on every build to ensure accuracy as dependencies change
+# - Root Directory Placement: Place LICENSE, NOTICE, THIRD-PARTY-NOTICES in repository root for discoverability and compliance
+# - Verbatim License Text: Include full license text verbatim; some licenses (Apache 2.0) explicitly require unmodified license
+# - Copyright Holder Accuracy: Extract copyright holders from source file headers, not package metadata (which may be incomplete)
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/attribution-files.md for detailed structure
-
+# Main content - customize based on artifact type
 content:
-  overview: |
-    TODO: Provide overview
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "LICENSE file"
+      - "NOTICE file"
+      - "THIRD-PARTY-NOTICES / CREDITS file"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
-  details: |
-    TODO: Add detailed content
-
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
-
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
+# Change history
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

@@ -1,97 +1,78 @@
 # Dr Test Reports
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/dr-test-reports.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+Disaster Recovery (DR) Test Reports document the execution, results, and findings from disaster recovery tests including failover exercises, backup restoration, and RTO/RPO validation. These reports are critical for proving DR capability, identifying gaps, meeting compliance requirements (ISO 22301,
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+This artifact documents disaster recovery test execution details, measures actual RTO/RPO against targets, identifies failures and gaps, tracks remediation actions, and provides compliance evidence to validate and continuously improve disaster recovery capabilities.
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- Test execution details (date, duration, participants, test type - full/partial/tabletop)
+- RTO/RPO measurements (actual vs target for each service tier)
+- Failover procedures tested (DNS failover, database recovery, application deployment)
+- Test results (success/failure, services recovered, data integrity validation)
+- Issues identified (runbook errors, automation failures, missing procedures)
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered
 
-**Primary:**
-- TODO: Primary readers
+## Main Content
 
-**Secondary:**
-- TODO: Secondary readers
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
+## Best Practices
 
-## Key Findings
+**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
 
-### Finding 1: [Title]
+**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
 
-**Severity**: High | Medium | Low
+**Template Usage**: Use approved templates to ensure completeness and consistency across teams
 
-**Description:**
-<!-- TODO: Describe the finding -->
+**Peer Review**: Have at least one qualified peer review before submitting for approval
 
-**Impact:**
-<!-- TODO: Describe business or technical impact -->
+**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
 
-**Recommendation:**
-<!-- TODO: Provide specific recommendation -->
+**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
 
-### Finding 2: [Title]
+**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
 
-<!-- Repeat structure for additional findings -->
+**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
 
-## Analysis
+## Related Documents
 
-<!-- TODO: Detailed analysis of findings -->
+- [Related Artifact]: Relationship description
 
-## Recommendations
+## Approvals
 
-1. **[Recommendation Title]**
-   - **Priority**: P0 | P1 | P2 | P3
-   - **Owner**: TODO: Responsible party
-   - **Timeline**: TODO: Implementation timeline
-   - **Effort**: TODO: Effort estimate
-
-## Conclusion
-
-<!-- TODO: Summarize key points and next steps -->
-
-## References
-
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/dr-test-reports.md` for detailed guidance
-
-## Appendix
-
-<!-- Add supporting materials as needed -->
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |
