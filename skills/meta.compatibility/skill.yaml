@@ -1,0 +1,107 @@
+name: meta.compatibility
+version: 0.1.0
+description: >
+  Automatic artifact dependency graph validation and diagnostics. Builds a dependency
+  graph from skill artifact metadata, detects cycles, orphan nodes, unresolved dependencies,
+  and provides actionable health reports for the Betty Framework ecosystem.
+
+inputs:
+  - name: check
+    type: string
+    required: false
+    default: artifacts
+    description: What to check (artifacts, skills, or all)
+
+  - name: skills_dir
+    type: string
+    required: false
+    default: skills
+    description: Path to skills directory
+
+  - name: output
+    type: string
+    required: false
+    description: Save JSON report to file
+
+  - name: json
+    type: boolean
+    required: false
+    default: false
+    description: Output JSON only (no human-readable format)
+
+outputs:
+  - name: graph_report
+    type: object
+    description: >
+      Comprehensive graph validation report including total artifacts, connected nodes,
+      isolated nodes, cycles, unresolved dependencies, and overall health status
+
+  - name: status
+    type: string
+    description: Overall graph health status (healthy, warning, or error)
+
+  - name: total_artifacts
+    type: number
+    description: Total number of artifact types in the graph
+
+dependencies: []
+
+entrypoints:
+  - command: /meta/compatibility
+    handler: meta_compatibility.py
+    runtime: python
+    description: >
+      Validate artifact dependency graph across all Betty skills. Constructs a directed
+      graph where nodes represent artifact types and edges represent producer-consumer
+      relationships. Detects cycles (recursive dependencies), isolated nodes (disconnected
+      artifacts), orphan producers (artifacts produced but never consumed), and unresolved
+      dependencies (artifacts consumed but never produced). Generates comprehensive
+      health reports with actionable diagnostics.
+    parameters:
+      - name: check
+        type: string
+        required: false
+        default: artifacts
+        description: What to check
+      - name: skills_dir
+        type: string
+        required: false
+        default: skills
+        description: Skills directory path
+      - name: output
+        type: string
+        required: false
+        description: Output file for JSON report
+      - name: json
+        type: boolean
+        required: false
+        default: false
+        description: JSON-only output
+    permissions:
+      - filesystem:read
+
+status: active
+
+tags:
+  - meta
+  - validation
+  - artifacts
+  - compatibility
+  - graph
+  - diagnostics
+  - tier2
+  - phase3
+
+# This skill's own artifact metadata
+artifact_metadata:
+  produces:
+    - type: compatibility-report
+      description: Artifact dependency graph validation report with health metrics and diagnostics
+      file_pattern: "*.compatibility-report.json"
+      content_type: application/json
+
+  consumes:
+    - type: skill-metadata
+      description: Reads artifact_metadata from all skill.yaml files
+      file_pattern: "**/skill.yaml"
+      required: true
