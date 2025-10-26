@@ -2,45 +2,66 @@
 
 ## Executive Summary
 
-The Interactive Prototypes is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Interactive Prototypes are dynamic, functional demonstrations of data visualizations, analytics applications, or data-driven features that enable stakeholders to experience proposed solutions before full development. Unlike static mockups, these prototypes support user interaction, data exploration, and workflow simulation, providing critical validation for UX decisions, technical feasibility, and business value.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+In data and analytics initiatives, interactive prototypes bridge the gap between conceptual designs and production systems. They allow business users to validate dashboard layouts, test drill-down patterns, explore filtering mechanisms, and confirm that proposed analytics capabilities meet real-world needs. This early validation prevents costly rework and ensures solutions align with user expectations.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Risk Mitigation**: Validates design assumptions and technical approaches before significant development investment
+- **Stakeholder Alignment**: Creates shared understanding through tangible demonstrations rather than abstract specifications
+- **User-Centered Design**: Enables early user feedback to refine interactions, workflows, and information architecture
+- **Technical Validation**: Proves feasibility of data integrations, performance requirements, and visualization approaches
+- **Accelerated Delivery**: Reduces development cycles by identifying issues early and building consensus quickly
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+Interactive Prototypes serve as working demonstrations that validate user experience, technical feasibility, and business value for proposed data visualizations, analytics dashboards, and data-driven applications before committing to full development.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Interactive dashboard and visualization prototypes (Tableau, Power BI, Looker)
+- Data exploration and drill-down pattern demonstrations
+- Self-service analytics interface mockups with sample data
+- Report builder and custom query interface prototypes
+- Data catalog and metadata discovery experience demos
+- Embedded analytics and white-label visualization prototypes
+- Mobile analytics app interface demonstrations
+- Real-time monitoring dashboard simulations
+- ETL/data pipeline workflow visualizations
+- ML model output and prediction interface prototypes
+- Data quality monitoring dashboard mockups
+- User permission and access control interface demos
+- Search and discovery experience prototypes for data assets
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Production-ready code or fully engineered solutions
+- Complete data integration with all source systems
+- Performance testing at production scale or with full data volumes
+- Security hardening and penetration testing
+- Full accessibility compliance testing (WCAG 2.1 AA)
+- Production deployment infrastructure and DevOps configurations
+- Complete documentation and user training materials
+- Regulatory compliance certification and audit preparation
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Business stakeholders and executive sponsors validating proposed analytics capabilities
+- Data analysts and business intelligence developers evaluating usability and workflow efficiency
+- UX/UI designers refining visualization approaches and interaction patterns
+- Product managers assessing feature priorities and user value
+- Data engineers validating technical feasibility of data integration approaches
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- End users providing feedback on proposed analytics interfaces and workflows
+- Enterprise architects reviewing alignment with technical standards and patterns
+- Data governance teams evaluating metadata management and lineage visualization
+- Project managers assessing development complexity and timeline implications
+- Vendor evaluation teams comparing competing analytics platform capabilities
 
 ## Document Information
 
@@ -54,9 +75,9 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 **Storage & Access**: Store in designated document repository with appropriate access controls based on classification
 
-**Classification**: [Define typical classification level - Public | Internal | Confidential | Restricted]
+**Classification**: Internal
 
-**Retention**: [Define retention period per organizational records management policy]
+**Retention**: Retain for project duration plus 2 years for reference
 
 
 ### Document Control
@@ -106,19 +127,27 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Start with User Needs**: Begin with user stories and workflow requirements before designing visualizations
+**Use Representative Data**: Prototype with realistic data volumes and distributions to validate performance
+**Iterative Refinement**: Plan multiple feedback cycles with increasing fidelity
+**Tool Selection**: Choose prototyping tools appropriate to fidelity level and stakeholder audience
+**Interactive Elements**: Include working filters, drill-downs, and navigation to test actual workflows
+**Responsive Design**: Demonstrate behavior across desktop, tablet, and mobile form factors
+**Performance Simulation**: Include loading states and simulate realistic query response times
+**Data Source Mockup**: Use sample data that accurately represents production data characteristics
+**Accessibility Considerations**: Include basic keyboard navigation and screen reader compatibility
+**Version Control**: Track prototype iterations with clear version numbers and change logs
+**Feedback Documentation**: Systematically capture and track stakeholder feedback and decisions
+**Technical Feasibility Notes**: Document any technical constraints or feasibility questions surfaced
+**Reusability**: Design prototype components for potential reuse in final implementation
+**Stakeholder Alignment**: Conduct structured review sessions with defined feedback objectives
+**Transition Planning**: Document how prototype insights will inform final development
+**Tool Limitations**: Clearly communicate what prototype can and cannot demonstrate
+**Data Security**: Use anonymized or synthetic data to protect sensitive information
+**Session Recording**: Record demo sessions for team review and documentation
+**Comparative Analysis**: Show alternative approaches side-by-side when evaluating options
+**Business Context**: Include realistic business scenarios and use cases in demonstrations
+**Handoff Documentation**: Provide clear specifications derived from validated prototype
 
 ## Quality Criteria
 
@@ -165,7 +194,35 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Analytics & BI Platforms**: Tableau Desktop/Server, Power BI, Looker, Qlik Sense, Domo, Sisense, ThoughtSpot, MicroStrategy, SAP Analytics Cloud, Oracle Analytics Cloud, IBM Cognos Analytics, Google Data Studio/Looker Studio, Amazon QuickSight, Preset (Apache Superset)
+
+**Prototyping Tools**: Figma, Sketch, Adobe XD, InVision, Axure RP, Balsamiq, Marvel, Proto.io, Framer, Principle
+
+**Data Visualization Libraries**: D3.js, Chart.js, Plotly, Highcharts, ECharts, Recharts, Victory, Nivo, Vega-Lite, Observable Plot
+
+**Front-End Frameworks**: React, Vue.js, Angular, Svelte, Next.js, Nuxt.js, Gatsby
+
+**Design Systems**: Material Design, Ant Design, Bootstrap, Tailwind CSS, Chakra UI, Carbon Design System
+
+**Collaboration Tools**: Miro, Mural, FigJam, Whimsical, Lucidchart
+
+**User Research**: UserTesting, Optimal Workshop, Hotjar, FullStory, Maze
+
+**Accessibility Standards**: WCAG 2.1, Section 508, ARIA practices
+
+**UX Best Practices**: Nielsen Norman Group heuristics, Google Material Design guidelines, Apple Human Interface Guidelines
+
+**Data Visualization Standards**: Edward Tufte principles, Stephen Few dashboard design patterns, Cole Nussbaumer Knaflic storytelling with data
+
+**Prototyping Methodologies**: Design Thinking, Lean UX, Agile UX, Design Sprints
+
+**Business Intelligence Frameworks**: Kimball dimensional modeling, Inmon enterprise data warehouse, Data Vault 2.0
+
+**Analytics Governance**: DAMA-DMBOK, DCAM (Data Management Capability Assessment Model)
+
+**Semantic Layer**: LookML (Looker), Tabular Models (Power BI), Cube.js, dbt metrics
+
+**Embedded Analytics**: Sisense, Logi Analytics, Yellowfin, GoodData, Reveal
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 
@@ -175,25 +232,37 @@ Before considering this artifact complete and ready for approval, verify:
 
 These artifacts or information sources should exist before this artifact can be completed:
 
-- [List artifacts that provide input to this one]
-- [Data sources that feed this artifact]
-- [Prerequisites that must be satisfied]
+- User research findings and persona definitions
+- Business requirements and user story documentation
+- Data model and schema definitions
+- Existing brand guidelines and design system specifications
+- Technical architecture and platform selection decisions
+- Sample or synthetic datasets representative of production data
+- Accessibility and compliance requirements
 
 ### Downstream Consumers (Who Uses This)
 
 This artifact provides input to:
 
-- [Artifacts that consume information from this one]
-- [Processes that use this artifact]
-- [Teams or roles that rely on this information]
+- UI/UX design specifications for final implementation
+- Technical development teams building production analytics solutions
+- Product backlog and sprint planning activities
+- User acceptance testing scenarios and test cases
+- Training materials and user documentation
+- Change management and communication planning
+- Vendor evaluation and platform selection decisions
 
 ### Related Artifacts
 
 Closely related artifacts that should be referenced or aligned with:
 
-- [Complementary artifacts in same phase]
-- [Artifacts in adjacent phases]
-- [Cross-cutting artifacts (e.g., risk register)]
+- User research reports and usability testing results
+- Business requirements documents and functional specifications
+- Data architecture diagrams and data models
+- Technical design documents and API specifications
+- Brand and visual design guidelines
+- Accessibility compliance documentation
+- Security and data governance policies
 
 ## Review & Approval Process
 
@@ -211,9 +280,9 @@ Closely related artifacts that should be referenced or aligned with:
 ### Approval Requirements
 
 **Required Approvers**:
-- Primary Approver: [Define role - e.g., Program Manager, Architecture Lead, CISO]
-- Secondary Approver: [For high-risk or cross-functional artifacts]
-- Governance Approval: [If requires board or committee approval]
+- Primary Approver: Product Manager or Business Owner
+- Secondary Approver: UX Lead and Technical Architect
+- Governance Approval: Data Governance Board (for sensitive data)
 
 **Approval Evidence**:
 - Document approval in artifact metadata
@@ -224,14 +293,14 @@ Closely related artifacts that should be referenced or aligned with:
 
 ### Update Frequency
 
-**Regular Reviews**: [Define cadence - e.g., Quarterly, Annually]
+**Regular Reviews**: After each major feedback session or iteration
 
 **Event-Triggered Updates**: Update immediately when:
-- Significant organizational changes occur
-- Regulatory requirements change
-- Major incidents reveal deficiencies
-- Stakeholder requests identify needed updates
-- Related artifacts are substantially updated
+- Significant user feedback requires design changes
+- Technical constraints necessitate approach modifications
+- Business requirements evolve or expand
+- Platform or tool capabilities change
+- New regulatory or accessibility requirements emerge
 
 ### Version Control Standards
 
@@ -252,7 +321,7 @@ Maintain change log with:
 
 ### Archival & Retention
 
-**Retention Period**: [Define based on regulatory and business requirements]
+**Retention Period**: Retain for project duration plus 2 years
 
 **Archival Process**:
 - Move superseded versions to archive repository
@@ -261,7 +330,7 @@ Maintain change log with:
 
 ### Ownership & Accountability
 
-**Document Owner**: [Define role responsible for maintenance]
+**Document Owner**: Product Manager or UX Lead
 
 **Responsibilities**:
 - Ensure artifact remains current and accurate
@@ -274,15 +343,15 @@ Maintain change log with:
 
 ### Template Access
 
-**Primary Template**: `templates/{artifact_name}-template.{format_type.lower()}`
+**Primary Template**: `templates/interactive-prototypes-template.*`
 
-**Alternative Formats**: [If multiple formats supported]
+**Alternative Formats**: Figma, Tableau Workbook, Power BI Template
 
 **Template Version**: Use latest approved template version from repository
 
 ### Example Artifacts
 
-**Reference Examples**: `examples/{artifact_name}-example-*.{format_type.lower()}`
+**Reference Examples**: `examples/interactive-prototypes-example-*.*`
 
 **Annotated Guidance**: See annotated examples showing best practices and common approaches
 
@@ -324,10 +393,10 @@ Before submitting for approval:
 
 [Define any regulatory requirements applicable to this artifact type, such as:]
 
-- SOC 2: [If artifact supports SOC 2 controls]
-- ISO 27001: [If part of ISMS documentation]
-- GDPR/Privacy: [If contains or references personal data]
-- Industry-Specific: [Healthcare, Financial Services, etc.]
+- SOC 2: If prototype displays or processes actual customer data
+- ISO 27001: If part of ISMS documentation
+- GDPR/Privacy: Use anonymized or synthetic data only
+- Industry-Specific: Healthcare (HIPAA), Financial Services (SOX), etc.
 
 ### Audit Requirements
 
@@ -348,10 +417,11 @@ This artifact may be subject to:
 
 This artifact must align with:
 
-- [Relevant organizational policies]
-- [Industry regulations and standards]
-- [Contractual obligations]
-- [Governance framework requirements]
+- Data visualization and design standards
+- Brand and visual identity guidelines
+- Accessibility and inclusive design policies
+- Data security and privacy policies
+- Software development lifecycle standards
 
 ## Metrics & Success Criteria
 
@@ -378,24 +448,24 @@ This artifact must align with:
 
 ## Metadata Tags
 
-**Phase**: {phase}
+**Phase**: Design, Development
 
-**Category**: {category}
+**Category**: User Experience, Analytics, Prototyping
 
-**Typical Producers**: [Roles/teams that typically create this artifact]
+**Typical Producers**: UX Designers, Product Managers, BI Developers, Data Analysts
 
-**Typical Consumers**: [Roles/teams that typically use this artifact]
+**Typical Consumers**: Business Stakeholders, Development Teams, End Users, Product Managers
 
-**Effort Estimate**: [Typical hours/days required to complete]
+**Effort Estimate**: 2-10 days depending on complexity and fidelity
 
-**Complexity Level**: [Low | Medium | High | Very High]
+**Complexity Level**: Medium to High
 
-**Business Criticality**: [Low | Medium | High | Mission Critical]
+**Business Criticality**: High
 
-**Change Frequency**: [Static | Infrequent | Regular | Frequent]
+**Change Frequency**: Frequent during design phase, then static
 
 ---
 
 *This artifact definition follows Big Five consulting methodology standards and incorporates industry best practices. Tailor to your organization's specific requirements and context.*
 
-*Last Updated: {phase} - Version 2.0*
+*Last Updated: Data & Analytics - Version 2.0*

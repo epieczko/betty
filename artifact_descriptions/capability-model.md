@@ -2,45 +2,66 @@
 
 ## Executive Summary
 
-The Capability Model is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Capability Model is a strategic architecture artifact that defines and organizes business capabilities independent of organizational structure, processes, or technology implementation. This artifact provides a business-oriented view of what an organization does or needs to do, enabling strategic planning, investment prioritization, and architecture alignment across enterprise initiatives.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a foundational element of enterprise architecture, the Capability Model bridges business strategy and technical implementation by decomposing the organization into its fundamental capabilities. It enables stakeholders to assess capability maturity, identify gaps, prioritize investments, and ensure technology initiatives align with business needs. The model supports portfolio management, vendor selection, business process optimization, and digital transformation efforts.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Strategic Planning**: Enables capability-based planning that transcends organizational silos and focuses on business outcomes
+- **Investment Optimization**: Provides framework for assessing and prioritizing technology investments based on capability gaps and business value
+- **Architecture Alignment**: Ensures technology solutions and initiatives support required business capabilities consistently
+- **Portfolio Management**: Enables rationalization of applications and services based on capability coverage and redundancy
+- **Transformation Enablement**: Supports business and digital transformation by identifying capability gaps and maturity levels
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the authoritative catalog and hierarchical organization of business capabilities, defining what the organization does or must do to execute its strategy, independent of how capabilities are implemented or organized. It enables capability-based planning, gap analysis, and investment prioritization across the enterprise.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Business capability taxonomy and hierarchical decomposition (Level 1 through Level 3+)
+- Capability definitions, descriptions, and business value statements
+- Capability maturity assessments and target state definitions
+- Mapping of capabilities to business processes, organizational units, and strategic objectives
+- Capability heat mapping showing performance, risk, or investment levels
+- Technology and application mapping to capabilities
+- Capability gap analysis and roadmap priorities
+- Cross-capability dependencies and relationships
+- Capability ownership and governance assignments
+- Industry reference models and benchmarking frameworks
+- Capability reusability and standardization opportunities
+- Digital capability requirements and transformation priorities
+- Capability-based budgeting and cost allocation models
+- Customer journey mapping to capabilities
+- Regulatory and compliance requirements by capability
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed process flows and procedures (covered in Business Process Models)
+- Specific technology implementation details (covered in Solution Architecture)
+- Organizational structure and reporting relationships (covered in Organization Design)
+- Individual role definitions and job descriptions (covered in HR documentation)
+- Detailed application functionality (covered in Application Portfolios)
+- Project plans and implementation timelines (covered in Roadmaps)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Enterprise Architects who use capability models to structure architecture practice and align solutions
+- Business Architects who leverage capabilities for business transformation and process optimization
+- Strategy Teams who utilize capability assessments for strategic planning and investment decisions
+- Portfolio Managers who map applications and initiatives to capabilities for rationalization
+- Product Owners who define product scope and features based on capability coverage
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Business Unit Leaders who assess capability maturity and prioritize improvement investments
+- Solution Architects who ensure solution designs support required business capabilities
+- IT Leadership who allocate resources and budgets based on capability priorities
+- Transformation Leads who identify capability gaps and define transformation roadmaps
+- Procurement Teams who evaluate vendor solutions against capability requirements
 
 ## Document Information
 
@@ -54,9 +75,9 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 **Storage & Access**: Store in designated document repository with appropriate access controls based on classification
 
-**Classification**: [Define typical classification level - Public | Internal | Confidential | Restricted]
+**Classification**: Internal (may contain strategic business information)
 
-**Retention**: [Define retention period per organizational records management policy]
+**Retention**: 7 years minimum (strategic planning artifact with long-term reference value)
 
 
 ### Document Control
@@ -168,19 +189,29 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Hierarchical Decomposition**: Structure capabilities in 3-4 levels maximum; Level 1 should be strategic, Level 2 operational, Level 3 tactical for manageability
+**Business Language**: Use business terminology, not IT jargon; capabilities should be understandable to business stakeholders without technical translation
+**Stable Taxonomy**: Design capabilities to be relatively stable over time; they represent what organization does, not how it does it
+**Outcome Focused**: Define capabilities based on business outcomes and value delivered, not organizational structure or technology used
+**Comprehensive Coverage**: Ensure capability model covers all aspects of business operation including support functions, not just customer-facing capabilities
+**Industry Alignment**: Leverage industry reference models (APQC, TM Forum, etc.) as starting point to accelerate development and enable benchmarking
+**Unique Capabilities**: Ensure each capability is distinct with no overlap; decompose ambiguous capabilities to clarify scope
+**Maturity Assessment**: Conduct regular capability maturity assessments using consistent criteria (people, process, technology, data)
+**Heat Mapping**: Use visual heat maps to show capability performance, risk, or investment priority for executive communication
+**Application Mapping**: Map all applications to capabilities they support to identify redundancy and rationalization opportunities
+**Governance Model**: Establish clear capability ownership with accountable business leaders, not just IT stewards
+**Strategic Alignment**: Link capabilities to strategic objectives to prioritize investment and demonstrate business value
+**Gap Analysis**: Conduct systematic gap analysis between current and target state capabilities to drive roadmap
+**Investment Planning**: Use capability model as basis for portfolio planning, budgeting, and investment prioritization
+**Vendor Evaluation**: Use capability requirements as criteria for evaluating vendor solutions and service providers
+**Change Impact**: Assess impact of business or technology changes across affected capabilities to manage dependencies
+**Documentation Standards**: Maintain consistent structure for capability definitions including name, description, value, KPIs, and relationships
+**Stakeholder Engagement**: Involve business leaders in capability definition and validation to ensure buy-in and accuracy
+**Regular Reviews**: Review and update capability model quarterly or when significant business changes occur
+**Cross-Functional**: Ensure capability model represents enterprise view, not siloed business unit perspectives
+**Digital Integration**: Explicitly identify digital capabilities required for transformation initiatives and customer experience
+**Metrics Definition**: Define clear KPIs and metrics for each capability to enable performance measurement and benchmarking
+**Reusability Focus**: Identify shared capabilities that should be standardized across organization to improve efficiency
 
 ## Quality Criteria
 
@@ -227,7 +258,77 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Enterprise Architecture Frameworks**:
+- TOGAF Business Architecture (Business Capability Framework)
+- Zachman Framework (Business Function perspective)
+- Federal Enterprise Architecture Framework (FEAF) Business Reference Model
+- DoDAF/MODAF Capability Views
+- ArchiMate Business Layer (Business Function)
+- Gartner Enterprise Architecture Framework
+- The Open Group IT4IT Reference Architecture
+- APQC Process Classification Framework
+- Business Capability Modeling (BCM) standards
+- Business Model Canvas (BMC) for capability-strategy alignment
+
+**Industry Reference Models**:
+- TM Forum Business Process Framework (eTOM) for telecommunications
+- BIAN (Banking Industry Architecture Network) for financial services
+- ACORD (Association for Cooperative Operations Research) for insurance
+- HL7 FHIR (Fast Healthcare Interoperability Resources) for healthcare
+- SCOR (Supply Chain Operations Reference) for supply chain
+- ITIL Service Capability Model for IT service management
+- CMMI (Capability Maturity Model Integration) for process maturity
+- Supply Chain Council Reference Models
+- Retail Industry Leaders Association (RILA) frameworks
+- Energy Industry Process Association (EIPA) models
+
+**Business Architecture Standards**:
+- Business Architecture Guild BIZBOK Guide
+- Object Management Group (OMG) Business Architecture standards
+- IEEE 1471 Architecture Description standard
+- ISO/IEC/IEEE 42010 Architecture description standard
+- VDML (Value Delivery Modeling Language) by OMG
+- BMM (Business Motivation Model) by OMG
+- Business Process Model and Notation (BPMN) 2.0
+- Decision Model and Notation (DMN)
+- Case Management Model and Notation (CMMN)
+- Value Stream Mapping standards
+
+**Strategic Planning Frameworks**:
+- Balanced Scorecard for strategy-capability alignment
+- OKR (Objectives and Key Results) framework
+- Porter's Value Chain Analysis
+- McKinsey 7S Framework
+- Ansoff Matrix for growth strategies
+- Blue Ocean Strategy frameworks
+- Lean Canvas for business model design
+- Wardley Mapping for capability evolution
+- Business Model Generation frameworks
+- Strategic Capability Planning methods
+
+**Maturity Assessment Models**:
+- CMMI for capability maturity assessment
+- Gartner Capability Maturity Models
+- Forrester Capability Assessment frameworks
+- MIT Center for Information Systems Research (CISR) maturity models
+- Digital Maturity Assessment frameworks
+- Technology Business Management (TBM) maturity models
+- Cloud Maturity Assessment frameworks
+- Data Management Maturity (DMM) Model
+- Analytics Maturity Models
+- DevOps Maturity Models
+
+**Governance Standards**:
+- COBIT (Control Objectives for Information and Related Technologies)
+- ISO/IEC 38500 IT Governance standard
+- ITIL (Information Technology Infrastructure Library)
+- Val IT Framework for value governance
+- Risk IT Framework
+- ISO 31000 Risk Management
+- Enterprise Risk Management (ERM) frameworks
+- Portfolio, Program, and Project Management (P3M3)
+- PRINCE2 for project governance
+- PMI Portfolio Management Standard
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 
@@ -237,25 +338,44 @@ Before considering this artifact complete and ready for approval, verify:
 
 These artifacts or information sources should exist before this artifact can be completed:
 
-- [List artifacts that provide input to this one]
-- [Data sources that feed this artifact]
-- [Prerequisites that must be satisfied]
+- Business Strategy and Strategic Plans
+- Value Stream Maps and Customer Journeys
+- Business Process Models and documentation
+- Organizational Structure and operating model
+- Current State Application Portfolio
+- Technology Stack and platform inventory
+- Industry reference models and benchmarks
+- Regulatory and compliance requirements
+- Customer and market research insights
+- Financial and budgeting frameworks
 
 ### Downstream Consumers (Who Uses This)
 
 This artifact provides input to:
 
-- [Artifacts that consume information from this one]
-- [Processes that use this artifact]
-- [Teams or roles that rely on this information]
+- Application Portfolio Rationalization initiatives
+- Solution Architecture and technology selection
+- Business Process Optimization programs
+- IT Investment and Portfolio Planning
+- Enterprise Architecture Roadmaps
+- Vendor Selection and RFP processes
+- Business Case Development
+- Operating Model Design
+- Organization Design and restructuring
+- Technology Strategy and innovation planning
 
 ### Related Artifacts
 
 Closely related artifacts that should be referenced or aligned with:
 
-- [Complementary artifacts in same phase]
-- [Artifacts in adjacent phases]
-- [Cross-cutting artifacts (e.g., risk register)]
+- Business Architecture (overall business design)
+- Application Portfolio (technology supporting capabilities)
+- Technology Roadmap (evolution of capability enablement)
+- Value Stream Maps (capability flow to deliver value)
+- Operating Model (how capabilities are organized and delivered)
+- Business Process Models (how capabilities are executed)
+- Data Architecture (information supporting capabilities)
+- Organization Charts (who owns and operates capabilities)
 
 ## Review & Approval Process
 
@@ -264,18 +384,17 @@ Closely related artifacts that should be referenced or aligned with:
 1. **Author Self-Review**: Creator performs completeness check against template and quality criteria
 2. **Peer Review**: Subject matter expert review for technical accuracy and completeness
 3. **Stakeholder Review**: Review by all affected stakeholders for alignment and acceptance
-4. **Architecture Review**: [If applicable] Architecture board review for standards compliance
-5. **Security Review**: [If applicable] Security team review for security requirements
-6. **Compliance Review**: [If applicable] Compliance review for regulatory requirements
-7. **Legal Review**: [If applicable] Legal counsel review
-8. **Final Approval**: Designated approver(s) provide formal sign-off
+4. **Architecture Review**: Architecture board review for standards compliance
+5. **Business Review**: Business unit leaders validate capability definitions and priorities
+6. **Strategy Review**: Strategy team confirms alignment with strategic objectives
+7. **Final Approval**: Chief Architect and business sponsor provide formal sign-off
 
 ### Approval Requirements
 
 **Required Approvers**:
-- Primary Approver: [Define role - e.g., Program Manager, Architecture Lead, CISO]
-- Secondary Approver: [For high-risk or cross-functional artifacts]
-- Governance Approval: [If requires board or committee approval]
+- Primary Approver: Chief Enterprise Architect or VP Architecture
+- Secondary Approver: Chief Strategy Officer or Business Unit Leaders
+- Governance Approval: Architecture Review Board
 
 **Approval Evidence**:
 - Document approval in artifact metadata
@@ -286,22 +405,22 @@ Closely related artifacts that should be referenced or aligned with:
 
 ### Update Frequency
 
-**Regular Reviews**: [Define cadence - e.g., Quarterly, Annually]
+**Regular Reviews**: Quarterly for maturity assessments; Annual for comprehensive model review
 
 **Event-Triggered Updates**: Update immediately when:
-- Significant organizational changes occur
-- Regulatory requirements change
-- Major incidents reveal deficiencies
-- Stakeholder requests identify needed updates
-- Related artifacts are substantially updated
+- Significant organizational changes occur (mergers, acquisitions, divestitures)
+- New strategic initiatives launched requiring capability expansion
+- Major process transformations impact capability definitions
+- Regulatory requirements create new capability needs
+- Industry reference models update with relevant changes
 
 ### Version Control Standards
 
 Use semantic versioning: **MAJOR.MINOR.PATCH**
 
-- **MAJOR**: Significant restructuring, scope changes, or approach changes
-- **MINOR**: New sections, substantial additions, or enhancements
-- **PATCH**: Corrections, clarifications, minor updates
+- **MAJOR**: Significant restructuring of capability taxonomy or fundamental redefinition
+- **MINOR**: New capabilities added, capability decomposition refined, major maturity changes
+- **PATCH**: Corrections to definitions, minor clarifications, metadata updates
 
 ### Change Log Requirements
 
@@ -314,7 +433,7 @@ Maintain change log with:
 
 ### Archival & Retention
 
-**Retention Period**: [Define based on regulatory and business requirements]
+**Retention Period**: 7 years minimum (strategic planning artifact)
 
 **Archival Process**:
 - Move superseded versions to archive repository
@@ -323,28 +442,29 @@ Maintain change log with:
 
 ### Ownership & Accountability
 
-**Document Owner**: [Define role responsible for maintenance]
+**Document Owner**: Chief Enterprise Architect or Head of Business Architecture
 
 **Responsibilities**:
 - Ensure artifact remains current and accurate
-- Coordinate required updates
+- Coordinate required updates with business stakeholders
 - Manage review and approval process
-- Respond to stakeholder questions
+- Facilitate capability maturity assessments
+- Support strategic planning and investment decisions
 - Archive superseded versions
 
 ## Templates & Examples
 
 ### Template Access
 
-**Primary Template**: `templates/{artifact_name}-template.{format_type.lower()}`
+**Primary Template**: `templates/capability-model-template.md`
 
-**Alternative Formats**: [If multiple formats supported]
+**Alternative Formats**: Excel workbook for capability inventory, PowerPoint for heat maps
 
 **Template Version**: Use latest approved template version from repository
 
 ### Example Artifacts
 
-**Reference Examples**: `examples/{artifact_name}-example-*.{format_type.lower()}`
+**Reference Examples**: `examples/capability-model-example-*.md`
 
 **Annotated Guidance**: See annotated examples showing best practices and common approaches
 
@@ -353,111 +473,115 @@ Maintain change log with:
 Before starting this artifact, ensure:
 
 - [ ] Reviewed template and understand all sections
-- [ ] Identified and engaged all required stakeholders
-- [ ] Gathered prerequisite information and inputs
-- [ ] Obtained access to necessary systems and data
-- [ ] Allocated sufficient time for quality completion
-- [ ] Identified reviewers and approvers
-- [ ] Understood applicable standards and requirements
+- [ ] Identified and engaged business unit leaders and process owners
+- [ ] Gathered industry reference models for benchmarking
+- [ ] Obtained access to strategic plans and business objectives
+- [ ] Reviewed current application portfolio and technology inventory
+- [ ] Allocated sufficient time for stakeholder workshops
+- [ ] Identified Architecture Review Board members
+- [ ] Understood applicable industry standards and frameworks
 
 While creating this artifact:
 
 - [ ] Following approved template structure
-- [ ] Documenting sources and references
-- [ ] Writing clearly for intended audience
-- [ ] Including visual aids where helpful
-- [ ] Self-reviewing against quality criteria
-- [ ] Seeking input from stakeholders
+- [ ] Conducting stakeholder workshops for capability identification
+- [ ] Writing capability descriptions in business language
+- [ ] Validating with industry reference models
+- [ ] Mapping capabilities to applications and processes
+- [ ] Conducting maturity assessments with consistent criteria
+- [ ] Creating visual heat maps for executive communication
+- [ ] Seeking input from business and IT stakeholders
 
 Before submitting for approval:
 
-- [ ] Completed all required sections
-- [ ] Verified accuracy of all information
-- [ ] Obtained peer review feedback
-- [ ] Addressed all review comments
-- [ ] Spell-checked and proofread
+- [ ] Completed all required sections with 3-4 level hierarchy
+- [ ] Verified capability definitions with business leaders
+- [ ] Obtained peer review from architecture team
+- [ ] Validated alignment with strategic objectives
+- [ ] Addressed all review comments and feedback
+- [ ] Created supporting visualizations and heat maps
 - [ ] Completed all metadata fields
-- [ ] Verified compliance with standards
-- [ ] Ready for formal approval process
+- [ ] Verified compliance with EA standards
+- [ ] Ready for Architecture Review Board approval
 
 ## Governance & Compliance
 
 ### Regulatory Considerations
 
-[Define any regulatory requirements applicable to this artifact type, such as:]
-
-- SOC 2: [If artifact supports SOC 2 controls]
-- ISO 27001: [If part of ISMS documentation]
-- GDPR/Privacy: [If contains or references personal data]
-- Industry-Specific: [Healthcare, Financial Services, etc.]
+- SOC 2: Capability model supports control environment documentation
+- ISO 27001: Information security capabilities documented in model
+- Industry-Specific: Financial services, healthcare, telecom have specific capability requirements
+- Data Privacy: Capabilities handling personal data clearly identified
 
 ### Audit Requirements
 
 This artifact may be subject to:
 
-- Internal audits by IA team
-- External audits by third-party auditors
-- Regulatory examinations
-- Customer security assessments
+- Internal audits for strategic planning processes
+- External audits for governance and control frameworks
+- Architecture compliance reviews
+- Strategic planning assessments
 
 **Audit Preparation**:
-- Maintain complete version history
-- Document all approvals with evidence
-- Keep change log current
-- Ensure accessibility for auditors
+- Maintain complete version history showing capability evolution
+- Document all approvals with evidence of stakeholder validation
+- Keep change log current with business justification
+- Ensure accessibility for auditors with appropriate classifications
 
 ### Policy Alignment
 
 This artifact must align with:
 
-- [Relevant organizational policies]
-- [Industry regulations and standards]
-- [Contractual obligations]
-- [Governance framework requirements]
+- Enterprise Architecture Policy and standards
+- Strategic Planning and investment policies
+- IT Governance and portfolio management policies
+- Vendor Management and procurement policies
+- Change Management and organizational design policies
 
 ## Metrics & Success Criteria
 
 ### Artifact Quality Metrics
 
-- **Completeness Score**: Percentage of template sections completed
-- **Review Cycle Time**: Days from draft to approval
-- **Defect Rate**: Number of errors found post-approval
-- **Stakeholder Satisfaction**: Survey rating from artifact consumers
+- **Completeness Score**: All business domains covered with 3-4 level decomposition
+- **Stakeholder Validation**: 90%+ business leaders validate capability definitions
+- **Application Coverage**: 95%+ applications mapped to supporting capabilities
+- **Update Currency**: Model reviewed and updated quarterly
 
 ### Usage Metrics
 
-- **Access Frequency**: How often artifact is accessed/referenced
-- **Update Frequency**: How often artifact requires updates
-- **Downstream Impact**: How many artifacts/processes depend on this
+- **Strategic Alignment**: Number of initiatives mapped to capability gaps
+- **Investment Planning**: Percentage of IT budget allocated using capability priorities
+- **Portfolio Decisions**: Number of application rationalization decisions driven by capability analysis
+- **Benchmarking**: Maturity scores compared against industry references
 
 ### Continuous Improvement
 
-- Gather feedback from users and reviewers
-- Track common questions or confusion points
-- Identify recurring issues or challenges
-- Update template and guidance based on lessons learned
-- Share best practices across organization
+- Gather feedback from strategy and portfolio planning sessions
+- Track capability gaps identified and addressed over time
+- Measure time-to-decision improvement for architecture choices
+- Update taxonomy based on industry evolution and business changes
+- Share capability assessment insights across organization
 
 ## Metadata Tags
 
-**Phase**: {phase}
+**Phase**: Architecture & Design
 
-**Category**: {category}
+**Category**: Business Architecture
 
-**Typical Producers**: [Roles/teams that typically create this artifact]
+**Typical Producers**: Enterprise Architects, Business Architects, Strategy Teams
 
-**Typical Consumers**: [Roles/teams that typically use this artifact]
+**Typical Consumers**: Business Leaders, Solution Architects, Portfolio Managers, Product Owners
 
-**Effort Estimate**: [Typical hours/days required to complete]
+**Effort Estimate**: 4-8 weeks for initial development; 2-4 days per quarterly update
 
-**Complexity Level**: [Low | Medium | High | Very High]
+**Complexity Level**: High (requires deep business understanding and stakeholder engagement)
 
-**Business Criticality**: [Low | Medium | High | Mission Critical]
+**Business Criticality**: Mission Critical (foundational for strategy and investment decisions)
 
-**Change Frequency**: [Static | Infrequent | Regular | Frequent]
+**Change Frequency**: Regular (quarterly maturity updates, annual comprehensive review)
 
 ---
 
 *This artifact definition follows Big Five consulting methodology standards and incorporates industry best practices. Tailor to your organization's specific requirements and context.*
 
-*Last Updated: {phase} - Version 2.0*
+*Last Updated: Architecture & Design - Version 2.0*
