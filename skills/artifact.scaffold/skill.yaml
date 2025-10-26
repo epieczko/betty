@@ -1,0 +1,136 @@
+name: artifact.scaffold
+version: 0.1.0
+description: >
+  Generate new artifact templates automatically from metadata inputs.
+  Creates fully compliant artifact descriptors with auto-incremented versions,
+  saves them as .artifact.yaml files, and registers them in the artifacts registry.
+  Supports optional validation of generated artifacts.
+
+inputs:
+  - name: id
+    type: string
+    required: true
+    description: Unique identifier for the artifact (e.g., "new.artifact")
+
+  - name: category
+    type: string
+    required: true
+    description: Category/type of artifact (e.g., "report", "specification")
+
+  - name: extends
+    type: string
+    required: false
+    description: Optional base artifact to extend from (e.g., "base.artifact")
+
+  - name: fields
+    type: array
+    required: false
+    description: List of field definitions with name, type, description, and required properties
+
+  - name: output
+    type: string
+    required: false
+    description: Custom output path for the artifact file (defaults to artifacts/{id}.artifact.yaml)
+
+  - name: validate
+    type: boolean
+    required: false
+    default: false
+    description: Whether to validate the artifact after generation
+
+outputs:
+  - name: artifact_id
+    type: string
+    description: ID of the generated artifact
+
+  - name: file_path
+    type: string
+    description: Path to the generated artifact YAML file
+
+  - name: version
+    type: string
+    description: Version assigned to the artifact (default 0.1.0)
+
+  - name: category
+    type: string
+    description: Category of the artifact
+
+  - name: registry_path
+    type: string
+    description: Path to the artifacts registry
+
+  - name: artifacts_registered
+    type: integer
+    description: Total number of artifacts in the registry
+
+  - name: validation
+    type: object
+    required: false
+    description: Validation results if --validate flag was used
+
+dependencies:
+  - artifact.define
+
+entrypoints:
+  - command: /skill/artifact/scaffold
+    handler: artifact_scaffold.py
+    runtime: python
+    description: >
+      Generate a new artifact template from metadata. Creates a valid .artifact.yaml
+      file with the specified structure, registers it in the artifacts registry,
+      and optionally validates the output.
+    parameters:
+      - name: id
+        type: string
+        required: true
+        description: Artifact ID in namespace.name format
+      - name: category
+        type: string
+        required: true
+        description: Artifact category
+      - name: extends
+        type: string
+        required: false
+        description: Base artifact to extend
+      - name: fields
+        type: array
+        required: false
+        description: Field definitions as JSON array
+      - name: output
+        type: string
+        required: false
+        description: Custom output path
+      - name: validate
+        type: boolean
+        required: false
+        description: Validate after generation
+    permissions:
+      - filesystem:read
+      - filesystem:write
+
+status: active
+
+tags:
+  - artifacts
+  - scaffolding
+  - generation
+  - templates
+  - metadata
+
+artifact_metadata:
+  produces:
+    - type: artifact-definition
+      description: Generated artifact YAML descriptor file
+      file_pattern: "*.artifact.yaml"
+      content_type: application/yaml
+
+    - type: artifact-registry
+      description: Updated artifacts registry with new entries
+      file_pattern: "registry/artifacts.json"
+      content_type: application/json
+
+  consumes:
+    - type: artifact-metadata
+      description: Optional artifact metadata for extension
+      file_pattern: "*.artifact.yaml"
+      content_type: application/yaml
