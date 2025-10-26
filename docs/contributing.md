@@ -8,6 +8,7 @@ Thank you for your interest in contributing to Betty! This document provides gui
 - [Getting Started](#getting-started)
 - [Development Workflow](#development-workflow)
 - [Contribution Guidelines](#contribution-guidelines)
+  - [Python Packaging & Imports](#python-packaging--imports)
 - [Style Guide](#style-guide)
 - [Testing](#testing)
 - [Documentation](#documentation)
@@ -108,6 +109,34 @@ python skills/hook.register/hook_register.py hooks/my-hook.yaml
 2. **Self-documenting** – Code should be clear, with comprehensive documentation
 3. **Test thoroughly** – Test all code paths and edge cases
 4. **Audit trail** – All operations should be logged appropriately
+
+### Python Packaging & Imports
+
+Betty ships as an installable Python package (`betty/`) and every skill-specific module should be importable through that package. The CLI entry points that live under `skills/<skill-name>/` remain responsible for argument parsing and manifest wiring, but the reusable logic they invoke belongs in importable modules so other skills and tests can call it directly.
+
+- **Module layout** – Place shared runtime code under `betty/` and mirror skill logic beneath `betty/skills/` using directory names that match the dotted skill identifier (e.g., `betty/skills/api/validate.py` for the `api.validate` skill). CLI shims inside `skills/api.validate/api_validate.py` should import the implementation from the package rather than reimplementing business logic. Core utilities such as `betty.config` and `betty.errors` already follow this layout and can be used as references.【F:betty/config.py†L1-L91】【F:betty/errors.py†L1-L120】
+- **Preferred imports** – When one skill needs another, or when tests need to exercise logic, use fully qualified package imports like `from betty.skills.api.validate import validate_spec` or `from betty.skill_executor import execute_skill_in_process`. This keeps imports deterministic and works whether the project is run from a checkout or an installed wheel. Avoid manipulating `sys.path` inside modules; if an import fails, move the shared code into the `betty` package instead of hacking the path.【F:skills/api.validate/api_validate.py†L1-L48】
+- **Testing guidance** – Tests should import skills exactly the same way production code does. Prefer `betty` package imports for pure Python functions and `execute_skill_in_process` for CLI-style handlers, which lets pytest run without modifying `PYTHONPATH`. The configuration tests (`tests/test_config.py`) and error-handling tests (`tests/test_errors.py`) illustrate the expected direct-import style without any `sys.path` mutation.【F:tests/test_config.py†L1-L43】【F:tests/test_errors.py†L1-L68】
+
+**Examples**
+
+```python
+# Importing a shared helper from a skill module
+from betty.skills.workflow.compose import compose_workflow
+
+def test_compose_round_trip():
+    result = compose_workflow(manifest)
+    assert result.ok
+
+# Executing a CLI handler in-process without touching sys.path
+from betty.skill_executor import execute_skill_in_process
+
+def test_registry_update(tmp_path):
+    outcome = execute_skill_in_process("registry.update", [str(tmp_path / "skill.yaml")])
+    assert outcome["returncode"] == 0
+```
+
+For concrete examples, start with [`betty/config.py`](../betty/config.py), which exposes helpers that skills import directly, and the accompanying tests in [`tests/test_config.py`](../tests/test_config.py) and [`tests/test_errors.py`](../tests/test_errors.py), both of which run without any path hacking.
 
 ### Naming Conventions
 
