@@ -1,1 +1,295 @@
-# ML artifact
+# Model Risk Assessment
+# See also: artifact_descriptions/model-risk-assessments.md for complete guidance
+
+metadata:
+  modelName: "Credit Approval Model"
+  modelVersion: "3.0.0"
+  assessmentDate: "2024-10-26"
+  assessmentType: "Pre-Deployment Risk Assessment"
+  assessor: "AI Risk Team"
+  approvers:
+    - name: "Chief Risk Officer"
+      title: "CRO"
+      approvalDate: "2024-10-28"
+  nextReviewDate: "2025-10-26"
+  riskLevel: "High"  # High, Medium, Low
+
+# MODEL OVERVIEW
+
+model:
+  name: "Credit Approval Recommendation Model"
+  purpose: "Predict creditworthiness and recommend credit limit for loan applicants"
+  algorithm: "Gradient Boosted Trees (XGBoost)"
+  domain: "Consumer lending"
+  usageContext: "High-risk per EU AI Act - impacts access to credit"
+
+# RISK CLASSIFICATION (EU AI Act)
+
+euAIActClassification:
+  riskCategory: "High-Risk AI System"
+  article: "Annex III, Point 5(b) - Creditworthiness assessment"
+  obligations:
+    - "Mandatory risk management system"
+    - "Data governance and management practices"
+    - "Technical documentation"
+    - "Record-keeping requirements"
+    - "Transparency and provision of information to users"
+    - "Human oversight"
+    - "Accuracy, robustness, cybersecurity"
+
+# RISK IDENTIFICATION
+
+risks:
+  - riskID: "RISK-001"
+    category: "Fairness & Bias"
+    description: "Potential discriminatory impact on protected groups (age, gender, race)"
+    likelihood: "Medium"
+    impact: "High"
+    residualRisk: "Low (after mitigation)"
+    mitigation:
+      - "Fairness metrics monitored quarterly (Demographic Parity, Equalized Odds)"
+      - "Training data balanced across demographic groups"
+      - "Sensitive attributes (race, gender) excluded from model features"
+      - "Quarterly bias audits by third-party auditor"
+    evidenceOfMitigation: "Bias testing report Q4 2024 shows all fairness metrics within thresholds"
+
+  - riskID: "RISK-002"
+    category: "Model Performance Degradation"
+    description: "Model accuracy degrades over time due to changing economic conditions"
+    likelihood: "High"
+    impact: "Medium"
+    residualRisk: "Low (after mitigation)"
+    mitigation:
+      - "Monthly performance monitoring (precision, recall, AUC-ROC)"
+      - "Automated retraining triggered if F1 score < 0.85"
+      - "Data drift detection (KL divergence threshold < 0.1)"
+      - "Quarterly model validation on holdout data"
+    evidenceOfMitigation: "Automated monitoring in place, tested in staging"
+
+  - riskID: "RISK-003"
+    category: "Explainability & Transparency"
+    description: "Applicants denied credit without clear explanation violates GDPR Article 22"
+    likelihood: "High"
+    impact: "Critical"
+    residualRisk: "Low (after mitigation)"
+    mitigation:
+      - "SHAP explanations provided for every decision"
+      - "Top 3 contributing factors shown to applicant"
+      - "Human review available for contested decisions"
+      - "Adverse action notices include reason codes (FCRA compliance)"
+    evidenceOfMitigation: "Explainability module tested, generates SHAP values < 100ms"
+
+  - riskID: "RISK-004"
+    category: "Data Quality & Availability"
+    description: "Training data contains errors or missing values affecting model accuracy"
+    likelihood: "Medium"
+    impact: "Medium"
+    residualRisk: "Low (after mitigation)"
+    mitigation:
+      - "Automated data quality checks (completeness, consistency, outliers)"
+      - "Missing value imputation using domain knowledge"
+      - "Data lineage tracked from source to model"
+      - "Training Data Card documents known data issues"
+    evidenceOfMitigation: "Great Expectations test suite validates data quality"
+
+  - riskID: "RISK-005"
+    category: "Security & Adversarial Attacks"
+    description: "Adversarial manipulation of inputs to obtain fraudulent loan approvals"
+    likelihood: "Low"
+    impact: "High"
+    residualRisk: "Low (after mitigation)"
+    mitigation:
+      - "Input validation and sanitization"
+      - "Anomaly detection on input features (outlier detection)"
+      - "Rate limiting on prediction API (max 10 requests/min per applicant)"
+      - "Human review for high-value loans (> $50,000)"
+    evidenceOfMitigation: "Security testing completed, no successful adversarial attacks"
+
+  - riskID: "RISK-006"
+    category: "Privacy & Data Protection"
+    description: "Model inadvertently leaks sensitive information through predictions"
+    likelihood: "Low"
+    impact: "High"
+    residualRisk: "Low (after mitigation)"
+    mitigation:
+      - "PII encrypted in training data"
+      - "Model trained on aggregated features (no raw SSN, account numbers)"
+      - "Differential privacy techniques applied (epsilon = 1.0)"
+      - "Privacy Impact Assessment completed"
+    evidenceOfMitigation: "PIA approved by Data Protection Officer"
+
+# RISK MATRIX
+
+riskMatrix:
+  likelihood:
+    high: "Probability > 50%"
+    medium: "Probability 10-50%"
+    low: "Probability < 10%"
+
+  impact:
+    critical: "Severe harm (discrimination, safety risk, regulatory fines > $1M)"
+    high: "Significant harm (reputational damage, fines $100K-$1M)"
+    medium: "Moderate harm (customer complaints, minor fines)"
+    low: "Minimal harm"
+
+  overallRiskScore:
+    calculation: "Likelihood × Impact"
+    riskLevel: "High"
+    justification: "Multiple high likelihood risks with critical impact (RISK-003)"
+
+# RESIDUAL RISK ASSESSMENT
+
+residualRisk:
+  overallResidualRisk: "Low"
+  justification: "All identified risks have effective mitigations in place with evidence of testing"
+  acceptableRisk: true
+  acceptedBy: "Chief Risk Officer"
+  acceptanceDate: "2024-10-28"
+
+# HUMAN OVERSIGHT
+
+humanOversight:
+  requirement: "Mandatory (EU AI Act Article 14)"
+  implementation:
+    - description: "Human-in-the-loop for all denials"
+      process: "Loan officer reviews every denial recommendation before final decision"
+      training: "Loan officers complete AI ethics training annually"
+
+    - description: "Right to contest"
+      process: "Applicants can request human review of automated decision"
+      sla: "Response within 5 business days"
+
+    - description: "Override capability"
+      process: "Loan officer can override model recommendation with documented justification"
+      auditTrail: "All overrides logged and reviewed monthly"
+
+# COMPLIANCE REQUIREMENTS
+
+compliance:
+  regulations:
+    - regulation: "EU AI Act (High-Risk AI)"
+      requirements:
+        - "Technical documentation maintained"
+        - "Conformity assessment completed"
+        - "CE marking (if applicable)"
+        - "Registration in EU database"
+      status: "In Progress (pre-deployment)"
+
+    - regulation: "GDPR Article 22 (Automated Decision-Making)"
+      requirements:
+        - "Right to explanation provided"
+        - "Right to human review provided"
+        - "Right to contest decision provided"
+      status: "Compliant"
+
+    - regulation: "Fair Credit Reporting Act (FCRA)"
+      requirements:
+        - "Adverse action notices with reason codes"
+        - "Consumer rights disclosure"
+      status: "Compliant"
+
+    - regulation: "Equal Credit Opportunity Act (ECOA)"
+      requirements:
+        - "No discrimination based on protected attributes"
+        - "Adverse action notifications required"
+      status: "Compliant (fairness testing passed)"
+
+# TESTING & VALIDATION
+
+testing:
+  - testType: "Model Validation"
+    description: "Independent validation on holdout dataset"
+    result: "Precision: 88.2%, Recall: 85.7%, F1: 86.9%"
+    status: "Pass (exceeds threshold F1 > 0.85)"
+
+  - testType: "Fairness Testing"
+    description: "Bias testing across protected attributes"
+    metrics:
+      - "Demographic Parity (age groups): Difference 7.2% (threshold < 10%)"
+      - "Equalized Odds (gender): TPR diff 3.1%, FPR diff 2.8% (threshold < 5%)"
+    status: "Pass"
+
+  - testType: "Explainability Testing"
+    description: "SHAP explanations generated for 1000 sample predictions"
+    result: "95% of explanations match domain expert expectations"
+    status: "Pass"
+
+  - testType: "Adversarial Robustness"
+    description: "Adversarial attack testing (FGSM, PGD)"
+    result: "Model robust against 95% of adversarial examples"
+    status: "Pass"
+
+  - testType: "Data Drift Testing"
+    description: "Simulated drift on feature distributions"
+    result: "Model triggers drift alert correctly at KL divergence > 0.1"
+    status: "Pass"
+
+# MONITORING PLAN
+
+monitoring:
+  metrics:
+    - metricName: "F1 Score"
+      threshold: "> 0.85"
+      frequency: "Daily"
+      alerting: "Alert ML Ops if < 0.85 for 3 consecutive days"
+
+    - metricName: "Demographic Parity"
+      threshold: "Difference < 10% between groups"
+      frequency: "Weekly"
+      alerting: "Alert AI Governance Committee if threshold violated"
+
+    - metricName: "Prediction Drift"
+      threshold: "KL divergence < 0.1"
+      frequency: "Daily"
+      alerting: "Alert ML Ops if drift detected for 7 consecutive days"
+
+  dashboards:
+    - "Model Performance Dashboard (Grafana)"
+    - "Fairness Monitoring Dashboard"
+    - "Data Quality Dashboard"
+
+# INCIDENT RESPONSE
+
+incidentResponse:
+  scenarios:
+    - scenario: "Fairness violation detected"
+      severity: "Critical"
+      response: "Immediate model rollback, notify AI Governance Committee, investigate root cause"
+
+    - scenario: "Model performance degraded (F1 < 0.80)"
+      severity: "High"
+      response: "Disable model predictions, revert to manual underwriting, retrain model"
+
+    - scenario: "Data drift detected"
+      severity: "Medium"
+      response: "Schedule model retraining, investigate data source changes"
+
+# DOCUMENTATION LINKS
+
+documentation:
+  modelCard: "model-cards/credit-approval-v3.md"
+  trainingDataCard: "training-data-cards/credit-applications-2024.md"
+  fairnessReport: "bias-and-fairness-reports/credit-approval-v3-2024q4.md"
+  explainabilityReport: "explainability-reports/credit-approval-v3.md"
+  privacyImpactAssessment: "compliance/pia-credit-approval-model.md"
+
+# APPROVAL & SIGN-OFF
+
+approval:
+  recommendedAction: "Approve for Production Deployment"
+  conditions:
+    - "Monthly fairness audits required"
+    - "Quarterly model retraining on updated data"
+    - "Human review required for all denials"
+    - "Incident response plan tested within 30 days of deployment"
+  approvedBy: "Chief Risk Officer"
+  approvalDate: "2024-10-28"
+  validUntil: "2025-10-26"
+
+# CHANGE HISTORY
+
+changeHistory:
+  - version: "1.0"
+    date: "2024-10-26"
+    author: "AI Risk Team"
+    changes: "Initial risk assessment for v3.0.0 model"
