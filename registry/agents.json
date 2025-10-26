@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-23T17:03:16.154165+00:00",
+  "generated_at": "2025-10-26T19:34:41.234431+00:00",
   "agents": [
     {
       "name": "api.designer",
@@ -10,7 +10,7 @@
       "skills_available": [
         "api.define",
         "api.validate",
-        "api.generate-models",
+        "api.generatemodels",
         "api.compatibility"
       ],
       "capabilities": [
@@ -56,6 +56,348 @@
         "versioning",
         "oneshot"
       ],
+      "dependencies": []
+    },
+    {
+      "name": "api.architect",
+      "version": "0.1.0",
+      "description": "An agent that designs comprehensive REST APIs and validates them against best practices. Takes API requirements as input and produces validated OpenAPI specifications with generated data models ready for implementation.",
+      "reasoning_mode": "iterative",
+      "skills_available": [
+        "workflow.validate",
+        "api.validate",
+        "api.define"
+      ],
+      "capabilities": [
+        "Translate API requirements into detailed OpenAPI specifications",
+        "Validate API designs against organizational standards and linting rules",
+        "Generate reference data models to accelerate implementation"
+      ],
+      "status": "draft",
+      "tags": [],
+      "dependencies": []
+    },
+    {
+      "name": "code.reviewer",
+      "version": "0.1.0",
+      "description": "Analyzes code changes and provides comprehensive feedback on code quality, security vulnerabilities, performance issues, and adherence to best practices.",
+      "reasoning_mode": "iterative",
+      "skills_available": [
+        "code.format",
+        "test.workflow.integration",
+        "policy.enforce"
+      ],
+      "capabilities": [
+        "Review diffs for quality, security, and maintainability concerns",
+        "Generate prioritized issue lists with remediation guidance",
+        "Summarize overall code health and compliance with standards"
+      ],
+      "status": "draft",
+      "tags": [],
+      "dependencies": []
+    },
+    {
+      "name": "data.architect",
+      "version": "0.1.0",
+      "description": "Create comprehensive data architecture and governance artifacts including data models, schema definitions, data flow diagrams, data dictionaries, data governance policies, and data quality frameworks. Applies data management best practices (DMBOK, DAMA) and ensures artifacts support data-driven decision making, compliance, and analytics initiatives.",
+      "reasoning_mode": "iterative",
+      "skills_available": [
+        "artifact.create",
+        "artifact.validate",
+        "artifact.review"
+      ],
+      "capabilities": [
+        "Design logical and physical data architectures to support analytics strategies",
+        "Define governance policies and quality controls for critical data assets",
+        "Produce documentation that aligns stakeholders on data flows and ownership"
+      ],
+      "status": "draft",
+      "tags": [],
+      "dependencies": []
+    },
+    {
+      "name": "data.validator",
+      "version": "0.1.0",
+      "description": "Validates data files against schemas, business rules, and data quality standards. Ensures data integrity, completeness, and compliance.",
+      "reasoning_mode": "iterative",
+      "skills_available": [
+        "workflow.validate",
+        "api.validate"
+      ],
+      "capabilities": [
+        "Validate datasets against structural and semantic rules",
+        "Generate detailed issue reports with remediation recommendations",
+        "Track quality metrics and highlight compliance gaps"
+      ],
+      "status": "draft",
+      "tags": [],
+      "dependencies": []
+    },
+    {
+      "name": "deployment.engineer",
+      "version": "0.1.0",
+      "description": "Create comprehensive deployment and release artifacts including deployment plans, CI/CD pipelines, release checklists, rollback procedures, runbooks, and infrastructure-as-code configurations. Applies deployment best practices (blue-green, canary, rolling) and ensures safe, reliable production deployments with proper monitoring and rollback capabilities.",
+      "reasoning_mode": "iterative",
+      "skills_available": [
+        "artifact.create",
+        "artifact.validate",
+        "artifact.review"
+      ],
+      "capabilities": [
+        "Design deployment strategies with rollback and validation procedures",
+        "Automate delivery pipelines and operational runbooks",
+        "Coordinate release governance, approvals, and compliance requirements"
+      ],
+      "status": "draft",
+      "tags": [],
+      "dependencies": []
+    },
+    {
+      "name": "file.processor",
+      "version": "0.1.0",
+      "description": "Processes files through various transformations including format conversion, compression, encryption, and batch operations.",
+      "reasoning_mode": "oneshot",
+      "skills_available": [
+        "file.compare",
+        "workflow.orchestrate",
+        "build.optimize"
+      ],
+      "capabilities": [
+        "Execute configurable pipelines of file transformations",
+        "Optimize files through compression and format conversion workflows",
+        "Apply encryption and verification steps with detailed reporting"
+      ],
+      "status": "draft",
+      "tags": [],
+      "dependencies": []
+    },
+    {
+      "name": "governance.manager",
+      "version": "0.1.0",
+      "description": "Create comprehensive program and project governance artifacts including project charters, RAID logs (Risks, Assumptions, Issues, Decisions), decision logs, governance frameworks, compliance matrices, and steering committee artifacts. Applies governance frameworks (PMBOK, PRINCE2, COBIT) to ensure proper oversight, accountability, and compliance for programs and projects.",
+      "reasoning_mode": "iterative",
+      "skills_available": [
+        "artifact.create",
+        "artifact.validate",
+        "artifact.review"
+      ],
+      "capabilities": [
+        "Establish governance structures and stakeholder engagement plans",
+        "Maintain comprehensive RAID and decision logs for executive visibility",
+        "Ensure compliance with regulatory and organizational policy requirements"
+      ],
+      "status": "draft",
+      "tags": [],
+      "dependencies": []
+    },
+    {
+      "name": "meta.artifact",
+      "version": "0.1.0",
+      "description": "The artifact standards authority - THE single source of truth for all\nartifact type definitions in Betty Framework.\n\nThis meta-agent manages the complete lifecycle of artifact types:\n- Defines new artifact types with JSON schemas\n- Updates ARTIFACT_STANDARDS.md documentation\n- Registers types in the artifact registry\n- Validates artifact compatibility across the system\n- Ensures consistency and prevents conflicts\n\nAll artifact types MUST be registered through meta.artifact before use.\nNo ad-hoc artifact definitions are permitted.\n",
+      "reasoning_mode": "iterative",
+      "skills_available": [
+        "artifact.define",
+        "registry.update",
+        "registry.query"
+      ],
+      "capabilities": [
+        "Curate and register canonical artifact type definitions and schemas",
+        "Synchronize documentation with changes to artifact standards",
+        "Validate artifact compatibility across registries and manifests"
+      ],
+      "status": "draft",
+      "tags": [],
+      "dependencies": []
+    },
+    {
+      "name": "meta.command",
+      "version": "0.1.0",
+      "description": "Creates complete command manifests from natural language descriptions.\n\nThis meta-agent transforms command descriptions into production-ready command\nmanifests that can be registered in the Betty Framework Command Registry.\n\nCommand manifests can delegate to:\n- Agents: For intelligent, context-aware operations\n- Skills: For direct, atomic operations\n- Workflows: For orchestrated multi-step processes\n\nThe meta.command agent generates properly structured YAML manifests with:\n- Command name and metadata\n- Parameter definitions with types and validation\n- Execution configuration (agent/skill/workflow)\n- Documentation and examples\n\nAfter creation, commands can be registered using the command.define skill.\n",
+      "reasoning_mode": "iterative",
+      "skills_available": [
+        "command.define",
+        "artifact.define"
+      ],
+      "capabilities": [
+        "Transform natural language specifications into validated command manifests",
+        "Recommend appropriate execution targets across agents, skills, and workflows",
+        "Produce documentation and registration-ready assets for new commands"
+      ],
+      "status": "draft",
+      "tags": [],
+      "dependencies": []
+    },
+    {
+      "name": "meta.compatibility",
+      "version": "0.1.0",
+      "description": "Analyzes agent and skill compatibility to discover multi-agent workflows.\n\nThis meta-agent helps Claude discover which agents can work together by\nanalyzing artifact flows - what agents produce and what others consume.\n\nEnables intelligent orchestration by suggesting compatible agent combinations\nand detecting potential pipeline gaps.\n",
+      "reasoning_mode": "iterative",
+      "skills_available": [
+        "agent.compose",
+        "artifact.define"
+      ],
+      "capabilities": [
+        "Build compatibility graphs that connect agent inputs and outputs",
+        "Recommend orchestrated workflows that minimize gaps and conflicts",
+        "Surface registry insights to guide creation of missing capabilities"
+      ],
+      "status": "draft",
+      "tags": [],
+      "dependencies": []
+    },
+    {
+      "name": "meta.create",
+      "version": "0.1.0",
+      "description": "Orchestrator meta-agent that intelligently creates skills, commands, and agents.\n\nCapabilities:\n- Detects component type from description\n- Checks inventory for duplicates\n- Analyzes complexity and determines creation pattern\n- Creates skills, commands, and agents in proper order\n- Validates compatibility using meta.compatibility\n- Identifies gaps and provides recommendations\n- Supports auto-filling missing dependencies\n\nThis is the primary entry point for creating Betty components from natural\nlanguage descriptions.\n",
+      "reasoning_mode": "iterative",
+      "skills_available": [
+        "registry.query",
+        "agent.compose"
+      ],
+      "capabilities": [
+        "Diagnose component needs and recommend skills, commands, or agents to create",
+        "Generate scaffolding for new framework components with proper metadata",
+        "Coordinate validation steps to ensure compatibility before registration"
+      ],
+      "status": "draft",
+      "tags": [
+        "meta",
+        "orchestration",
+        "creation",
+        "automation"
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "meta.hook",
+      "version": "0.1.0",
+      "description": "Hook creator meta-agent that generates Claude Code hooks from descriptions",
+      "reasoning_mode": "iterative",
+      "skills_available": [
+        "hook.define",
+        "hook.register",
+        "hook.simulate"
+      ],
+      "capabilities": [
+        "Translate natural language specifications into validated hook manifests",
+        "Recommend appropriate hook events, commands, and execution patterns",
+        "Simulate and document hook behavior for developer adoption"
+      ],
+      "status": "draft",
+      "tags": [],
+      "dependencies": []
+    },
+    {
+      "name": "meta.suggest",
+      "version": "0.1.0",
+      "description": "Context-aware next-step recommender that helps Claude decide what to do next\nafter an agent completes.\n\nAnalyzes current context, produced artifacts, and project state to suggest\ncompatible agents and workflows. Works with meta.compatibility to provide\nintelligent orchestration recommendations.\n",
+      "reasoning_mode": "iterative",
+      "skills_available": [
+        "meta.compatibility",
+        "artifact.define"
+      ],
+      "capabilities": [
+        "Analyze produced artifacts to understand project context",
+        "Recommend next agents or workflows with supporting rationale",
+        "Highlight gaps and dependencies to maintain delivery momentum"
+      ],
+      "status": "draft",
+      "tags": [],
+      "dependencies": []
+    },
+    {
+      "name": "security.architect",
+      "version": "0.1.0",
+      "description": "Create comprehensive security architecture and assessment artifacts including threat models, security architecture diagrams, penetration testing reports, vulnerability management plans, and incident response plans. Applies security frameworks (STRIDE, NIST, ISO 27001, OWASP) and creates artifacts ready for security review and compliance audit.",
+      "reasoning_mode": "iterative",
+      "skills_available": [
+        "artifact.create",
+        "artifact.validate",
+        "artifact.review"
+      ],
+      "capabilities": [
+        "Perform structured threat modeling and control gap assessments",
+        "Produce security architecture and testing documentation for reviews",
+        "Recommend remediation and governance improvements for security programs"
+      ],
+      "status": "draft",
+      "tags": [],
+      "dependencies": []
+    },
+    {
+      "name": "strategy.architect",
+      "version": "0.1.0",
+      "description": "Create comprehensive business strategy and planning artifacts including business cases, portfolio roadmaps, market analyses, competitive assessments, and strategic planning documents. Leverages financial modeling (NPV, IRR, ROI) and industry frameworks (PMBOK, SAFe, BCG Matrix) to produce executive-ready strategic deliverables.",
+      "reasoning_mode": "iterative",
+      "skills_available": [
+        "artifact.create",
+        "artifact.validate",
+        "artifact.review"
+      ],
+      "capabilities": [
+        "Build financial models and strategic roadmaps aligned to business objectives",
+        "Analyze market and competitive data to inform executive decisions",
+        "Produce governance-ready artifacts with risks, dependencies, and recommendations"
+      ],
+      "status": "draft",
+      "tags": [],
+      "dependencies": []
+    },
+    {
+      "name": "test.engineer",
+      "version": "0.1.0",
+      "description": "Create comprehensive testing artifacts including test plans, test cases, test results, test automation strategies, and quality assurance reports. Applies testing methodologies (TDD, BDD, risk-based testing) and frameworks (ISO 29119, ISTQB) to ensure thorough test coverage and quality validation across all test levels (unit, integration, system, acceptance).",
+      "reasoning_mode": "iterative",
+      "skills_available": [
+        "artifact.create",
+        "artifact.validate",
+        "artifact.review"
+      ],
+      "capabilities": [
+        "Develop comprehensive test strategies across multiple levels and techniques",
+        "Produce reusable automation assets and coverage reporting",
+        "Analyze defect data to recommend quality improvements"
+      ],
+      "status": "draft",
+      "tags": [],
+      "dependencies": []
+    },
+    {
+      "name": "meta.agent",
+      "version": "0.1.0",
+      "description": "Meta-agent that creates other agents by composing skills based on natural\nlanguage descriptions. Transforms natural language descriptions into complete,\nfunctional agents.\n\nmeta.agent analyzes agent requirements, recommends compatible skills using artifact\nmetadata, generates complete agent definitions, and produces documentation.\n",
+      "reasoning_mode": "iterative",
+      "skills_available": [
+        "agent.compose",
+        "artifact.define",
+        "registry.update"
+      ],
+      "capabilities": [
+        "Analyze agent requirements and identify compatible skills and capabilities",
+        "Generate complete agent manifests, documentation, and supporting assets",
+        "Validate registry consistency before registering new agents"
+      ],
+      "status": "draft",
+      "tags": [],
+      "dependencies": []
+    },
+    {
+      "name": "meta.skill",
+      "version": "0.1.0",
+      "description": "Creates complete, functional skills from natural language descriptions.\n\nThis meta-agent transforms skill descriptions into production-ready skills with:\n- Complete skill.yaml definition\n- Python implementation stub with proper structure\n- Test template with example tests\n- README documentation\n- Registry registration\n\nEnsures skills follow Betty Framework conventions and are ready for use in agents.\n",
+      "reasoning_mode": "iterative",
+      "skills_available": [
+        "skill.create",
+        "skill.define",
+        "artifact.define"
+      ],
+      "capabilities": [
+        "Convert skill concepts into production-ready packages with tests and docs",
+        "Ensure generated skills follow registry, artifact, and permission conventions",
+        "Coordinate registration and documentation updates for new skills"
+      ],
+      "status": "draft",
+      "tags": [],
       "dependencies": []
     }
   ]
