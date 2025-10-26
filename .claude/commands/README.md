@@ -1,5 +1,18 @@
 # Betty API Development Commands
 
+## ⚙️ **Integration Note: Claude Code Plugin System**
+
+**Betty commands are Claude Code slash commands.** These commands are **executed by Claude Code**, not by a standalone `betty` CLI.
+
+- **Claude Code provides the runtime** for all command execution
+- Commands are defined in `.claude/commands/` as markdown files
+- Commands are automatically discovered and available in Claude Code's command palette
+- Typing `/` in Claude Code shows all available Betty commands
+
+**No separate installation is needed** — commands are available immediately when you run Claude Code in the Betty repository.
+
+---
+
 These slash commands provide a simplified interface for API-driven development with Betty.
 
 ## Available Commands

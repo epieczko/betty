@@ -20,6 +20,19 @@
 
 ---
 
+## ⚙️ **Integration Note: Betty as a Claude Code Plugin System**
+
+**Betty is designed as a collection of Claude Code plugins.** You do not invoke Betty via a standalone CLI (`betty` command). Instead:
+
+- **Claude Code serves as the execution environment and unified CLI**
+- Each skill, agent, and command is registered through its manifest (`skill.yaml`, `agent.yaml`, etc.)
+- Components automatically become discoverable and executable inside Claude Code's command palette
+- All invocation, routing, and argument parsing is handled by Claude Code
+
+**No separate installation step is needed** beyond plugin registration in your Claude Code environment.
+
+---
+
 ## 🎯 What is Betty?
 
 Betty Framework is **RiskExec's AI-native SDLC platform** built on Anthropic's Claude Code. Where Claude Code provides the runtime, **Betty adds methodology, orchestration, and governance**—transforming AI capabilities into a repeatable, auditable engineering discipline.
@@ -140,32 +153,31 @@ The authoritative setup commands live in [INSTALLATION.md](INSTALLATION.md#canon
 
 ### Your First Betty Experience
 
+**Using Claude Code to execute Betty components:**
+
+```
+# Ask Claude to create an artifact type using the meta.artifact agent
+"Use meta.artifact to create an openapi-spec artifact type for OpenAPI 3.0 specifications
+produced by api.designer and consumed by api.validator and code.generator"
+
+# Ask Claude to create an agent using meta.agent
+"Use meta.agent to create an api.designer agent that designs REST APIs following
+enterprise guidelines and outputs openapi-spec artifacts"
+
+# Ask Claude to verify with compatibility analysis
+"Use meta.compatibility to analyze the api.designer agent"
+```
+
+**Alternative: Direct Python execution (for development/testing):**
+
 ```bash
-# Create an artifact type using meta-agent
-cat > /tmp/api-spec.md <<'EOF'
-# Name: openapi-spec
-# Purpose: OpenAPI 3.0 specifications
-# Format: YAML
-# Producers: api.designer
-# Consumers: api.validator, code.generator
-EOF
-
+# When working outside Claude Code, you can invoke scripts directly
 python agents/meta.artifact/meta_artifact.py create /tmp/api-spec.md
-
-# Create an agent using meta-agent
-cat > /tmp/designer.md <<'EOF'
-# Name: api.designer
-# Purpose: Design REST APIs following enterprise guidelines
-# Outputs: openapi-spec
-EOF
-
 python agents/meta.agent/meta_agent.py /tmp/designer.md
-
-# Verify with compatibility analysis
 python agents/meta.compatibility/meta_compatibility.py analyze api.designer
 ```
 
-**Congratulations!** You've just created artifacts and agents using meta-agents.
+**Congratulations!** You've just created artifacts and agents through Claude Code.
 
 📖 **Full Tutorials**:
 - [QUICKSTART.md](QUICKSTART.md) — Betty in 5 minutes
@@ -180,6 +192,16 @@ Meta-agents are **AI-powered generators** that create Betty components from natu
 
 ### 1. meta.agent — Create Agents
 
+**Claude Code invocation:**
+
+```
+"Use meta.agent to create a code.reviewer agent for automated code review with best practices.
+It should accept source-code and review-guidelines as inputs, output review-report and issue-list,
+and use code.analyze, pattern.detect, and recommendation.generate skills."
+```
+
+**Direct execution (development/testing):**
+
 ```bash
 # Describe what you want
 cat > /tmp/my_agent.md <<'EOF'
@@ -192,11 +214,21 @@ EOF
 
 # Generate the agent
 python agents/meta.agent/meta_agent.py /tmp/my_agent.md
-
-# Output: Complete agent with agent.yaml, README.md, and workflow
 ```
 
+**Output:** Complete agent with agent.yaml, README.md, and workflow
+
 ### 2. meta.skill — Create Skills
+
+**Claude Code invocation:**
+
+```
+"Use meta.skill to create a security.scan skill that runs security vulnerability scans.
+It should accept codebase-path and scan-config as inputs, output a vulnerability-report,
+and depend on python-security-tools."
+```
+
+**Direct execution (development/testing):**
 
 ```bash
 # Describe the skill
@@ -210,27 +242,45 @@ EOF
 
 # Generate the skill
 python agents/meta.skill/meta_skill.py /tmp/my_skill.md
-
-# Output: skills/security.scan/ with skill.yaml, SKILL.md, handler
 ```
+
+**Output:** skills/security.scan/ with skill.yaml, SKILL.md, handler
 
 ### 3. meta.hook — Create Event Automation
 
+**Claude Code invocation:**
+
+```
+"Use meta.hook to create a hook that validates OpenAPI specs on file edits.
+It should trigger on on_file_edit events for *.openapi.yaml files,
+run api.validate, and be blocking."
+```
+
+**Direct execution (development/testing):**
+
 ```bash
-# Define the hook
 python agents/meta.hook/meta_hook.py create \
   --event on_file_edit \
   --pattern "*.openapi.yaml" \
   --command api.validate \
   --blocking true
-
-# Output: Automatic API validation on file edits
 ```
+
+**Output:** Automatic API validation on file edits
 
 ### 4. meta.artifact — Define Data Standards
 
+**Claude Code invocation:**
+
+```
+"Use meta.artifact to create a deployment-manifest artifact type for Kubernetes
+deployment configurations in YAML format using k8s-deployment-v1 schema,
+produced by deployment.engineer and consumed by infrastructure.deploy and security.scan."
+```
+
+**Direct execution (development/testing):**
+
 ```bash
-# Create artifact type
 python agents/meta.artifact/meta_artifact.py create <<'EOF'
 # Name: deployment-manifest
 # Purpose: Kubernetes deployment configurations
@@ -239,39 +289,122 @@ python agents/meta.artifact/meta_artifact.py create <<'EOF'
 # Producers: deployment.engineer
 # Consumers: infrastructure.deploy, security.scan
 EOF
-
-# Output: Artifact definition with schema and validation
 ```
+
+**Output:** Artifact definition with schema and validation
 
 ### 5. meta.compatibility — Analyze Dependencies
 
-```bash
-# Check agent compatibility
-python agents/meta.compatibility/meta_compatibility.py analyze api.designer
+**Claude Code invocation:**
 
-# Output:
-# ✓ Produces: openapi-spec, api-documentation
-# ✓ Consumes: requirements-doc
-# ✓ Compatible with: api.validator, code.generator
-# ⚠ Missing consumer for: api-documentation
+```
+"Use meta.compatibility to analyze the api.designer agent"
+```
+
+**Direct execution (development/testing):**
+
+```bash
+python agents/meta.compatibility/meta_compatibility.py analyze api.designer
+```
+
+**Example Output:**
+```
+✓ Produces: openapi-spec, api-documentation
+✓ Consumes: requirements-doc
+✓ Compatible with: api.validator, code.generator
+⚠ Missing consumer for: api-documentation
 ```
 
 ### 6. meta.suggest — Get Recommendations
 
+**Claude Code invocation:**
+
+```
+"Use meta.suggest with context 'I have api.designer and api.validator'
+and goal 'Complete API workflow' to get next step recommendations"
+```
+
+**Direct execution (development/testing):**
+
 ```bash
-# Ask for next steps
 python agents/meta.suggest/meta_suggest.py \
   --context "I have api.designer and api.validator" \
   --goal "Complete API workflow"
+```
 
-# Output:
-# Suggested next steps:
-# 1. Create code.generator agent (produces: client-sdk)
-# 2. Add api.publisher skill (deploy to gateway)
-# 3. Create api.monitor agent (track usage)
+**Example Output:**
+```
+Suggested next steps:
+1. Create code.generator agent (produces: client-sdk)
+2. Add api.publisher skill (deploy to gateway)
+3. Create api.monitor agent (track usage)
 ```
 
 **Why Meta-Agents Matter**: They enable **emergent capabilities**. As you create more artifacts, agents, and skills, the meta-agents understand your domain better and generate increasingly relevant components.
+
+---
+
+## 🔌 How Claude Code Uses Betty
+
+Betty integrates seamlessly with Claude Code through a plugin architecture that eliminates the need for standalone CLI commands.
+
+### Manifest Registration
+
+Each Betty component declares its capabilities through YAML manifests:
+
+- **Skills** (`skill.yaml`) — Define inputs, outputs, dependencies, and execution handlers
+- **Agents** (`agent.yaml`) — Specify reasoning modes, capabilities, and skill orchestration
+- **Commands** (`.claude/commands/*.md`) — Provide slash commands for common workflows
+- **Hooks** (`.claude/hooks.yaml`) — Define event-driven automation triggers
+
+### Automatic Discovery
+
+Claude Code automatically:
+
+1. **Scans** the Betty repository for manifest files
+2. **Validates** manifests against schema definitions
+3. **Registers** components in the command registry (`registry/skills.json`, `registry/agents.json`)
+4. **Exposes** skills and agents through natural language interface
+
+### Execution Through MCP (Model Context Protocol)
+
+When you ask Claude to execute a Betty component:
+
+1. **Claude parses** your natural language request
+2. **Identifies** the appropriate skill or agent from the registry
+3. **Validates** inputs against the manifest schema
+4. **Invokes** the handler script with validated parameters
+5. **Returns** structured output back to Claude for interpretation
+6. **Logs** execution to audit trail (`registry/audit_log.json`)
+
+### Registry-Driven Architecture
+
+All component registration happens through centralized registries:
+
+```
+registry/
+├── skills.json          # load_command_manifest() → skill definitions
+├── agents.json          # load_command_manifest() → agent definitions
+├── commands.json        # Slash command registry
+├── hooks.json           # Event hook registry
+└── audit_log.json       # Execution provenance
+```
+
+Functions like `load_command_manifest()` and `update_command_registry()` ensure:
+- Single source of truth for all components
+- Version tracking and breaking change detection
+- Dependency validation across components
+- Automatic plugin.yaml synchronization
+
+### No Separate Installation
+
+Unlike traditional CLI tools, Betty requires **no installation step** beyond:
+
+1. Cloning the repository
+2. Ensuring Python 3.11+ and dependencies are installed
+3. Running Claude Code in the repository directory
+
+Claude Code automatically discovers and registers all Betty components at startup.
 
 ---
 
@@ -352,21 +485,34 @@ Betty's artifact framework provides **391 enterprise-standard artifact types** w
 
 ### Using Artifacts
 
-```bash
+**Claude Code invocation:**
+
+```
 # List available artifact types
-python agents/meta.artifact/meta_artifact.py list --category security
+"Use meta.artifact to list all artifact types in the security category"
 
 # Create artifact from template
+"Use artifact.create to create a threat-model artifact named payment-system-threats
+using the stride template"
+
+# Validate artifact
+"Use artifact.validate to validate artifacts/threat-model/payment-system-threats.yaml"
+
+# Review artifact quality
+"Use artifact.review to review artifacts/threat-model/payment-system-threats.yaml
+against big-five-standards criteria"
+```
+
+**Direct execution (development/testing):**
+
+```bash
+python agents/meta.artifact/meta_artifact.py list --category security
 python skills/artifact.create/artifact_create.py \
   --type threat-model \
   --name payment-system-threats \
   --template stride
-
-# Validate artifact
 python skills/artifact.validate/artifact_validate.py \
   artifacts/threat-model/payment-system-threats.yaml
-
-# Review artifact quality
 python skills/artifact.review/artifact_review.py \
   artifacts/threat-model/payment-system-threats.yaml \
   --criteria big-five-standards
@@ -701,6 +847,14 @@ We welcome contributions! Betty is designed for extensibility.
 ### Quick Contribution Guide
 
 1. **Create a new skill using meta.skill**:
+
+   **Via Claude Code:**
+   ```
+   "Use meta.skill to create a custom.processor skill that processes custom data formats,
+   accepts raw-data and config as inputs, and outputs processed-data"
+   ```
+
+   **Direct execution (development/testing):**
    ```bash
    cat > /tmp/my_skill.md <<'EOF'
    # Name: custom.processor
@@ -708,7 +862,6 @@ We welcome contributions! Betty is designed for extensibility.
    # Inputs: raw-data, config
    # Outputs: processed-data
    EOF
-
    python agents/meta.skill/meta_skill.py /tmp/my_skill.md
    ```
 
@@ -717,6 +870,13 @@ We welcome contributions! Betty is designed for extensibility.
 3. **Test your skill**: Write tests in `tests/test_custom_processor.py`
 
 4. **Validate and register**:
+
+   **Via Claude Code:**
+   ```
+   "Use skill.define to validate skills/custom.processor/skill.yaml, then use registry.update to register it"
+   ```
+
+   **Direct execution (development/testing):**
    ```bash
    python skills/skill.define/skill_define.py skills/custom.processor/skill.yaml
    python skills/registry.update/registry_update.py skills/custom.processor/skill.yaml
