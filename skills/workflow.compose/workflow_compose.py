@@ -6,7 +6,6 @@ Executes multi-step Betty Framework workflows by chaining existing skills.
 import os
 import sys
 import yaml
-import subprocess
 import json
 from typing import Dict, Any, List, Optional, Tuple
 from datetime import datetime, timezone
@@ -20,6 +19,7 @@ from betty.logging_utils import setup_logger
 from betty.errors import WorkflowError, format_error_response
 from betty.telemetry_capture import capture_skill_execution
 from betty.models import WorkflowDefinition
+from betty.skill_executor import execute_skill_in_process
 from utils.telemetry_utils import capture_telemetry
 logger = setup_logger(__name__)
 
@@ -42,8 +42,7 @@ def log_audit_entry(
         metadata: Additional metadata
     """
     try:
-        audit_handler = get_skill_handler_path("audit.log")
-        args = [sys.executable, audit_handler, skill_name, status]
+        args = [skill_name, status]
 
         if duration_ms is not None:
             args.append(str(duration_ms))
@@ -58,18 +57,10 @@ def log_audit_entry(
         if metadata:
             args.append(json.dumps(metadata))
 
-        result = subprocess.run(
-            args,
-            capture_output=True,
-            text=True,
-            timeout=10
-        )
+        result = execute_skill_in_process("audit.log", args, timeout=10)
 
-        if result.returncode != 0:
-            logger.warning(f"Failed to log audit entry for {skill_name}: {result.stderr}")
-    except FileNotFoundError:
-        # audit.log skill not found, skip audit logging
-        pass
+        if result["returncode"] != 0:
+            logger.warning(f"Failed to log audit entry for {skill_name}: {result['stderr']}")
     except Exception as e:
         logger.warning(f"Failed to log audit entry for {skill_name}: {e}")
 def build_response(ok: bool, path: str, errors: Optional[List[str]] = None, details: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
@@ -82,22 +73,6 @@ def build_response(ok: bool, path: str, errors: Optional[List[str]] = None, deta
     if details is not None:
         response["details"] = details
     return response
-def parse_json_output(output: str) -> Tuple[Optional[Any], Optional[str]]:
-    """Attempt to parse JSON from subprocess stdout."""
-    stripped = output.strip()
-    if not stripped:
-        return None, None
-    try:
-        return json.loads(stripped), None
-    except json.JSONDecodeError as exc:
-        lines = stripped.splitlines()
-        for idx in range(len(lines)):
-            candidate = "\n".join(lines[idx:])
-            try:
-                return json.loads(candidate), None
-            except json.JSONDecodeError:
-                continue
-        return None, str(exc)
 def load_workflow(workflow_file: str) -> Dict[str, Any]:
     """
     Load and parse a workflow YAML file.
@@ -129,40 +104,31 @@ def load_workflow(workflow_file: str) -> Dict[str, Any]:
         raise WorkflowError(f"Workflow file not found: {workflow_file}")
     except yaml.YAMLError as e:
         raise WorkflowError(f"Invalid YAML in workflow: {e}")
-def run_skill(skill_path: str, args: List[str]) -> Dict[str, Any]:
+def run_skill(skill_name: str, args: List[str]) -> Dict[str, Any]:
     """
-    Run a skill handler as a subprocess.
+    Run a skill handler in-process using dynamic imports.
+
     Args:
-        skill_path: Path to skill handler script
+        skill_name: Name of the skill (e.g., "workflow.validate", "audit.log")
         args: Arguments to pass to the skill
+
     Returns:
         Dictionary with stdout, stderr, and return code
+
     Raises:
         WorkflowError: If skill execution fails
     """
-    logger.info(f"▶ Running {skill_path} {' '.join(args)}")
+    logger.info(f"▶ Running skill {skill_name} with args: {' '.join(args)}")
+
+    # Verify skill handler exists
+    skill_path = get_skill_handler_path(skill_name)
     if not os.path.exists(skill_path):
         raise WorkflowError(f"Skill handler not found: {skill_path}")
+
     try:
-        result = subprocess.run(
-            [sys.executable, skill_path] + args,
-            capture_output=True,
-            text=True,
-            timeout=300  # 5 minute timeout
-        )
-        logger.info(result.stdout)
-        if result.stderr:
-            logger.warning(f"Stderr: {result.stderr}")
-        parsed, parse_error = parse_json_output(result.stdout)
-        return {
-            "stdout": result.stdout,
-            "stderr": result.stderr,
-            "returncode": result.returncode,
-            "parsed": parsed,
-            "parse_error": parse_error,
-        }
-    except subprocess.TimeoutExpired:
-        raise WorkflowError(f"Skill execution timed out: {skill_path}")
+        # Execute skill in-process with 5 minute timeout
+        result = execute_skill_in_process(skill_name, args, timeout=300)
+        return result
     except Exception as e:
         raise WorkflowError(f"Failed to execute skill: {e}")
 def save_workflow_history(log: Dict[str, Any]) -> None:
@@ -198,8 +164,7 @@ def execute_workflow(workflow_file: str) -> Dict[str, Any]:
     }
     aggregated_errors: List[str] = []
     # Validate workflow definition before executing steps
-    validator_handler = get_skill_handler_path("workflow.validate")
-    validation_result = run_skill(validator_handler, [workflow_file])
+    validation_result = run_skill("workflow.validate", [workflow_file])
     validation_log: Dict[str, Any] = {
         "step": "validation",
         "skill": "workflow.validate",
@@ -281,19 +246,17 @@ def execute_workflow(workflow_file: str) -> Dict[str, Any]:
             agent_name = step["agent"]
             input_text = step.get("input", "")
             skill_name = "run.agent"
-            handler = get_skill_handler_path(skill_name)
             args = [agent_name]
             if input_text:
                 args.append(input_text)
             logger.info(f"\n=== Step {i}/{len(steps)}: Executing agent {agent_name} via run.agent ===")
         else:
             skill_name = step["skill"]
-            handler = get_skill_handler_path(skill_name)
             args = step.get("args", [])
             logger.info(f"\n=== Step {i}/{len(steps)}: Executing {skill_name} ===")
         try:
             step_start_time = datetime.now(timezone.utc)
-            execution_result = run_skill(handler, args)
+            execution_result = run_skill(skill_name, args)
             step_end_time = datetime.now(timezone.utc)
             step_duration_ms = int((step_end_time - step_start_time).total_seconds() * 1000)
 

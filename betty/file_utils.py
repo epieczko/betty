@@ -6,7 +6,7 @@ Includes safe file locking for concurrent access.
 import os
 import json
 import tempfile
-from typing import Dict, Any, Optional
+from typing import Any, Dict, Optional
 from contextlib import contextmanager
 
 try:  # pragma: no cover - platform specific import
@@ -118,6 +118,40 @@ def safe_write_json(file_path: str, data: Dict[str, Any], indent: int = 2) -> No
         logger.debug(f"Atomically wrote JSON to {file_path}")
     except Exception:
         # Ensure temporary file is removed on failure
+        try:
+            os.unlink(tmp_path)
+        except FileNotFoundError:
+            pass
+        raise
+
+
+def atomic_write_json(path: str, data: Any, indent: int = 2) -> None:
+    """
+    Atomically write JSON data to a file using os.replace().
+
+    Prevents registry corruption when multiple workflows or meta-skills
+    write concurrently by writing to a temp file first, then atomically
+    replacing the target file.
+
+    Args:
+        path: Target file path
+        data: Data to serialize as JSON
+        indent: JSON indentation (default: 2)
+
+    Raises:
+        OSError: If write operation fails
+    """
+    dir_name = os.path.dirname(path) or "."
+    os.makedirs(dir_name, exist_ok=True)
+
+    fd, tmp_path = tempfile.mkstemp(dir=dir_name, prefix=".betty", suffix=".json")
+    try:
+        with os.fdopen(fd, 'w', encoding='utf-8') as tmp_file:
+            json.dump(data, tmp_file, indent=indent)
+        os.replace(tmp_path, path)
+        logger.debug(f"Atomically wrote JSON to {path}")
+    except Exception:
+        # Clean up temp file on failure
         try:
             os.unlink(tmp_path)
         except FileNotFoundError:

@@ -34,6 +34,7 @@ from betty.validation import (
 from betty.logging_utils import setup_logger
 from betty.errors import AgentValidationError, AgentRegistryError, format_error_response
 from betty.models import AgentManifest
+from betty.file_utils import atomic_write_json
 
 logger = setup_logger(__name__)
 
@@ -333,11 +334,9 @@ def update_agent_registry(manifest: Dict[str, Any]) -> bool:
     registry["agents"] = agents
     registry["generated_at"] = datetime.now(timezone.utc).isoformat()
 
-    # Write registry back to disk
+    # Write registry back to disk atomically
     try:
-        os.makedirs(os.path.dirname(AGENTS_REGISTRY_FILE), exist_ok=True)
-        with open(AGENTS_REGISTRY_FILE, 'w') as f:
-            json.dump(registry, f, indent=2)
+        atomic_write_json(AGENTS_REGISTRY_FILE, registry)
         logger.info(f"Agent registry updated successfully")
         return True
     except Exception as e:

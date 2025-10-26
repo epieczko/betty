@@ -34,6 +34,7 @@ from betty.validation import (
 from betty.logging_utils import setup_logger
 from betty.errors import format_error_response
 from betty.models import CommandManifest
+from betty.file_utils import atomic_write_json
 
 logger = setup_logger(__name__)
 
@@ -409,11 +410,9 @@ def update_command_registry(manifest: Dict[str, Any]) -> bool:
     registry["commands"] = commands
     registry["generated_at"] = datetime.now(timezone.utc).isoformat()
 
-    # Write registry back to disk
+    # Write registry back to disk atomically
     try:
-        os.makedirs(os.path.dirname(COMMANDS_REGISTRY_FILE), exist_ok=True)
-        with open(COMMANDS_REGISTRY_FILE, 'w') as f:
-            json.dump(registry, f, indent=2)
+        atomic_write_json(COMMANDS_REGISTRY_FILE, registry)
         logger.info(f"Command registry updated successfully")
         return True
     except Exception as e:
