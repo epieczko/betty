@@ -16,8 +16,6 @@ import subprocess
 from typing import List, Dict, Any, Optional
 from datetime import datetime, timezone
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from betty.config import (
     BASE_DIR, SKILLS_DIR, get_skill_path, get_skill_manifest_path,
@@ -155,7 +153,6 @@ import json
 import argparse
 
 # Add Betty framework to path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from betty.logging_utils import setup_logger
 from betty.errors import format_error_response

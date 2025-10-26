@@ -20,8 +20,6 @@ except ImportError:
     print("Error: networkx is required. Install with: pip install networkx>=3.0")
     sys.exit(1)
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 
 def load_skill_metadata(skills_dir: Path) -> List[Dict[str, Any]]:

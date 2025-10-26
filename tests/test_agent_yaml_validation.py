@@ -10,17 +10,7 @@ import pytest
 from pathlib import Path
 from glob import glob
 
-# Import the agent.define functions
-import sys
-
-sys.path.insert(
-    0,
-    os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "..", "skills", "agent.define")
-    ),
-)
-
-from agent_define import (
+from betty.skills.agent.define.agent_define import (
     validate_manifest,
     load_agent_manifest,
     AgentValidationError,

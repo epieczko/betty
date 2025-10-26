@@ -9,10 +9,7 @@ import pytest
 from pathlib import Path
 
 # Import the command.define functions
-import sys
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "skills", "command.define")))
-
-from command_define import (
+from betty.skills.command.define.command_define import (
     validate_manifest,
     load_command_manifest,
     update_command_registry,

@@ -5,18 +5,10 @@ Tests that governance policies are enforced when creating/updating artifacts.
 """
 
 import pytest
-import sys
-import os
 import yaml
-from pathlib import Path
 from datetime import datetime, timedelta
 
-# Add parent directory to path
-BASE_PATH = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(BASE_PATH))
-sys.path.insert(0, str(BASE_PATH / "skills" / "artifact.create"))
-
-from artifact_create import generate_artifact
+from betty.skills.artifact.create.artifact_create import generate_artifact
 
 
 class TestArtifactCreateGovernance:

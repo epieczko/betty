@@ -10,8 +10,6 @@ import json
 from typing import Dict, Any, List, Optional, Tuple
 from datetime import datetime, timezone
 from pydantic import ValidationError as PydanticValidationError
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 from betty.config import BASE_DIR, WORKFLOW_HISTORY_FILE, get_skill_handler_path
 from betty.file_utils import safe_update_json
 from betty.validation import validate_path

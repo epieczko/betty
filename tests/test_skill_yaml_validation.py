@@ -10,17 +10,7 @@ import pytest
 from pathlib import Path
 from glob import glob
 
-# Import the skill.define functions
-import sys
-
-sys.path.insert(
-    0,
-    os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "..", "skills", "skill.define")
-    ),
-)
-
-from skill_define import (
+from betty.skills.skill.define.skill_define import (
     validate_manifest,
     load_skill_manifest,
     SkillValidationError,

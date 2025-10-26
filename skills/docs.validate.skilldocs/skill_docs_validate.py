@@ -15,7 +15,6 @@ from typing import Any, Dict, List, Optional, Set
 
 import yaml
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from betty.errors import BettyError, SkillValidationError
 from betty.logging_utils import setup_logger

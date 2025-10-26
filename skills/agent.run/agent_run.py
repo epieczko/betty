@@ -16,8 +16,6 @@ from typing import Dict, Any, List, Optional
 from datetime import datetime, timezone
 from pathlib import Path
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from betty.config import (
     AGENTS_DIR, AGENTS_REGISTRY_FILE, REGISTRY_FILE,

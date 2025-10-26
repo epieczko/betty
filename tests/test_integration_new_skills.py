@@ -16,9 +16,6 @@ from datetime import datetime, timezone
 
 import pytest
 
-# Add parent to path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 from betty.config import BASE_DIR, REGISTRY_DIR
 
 # Convert BASE_DIR to Path for easier manipulation

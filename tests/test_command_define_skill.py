@@ -8,11 +8,6 @@ import os
 import json
 import pytest
 
-# Import common testing utilities
-import sys
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 from betty.config import BASE_DIR
 
 
@@ -94,45 +89,29 @@ class TestCommandDefineSkillHandler:
 
     def test_command_define_handler_imports(self):
         """Test that command_define.py can be imported."""
-        sys.path.insert(
-            0, os.path.join(BASE_DIR, "skills", "command.define")
-        )
-        try:
-            import command_define
+        from betty.skills.command.define import command_define
 
-            assert hasattr(command_define, "main"), "Missing main function"
-            assert hasattr(
-                command_define, "validate_manifest"
-            ), "Missing validate_manifest function"
-            assert hasattr(
-                command_define, "load_command_manifest"
-            ), "Missing load_command_manifest function"
-            assert hasattr(
-                command_define, "update_command_registry"
-            ), "Missing update_command_registry function"
-        except ImportError as e:
-            pytest.fail(f"Failed to import command_define: {e}")
-        finally:
-            sys.path.pop(0)
+        assert hasattr(command_define, "main"), "Missing main function"
+        assert hasattr(
+            command_define, "validate_manifest"
+        ), "Missing validate_manifest function"
+        assert hasattr(
+            command_define, "load_command_manifest"
+        ), "Missing load_command_manifest function"
+        assert hasattr(
+            command_define, "update_command_registry"
+        ), "Missing update_command_registry function"
 
     def test_command_define_has_custom_errors(self):
         """Test that command_define defines custom error classes."""
-        sys.path.insert(
-            0, os.path.join(BASE_DIR, "skills", "command.define")
-        )
-        try:
-            import command_define
+        from betty.skills.command.define import command_define
 
-            assert hasattr(
-                command_define, "CommandValidationError"
-            ), "Missing CommandValidationError"
-            assert hasattr(
-                command_define, "CommandRegistryError"
-            ), "Missing CommandRegistryError"
-        except ImportError as e:
-            pytest.fail(f"Failed to import command_define: {e}")
-        finally:
-            sys.path.pop(0)
+        assert hasattr(
+            command_define, "CommandValidationError"
+        ), "Missing CommandValidationError"
+        assert hasattr(
+            command_define, "CommandRegistryError"
+        ), "Missing CommandRegistryError"
 
 
 class TestCommandDefineSkillDocumentation:

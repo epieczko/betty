@@ -16,12 +16,12 @@ from pathlib import Path
 from typing import Dict, Any
 
 # Add betty module to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from betty.logging_utils import setup_logger
 from betty.errors import format_error_response, BettyError
 from betty.validation import validate_path
 from betty.telemetry_capture import telemetry_decorator
+from .validators.zalando_rules import ZalandoValidator
 
 logger = setup_logger(__name__)
 
@@ -92,18 +92,7 @@ def detect_spec_type(spec: Dict[str, Any]) -> str:
 
 
 def validate_openapi_zalando(spec: Dict[str, Any], strict: bool = False) -> Dict[str, Any]:
-    """
-    Validate OpenAPI specification against Zalando guidelines.
-
-    Args:
-        spec: OpenAPI specification
-        strict: Enable strict mode (warnings become errors)
-
-    Returns:
-        Validation report
-    """
-    from validators.zalando_rules import ZalandoValidator
-
+    """Validate an OpenAPI specification against Zalando guidelines."""
     validator = ZalandoValidator(spec, strict=strict)
     report = validator.validate()
 
