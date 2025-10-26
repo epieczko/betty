@@ -13,8 +13,6 @@ from typing import Dict, Any, List, Optional
 from pydantic import ValidationError as PydanticValidationError
 from datetime import datetime, timezone
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from betty.config import BASE_DIR, REQUIRED_SKILL_FIELDS
 from betty.validation import validate_path, validate_manifest_fields

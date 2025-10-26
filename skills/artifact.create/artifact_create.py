@@ -16,7 +16,6 @@ import re
 import yaml
 
 # Add parent directory to path for governance imports
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 from betty.governance import enforce_governance, log_governance_action
 
 

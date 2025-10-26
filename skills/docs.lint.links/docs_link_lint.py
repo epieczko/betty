@@ -16,7 +16,6 @@ from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 
 # Ensure project root on path for betty imports when executed directly
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from betty.errors import BettyError  # noqa: E402
 from betty.logging_utils import setup_logger  # noqa: E402

@@ -19,8 +19,6 @@ import re
 from typing import Dict, Any, List, Optional, Tuple
 from pathlib import Path
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from betty.config import BASE_DIR, SKILLS_DIR, AGENTS_DIR
 from betty.validation import validate_path, validate_version, ValidationError

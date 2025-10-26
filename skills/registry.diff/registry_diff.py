@@ -14,8 +14,6 @@ from typing import Dict, Any, Optional, List, Tuple
 from datetime import datetime, timezone
 from packaging import version as version_parser
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 # Betty framework imports
 from betty.config import BASE_DIR, REGISTRY_DIR

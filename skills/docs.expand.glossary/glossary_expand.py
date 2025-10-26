@@ -16,8 +16,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 from collections import defaultdict
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from betty.config import BASE_DIR
 from betty.logging_utils import setup_logger

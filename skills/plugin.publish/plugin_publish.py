@@ -19,7 +19,6 @@ from typing import Dict, Any, Optional, Tuple
 
 # Add betty module to path
 BETTY_HOME = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
-sys.path.insert(0, BETTY_HOME)
 
 from betty.config import BASE_DIR, REGISTRY_DIR
 from utils.telemetry_utils import capture_telemetry

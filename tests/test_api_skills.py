@@ -9,11 +9,6 @@ import tempfile
 import pytest
 from pathlib import Path
 
-# Import common testing utilities
-import sys
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 from betty.config import BASE_DIR
 
 
@@ -100,17 +95,9 @@ class TestApiDefineSkill:
 
     def test_api_define_handler_imports(self):
         """Test that api.define handler can be imported."""
-        sys.path.insert(
-            0, os.path.join(BASE_DIR, "skills", "api.define")
-        )
-        try:
-            import api_define
+        from betty.skills.api.define import api_define
 
-            assert hasattr(api_define, "main")
-        except ImportError as e:
-            pytest.fail(f"Failed to import api_define: {e}")
-        finally:
-            sys.path.pop(0)
+        assert hasattr(api_define, "main")
 
     def test_api_define_has_templates(self):
         """Test that api.define has templates directory."""
@@ -140,17 +127,9 @@ class TestApiValidateSkill:
 
     def test_api_validate_handler_imports(self):
         """Test that api.validate handler can be imported."""
-        sys.path.insert(
-            0, os.path.join(BASE_DIR, "skills", "api.validate")
-        )
-        try:
-            import api_validate
+        from betty.skills.api.validate import api_validate
 
-            assert hasattr(api_validate, "main")
-        except ImportError as e:
-            pytest.fail(f"Failed to import api_validate: {e}")
-        finally:
-            sys.path.pop(0)
+        assert hasattr(api_validate, "main")
 
     def test_api_validate_has_validators(self):
         """Test that api.validate has validators directory."""
@@ -197,17 +176,9 @@ class TestApiCompatibilitySkill:
 
     def test_api_compatibility_handler_imports(self):
         """Test that api.compatibility handler can be imported."""
-        sys.path.insert(
-            0, os.path.join(BASE_DIR, "skills", "api.compatibility")
-        )
-        try:
-            import check_compatibility
+        from betty.skills.api.compatibility import check_compatibility
 
-            assert hasattr(check_compatibility, "main")
-        except ImportError as e:
-            pytest.fail(f"Failed to import check_compatibility: {e}")
-        finally:
-            sys.path.pop(0)
+        assert hasattr(check_compatibility, "main")
 
 
 class TestApiGenerateModelsSkill:
@@ -233,17 +204,9 @@ class TestApiGenerateModelsSkill:
 
     def test_api_generate_models_handler_imports(self):
         """Test that api.generate-models handler can be imported."""
-        sys.path.insert(
-            0, os.path.join(BASE_DIR, "skills", "api.generate-models")
-        )
-        try:
-            import modelina_generate
+        from betty.skills.api.generatemodels import modelina_generate
 
-            assert hasattr(modelina_generate, "main")
-        except ImportError as e:
-            pytest.fail(f"Failed to import modelina_generate: {e}")
-        finally:
-            sys.path.pop(0)
+        assert hasattr(modelina_generate, "main")
 
 
 class TestApiSkillsIntegration:
