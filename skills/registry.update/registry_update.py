@@ -24,6 +24,7 @@ from betty.logging_utils import setup_logger
 from betty.errors import RegistryError, VersionConflictError, format_error_response
 from betty.telemetry_capture import capture_execution
 from betty.models import SkillManifest
+from betty.provenance import compute_hash, get_provenance_logger
 from betty.versioning import is_monotonic_increase, parse_version
 
 logger = setup_logger(__name__)
@@ -510,7 +511,7 @@ def update_registry_data(manifest_path: str, auto_version: bool = False) -> Dict
     enforce_version_constraints(manifest, registry_for_validation)
 
     def update_fn(registry_data):
-        """Update function for safe_update_json."""
+        """Update function for safe_update_json with provenance tracking."""
         # Ensure registry has proper structure
         if not registry_data or "skills" not in registry_data:
             registry_data = {
@@ -541,6 +542,28 @@ def update_registry_data(manifest_path: str, auto_version: bool = False) -> Dict
 
         # Update timestamp
         registry_data["generated_at"] = datetime.now(timezone.utc).isoformat()
+
+        # Compute content hash for provenance tracking
+        content_hash = compute_hash(registry_data)
+        registry_data["content_hash"] = content_hash
+
+        # Log to provenance system
+        try:
+            provenance = get_provenance_logger()
+            provenance.log_artifact(
+                artifact_id="skills.json",
+                version=registry_data.get("registry_version", "unknown"),
+                content_hash=content_hash,
+                artifact_type="registry",
+                metadata={
+                    "total_skills": len(registry_data.get("skills", [])),
+                    "updated_skill": skill_name,
+                    "skill_version": manifest.get("version", "unknown"),
+                }
+            )
+            logger.info(f"Provenance logged: skills.json -> {content_hash[:8]}...")
+        except Exception as e:
+            logger.warning(f"Failed to log provenance: {e}")
 
         return registry_data
 
