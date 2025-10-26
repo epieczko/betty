@@ -10,6 +10,7 @@ import json
 import yaml
 from typing import Dict, Any, List, Optional
 from datetime import datetime, timezone
+from pydantic import ValidationError as PydanticValidationError
 
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
@@ -32,6 +33,7 @@ from betty.validation import (
 )
 from betty.logging_utils import setup_logger
 from betty.errors import format_error_response
+from betty.models import CommandManifest
 
 logger = setup_logger(__name__)
 
@@ -133,6 +135,32 @@ def load_agent_registry() -> Dict[str, Any]:
         raise CommandValidationError(f"Failed to parse agent registry: {e}")
 
 
+def validate_command_schema(manifest: Dict[str, Any]) -> List[str]:
+    """
+    Validate command manifest using Pydantic schema.
+
+    Args:
+        manifest: Command manifest dictionary
+
+    Returns:
+        List of validation errors (empty if valid)
+    """
+    errors: List[str] = []
+
+    try:
+        CommandManifest.model_validate(manifest)
+        logger.info("Pydantic schema validation passed for command manifest")
+    except PydanticValidationError as exc:
+        logger.warning("Pydantic schema validation failed for command manifest")
+        for error in exc.errors():
+            field = ".".join(str(loc) for loc in error["loc"])
+            message = error["msg"]
+            error_type = error["type"]
+            errors.append(f"Schema validation error at '{field}': {message} (type: {error_type})")
+
+    return errors
+
+
 def validate_execution_target(execution: Dict[str, Any]) -> List[str]:
     """
     Validate that the execution target exists in the appropriate registry.
@@ -215,6 +243,10 @@ def validate_manifest(path: str) -> Dict[str, Any]:
             "errors": [str(e)],
             "path": path
         }
+
+    # Validate with Pydantic schema first
+    schema_errors = validate_command_schema(manifest)
+    errors.extend(schema_errors)
 
     # Check required fields
     missing = validate_manifest_fields(manifest, REQUIRED_COMMAND_FIELDS)
@@ -419,6 +451,16 @@ def main():
                 details["status"] = "validated"
                 details["registry_updated"] = False
                 details["registry_error"] = str(e)
+        else:
+            # Check if there are schema validation errors
+            has_schema_errors = any("Schema validation error" in err for err in validation.get("errors", []))
+            if has_schema_errors:
+                details["error"] = {
+                    "type": "SchemaError",
+                    "error": "SchemaError",
+                    "message": "Command manifest schema validation failed",
+                    "details": {"errors": validation.get("errors", [])}
+                }
 
         # Build response
         response = build_response(

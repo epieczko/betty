@@ -10,6 +10,7 @@ import json
 import yaml
 from typing import Dict, Any, List, Optional
 from datetime import datetime, timezone
+from pydantic import ValidationError as PydanticValidationError
 
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
@@ -30,6 +31,7 @@ from betty.validation import (
 )
 from betty.logging_utils import setup_logger
 from betty.errors import format_error_response
+from betty.models import HookManifest
 
 logger = setup_logger(__name__)
 
@@ -93,6 +95,32 @@ def load_hook_manifest(path: str) -> Dict[str, Any]:
         raise HookValidationError(f"Failed to parse YAML: {e}")
 
 
+def validate_hook_schema(manifest: Dict[str, Any]) -> List[str]:
+    """
+    Validate hook manifest using Pydantic schema.
+
+    Args:
+        manifest: Hook manifest dictionary
+
+    Returns:
+        List of validation errors (empty if valid)
+    """
+    errors: List[str] = []
+
+    try:
+        HookManifest.model_validate(manifest)
+        logger.info("Pydantic schema validation passed for hook manifest")
+    except PydanticValidationError as exc:
+        logger.warning("Pydantic schema validation failed for hook manifest")
+        for error in exc.errors():
+            field = ".".join(str(loc) for loc in error["loc"])
+            message = error["msg"]
+            error_type = error["type"]
+            errors.append(f"Schema validation error at '{field}': {message} (type: {error_type})")
+
+    return errors
+
+
 def validate_manifest(path: str) -> Dict[str, Any]:
     """
     Validate that a hook manifest meets all requirements.
@@ -131,6 +159,10 @@ def validate_manifest(path: str) -> Dict[str, Any]:
             "errors": [str(e)],
             "path": path
         }
+
+    # Validate with Pydantic schema first
+    schema_errors = validate_hook_schema(manifest)
+    errors.extend(schema_errors)
 
     # Check required fields
     missing = validate_manifest_fields(manifest, REQUIRED_HOOK_FIELDS)
@@ -339,6 +371,16 @@ def main():
                 details["status"] = "validated"
                 details["registry_updated"] = False
                 details["registry_error"] = str(e)
+        else:
+            # Check if there are schema validation errors
+            has_schema_errors = any("Schema validation error" in err for err in validation.get("errors", []))
+            if has_schema_errors:
+                details["error"] = {
+                    "type": "SchemaError",
+                    "error": "SchemaError",
+                    "message": "Hook manifest schema validation failed",
+                    "details": {"errors": validation.get("errors", [])}
+                }
 
         # Build response
         response = build_response(

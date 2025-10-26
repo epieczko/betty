@@ -10,6 +10,7 @@ import json
 import yaml
 from typing import Dict, Any, List, Optional
 from datetime import datetime, timezone
+from pydantic import ValidationError as PydanticValidationError
 
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
@@ -32,6 +33,7 @@ from betty.validation import (
 )
 from betty.logging_utils import setup_logger
 from betty.errors import AgentValidationError, AgentRegistryError, format_error_response
+from betty.models import AgentManifest
 
 logger = setup_logger(__name__)
 
@@ -104,6 +106,32 @@ def load_skill_registry() -> Dict[str, Any]:
         raise AgentValidationError(f"Failed to parse skill registry: {e}")
 
 
+def validate_agent_schema(manifest: Dict[str, Any]) -> List[str]:
+    """
+    Validate agent manifest using Pydantic schema.
+
+    Args:
+        manifest: Agent manifest dictionary
+
+    Returns:
+        List of validation errors (empty if valid)
+    """
+    errors: List[str] = []
+
+    try:
+        AgentManifest.model_validate(manifest)
+        logger.info("Pydantic schema validation passed for agent manifest")
+    except PydanticValidationError as exc:
+        logger.warning("Pydantic schema validation failed for agent manifest")
+        for error in exc.errors():
+            field = ".".join(str(loc) for loc in error["loc"])
+            message = error["msg"]
+            error_type = error["type"]
+            errors.append(f"Schema validation error at '{field}': {message} (type: {error_type})")
+
+    return errors
+
+
 def validate_manifest(path: str) -> Dict[str, Any]:
     """
     Validate that an agent manifest meets all requirements.
@@ -142,6 +170,10 @@ def validate_manifest(path: str) -> Dict[str, Any]:
             "errors": [str(e)],
             "path": path
         }
+
+    # Validate with Pydantic schema first
+    schema_errors = validate_agent_schema(manifest)
+    errors.extend(schema_errors)
 
     # Check required fields
     missing = validate_manifest_fields(manifest, REQUIRED_AGENT_FIELDS)
@@ -343,6 +375,16 @@ def main():
                 details["status"] = "validated"
                 details["registry_updated"] = False
                 details["registry_error"] = str(e)
+        else:
+            # Check if there are schema validation errors
+            has_schema_errors = any("Schema validation error" in err for err in validation.get("errors", []))
+            if has_schema_errors:
+                details["error"] = {
+                    "type": "SchemaError",
+                    "error": "SchemaError",
+                    "message": "Agent manifest schema validation failed",
+                    "details": {"errors": validation.get("errors", [])}
+                }
 
         # Build response
         response = build_response(
