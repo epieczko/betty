@@ -1,0 +1,82 @@
+[
+  {
+    "type": "command",
+    "name": "/branch-cleanup",
+    "summary": "Branch Cleanup",
+    "mapped_skill": null,
+    "mapped_agent": null,
+    "path": "/home/user/betty/.claude/commands/branch-cleanup.md"
+  },
+  {
+    "type": "command",
+    "name": "/create-worktrees",
+    "summary": "Create Git Worktrees",
+    "mapped_skill": null,
+    "mapped_agent": null,
+    "path": "/home/user/betty/.claude/commands/create-worktrees.md"
+  },
+  {
+    "type": "command",
+    "name": "/update-branch-name",
+    "summary": "Update Branch Name",
+    "mapped_skill": null,
+    "mapped_agent": null,
+    "path": "/home/user/betty/.claude/commands/update-branch-name.md"
+  },
+  {
+    "type": "command",
+    "name": "/create-pr",
+    "summary": "Create Pull Request",
+    "mapped_skill": null,
+    "mapped_agent": null,
+    "path": "/home/user/betty/.claude/commands/create-pr.md"
+  },
+  {
+    "type": "command",
+    "name": "/optimize-build",
+    "summary": "Optimize Build",
+    "mapped_skill": null,
+    "mapped_agent": null,
+    "path": "/home/user/betty/.claude/commands/optimize-build.md"
+  },
+  {
+    "type": "command",
+    "name": "/commit",
+    "summary": "Commit",
+    "mapped_skill": null,
+    "mapped_agent": null,
+    "path": "/home/user/betty/.claude/commands/commit.md"
+  },
+  {
+    "type": "command",
+    "name": "/api-generate",
+    "summary": "Generate Models from API Spec",
+    "mapped_skill": null,
+    "mapped_agent": null,
+    "path": "/home/user/betty/.claude/commands/api-generate.md"
+  },
+  {
+    "type": "command",
+    "name": "/api-compatibility",
+    "summary": "Check API Compatibility",
+    "mapped_skill": null,
+    "mapped_agent": null,
+    "path": "/home/user/betty/.claude/commands/api-compatibility.md"
+  },
+  {
+    "type": "command",
+    "name": "/api-validate",
+    "summary": "Validate API Specification",
+    "mapped_skill": null,
+    "mapped_agent": null,
+    "path": "/home/user/betty/.claude/commands/api-validate.md"
+  },
+  {
+    "type": "command",
+    "name": "/api-design",
+    "summary": "Design API",
+    "mapped_skill": null,
+    "mapped_agent": null,
+    "path": "/home/user/betty/.claude/commands/api-design.md"
+  }
+]

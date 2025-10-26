@@ -1,0 +1,2310 @@
+[
+  {
+    "type": "skill",
+    "name": "artifact.validate",
+    "description": "Validate artifacts against schema, structure, and quality criteria. Checks for completeness, correct format, required fields, and generates detailed validation reports with quality scores and actionable recommendations.\n",
+    "inputs": [
+      {
+        "name": "artifact_path",
+        "type": "string",
+        "required": true,
+        "description": "Path to the artifact file to validate"
+      },
+      {
+        "name": "artifact_type",
+        "type": "string",
+        "required": false,
+        "description": "Type of artifact (auto-detected from filename/content if not provided)"
+      },
+      {
+        "name": "strict",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Strict mode - fail validation on warnings"
+      },
+      {
+        "name": "schema_path",
+        "type": "string",
+        "required": false,
+        "description": "Optional path to custom JSON schema for validation"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "validation_report",
+        "type": "object",
+        "description": "Detailed validation results with scores and recommendations"
+      },
+      {
+        "name": "is_valid",
+        "type": "boolean",
+        "description": "Overall validation status (true if artifact passes validation)"
+      },
+      {
+        "name": "quality_score",
+        "type": "number",
+        "description": "Quality score from 0-100 based on completeness and best practices"
+      }
+    ],
+    "tags": [
+      "artifacts",
+      "validation",
+      "quality",
+      "tier2",
+      "phase2"
+    ],
+    "artifact_metadata": {
+      "produces": [
+        {
+          "type": "validation-report",
+          "description": "Detailed artifact validation report with scores and recommendations",
+          "file_pattern": "*-validation-report.yaml",
+          "content_type": "application/yaml"
+        }
+      ],
+      "consumes": [
+        {
+          "type": "*",
+          "description": "Validates any artifact type from the registry",
+          "file_pattern": "**/*.{yaml,yml,md}"
+        }
+      ]
+    },
+    "path": "/home/user/betty/skills/artifact.validate/skill.yaml",
+    "domain": "architecture",
+    "role": "validate"
+  },
+  {
+    "type": "skill",
+    "name": "docs.lint.links",
+    "description": "Validates Markdown links to detect broken internal or external links, with optional autofix mode to correct common issues.\n",
+    "inputs": [
+      {
+        "name": "root_dir",
+        "type": "string",
+        "required": false,
+        "default": ".",
+        "description": "Root directory to search for Markdown files (default: current directory)"
+      },
+      {
+        "name": "no_external",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Skip checking external links (faster)"
+      },
+      {
+        "name": "autofix",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Automatically fix common issues (case mismatches, .md extension issues)"
+      },
+      {
+        "name": "timeout",
+        "type": "integer",
+        "required": false,
+        "default": 10,
+        "description": "Timeout for external link checks in seconds"
+      },
+      {
+        "name": "exclude",
+        "type": "string",
+        "required": false,
+        "description": "Comma-separated list of patterns to exclude (e.g., 'node_modules,.git')"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "required": false,
+        "default": "json",
+        "description": "Output format (json or text)"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "lint_results",
+        "type": "object",
+        "description": "JSON object containing link validation results with issues and statistics"
+      },
+      {
+        "name": "issues",
+        "type": "array",
+        "description": "Array of link issues found, each with file, line, link, issue type, and suggested fix"
+      },
+      {
+        "name": "summary",
+        "type": "object",
+        "description": "Summary statistics including files checked, issues found, and fixes applied"
+      }
+    ],
+    "tags": [
+      "documentation",
+      "linting",
+      "validation",
+      "links",
+      "markdown"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/docs.lint.links/skill.yaml",
+    "domain": "docs",
+    "role": "review"
+  },
+  {
+    "type": "skill",
+    "name": "test.example",
+    "description": "A simple test skill for validating the meta.create orchestrator workflow",
+    "inputs": [
+      "input_data (string) - Test input data"
+    ],
+    "outputs": [
+      "output_result (string) - Processed result"
+    ],
+    "tags": [],
+    "artifact_metadata": {
+      "produces": [
+        {
+          "type": "test.result"
+        }
+      ],
+      "consumes": [
+        {
+          "type": "test.input",
+          "required": true
+        }
+      ]
+    },
+    "path": "/home/user/betty/skills/test.example/skill.yaml",
+    "domain": "testing",
+    "role": "validate"
+  },
+  {
+    "type": "skill",
+    "name": "code.format",
+    "description": "Format code using Prettier, supporting multiple languages and file types. This skill can format individual files or entire directories, check formatting without making changes, and respect custom Prettier configurations.",
+    "inputs": [
+      {
+        "name": "path",
+        "type": "string",
+        "required": true,
+        "description": "File or directory path to format"
+      },
+      {
+        "name": "config_path",
+        "type": "string",
+        "required": false,
+        "description": "Path to custom Prettier configuration file"
+      },
+      {
+        "name": "check_only",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Only check formatting without modifying files"
+      },
+      {
+        "name": "file_patterns",
+        "type": "string",
+        "required": false,
+        "description": "Comma-separated glob patterns to filter files (e.g., \"**/*.js,**/*.ts\")"
+      },
+      {
+        "name": "write",
+        "type": "boolean",
+        "required": false,
+        "default": true,
+        "description": "Write formatted output to files (default true, use false for dry run)"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "formatting_report.json",
+        "type": "application/json",
+        "description": "JSON report with formatting results, files processed, and any errors"
+      },
+      {
+        "name": "formatted_files",
+        "type": "text/plain",
+        "description": "Updated files with proper formatting (when write=true)"
+      }
+    ],
+    "tags": [],
+    "artifact_metadata": {
+      "produces": [
+        {
+          "type": "formatting-report",
+          "format": "application/json",
+          "description": "Detailed report of formatting operation results"
+        }
+      ]
+    },
+    "path": "/home/user/betty/skills/code.format/skill.yaml",
+    "domain": "operations",
+    "role": "analyze"
+  },
+  {
+    "type": "skill",
+    "name": "agent.compose",
+    "description": "Recommend skills for a Betty agent based on its purpose and responsibilities. Analyzes artifact flows, ensures skill compatibility, and suggests optimal skill combinations for agent definitions.\n",
+    "inputs": [
+      {
+        "name": "agent_purpose",
+        "type": "string",
+        "required": true,
+        "description": "Description of what the agent should do (e.g., \"Design and validate APIs\")"
+      },
+      {
+        "name": "required_artifacts",
+        "type": "array",
+        "required": false,
+        "description": "Artifact types the agent needs to work with (e.g., [\"openapi-spec\"])"
+      },
+      {
+        "name": "output_format",
+        "type": "string",
+        "required": false,
+        "default": "yaml",
+        "description": "Output format (yaml, json, or markdown)"
+      },
+      {
+        "name": "include_rationale",
+        "type": "boolean",
+        "required": false,
+        "default": true,
+        "description": "Include explanation of why each skill was recommended"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "recommended_skills",
+        "type": "array",
+        "description": "List of recommended skill names"
+      },
+      {
+        "name": "skills_with_rationale",
+        "type": "object",
+        "description": "Skills with explanation of why they were recommended"
+      },
+      {
+        "name": "artifact_flow",
+        "type": "object",
+        "description": "Diagram showing how artifacts flow between recommended skills"
+      },
+      {
+        "name": "compatibility_report",
+        "type": "object",
+        "description": "Validation that recommended skills work together"
+      }
+    ],
+    "tags": [
+      "agents",
+      "composition",
+      "artifacts",
+      "scaffolding",
+      "interoperability",
+      "layer3"
+    ],
+    "artifact_metadata": {
+      "produces": [
+        {
+          "type": "agent-skill-recommendation",
+          "description": "Recommended skills list with compatibility analysis for agent definitions",
+          "file_pattern": "agent-skills-recommendation.{yaml,json}",
+          "content_type": "application/yaml"
+        }
+      ],
+      "consumes": [
+        {
+          "type": "registry-data",
+          "description": "Betty Framework registry containing skills and their artifact metadata",
+          "required": true
+        }
+      ]
+    },
+    "path": "/home/user/betty/skills/agent.compose/skill.yaml",
+    "domain": "ai",
+    "role": "create"
+  },
+  {
+    "type": "skill",
+    "name": "api.define",
+    "description": "Create OpenAPI and AsyncAPI specifications from templates",
+    "inputs": [
+      {
+        "name": "service_name",
+        "type": "string",
+        "required": true,
+        "description": "Name of the service/API (e.g., user-service, order-api)"
+      },
+      {
+        "name": "spec_type",
+        "type": "string",
+        "required": false,
+        "default": "openapi",
+        "description": "Type of specification (openapi or asyncapi)"
+      },
+      {
+        "name": "template",
+        "type": "string",
+        "required": false,
+        "default": "zalando",
+        "description": "Template to use (zalando, basic, minimal)"
+      },
+      {
+        "name": "output_dir",
+        "type": "string",
+        "required": false,
+        "default": "specs",
+        "description": "Output directory for generated specification"
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "required": false,
+        "default": "1.0.0",
+        "description": "API version"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "spec_path",
+        "type": "string",
+        "description": "Path to generated specification file"
+      },
+      {
+        "name": "spec_content",
+        "type": "object",
+        "description": "Generated specification content"
+      }
+    ],
+    "tags": [
+      "api",
+      "openapi",
+      "asyncapi",
+      "scaffolding",
+      "zalando"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/api.define/skill.yaml",
+    "domain": "api",
+    "role": "create"
+  },
+  {
+    "type": "skill",
+    "name": "hook.register",
+    "description": "Validate and register hook manifests in the Hook Registry",
+    "inputs": [
+      {
+        "name": "manifest_path",
+        "type": "string",
+        "required": true,
+        "description": "Path to the hook manifest file (YAML)"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "validation_result",
+        "type": "object",
+        "description": "Validation results and registration status",
+        "schema": {
+          "properties": {
+            "ok": "boolean",
+            "status": "string",
+            "errors": "array",
+            "path": "string",
+            "details": "object"
+          }
+        }
+      }
+    ],
+    "tags": [
+      "hook",
+      "registry",
+      "validation",
+      "infrastructure",
+      "policy"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/hook.register/skill.yaml",
+    "domain": "architecture",
+    "role": "analyze"
+  },
+  {
+    "type": "skill",
+    "name": "api.compatibility",
+    "description": "Detect breaking changes between API specification versions",
+    "inputs": [
+      {
+        "name": "old_spec_path",
+        "type": "string",
+        "required": true,
+        "description": "Path to the old/previous API specification"
+      },
+      {
+        "name": "new_spec_path",
+        "type": "string",
+        "required": true,
+        "description": "Path to the new/current API specification"
+      },
+      {
+        "name": "fail_on_breaking",
+        "type": "boolean",
+        "required": false,
+        "default": true,
+        "description": "Exit with error code if breaking changes detected"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "compatible",
+        "type": "boolean",
+        "description": "Whether the new spec is backward compatible"
+      },
+      {
+        "name": "breaking_changes",
+        "type": "array",
+        "description": "List of breaking changes detected"
+      },
+      {
+        "name": "non_breaking_changes",
+        "type": "array",
+        "description": "List of non-breaking changes detected"
+      },
+      {
+        "name": "change_summary",
+        "type": "object",
+        "description": "Summary of all changes"
+      }
+    ],
+    "tags": [
+      "api",
+      "compatibility",
+      "breaking-changes",
+      "versioning",
+      "openapi"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/api.compatibility/skill.yaml",
+    "domain": "api",
+    "role": "analyze"
+  },
+  {
+    "type": "skill",
+    "name": "docs.sync.readme",
+    "description": "Regenerate the top-level README.md to reflect all current registered skills and agents. Pulls from registry/skills.json and registry/agents.json, groups by category, and updates documentation sections while maintaining repo style and tone.\n",
+    "inputs": [],
+    "outputs": [
+      "README.md",
+      "sync_report.json"
+    ],
+    "tags": [
+      "documentation",
+      "registry",
+      "automation",
+      "maintenance"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/docs.sync.readme/skill.yaml",
+    "domain": "docs",
+    "role": "analyze"
+  },
+  {
+    "type": "skill",
+    "name": "audit.log",
+    "description": "Records audit events to a centralized audit log with timestamped JSON entries tracking skill execution, status, duration, and errors.\n",
+    "inputs": [
+      "skill_name",
+      "status",
+      "duration_ms",
+      "errors (optional)",
+      "metadata (optional)"
+    ],
+    "outputs": [
+      "audit_log_entry.json"
+    ],
+    "tags": [],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/audit.log/skill.yaml",
+    "domain": "governance",
+    "role": "review"
+  },
+  {
+    "type": "skill",
+    "name": "hook.define",
+    "description": "Create and register validation hooks for Claude Code",
+    "inputs": [
+      {
+        "name": "event",
+        "type": "string",
+        "required": true,
+        "description": "Hook event trigger (on_file_edit, on_file_save, on_commit, on_push, on_tool_use)"
+      },
+      {
+        "name": "pattern",
+        "type": "string",
+        "required": false,
+        "description": "File pattern to match (e.g., \"*.openapi.yaml\", \"specs/**/*.yaml\")"
+      },
+      {
+        "name": "command",
+        "type": "string",
+        "required": true,
+        "description": "Command to execute when hook triggers (skill name or full command)"
+      },
+      {
+        "name": "blocking",
+        "type": "boolean",
+        "required": false,
+        "default": true,
+        "description": "Whether hook should block operation if it fails"
+      },
+      {
+        "name": "timeout",
+        "type": "number",
+        "required": false,
+        "default": 30000,
+        "description": "Timeout in milliseconds (default 30 seconds)"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "description": "Human-readable description of what the hook does"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "hook_config",
+        "type": "object",
+        "description": "Generated hook configuration"
+      },
+      {
+        "name": "hooks_file_path",
+        "type": "string",
+        "description": "Path to .claude/hooks.yaml file"
+      }
+    ],
+    "tags": [
+      "hooks",
+      "validation",
+      "automation",
+      "claude-code"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/hook.define/skill.yaml",
+    "domain": "architecture",
+    "role": "create"
+  },
+  {
+    "type": "skill",
+    "name": "data.transform",
+    "description": "Transform data between different formats (JSON, YAML, XML, CSV) with validation and error handling",
+    "inputs": [
+      "input_file_path",
+      "source_format",
+      "target_format",
+      "schema_path (optional)"
+    ],
+    "outputs": [
+      "transformed_file",
+      "transformation_report.json"
+    ],
+    "tags": [],
+    "artifact_metadata": {
+      "produces": [
+        {
+          "type": "transformed-data"
+        },
+        {
+          "type": "transformation-report"
+        }
+      ]
+    },
+    "path": "/home/user/betty/skills/data.transform/skill.yaml",
+    "domain": "data",
+    "role": "analyze"
+  },
+  {
+    "type": "skill",
+    "name": "workflow.validate",
+    "description": "Validates Betty workflow YAML definitions to ensure correct structure and required fields.\n",
+    "inputs": [
+      "workflow_path"
+    ],
+    "outputs": [
+      "validation_result.json"
+    ],
+    "tags": [],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/workflow.validate/skill.yaml",
+    "domain": "operations",
+    "role": "validate"
+  },
+  {
+    "type": "skill",
+    "name": "hook.simulate",
+    "description": "Simulate hook execution to test manifests before registration",
+    "inputs": [
+      {
+        "name": "manifest_path",
+        "type": "string",
+        "required": true,
+        "description": "Path to the hook manifest file (YAML)"
+      },
+      {
+        "name": "execute",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Whether to execute the hook command (vs. just validation)"
+      },
+      {
+        "name": "dry_run",
+        "type": "boolean",
+        "required": false,
+        "default": true,
+        "description": "If true, simulate command execution without running it"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "simulation_result",
+        "type": "object",
+        "description": "Complete simulation results including validation, triggers, and execution",
+        "schema": {
+          "properties": {
+            "valid": "boolean",
+            "validation_errors": "array",
+            "manifest": "object",
+            "trigger_simulation": "object",
+            "command_executions": "array",
+            "blocking": "boolean",
+            "timeout_ms": "number"
+          }
+        }
+      }
+    ],
+    "tags": [
+      "hook",
+      "simulation",
+      "testing",
+      "validation",
+      "development"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/hook.simulate/skill.yaml",
+    "domain": "architecture",
+    "role": "analyze"
+  },
+  {
+    "type": "skill",
+    "name": "plugin.sync",
+    "description": "Automatically generates plugin.yaml from Betty Framework registries. Reads skills.json, commands.json, and hooks.json to build a complete plugin configuration.\n",
+    "inputs": [],
+    "outputs": [
+      "plugin.yaml",
+      "generation_report.json"
+    ],
+    "tags": [
+      "plugin",
+      "registry",
+      "automation",
+      "infrastructure"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/plugin.sync/skill.yaml",
+    "domain": "deployment",
+    "role": "analyze"
+  },
+  {
+    "type": "skill",
+    "name": "registry.update",
+    "description": "Updates the Betty Framework Skill Registry by adding or modifying entries based on validated skill manifests. Supports automatic version bumping based on semantic versioning rules.\n",
+    "inputs": [
+      "manifest_path",
+      "auto_version"
+    ],
+    "outputs": [
+      "registry_update_result.json"
+    ],
+    "tags": [],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/registry.update/skill.yaml",
+    "domain": "governance",
+    "role": "analyze"
+  },
+  {
+    "type": "skill",
+    "name": "generate.docs",
+    "description": "Automatically generate or update SKILL.md documentation from skill.yaml manifests",
+    "inputs": [
+      {
+        "name": "manifest_path",
+        "type": "string",
+        "required": true,
+        "description": "Path to skill.yaml manifest file to generate documentation from"
+      },
+      {
+        "name": "overwrite",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Overwrite existing SKILL.md file if it exists"
+      },
+      {
+        "name": "dry_run",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Preview the generated documentation without writing to disk"
+      },
+      {
+        "name": "output_path",
+        "type": "string",
+        "required": false,
+        "description": "Custom output path for SKILL.md (defaults to same directory as manifest)"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "doc_path",
+        "type": "string",
+        "description": "Path to generated or updated SKILL.md file"
+      },
+      {
+        "name": "doc_content",
+        "type": "string",
+        "description": "Generated documentation content"
+      },
+      {
+        "name": "dry_run_preview",
+        "type": "string",
+        "description": "Preview of documentation (when dry_run=true)"
+      }
+    ],
+    "tags": [
+      "documentation",
+      "automation",
+      "scaffolding",
+      "skill-management"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/generate.docs/skill.yaml",
+    "domain": "ai",
+    "role": "create"
+  },
+  {
+    "type": "skill",
+    "name": "docs.sync.pluginmanifest",
+    "description": "Reconciles plugin.yaml with Betty Framework registries to ensure consistency. Identifies missing, orphaned, and mismatched command entries and suggests corrections.\n",
+    "inputs": [],
+    "outputs": [
+      "plugin.preview.yaml",
+      "plugin_manifest_diff.md"
+    ],
+    "tags": [
+      "docs",
+      "plugin",
+      "registry",
+      "validation",
+      "reconciliation",
+      "infrastructure"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/docs.sync.pluginmanifest/skill.yaml",
+    "domain": "docs",
+    "role": "analyze"
+  },
+  {
+    "type": "skill",
+    "name": "agent.define",
+    "description": "Validates and registers agent manifests for the Betty Framework. Ensures schema compliance, validates skill references, and updates the Agent Registry.\n",
+    "inputs": [
+      {
+        "name": "manifest_path",
+        "type": "string",
+        "required": true,
+        "description": "Path to the agent.yaml file to validate"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "validation_result",
+        "type": "object",
+        "description": "Validation results including errors and warnings"
+      },
+      {
+        "name": "registry_updated",
+        "type": "boolean",
+        "description": "Whether agent was successfully registered"
+      }
+    ],
+    "tags": [
+      "agents",
+      "validation",
+      "registry",
+      "layer2"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/agent.define/skill.yaml",
+    "domain": "ai",
+    "role": "create"
+  },
+  {
+    "type": "skill",
+    "name": "epic.decompose",
+    "description": "Take an Epic (as Markdown) and decompose it into user stories. Analyzes Epic document and identifies major deliverables, grouping them by persona or capability.",
+    "inputs": [
+      "epic_file (string, required): Path to the epic.md file to decompose",
+      "max_stories (integer, optional): Maximum number of stories to generate (default: 5)",
+      "output_path (string, optional): Where to save the stories.json file (default: ./stories.json)"
+    ],
+    "outputs": [
+      "stories.json: Structured JSON list of story summaries with persona, goal, benefit, and acceptance criteria"
+    ],
+    "tags": [],
+    "artifact_metadata": {
+      "produces": [
+        {
+          "type": "user-stories-list"
+        }
+      ],
+      "consumes": [
+        {
+          "type": "agile-epic",
+          "required": true
+        }
+      ]
+    },
+    "path": "/home/user/betty/skills/epic.decompose/skill.yaml",
+    "domain": "architecture",
+    "role": "create"
+  },
+  {
+    "type": "skill",
+    "name": "docs.validate.skilldocs",
+    "description": "Validate SKILL.md documentation files against their skill.yaml manifests to ensure completeness and consistency",
+    "inputs": [
+      {
+        "name": "skill_path",
+        "type": "string",
+        "required": true,
+        "description": "Path to skill directory containing skill.yaml and SKILL.md"
+      },
+      {
+        "name": "summary",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Print a short summary table of validation results instead of full JSON output"
+      },
+      {
+        "name": "check_headers",
+        "type": "boolean",
+        "required": false,
+        "default": true,
+        "description": "Validate that SKILL.md contains required section headers"
+      },
+      {
+        "name": "check_manifest_parity",
+        "type": "boolean",
+        "required": false,
+        "default": true,
+        "description": "Validate that SKILL.md documentation matches skill.yaml manifest fields"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "valid",
+        "type": "boolean",
+        "description": "Whether the skill documentation is valid"
+      },
+      {
+        "name": "validation_report",
+        "type": "object",
+        "description": "Detailed validation results including errors and warnings"
+      },
+      {
+        "name": "errors",
+        "type": "array",
+        "description": "List of validation errors found"
+      },
+      {
+        "name": "warnings",
+        "type": "array",
+        "description": "List of validation warnings found"
+      }
+    ],
+    "tags": [
+      "documentation",
+      "validation",
+      "quality-assurance",
+      "skill-management"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/docs.validate.skilldocs/skill.yaml",
+    "domain": "docs",
+    "role": "validate"
+  },
+  {
+    "type": "skill",
+    "name": "artifact.create",
+    "description": "Create artifacts from templates with AI-assisted population. Takes an artifact type and business context, loads the appropriate template, and generates a complete, professional artifact ready for review and use.\n",
+    "inputs": [
+      {
+        "name": "artifact_type",
+        "type": "string",
+        "required": true,
+        "description": "Type of artifact to create (e.g., \"business-case\", \"threat-model\", \"portfolio-roadmap\")"
+      },
+      {
+        "name": "context",
+        "type": "string",
+        "required": true,
+        "description": "Business context, requirements, and information to populate the artifact"
+      },
+      {
+        "name": "output_path",
+        "type": "string",
+        "required": true,
+        "description": "Path where the generated artifact should be saved"
+      },
+      {
+        "name": "metadata",
+        "type": "object",
+        "required": false,
+        "description": "Optional metadata overrides (author, classification, approvers, etc.)"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "artifact_file",
+        "type": "string",
+        "description": "Path to the generated artifact file"
+      },
+      {
+        "name": "artifact_format",
+        "type": "string",
+        "description": "Format of the generated artifact (yaml or markdown)"
+      },
+      {
+        "name": "generation_report",
+        "type": "object",
+        "description": "Report on the generation process, including populated sections and validation status"
+      }
+    ],
+    "tags": [
+      "artifacts",
+      "templates",
+      "generation",
+      "ai-assisted",
+      "tier2"
+    ],
+    "artifact_metadata": {
+      "produces": [
+        {
+          "type": "*",
+          "description": "Dynamically produces any registered artifact type based on artifact_type parameter",
+          "file_pattern": "{{output_path}}",
+          "content_type": "application/yaml, text/markdown"
+        }
+      ],
+      "consumes": [
+        {
+          "type": "artifact-type-description",
+          "description": "References artifact descriptions for guidance on structure and content",
+          "file_pattern": "artifact_descriptions/*.md"
+        }
+      ]
+    },
+    "path": "/home/user/betty/skills/artifact.create/skill.yaml",
+    "domain": "architecture",
+    "role": "create"
+  },
+  {
+    "type": "skill",
+    "name": "agent.run",
+    "description": "Execute a registered Betty agent by loading its manifest, generating a Claude-friendly prompt, invoking skills based on the agent's workflow, and logging results. Supports both iterative and oneshot reasoning modes with optional Claude API integration.\n",
+    "inputs": [
+      {
+        "name": "agent_path",
+        "type": "string",
+        "required": true,
+        "description": "Path to agent manifest (agent.yaml) or agent name (e.g., api.designer)"
+      },
+      {
+        "name": "task_context",
+        "type": "string",
+        "required": false,
+        "description": "Task or query to provide to the agent for execution"
+      },
+      {
+        "name": "save_log",
+        "type": "boolean",
+        "required": false,
+        "default": true,
+        "description": "Whether to save execution log to agent_logs/<agent>.json"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "execution_result",
+        "type": "object",
+        "description": "Complete execution results including prompt, Claude response, and skill outputs",
+        "schema": {
+          "properties": {
+            "ok": "boolean",
+            "status": "string",
+            "timestamp": "string",
+            "errors": "array",
+            "details": {
+              "type": "object",
+              "properties": {
+                "timestamp": "string",
+                "agent": "object",
+                "task_context": "string",
+                "prompt": "string",
+                "skills_available": "array",
+                "claude_response": "object",
+                "execution_results": "array",
+                "summary": "object",
+                "log_path": "string"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "agents",
+      "execution",
+      "claude-api",
+      "orchestration",
+      "layer2"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/agent.run/skill.yaml",
+    "domain": "ai",
+    "role": "orchestrate"
+  },
+  {
+    "type": "skill",
+    "name": "registry.query",
+    "description": "Search Betty registries programmatically by filtering skills, agents, commands, and hooks. Supports filtering by tags, domain, status, name, version, and capability with optional fuzzy matching for dynamic discovery and CLI autocompletion. Includes table formatting for easy viewing in CLI.\n",
+    "inputs": [
+      {
+        "name": "registry",
+        "type": "string",
+        "required": true,
+        "description": "Registry to query (skills, agents, commands, or hooks)"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "description": "Filter by name (substring match, supports fuzzy matching)"
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "required": false,
+        "description": "Filter by version (exact match)"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": false,
+        "description": "Filter by status (e.g., active, draft, deprecated, archived)"
+      },
+      {
+        "name": "tag",
+        "type": "string",
+        "required": false,
+        "description": "Filter by single tag"
+      },
+      {
+        "name": "tags",
+        "type": "array",
+        "required": false,
+        "description": "Filter by multiple tags (any match)"
+      },
+      {
+        "name": "capability",
+        "type": "string",
+        "required": false,
+        "description": "Filter by capability (agents only, substring match)"
+      },
+      {
+        "name": "domain",
+        "type": "string",
+        "required": false,
+        "description": "Filter by domain (alias for tag filtering)"
+      },
+      {
+        "name": "fuzzy",
+        "type": "boolean",
+        "required": false,
+        "description": "Enable fuzzy matching for name and capability filters"
+      },
+      {
+        "name": "limit",
+        "type": "integer",
+        "required": false,
+        "description": "Maximum number of results to return"
+      },
+      {
+        "name": "format",
+        "type": "string",
+        "required": false,
+        "description": "Output format (json, table, compact)"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "results",
+        "type": "array",
+        "description": "List of matching registry entries with key metadata"
+      },
+      {
+        "name": "query_metadata",
+        "type": "object",
+        "description": "Query statistics including total entries and matching count"
+      },
+      {
+        "name": "registry_info",
+        "type": "object",
+        "description": "Information about the queried registry"
+      }
+    ],
+    "tags": [
+      "registry",
+      "search",
+      "query",
+      "discovery",
+      "metadata",
+      "cli"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/registry.query/skill.yaml",
+    "domain": "governance",
+    "role": "analyze"
+  },
+  {
+    "type": "skill",
+    "name": "policy.enforce",
+    "description": "Enforces policy rules for skill and agent manifests including naming conventions, semantic versioning, permissions validation, and status lifecycle checks. Supports both single-file validation and batch mode for scanning all manifests in skills/ and agents/ directories.\n",
+    "inputs": [
+      {
+        "name": "manifest_path",
+        "type": "string",
+        "required": false,
+        "description": "Path to a single skill.yaml or agent.yaml manifest file to validate"
+      },
+      {
+        "name": "batch",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Enable batch mode to scan all manifests in skills/ and agents/ directories"
+      },
+      {
+        "name": "strict",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Enable strict mode where warnings become errors"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "validation_report",
+        "type": "object",
+        "description": "Detailed validation results including violations, warnings, and success status"
+      },
+      {
+        "name": "violations",
+        "type": "array",
+        "description": "List of policy violations found in the manifest(s)"
+      },
+      {
+        "name": "success",
+        "type": "boolean",
+        "description": "Whether the manifest(s) passed all policy checks"
+      }
+    ],
+    "tags": [
+      "governance",
+      "policy",
+      "validation",
+      "naming",
+      "versioning"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/policy.enforce/skill.yaml",
+    "domain": "governance",
+    "role": "govern"
+  },
+  {
+    "type": "skill",
+    "name": "story.write",
+    "description": "Convert decomposed items from epic.decompose into fully formatted user stories. Generates individual Markdown files for each story following standard user story format.",
+    "inputs": [
+      "stories_file (string, required): Path to the stories.json file from epic.decompose",
+      "epic_reference (string, optional): Reference to the source Epic for traceability",
+      "output_dir (string, optional): Directory to save story files (default: ./stories/)"
+    ],
+    "outputs": [
+      "story_<n>.md: Markdown file per story with persona, goal, benefit, acceptance criteria, and metadata",
+      "stories_index.md: Summary index of all created stories"
+    ],
+    "tags": [],
+    "artifact_metadata": {
+      "produces": [
+        {
+          "type": "user-story"
+        }
+      ],
+      "consumes": [
+        {
+          "type": "user-stories-list",
+          "required": true
+        }
+      ]
+    },
+    "path": "/home/user/betty/skills/story.write/skill.yaml",
+    "domain": "architecture",
+    "role": "create"
+  },
+  {
+    "type": "skill",
+    "name": "git.createpr",
+    "description": "Create GitHub pull requests with auto-generated titles and descriptions based on commit analysis. Analyzes commit history, identifies related issues, and creates well-formatted PRs with proper linking and metadata. - git-commits - Commit history between base and feature branch - git-repository - Local git repository with commit information - github-credentials - GitHub token for API access (from gh CLI or environment) - pull-request - Created GitHub pull request with metadata - pr-report - Summary of PR creation including URL, number, and status - base_branch (string): Base branch for PR (default: main) - title (string): PR title (optional, auto-generated from commits if not provided) - draft (boolean): Create as draft PR (default: false) - auto_merge (boolean): Enable auto-merge if checks pass (default: false) - reviewers (array): List of GitHub usernames to request reviews from - labels (array): Labels to apply to PR (optional, auto-detected from commits) - body (string): PR description (optional, auto-generated if not provided) - git command line tool - GitHub CLI (gh) or GitHub API access with token - Access to git repository - GitHub repository with permissions to create PRs 1. Validate we're in a git repository 2. Get current branch name 3. Validate base branch exists 4. Fetch latest changes from remote 5. Get commit history between base and current branch 6. Analyze commits to extract: - Commit messages - Conventional commit types (feat, fix, docs, etc.) - Issue references (#123) - Breaking changes 7. Generate PR title (if not provided): - Use most recent commit message - Or summarize multiple commits - Format: \"type(scope): description\" 8. Generate PR description (if not provided): - Summary of changes - List of commits with links - Related issues section - Breaking changes warning (if any) 9. Detect labels from commit types: - feat \u2192 enhancement - fix \u2192 bug - docs \u2192 documentation - etc. 10. Create PR using GitHub CLI (gh pr create): - Set title and body - Set base and head branches - Apply labels - Request reviewers - Set draft status 11. Parse PR URL and number from output 12. Return structured result with PR metadata ```bash python3 skills/git.createpr/git_createpr.py python3 skills/git.createpr/git_createpr.py --draft python3 skills/git.createpr/git_createpr.py --reviewers alice bob python3 skills/git.createpr/git_createpr.py --base develop python3 skills/git.createpr/git_createpr.py --title \"feat: add user authentication\" python3 skills/git.createpr/git_createpr.py --labels enhancement breaking-change ``` ```json { \"ok\": true, \"status\": \"success\", \"pr_number\": 123, \"pr_url\": \"https://github.com/owner/repo/pull/123\", \"title\": \"feat: add user authentication\", \"base_branch\": \"main\", \"head_branch\": \"feature/auth\", \"commits_analyzed\": 5, \"issues_linked\": [\"#45\", \"#67\"], \"labels_applied\": [\"enhancement\", \"feature\"], \"reviewers_requested\": [\"alice\", \"bob\"], \"is_draft\": false } ``` - git - github - pull-request - automation - workflow - pr This skill requires SKILL_AND_COMMAND pattern due to: - 12 steps (exceeds threshold) - High autonomy (auto-generates PR content intelligently) - Highly reusable for release automation and CI/CD - Complex GitHub API interaction - Commit analysis and pattern detection - Multiple execution contexts (CLI, agents, workflows) This implementation uses GitHub CLI (gh) for simplicity and authentication: - Leverages existing gh authentication - Simpler than managing GitHub API tokens - Better error messages - Handles pagination automatically If gh CLI is not available, falls back to REST API with token from: - GITHUB_TOKEN environment variable - GH_TOKEN environment variable",
+    "inputs": [],
+    "outputs": [],
+    "tags": [],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/git.createpr/skill.yaml",
+    "domain": "operations",
+    "role": "create"
+  },
+  {
+    "type": "skill",
+    "name": "artifact.scaffold",
+    "description": "Generate new artifact templates automatically from metadata inputs. Creates fully compliant artifact descriptors with auto-incremented versions, saves them as .artifact.yaml files, and registers them in the artifacts registry. Supports optional validation of generated artifacts.\n",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "Unique identifier for the artifact (e.g., \"new.artifact\")"
+      },
+      {
+        "name": "category",
+        "type": "string",
+        "required": true,
+        "description": "Category/type of artifact (e.g., \"report\", \"specification\")"
+      },
+      {
+        "name": "extends",
+        "type": "string",
+        "required": false,
+        "description": "Optional base artifact to extend from (e.g., \"base.artifact\")"
+      },
+      {
+        "name": "fields",
+        "type": "array",
+        "required": false,
+        "description": "List of field definitions with name, type, description, and required properties"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "required": false,
+        "description": "Custom output path for the artifact file (defaults to artifacts/{id}.artifact.yaml)"
+      },
+      {
+        "name": "validate",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Whether to validate the artifact after generation"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "artifact_id",
+        "type": "string",
+        "description": "ID of the generated artifact"
+      },
+      {
+        "name": "file_path",
+        "type": "string",
+        "description": "Path to the generated artifact YAML file"
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "description": "Version assigned to the artifact (default 0.1.0)"
+      },
+      {
+        "name": "category",
+        "type": "string",
+        "description": "Category of the artifact"
+      },
+      {
+        "name": "registry_path",
+        "type": "string",
+        "description": "Path to the artifacts registry"
+      },
+      {
+        "name": "artifacts_registered",
+        "type": "integer",
+        "description": "Total number of artifacts in the registry"
+      },
+      {
+        "name": "validation",
+        "type": "object",
+        "required": false,
+        "description": "Validation results if --validate flag was used"
+      }
+    ],
+    "tags": [
+      "artifacts",
+      "scaffolding",
+      "generation",
+      "templates",
+      "metadata"
+    ],
+    "artifact_metadata": {
+      "produces": [
+        {
+          "type": "artifact-definition",
+          "description": "Generated artifact YAML descriptor file",
+          "file_pattern": "*.artifact.yaml",
+          "content_type": "application/yaml"
+        },
+        {
+          "type": "artifact-registry",
+          "description": "Updated artifacts registry with new entries",
+          "file_pattern": "registry/artifacts.json",
+          "content_type": "application/json"
+        }
+      ],
+      "consumes": [
+        {
+          "type": "artifact-metadata",
+          "description": "Optional artifact metadata for extension",
+          "file_pattern": "*.artifact.yaml",
+          "content_type": "application/yaml"
+        }
+      ]
+    },
+    "path": "/home/user/betty/skills/artifact.scaffold/skill.yaml",
+    "domain": "architecture",
+    "role": "create"
+  },
+  {
+    "type": "skill",
+    "name": "registry.diff",
+    "description": "Compare current and previous versions of skills/agents and report differences. Detects changes, determines required actions, and provides suggestions for version management and breaking change prevention. Enhanced with changed_fields array and breaking flag for easier consumption.\n",
+    "inputs": [
+      {
+        "name": "manifest_path",
+        "type": "string",
+        "required": true,
+        "description": "Path to the skill.yaml or agent.yaml manifest file to compare"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "diff_result",
+        "type": "object",
+        "description": "Detailed diff analysis including diff_type, required_action, suggestions, and comparison details\n"
+      }
+    ],
+    "tags": [
+      "registry",
+      "validation",
+      "version-control",
+      "diff",
+      "comparison"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/registry.diff/skill.yaml",
+    "domain": "governance",
+    "role": "analyze"
+  },
+  {
+    "type": "skill",
+    "name": "docs.expand.glossary",
+    "description": "Extract undocumented terms from manifests and documentation, then enrich glossary.md with auto-generated definitions. Scans skill.yaml, agent.yaml, and markdown files to identify missing glossary entries.",
+    "inputs": [
+      {
+        "name": "glossary_path",
+        "type": "string",
+        "required": false,
+        "description": "Path to glossary.md file (default: docs/glossary.md)"
+      },
+      {
+        "name": "base_dir",
+        "type": "string",
+        "required": false,
+        "description": "Base directory to scan for manifests (default: project root)"
+      },
+      {
+        "name": "dry_run",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Preview changes without writing to glossary file"
+      },
+      {
+        "name": "include_auto_generated",
+        "type": "boolean",
+        "required": false,
+        "default": true,
+        "description": "Include auto-generated definitions for common terms"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "summary",
+        "type": "object",
+        "description": "Summary of glossary expansion including counts and file paths"
+      },
+      {
+        "name": "new_definitions",
+        "type": "object",
+        "description": "Dictionary of new terms and their definitions"
+      },
+      {
+        "name": "manifest_terms",
+        "type": "object",
+        "description": "Categorized terms extracted from manifests"
+      },
+      {
+        "name": "skipped_terms",
+        "type": "array",
+        "description": "Terms that were skipped (already documented or too common)"
+      }
+    ],
+    "tags": [
+      "documentation",
+      "glossary",
+      "automation",
+      "analysis",
+      "manifests"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/docs.expand.glossary/skill.yaml",
+    "domain": "docs",
+    "role": "analyze"
+  },
+  {
+    "type": "skill",
+    "name": "file.compare",
+    "description": "Compare two files and generate detailed diff reports showing line-by-line differences",
+    "inputs": [
+      "file_path_1",
+      "file_path_2",
+      "output_format (optional)"
+    ],
+    "outputs": [
+      "diff_report.json"
+    ],
+    "tags": [],
+    "artifact_metadata": {
+      "produces": [
+        {
+          "type": "diff-report"
+        }
+      ]
+    },
+    "path": "/home/user/betty/skills/file.compare/skill.yaml",
+    "domain": "operations",
+    "role": "analyze"
+  },
+  {
+    "type": "skill",
+    "name": "plugin.build",
+    "description": "Automatically bundle a plugin directory (or the whole repo) into a deployable Claude Code plugin package. Gathers all declared entrypoints, validates handler files exist, and packages everything into .tar.gz or .zip under /dist.\n",
+    "inputs": [
+      {
+        "name": "plugin_path",
+        "type": "string",
+        "required": false,
+        "description": "Path to plugin.yaml (defaults to ./plugin.yaml)"
+      },
+      {
+        "name": "output_format",
+        "type": "string",
+        "required": false,
+        "description": "Package format (tar.gz or zip, defaults to tar.gz)"
+      },
+      {
+        "name": "output_dir",
+        "type": "string",
+        "required": false,
+        "description": "Output directory (defaults to ./dist)"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "plugin_package",
+        "type": "file",
+        "description": "Packaged plugin archive (.tar.gz or .zip)"
+      },
+      {
+        "name": "build_report",
+        "type": "object",
+        "description": "JSON report with validated entrypoints, missing files, and package checksum"
+      }
+    ],
+    "tags": [
+      "plugin",
+      "packaging",
+      "build",
+      "deployment",
+      "distribution"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/plugin.build/skill.yaml",
+    "domain": "deployment",
+    "role": "analyze"
+  },
+  {
+    "type": "skill",
+    "name": "skill.create",
+    "description": "Generates a new Betty Framework Skill directory and manifest. Used to bootstrap new Claude Code-compatible skills inside the Betty Framework.\n",
+    "inputs": [
+      "skill_name",
+      "description",
+      "inputs",
+      "outputs"
+    ],
+    "outputs": [
+      "skill_directory",
+      "manifest_path",
+      "registration_record.json"
+    ],
+    "tags": [],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/skill.create/skill.yaml",
+    "domain": "architecture",
+    "role": "create"
+  },
+  {
+    "type": "skill",
+    "name": "artifact.review",
+    "description": "AI-powered artifact content review for quality, completeness, and best practices. Analyzes artifact content against industry standards, provides quality scoring, and generates actionable recommendations for improvement.\n",
+    "inputs": [
+      {
+        "name": "artifact_path",
+        "type": "string",
+        "required": true,
+        "description": "Path to the artifact file to review"
+      },
+      {
+        "name": "artifact_type",
+        "type": "string",
+        "required": false,
+        "description": "Type of artifact (auto-detected from filename/content if not provided)"
+      },
+      {
+        "name": "review_level",
+        "type": "string",
+        "required": false,
+        "default": "standard",
+        "description": "Review depth (quick, standard, comprehensive)"
+      },
+      {
+        "name": "focus_areas",
+        "type": "array",
+        "required": false,
+        "description": "Specific areas to focus review on (e.g., security, compliance, completeness)"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "review_report",
+        "type": "object",
+        "description": "Detailed review with quality assessment and recommendations"
+      },
+      {
+        "name": "quality_rating",
+        "type": "string",
+        "description": "Overall quality rating (Excellent, Good, Fair, Needs Improvement, Poor)"
+      },
+      {
+        "name": "readiness_score",
+        "type": "number",
+        "description": "Readiness score from 0-100 for approval/publication"
+      }
+    ],
+    "tags": [
+      "artifacts",
+      "review",
+      "quality",
+      "ai-powered",
+      "tier2",
+      "phase2"
+    ],
+    "artifact_metadata": {
+      "produces": [
+        {
+          "type": "review-report",
+          "description": "Detailed artifact content review with quality assessment",
+          "file_pattern": "*-review-report.yaml",
+          "content_type": "application/yaml"
+        }
+      ],
+      "consumes": [
+        {
+          "type": "*",
+          "description": "Reviews any artifact type from the registry",
+          "file_pattern": "**/*.{yaml,yml,md}"
+        },
+        {
+          "type": "artifact-type-description",
+          "description": "References comprehensive artifact descriptions for quality criteria",
+          "file_pattern": "artifact_descriptions/*.md"
+        }
+      ]
+    },
+    "path": "/home/user/betty/skills/artifact.review/skill.yaml",
+    "domain": "architecture",
+    "role": "review"
+  },
+  {
+    "type": "skill",
+    "name": "skill.define",
+    "description": "Validates and registers skill manifests (.skill.yaml) for the Betty Framework. Ensures schema compliance and updates the Skill Registry.\n",
+    "inputs": [
+      "manifest_path"
+    ],
+    "outputs": [
+      "validation_result.json",
+      "updated_registry.json"
+    ],
+    "tags": [],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/skill.define/skill.yaml",
+    "domain": "architecture",
+    "role": "create"
+  },
+  {
+    "type": "skill",
+    "name": "api.validate",
+    "description": "Validate OpenAPI and AsyncAPI specifications against enterprise guidelines",
+    "inputs": [
+      {
+        "name": "spec_path",
+        "type": "string",
+        "required": true,
+        "description": "Path to the API specification file (OpenAPI or AsyncAPI)"
+      },
+      {
+        "name": "guideline_set",
+        "type": "string",
+        "required": false,
+        "default": "zalando",
+        "description": "Which API guidelines to validate against (zalando, google, microsoft)"
+      },
+      {
+        "name": "strict",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Enable strict mode (warnings become errors)"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "validation_report",
+        "type": "object",
+        "description": "Detailed validation results including errors and warnings"
+      },
+      {
+        "name": "valid",
+        "type": "boolean",
+        "description": "Whether the spec is valid"
+      },
+      {
+        "name": "guideline_version",
+        "type": "string",
+        "description": "Version of guidelines used for validation"
+      }
+    ],
+    "tags": [
+      "api",
+      "validation",
+      "openapi",
+      "asyncapi",
+      "zalando"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/api.validate/skill.yaml",
+    "domain": "api",
+    "role": "validate"
+  },
+  {
+    "type": "skill",
+    "name": "plugin.publish",
+    "description": "Publish a bundled plugin package (.tar.gz) to various targets: local directory, remote Claude Marketplace endpoint, or GitHub Releases. Validates SHA256 checksums before publication and generates publication metadata for tracking and auditing.\n",
+    "inputs": [
+      {
+        "name": "package_path",
+        "type": "string",
+        "required": true,
+        "description": "Path to the .tar.gz package file built by plugin.build"
+      },
+      {
+        "name": "target",
+        "type": "string",
+        "required": false,
+        "default": "local",
+        "description": "Publication target: 'local' (dist/published/), 'remote' (Claude Marketplace), or 'release' (GitHub Releases)"
+      },
+      {
+        "name": "expected_sha256",
+        "type": "string",
+        "required": false,
+        "description": "Expected SHA256 checksum for validation (optional, auto-detected from manifest.json)"
+      },
+      {
+        "name": "manifest_path",
+        "type": "string",
+        "required": false,
+        "description": "Path to manifest.json (optional, auto-detected from package directory)"
+      },
+      {
+        "name": "remote_endpoint",
+        "type": "string",
+        "required": false,
+        "description": "Remote API endpoint URL for 'remote' target (defaults to Claude Marketplace)"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "publication_result",
+        "type": "object",
+        "description": "Publication result with target, paths, and metadata"
+      },
+      {
+        "name": "checksums",
+        "type": "object",
+        "description": "Validated MD5 and SHA256 checksums"
+      },
+      {
+        "name": "publication_metadata",
+        "type": "object",
+        "description": "Publication metadata including timestamp and target details"
+      }
+    ],
+    "tags": [
+      "plugin",
+      "publishing",
+      "deployment",
+      "distribution",
+      "marketplace",
+      "github-releases",
+      "checksum-validation"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/plugin.publish/skill.yaml",
+    "domain": "deployment",
+    "role": "analyze"
+  },
+  {
+    "type": "skill",
+    "name": "telemetry.capture",
+    "description": "Captures and logs usage telemetry for Betty Framework components. Provides thread-safe JSON logging to /registry/telemetry.json with ISO timestamps and structured metadata.\n",
+    "inputs": [
+      {
+        "name": "skill",
+        "type": "string",
+        "required": true,
+        "description": "Name of the skill/component being logged (e.g., 'plugin.build', 'agent.run')"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": true,
+        "description": "Execution status (success, failure, timeout, error, pending)"
+      },
+      {
+        "name": "duration_ms",
+        "type": "number",
+        "required": true,
+        "description": "Execution duration in milliseconds"
+      },
+      {
+        "name": "caller",
+        "type": "string",
+        "required": true,
+        "description": "Source of the call (e.g., CLI, API, workflow.compose)"
+      },
+      {
+        "name": "inputs",
+        "type": "object",
+        "required": false,
+        "default": {},
+        "description": "Sanitized input parameters (no secrets)"
+      },
+      {
+        "name": "error_message",
+        "type": "string",
+        "required": false,
+        "description": "Error message if status is failure/error"
+      },
+      {
+        "name": "metadata",
+        "type": "object",
+        "required": false,
+        "default": {},
+        "description": "Additional context (user, session_id, environment, etc.)"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "telemetry_entry",
+        "type": "object",
+        "description": "The captured telemetry entry with ISO timestamp"
+      },
+      {
+        "name": "telemetry_file",
+        "type": "string",
+        "description": "Path to the telemetry.json file"
+      }
+    ],
+    "tags": [
+      "telemetry",
+      "logging",
+      "observability",
+      "audit"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/telemetry.capture/skill.yaml",
+    "domain": "operations",
+    "role": "observe"
+  },
+  {
+    "type": "skill",
+    "name": "generate.marketplace",
+    "description": "Generate marketplace catalog files from Betty Framework registries. Filters active and certified skills/agents/commands/hooks and outputs marketplace-ready JSON files with last_updated timestamps. Also generates Claude Code marketplace.json format.\n",
+    "inputs": [],
+    "outputs": [
+      "marketplace/skills.json",
+      "marketplace/agents.json",
+      "marketplace/commands.json",
+      "marketplace/hooks.json",
+      ".claude-plugin/marketplace.json"
+    ],
+    "tags": [
+      "marketplace",
+      "registry",
+      "automation",
+      "infrastructure",
+      "commands",
+      "hooks"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/generate.marketplace/skill.yaml",
+    "domain": "ai",
+    "role": "create"
+  },
+  {
+    "type": "skill",
+    "name": "api.test",
+    "description": "Test REST API endpoints by executing HTTP requests and validating responses against expected outcomes",
+    "inputs": [
+      "api_spec_path",
+      "base_url",
+      "test_scenarios_path (optional)",
+      "auth_config_path (optional)"
+    ],
+    "outputs": [
+      "test_results.json",
+      "test_report.html"
+    ],
+    "tags": [],
+    "artifact_metadata": {
+      "produces": [
+        {
+          "type": "test-result"
+        },
+        {
+          "type": "test-report"
+        }
+      ]
+    },
+    "path": "/home/user/betty/skills/api.test/skill.yaml",
+    "domain": "api",
+    "role": "validate"
+  },
+  {
+    "type": "skill",
+    "name": "command.define",
+    "description": "Validate and register command manifests in the Command Registry",
+    "inputs": [
+      {
+        "name": "manifest_path",
+        "type": "string",
+        "required": true,
+        "description": "Path to the command manifest file (YAML)"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "validation_result",
+        "type": "object",
+        "description": "Validation results and registration status",
+        "schema": {
+          "properties": {
+            "ok": "boolean",
+            "status": "string",
+            "errors": "array",
+            "path": "string",
+            "details": "object"
+          }
+        }
+      }
+    ],
+    "tags": [
+      "command",
+      "registry",
+      "validation",
+      "infrastructure"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/command.define/skill.yaml",
+    "domain": "architecture",
+    "role": "create"
+  },
+  {
+    "type": "skill",
+    "name": "build.optimize",
+    "description": "Comprehensive build process optimization and analysis.\n\nAnalyzes build systems (Webpack, Vite, Rollup, TypeScript, etc.) and provides\nactionable recommendations for improving build speed and efficiency.\n\nCovers:\n- Build system identification and analysis\n- Dependency optimization\n- Caching strategies\n- Bundle analysis and code splitting\n- TypeScript compilation optimization\n- Parallelization opportunities\n- Memory usage optimization\n- CI/CD build improvements\n",
+    "inputs": [],
+    "outputs": [],
+    "tags": [
+      "build",
+      "optimization",
+      "performance",
+      "webpack",
+      "vite",
+      "typescript"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/build.optimize/skill.yaml",
+    "domain": "operations",
+    "role": "analyze"
+  },
+  {
+    "type": "skill",
+    "name": "workflow.compose",
+    "description": "Executes multi-step Betty Framework workflows by chaining existing skills. Enables declarative orchestration of skill pipelines.\n",
+    "inputs": [
+      "workflow_path"
+    ],
+    "outputs": [
+      "workflow_history.json"
+    ],
+    "tags": [],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/workflow.compose/skill.yaml",
+    "domain": "operations",
+    "role": "create"
+  },
+  {
+    "type": "skill",
+    "name": "api.generatemodels",
+    "description": "Generate type-safe models from OpenAPI and AsyncAPI specifications using Modelina",
+    "inputs": [
+      {
+        "name": "spec_path",
+        "type": "string",
+        "required": true,
+        "description": "Path to API specification file (OpenAPI or AsyncAPI)"
+      },
+      {
+        "name": "language",
+        "type": "string",
+        "required": true,
+        "description": "Target language (typescript, python, java, go, csharp)"
+      },
+      {
+        "name": "output_dir",
+        "type": "string",
+        "required": false,
+        "default": "src/models",
+        "description": "Output directory for generated models"
+      },
+      {
+        "name": "package_name",
+        "type": "string",
+        "required": false,
+        "description": "Package/module name for generated code"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "models_path",
+        "type": "string",
+        "description": "Path to directory containing generated models"
+      },
+      {
+        "name": "files_generated",
+        "type": "array",
+        "description": "List of generated model files"
+      },
+      {
+        "name": "model_count",
+        "type": "number",
+        "description": "Number of models generated"
+      }
+    ],
+    "tags": [
+      "api",
+      "codegen",
+      "modelina",
+      "openapi",
+      "asyncapi",
+      "typescript",
+      "python",
+      "java"
+    ],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/api.generatemodels/skill.yaml",
+    "domain": "api",
+    "role": "create"
+  },
+  {
+    "type": "skill",
+    "name": "workflow.orchestrate",
+    "description": "Orchestrate multi-artifact workflows by coordinating specialized agents and artifact creation skills. Creates complete artifact sets for complex initiatives by managing dependencies, sequencing work, and ensuring artifact consistency. Supports common SDLC workflows like project initiation, security reviews, data design, test planning, deployment planning, and full SDLC cycles.",
+    "inputs": [
+      "workflow_type (string, required): Type of workflow to execute (project-initiation, security-review, data-design, test-planning, deployment-planning, full-sdlc)",
+      "description (string, required): Initiative or project description for context",
+      "output_directory (string, required): Directory where all workflow artifacts will be created",
+      "author (string, optional): Author name for generated artifacts (default: \"Workflow Orchestrator\")",
+      "classification (string, optional): Classification level (Public, Internal, Confidential, Restricted, default: Internal)"
+    ],
+    "outputs": [
+      "workflow-execution-report: Complete workflow execution report with all generated artifacts",
+      "artifact-manifest: Manifest of all created artifacts with paths and validation status",
+      "All artifacts specified by the workflow type (e.g., business-case, project-charter, etc.)",
+      "None (initiates workflows from user context)",
+      "workflow-execution-report",
+      "artifact-manifest",
+      "Plus all artifacts specified by the chosen workflow type",
+      "filesystem:read",
+      "filesystem:write",
+      "artifact.create skill (to create individual artifacts)",
+      "artifact.validate skill (to validate created artifacts)",
+      "Template files in templates/ directory",
+      "Call artifact.create with appropriate type and context",
+      "Call artifact.validate to check quality",
+      "Track created artifacts and validation results",
+      "Handle missing dependencies gracefully",
+      "Continue workflow even if individual artifacts fail",
+      "Report all failures in execution report",
+      "Return overall success based on whether any artifacts were created"
+    ],
+    "tags": [],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/workflow.orchestrate/skill.yaml",
+    "domain": "operations",
+    "role": "orchestrate"
+  },
+  {
+    "type": "skill",
+    "name": "epic.write",
+    "description": "Generate an Agile Epic from a high-level goal, feature request, or strategic initiative. Creates structured Agile Epic document that follows best practices.",
+    "inputs": [
+      "initiative_name (string, required): The overarching initiative or product goal",
+      "context (string, required): Relevant background, rationale, and success criteria",
+      "stakeholders (array of strings, required): Who cares about this and why",
+      "output_path (string, optional): Where to save the epic.md file (default: ./epic.md)"
+    ],
+    "outputs": [
+      "epic.md: Markdown file with structured Epic fields (title, summary, background, acceptance criteria, stakeholders, next steps)"
+    ],
+    "tags": [],
+    "artifact_metadata": {
+      "produces": [
+        {
+          "type": "agile-epic"
+        }
+      ]
+    },
+    "path": "/home/user/betty/skills/epic.write/skill.yaml",
+    "domain": "architecture",
+    "role": "create"
+  },
+  {
+    "type": "skill",
+    "name": "git.cleanupbranches",
+    "description": "Clean up merged and stale git branches both locally and remotely. Analyzes branch status, identifies branches that are safe to delete (merged or stale), and provides interactive cleanup with safety checks. - git-repository - Local git repository with branch information - branch-metadata - Branch merge status and last commit dates - branch-cleanup-report - Report of branches analyzed and deleted - cleanup-summary - Summary with statistics (branches deleted, kept, errors) - dry_run (boolean): Show what would be deleted without deleting (default: true) - include_remote (boolean): Also clean up remote branches (default: false) - stale_days (integer): Consider branches stale after N days of no commits (default: 30) - protected_branches (array): Branches to never delete (default: [\"main\", \"master\", \"develop\", \"development\"]) - interactive (boolean): Ask for confirmation before deleting (default: true) - merged_only (boolean): Only delete merged branches, ignore stale (default: false) - git command line tool - Access to git repository (read for analysis, write for deletion) - Access to remote repository (if include_remote=true) 1. Validate we're in a git repository 2. Get list of all local branches 3. Identify current branch (never delete) 4. For each branch: - Check if in protected list - Check if merged into main/master/develop - Check last commit date for staleness - Calculate deletion recommendation 5. Build list of branches to delete (merged or stale) 6. Display analysis results to user 7. If interactive, ask for confirmation 8. If confirmed (or not interactive): - Delete local branches - If include_remote, delete from remote - Track successes and failures 9. Generate cleanup report with statistics 10. Return structured results - Never deletes current branch - Never deletes protected branches (main, master, develop) - Default is dry_run=true (shows what would happen) - Interactive confirmation by default - Detailed logging of all operations - Rollback information provided ```python python3 skills/git.cleanupbranches/git_cleanupbranches.py --dry-run python3 skills/git.cleanupbranches/git_cleanupbranches.py --no-dry-run python3 skills/git.cleanupbranches/git_cleanupbranches.py --no-dry-run --stale-days 60 python3 skills/git.cleanupbranches/git_cleanupbranches.py --no-dry-run --include-remote python3 skills/git.cleanupbranches/git_cleanupbranches.py --no-dry-run --no-interactive --merged-only ``` ```json { \"status\": \"success\", \"analyzed\": 25, \"deleted\": 5, \"kept\": 20, \"branches_deleted\": [\"feature/old-feature\", \"fix/old-bug\"], \"branches_kept\": [\"feature/active\", \"main\", \"develop\"], \"protected\": 3, \"dry_run\": false, \"errors\": [] } ``` - git - cleanup - maintenance - branches - automation This skill requires SKILL_AND_COMMAND pattern due to: - 8-10 steps (exceeds threshold) - Medium autonomy (analyzes and recommends deletions) - Reusable for CI/CD and release workflows - Complex logic with safety checks and interactive confirmation",
+    "inputs": [],
+    "outputs": [],
+    "tags": [],
+    "artifact_metadata": {},
+    "path": "/home/user/betty/skills/git.cleanupbranches/skill.yaml",
+    "domain": "operations",
+    "role": "analyze"
+  },
+  {
+    "type": "skill",
+    "name": "artifact.define",
+    "description": "Define artifact metadata for Betty Framework skills. Helps create artifact_metadata blocks that declare what artifacts a skill produces and consumes, enabling skill interoperability and autonomous agent composition.\n",
+    "inputs": [
+      {
+        "name": "skill_name",
+        "type": "string",
+        "required": true,
+        "description": "Name of the skill to define artifact metadata for"
+      },
+      {
+        "name": "produces",
+        "type": "array",
+        "required": false,
+        "description": "List of artifact types this skill produces (e.g., openapi-spec, validation-report)"
+      },
+      {
+        "name": "consumes",
+        "type": "array",
+        "required": false,
+        "description": "List of artifact types this skill consumes"
+      },
+      {
+        "name": "output_file",
+        "type": "string",
+        "required": false,
+        "default": "artifact_metadata.yaml",
+        "description": "Where to save the generated artifact metadata"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "artifact_metadata",
+        "type": "object",
+        "description": "Generated artifact metadata block"
+      },
+      {
+        "name": "metadata_file",
+        "type": "string",
+        "description": "Path to saved artifact metadata file"
+      },
+      {
+        "name": "validation_result",
+        "type": "object",
+        "description": "Validation results for the artifact metadata"
+      }
+    ],
+    "tags": [
+      "artifacts",
+      "metadata",
+      "scaffolding",
+      "interoperability",
+      "layer3"
+    ],
+    "artifact_metadata": {
+      "produces": [
+        {
+          "type": "artifact-metadata-definition",
+          "description": "Artifact metadata YAML block for skill.yaml files",
+          "file_pattern": "artifact_metadata.yaml",
+          "content_type": "application/yaml"
+        }
+      ],
+      "consumes": []
+    },
+    "path": "/home/user/betty/skills/artifact.define/skill.yaml",
+    "domain": "architecture",
+    "role": "create"
+  },
+  {
+    "type": "skill",
+    "name": "meta.compatibility",
+    "description": "Automatic artifact dependency graph validation and diagnostics. Builds a dependency graph from skill artifact metadata, detects cycles, orphan nodes, unresolved dependencies, and provides actionable health reports for the Betty Framework ecosystem.\n",
+    "inputs": [
+      {
+        "name": "check",
+        "type": "string",
+        "required": false,
+        "default": "artifacts",
+        "description": "What to check (artifacts, skills, or all)"
+      },
+      {
+        "name": "skills_dir",
+        "type": "string",
+        "required": false,
+        "default": "skills",
+        "description": "Path to skills directory"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "required": false,
+        "description": "Save JSON report to file"
+      },
+      {
+        "name": "json",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Output JSON only (no human-readable format)"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "graph_report",
+        "type": "object",
+        "description": "Comprehensive graph validation report including total artifacts, connected nodes, isolated nodes, cycles, unresolved dependencies, and overall health status\n"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "description": "Overall graph health status (healthy, warning, or error)"
+      },
+      {
+        "name": "total_artifacts",
+        "type": "number",
+        "description": "Total number of artifact types in the graph"
+      }
+    ],
+    "tags": [
+      "meta",
+      "validation",
+      "artifacts",
+      "compatibility",
+      "graph",
+      "diagnostics",
+      "tier2",
+      "phase3"
+    ],
+    "artifact_metadata": {
+      "produces": [
+        {
+          "type": "compatibility-report",
+          "description": "Artifact dependency graph validation report with health metrics and diagnostics",
+          "file_pattern": "*.compatibility-report.json",
+          "content_type": "application/json"
+        }
+      ],
+      "consumes": [
+        {
+          "type": "skill-metadata",
+          "description": "Reads artifact_metadata from all skill.yaml files",
+          "file_pattern": "**/skill.yaml",
+          "required": true
+        }
+      ]
+    },
+    "path": "/home/user/betty/skills/meta.compatibility/skill.yaml",
+    "domain": "ai",
+    "role": "analyze"
+  }
+]
