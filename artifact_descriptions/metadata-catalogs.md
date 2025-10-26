@@ -2,43 +2,64 @@
 
 ## Executive Summary
 
-The Metadata Catalogs is a critical governance and audit artifact that provides a chronological record of metadata catalogs throughout the General phase. This structured log serves as both a real-time management tool and a historical record for post-project reviews, audits, and lessons learned activities.
+Metadata Catalogs are centralized inventories that document and organize technical, business, and operational metadata across data assets, systems, and analytics resources. These catalogs serve as the authoritative source for understanding what data exists, where it resides, how it's structured, who owns it, and how it can be accessed—enabling data discovery, governance, and effective utilization.
 
-As a cornerstone of program governance, this artifact enables transparency, accountability, and informed decision-making by providing stakeholders with immediate visibility into key events, decisions, and their outcomes. It supports root cause analysis, trend identification, and continuous improvement by maintaining a complete audit trail.
+In modern data ecosystems, metadata catalogs are essential infrastructure that breaks down data silos and enables self-service analytics. They provide searchable inventories of databases, tables, columns, reports, dashboards, data pipelines, and ML models, enriched with business context, lineage information, quality metrics, and usage statistics. This transparency accelerates analytics initiatives and ensures regulatory compliance.
 
 ### Strategic Importance
 
-- **Governance Excellence**: Demonstrates rigorous program management and adherence to organizational standards
-- **Risk Mitigation**: Early identification of patterns and trends enables proactive intervention
-- **Audit Readiness**: Provides comprehensive trail for internal and external audits
-- **Knowledge Capture**: Preserves institutional knowledge beyond individual personnel tenure
-- **Continuous Improvement**: Enables data-driven process improvements through trend analysis
+- **Data Discovery**: Enables users to find and understand available data assets without relying on tribal knowledge
+- **Governance Foundation**: Provides visibility and control needed for data quality, security, and compliance programs
+- **Productivity Acceleration**: Reduces time spent searching for data and understanding its meaning and lineage
+- **Risk Mitigation**: Documents data lineage, ownership, and sensitivity to support compliance and audit requirements
+- **Collaboration Enhancement**: Creates shared vocabulary and understanding across technical and business teams
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+Metadata Catalogs serve as the centralized, searchable inventory of data assets, enriched with technical specifications, business context, lineage information, and governance metadata to enable discovery, understanding, and appropriate use of organizational data.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Data source inventories (databases, data warehouses, data lakes, SaaS applications)
+- Table and column-level metadata with data types, constraints, and descriptions
+- Business glossary terms and their mappings to physical data assets
+- Data lineage from sources through transformations to consumption points
+- Data quality metrics, profiling results, and validation rules
+- Access permissions, security classifications, and PII/sensitivity indicators
+- Usage analytics showing who accesses data and how frequently
+- Report and dashboard inventory with ownership and dependencies
+- ETL/ELT pipeline documentation and data flow diagrams
+- API and data service catalogs with endpoints and specifications
+- ML model registry with features, metrics, and deployment information
+- Data steward and owner assignments for accountability
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Actual data storage or query execution (catalog is metadata only)
+- Real-time data synchronization or operational database functions
+- Complete data quality remediation processes
+- Full data masking or anonymization implementations
+- Detailed application source code or business logic
+- Infrastructure monitoring and performance management
+- Project management or workflow orchestration
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Data analysts and scientists discovering datasets for analysis
+- Data engineers documenting pipelines and data transformations
+- Data governance teams establishing policies and monitoring compliance
+- Business users searching for reports and understanding data definitions
+- Data architects designing integrations and understanding system dependencies
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Compliance and audit teams verifying data handling and lineage
+- Security teams managing access controls and identifying sensitive data
+- Executive leadership assessing data asset inventory and governance maturity
+- Vendor and partner teams accessing sanctioned data through APIs
+- Project teams evaluating data availability for new initiatives
 
 ## Document Information
 
@@ -52,9 +73,9 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 **Storage & Access**: Store in designated document repository with appropriate access controls based on classification
 
-**Classification**: [Define typical classification level - Public | Internal | Confidential | Restricted]
+**Classification**: Internal
 
-**Retention**: [Define retention period per organizational records management policy]
+**Retention**: Retain indefinitely as active governance documentation
 
 
 ### Document Control
@@ -104,19 +125,27 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Automated Scanning**: Use automated discovery tools to populate catalog from source systems
+**Business Context**: Enrich technical metadata with business descriptions and ownership
+**Data Lineage**: Document end-to-end data flows from source to consumption
+**Search Optimization**: Implement robust search with filters, facets, and relevance ranking
+**Collaborative Editing**: Allow business users to contribute descriptions and tag assets
+**Quality Metrics**: Include data profiling statistics and quality scores
+**Access Integration**: Integrate with IAM systems to reflect actual access permissions
+**Usage Tracking**: Capture which users and applications access which datasets
+**Versioning**: Track schema changes and maintain historical metadata
+**Certification**: Mark trusted or certified datasets for production use
+**Sensitivity Tagging**: Classify data by sensitivity level and regulatory requirements
+**Deprecation Workflow**: Flag obsolete datasets and establish sunset processes
+**API First**: Provide programmatic access to metadata for tool integration
+**Stakeholder Engagement**: Regularly engage data stewards to improve metadata quality
+**Change Notifications**: Alert users when upstream data assets change
+**Cross-System Linking**: Connect related assets across different platforms
+**Documentation Standards**: Establish naming conventions and description templates
+**Regular Audits**: Periodically review catalog completeness and accuracy
+**Training Programs**: Educate users on catalog capabilities and best practices
+**Glossary Integration**: Link technical terms to business glossary definitions
+**Metadata Governance**: Define roles, responsibilities, and processes for metadata management
 
 ## Quality Criteria
 
@@ -163,7 +192,39 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**Data Management**: DAMA-DMBOK, DCAM, Data Governance Framework
+**Data Catalog Platforms**: Alation, Collibra, Atlan, data.world, AWS Glue Data Catalog, Azure Purview, Google Cloud Data Catalog, Informatica Enterprise Data Catalog, Alex Solutions, Apache Atlas, LinkedIn DataHub, Amundsen, OpenMetadata
+
+**Metadata Management**: DAMA-DMBOK (Data Management Body of Knowledge), DCAM (Data Management Capability Assessment Model), EDM Council CDMC, ISO 8000 (Data Quality), ISO 11179 (Metadata Registries)
+
+**Data Governance**: GDPR, CCPA, HIPAA, SOX, BCBS 239, FedRAMP, NIST Cybersecurity Framework, CIS Controls
+
+**Business Glossary**: Collibra Glossary, Alation Glossary, Informatica Business Glossary, erwin Data Intelligence
+
+**Data Lineage**: Manta Data Lineage, Informatica Metadata Manager, Collibra Lineage, Azure Purview Lineage
+
+**Data Quality**: Informatica Data Quality, Talend Data Quality, Ataccama ONE, Precisely Data Integrity Suite
+
+**Discovery & Search**: Elasticsearch, Apache Solr, Algolia, Azure Cognitive Search
+
+**APIs & Integration**: REST APIs, GraphQL, Apache Kafka (event streaming), Apache NiFi, Talend, Fivetran
+
+**Cloud Data Platforms**: Snowflake Information Schema, Databricks Unity Catalog, BigQuery Information Schema, Redshift System Tables
+
+**Data Warehousing**: Snowflake, BigQuery, Redshift, Synapse Analytics, Teradata, Oracle Autonomous Data Warehouse
+
+**ETL/ELT Tools**: dbt (data build tool), Informatica PowerCenter, Talend, Matillion, Apache Airflow, Prefect, Dagster
+
+**Data Lakes**: AWS S3 with Lake Formation, Azure Data Lake Storage, Google Cloud Storage, Databricks Delta Lake
+
+**Semantic Layer**: LookML (Looker), DAX/Tabular Models (Power BI), Cube.js, AtScale, dbt Metrics
+
+**Data Observability**: Monte Carlo, Bigeye, Soda, Acceldata, Databand
+
+**Master Data Management**: Informatica MDM, SAP Master Data Governance, Profisee, Semarchy
+
+**Schema Registry**: Confluent Schema Registry, AWS Glue Schema Registry, Azure Schema Registry
+
+**ML/AI Platforms**: MLflow, Kubeflow, AWS SageMaker, Azure ML, Google Vertex AI, DataRobot
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 
@@ -173,25 +234,37 @@ Before considering this artifact complete and ready for approval, verify:
 
 These artifacts or information sources should exist before this artifact can be completed:
 
-- [List artifacts that provide input to this one]
-- [Data sources that feed this artifact]
-- [Prerequisites that must be satisfied]
+- Data architecture documentation and system inventory
+- Existing data dictionaries and schema documentation
+- Business glossary terms and definitions
+- Data steward assignments and ownership records
+- Security classifications and access control policies
+- Data quality rules and validation requirements
+- Existing lineage documentation and data flow diagrams
 
 ### Downstream Consumers (Who Uses This)
 
 This artifact provides input to:
 
-- [Artifacts that consume information from this one]
-- [Processes that use this artifact]
-- [Teams or roles that rely on this information]
+- Data discovery and self-service analytics initiatives
+- Data governance programs and compliance reporting
+- Impact analysis for system changes and migrations
+- Data quality improvement programs
+- Access request and provisioning workflows
+- Training and onboarding materials for data consumers
+- Regulatory audit and compliance demonstrations
 
 ### Related Artifacts
 
 Closely related artifacts that should be referenced or aligned with:
 
-- [Complementary artifacts in same phase]
-- [Artifacts in adjacent phases]
-- [Cross-cutting artifacts (e.g., risk register)]
+- Data governance policies and standards
+- Business glossary and taxonomy
+- Data architecture and system landscape diagrams
+- Security and access control documentation
+- Data quality scorecards and metrics
+- Data lineage and flow diagrams
+- Master data management specifications
 
 ## Review & Approval Process
 
@@ -209,9 +282,9 @@ Closely related artifacts that should be referenced or aligned with:
 ### Approval Requirements
 
 **Required Approvers**:
-- Primary Approver: [Define role - e.g., Program Manager, Architecture Lead, CISO]
-- Secondary Approver: [For high-risk or cross-functional artifacts]
-- Governance Approval: [If requires board or committee approval]
+- Primary Approver: Chief Data Officer or Data Governance Lead
+- Secondary Approver: Data Architecture Lead and Security Officer
+- Governance Approval: Data Governance Council
 
 **Approval Evidence**:
 - Document approval in artifact metadata
@@ -222,14 +295,14 @@ Closely related artifacts that should be referenced or aligned with:
 
 ### Update Frequency
 
-**Regular Reviews**: [Define cadence - e.g., Quarterly, Annually]
+**Regular Reviews**: Quarterly review of catalog completeness and accuracy
 
 **Event-Triggered Updates**: Update immediately when:
-- Significant organizational changes occur
-- Regulatory requirements change
-- Major incidents reveal deficiencies
-- Stakeholder requests identify needed updates
-- Related artifacts are substantially updated
+- New data sources or systems are deployed
+- Schemas or data structures change significantly
+- Ownership or stewardship assignments change
+- Security classifications or access policies are modified
+- Regulatory requirements impose new metadata obligations
 
 ### Version Control Standards
 
@@ -250,7 +323,7 @@ Maintain change log with:
 
 ### Archival & Retention
 
-**Retention Period**: [Define based on regulatory and business requirements]
+**Retention Period**: Retain indefinitely as active governance documentation
 
 **Archival Process**:
 - Move superseded versions to archive repository
@@ -259,7 +332,7 @@ Maintain change log with:
 
 ### Ownership & Accountability
 
-**Document Owner**: [Define role responsible for maintenance]
+**Document Owner**: Chief Data Officer or Data Governance Manager
 
 **Responsibilities**:
 - Ensure artifact remains current and accurate
@@ -272,15 +345,15 @@ Maintain change log with:
 
 ### Template Access
 
-**Primary Template**: `templates/{artifact_name}-template.{format_type.lower()}`
+**Primary Template**: `templates/metadata-catalogs-template.md`
 
-**Alternative Formats**: [If multiple formats supported]
+**Alternative Formats**: JSON Schema, XML Schema, CSV
 
 **Template Version**: Use latest approved template version from repository
 
 ### Example Artifacts
 
-**Reference Examples**: `examples/{artifact_name}-example-*.{format_type.lower()}`
+**Reference Examples**: `examples/metadata-catalogs-example-*.md`
 
 **Annotated Guidance**: See annotated examples showing best practices and common approaches
 
@@ -322,10 +395,10 @@ Before submitting for approval:
 
 [Define any regulatory requirements applicable to this artifact type, such as:]
 
-- SOC 2: [If artifact supports SOC 2 controls]
-- ISO 27001: [If part of ISMS documentation]
-- GDPR/Privacy: [If contains or references personal data]
-- Industry-Specific: [Healthcare, Financial Services, etc.]
+- SOC 2: Supports audit trails and access controls (CC6.1, CC6.3)
+- ISO 27001: Information asset inventory (A.8.1)
+- GDPR/Privacy: Data inventory and processing records (Article 30)
+- Industry-Specific: BCBS 239 (banking), HIPAA (healthcare), SOX (financial reporting)
 
 ### Audit Requirements
 
@@ -346,10 +419,11 @@ This artifact may be subject to:
 
 This artifact must align with:
 
-- [Relevant organizational policies]
-- [Industry regulations and standards]
-- [Contractual obligations]
-- [Governance framework requirements]
+- Data governance policies and standards
+- Information security and classification policies
+- Privacy and data protection regulations
+- Records retention and archival policies
+- Access control and identity management standards
 
 ## Metrics & Success Criteria
 
@@ -376,24 +450,24 @@ This artifact must align with:
 
 ## Metadata Tags
 
-**Phase**: {phase}
+**Phase**: Data Governance, Data Management
 
-**Category**: {category}
+**Category**: Metadata Management, Data Catalog, Governance
 
-**Typical Producers**: [Roles/teams that typically create this artifact]
+**Typical Producers**: Data Governance Teams, Data Engineers, Data Stewards, Data Architects
 
-**Typical Consumers**: [Roles/teams that typically use this artifact]
+**Typical Consumers**: Data Analysts, Business Users, Compliance Teams, Auditors, Data Scientists
 
-**Effort Estimate**: [Typical hours/days required to complete]
+**Effort Estimate**: Ongoing effort; initial setup 4-12 weeks, continuous maintenance
 
-**Complexity Level**: [Low | Medium | High | Very High]
+**Complexity Level**: High
 
-**Business Criticality**: [Low | Medium | High | Mission Critical]
+**Business Criticality**: Mission Critical
 
-**Change Frequency**: [Static | Infrequent | Regular | Frequent]
+**Change Frequency**: Regular (continuous updates)
 
 ---
 
 *This artifact definition follows Big Five consulting methodology standards and incorporates industry best practices. Tailor to your organization's specific requirements and context.*
 
-*Last Updated: {phase} - Version 2.0*
+*Last Updated: Data & Analytics - Version 2.0*

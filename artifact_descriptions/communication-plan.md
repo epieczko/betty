@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Communication Plan is a comprehensive planning artifact that establishes the strategic approach, resource allocation, timeline, and success criteria for communication activities within the Inception / Strategy phase. This forward-looking document serves as the authoritative reference for execution teams, stakeholders, and governance bodies.
+The Communication Plan is a critical project management artifact that establishes stakeholder communication strategies, reporting cadences, and information distribution channels throughout project execution. This plan operationalizes the communication framework required for Agile teams, distributed teams, and cross-functional stakeholders using modern collaboration platforms and status reporting tools.
 
-As a foundational planning deliverable, it translates strategic objectives into actionable tasks, identifies dependencies and constraints, allocates resources optimally, and establishes measurable outcomes. The plan balances ambition with pragmatism, incorporating risk mitigation strategies and contingency approaches.
+As a foundational deliverable aligned with PMI PMBOK and Agile frameworks, it defines RACI matrices for communication ownership, establishes sprint review and stakeholder demo schedules, configures notification channels in tools like Slack/Teams/Jira, and sets expectations for status reporting frequency. The plan ensures transparency through burn-down charts, velocity tracking dashboards, and executive status reports while minimizing communication overhead.
 
 ### Strategic Importance
 
@@ -18,27 +18,39 @@ As a foundational planning deliverable, it translates strategic objectives into 
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact establishes the communication strategy for project stakeholders, defining who needs what information, when, through which channels, and in what format. It solves the problem of information silos, stakeholder misalignment, and communication bottlenecks in Agile and traditional project environments.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Stakeholder identification and RACI matrices for communication ownership
+- Sprint ceremonies (daily standups, sprint reviews, retrospectives) schedules and attendees
+- Status reporting cadence, formats, and distribution lists (weekly status, executive dashboards)
+- Communication tool configuration (Jira notifications, Slack channels, Teams workspaces, Confluence spaces)
+- Escalation paths and critical issue communication protocols
+- Metrics dashboards and visibility (burn-down charts, velocity reports, cycle time)
+- Meeting schedules and attendance expectations across time zones
+- Change control board (CCB) meeting cadence and decision communication
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Individual message content (covered by status reports and meeting agendas)
+- Technical architecture diagrams and system documentation
+- Detailed project schedules and work breakdown structures
+- Risk and issue details (covered in risk register and issue tracker)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Product Managers and Product Owners who facilitate stakeholder communication
+- Scrum Masters and Project Managers who execute the communication plan
+- Program Managers who coordinate multi-team communication
+- Delivery Leads who ensure information flow across teams
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Development teams who participate in ceremonies and provide updates
+- Business stakeholders who consume status reports and dashboards
+- Executive sponsors who require high-level visibility
+- PMO teams who monitor communication compliance
 
 ## Document Information
 
@@ -166,9 +178,43 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Project Management Frameworks**:
+- PMI PMBOK Guide (Project Communications Management knowledge area)
+- PRINCE2 (Communication Management Strategy)
+- PMI Agile Practice Guide (Agile communication principles)
+- ISO 21500 (Project Management Guidance on Communication)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Agile & SAFe Methodologies**:
+- Scrum Guide (Sprint ceremonies, information radiators, transparency)
+- SAFe (Program Increment Planning, ART Sync, System Demos)
+- Kanban (visual management, WIP limit communication)
+- Extreme Programming (XP) daily standup and pair programming communication
+
+**Communication Tools & Platforms**:
+- Jira (notifications, dashboards, filters, boards)
+- Confluence (team spaces, documentation hubs, status pages)
+- Slack / Microsoft Teams (channels, integrations, notifications)
+- Monday.com / Asana (project updates, @mentions, status boards)
+- Azure DevOps (work item tracking, dashboards, wiki)
+- Linear (project updates, notifications, views)
+- Miro / Mural (virtual collaboration, retrospective boards)
+
+**Status Reporting & Metrics**:
+- Burn-down and burn-up charts (sprint and release level)
+- Velocity tracking and forecasting
+- Cumulative flow diagrams (CFD)
+- Cycle time and lead time metrics
+- DORA metrics (deployment frequency, lead time, MTTR, change failure rate)
+- RAG (Red-Amber-Green) status indicators
+- OKR progress dashboards (Objectives and Key Results)
+
+**Stakeholder Management**:
+- RACI matrices (Responsible, Accountable, Consulted, Informed)
+- Stakeholder analysis and engagement matrices
+- Power/Interest grid for stakeholder prioritization
+- Communication preference mapping
+
+**Reference**: Consult organizational PMO and Agile Center of Excellence for detailed guidance on tool adoption and framework application
 
 ## Integration Points
 

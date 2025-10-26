@@ -2,45 +2,59 @@
 
 ## Executive Summary
 
-The Cloud Landing Zone Design is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Cloud Landing Zone Design defines the foundational multi-account/multi-subscription cloud environment architecture implementing security guardrails, network topology, identity management, logging/monitoring, and governance policies that enable safe, compliant, and scalable workload deployment. Following AWS Well-Architected Framework, Azure Landing Zones, or Google Cloud Foundation, landing zones provide pre-configured environments with security baselines, network connectivity, and operational tooling that development teams can consume without reinventing cloud fundamentals.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As the enterprise cloud foundation, landing zone design provides cloud platform teams with repeatable environment provisioning, security teams with consistent security controls and compliance, development teams with self-service cloud environments, and leadership with governance and cost management. It transforms ad-hoc cloud sprawl into organized, secure, and compliant multi-account cloud architecture.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Security by Default**: Bakes security controls (IAM, encryption, logging, network segmentation) into every environment
+- **Compliance Baseline**: Satisfies SOC 2, PCI-DSS, HIPAA, FedRAMP requirements through pre-configured controls
+- **Environment Consistency**: Ensures dev, staging, prod environments have identical security/network configurations
+- **Self-Service**: Enables teams to provision compliant cloud environments without central IT bottlenecks
+- **Cost Management**: Implements tagging, budget alerts, and cost allocation from day one
+- **Disaster Recovery**: Builds in multi-region/multi-AZ architecture for resilience
+- **Scale & Growth**: Supports hundreds of accounts/subscriptions with centralized management and governance
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+The Cloud Landing Zone Design defines the multi-account/subscription cloud architecture, security guardrails, network topology, identity federation, centralized logging, and governance policies that form the secure, compliant foundation for all cloud workloads.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Account/subscription structure: AWS Organizations/Azure Management Groups hierarchy (management, security, networking, workload accounts)
+- Identity & access: SSO/SAML federation, centralized IAM, service control policies (SCPs), Azure Policy, Google Organization Policy
+- Network architecture: Hub-and-spoke, transit gateway, VPC/VNet design, hybrid connectivity (VPN, Direct Connect/ExpressRoute)
+- Security baselines: GuardDuty, Security Hub, Config Rules, Azure Defender, Security Command Center
+- Logging & monitoring: CloudTrail, CloudWatch, Azure Monitor, Google Cloud Logging centralization
+- Compliance automation: AWS Control Tower, Azure Blueprints, Google Cloud Foundation, automated remediation
+- Cost management: Tagging strategy, budget alerts, cost allocation, reserved instance management
+- Encryption: KMS/Key Vault for encryption at rest, TLS for in transit, envelope encryption
+- Disaster recovery: Multi-region architecture, backup strategies, RPO/RTO requirements
+- Infrastructure as Code: Terraform modules, CloudFormation StackSets, ARM templates for landing zone
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Application-specific architecture (covered in Application Architecture)
+- Detailed application deployment (covered in Deployment Plan)
+- Operational procedures (covered in Runbooks)
+- Cost optimization strategies (covered in FinOps Strategy)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Cloud Platform Engineers designing and implementing landing zones
+- Cloud Architects defining multi-account strategy and security controls
+- Infrastructure Engineers provisioning compliant cloud environments
+- FinOps Teams implementing cost management and governance
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- CISOs and Security Leadership approving security baseline
+- Compliance Teams validating regulatory compliance of landing zone
+- Development Teams consuming landing zone environments
+- Executive Leadership approving cloud strategy and investment
 
 ## Document Information
 

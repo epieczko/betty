@@ -2,43 +2,62 @@
 
 ## Executive Summary
 
-The Api Versioning Policy is a formal directive that establishes organizational rules, standards, and requirements for api versioning. This governance artifact provides mandatory guidance that applies across the organization, ensuring consistency, compliance, and risk management.
+The API Versioning Policy is a formal governance directive that establishes mandatory standards for API evolution, backward compatibility, and deprecation management across all REST, GraphQL, gRPC, and event-driven APIs. This policy defines the organization's approach to versioning strategies (URI versioning, header versioning, content negotiation), semantic versioning practices (SemVer 2.0.0), breaking vs. non-breaking changes, and consumer migration timelines.
 
-As a cornerstone of organizational governance, policies translate strategic intent and risk appetite into concrete requirements. They establish the "rules of the road" that guide behavior, decision-making, and operational activities while providing the foundation for controls, procedures, and audit criteria.
+As a cornerstone of API governance, this policy ensures predictable API evolution while balancing innovation velocity with consumer stability. It mandates versioning implementation across API gateways (Kong, Apigee, AWS API Gateway, Azure APIM), establishes deprecation windows (typically 12-18 months), defines breaking change approval processes, and specifies communication protocols for API consumers. The policy integrates with OpenAPI specifications, API catalogs, developer portals, and change management processes.
 
 ### Strategic Importance
 
-- **Risk Management**: Mitigates organizational risk through standardized requirements
-- **Compliance Assurance**: Ensures adherence to regulatory and legal obligations
-- **Consistency**: Drives uniform approach across business units and geographies
-- **Accountability**: Establishes clear expectations and consequences
-- **Efficiency**: Reduces redundant decision-making through established standards
+- **Consumer Protection**: Prevents breaking changes from disrupting integrations through clear versioning contracts
+- **Innovation Enablement**: Allows API evolution without blocking new features or improvements
+- **Backward Compatibility**: Maintains support for existing consumers during transition periods
+- **Developer Experience**: Provides predictable upgrade paths and clear migration guidance
+- **Risk Mitigation**: Reduces integration failures through controlled, communicated changes
+- **Governance & Compliance**: Ensures consistent versioning practices across the enterprise API portfolio
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This policy establishes mandatory requirements for versioning all organizational APIs, ensuring consistent evolution practices, protecting API consumers from unexpected breaking changes, and enabling controlled deprecation of legacy API versions. It solves the challenge of balancing rapid API innovation with stability commitments by defining clear rules for version numbering, breaking change management, backward compatibility windows, and consumer communication.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Versioning strategies: URI versioning (/v1/, /v2/), header versioning (Accept-Version), query parameter versioning
+- Semantic versioning (SemVer) application to APIs: MAJOR.MINOR.PATCH conventions
+- Breaking vs. non-breaking change definitions and approval workflows
+- Deprecation policy: notice periods, sunset schedules, end-of-life timelines
+- Version support windows: how long versions remain supported
+- API gateway version routing configurations (Kong, Apigee, AWS API Gateway, Azure APIM)
+- OpenAPI specification version documentation (info.version field)
+- GraphQL schema versioning and deprecation directives (@deprecated)
+- gRPC/Protobuf versioning strategies and compatibility rules
+- Event schema versioning for Kafka, RabbitMQ, EventBridge
+- Consumer notification requirements for version changes
+- Migration support: overlap periods, dual-running versions, migration guides
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Application version numbering (covered in release management policy)
+- Database schema versioning (covered in data management standards)
+- Infrastructure versioning (covered in platform standards)
+- Source code version control practices (covered in development standards)
+- Microservice deployment versioning (covered in DevOps procedures)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- API Engineers: Implement versioning strategies, manage version lifecycle
+- Integration Architects: Design version migration paths, assess compatibility impacts
+- API Product Managers: Define version roadmaps, schedule deprecations
+- Platform Engineers: Configure API gateway version routing and policies
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Backend Developers: Understand versioning requirements for service development
+- API Consumers: Know what to expect from version changes and deprecations
+- Technical Product Owners: Plan feature delivery with versioning constraints
+- Architecture Review Board: Approve breaking changes and deprecation schedules
+- DevOps/SRE Teams: Deploy and maintain multiple concurrent API versions
 
 ## Document Information
 
@@ -104,23 +123,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
-**Legal Review**: Have legal counsel review before approval
-**Exception Process**: Define clear exception request and approval process
-**Communication Plan**: Communicate policy broadly with training as needed
-**Enforcement Mechanism**: Define how compliance is monitored and enforced
+**Choose One Primary Strategy**: Standardize on URI versioning (/v1/), header versioning, or content negotiation across the organization
+**Semantic Versioning Rigor**: Apply SemVer (MAJOR.MINOR.PATCH) consistently - MAJOR for breaking changes, MINOR for backward-compatible additions
+**Define Breaking Changes Explicitly**: Document what constitutes a breaking change (field removal, type changes, required fields, error code changes)
+**Minimum Deprecation Window**: Enforce minimum 12-month notice for version deprecations with clearly communicated sunset dates
+**Overlap Period**: Support N-1 (current + previous version) concurrently during migration windows
+**Automated Breaking Change Detection**: Integrate openapi-diff, Spectral, or buf breaking into CI/CD pipelines
+**OpenAPI Version Metadata**: Document version in OpenAPI info.version and track breaking changes in changelog
+**Consumer Notifications**: Require 90-day, 60-day, and 30-day deprecation notices via email, developer portal, and API responses
+**In-API Deprecation Signals**: Return Sunset and Deprecation HTTP headers in API responses for deprecated versions
+**Migration Guides**: Provide comprehensive migration documentation with code examples for version transitions
+**Version Support Matrix**: Publish and maintain version support status (active, deprecated, sunset) in API catalog
+**Backward Compatibility First**: Default to additive changes; require architecture review approval for breaking changes
+**GraphQL Field Deprecation**: Use @deprecated directive with reason and replacement field guidance
+**Protobuf Compatibility Rules**: Follow protobuf field numbering rules and reserved fields for gRPC versioning
+**Event Schema Evolution**: Version event schemas (Kafka, EventBridge) with compatibility modes (BACKWARD, FORWARD, FULL)
+**Version in URL Path**: For URI versioning, use /v{major}/ pattern (e.g., /v1/, /v2/) not /api/v1.2/
+**Header Versioning Format**: Use Accept-Version: v1 or custom headers consistently across all APIs
+**Test Coverage**: Require contract tests validating version compatibility before production deployment
+**Monitoring & Analytics**: Track version adoption rates to inform deprecation timing decisions
+**Emergency Breaking Change Process**: Define expedited approval process for critical security fixes requiring breaking changes
 
 ## Quality Criteria
 
@@ -167,7 +189,89 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Versioning Standards & Specifications**:
+- Semantic Versioning 2.0.0 (SemVer) - semver.org
+- OpenAPI Specification 3.1 (version metadata and info object)
+- REST API Versioning Best Practices (Microsoft, Google, Stripe, Twilio)
+- GraphQL Schema Versioning and Deprecation (@deprecated directive)
+- gRPC Versioning Guidelines and Protobuf compatibility rules
+- JSON Schema versioning with $schema and $id
+- AsyncAPI versioning for event-driven APIs
+- Zalando RESTful API Guidelines (versioning chapter)
+- Roy Fielding's REST dissertation (hypermedia and versioning)
+
+**API Gateway Version Management**:
+- Kong Gateway version routing plugins
+- Apigee API proxy versioning and traffic management
+- AWS API Gateway deployment stages and versioning
+- Azure API Management revision and version management
+- Tyk versioning and migration strategies
+- NGINX version-based routing configurations
+- Envoy proxy version routing and traffic splitting
+- Ambassador Edge Stack versioning patterns
+
+**Breaking Change Classification**:
+- OpenAPI Breaking Changes Detection (openapi-diff, oasdiff)
+- Spectral API linting for breaking changes
+- JSON Schema compatibility checking
+- Protobuf breaking change detection (buf breaking, prototool)
+- GraphQL schema comparison tools (GraphQL Inspector)
+- API Change Management standards
+- Consumer-Driven Contract Testing (Pact for version compatibility)
+
+**Deprecation & Sunset Standards**:
+- RFC 8594 (Sunset HTTP Header)
+- Deprecation HTTP Header (draft-ietf-httpapi-deprecation-header)
+- API Deprecation Best Practices (Google, Salesforce, GitHub)
+- Sunset notification timelines (6, 12, 18, 24 months)
+- End-of-Life (EOL) communication templates
+- Migration guide templates and documentation
+
+**Version Support Policies**:
+- N-1, N-2 support models (current + 1-2 previous versions)
+- Long-Term Support (LTS) version designation
+- Security patch policies for deprecated versions
+- Critical bug fix support windows
+- Version support matrices and lifecycle documentation
+
+**API Evolution Patterns**:
+- Expand/Contract pattern (additive changes only)
+- Tolerant Reader pattern (ignore unknown fields)
+- Consumer-Driven Contracts (Pact, Spring Cloud Contract)
+- Hypermedia versioning (HATEOAS approach)
+- API Gateway facade pattern for version abstraction
+- Adapter pattern for legacy version support
+- Parallel Change (dual write) for migrations
+
+**Version Communication**:
+- API changelog formats and conventions (Keep a Changelog)
+- Release notes templates for API versions
+- Developer portal version documentation (Stoplight, Redoc, ReadMe)
+- Email notification templates for deprecations
+- In-API deprecation warnings (HTTP Warning header, GraphQL @deprecated)
+- Version support dashboard and status pages
+
+**Compatibility Testing**:
+- Contract testing frameworks (Pact, Spring Cloud Contract)
+- Backward compatibility validation in CI/CD
+- Consumer-driven contract tests for version changes
+- Canary deployments for version rollouts
+- Blue-green deployments for version switching
+- Feature flags for gradual version migration
+
+**Industry Standards**:
+- PSD2 Open Banking API versioning requirements
+- FHIR (Healthcare) version management
+- OAuth 2.0/2.1 version compatibility
+- OpenID Connect version support
+- W3C API versioning recommendations
+
+**Governance & Compliance**:
+- API Governance frameworks requiring versioning
+- SOC 2 change management controls
+- ISO/IEC 20000 service change management
+- ITIL change management integration
+- Architecture Decision Records (ADRs) for version strategy
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Resource Plan is a comprehensive planning artifact that establishes the strategic approach, resource allocation, timeline, and success criteria for resource activities within the Portfolio, Governance, and Delivery Ops phase. This forward-looking document serves as the authoritative reference for execution teams, stakeholders, and governance bodies.
+The Resource Plan is a strategic portfolio and program management artifact that defines team capacity allocation, technology resource provisioning, budget distribution, and tooling requirements across initiatives and Agile Release Trains (ARTs). This plan optimizes resource utilization across competing demands while maintaining sustainable team velocity and preventing resource contention.
 
-As a foundational planning deliverable, it translates strategic objectives into actionable tasks, identifies dependencies and constraints, allocates resources optimally, and establishes measurable outcomes. The plan balances ambition with pragmatism, incorporating risk mitigation strategies and contingency approaches.
+As a foundational planning deliverable aligned with SAFe, PMI portfolio management, and resource management best practices, it quantifies team capacity using story points and FTE allocation, defines infrastructure and tooling needs (Jira, cloud resources, development environments), establishes budget allocations across programs, and creates resource demand forecasts. The plan leverages resource management tools like MS Project, Smartsheet, and portfolio management platforms to visualize capacity constraints and identify bottlenecks.
 
 ### Strategic Importance
 
@@ -18,27 +18,41 @@ As a foundational planning deliverable, it translates strategic objectives into 
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact provides the resource allocation strategy and capacity planning framework for portfolio and program execution. It enables portfolio managers to make informed decisions about resource investment, identifies capacity constraints before they impact delivery, and ensures optimal resource utilization across concurrent initiatives.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Team capacity planning and FTE (Full-Time Equivalent) allocation across initiatives
+- Sprint capacity calculations factoring PTO, holidays, and non-project commitments
+- Technology resource requirements (cloud infrastructure, development tools, CI/CD platforms)
+- Budget allocation and cost center distribution for personnel and technology
+- Resource demand forecasting based on product roadmaps and release plans
+- Tooling licenses and subscriptions (Jira, Confluence, development IDEs, monitoring tools)
+- Cross-functional resource dependencies (shared platform teams, center of excellence support)
+- Resource ramp-up and ramp-down schedules aligned with project phases
+- Capacity utilization metrics and portfolio health dashboards
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Individual personnel assignments and work task allocation (covered in sprint planning)
+- Detailed project schedules and sprint backlogs
+- Performance management and individual career development plans
+- Vendor selection and procurement processes
+- Organizational change management and restructuring plans
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Portfolio Managers who allocate resources across competing initiatives
+- Program Managers and Release Train Engineers (RTEs) who manage ART capacity
+- Resource Managers and Engineering Managers who assign team members
+- PMO Directors who oversee enterprise resource utilization
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Finance teams who track budget consumption and forecasts
+- Product Managers who understand team capacity for roadmap planning
+- Scrum Masters who factor capacity into sprint planning
+- Executive leadership who approve major resource investments
 
 ## Document Information
 
@@ -170,9 +184,48 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Portfolio & Program Management**:
+- PMI Portfolio Management Standard (Resource Management)
+- SAFe Portfolio (Lean Portfolio Management, Strategic Themes, Portfolio Canvas)
+- PMI Program Management Standard (Resource Planning)
+- PRINCE2 (Managing Product Delivery, resource allocation)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Agile Resource Planning**:
+- SAFe (Agile Release Train capacity, PI Planning capacity allocation)
+- Scrum (Sprint capacity planning, team velocity)
+- Kanban (WIP limits, throughput capacity)
+- Scaled Agile Framework (Team and Program Increment planning)
+
+**Resource Management Tools**:
+- Microsoft Project (resource leveling, capacity planning, portfolio dashboards)
+- Smartsheet (resource management, capacity heatmaps)
+- Monday.com (workload views, resource allocation)
+- Asana (portfolio resource management, capacity planning)
+- Jira Align (SAFe portfolio management, program board)
+- Azure DevOps (capacity planning, sprint load)
+- Planview / Clarity PPM (enterprise portfolio and resource management)
+- Targetprocess (SAFe portfolio visualization)
+
+**Capacity Planning Metrics**:
+- Team velocity and capacity (story points per sprint)
+- FTE (Full-Time Equivalent) allocation and utilization rates
+- Resource utilization percentage (billable vs. non-billable)
+- Capacity allocation across initiatives (portfolio distribution)
+- Sprint load factor (accounting for meetings, PTO, support work)
+- Throughput metrics (features/stories completed per PI)
+
+**Financial Management**:
+- CapEx vs. OpEx allocation models
+- Cost center budgeting and tracking
+- Resource cost rates and fully-loaded costs
+- ROI and business value calculations for resource investments
+
+**Governance & Compliance**:
+- ISO 21500 (Resource Management)
+- ITIL (Capacity Management, Demand Management)
+- COBIT (Resource Optimization, Portfolio Management)
+
+**Reference**: Consult organizational PMO, Portfolio Management Office, and Finance teams for detailed guidance on resource planning standards and tool adoption
 
 ## Integration Points
 

@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Staffing Plan is a comprehensive planning artifact that establishes the strategic approach, resource allocation, timeline, and success criteria for staffing activities within the Portfolio, Governance, and Delivery Ops phase. This forward-looking document serves as the authoritative reference for execution teams, stakeholders, and governance bodies.
+The Staffing Plan is a tactical resource management artifact that defines team composition, role assignments, onboarding schedules, and skill gap mitigation strategies for Agile teams, Scrum teams, and cross-functional delivery squads. This plan ensures the right people with the right skills are available at the right time to meet delivery commitments and maintain sustainable velocity.
 
-As a foundational planning deliverable, it translates strategic objectives into actionable tasks, identifies dependencies and constraints, allocates resources optimally, and establishes measurable outcomes. The plan balances ambition with pragmatism, incorporating risk mitigation strategies and contingency approaches.
+As a foundational planning deliverable aligned with Agile team structures and SAFe ART composition, it specifies team roles (Product Owner, Scrum Master, Developers, QA, DevOps), defines the ratio of senior to junior resources, establishes team stability targets to maintain velocity, and identifies training needs for skill development. The plan addresses both direct hires and contract/consultant augmentation, considering onboarding timelines and knowledge transfer requirements for effective team performance.
 
 ### Strategic Importance
 
@@ -18,27 +18,42 @@ As a foundational planning deliverable, it translates strategic objectives into 
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines the people strategy for project and program execution, specifying team structure, role requirements, hiring timelines, and skill development plans. It solves staffing gaps, ensures team stability for sustainable velocity, and aligns talent acquisition with project timelines and Agile Release Train (ART) formation.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Agile team structure and composition (2-pizza teams, 5-9 members per Scrum team)
+- Role definitions and responsibilities (Product Owner, Scrum Master, Tech Lead, Developers, QA, UX)
+- Staffing levels and headcount requirements by sprint and PI (Program Increment)
+- Skill requirements and competency matrix (technical skills, domain knowledge, certifications)
+- Hiring timelines and onboarding schedules aligned with sprint starts
+- Team member allocation across initiatives (dedicated vs. shared resources)
+- Backfill plans for attrition, PTO, and team member transitions
+- Training and upskilling programs for skill gap mitigation
+- Contract/consultant augmentation strategy and ramp-down plans
+- T-shaped skill development for cross-functional team effectiveness
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Compensation, benefits, and salary negotiations (handled by HR/Talent)
+- Performance management and individual development plans
+- Organizational restructuring and reporting relationships
+- Detailed job descriptions and recruiting materials
+- Budget and financial planning (covered in resource plan)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Engineering Managers and Team Leads who build and maintain teams
+- Scrum Masters and Agile Coaches who ensure team composition supports velocity
+- Release Train Engineers (RTEs) who form Agile Release Trains
+- Talent Acquisition and HR Business Partners who execute hiring
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Product Managers who depend on team capacity for roadmap delivery
+- Program Managers who coordinate cross-team dependencies
+- PMO teams who track staffing levels and utilization
+- Finance teams who approve headcount and contractor spend
 
 ## Document Information
 
@@ -170,9 +185,56 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Agile Team Structure**:
+- Scrum Guide (Scrum Team composition: Product Owner, Scrum Master, Developers)
+- SAFe (Agile Release Train structure, team composition, 50-125 people per ART)
+- Spotify Model (Squad, Tribe, Chapter, Guild structure)
+- Two-Pizza Team principle (Amazon - teams of 5-9 members)
+- Cross-functional team design (T-shaped skills, generalist/specialist balance)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Project Management Frameworks**:
+- PMI PMBOK Guide (Project Human Resource Management)
+- PRINCE2 (Managing Teams, team organization)
+- PMI Talent Triangle (Technical, Leadership, Strategic skills)
+
+**Agile Roles & Responsibilities**:
+- Product Owner (backlog management, stakeholder engagement, acceptance criteria)
+- Scrum Master (facilitation, impediment removal, process improvement)
+- Development Team (cross-functional, self-organizing, 3-9 members)
+- Release Train Engineer (SAFe RTE - facilitates ART events, manages risks)
+- System Architect (SAFe - technical leadership across teams)
+- Business Owner (SAFe - key stakeholder for PI Planning)
+
+**Skill Development & Competency**:
+- T-shaped skills model (deep expertise + broad competencies)
+- Agile certifications (CSM, CSPO, SAFe Agilist, PSM, A-CSM)
+- Technical skill matrices and leveling frameworks
+- DevOps skill requirements (CI/CD, Infrastructure as Code)
+- Pair programming and mob programming for knowledge sharing
+
+**Team Performance Metrics**:
+- Team velocity and capacity (historical and planned)
+- Sprint commitment reliability and predictability
+- Team happiness metrics (NPS, retrospective sentiment)
+- Knowledge silos and bus factor assessment
+- Onboarding time to productivity
+- Attrition and retention rates
+
+**Workforce Planning Tools**:
+- Jira (team member assignment, capacity planning)
+- Azure DevOps (sprint capacity, team settings)
+- Smartsheet (staffing plan tracking, hiring pipeline)
+- Monday.com (recruitment workflow, onboarding checklists)
+- BambooHR / Workday (HRIS, headcount tracking)
+- Greenhouse / Lever (applicant tracking systems)
+
+**Organizational Design**:
+- Conway's Law (team structure mirrors architecture)
+- Team Topologies (Stream-aligned, Platform, Enabling, Complicated Subsystem)
+- Matrix vs. Dedicated team structures
+- Co-located vs. Distributed team considerations
+
+**Reference**: Consult organizational Talent Management, Agile Center of Excellence, and Engineering Leadership for detailed guidance on team structure and staffing standards
 
 ## Integration Points
 

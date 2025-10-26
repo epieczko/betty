@@ -2,45 +2,57 @@
 
 ## Executive Summary
 
-The Joiner Mover Leaver Workflows is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Joiner-Mover-Leaver (JML) Workflows artifact documents automated identity lifecycle management processes for employee onboarding (joiners), role changes (movers), and offboarding (leavers). This artifact specifies HR-driven IAM provisioning/deprovisioning workflows using Okta Workflows, Azure AD Lifecycle Workflows, SailPoint IdentityIQ, Saviynt, or custom SCIM-based integrations that automatically provision accounts, assign group memberships, grant application access, and revoke permissions based on HR events.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As organizations mature their identity governance programs, this artifact serves IAM Administrators implementing automated provisioning, Security teams ensuring access control and zero-trust principles, Compliance teams maintaining least-privilege access and audit trails, and IT Service Management teams reducing manual account management overhead. It transforms manual, error-prone identity processes into automated, policy-driven workflows with comprehensive audit logging for compliance, security, and operational efficiency.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Identity Automation**: Implements automated user provisioning/deprovisioning using Okta Workflows, Azure AD Lifecycle, SailPoint IdentityIQ, Saviynt, or custom SCIM integrations
+- **HR Integration**: Integrates with HRIS systems (Workday, SuccessFactors, BambooHR, ADP) to trigger workflows on hire, transfer, termination events
+- **Access Provisioning**: Automatically provisions accounts (Active Directory, Google Workspace, Okta, Azure AD), assigns group memberships, grants application access based on role
+- **Role-Based Access**: Implements RBAC with role templates, department-based access, manager-based provisioning, temporary elevated access
+- **Offboarding Security**: Ensures timely deprovisioning on termination, disables accounts immediately, revokes VPN/SSO access, retrieves hardware, transfers data ownership
+- **Compliance & Audit**: Maintains complete audit trail for SOX, SOC 2, ISO 27001, supports access reviews, attestation campaigns, separation of duties enforcement
+- **Zero-Trust Principles**: Implements least-privilege access, just-in-time provisioning, time-bound access, continuous verification
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents automated identity lifecycle workflows for joiners (new hires), movers (role changes), and leavers (terminations) using IAM platforms like Okta, Azure AD, SailPoint, or Saviynt. It specifies HR system integration, provisioning logic, access assignment rules, and deprovisioning procedures to ensure secure, compliant, and efficient identity management.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Joiner workflows: Pre-boarding (provision accounts before start date), onboarding (first-day access), role-based provisioning, manager approval
+- HRIS integration: Workday, SuccessFactors, BambooHR, ADP webhooks/APIs triggering IAM workflows
+- Account provisioning: Active Directory, Azure AD, Google Workspace, Okta, AWS IAM, SaaS applications via SCIM 2.0
+- Access assignment: RBAC role templates, group memberships (AD groups, Okta groups), application entitlements, license assignment
+- Mover workflows: Department transfer, role change, manager change triggering access re-evaluation, temporary access elevation
+- Leaver workflows: Immediate account disable, access revocation, VPN/SSO termination, email forwarding, data transfer, hardware return
+- Automated provisioning: SCIM 2.0 protocol, API-based provisioning, directory sync, JIT (just-in-time) provisioning
+- Approval workflows: Manager approval, IT approval, security review for privileged access, exception requests
+- Access reviews: Periodic certification, manager attestation, orphaned account cleanup, dormant account detection
+- Audit logging: Complete provisioning/deprovisioning history, approval evidence, access change tracking
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Application-specific access controls (covered in Application Security artifacts)
+- Privileged access management (PAM) for admin accounts (covered in PAM artifacts)
+- Identity federation and SSO configuration (covered in SSO/SAML artifacts)
+- Password policies and MFA configuration (covered in Authentication artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- IAM Administrators implementing and maintaining JML workflows
+- IT Service Management teams handling onboarding/offboarding tickets
+- Security teams ensuring access control and zero-trust implementation
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Compliance teams auditing access provisioning and reviews
+- HR teams understanding IAM integration touchpoints
+- Application owners managing application access provisioning
 
 ## Document Information
 
@@ -106,19 +118,19 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Automated Provisioning**: Automate 90%+ of standard access provisioning, use SCIM 2.0 for SaaS apps, reduce manual ticket handling
+**HR as Source of Truth**: Use HRIS (Workday, SuccessFactors) as authoritative source for user attributes, trigger workflows on HR events
+**Immediate Deprovisioning**: Disable accounts within 1 hour of termination notification, revoke VPN/SSO access immediately
+**Role-Based Access**: Define RBAC role templates by job function, automatically assign based on department/title, minimize custom access
+**Least Privilege**: Provision minimum required access, implement time-bound elevated access, require justification for privileged accounts
+**Pre-boarding**: Provision accounts 1-2 days before start date, ensure first-day access ready, send welcome email with login instructions
+**Mover Efficiency**: Automatically re-evaluate access on role change, remove old access, add new access, notify manager of changes
+**Approval Workflows**: Require manager approval for non-standard access, implement four-eyes for privileged access, log all approvals
+**Regular Access Reviews**: Quarterly manager attestation, annual comprehensive review, automated orphaned account detection
+**Audit Trail**: Log all provisioning/deprovisioning events with timestamp, actor, reason, maintain audit logs for 7 years
+**Exception Handling**: Define exception process for urgent access, require justification, set expiration, review regularly
+**Testing**: Test workflows in non-production, validate provisioning accuracy, ensure deprovisioning completeness
+**Monitoring**: Track provisioning SLAs, deprovisioning compliance, workflow failures, access review completion rates
 
 ## Quality Criteria
 
@@ -165,9 +177,81 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**IAM Platforms**:
+- Okta Workflows - Low-code automation for identity workflows
+- Azure AD Lifecycle Workflows - Microsoft identity lifecycle management
+- SailPoint IdentityIQ - Enterprise identity governance and administration (IGA)
+- Saviynt - Cloud-native IGA platform
+- CyberArk Identity - Identity security and governance
+- ForgeRock Identity Platform - Full-stack identity and access management
+- Ping Identity - Intelligent identity solutions
+- OneLogin - Cloud-based IAM
+- JumpCloud - Directory-as-a-Service with lifecycle management
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**HRIS Systems**:
+- Workday - Cloud-based HCM system
+- SAP SuccessFactors - HR management suite
+- BambooHR - HR software for small/medium businesses
+- ADP Workforce Now - Payroll and HR management
+- UKG (Ultimate Kronos Group) - HR and workforce management
+- Oracle HCM Cloud - Human capital management
+- Namely - HR platform with HRIS integration
+
+**Provisioning Standards**:
+- SCIM 2.0 (System for Cross-domain Identity Management) - Standard protocol for user provisioning
+- SAML 2.0 - Identity federation standard
+- OAuth 2.0 / OpenID Connect - Authorization and authentication
+- LDAP - Directory access protocol
+- API-based provisioning - REST APIs for custom integrations
+- Just-in-Time (JIT) provisioning - Real-time account creation on first login
+
+**Directory Services**:
+- Active Directory (AD) - Microsoft on-premises directory
+- Azure Active Directory (Azure AD / Entra ID) - Cloud identity service
+- Google Workspace Directory - Google cloud directory
+- Okta Universal Directory - Cloud directory service
+- AWS IAM Identity Center (formerly SSO) - Centralized AWS access
+
+**Access Governance**:
+- Role-Based Access Control (RBAC) - Role assignment framework
+- Attribute-Based Access Control (ABAC) - Policy-based access
+- Access certification campaigns - Periodic access reviews
+- Separation of Duties (SoD) - Conflicting access prevention
+- Privileged Access Management (PAM) - Admin account management
+- Just-in-Time (JIT) access - Time-bound elevated privileges
+
+**Compliance Frameworks**:
+- SOX (Sarbanes-Oxley) - Financial system access controls
+- SOC 2 Type II - Access provisioning and deprovisioning controls
+- ISO 27001 - Access control requirements (A.9 family)
+- NIST 800-53 - Access control baseline (AC family)
+- PCI DSS - User access management for payment systems
+- GDPR - Right to erasure (deprovisioning user data)
+- HIPAA - Workforce security and access management
+
+**Workflow Automation**:
+- ServiceNow - IT service management and workflow automation
+- Jira Service Management - IT service desk and approvals
+- Microsoft Power Automate - Workflow automation
+- Zapier - Integration and automation platform
+- Workato - Enterprise automation platform
+
+**Access Review Tools**:
+- SailPoint IdentityIQ Compliance Manager
+- Saviynt Access Governance
+- Okta Identity Governance
+- Azure AD Access Reviews
+- Manager attestation workflows
+- Orphaned account detection
+
+**Audit & Logging**:
+- SIEM integration (Splunk, Sentinel, Chronicle)
+- Audit log retention (7 years for compliance)
+- Provisioning event logging
+- Approval evidence capture
+- Access change tracking
+
+**Reference**: Consult organizational IAM, security, and compliance teams for detailed guidance on framework application
 
 ## Integration Points
 

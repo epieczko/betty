@@ -2,43 +2,67 @@
 
 ## Executive Summary
 
-The Model Governance Policy is a formal directive that establishes organizational rules, standards, and requirements for model governance. This governance artifact provides mandatory guidance that applies across the organization, ensuring consistency, compliance, and risk management.
+The Model Governance Policy establishes mandatory requirements, standards, and procedures for the entire ML model lifecycle from development through retirement. This policy defines roles and responsibilities, approval gates, risk classification criteria, monitoring requirements, and compliance obligations to ensure responsible AI deployment and effective model risk management.
 
-As a cornerstone of organizational governance, policies translate strategic intent and risk appetite into concrete requirements. They establish the "rules of the road" that guide behavior, decision-making, and operational activities while providing the foundation for controls, procedures, and audit criteria.
+This policy implements governance frameworks aligned with NIST AI RMF, EU AI Act requirements, SR 11-7 (for banking), and ISO/IEC 42001 AI Management System standards. It defines model approval gates (development, UAT, production), champion/challenger testing requirements, A/B testing protocols, model monitoring thresholds, and incident response procedures for model failures or bias incidents.
+
+The policy governs ML Engineers, Data Scientists, and AI teams in model development, AI Governance Teams in oversight and approval, Model Risk Managers in risk assessment, and executives in accountability for high-risk AI systems. It establishes Model Risk Committee authority, approval workflows, documentation requirements (Model Cards, risk assessments), and consequences for policy violations.
 
 ### Strategic Importance
 
-- **Risk Management**: Mitigates organizational risk through standardized requirements
-- **Compliance Assurance**: Ensures adherence to regulatory and legal obligations
-- **Consistency**: Drives uniform approach across business units and geographies
-- **Accountability**: Establishes clear expectations and consequences
-- **Efficiency**: Reduces redundant decision-making through established standards
+- **Risk Management**: Mitigates model risk, algorithmic bias, and regulatory non-compliance through systematic governance
+- **Regulatory Compliance**: Ensures adherence to EU AI Act, GDPR, sector-specific regulations (SR 11-7, FDA, HIPAA)
+- **Accountability**: Defines clear roles (model owner, validator, approver) and escalation paths
+- **Quality Assurance**: Mandates development standards, testing requirements, and approval gates
+- **Incident Prevention**: Establishes controls to prevent model failures, bias incidents, and discriminatory outcomes
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This policy establishes mandatory governance requirements for all ML models and AI systems, defining approval gates, risk classification, monitoring obligations, documentation standards, and accountability structures. It ensures consistent, risk-based oversight of the AI portfolio while enabling innovation within guardrails.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Model risk classification: EU AI Act risk tiers (high-risk, limited risk, minimal risk), internal risk tiers
+- Model approval gates: Development approval, UAT approval, production deployment approval
+- Model Risk Committee: Authority, membership, meeting cadence, decision-making process
+- Champion/Challenger framework: A/B testing requirements, statistical significance criteria, traffic allocation
+- Model documentation requirements: Model Cards, risk assessments, bias assessments, technical specifications
+- Model monitoring requirements: Performance monitoring, drift detection, fairness monitoring, SLA thresholds
+- Retraining policies: Triggers for retraining (performance degradation, data drift, fairness drift)
+- Model retirement: Deprecation procedures, sunset timelines, decommissioning verification
+- Incident response: Model failure escalation, bias incident procedures, regulatory reporting
+- Roles and responsibilities: Model owner, data science lead, model validator, business sponsor, approver
+- Third-party models: Vendor model assessment, due diligence, ongoing monitoring requirements
+- Shadow AI prevention: Discovery procedures, registration requirements, penalties for non-compliance
+- Bias testing requirements: Fairness metrics, protected classes, testing frequency, threshold violations
+- Explainability requirements: When SHAP/LIME analysis is required, documentation standards
+- Data governance: Training data quality, data lineage, PII protection, data retention
+- Model versioning: Semantic versioning, rollback procedures, version control requirements
+- Audit rights: Internal audit access, regulatory examinations, documentation retention
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed technical implementation (handled by technical standards and guidelines)
+- Specific model architectures or algorithms (technical decisions delegated to data science teams)
+- Data engineering practices (handled by separate data governance policy)
+- IT infrastructure and MLOps tooling (handled by IT policies)
+- Individual model risk assessments (conducted per this policy, not included in policy document)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- ML Engineers & Data Scientists: Understand mandatory requirements for model development and deployment
+- AI Governance Teams: Enforce policy, conduct reviews, escalate violations
+- Model Risk Managers: Assess compliance, conduct risk reviews, report to Model Risk Committee
+- Executive Leadership: Accountable for policy compliance, approve policy exceptions
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Product Managers: Understand constraints and requirements for AI feature development
+- Legal & Compliance: Verify regulatory compliance, advise on policy interpretation
+- Internal Audit: Audit policy compliance, assess control effectiveness
+- Board of Directors: Oversee model risk governance at enterprise level
 
 ## Document Information
 
@@ -166,23 +190,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
-**Legal Review**: Have legal counsel review before approval
-**Exception Process**: Define clear exception request and approval process
-**Communication Plan**: Communicate policy broadly with training as needed
-**Enforcement Mechanism**: Define how compliance is monitored and enforced
+**Risk-Based Governance**: Apply governance rigor proportional to model risk; streamline approval for low-risk models
+**Clear Approval Gates**: Define explicit go/no-go criteria for each approval gate; avoid subjective criteria
+**Model Risk Committee**: Establish committee with cross-functional representation (data science, risk, legal, business)
+**Automated Compliance Checks**: Integrate policy checks into CI/CD pipelines; prevent non-compliant deployments
+**Champion/Challenger Standard**: Require statistical significance testing (p < 0.05) before replacing production models
+**Mandatory Monitoring**: Enforce automated monitoring for all production models; no exceptions
+**Fairness Thresholds**: Define quantitative fairness thresholds (e.g., disparate impact ratio > 0.80); trigger alerts
+**Shadow AI Discovery**: Conduct quarterly scans for undocumented models; require immediate registration
+**Third-Party Due Diligence**: Require same governance standards for vendor models as internal models
+**Incident Playbooks**: Document step-by-step procedures for model failures, bias incidents, regulatory inquiries
+**Exception Process**: Require executive approval for policy exceptions; log all exceptions with rationale
+**Policy Training**: Mandate annual policy training for all ML practitioners; track completion
+**Version Control**: Store policy in Git; use semantic versioning; maintain change log
+**Stakeholder Input**: Solicit feedback from data science teams before policy changes; balance control with enablement
+**Regulatory Alignment**: Review policy annually against evolving regulations (EU AI Act updates, new local laws)
+**Audit Readiness**: Design policy to facilitate internal audit and regulatory examinations
+**Plain Language**: Write policy in clear, actionable language; avoid ambiguous terms like "appropriate" or "reasonable"
+**Flowcharts & Decision Trees**: Provide visual guides for risk classification, approval workflows, escalation paths
+**Policy Metrics**: Track metrics (% models compliant, approval cycle time, policy exceptions granted)
+**Continuous Improvement**: Review policy annually; incorporate lessons learned from incidents and audits
 
 ## Quality Criteria
 
@@ -229,9 +256,71 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**AI Governance Frameworks**:
+- NIST AI Risk Management Framework (AI RMF 1.0): Govern, Map, Measure, Manage functions
+- EU AI Act: High-risk AI requirements, conformity assessment, quality management system
+- ISO/IEC 42001:2023: AI Management System requirements
+- ISO/IEC 23894:2023: AI Risk Management guidelines
+- OECD AI Principles: Human-centered values, transparency, robustness, accountability
+- Singapore Model AI Governance Framework: Internal governance structures and measures
+- Partnership on AI: Tenets for responsible AI development and deployment
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Model Risk Management Standards**:
+- SR 11-7 (Federal Reserve): Supervisory guidance on model risk management for banking
+- OCC 2011-12: Sound practices for model risk management
+- Basel Committee: Principles for effective risk data aggregation and reporting (BCBS 239)
+- CCAR/DFAST: Model risk management for stress testing (banking)
+- Solvency II: Model governance for insurance industry
+- SOX Section 404: Internal controls for financial reporting models
+
+**Industry-Specific Regulations**:
+- FDA AI/ML Software as Medical Device (SaMD): Predetermined change control plans
+- HIPAA: PHI protection in healthcare ML models
+- GDPR Article 22: Automated decision-making and profiling rights
+- Fair Lending laws (ECOA, FHA): Non-discrimination in credit decisioning
+- EEOC Uniform Guidelines: Adverse impact analysis for employment decisioning
+- NYC Local Law 144: Bias audit requirements for automated employment tools
+
+**MLOps & Model Lifecycle Management**:
+- MLOps Maturity Model: Levels 0-4 (manual to full automation)
+- CI/CD for Machine Learning: Testing, versioning, deployment automation
+- Model Cards (Mitchell et al.): Transparent model reporting
+- Datasheets for Datasets (Gebru et al.): Training data documentation
+- MLflow Model Registry: Model versioning and lifecycle management
+
+**Champion/Challenger & A/B Testing**:
+- Frequentist hypothesis testing: Statistical significance criteria (p-value < 0.05)
+- Bayesian A/B testing: Posterior probability of superiority
+- Multi-armed bandit algorithms: Thompson sampling, UCB
+- Sequential testing: Early stopping rules to minimize sample size
+- Traffic allocation: Gradual rollout strategies (canary, blue-green deployment)
+
+**Model Monitoring & Observability**:
+- Performance monitoring: Accuracy, precision, recall, F1, AUC-ROC tracking
+- Data drift detection: PSI (Population Stability Index), KL divergence, Kolmogorov-Smirnov test
+- Concept drift: Model performance degradation over time
+- Fairness drift: Temporal changes in demographic parity, equalized odds
+- Prediction drift: Distribution changes in model outputs
+- Evidently AI, Fiddler AI, Arthur AI: ML monitoring platforms
+
+**Bias & Fairness Standards**:
+- NIST AI RMF: Trustworthy AI characteristics including fairness
+- IEEE 7000-2021: Addressing ethical concerns during system design
+- Fairlearn, AIF360: Fairness assessment and mitigation toolkits
+- EU AI Act Article 10: Data governance for fairness and bias mitigation
+
+**Documentation & Audit Standards**:
+- Model Cards for Model Reporting: Transparent documentation of model characteristics
+- FactSheets (IBM): Comprehensive AI documentation
+- Model Risk Assessment templates: SR 11-7 compliant documentation
+- Audit trail requirements: SOX, GDPR, industry-specific regulations
+
+**Roles & Responsibilities Frameworks**:
+- RACI matrix: Responsible, Accountable, Consulted, Informed
+- Three Lines of Defense: Business (1st line), Risk (2nd line), Internal Audit (3rd line)
+- Model Risk Committee: Governance structure, authority, escalation procedures
+
+**Reference**: Consult Legal, Compliance, and AI Governance Office for jurisdiction and industry-specific requirements
 
 ## Integration Points
 

@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Epic Charter is a formal authorization document that establishes the mandate, scope, authority, and boundaries for epic activities. This foundational governance artifact provides the legitimate basis for resource allocation, decision-making authority, and stakeholder engagement.
+The Epic Charter is a strategic hypothesis-driven document that defines the business context, vision, success metrics, and investment boundaries for large-scale initiatives (epics) within Agile frameworks like SAFe (Scaled Agile Framework), LeSS (Large-Scale Scrum), or enterprise Agile programs. Following SAFe epic structure and Lean Portfolio Management practices, this artifact articulates the business problem, proposed solution hypothesis, expected outcomes, success criteria, dependencies, risks, and go/no-go decision criteria, managed in tools like Jira Align, Azure DevOps, Rally, or VersionOne.
 
-As the constitutional document for the initiative, it aligns sponsors, defines success criteria, establishes governance structure, and sets expectations for all participants. The charter serves as the primary reference for resolving scope questions and arbitrating stakeholder disagreements.
+This lean business case documents epic vision, hypothesis statement (we believe that [building this solution] will result in [this outcome] as measured by [these metrics]), MVP scope, cost estimates (typically using t-shirt sizing or story points), expected ROI/business value, implementation timeline, key assumptions, risks, and dependencies. Following Lean-Agile principles and portfolio Kanban practices, the epic charter enables portfolio leadership, Product Management, Enterprise Architects, and Agile Release Trains (ARTs) to make informed investment decisions, approve epic funding, prioritize portfolio backlogs, and align teams around common strategic objectives.
 
 ### Strategic Importance
 
@@ -18,27 +18,51 @@ As the constitutional document for the initiative, it aligns sponsors, defines s
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the lightweight business case and authorization document for large initiatives (epics), defining the business problem, solution hypothesis, expected outcomes, success metrics, MVP scope, investment estimate, and go/no-go criteria. It enables portfolio-level decision-making on epic approval, funding, and prioritization within Lean Portfolio Management processes.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Epic vision and strategic alignment with portfolio themes
+- Business problem statement and current pain points
+- Solution hypothesis (we believe... will result in... as measured by...)
+- Target customers/users and their needs (Jobs-to-be-Done)
+- Proposed solution approach and architecture runway
+- MVP scope and key capabilities/features
+- Expected business outcomes and success metrics (leading and lagging indicators)
+- Cost estimate (t-shirt size, story points, or range)
+- Expected ROI and business value (revenue impact, cost savings, risk reduction)
+- Implementation timeline and release strategy
+- Key assumptions, risks, and dependencies
+- Epic ownership and stakeholder identification
+- Go/no-go decision criteria for epic approval
+- Portfolio Kanban workflow states (funnel, reviewing, analyzing, portfolio backlog, implementing)
+- Enabler epics vs. business epics distinction
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed feature specifications (decomposed from epic after approval)
+- Detailed user stories and acceptance criteria
+- Technical implementation details and architecture designs
+- Detailed project plans and sprint schedules
+- Comprehensive risk management plans (high-level risks only)
+- Detailed resource allocation and team assignments
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Portfolio Management who approve epic funding and prioritization
+- Product Management who define epic vision and business value
+- Epic Owners who author and champion epic proposals
+- Business Owners who validate business outcomes and ROI
+- Enterprise Architects who assess technical feasibility and runway
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Lean Portfolio Management teams who manage portfolio Kanban
+- Release Train Engineers who plan epic implementation across ARTs
+- Agile Teams who will implement epic features
+- Program Managers who coordinate epic delivery
+- Finance teams who validate investment and ROI calculations
+- Executive stakeholders who provide strategic direction
 
 ## Document Information
 
@@ -104,26 +128,27 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
-**Executive Sponsorship**: Ensure visible executive sponsorship and regular executive review
-**Governance Alignment**: Align with organizational governance framework and decision-making bodies
-**Metric-Driven**: Include measurable metrics and KPIs to track progress and outcomes
-**Dependency Management**: Explicitly identify and track dependencies on other initiatives or resources
-**Risk Integration**: Integrate with risk management processes; escalate risks appropriately
-**Change Control**: Submit significant changes through formal change control process
-**Audit Trail**: Maintain comprehensive audit trail for governance and compliance purposes
+**Hypothesis-Driven**: Frame epic as testable hypothesis (we believe X will result in Y as measured by Z)
+**Lean Business Case**: Keep lightweight; avoid traditional heavy business case documentation
+**Outcome-Focused**: Define success by business outcomes and metrics, not outputs or features
+**MVP Definition**: Clearly define minimum viable product scope for initial validation
+**Leading/Lagging Indicators**: Specify both leading (predictive) and lagging (outcome) success metrics
+**Jobs-to-be-Done**: Frame epic around customer jobs and desired outcomes, not solutions
+**T-Shirt Sizing**: Use relative sizing (XS, S, M, L, XL) for initial cost estimates
+**WSJF Prioritization**: Use Weighted Shortest Job First (cost of delay / duration) for epic prioritization
+**Portfolio Kanban**: Move epic through portfolio Kanban states (funnel, reviewing, analyzing, backlog, implementing)
+**Epic Owner**: Assign dedicated epic owner responsible for championing and coordinating epic
+**Dependency Mapping**: Identify dependencies on other epics, ARTs, suppliers, or external systems
+**Architecture Runway**: Ensure sufficient architecture runway exists or create enabler epics
+**Incremental Funding**: Use incremental funding with go/no-go gates rather than full upfront commitment
+**Business Epic vs. Enabler Epic**: Distinguish customer-facing business epics from technical enabler epics
+**Strategic Themes Alignment**: Align epic with portfolio strategic themes and enterprise strategy
+**Stakeholder Identification**: Identify all key stakeholders including customers, users, business owners
+**Risk Assessment**: Identify top 3-5 risks with mitigation strategies
+**Feature Decomposition**: Decompose epic into features only after epic approval
+**Regular Review**: Review epic status and metrics during portfolio sync meetings
+**Pivot or Persevere**: Use metrics to make data-driven decisions to pivot, persevere, or stop epic
+**Epic Hypothesis Canvas**: Use visual canvas format (SAFe epic hypothesis canvas) for lightweight documentation
 
 ## Quality Criteria
 
@@ -170,7 +195,114 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Scaled Agile Frameworks**:
+- SAFe (Scaled Agile Framework): Epic definition, portfolio Kanban, lean business case
+- SAFe Epic Hypothesis Statement: Structured format for epic hypotheses
+- SAFe Lean Portfolio Management: Portfolio-level epic approval and funding
+- SAFe Portfolio Kanban: Epic workflow states (funnel, reviewing, analyzing, backlog, implementing)
+- LeSS (Large-Scale Scrum): Large product development coordination
+- Disciplined Agile (DA): Enterprise agile framework
+- Nexus: Scaled Scrum framework for multiple teams
+- Scrum@Scale: Scalable Scrum framework
+
+**Agile Portfolio Management**:
+- Lean Portfolio Management: Portfolio strategy, investment funding, Agile governance
+- Portfolio Kanban System: Visualizing and managing portfolio epic flow
+- Epic Approval Process: Lean business case review and funding decision
+- WSJF (Weighted Shortest Job First): Economic prioritization framework
+- Cost of Delay: Economic impact of delaying features
+- Participatory Budgeting: Collaborative funding allocation
+- Beyond Budgeting: Adaptive management approach
+
+**Epic Management Tools**:
+- Jira Align (formerly AgileCraft): Enterprise agile planning and portfolio management
+- Azure DevOps: Epic, feature, and user story hierarchy
+- Rally (Broadcom): Agile portfolio and program management
+- VersionOne (Digital.ai): Enterprise agile planning platform
+- Targetprocess: Visual agile management platform
+- Planview AgilePlace: Lean portfolio management
+- CA Agile Central: Enterprise agile management
+- ServiceNow Strategic Portfolio Management: IT portfolio management
+
+**Lean and Business Case Frameworks**:
+- Lean Startup: Build-Measure-Learn, hypothesis-driven development
+- Lean Canvas: One-page business model (Ash Maurya)
+- Business Model Canvas: Value proposition and business model (Osterwalder)
+- Value Proposition Canvas: Customer jobs, pains, gains alignment
+- Hypothesis-Driven Development: Testable assumptions and validation
+- Minimum Viable Product (MVP): Smallest product to test hypotheses
+- Pivot or Persevere: Data-driven epic continuation decisions
+
+**Epic Sizing and Estimation**:
+- T-Shirt Sizing: Relative sizing (XS, S, M, L, XL, XXL)
+- Story Points: Relative effort estimation using Fibonacci sequence
+- Epic Splitting: Breaking large epics into smaller testable increments
+- Story Mapping: User story mapping to define epic scope (Jeff Patton)
+- Three Amigos: Collaborative estimation (business, development, testing)
+
+**Strategic Alignment**:
+- Portfolio Strategic Themes: Long-term strategic differentiation areas
+- OKRs (Objectives and Key Results): Goal-setting framework
+- Hoshin Kanri: Strategic policy deployment (X-Matrix)
+- Balanced Scorecard: Strategic performance measurement
+- V2MOM (Salesforce): Vision, Values, Methods, Obstacles, Measures
+
+**Jobs-to-be-Done Framework**:
+- Clayton Christensen JTBD: Understanding customer motivations
+- Outcome-Driven Innovation: Tony Ulwick's systematic innovation
+- Job Stories: Alternative to user stories focused on situations and motivations
+- Progress-Making Forces: Push, pull, anxiety, habit forces
+
+**Metrics and Measurement**:
+- Leading Indicators: Predictive metrics (engagement, adoption, NPS)
+- Lagging Indicators: Outcome metrics (revenue, cost savings, customer retention)
+- Pirate Metrics (AARRR): Acquisition, Activation, Retention, Revenue, Referral
+- North Star Metric: Single metric that best captures core value
+- OKR Measurement: Objective and measurable key results
+- Innovation Accounting (Lean Startup): Validated learning metrics
+
+**Risk and Dependency Management**:
+- Risk-Adjusted Backlog: Prioritizing based on risk and value
+- Dependency Matrix: Mapping epic dependencies across ARTs
+- Program Increment (PI) Planning: Coordinating dependencies across teams
+- ART Coordination: Aligning Agile Release Trains for epic delivery
+- Supplier/Vendor Dependencies: External dependency management
+
+**SAFe Epic Components**:
+- Business Epic: Customer-facing value delivery
+- Enabler Epic: Architecture, infrastructure, or compliance work
+- Epic Owner: Responsible for epic definition and coordination
+- Epic Hypothesis Statement: For [customers], who [statement of need], the [solution] is a [product category] that [key benefit]. Unlike [primary competitive alternative], our solution [statement of primary differentiation]
+- Lean Business Case: Lightweight epic justification
+- MVP Definition: Minimum Marketable Feature set
+
+**Agile Governance**:
+- Portfolio Sync: Regular portfolio leadership review
+- Epic Review and Approval: Governance gate for epic funding
+- Participatory Budget Allocation: Team-based funding decisions
+- Guardrails: Investment and spending boundaries
+- Epic Progress Reviews: Regular status and metrics review
+
+**Enterprise Agile Practices**:
+- Agile Release Train (ART): Long-lived team of Agile teams
+- Solution Train: Coordination of multiple ARTs for large solutions
+- Program Increment (PI): Fixed timebox for planning and delivery
+- Inspect and Adapt: PI-level retrospective and adaptation
+- Architecture Runway: Technical enablement for upcoming features
+
+**Related Methodologies**:
+- Design Thinking: Human-centered problem solving
+- Lean UX: Iterative user experience design
+- DevOps: Development and operations collaboration
+- Continuous Delivery: Frequent, reliable releases
+- Feature Toggles: Incremental feature rollout
+
+**Academic and Industry References**:
+- "SAFe 6.0 Distilled" by Richard Knaster and Dean Leffingwell
+- "The Lean Startup" by Eric Ries
+- "Competing Against Luck" by Clayton Christensen (JTBD)
+- "Escaping the Build Trap" by Melissa Perri
+- Scaled Agile Framework official guidance (scaledagileframework.com)
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

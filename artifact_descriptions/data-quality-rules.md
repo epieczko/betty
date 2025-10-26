@@ -2,45 +2,65 @@
 
 ## Executive Summary
 
-The Data Quality Rules is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Data Quality Rules are executable specifications that define acceptable data characteristics, constraints, thresholds, and validation logic across the six DAMA data quality dimensions: accuracy, completeness, consistency, validity, timeliness, and uniqueness. These rules enable automated, continuous data quality testing within pipelines using frameworks like Great Expectations, dbt tests, Soda Core, and data observability platforms, shifting from reactive quality firefighting to proactive quality engineering.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Modern data quality rules implement declarative expectations (Great Expectations suites), SQL-based assertions (dbt tests, Soda checks), statistical anomaly detection (Monte Carlo, Bigeye), and schema validation (JSON Schema, Avro, Protobuf) integrated directly into data pipelines and orchestration frameworks. Implementation aligns with ISO 8000 data quality standards, DAMA DMBoK data quality management, and emerging DataOps practices that treat data quality as code with version control, testing, and CI/CD integration.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Trust in Data**: Establishes measurable quality standards that build confidence in analytics, ML models, and operational decisions
+- **Early Detection**: Catches data quality issues at ingestion or transformation rather than at consumption, reducing downstream impact
+- **Automated Monitoring**: Eliminates manual spot-checking through continuous, automated validation in production pipelines
+- **Quality SLOs**: Defines service-level objectives for data quality enabling data product reliability guarantees
+- **Regulatory Compliance**: Supports data quality requirements in SOX, BCBS 239, GDPR accuracy obligations, and industry regulations
+- **Cost Avoidance**: Prevents costly business decisions, compliance failures, and customer impacts from poor quality data
+- **Cultural Shift**: Embeds quality ownership with domain teams through federated, automated quality engineering
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents executable data quality rules, validation logic, acceptance thresholds, and testing specifications that are implemented in data pipelines and monitored continuously to ensure data meets defined quality standards across accuracy, completeness, consistency, validity, timeliness, and uniqueness dimensions.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- DAMA data quality dimension rules (accuracy, completeness, consistency, validity, timeliness, uniqueness)
+- Great Expectations test suites with expectation definitions and validation thresholds
+- dbt test specifications (schema tests, data tests, custom singular tests)
+- Soda Core checks with SQL-based quality assertions and anomaly detection
+- Schema validation rules (JSON Schema, Avro schema, Protobuf definitions)
+- Completeness rules (null checks, required field validation, record count thresholds)
+- Validity rules (data type validation, format verification, range checks, enumeration constraints)
+- Accuracy rules (business rule validation, cross-system reconciliation, referential integrity)
+- Consistency rules (cross-column validation, temporal consistency, cross-table consistency)
+- Uniqueness rules (primary key constraints, duplicate detection, deduplication logic)
+- Timeliness rules (freshness SLOs, latency thresholds, staleness detection)
+- Statistical anomaly detection (distribution checks, volume anomalies, trend deviations)
+- Quality scoring and composite quality metrics
+- Alert definitions and escalation procedures for quality failures
+- Remediation workflows and data quality incident response procedures
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Data profiling results and quality measurement outcomes (covered by quality reports)
+- Root cause analysis of specific quality incidents (documented in incident reports)
+- Data cleansing and transformation logic (implemented in ETL/ELT pipelines)
+- Master data management rules (covered by MDM governance)
+- Data governance policies and organizational standards (enterprise governance framework)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Data Engineers: Implement quality rules in pipelines using Great Expectations, dbt, or Soda Core
+- Analytics Engineers: Define and maintain quality tests for dbt models and semantic layers
+- Data Quality Engineers: Design comprehensive quality rule suites and monitoring strategies
+- DataOps Engineers: Integrate quality testing into CI/CD pipelines and orchestration workflows
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Data Stewards: Define business rules and acceptable quality thresholds for domain data
+- Data Scientists: Validate input data quality for ML models and feature pipelines
+- Business Analysts: Understand quality guarantees and limitations of analytical datasets
+- Compliance Officers: Verify data quality controls for regulatory requirements
 
 ## Document Information
 
@@ -106,19 +126,24 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Quality as Code**: Store all quality rules in version control (Git) alongside data transformation code using Great Expectations, dbt, or Soda YAML
+**DAMA Dimension Coverage**: Ensure quality rules cover all six DAMA dimensions (accuracy, completeness, consistency, validity, timeliness, uniqueness)
+**Test Pyramid Approach**: Layer tests from simple schema checks to complex business rule validations, balancing coverage and execution cost
+**Critical Path Focus**: Prioritize quality rules for business-critical fields, regulatory data elements, and downstream dependencies
+**Threshold Calibration**: Set realistic pass/fail thresholds based on data profiling and business tolerance for quality issues
+**Tiered Severity**: Classify quality failures as critical (block pipeline), warning (alert but continue), or informational (log only)
+**Great Expectations Suites**: Organize expectations into logical suites (source validation, transformation validation, output validation)
+**dbt Test Strategy**: Combine generic tests (unique, not_null, relationships) with custom singular tests for business logic
+**Soda Checks Organization**: Structure checks by data domain, quality dimension, and criticality with clear naming conventions
+**Automated Profiling**: Use automated profiling (Great Expectations profiler, dbt-utils, Soda scan) to suggest initial quality rules
+**Sample Data Testing**: Validate rules on representative sample data before deploying to production pipelines
+**CI/CD Integration**: Run quality tests in pull requests and deployment pipelines to catch issues before production
+**Monitoring Dashboards**: Visualize quality test results over time to identify trends and chronic quality issues
+**Alert Routing**: Configure smart alerting with appropriate escalation to avoid alert fatigue while ensuring rapid response
+**Quality SLOs**: Define measurable quality SLOs (e.g., 99.9% completeness, 99.5% accuracy) aligned with data product contracts
+**Remediation Runbooks**: Document standard remediation procedures for common quality failure patterns
+**Business Context**: Include business rationale and impact description for each quality rule to guide prioritization
+**Incremental Adoption**: Start with high-value quality rules and expand coverage iteratively based on incidents and priorities
 
 ## Quality Criteria
 
@@ -165,10 +190,73 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**Data Management**: DAMA-DMBOK, DCAM, Data Governance Framework
-**Quality**: ISO 9001, CMMI, Six Sigma, TQM
+**Data Quality Standards**:
+- ISO 8000: International standard for data quality including accuracy, completeness, consistency, and timeliness
+- DAMA DMBoK Chapter 13: Data Quality Management with six quality dimensions framework
+- ISO 25012: Software product quality model for data quality characteristics
+- ISO/IEC 25024: Measurement of data quality with metrics and evaluation methods
+- TDQM (Total Data Quality Management): MIT framework for data quality assessment
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**DAMA Data Quality Dimensions**:
+- Accuracy: Degree to which data correctly represents real-world entities
+- Completeness: Extent to which required data is present (null handling, mandatory fields)
+- Consistency: Agreement of data across systems and over time (referential integrity, cross-system reconciliation)
+- Validity: Data conforms to defined formats, types, and business rules (format, range, enumeration validation)
+- Timeliness: Data is available when needed and represents current state (freshness, latency, staleness)
+- Uniqueness: No unintended duplication of entities (primary key constraints, deduplication)
+
+**Data Quality Testing Frameworks**:
+- Great Expectations: Python-based framework for declarative data validation with 300+ built-in expectations
+- dbt (data build tool): SQL-based testing with schema tests, data tests, and custom test macros
+- Soda Core: Open-source data quality framework with SQL-based checks and anomaly detection
+- Apache Griffin: Big data quality solution for Hadoop/Spark with profiling and validation
+- Deequ: Data quality library for Spark from Amazon with constraint-based validation
+- Cerberus: Lightweight Python data validation library
+- Pandera: Statistical data validation for pandas DataFrames and schema enforcement
+
+**Data Observability Platforms**:
+- Monte Carlo: ML-powered data observability with automated anomaly detection and incident management
+- Bigeye: Data quality monitoring with automated metric generation and lineage-aware alerts
+- Datafold: Data quality diffing and CI/CD validation for analytics code changes
+- Metaplane: Automated data observability with anomaly detection and impact analysis
+- Anomalo: Self-service data quality monitoring with automated checks and root cause analysis
+- Lightup: Data quality platform with automated monitoring and collaborative incident resolution
+
+**Schema Validation Tools**:
+- JSON Schema: Specification for validating JSON document structure and data types
+- Apache Avro: Data serialization with schema evolution and compatibility checking
+- Protocol Buffers (Protobuf): Google's schema definition language with strict typing
+- Cerberus: Python validation library for dictionaries and JSON
+- Pydantic: Data validation using Python type annotations
+- Marshmallow: Object serialization and deserialization with validation
+
+**Regulatory Quality Requirements**:
+- GDPR Article 5(1)(d): Accuracy principle requiring data to be accurate and kept up to date
+- BCBS 239: Banking risk data quality requirements (accuracy, completeness, timeliness)
+- SOX Section 404: Internal controls over financial data quality
+- HIPAA: Healthcare data integrity and accuracy requirements
+- FDA 21 CFR Part 11: Pharmaceutical data quality and validation requirements
+
+**Quality Management Methodologies**:
+- Six Sigma: DMAIC (Define, Measure, Analyze, Improve, Control) applied to data quality
+- Total Quality Management (TQM): Continuous quality improvement principles
+- Statistical Process Control (SPC): Control charts and statistical monitoring for data quality
+- Root Cause Analysis (RCA): Fishbone diagrams, 5 Whys for quality incident investigation
+
+**DataOps & Testing Best Practices**:
+- Test-Driven Development (TDD): Write quality tests before implementing transformations
+- Shift-Left Testing: Early quality validation in development before production deployment
+- Continuous Testing: Automated quality checks in CI/CD pipelines
+- Test Pyramid: Balance unit tests, integration tests, and end-to-end quality validation
+
+**Data Profiling & Discovery**:
+- Pandas Profiling: Automated EDA and quality profiling for pandas DataFrames
+- Great Expectations Data Profiler: Automated expectation suite generation from data profiling
+- Talend Data Preparation: Data profiling and quality assessment capabilities
+- Informatica Data Quality: Enterprise profiling, standardization, and matching
+- AWS Glue DataBrew: Visual data profiling and preparation service
+
+**Reference**: Consult data quality engineering teams, Great Expectations documentation, dbt testing guides, and DAMA DMBoK Chapter 13 for comprehensive data quality implementation patterns
 
 ## Integration Points
 

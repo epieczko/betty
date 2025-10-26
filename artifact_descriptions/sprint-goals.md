@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Sprint Goals is a critical deliverable within the Portfolio, Governance, and Delivery Ops phase, supporting Governance & Planning activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Sprint Goals define the focused objective that a Scrum team commits to achieving during a sprint (typically 1-4 weeks). Grounded in the Scrum Guide (Schwaber & Sutherland), Sprint Goals provide coherence to the Sprint Backlog, guide daily decision-making, and create a shared commitment for the Development Team. The Sprint Goal connects tactical sprint work to strategic objectives through frameworks like OKRs, strategic themes, and product roadmaps.
 
-As a core component of the Governance & Planning practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Modern Scrum teams craft Sprint Goals collaboratively during Sprint Planning using agile tools (Jira, Azure DevOps, Linear) and visual management boards (physical or digital). The Sprint Goal serves the Scrum Team (Product Owner, Scrum Master, Developers) by providing focus and flexibility within the sprint, enables stakeholders to understand sprint purpose without tracking individual tasks, and aligns with Definition of Done to ensure quality standards. Sprint Goals link to broader frameworks including SAFe Program Increment (PI) objectives, product roadmap milestones, and OKR key results.
 
 ### Strategic Importance
 
@@ -20,27 +20,40 @@ As a core component of the Governance & Planning practice, this artifact serves 
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+The Sprint Goal articulates what the Scrum Team plans to achieve during the sprint, creating a shared objective that provides coherence to the Sprint Backlog and guides trade-off decisions. It answers: Why are we doing this sprint? What value will we deliver? What is our commitment? The Sprint Goal enables focus, fosters collaboration, and provides flexibility for the team to negotiate scope while maintaining the objective.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Sprint objective statement (concise, value-focused, achievable within sprint)
+- Connection to product goals and strategic objectives (OKRs, product roadmap)
+- Success criteria and Definition of Done alignment
+- Sprint Backlog items supporting the goal
+- Team commitment and capacity considerations
+- Dependencies and risks to goal achievement
+- Stakeholder value and business outcomes
+- Sprint metrics and acceptance criteria
+- Alignment with PI Objectives (if using SAFe)
+- Iteration goals and planned scope
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed task breakdown (covered in Sprint Backlog, Jira stories)
+- Individual developer assignments (team self-organizes)
+- Product backlog prioritization rationale (covered in Product Backlog)
+- Release planning beyond current sprint (covered in Release Plan)
+- Long-term product strategy (covered in Product Roadmap, Product Vision)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- **Scrum Team** (Product Owner, Scrum Master, Developers): Creates, commits to, and works toward the Sprint Goal
+- **Product Owner**: Ensures Sprint Goal aligns with product strategy and maximizes value
+- **Developers**: Uses Sprint Goal to guide daily decisions and self-organization
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- **Stakeholders**: Understands sprint purpose and expected outcomes without tracking detailed tasks
+- **Program Managers**: Monitors progress toward program objectives (SAFe ART, dependencies)
+- **Product Leaders**: Tracks product development velocity and strategic alignment
 
 ## Document Information
 
@@ -119,13 +132,25 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 **Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
 **Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
 **Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
-**Executive Sponsorship**: Ensure visible executive sponsorship and regular executive review
-**Governance Alignment**: Align with organizational governance framework and decision-making bodies
-**Metric-Driven**: Include measurable metrics and KPIs to track progress and outcomes
-**Dependency Management**: Explicitly identify and track dependencies on other initiatives or resources
-**Risk Integration**: Integrate with risk management processes; escalate risks appropriately
-**Change Control**: Submit significant changes through formal change control process
-**Audit Trail**: Maintain comprehensive audit trail for governance and compliance purposes
+**Scrum Guide Adherence**: Follow Scrum Guide principles; Sprint Goal is a commitment, not optional
+**Collaborative Crafting**: Create Sprint Goal collaboratively during Sprint Planning; not dictated by PO
+**Value-Focused**: Frame goal around business value or user outcomes, not technical tasks
+**Single Clear Objective**: One Sprint Goal per sprint; avoid multiple competing objectives
+**Flexibility Within Goal**: Allow team flexibility to adjust Sprint Backlog items while preserving the goal
+**Daily Scrum Focus**: Use Daily Scrum to inspect progress toward Sprint Goal, adapt plan
+**Visible Goal**: Make Sprint Goal highly visible (team space, Jira dashboard, Sprint board)
+**SMART Criteria**: Ensure goal is Specific, Measurable, Achievable, Relevant, Time-bound
+**Capacity-Based**: Set goal based on team capacity and velocity, not wishful thinking
+**Product Goal Alignment**: Connect Sprint Goal to Product Goal and strategic objectives (OKRs)
+**Definition of Done**: Align Sprint Goal with Definition of Done; incomplete work doesn't meet goal
+**Stakeholder Communication**: Use Sprint Goal to communicate sprint purpose without task-level detail
+**Dependency Awareness**: Identify dependencies in Sprint Planning; escalate blockers immediately
+**PI Objective Alignment**: If using SAFe, align Sprint Goal with PI Objectives and ART synchronization
+**Sustainable Pace**: Set achievable goals that maintain sustainable pace; avoid burnout from over-commitment
+**Sprint Review Focus**: Evaluate Sprint Goal achievement in Sprint Review, not just completed stories
+**Retrospective Learning**: Reflect on goal-setting effectiveness in Sprint Retrospective
+**Outcome Over Output**: Focus on outcomes (value delivered) not just outputs (features completed)
+**Team Commitment**: Ensure whole team commits to Sprint Goal, not just developers
 
 ## Quality Criteria
 
@@ -172,7 +197,104 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Scrum Framework**:
+- Scrum Guide - Ken Schwaber & Jeff Sutherland (official Scrum definition)
+- Sprint Planning - Collaborative goal and backlog creation
+- Sprint Goal as commitment for Sprint Backlog
+- Daily Scrum - Inspect progress toward Sprint Goal
+- Sprint Review - Evaluate Sprint Goal achievement
+- Sprint Retrospective - Improve team effectiveness
+- Product Goal - Strategic objective for the product
+- Definition of Done - Quality standards for increment
+
+**SAFe (Scaled Agile Framework)**:
+- Program Increment (PI) Planning - Multi-team sprint planning
+- PI Objectives - Team and program-level objectives
+- Iteration Goals - SAFe equivalent to Sprint Goals
+- Team Sync and coordination
+- Inspect & Adapt - Program-level retrospective
+- ART (Agile Release Train) alignment
+
+**Agile Frameworks & Methodologies**:
+- Kanban - Continuous flow (may not have sprint goals)
+- Scrumban - Hybrid approach
+- XP (Extreme Programming) - Iteration planning
+- LeSS (Large-Scale Scrum) - Sprint Planning across teams
+- Nexus - Scaled Scrum framework
+- Scrum@Scale
+
+**Sprint Planning Techniques**:
+- Story mapping for sprint planning
+- Planning Poker / Estimation techniques
+- Capacity-based planning
+- Velocity tracking and forecasting
+- Team availability and capacity
+- Sprint commitment techniques
+- SMART goals for Sprint Goals (Specific, Measurable, Achievable, Relevant, Time-bound)
+
+**Goal Setting Frameworks**:
+- OKRs (Objectives and Key Results) - Sprint Goals support Key Results
+- SMART goal criteria
+- North Star metric alignment
+- Product goals cascade to Sprint Goals
+- Strategic theme alignment
+
+**Agile Metrics & Tracking**:
+- Sprint Burndown charts
+- Sprint Burnup charts
+- Velocity tracking
+- Cumulative Flow Diagrams
+- Cycle time and lead time
+- Sprint Goal achievement rate
+- Predictability metrics
+
+**Definition of Done Standards**:
+- Team Definition of Done
+- Organizational Definition of Done
+- Acceptance criteria for user stories
+- Quality standards and testing requirements
+- Technical debt management
+- Documentation requirements
+
+**Agile Tools & Platforms**:
+- Jira - Sprint planning, goal tracking, backlog management
+- Azure DevOps - Agile planning and tracking
+- Linear - Modern agile project management
+- Trello - Kanban-style sprint boards
+- Asana - Sprint and goal tracking
+- Monday.com - Agile workflows
+- VersionOne - Enterprise agile management
+- Rally - Agile lifecycle management
+- TargetProcess - Visual agile management
+
+**Visual Management**:
+- Physical sprint boards (story cards, task boards)
+- Digital sprint boards (Jira, Miro, Trello)
+- Sprint Goal visibility (team spaces, dashboards)
+- Information radiators
+- Big visible charts
+
+**Team Collaboration Practices**:
+- Sprint Planning ceremonies (Part 1: What, Part 2: How)
+- Collaborative goal crafting techniques
+- Whole team estimation
+- Team capacity planning
+- Pair programming / Mob programming
+- Continuous integration practices
+
+**Product Management Alignment**:
+- Product Roadmap to Sprint Goals mapping
+- Feature prioritization frameworks (RICE, WSJF, MoSCoW)
+- User Story mapping - Jeff Patton
+- Impact Mapping - Gojko Adzic
+- Jobs to Be Done (JTBD) framework
+
+**Agile Coaching & Facilitation**:
+- Liberating Structures for Sprint Planning
+- Facilitation techniques for goal setting
+- Consensus building in teams
+- Conflict resolution in planning
+- Team coaching for effective goal setting
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

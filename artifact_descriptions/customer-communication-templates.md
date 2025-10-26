@@ -2,45 +2,58 @@
 
 ## Executive Summary
 
-The Customer Communication Templates is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Customer Communication Templates provide legally-reviewed, pre-approved templates for notifying customers of security incidents, data breaches, service degradations, and compliance events that require mandatory disclosure. These templates ensure organizations meet regulatory notification deadlines (GDPR 72-hour breach notification, CCPA 45-day disclosure, state breach laws) while maintaining legal precision, customer trust, and brand protection during sensitive security events.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Security incident communication represents one of the highest-risk customer interactions, with legal implications for breach disclosure timing, content accuracy, and regulatory compliance. These templates balance legal requirements with customer empathy, providing clear guidance on what happened, who is affected, what actions customers should take, and what remediation steps the organization has implemented. Templates are differentiated by incident type (data breach, unauthorized access, ransomware, insider threat) and regulatory jurisdiction (GDPR, CCPA, HIPAA, state breach laws).
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Regulatory Compliance**: Meets mandatory breach notification deadlines (GDPR 72 hours, CCPA 45 days, HIPAA 60 days, state breach laws)
+- **Legal Protection**: Uses legally-reviewed language to minimize liability exposure while maintaining transparency
+- **Customer Trust**: Demonstrates accountability and transparency during security incidents, preserving long-term customer relationships
+- **Brand Protection**: Maintains professional, empathetic communication tone during reputational crisis events
+- **Data Subject Rights**: Fulfills GDPR Article 34 requirements for direct notification to affected individuals
+- **Multi-Jurisdictional Compliance**: Addresses varying breach notification requirements across US states and international regulations
+- **Incident Response Integration**: Coordinates customer communication with incident response, forensics, and legal counsel workflows
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the template library for all regulated customer notifications related to security incidents, data breaches, privacy violations, and compliance events. Templates ensure consistent, legally-compliant communication that meets regulatory notification requirements while providing affected customers with actionable guidance and remediation resources.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Data breach notifications (GDPR Article 34, CCPA Section 1798.82, HIPAA Breach Notification Rule)
+- Security incident notifications (unauthorized access, credential compromise, malware infection)
+- Service degradation notifications with security implications (availability incidents affecting data integrity)
+- Regulatory authority notifications (GDPR supervisory authority within 72 hours, HHS Secretary for HIPAA)
+- Data subject notifications (direct communication to affected individuals per GDPR/CCPA requirements)
+- Vendor/subprocessor breach notifications (third-party security incidents affecting customer data)
+- Multi-jurisdictional breach templates (US state breach laws: CA, NY, TX, FL + EU GDPR)
+- Customer action guidance (password reset instructions, identity monitoring resources, fraud alert steps)
+- Remediation and prevention communication (what we've done to prevent recurrence)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Service availability incidents without security impact (covered in status page templates)
+- Product feature announcements and updates (managed through product communications)
+- General customer support communications (handled by customer success templates)
+- Marketing and promotional communications (owned by marketing team)
+- Internal employee breach notifications (managed through HR and internal communications)
+- Media and press statements (coordinated through corporate communications and PR)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Legal Counsel: Review and approve breach notification language before customer communication
+- Security Incident Response Team: Draft customer notifications during active security incidents
+- Compliance Officers: Ensure notifications meet regulatory requirements and filing deadlines
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Customer Success Leadership: Prepare teams for inbound customer inquiries post-notification
+- Executive Leadership (CISO, CEO, General Counsel): Approve high-severity breach communications
+- Regulatory Affairs: Coordinate regulatory authority notifications alongside customer communications
 
 ## Document Information
 
@@ -106,19 +119,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Legal Review Mandatory**: All breach notifications must be reviewed and approved by legal counsel before sending (no exceptions)
+**72-Hour GDPR Deadline**: For EU data breaches, notify supervisory authority within 72 hours of becoming aware (clock starts when security team has reasonable certainty)
+**No Speculation**: Only include confirmed facts in breach notifications; avoid speculation about attacker motives or unconfirmed impact
+**Specific Date/Time Ranges**: Provide precise incident detection and containment timestamps in UTC (e.g., "March 15, 2025 14:23 UTC to March 15, 2025 18:47 UTC")
+**Affected Data Categories**: Clearly list what data types were accessed (names, emails, passwords, payment info) - be specific, not vague
+**Plain Language Requirement**: Write at 8th-grade reading level; avoid legal jargon and technical terms customers won't understand
+**Actionable Customer Guidance**: Provide clear next steps (reset password, enable MFA, monitor credit, place fraud alert)
+**Free Credit Monitoring**: For breaches involving SSN/financial data, offer 12-24 months free credit monitoring (Experian, Equifax, TransUnion)
+**Dedicated Support Channel**: Establish dedicated email/phone line for breach-related inquiries (don't overwhelm normal support)
+**Multi-Channel Notification**: Send via email (primary), in-app notification, and postal mail for high-risk breaches (HIPAA requires postal)
+**Subject Line Clarity**: Use clear subject lines ("Important Security Notice" not "Account Update") to avoid spam filters
+**No Minimization**: Don't downplay breach severity; be transparent about potential impact even if uncomfortable
+**Timeline Honesty**: If investigation is ongoing, say so; provide investigation completion estimate if possible
+**Regulatory Filing Evidence**: Retain proof of breach notification filing with regulatory authorities (timestamp, confirmation number)
+**Customer FAQ Preparation**: Publish detailed FAQ addressing common questions before sending notification (reduces support burden)
+**Executive Availability**: Ensure CISO/CEO available for high-profile breach inquiries and media requests
+**Template Customization**: Customize template for specific incident details; don't send generic boilerplate
+**Translation Requirements**: Translate notifications to languages used by affected customers (EU multilingual requirements)
+**Accessibility Compliance**: Ensure breach notifications meet ADA/WCAG accessibility standards for disabled individuals
+**Opt-Out Prohibition**: Never include "unsubscribe" links in breach notifications (legally required communication)
 
 ## Quality Criteria
 
@@ -165,9 +185,74 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Data Breach Notification Laws (US Federal)**:
+- HIPAA Breach Notification Rule (45 CFR 164.400-414): 60-day notification for breaches affecting 500+ individuals
+- HITECH Act: Strengthened HIPAA breach notification requirements and penalties
+- GLBA Safeguards Rule (Gramm-Leach-Bliley Act): Financial institution breach notification
+- FTC Safeguards Rule: Data security and breach response for financial institutions
+- SEC Regulation S-P: Privacy and security breach disclosure for investment advisors
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**State Breach Notification Laws (Key States)**:
+- California SB 1386 / Civil Code 1798.82: California breach notification law (model for other states)
+- New York General Business Law 899-aa: NY breach notification requirements
+- Massachusetts 201 CMR 17.00: Comprehensive data security and breach notification
+- Texas Business & Commerce Code 521.053: TX breach notification law
+- Florida Information Protection Act (FIPA): FL breach notification requirements
+- All 50 US States: Each state has unique breach notification requirements and timelines
+
+**European & International Privacy Laws**:
+- GDPR Article 33: Notification to supervisory authority within 72 hours of becoming aware of breach
+- GDPR Article 34: Communication of personal data breach to affected data subjects (without undue delay)
+- GDPR Article 82: Right to compensation for data subjects affected by breaches
+- UK GDPR: Post-Brexit UK data breach notification requirements (ICO notification)
+- CCPA/CPRA Section 1798.82: California Consumer Privacy Act breach notification (45 days)
+- LGPD (Brazil): Lei Geral de Proteção de Dados breach notification requirements
+- PIPEDA (Canada): Personal Information Protection and Electronic Documents Act breach reporting
+- Privacy Act 1988 (Australia): Notifiable Data Breaches (NDB) scheme
+
+**Industry-Specific Breach Requirements**:
+- PCI DSS Requirement 12.10: Incident response plan including breach notification procedures
+- PCI DSS Forensic Investigation: Card brand notification requirements (Visa, Mastercard, Amex)
+- HITRUST CSF: Healthcare breach notification and incident response requirements
+- FedRAMP Incident Response: Federal breach notification for cloud service providers
+- FISMA: Federal Information Security Management Act breach reporting
+
+**Breach Notification Content Requirements**:
+- Identity of affected individuals or categories of data subjects
+- Description of data breach (what happened, when, how detected)
+- Types of personal data affected (PII, PHI, financial data, credentials)
+- Likely consequences and potential impact to affected individuals
+- Measures taken or proposed to address the breach and mitigate harm
+- Contact information for further inquiries (dedicated breach response team)
+- Recommended actions for affected individuals (password reset, credit monitoring, fraud alerts)
+
+**Breach Notification Timing**:
+- GDPR: 72 hours to notify supervisory authority, "without undue delay" to data subjects
+- HIPAA: 60 days to notify affected individuals, HHS Secretary, and media (if 500+ affected)
+- CCPA: 45 days following discovery of unauthorized access
+- State Laws: Range from "without unreasonable delay" to specific 30/45/90 day requirements
+- Card Brands (PCI): Immediate notification to payment card brands and acquirer
+
+**Incident Classification for Communication**:
+- Confirmed Breach: Personal data confirmed accessed/disclosed by unauthorized party
+- Potential Breach: Evidence of unauthorized access, impact assessment ongoing
+- Security Incident: Suspicious activity detected, no confirmed data access
+- Near-Miss: Security incident contained before data access occurred (optional notification)
+
+**Breach Severity & Notification Triggers**:
+- High Risk Breach: Identity theft risk, financial fraud potential → Direct individual notification required (GDPR)
+- Medium Risk Breach: Limited data exposure, low fraud risk → Supervisory authority notification, individual notification if risk escalates
+- Low Risk Breach: Minimal personal data, encrypted, or otherwise protected → Authority notification only
+
+**Regulatory Authority Contact Information**:
+- GDPR Supervisory Authorities: EU member state Data Protection Authorities (DPAs)
+- UK ICO (Information Commissioner's Office): UK data breach reporting
+- US State Attorneys General: Breach notification per state requirements
+- HHS Office for Civil Rights (OCR): HIPAA breach reporting
+- FTC: Federal Trade Commission breach reporting (non-HIPAA)
+- Payment Card Brands: Visa, Mastercard, American Express incident notification
+
+**Reference**: Consult legal counsel, privacy office, and incident response team for breach notification requirements specific to affected jurisdictions and data types
 
 ## Integration Points
 

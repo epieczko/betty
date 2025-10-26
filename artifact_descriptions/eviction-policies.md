@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Eviction Policies is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Eviction Policies artifact defines strategies for removing stale, unused, or low-value data from caches, feature flag systems, and data storage layers. This artifact establishes eviction algorithms (LRU, LFU, LRA, TTL), retention policies, cleanup automation, and governance processes that prevent resource exhaustion, manage technical debt, and optimize system performance across Redis, Memcached, feature flag platforms, and data warehouses.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Eviction policies are critical for maintaining system health and operational efficiency. Without proper eviction strategies, caches grow unbounded causing memory pressure, feature flags accumulate creating technical debt, and storage costs escalate from retaining unnecessary data. This artifact specifies cache eviction algorithms for Redis and Memcached, feature flag cleanup schedules, data retention policies with compliance requirements, and automated purging mechanisms that balance performance, cost, and data governance needs.
 
 ### Strategic Importance
 
@@ -20,27 +20,42 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines eviction and retention policies that govern the lifecycle of cached data, feature flags, ephemeral data, and stored records. It establishes clear rules for what data to retain, when to evict or archive, and how to automate cleanup to maintain system performance, control costs, and ensure compliance with data retention requirements.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Cache eviction policies (LRU, LFU, LRA, TTL, random eviction)
+- Redis eviction policies (volatile-lru, allkeys-lru, volatile-ttl, noeviction)
+- Memcached eviction algorithms and memory management
+- Feature flag cleanup schedules and technical debt management
+- Data retention policies (regulatory, operational, archival)
+- Time-to-live (TTL) strategies for ephemeral data
+- Automated purging and cleanup jobs
+- Storage cost optimization through tiered eviction
+- Compliance-driven retention (GDPR, CCPA, SOX, HIPAA)
+- Log rotation and retention policies
+- Backup retention and archival strategies
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Cache warming and pre-loading strategies
+- Data backup and disaster recovery procedures (separate artifact)
+- Active data archival to cold storage (covered by data lifecycle policies)
+- Application-level session management
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Platform Engineers configuring cache eviction policies
+- SRE teams managing system resources and performance
+- DevOps Engineers implementing automated cleanup jobs
+- Data Engineers defining data retention policies
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Product Engineers managing feature flag lifecycle
+- Compliance Officers ensuring data retention compliance
+- Infrastructure Architects designing tiered storage strategies
+- Cost Optimization teams managing storage expenses
 
 ## Document Information
 
@@ -106,19 +121,27 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Choose Appropriate Eviction Algorithm**: Use LRU for general caching, LFU for stable access patterns, TTL for time-sensitive data
+**Monitor Cache Hit Rates**: Track hit rates before/after eviction changes; aim for >80% hit rate for performance-critical caches
+**Set Memory Limits**: Configure maxmemory for Redis with headroom (80-90% of available memory) to prevent OOM errors
+**Redis Eviction Selection**: Use volatile-lru for caches with explicit TTLs; allkeys-lru when all keys are candidates
+**TTL Consistency**: Set TTLs at write time; avoid infinite TTLs unless data is truly permanent
+**Feature Flag Expiration**: Set expiration dates on all feature flags at creation; default to 90 days for temporary flags
+**Quarterly Flag Cleanup**: Schedule quarterly cleanup sprints to review and remove stale feature flags
+**Automated Stale Detection**: Implement automated detection of flags at 100% rollout for >90 days
+**Compliance-First Retention**: Start with regulatory requirements (GDPR, HIPAA, SOX) as baseline for retention policies
+**Document Retention Justification**: Every retention policy must have documented business or compliance justification
+**Tiered Storage Strategy**: Implement hot/warm/cold tiers to balance access performance and cost
+**Automate Lifecycle Transitions**: Use cloud provider lifecycle policies to automatically tier and purge data
+**Log Retention Balance**: Balance forensic needs (longer retention) with storage costs (shorter retention)
+**Soft Delete First**: Implement soft deletion with grace period before hard deletion for recovery
+**Monitoring and Alerting**: Alert on cache eviction rate spikes, memory pressure, and cleanup job failures
+**Test Eviction Policies**: Test eviction behavior under load before production deployment
+**Cost Tracking**: Monitor storage costs by tier and adjust retention policies to optimize spend
+**Backup vs. Archive**: Distinguish between operational backups (short retention) and compliance archives (long retention)
+**Grace Periods**: Implement grace periods (30-90 days) before permanent deletion to allow recovery
+**Document Dependencies**: Document which systems depend on cached data to assess eviction impact
+**Right-to-Delete Automation**: Implement automated GDPR/CCPA deletion workflows with audit trails
 
 ## Quality Criteria
 
@@ -165,7 +188,105 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Cache Eviction Algorithms**:
+- LRU (Least Recently Used) - evicts least recently accessed items
+- LFU (Least Frequently Used) - evicts least frequently accessed items
+- LRA (Least Recently Added) - FIFO eviction based on insertion time
+- TTL (Time To Live) - evicts items after expiration time
+- Random eviction - randomly selects items to evict
+- TLRU (Time-aware LRU) - LRU with time decay
+- ARC (Adaptive Replacement Cache) - balances recency and frequency
+- SLRU (Segmented LRU) - multiple LRU segments for hot/cold data
+
+**Redis Eviction Policies**:
+- noeviction (returns errors when memory limit reached)
+- allkeys-lru (evicts least recently used keys from all keys)
+- allkeys-lfu (evicts least frequently used keys from all keys)
+- volatile-lru (evicts LRU keys with TTL set)
+- volatile-lfu (evicts LFU keys with TTL set)
+- allkeys-random (randomly evicts keys from all keys)
+- volatile-random (randomly evicts keys with TTL set)
+- volatile-ttl (evicts keys with shortest TTL)
+- Redis maxmemory configuration and memory management
+
+**Memcached Eviction**:
+- LRU eviction algorithm (default and only eviction policy)
+- Slab allocation and memory management
+- Item expiration based on TTL
+- Memory limit configuration (-m flag)
+- Lazy expiration on access
+
+**Feature Flag Cleanup**:
+- Stale flag detection (100% rollout for >90 days)
+- Automated flag expiration dates
+- Quarterly cleanup sprint scheduling
+- Flag usage tracking via static analysis
+- Technical debt metrics (flag count, age distribution)
+- Deprecation warnings and sunset schedules
+- Code removal automation after flag deletion
+
+**Data Retention Policies**:
+- Regulatory retention (GDPR 30-day deletion, HIPAA 6-year retention)
+- Operational retention (logs, metrics, events)
+- Hot/warm/cold storage tier strategies
+- Archival to S3 Glacier, Azure Archive, Google Coldline
+- Right-to-delete compliance (GDPR, CCPA)
+- Soft deletion vs. hard deletion strategies
+- Data anonymization before deletion
+
+**TTL Strategies**:
+- Session data TTL (30 minutes inactive)
+- API response caching TTL (seconds to minutes)
+- Temporary data TTL (hours to days)
+- Sliding TTL (extends on access)
+- Absolute TTL (fixed expiration time)
+- TTL inheritance and cascading
+
+**Log Retention**:
+- Application logs (30-90 days hot, 1 year warm, 7 years archive)
+- Access logs and audit trails (7 years for compliance)
+- Error logs and debug logs (90 days)
+- Log rotation policies (daily, weekly, by size)
+- Log aggregation and centralization (Splunk, ELK, Datadog)
+- Structured logging for efficient retention queries
+
+**Compliance Frameworks**:
+- GDPR (EU data protection, right to erasure)
+- CCPA (California Consumer Privacy Act)
+- HIPAA (healthcare data, 6-year minimum retention)
+- SOX (financial data, 7-year retention)
+- PCI DSS (payment card data, secure deletion)
+- ISO 27001 (information security management)
+
+**Storage Tiering**:
+- Hot storage (frequently accessed, SSDs, S3 Standard)
+- Warm storage (occasionally accessed, S3 Intelligent-Tiering)
+- Cold storage (rarely accessed, S3 Glacier, tape archives)
+- Automatic tiering based on access patterns
+- Lifecycle policies for cloud storage (S3, Azure, GCS)
+
+**Automation Tools**:
+- Cloud provider lifecycle policies (S3 Lifecycle, Azure Lifecycle Management)
+- Cron jobs and scheduled tasks
+- Kubernetes CronJobs for cleanup
+- Apache Airflow DAGs for data retention workflows
+- AWS Lambda for event-driven cleanup
+- Monitoring and alerting for eviction failures
+
+**Cost Optimization**:
+- Storage cost analysis by tier
+- Compression before archival
+- Deduplication strategies
+- Intelligent tiering to reduce costs
+- Reserved capacity for predictable retention
+
+**Monitoring & Metrics**:
+- Cache hit rate (before and after eviction)
+- Memory utilization and eviction rate
+- Storage growth rate and cleanup effectiveness
+- Feature flag count over time
+- Data retention compliance metrics
+- Cost per GB by storage tier
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

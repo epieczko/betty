@@ -2,45 +2,57 @@
 
 ## Executive Summary
 
-The Encryption And Key Management Design is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Encryption and Key Management Design is a critical security artifact that specifies cryptographic controls, key management infrastructure, encryption mechanisms, and certificate management for protecting data at rest, in transit, and in use. This document defines encryption algorithms (AES-256, RSA-4096), key management services (HSM, KMS), certificate authorities (PKI), and cryptographic protocols (TLS 1.3, mTLS) following industry standards (NIST FIPS 140-2/3, Common Criteria).
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a cornerstone of data protection strategy, this artifact ensures compliance with regulatory requirements (PCI DSS, HIPAA, GDPR), implements defense-in-depth cryptographic controls, and establishes operational procedures for key lifecycle management (generation, rotation, revocation, backup, recovery). It guides security engineers, cloud architects, and DevOps teams in implementing encryption using platform-native services (AWS KMS, Azure Key Vault, GCP Cloud KMS) or dedicated HSM solutions while maintaining compliance with cryptographic standards and key custody requirements.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Data Protection Compliance**: Demonstrates adherence to encryption requirements in PCI DSS, HIPAA, GDPR, SOX, and industry-specific regulations
+- **Cryptographic Standards**: Ensures use of NIST-approved algorithms, FIPS 140-2/3 validated modules, and compliance with cryptographic best practices
+- **Key Custody & Control**: Establishes clear key ownership, separation of duties, dual control for sensitive operations, and audit trails for key access
+- **Incident Response**: Enables rapid key rotation, emergency revocation, and cryptographic incident response for breach scenarios
+- **Cloud Security**: Leverages cloud-native KMS (AWS KMS, Azure Key Vault, GCP Cloud KMS) with customer-managed keys (CMK) and bring-your-own-key (BYOK) options
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents encryption architecture and key management infrastructure including algorithm selection, key hierarchies, encryption-at-rest mechanisms, encryption-in-transit protocols, key rotation policies, HSM/KMS configuration, certificate management, and cryptographic operations procedures. It specifies technical controls, operational processes, and compliance mappings to guide secure implementation and regulatory validation.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Encryption at rest: Database encryption (TDE - Transparent Data Encryption), file system encryption (BitLocker, dm-crypt/LUKS), object storage encryption (S3 SSE, Azure Storage encryption), volume encryption (EBS, Azure Disks)
+- Encryption in transit: TLS 1.3 for HTTPS, mTLS (mutual TLS) for service-to-service, IPsec VPN, SSH, SFTP, encrypted messaging protocols
+- Symmetric encryption: AES-256-GCM, AES-128-GCM, ChaCha20-Poly1305 for bulk data encryption
+- Asymmetric encryption: RSA-2048/4096, Elliptic Curve Cryptography (ECC P-256, P-384), X25519 for key exchange
+- Key management services: AWS KMS, Azure Key Vault, GCP Cloud KMS, HashiCorp Vault for cloud and on-premises key management
+- Hardware Security Modules (HSM): AWS CloudHSM, Azure Dedicated HSM, Thales Luna HSM, Gemalto SafeNet for FIPS 140-2 Level 3 compliance
+- Key hierarchies: Customer Master Keys (CMK), Data Encryption Keys (DEK), Key Encryption Keys (KEK), envelope encryption patterns
+- Key lifecycle: Key generation, activation, rotation schedules, revocation, archival, destruction, backup, and disaster recovery
+- Certificate management: PKI infrastructure, certificate authorities (public/private CA), certificate lifecycle, automated certificate management (ACME, Let's Encrypt, cert-manager)
+- Cryptographic protocols: TLS 1.3, TLS 1.2 (legacy), IPsec, SSH, PGP/GPG for email encryption
+- Secrets management: Application secrets, database credentials, API keys stored in HashiCorp Vault, AWS Secrets Manager, Azure Key Vault
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Application-level security controls and authorization logic (see Application Security Design)
+- Network security and firewall rules (see Network Security Architecture)
+- Identity and access management implementation (see IAM Design)
+- Detailed penetration testing results (see Security Testing documentation)
+- Incident response procedures (see Incident Response Plan)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Security Architects designing cryptographic controls, key management infrastructure, and compliance-aligned encryption strategies
+- Cloud Security Engineers implementing encryption using AWS KMS, Azure Key Vault, GCP Cloud KMS, or cloud-native encryption services
+- Cryptographic Engineers configuring HSMs, managing PKI infrastructure, and implementing FIPS 140-2/3 compliant solutions
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Compliance Officers validating encryption controls against PCI DSS, HIPAA, GDPR, FedRAMP, or ISO 27001 requirements
+- DevOps/Platform Engineers integrating encryption into CI/CD pipelines, infrastructure-as-code, and application deployment automation
+- Auditors reviewing cryptographic implementations, key custody controls, and compliance evidence for security certifications
 
 ## Document Information
 
@@ -165,9 +177,110 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Cryptographic Standards & Algorithms**:
+- NIST FIPS 140-2/140-3 - Security Requirements for Cryptographic Modules (Levels 1-4)
+- NIST SP 800-175B - Guideline for Using Cryptographic Standards (approved algorithms)
+- NIST SP 800-57 - Recommendation for Key Management (key lifecycle, strengths)
+- AES (Advanced Encryption Standard) - FIPS 197, 128/192/256-bit symmetric encryption
+- RSA - PKCS #1, asymmetric encryption with 2048/3072/4096-bit keys
+- Elliptic Curve Cryptography (ECC) - NIST P-256, P-384, P-521 curves, X25519, Ed25519
+- SHA-2 Family - SHA-256, SHA-384, SHA-512 cryptographic hash functions
+- SHA-3 Family - Keccak-based hash functions (SHA3-256, SHA3-512)
+- Authenticated Encryption - AES-GCM (Galois/Counter Mode), ChaCha20-Poly1305
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**TLS/SSL Protocols**:
+- TLS 1.3 - RFC 8446, modern encrypted communications protocol
+- TLS 1.2 - RFC 5246, widely deployed secure communications (minimum acceptable version)
+- mTLS (Mutual TLS) - Certificate-based mutual authentication
+- Perfect Forward Secrecy (PFS) - Ephemeral Diffie-Hellman key exchange
+- Certificate Transparency - RFC 6962, public logging of TLS certificates
+- OCSP (Online Certificate Status Protocol) - RFC 6960, certificate revocation checking
+- Certificate Pinning - Hardcoded certificate or public key validation
+
+**Key Management Standards**:
+- NIST SP 800-57 - Key Management Recommendations (lifecycle, key types, strengths)
+- NIST SP 800-130 - Framework for Designing Cryptographic Key Management Systems
+- PKCS (Public-Key Cryptography Standards) - RSA standards #1-15
+- OASIS KMIP (Key Management Interoperability Protocol) - Standardized key management
+- IEEE 1619 - Standard for Cryptographic Protection of Data on Block-Oriented Storage Devices
+- Envelope Encryption - Data encryption keys encrypted by key encryption keys
+
+**Hardware Security Modules (HSM)**:
+- FIPS 140-2 Level 3/4 - Physical tamper-evident/resistant cryptographic modules
+- Common Criteria EAL4+ - Security evaluation for HSM products
+- AWS CloudHSM - FIPS 140-2 Level 3 validated HSM on AWS
+- Azure Dedicated HSM - Thales Luna HSM integrated with Azure
+- Thales Luna HSM - Enterprise HSM for key generation, storage, and cryptographic operations
+- Gemalto SafeNet - HSM solutions for enterprises and cloud providers
+- nCipher nShield - Entrust HSM family for key protection
+
+**Cloud Key Management Services (KMS)**:
+- AWS KMS - Managed key service with CMK (Customer Master Keys), automatic rotation, CloudHSM integration
+- Azure Key Vault - Secrets, keys, and certificates management with HSM-backed keys
+- GCP Cloud KMS - Multi-region key management with Cloud HSM integration
+- HashiCorp Vault - Multi-cloud secrets and encryption key management with dynamic secrets
+- Bring Your Own Key (BYOK) - Customer-controlled key import to cloud KMS
+- Customer-Managed Keys (CMK) - Customer control over key lifecycle and policies
+- Envelope Encryption - Cloud KMS encrypts data keys, applications encrypt data
+
+**Public Key Infrastructure (PKI)**:
+- X.509 v3 - Standard certificate format (RFC 5280)
+- Certificate Authorities (CA) - DigiCert, Let's Encrypt, GlobalSign, Entrust, Sectigo
+- Private CA - Internal certificate authority for enterprise PKI
+- AWS Certificate Manager (ACM) - Managed SSL/TLS certificates for AWS services
+- Azure Key Vault Certificates - Certificate lifecycle management
+- cert-manager (Kubernetes) - Automated certificate management for K8s clusters
+- ACME Protocol - Automated Certificate Management Environment (RFC 8555)
+
+**Encryption at Rest Technologies**:
+- Transparent Data Encryption (TDE) - SQL Server, Oracle, PostgreSQL database encryption
+- BitLocker - Windows volume encryption with TPM integration
+- dm-crypt / LUKS - Linux disk encryption with kernel integration
+- FileVault - macOS full disk encryption
+- AWS S3 SSE - Server-Side Encryption (SSE-S3, SSE-KMS, SSE-C)
+- Azure Storage Service Encryption - Automatic encryption for Blob, File, Queue, Table storage
+- Google Cloud Storage Encryption - Default encryption with customer-managed encryption keys
+
+**Compliance & Regulatory Standards**:
+- PCI DSS 4.0 - Requirement 3: Protect stored cardholder data with strong cryptography
+- HIPAA Security Rule - Encryption of ePHI (electronic Protected Health Information)
+- GDPR Article 32 - Security of processing including encryption and pseudonymization
+- FedRAMP - Federal cryptographic requirements, FIPS 140-2 validated modules
+- FISMA - Federal encryption requirements for government systems
+- SOC 2 - Trust Services Criteria for encryption and key management
+- ISO/IEC 27001:2022 - Annex A.8.24 (Cryptography), A.8.11 (Key Management)
+
+**Secrets Management Solutions**:
+- HashiCorp Vault - Dynamic secrets, encryption-as-a-service, PKI, key/value secrets
+- AWS Secrets Manager - Automatic rotation for RDS, Redshift, DocumentDB credentials
+- Azure Key Vault - Secrets, keys, certificates with RBAC and audit logging
+- GCP Secret Manager - Secret versioning and automatic replication
+- CyberArk - Privileged access management with secrets vaulting
+- Sealed Secrets (Kubernetes) - Encrypted Kubernetes secrets with controller-based decryption
+- SOPS (Secrets OPerationS) - Encrypted file storage with KMS integration
+
+**Cryptographic Libraries & SDKs**:
+- OpenSSL - Open-source TLS/SSL and cryptography library
+- BouncyCastle - Java and C# cryptography API
+- libsodium - Modern, easy-to-use cryptographic library (NaCl fork)
+- AWS Encryption SDK - Client-side encryption with envelope encryption and KMS integration
+- Google Tink - Multi-language cryptography library from Google
+- Microsoft Cryptography API (CAPI/CNG) - Windows cryptographic services
+
+**Data Protection Techniques**:
+- Data Masking - Obfuscating sensitive data in non-production environments
+- Tokenization - Replacing sensitive data with non-sensitive tokens (PCI DSS)
+- Format-Preserving Encryption (FPE) - Encrypting data while maintaining format
+- Homomorphic Encryption - Computing on encrypted data without decryption
+- Secure Multi-Party Computation (MPC) - Collaborative computation without revealing inputs
+
+**Key Rotation & Lifecycle Management**:
+- Automatic Key Rotation - Scheduled rotation for AWS KMS CMKs, Azure Key Vault keys
+- Key Versioning - Maintaining multiple key versions for decryption of historical data
+- Key Archival - Long-term storage of retired keys for regulatory compliance
+- Cryptographic Agility - Design supporting algorithm changes and key migration
+
+**Reference**: Consult information security, cryptography, and compliance teams for detailed guidance on encryption algorithm selection, key management infrastructure design, HSM deployment, PKI implementation, and regulatory compliance requirements specific to your industry and data protection needs
 
 ## Integration Points
 

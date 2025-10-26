@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Safety Filter Configurations is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Safety Filter Configurations artifact defines content moderation policies, toxicity thresholds, PII detection rules, and jailbreak prevention mechanisms for AI systems and user-generated content platforms. This artifact specifies configurations for safety APIs like Perspective API, Azure Content Safety, AWS Comprehend, OpenAI Moderation API, and custom safety classifiers that protect users from harmful content, prevent model misuse, and ensure regulatory compliance.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As AI systems become more powerful and user-facing, content safety becomes critical for user trust, legal compliance, and brand reputation. This artifact establishes toxicity score thresholds (typically 0.7-0.9 for production filtering), PII patterns for detection and redaction (SSN, credit cards, phone numbers), jailbreak detection patterns that identify adversarial prompts, and multi-layer defense strategies including input filtering, output filtering, and constitutional AI principles. It balances safety requirements with false positive rates to maintain user experience while preventing harmful content.
 
 ### Strategic Importance
 
@@ -20,27 +20,45 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact establishes comprehensive content safety configurations that filter harmful, toxic, or inappropriate content from AI system inputs and outputs, protect sensitive user information through PII detection, and prevent adversarial attacks through jailbreak detection. It defines the rules, thresholds, and mechanisms that maintain safe, compliant, and trustworthy AI systems.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Content moderation policies and toxicity thresholds
+- Perspective API configuration (toxicity, severe toxicity, identity attack, profanity)
+- Azure Content Safety severity levels and categories
+- AWS Comprehend PII detection and redaction
+- OpenAI Moderation API integration and categories
+- PII detection patterns (SSN, credit cards, emails, phone numbers, addresses)
+- PII redaction strategies (masking, tokenization, deletion)
+- Jailbreak detection patterns and adversarial prompt identification
+- Prompt injection prevention mechanisms
+- Constitutional AI principles and harmlessness training
+- Multi-layer filtering (input filtering, output filtering, post-processing)
+- False positive rate optimization
+- Regional and cultural customization of safety rules
+- User appeal and override workflows
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- User authentication and authorization (separate security artifact)
+- Rate limiting and abuse prevention (covered by API gateway policies)
+- Copyright and intellectual property detection
+- Age verification and parental controls
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- ML Engineers integrating safety filters into AI systems
+- Trust & Safety Engineers defining content moderation policies
+- Product Engineers building user-facing AI features
+- Platform Engineers operating safety infrastructure
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Legal and Compliance teams ensuring regulatory adherence
+- Product Managers balancing safety with user experience
+- Customer Support teams handling flagged content appeals
+- Security Engineers preventing adversarial attacks
 
 ## Document Information
 
@@ -106,19 +124,27 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Start Conservative**: Begin with strict thresholds (0.8-0.9) and relax based on false positive data, not vice versa
+**Multi-Layer Defense**: Implement both input and output filtering; never rely on single layer
+**Monitor False Positives**: Track and review false positive cases to tune thresholds appropriately
+**Context-Aware Filtering**: Adjust thresholds based on context (public vs. private, user demographics)
+**Fail Safe**: On API failures, default to safe behavior (block on uncertainty or defer to human review)
+**PII Detection Priority**: Always scan for PII before any other processing or storage
+**Log Filtered Content**: Log filtered content (with appropriate security) for appeals and model improvement
+**Human Review Escalation**: Define clear escalation paths for borderline cases to human moderators
+**Appeal Process**: Provide users ability to appeal filtered content with transparent review process
+**Regular Red Teaming**: Conduct regular adversarial testing to discover new jailbreak patterns
+**Ensemble Scoring**: Combine multiple safety APIs for higher accuracy and coverage
+**Latency Budgets**: Balance safety filtering latency (<100ms) with user experience
+**A/B Test Thresholds**: Use A/B testing to optimize threshold values for best balance of safety and UX
+**Cultural Sensitivity**: Customize filters for regional and cultural contexts, not one-size-fits-all
+**Version Control Filters**: Track all filter configuration changes with rollback capability
+**Transparency**: Communicate to users when content is filtered and provide reasons
+**Continuous Improvement**: Regularly retrain custom classifiers with new examples
+**Differential Filtering**: Apply stricter filters for high-risk contexts (minors, public posts)
+**Whitelist Exceptions**: Maintain whitelists for educational, medical, and legitimate use cases
+**Performance Monitoring**: Track filter latency, error rates, and availability continuously
+**Incident Response**: Define procedures for handling safety filter bypasses or failures
 
 ## Quality Criteria
 
@@ -165,7 +191,133 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Content Safety APIs & Services**:
+- Perspective API (Google Jigsaw toxicity detection)
+- Azure Content Safety (Microsoft content moderation)
+- AWS Comprehend (PII detection and content analysis)
+- OpenAI Moderation API (content policy enforcement)
+- Anthropic Claude safety features (constitutional AI)
+- Google Cloud Natural Language (content classification)
+- Hive Moderation (visual and text content moderation)
+- Two Hat (Spectrum content moderation)
+- WebPurify (profanity filtering and content moderation)
+
+**Perspective API Attributes**:
+- TOXICITY (general toxic, rude, disrespectful content)
+- SEVERE_TOXICITY (very hateful, aggressive, disrespectful)
+- IDENTITY_ATTACK (negative targeting of identity)
+- INSULT (insulting, inflammatory, negative language)
+- PROFANITY (swear words, curse words, vulgarity)
+- THREAT (threatening language, intimidation)
+- SEXUALLY_EXPLICIT (sexual content descriptions)
+- FLIRTATION (pickup lines, sexual advances)
+
+**Azure Content Safety Categories**:
+- Hate (discrimination, slurs, hateful content)
+- Sexual (sexually explicit or suggestive content)
+- Violence (glorification of violence, graphic descriptions)
+- Self-Harm (encouragement or depiction of self-harm)
+- Severity levels (0-7 scale, typically filter at 4+)
+
+**OpenAI Moderation Categories**:
+- hate (hateful content)
+- hate/threatening (hateful with violence)
+- harassment (harassing, bullying content)
+- harassment/threatening (harassing with violence)
+- self-harm (self-harm content or instructions)
+- self-harm/intent (intent to self-harm)
+- self-harm/instructions (instructions for self-harm)
+- sexual (sexually explicit content)
+- sexual/minors (sexual content involving minors)
+- violence (violent content)
+- violence/graphic (graphic violent content)
+
+**PII Detection Patterns**:
+- Social Security Numbers (SSN format xxx-xx-xxxx)
+- Credit card numbers (Luhn algorithm validation)
+- Email addresses (RFC 5322 format)
+- Phone numbers (international formats)
+- Physical addresses (street, city, state, zip)
+- Driver's license numbers
+- Passport numbers
+- Medical record numbers
+- Financial account numbers
+- IP addresses (public and private ranges)
+
+**PII Redaction Strategies**:
+- Masking (replace with asterisks: ***-**-1234)
+- Tokenization (replace with reversible tokens)
+- Hashing (one-way cryptographic hash)
+- Synthetic replacement (replace with fake but realistic values)
+- Complete deletion (remove entirely)
+- Partial redaction (show last 4 digits only)
+
+**Jailbreak Detection Patterns**:
+- Role-playing prompts (pretend you are X)
+- DAN attacks (do anything now)
+- Ignore previous instructions patterns
+- System prompt extraction attempts
+- Token smuggling (hidden instructions in base64, etc.)
+- Obfuscation techniques (l33t speak, character substitution)
+- Multi-turn adversarial conversations
+- Indirect prompt injection via documents
+
+**Prompt Injection Prevention**:
+- Input sanitization and validation
+- Delimiter-based prompt construction
+- Instruction hierarchy (system > user prompts)
+- Output validation and filtering
+- Sandboxing for code execution
+- Rate limiting on unusual patterns
+- Anomaly detection on prompt structure
+
+**Constitutional AI Principles**:
+- Harmlessness training (RLHF with safety objectives)
+- Red teaming for adversarial testing
+- Critique and revision loops
+- Safety-focused prompting
+- Refusal training for harmful requests
+- Uncertainty acknowledgment
+- Transparent limitation communication
+
+**Threshold Tuning**:
+- Toxicity thresholds (typically 0.7-0.9 for production)
+- False positive rate optimization
+- A/B testing threshold values
+- Cultural and contextual calibration
+- User segment-specific thresholds
+- Time-of-day and context-aware filtering
+
+**Multi-Layer Filtering**:
+- Input filtering (before model processing)
+- Output filtering (after generation, before display)
+- Post-processing rules (regex, keyword lists)
+- Cascading filters (multiple APIs in sequence)
+- Ensemble scoring (combine multiple safety APIs)
+- Human review escalation
+
+**Regional & Cultural Customization**:
+- Language-specific toxicity models
+- Cultural context for offensive content
+- Regional legal requirements (GDPR, COPPA, etc.)
+- Country-specific blocked content
+- Localized PII patterns
+
+**Monitoring & Metrics**:
+- Filter trigger rate (% of content filtered)
+- False positive rate (legitimate content blocked)
+- False negative rate (harmful content passed)
+- Appeal overturn rate
+- Latency impact of filtering
+- Coverage by content category
+
+**Compliance & Regulations**:
+- COPPA (Children's Online Privacy Protection Act)
+- GDPR (PII protection requirements)
+- Section 230 (platform liability)
+- DSA (Digital Services Act - EU)
+- Online Safety Bill (UK)
+- Content moderation transparency reports
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

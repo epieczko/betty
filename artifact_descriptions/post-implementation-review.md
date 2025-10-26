@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Post Implementation Review is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Post-Implementation Review (PIR) is a comprehensive retrospective artifact that evaluates initiative outcomes against original objectives, capturing lessons learned, benefits realization, and improvement opportunities. Drawing from Agile retrospective methodologies (Scrum Guide, SAFe, Liberating Structures) and benefits management frameworks, this review compares actual results versus projected outcomes from the original business case, feasibility study, and financial models (ROI actual vs. projected).
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Modern PIRs leverage collaborative formats including Agile retrospective techniques (Start/Stop/Continue, 4Ls, Sailboat, Mad/Sad/Glad), facilitation platforms (Miro, Mural, Metro Retro), and structured frameworks for capturing what worked, what didn't, and what to do differently. The review serves executive leadership, program managers, and portfolio management by enabling data-driven continuous improvement, validating investment decisions, and building organizational learning. It directly feeds into knowledge management systems and influences future initiative planning.
 
 ### Strategic Importance
 
@@ -20,27 +20,43 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+The Post-Implementation Review evaluates initiative success against original objectives, captures lessons learned, assesses benefits realization, and identifies improvements for future initiatives. It answers: Did we achieve what we set out to do? What was the actual ROI vs. projected? What worked well? What should we improve? What knowledge should we preserve? The review enables continuous improvement and validates investment decision-making quality.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Objectives achievement assessment (actual vs. planned)
+- Benefits realization analysis (ROI actual vs. projected, KPI performance)
+- Schedule and budget variance analysis (planned vs. actual)
+- Scope changes and their impact
+- Risk management effectiveness review
+- Lessons learned (what worked, what didn't, why)
+- Retrospective using Agile techniques (Start/Stop/Continue, 4Ls, etc.)
+- Team effectiveness and collaboration assessment
+- Stakeholder satisfaction evaluation
+- Process improvement recommendations
+- Knowledge capture for organizational learning
+- Action items for future initiatives
+- Success celebration and recognition
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Ongoing operational metrics (covered in Operational Reports, Dashboards)
+- Detailed technical post-mortems (covered in Technical Retrospectives)
+- Individual performance reviews (covered in HR processes)
+- Vendor assessments (covered in Vendor Performance Reviews)
+- Financial close-out procedures (covered in Financial Close artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- **Executive Leadership**: Assesses investment outcomes and validates decision quality
+- **Program Managers**: Learns from experience to improve future program execution
+- **Portfolio Management**: Evaluates investment effectiveness and estimation accuracy
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- **Product Leaders**: Captures product development insights and validates strategy
+- **PMO & Governance**: Identifies process improvements and updates standards
+- **Future Initiative Teams**: Learns from past experiences to avoid repeated mistakes
 
 ## Document Information
 
@@ -119,6 +135,22 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 **Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
 **Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
 **Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Benefits Realization Focus**: Compare actual benefits vs. projected from business case; quantify value delivered
+**ROI Analysis**: Calculate actual ROI and compare to projections; explain variances with root cause analysis
+**Psychological Safety**: Create safe environment for honest feedback; apply Retrospective Prime Directive (Norman Kerth)
+**Structured Retrospective**: Use proven formats (Start/Stop/Continue, 4Ls, Sailboat) rather than unstructured discussion
+**Liberating Structures**: Apply Liberating Structures for deeper engagement (1-2-4-All, TRIZ, What/So What/Now What)
+**Collaborative Platforms**: Leverage Miro, Mural, or Metro Retro for virtual retrospectives and async participation
+**Actionable Outcomes**: Convert insights into specific, assigned action items with owners and due dates
+**Five Whys Practice**: Use Five Whys technique to get to root causes, not just symptoms
+**Celebrate Success**: Balance improvement focus with recognition of what went well and who contributed
+**Data-Driven**: Use actual metrics (schedule, budget, KPIs) not just opinions; show charts and trends
+**Timeline Analysis**: Create timeline of key events to understand patterns and causality
+**Team Health Check**: Assess team health using Spotify team health check or similar model
+**Knowledge Capture**: Document lessons in searchable knowledge base; make findings accessible for future teams
+**Action Item Tracking**: Track retrospective action items in Jira or similar; review in subsequent retrospectives
+**Regular Cadence**: Conduct retrospectives regularly (sprint, release, project end); don't wait until the end
+**Future Application**: Explicitly identify how lessons will be applied to future initiatives; assign responsibility
 
 ## Quality Criteria
 
@@ -165,7 +197,100 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Agile Retrospective Formats**:
+- Start/Stop/Continue - Simple three-column format
+- 4Ls (Liked, Learned, Lacked, Longed For) - Comprehensive reflection
+- Sailboat/Speedboat - Wind (helping), Anchors (hindering), Rocks (risks), Island (goal)
+- Mad/Sad/Glad - Emotional retrospective
+- KALM (Keep, Add, Less, More) - Action-oriented format
+- DAKI (Drop, Add, Keep, Improve)
+- Rose/Bud/Thorn - Positive/Potential/Challenges
+- Starfish (Keep Doing, Less Of, More Of, Stop Doing, Start Doing)
+- Timeline Retrospective - Chronological event mapping
+- Five Whys - Root cause analysis technique
+
+**Liberating Structures for Retrospectives**:
+- 1-2-4-All - Progressive sharing
+- TRIZ (Theory of Inventive Problem Solving) - Reverse brainstorming
+- What, So What, Now What? - Reflection framework
+- 25/10 Crowd Sourcing - Idea prioritization
+- Appreciative Inquiry - Asset-based approach
+- Shift & Share - Rotating small group discussions
+
+**Agile & Lean Frameworks**:
+- Scrum Guide - Sprint Retrospectives guidance
+- SAFe (Scaled Agile Framework) - Inspect & Adapt workshops
+- Team retrospectives (sprint level)
+- Program Increment (PI) retrospectives
+- Large-Scale Scrum (LeSS) - Overall Retrospective
+- Spotify retrospective models
+
+**Benefits Realization Frameworks**:
+- Benefits Management Framework - APM/PRINCE2
+- Benefits Realization Management (BRM)
+- Value Realization tracking
+- OKR achievement assessment
+- KPI performance vs. targets
+- ROI actual vs. projected analysis
+- Business value delivered metrics
+
+**Lessons Learned Methodologies**:
+- AAR (After Action Review) - US Army methodology
+- Retrospective Prime Directive - Norman Kerth
+- Learning organization principles - Peter Senge
+- Knowledge capture frameworks
+- PMBOK lessons learned processes
+- Continuous improvement (Kaizen) practices
+
+**Financial & Performance Analysis**:
+- ROI actual vs. projected comparison
+- NPV/IRR realization analysis
+- Cost variance analysis (actual vs. budget)
+- Schedule variance analysis (actual vs. planned)
+- Earned Value Management (EVM) retrospective
+- Benefits tracking and measurement
+- Value stream mapping outcomes
+
+**Root Cause Analysis Techniques**:
+- Five Whys - Sakichi Toyoda
+- Fishbone Diagram (Ishikawa) - Cause and effect
+- Pareto Analysis - 80/20 rule
+- Fault Tree Analysis
+- FMEA (Failure Mode and Effects Analysis)
+- Timeline analysis of critical events
+
+**Collaborative Retrospective Tools**:
+- Miro - Virtual retrospective boards
+- Mural - Collaborative retrospectives
+- Metro Retro - Dedicated retrospective platform
+- FunRetro - Online retrospective tool
+- Confluence - Retrospective documentation
+- Jira - Action item tracking from retrospectives
+- Trello - Visual retrospective boards
+
+**Team Effectiveness Assessment**:
+- Team Health Checks - Spotify model
+- Team Dynamics assessment
+- Psychological Safety measurement - Amy Edmondson
+- Collaboration effectiveness metrics
+- Communication pattern analysis
+- Tuckman's stages (Forming, Storming, Norming, Performing)
+
+**Continuous Improvement Frameworks**:
+- PDCA (Plan-Do-Check-Act) - Deming Cycle
+- Kaizen - Continuous improvement
+- Lean thinking principles
+- Six Sigma DMAIC (Define, Measure, Analyze, Improve, Control)
+- A3 Problem Solving - Toyota
+- Gemba walks - Go see for yourself
+
+**Knowledge Management**:
+- Knowledge capture templates
+- Organizational learning systems
+- Communities of Practice (CoP)
+- Knowledge base updates
+- Best practice repositories
+- Pattern libraries and playbooks
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

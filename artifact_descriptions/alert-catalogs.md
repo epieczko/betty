@@ -2,43 +2,60 @@
 
 ## Executive Summary
 
-The Alert Catalogs is a critical governance and audit artifact that provides a chronological record of alert catalogs throughout the General phase. This structured log serves as both a real-time management tool and a historical record for post-project reviews, audits, and lessons learned activities.
+Alert Catalogs are centralized inventories of all monitoring alerts documenting trigger conditions, thresholds, severity levels, notification channels, runbook references, and ownership for each alert. Following SRE best practices for actionable alerting, these catalogs ensure alerts are well-documented, properly routed, linked to runbooks, and regularly reviewed to prevent alert fatigue while maintaining high signal-to-noise ratios.
 
-As a cornerstone of program governance, this artifact enables transparency, accountability, and informed decision-making by providing stakeholders with immediate visibility into key events, decisions, and their outcomes. It supports root cause analysis, trend identification, and continuous improvement by maintaining a complete audit trail.
+As the definitive source of truth for alerting strategy, alert catalogs provide on-call engineers with alert context and response procedures, SRE teams with alert effectiveness metrics, platform teams with alert configuration governance, and management with visibility into operational monitoring coverage. They transform ad-hoc alerting into a systematic, manageable, and continuously improving practice.
 
 ### Strategic Importance
 
-- **Governance Excellence**: Demonstrates rigorous program management and adherence to organizational standards
-- **Risk Mitigation**: Early identification of patterns and trends enables proactive intervention
-- **Audit Readiness**: Provides comprehensive trail for internal and external audits
-- **Knowledge Capture**: Preserves institutional knowledge beyond individual personnel tenure
-- **Continuous Improvement**: Enables data-driven process improvements through trend analysis
+- **Alert Fatigue Prevention**: Documents and tracks alert quality to eliminate noisy, non-actionable alerts
+- **Incident Response**: Links every alert to specific runbooks enabling faster MTTR
+- **Signal-to-Noise Ratio**: Tracks alert effectiveness (true positives vs. false positives) for tuning
+- **Ownership Clarity**: Defines clear ownership and escalation paths for every alert
+- **Coverage Assessment**: Identifies monitoring gaps where critical conditions lack alerting
+- **Audit & Compliance**: Demonstrates systematic monitoring for SOC 2, ISO 27001 requirements
+- **Knowledge Transfer**: Provides new team members with understanding of monitoring landscape
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+Alert Catalogs inventory all monitoring alerts with metadata (condition, threshold, severity, owner, runbook link, notification channel) enabling alert governance, preventing alert fatigue, and ensuring actionable, well-documented alerting practices.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Alert metadata: Name, description, alert condition (PromQL, LogQL, SQL query)
+- Thresholds: Numeric thresholds, duration requirements (alert after 5 minutes above threshold)
+- Severity levels: Critical/P1, High/P2, Medium/P3, Low/P4, Info
+- Notification channels: PagerDuty, Slack, email, webhooks, escalation policies
+- Runbook references: Direct links to runbooks for each alert
+- Ownership: Team/individual responsible for alert and response
+- SLO association: Alerts tied to SLO violations and error budget consumption
+- Alert effectiveness metrics: True positive rate, false positive rate, MTTD, MTTR
+- Alert configuration: Prometheus AlertManager, Grafana alerts, Datadog monitors, CloudWatch alarms
+- Alert tuning history: Changes to thresholds, reason for changes, effectiveness improvement
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Alert implementation code (stored in monitoring-as-code repositories)
+- Detailed runbook procedures (covered in Runbooks artifact)
+- Incident response workflows (covered in Incident Management Plan)
+- Dashboard definitions (covered in Monitoring Dashboards)
+- Logging configuration (covered in Logging Taxonomy)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- On-Call Engineers understanding what alerts mean and how to respond
+- SRE Teams managing alert quality, tuning thresholds, reducing noise
+- Platform Engineers maintaining alerting infrastructure and configurations
+- Service Owners responsible for their service's alert effectiveness
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Engineering Managers assessing operational burden and on-call toil
+- Incident Commanders understanding alert context during incidents
+- Compliance Teams demonstrating monitoring coverage for audits
+- New Team Members learning operational monitoring landscape
 
 ## Document Information
 

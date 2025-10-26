@@ -2,43 +2,59 @@
 
 ## Executive Summary
 
-The Rollback Plan is a comprehensive planning artifact that establishes the strategic approach, resource allocation, timeline, and success criteria for rollback activities within the General phase. This forward-looking document serves as the authoritative reference for execution teams, stakeholders, and governance bodies.
+The Rollback Plan is a critical operational artifact that defines procedures, decision criteria, and technical mechanisms for safely reverting deployments when issues are detected in production. This plan establishes rollback strategies across different deployment patterns (blue-green, canary, rolling updates), defines rollback triggers and decision trees, and ensures teams can rapidly restore service stability when deployments introduce defects or performance regressions.
 
-As a foundational planning deliverable, it translates strategic objectives into actionable tasks, identifies dependencies and constraints, allocates resources optimally, and establishes measurable outcomes. The plan balances ambition with pragmatism, incorporating risk mitigation strategies and contingency approaches.
+As a foundational DevOps deliverable, it integrates with CI/CD pipelines to enable automated or manual rollbacks, defines database migration reversal procedures, establishes rollback testing protocols, and documents rollback decision authority and communication procedures. The plan reduces Mean Time to Recovery (MTTR) by providing clear, tested procedures that minimize service disruption during deployment failures.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities directly support organizational objectives and expected outcomes
-- **Resource Optimization**: Enables efficient allocation of personnel, budget, and technology resources
-- **Risk Management**: Identifies potential obstacles and defines proactive mitigation strategies
-- **Stakeholder Alignment**: Creates shared understanding of approach, timeline, and expectations
-- **Success Measurement**: Establishes clear metrics and criteria for evaluating outcomes
+- **Service Stability**: Enables rapid recovery from failed deployments to restore service to known-good state
+- **Risk Mitigation**: Reduces blast radius of deployment failures through progressive delivery and safe rollback
+- **Confidence in Deployment**: Allows teams to deploy fearlessly knowing reliable rollback mechanisms exist
+- **MTTR Reduction**: Decreases mean time to recovery through pre-defined, tested rollback procedures
+- **Data Protection**: Ensures database changes can be safely reversed without data loss or corruption
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines comprehensive rollback procedures for different deployment scenarios, establishes decision criteria for triggering rollbacks, and documents technical mechanisms for safely reverting code, configuration, and database changes. It ensures teams can respond quickly and confidently to deployment failures while minimizing service disruption and data integrity risks.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Rollback decision criteria: Error rate thresholds, latency degradation, failed health checks, SLO violations
+- Deployment rollback strategies: Blue-green deployments, canary releases, rolling updates, feature flag toggles
+- Application rollback procedures: Container image reversion, artifact version rollback, configuration rollback
+- Database rollback strategies: Forward-only migrations, backward-compatible schemas, migration reversal scripts
+- Infrastructure rollback: Terraform/IaC state reversion, infrastructure version rollback, DNS cutover procedures
+- CI/CD rollback integration: Jenkins rollback jobs, GitLab CI rollback stages, GitHub Actions rollback workflows
+- Progressive delivery tools: Flagger, Argo Rollouts, Spinnaker, Harness continuous delivery
+- Feature flag rollback: LaunchDarkly kill switches, Split.io toggles, Unleash feature management
+- Kubernetes rollback: kubectl rollout undo, Helm rollback, ArgoCD sync reversion
+- Rollback testing: Chaos engineering rollback drills, rollback dry-runs in staging
+- Decision authority: On-call engineer rollback authority, incident commander escalation paths
+- Communication procedures: Status page updates, stakeholder notifications, postmortem documentation
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Initial deployment procedures and strategies (covered in Deployment Plan)
+- Incident response and escalation procedures (covered in Incident Response Plan)
+- Post-deployment validation and monitoring (covered in Deployment Validation Plan)
+- Disaster recovery and data restoration from backups (covered in Disaster Recovery Plan)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- DevOps engineers and SREs who execute rollback procedures during incidents
+- On-call engineers who make rollback decisions during deployment issues
+- Release engineers who design and implement rollback mechanisms
+- Platform engineers who build rollback automation into CI/CD pipelines
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Engineering managers who approve rollback decisions for critical changes
+- Incident commanders who coordinate rollback during major incidents
+- Database administrators who execute database migration reversals
+- QA engineers who validate post-rollback system state
 
 ## Document Information
 
@@ -163,7 +179,29 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Deployment Strategies**: Blue-Green Deployment, Canary Releases, Rolling Updates, Recreate Strategy, Shadow Deployments, A/B Testing Deployments, Feature Flag-Based Deployments
+
+**Progressive Delivery Tools**: Flagger (Kubernetes progressive delivery), Argo Rollouts (advanced deployment strategies), Spinnaker (multi-cloud CD), Harness Continuous Delivery, Jenkins X progressive delivery
+
+**Container Orchestration Rollback**: Kubernetes Deployments (kubectl rollout undo), Docker Swarm rolling updates, Amazon ECS blue-green deployments, Azure Container Instances deployment strategies
+
+**Infrastructure as Code Rollback**: Terraform state management & rollback, Pulumi stack rollback, CloudFormation change sets, Ansible playbook rollback, AWS CDK deployment rollback
+
+**CI/CD Rollback Integration**: Jenkins pipeline rollback stages, GitLab CI/CD rollback jobs, GitHub Actions rollback workflows, CircleCI deployment rollback, Azure DevOps release rollback
+
+**Feature Flag Systems**: LaunchDarkly (feature management & kill switches), Split.io (feature flags & experimentation), Unleash (open-source feature toggles), Flagsmith, ConfigCat, AWS AppConfig
+
+**Database Migration Strategies**: Liquibase (database change management), Flyway (version control for databases), Alembic (Python migrations), Rails migrations, Forward-only migrations pattern, Expand-contract pattern
+
+**Helm & Package Management**: Helm rollback (chart version reversion), Helmfile rollback, Kustomize version management, ArgoCD sync rollback, Flux GitOps reconciliation
+
+**Monitoring for Rollback Triggers**: Prometheus alerts for deployment anomalies, Datadog deployment tracking, New Relic deployment markers, PagerDuty event correlation, Sentry error spike detection
+
+**Chaos Engineering for Rollback**: Chaos Monkey for deployment resilience, Gremlin chaos experiments, Litmus for Kubernetes chaos, chaos engineering rollback drills
+
+**SRE Practices**: Google SRE Book (Safe Deployment Practices), Progressive Rollout strategies, Error budgets for deployment decisions, Canary analysis, Service Level Objectives (SLOs) for deployment health
+
+**Change Management Standards**: ITIL Change Management, Change Advisory Board (CAB) processes, Emergency change procedures, Standard vs. emergency rollback procedures
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

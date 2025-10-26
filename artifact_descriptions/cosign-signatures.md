@@ -2,45 +2,64 @@
 
 ## Executive Summary
 
-The Cosign Signatures is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Cosign Signatures artifact documents cryptographic signatures for container images and software artifacts using Sigstore's Cosign tool, a critical component of software supply chain security. This artifact provides verifiable proof of artifact authenticity, enabling organizations to establish trust in their software supply chain through keyless signing with OIDC identity, transparency logs via Rekor, and integration with policy enforcement tools like Open Policy Agent (OPA) and Kyverno.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As software supply chain attacks have increased 650% year-over-year (Sonatype 2024), Cosign signatures serve as a foundational control for zero-trust software distribution. This artifact enables verification of artifact provenance, detection of tampering, and compliance with SLSA (Supply Chain Levels for Software Artifacts) requirements for build integrity. Organizations leveraging Cosign can achieve SLSA Level 3+ compliance through cryptographic verification combined with in-toto attestation and SBOM correlation.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Supply Chain Security**: Mitigates software supply chain risks through cryptographic verification (SLSA Level 2+ requirement)
+- **Zero-Trust Distribution**: Enables policy-based admission control in Kubernetes with signature verification
+- **Regulatory Compliance**: Supports Executive Order 14028 requirements for SBOM and software provenance
+- **Incident Response**: Provides forensic trail for software artifact integrity verification with 90-day SLA for critical vulnerabilities
+- **CI/CD Integration**: Automates signing in GitHub Actions, GitLab CI, CircleCI with keyless OIDC authentication
+- **Transparency & Auditability**: Leverages Rekor transparency log for immutable signature records
+- **Policy Enforcement**: Integrates with Kyverno, OPA Gatekeeper, and Ratify for admission control
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the authoritative record of cryptographic signatures applied to container images, binary artifacts, and software packages using Sigstore Cosign. It documents signature metadata including public keys, OIDC identity claims, Rekor transparency log entries, and verification results to enable trustworthy software distribution and policy-based admission control in cloud-native environments.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Cosign signature generation with keyless signing (OIDC-based Fulcio certificates)
+- Container image signatures for Docker, OCI, and Kubernetes artifacts
+- Key-based signing with traditional PKI and hardware security modules (HSMs)
+- Rekor transparency log entries and inclusion proofs
+- Signature verification workflows with Cosign verify and policy engines
+- Integration with SLSA provenance attestations and in-toto layouts
+- Admission controller policies (Kyverno, OPA Gatekeeper, Ratify)
+- SBOM attestation signing with SPDX and CycloneDX formats
+- Multi-arch image signatures for ARM64, AMD64, and other platforms
+- Air-gapped environment signing workflows with private Sigstore instances
+- Signature key rotation and revocation procedures
+- CI/CD pipeline integration (GitHub Actions, GitLab CI, Jenkins, Tekton)
+- Policy-as-code for signature verification requirements
+- Vulnerability Exploitability eXchange (VEX) statement signing
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- General PKI certificate management (see certificate-management-policy.md)
+- Code signing for non-container artifacts (see code-signing-policy.md)
+- SBOM generation tooling (see sbom-generation-playbook.md)
+- Vulnerability scanning results (see vulnerability-scan-reports.md)
+- Container registry access controls (see registry-access-policy.md)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Security Engineers implementing supply chain security controls and signature verification
+- DevOps Engineers integrating Cosign signing into CI/CD pipelines
+- Platform Engineers deploying admission controllers with signature policy enforcement
+- Compliance Officers verifying adherence to Executive Order 14028 and SLSA requirements
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Security Architects designing zero-trust software distribution architectures
+- Incident Response Teams investigating software supply chain compromises
+- Auditors reviewing software provenance and cryptographic verification controls
+- Open Source Security Foundation (OpenSSF) contributors implementing best practices
 
 ## Document Information
 
@@ -54,9 +73,9 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 **Storage & Access**: Store in designated document repository with appropriate access controls based on classification
 
-**Classification**: [Define typical classification level - Public | Internal | Confidential | Restricted]
+**Classification**: Internal (signature metadata public, private keys Confidential)
 
-**Retention**: [Define retention period per organizational records management policy]
+**Retention**: 7 years per software supply chain audit requirements
 
 
 ### Document Control
@@ -106,19 +125,29 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Keyless Signing Default**: Use OIDC-based keyless signing with Fulcio for ephemeral certificates to eliminate key management burden
+**Rekor Transparency**: Always publish signatures to Rekor transparency log for auditability and non-repudiation
+**SLSA Provenance**: Combine Cosign signatures with SLSA provenance attestations for comprehensive build integrity
+**Multi-Arch Signing**: Sign all platform-specific images individually and create signed image index for multi-arch manifests
+**Policy-as-Code**: Define signature verification policies in Kyverno or OPA for automated admission control
+**CI/CD Integration**: Automate signing in pipeline with dedicated service accounts and least-privilege OIDC claims
+**Signature Verification**: Verify signatures before deployment using cosign verify with public key or OIDC issuer
+**Private Sigstore Instances**: Deploy private Fulcio/Rekor for air-gapped or highly regulated environments
+**SBOM Attestation**: Attach SBOM as signed attestation using cosign attest for software bill of materials
+**VEX Statements**: Sign vulnerability exploitability statements to document false positives and mitigations
+**Key Rotation**: Rotate signing keys every 90 days for key-based signing; keyless automatically rotates via Fulcio
+**Admission Control**: Require signature verification in production clusters with ClusterPolicy or ValidatingWebhook
+**Timestamp Authority**: Use RFC 3161 timestamp authority for long-term signature validity beyond certificate expiry
+**Offline Verification**: Cache Rekor bundle and public keys for environments with limited internet connectivity
+**Sigstore Conformance**: Verify Cosign implementation against Sigstore conformance test suite
+**Monitoring & Alerting**: Alert on signature verification failures, expired certificates, and Rekor unavailability
+**Disaster Recovery**: Maintain offline backups of signing keys and Rekor transparency log entries
+**Documentation**: Document OIDC identity mapping, key storage locations, and signature verification procedures
+**Testing**: Test signature verification in staging before enforcing in production environments
+**Compliance Mapping**: Map signature requirements to SLSA levels, NIST SSDF, and Executive Order 14028
+**Supply Chain Metadata**: Include git commit SHA, build timestamp, and builder identity in signature claims
+**Vulnerability Window**: Resign images when critical vulnerabilities are patched to update SBOM attestations
+**Forensics**: Preserve signature artifacts for incident response and post-incident analysis (minimum 1 year)
 
 ## Quality Criteria
 
@@ -165,7 +194,70 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Supply Chain Security Standards**:
+- SLSA (Supply Chain Levels for Software Artifacts) v1.0 - Levels 1-4 for build integrity
+- NIST SP 800-218 SSDF (Secure Software Development Framework) practices
+- Executive Order 14028 on Improving the Nation's Cybersecurity (Section 4)
+- CISA Secure Software Development Attestation Form requirements
+- ISO/IEC 27001:2022 Annex A.8.31 (Separation of development, test and production environments)
+- ISO/IEC 27034 Application Security for supply chain controls
+- CIS Software Supply Chain Security Guide v1.0
+- NIST SP 800-161 Rev 1 Cybersecurity Supply Chain Risk Management
+- OpenSSF Scorecards for repository health and security posture
+- OWASP Software Component Verification Standard (SCVS)
+- IEEE 2675-2021 DevOps Standard for Build, Test, and Release processes
+
+**Sigstore & Cosign Standards**:
+- Sigstore Cosign specification and keyless signing protocol
+- Fulcio Certificate Authority for short-lived code signing certificates
+- Rekor transparency log API specification and inclusion proofs
+- in-toto Attestation Framework for provenance and policy
+- SLSA Provenance specification v0.2 and v1.0 formats
+- The Update Framework (TUF) for secure software update systems
+- Notary v2 specification for OCI artifact signing (alternate to Cosign)
+- OCI Image Manifest Specification v1.0 for artifact references
+- RFC 3161 Time-Stamp Protocol for trusted timestamps
+- PKCS#11 for hardware security module (HSM) integration
+
+**Container & Kubernetes Security**:
+- NIST SP 800-190 Application Container Security Guide
+- CIS Kubernetes Benchmark v1.8 for admission controller configuration
+- Kubernetes Pod Security Standards (Restricted, Baseline, Privileged)
+- OPA (Open Policy Agent) Rego policy language for admission control
+- Kyverno policy engine for Kubernetes admission control
+- Ratify for supply chain artifact verification in Kubernetes
+- Azure Container Registry (ACR), Amazon ECR, Google GCR signature storage
+- Harbor registry with content trust and Cosign integration
+- Trivy, Grype, and Snyk for vulnerability scanning integration
+
+**SBOM & Vulnerability Management**:
+- SPDX (Software Package Data Exchange) 2.3 and 3.0 for SBOM formats
+- CycloneDX 1.4+ specification for SBOM and VEX
+- NTIA Minimum Elements for Software Bill of Materials
+- VEX (Vulnerability Exploitability eXchange) for vulnerability status
+- CVSS v3.1 and v4.0 Common Vulnerability Scoring System
+- CVE (Common Vulnerabilities and Exposures) identifiers
+- CISA Known Exploited Vulnerabilities (KEV) catalog
+- NVD (National Vulnerability Database) integration
+- OSV (Open Source Vulnerabilities) schema for vulnerability disclosure
+
+**Cryptography & PKI**:
+- FIPS 140-2/140-3 cryptographic module validation
+- NIST SP 800-57 Recommendation for Key Management
+- RFC 5280 X.509 Certificate and CRL Profile
+- RFC 6960 Online Certificate Status Protocol (OCSP)
+- RFC 8446 TLS 1.3 for secure communication
+- NIST SP 800-208 Recommendation for Stateful Hash-Based Signature Schemes
+- WebAuthn and FIDO2 for hardware-backed authentication
+- OAuth 2.0 and OpenID Connect (OIDC) for keyless signing identity
+
+**Compliance & Audit Frameworks**:
+- SOC 2 Type II Trust Service Criteria (CC6.6 for logical access)
+- ISO/IEC 27001:2022 Information Security Management
+- PCI DSS 4.0 Requirement 6 (Secure Software Development)
+- FedRAMP Rev 5 controls for federal systems
+- NIST Cybersecurity Framework 2.0 (Supply Chain Risk Management)
+- CIS Controls v8 (Control 16.14 - Establish and Maintain a Secure Application Development Process)
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 
@@ -175,25 +267,33 @@ Before considering this artifact complete and ready for approval, verify:
 
 These artifacts or information sources should exist before this artifact can be completed:
 
-- [List artifacts that provide input to this one]
-- [Data sources that feed this artifact]
-- [Prerequisites that must be satisfied]
+- Container images and OCI artifacts requiring signature
+- CI/CD pipeline configuration (GitHub Actions, GitLab CI, Jenkins)
+- Identity provider (IdP) configuration for OIDC keyless signing
+- Public key infrastructure (PKI) for key-based signing
+- SBOM generation outputs from Syft, Trivy, or dependency scanning tools
+- SLSA provenance attestations from build systems
 
 ### Downstream Consumers (Who Uses This)
 
 This artifact provides input to:
 
-- [Artifacts that consume information from this one]
-- [Processes that use this artifact]
-- [Teams or roles that rely on this information]
+- Kubernetes admission controllers (Kyverno, OPA Gatekeeper, Ratify)
+- Container registry policies for signature enforcement
+- Security Information and Event Management (SIEM) systems
+- Compliance reporting and audit artifacts
+- Incident response procedures for supply chain compromises
+- Vulnerability management workflows requiring signed VEX statements
 
 ### Related Artifacts
 
 Closely related artifacts that should be referenced or aligned with:
 
-- [Complementary artifacts in same phase]
-- [Artifacts in adjacent phases]
-- [Cross-cutting artifacts (e.g., risk register)]
+- SBOM generation and verification documentation
+- Container security scanning policies
+- Software supply chain risk management plans
+- Cryptographic key management procedures
+- Incident response playbooks for supply chain attacks
 
 ## Review & Approval Process
 
@@ -211,9 +311,9 @@ Closely related artifacts that should be referenced or aligned with:
 ### Approval Requirements
 
 **Required Approvers**:
-- Primary Approver: [Define role - e.g., Program Manager, Architecture Lead, CISO]
-- Secondary Approver: [For high-risk or cross-functional artifacts]
-- Governance Approval: [If requires board or committee approval]
+- Primary Approver: CISO or Chief Security Architect
+- Secondary Approver: DevOps/Platform Engineering Lead
+- Governance Approval: Security Architecture Review Board (SARB)
 
 **Approval Evidence**:
 - Document approval in artifact metadata
@@ -224,7 +324,7 @@ Closely related artifacts that should be referenced or aligned with:
 
 ### Update Frequency
 
-**Regular Reviews**: [Define cadence - e.g., Quarterly, Annually]
+**Regular Reviews**: Quarterly review for tooling updates and policy changes
 
 **Event-Triggered Updates**: Update immediately when:
 - Significant organizational changes occur
@@ -252,7 +352,7 @@ Maintain change log with:
 
 ### Archival & Retention
 
-**Retention Period**: [Define based on regulatory and business requirements]
+**Retention Period**: 7 years per software supply chain audit requirements
 
 **Archival Process**:
 - Move superseded versions to archive repository
@@ -261,7 +361,7 @@ Maintain change log with:
 
 ### Ownership & Accountability
 
-**Document Owner**: [Define role responsible for maintenance]
+**Document Owner**: Security Engineering Team Lead
 
 **Responsibilities**:
 - Ensure artifact remains current and accurate
@@ -274,15 +374,15 @@ Maintain change log with:
 
 ### Template Access
 
-**Primary Template**: `templates/{artifact_name}-template.{format_type.lower()}`
+**Primary Template**: `templates/cosign-signatures-template.md`
 
-**Alternative Formats**: [If multiple formats supported]
+**Alternative Formats**: JSON schema for automated signature verification
 
 **Template Version**: Use latest approved template version from repository
 
 ### Example Artifacts
 
-**Reference Examples**: `examples/{artifact_name}-example-*.{format_type.lower()}`
+**Reference Examples**: `examples/cosign-signatures-example-*.md`
 
 **Annotated Guidance**: See annotated examples showing best practices and common approaches
 
@@ -324,10 +424,10 @@ Before submitting for approval:
 
 [Define any regulatory requirements applicable to this artifact type, such as:]
 
-- SOC 2: [If artifact supports SOC 2 controls]
-- ISO 27001: [If part of ISMS documentation]
-- GDPR/Privacy: [If contains or references personal data]
-- Industry-Specific: [Healthcare, Financial Services, etc.]
+- SOC 2: CC6.6 Logical and Physical Access Controls
+- ISO 27001: A.8.31 Separation of development, testing and production environments
+- GDPR/Privacy: Not typically applicable to signatures
+- Industry-Specific: Executive Order 14028 for federal suppliers
 
 ### Audit Requirements
 
@@ -348,10 +448,10 @@ This artifact may be subject to:
 
 This artifact must align with:
 
-- [Relevant organizational policies]
-- [Industry regulations and standards]
-- [Contractual obligations]
-- [Governance framework requirements]
+- Software supply chain security policy
+- Cryptographic key management policy
+- Container security standards
+- SLSA compliance requirements
 
 ## Metrics & Success Criteria
 
@@ -378,24 +478,24 @@ This artifact must align with:
 
 ## Metadata Tags
 
-**Phase**: {phase}
+**Phase**: Security & Operations
 
-**Category**: {category}
+**Category**: Supply Chain Security
 
-**Typical Producers**: [Roles/teams that typically create this artifact]
+**Typical Producers**: Security Engineers, DevOps Engineers, Platform Engineers
 
-**Typical Consumers**: [Roles/teams that typically use this artifact]
+**Typical Consumers**: Security Architects, Compliance Officers, Incident Response Teams
 
-**Effort Estimate**: [Typical hours/days required to complete]
+**Effort Estimate**: 2-4 hours for initial setup, 30 minutes per artifact signed
 
-**Complexity Level**: [Low | Medium | High | Very High]
+**Complexity Level**: High
 
-**Business Criticality**: [Low | Medium | High | Mission Critical]
+**Business Criticality**: Mission Critical
 
-**Change Frequency**: [Static | Infrequent | Regular | Frequent]
+**Change Frequency**: Regular (weekly for new artifacts)
 
 ---
 
 *This artifact definition follows Big Five consulting methodology standards and incorporates industry best practices. Tailor to your organization's specific requirements and context.*
 
-*Last Updated: {phase} - Version 2.0*
+*Last Updated: Security & Operations - Version 2.0*

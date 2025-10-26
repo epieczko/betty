@@ -2,45 +2,57 @@
 
 ## Executive Summary
 
-The Status Page Communication Templates is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Status Page Communication Templates provide pre-approved, standardized message templates for communicating service incidents, maintenance windows, degradations, and resolutions through status page platforms like Statuspage.io (Atlassian), Sorry, Incident.io, and StatusGator. These templates ensure consistent, transparent, and timely communication during service disruptions, maintaining customer trust while meeting SLA notification requirements and regulatory transparency obligations.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Status pages have become the primary channel for service availability communication, with 89% of enterprise SaaS customers checking status pages during perceived outages. Poorly communicated incidents damage customer trust more than the incidents themselves. These templates establish tone, timing, and technical detail standards for incident communication across severity levels (SEV-0 through SEV-4), ensuring teams communicate with appropriate urgency while avoiding premature commitments during active investigations.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Incident Transparency**: Provides real-time service status updates to customers during outages, reducing support ticket volume by 40-60%
+- **SLA Compliance**: Meets contractual notification requirements for availability incidents and planned maintenance windows
+- **Customer Trust**: Maintains transparency during service disruptions with clear, jargon-free incident communication
+- **Support Deflection**: Reduces inbound customer inquiries during incidents by proactively communicating status and ETAs
+- **Postmortem Communication**: Standardizes incident postmortem publication with root cause, timeline, and prevention measures
+- **Regulatory Reporting**: Supports incident notification requirements under SOC 2 (availability criteria) and GDPR (breach notification timelines)
+- **Brand Protection**: Ensures professional, empathetic communication tone during high-stress incident situations
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the template library for all customer-facing service status communications, ensuring consistent messaging during incidents, maintenance windows, and service degradations. Templates define what to communicate, when, and with what level of technical detail across incident severity levels and communication phases (investigating, identified, monitoring, resolved).
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Incident communication templates (investigating, identified, monitoring, resolved, postmortem phases)
+- Severity-based templates (SEV-0 complete outage, SEV-1 major degradation, SEV-2 minor impact, SEV-3 cosmetic)
+- Maintenance window notifications (scheduled maintenance, emergency maintenance, maintenance completed)
+- Service degradation alerts (partial outage, performance degradation, intermittent issues)
+- SLA incident reporting (SLA breach notifications, uptime reporting, availability metrics)
+- Postmortem publication templates (root cause, timeline, impact summary, prevention measures)
+- Status page platform integration (Statuspage.io, Sorry, Incident.io, StatusGator, Instatus)
+- Multi-channel notification (status page, email subscribers, SMS alerts, Slack/Teams webhooks, RSS feeds)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Security incident communications (covered in breach notification templates under GDPR requirements)
+- Individual customer support ticket responses (handled by support team templates)
+- Internal incident response procedures (documented in incident runbooks)
+- Social media crisis communication (managed by PR and communications team)
+- Press releases for major outages (coordinated through corporate communications)
+- API status and rate limit notifications (handled through developer documentation)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Incident Commanders: Lead incident response and own customer communication during active incidents
+- On-Call Engineers: Post initial status updates and ongoing investigation progress
+- Customer Support Teams: Reference status page to deflect tickets and understand incident scope
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Product Management: Understand incident communication standards and customer impact messaging
+- Engineering Leadership: Review postmortem communication for accuracy and completeness
+- Legal & Compliance: Ensure incident notifications meet SLA and regulatory requirements
 
 ## Document Information
 
@@ -106,19 +118,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**15-Minute Rule**: Post initial "Investigating" status update within 15 minutes of SEV-0/SEV-1 incident detection, even with minimal details
+**No Premature ETAs**: Avoid estimating resolution time during "Investigating" phase; only provide ETAs once root cause is identified
+**Plain Language**: Communicate in customer-friendly language, avoiding internal jargon (bad: "RDS failover timeout," good: "database connection issues")
+**Impact-First Communication**: Lead with customer impact ("Some customers may experience errors") before technical details
+**Update Frequency**: SEV-0 updates every 30 min, SEV-1 every 60 min, SEV-2 every 2 hours minimum
+**Component-Based Status**: Update specific affected components (API, Dashboard, Email Delivery) rather than blanket "Service Disruption"
+**Monitoring Phase Transparency**: After mitigation, keep incident in "Monitoring" status for 30-60 min to confirm stability
+**72-Hour Postmortem**: Publish postmortem within 72 hours of SEV-0/SEV-1 resolution (Stripe, GitHub, Cloudflare standard)
+**Blameless Language**: Never name individuals or teams in public postmortems; focus on systems and processes
+**Quantify Impact**: Include specific impact metrics (e.g., "Affected 3% of API requests from 14:23-14:47 UTC")
+**UTC Timestamps**: Always use UTC time in status updates to avoid timezone confusion for global customers
+**SMS for Critical**: Enable SMS alerts for SEV-0/SEV-1 incidents affecting availability SLAs
+**Status Page Testing**: Test status page notification systems monthly to ensure subscriber alerts function properly
+**Maintenance Window Notice**: Provide 7 days advance notice for scheduled maintenance affecting availability
+**Resolved vs Monitoring**: Move to "Resolved" only after 30+ minutes of stable service post-mitigation
+**Root Cause Honesty**: If root cause is unknown in postmortem, state "investigation ongoing" rather than speculating
+**Action Items Public**: Publish specific prevention measures in postmortems with completion targets
+**Subscriber Segmentation**: Allow customers to subscribe to specific components/services rather than all incidents
+**Template Approval**: Require incident commander approval before deviating from standard templates
+**Historical Context**: Reference previous similar incidents in postmortems if pattern exists
 
 ## Quality Criteria
 
@@ -165,9 +184,65 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Status Page Platforms**:
+- Statuspage.io (Atlassian) - Industry-leading status page with incident templates and subscriber management
+- Sorry - Modern status page with component-based architecture and beautiful design
+- Incident.io - Incident management with integrated status page and Slack workflows
+- StatusGator - Multi-vendor status page aggregation and monitoring
+- Instatus - Fast, customizable status page with real-time updates
+- Cachet - Open-source status page system
+- StatusKit - Simple status page for small teams
+- UptimeRobot Status Pages - Monitoring-integrated status communication
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Incident Severity Classifications**:
+- SEV-0/P0: Complete service outage affecting all customers (communicate within 15 minutes)
+- SEV-1/P1: Major degradation affecting core functionality (communicate within 30 minutes)
+- SEV-2/P2: Partial outage or minor degradation (communicate within 60 minutes)
+- SEV-3/P3: Cosmetic issues or limited impact (communicate within 4 hours)
+- SEV-4/P4: No customer impact, internal-only tracking
+
+**SLA & Availability Standards**:
+- SLA tiers: 99.9% (43.8 min/month downtime), 99.95% (21.9 min/month), 99.99% (4.4 min/month)
+- Uptime reporting: Monthly uptime percentage, incident count, MTTR (Mean Time To Resolution)
+- Availability zones: Multi-region redundancy and failover communication
+- Maintenance windows: Standard windows (low-traffic periods), emergency maintenance protocols
+
+**Incident Communication Frameworks**:
+- Incident Communication Lifecycle: Investigating → Identified → Monitoring → Resolved → Postmortem
+- Update Frequency Standards: SEV-0 every 30 min, SEV-1 every 60 min, SEV-2 every 2 hours
+- Postmortem Timeline: Publish within 72 hours of incident resolution (Stripe standard)
+- Five Whys Root Cause Analysis: Structured root cause investigation and communication
+
+**Regulatory & Compliance**:
+- SOC 2 Type II Availability Criteria: Incident notification and availability reporting requirements
+- GDPR Article 33: 72-hour breach notification (if security incident affects personal data)
+- ISO 27001 Annex A.16: Incident management and communication procedures
+- PCI DSS Requirement 12.10: Incident response plan and communication protocols
+- ITIL v4 Incident Management: Incident classification, communication, and escalation
+
+**Notification Channels**:
+- Email notifications: Subscriber-based alerts with severity filtering
+- SMS/Text alerts: High-severity incident notifications (SEV-0/SEV-1)
+- Slack/Teams webhooks: Real-time incident updates to customer workspaces
+- RSS/Atom feeds: Machine-readable incident feed for automation
+- Twitter/Status accounts: Public incident communication and updates
+- Mobile push notifications: In-app status alerts (Statuspage mobile app)
+
+**Monitoring & Alerting Integration**:
+- Datadog: Service monitoring with automatic status page updates
+- PagerDuty: Incident management with status page integration
+- New Relic: Application monitoring with availability tracking
+- Pingdom: Uptime monitoring with public status display
+- UptimeRobot: Automated status page updates from monitoring checks
+
+**Postmortem Standards**:
+- Blameless Postmortems: Focus on systems and processes, not individuals
+- Timeline Format: UTC timestamps, customer-visible impact windows
+- Root Cause Analysis: What happened, why, how detected, how resolved
+- Prevention Measures: Concrete action items with owners and due dates
+- Five Nines Availability: Publish all SEV-0/SEV-1 incidents affecting availability SLAs
+
+**Reference**: Consult incident management and customer success teams for detailed guidance on status communication standards and escalation procedures
 
 ## Integration Points
 

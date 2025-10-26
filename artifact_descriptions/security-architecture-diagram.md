@@ -2,45 +2,55 @@
 
 ## Executive Summary
 
-The Security Architecture Diagram is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Security Architecture Diagram is a critical artifact that visualizes security controls, trust boundaries, data protection mechanisms, authentication/authorization flows, and threat mitigation strategies across a system's architecture. Using industry standards (NIST Cybersecurity Framework, ISO 27001, CIS Controls) and notations (UML, ArchiMate, threat modeling diagrams), it communicates security design to technical teams, security auditors, and compliance stakeholders.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a cornerstone of defense-in-depth strategy, this diagram maps security controls to architecture layers (perimeter, network, host, application, data) and shows how mechanisms like encryption (AES-256, TLS 1.3), identity management (OAuth 2.0, SAML, Zero Trust), key management (HSM, KMS), and monitoring (SIEM, IDS/IPS) protect against threats documented in frameworks like MITRE ATT&CK and OWASP Top 10.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Security-by-Design**: Embeds security controls at architecture level following NIST Cybersecurity Framework, ISO 27001, and Zero Trust principles
+- **Compliance Enablement**: Demonstrates adherence to regulatory requirements (SOC 2, PCI DSS, HIPAA, GDPR) and security standards (CIS Controls, NIST 800-53)
+- **Threat Mitigation**: Documents defenses against MITRE ATT&CK techniques, OWASP Top 10 vulnerabilities, and industry-specific threats
+- **Audit Readiness**: Provides security auditors and assessors with clear view of controls, boundaries, and data protection mechanisms
+- **Incident Response**: Supports security operations by documenting monitoring points, logging infrastructure, and security tool integration
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents security architecture using threat modeling diagrams, security zone diagrams, data flow diagrams with trust boundaries, and control mapping visualizations. Created using tools like Microsoft Threat Modeling Tool, OWASP Threat Dragon, Lucidchart, or draw.io, it specifies authentication mechanisms, encryption standards, security zones, and monitoring infrastructure to guide secure implementation and validate compliance.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Security zones and trust boundaries: DMZ, internal zones, VPCs, network segmentation, micro-segmentation (Zero Trust Network Access)
+- Authentication and authorization: OAuth 2.0, OpenID Connect, SAML 2.0, Multi-Factor Authentication (MFA), passwordless authentication (FIDO2, WebAuthn)
+- Identity and access management: Active Directory, Azure AD, Okta, Auth0, AWS IAM, role-based access control (RBAC), attribute-based access control (ABAC)
+- Encryption mechanisms: Data-at-rest (AES-256, BitLocker, LUKS), data-in-transit (TLS 1.3, mTLS), end-to-end encryption
+- Key management: Hardware Security Modules (HSM), Key Management Services (AWS KMS, Azure Key Vault, GCP KMS), envelope encryption, key rotation
+- Security controls: Web Application Firewall (WAF), API Gateway security, DDoS protection (CloudFlare, AWS Shield), intrusion detection/prevention (IDS/IPS)
+- Monitoring and logging: SIEM (Splunk, ELK Stack, Azure Sentinel), security event correlation, audit logging, threat intelligence feeds
+- Secrets management: HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, sealed secrets (Kubernetes)
+- Certificate management: PKI infrastructure, certificate authorities, automated certificate management (Let's Encrypt, cert-manager)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed implementation code and configuration files (see Security Configuration documentation)
+- Penetration testing procedures and results (see Security Testing artifacts)
+- Incident response playbooks and procedures (see Incident Response Plan)
+- Physical security controls for data centers (see Physical Security documentation)
+- Detailed vulnerability management processes (see Vulnerability Management Plan)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Security Architects designing defense-in-depth strategies using NIST CSF, ISO 27001, or Zero Trust frameworks
+- Application Security Engineers implementing security controls, encryption, authentication, and secure coding practices
+- Cloud Security Engineers configuring cloud-native security services (AWS Security Hub, Azure Security Center, GCP Security Command Center)
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Compliance Officers validating controls against SOC 2, PCI DSS, HIPAA, GDPR, ISO 27001, or FedRAMP requirements
+- Security Operations Center (SOC) teams understanding monitoring points, logging infrastructure, and SIEM integration
+- External auditors and assessors reviewing security architecture for compliance certifications
 
 ## Document Information
 
@@ -165,10 +175,75 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**Architecture**: TOGAF, Zachman Framework, C4 Model, ArchiMate
-**Security**: NIST Cybersecurity Framework, ISO 27001/27002, CIS Controls, MITRE ATT&CK
+**Security Frameworks & Standards**:
+- NIST Cybersecurity Framework (CSF) - Identify, Protect, Detect, Respond, Recover functions
+- ISO/IEC 27001:2022 - Information Security Management System (ISMS) requirements
+- ISO/IEC 27002:2022 - Information security controls reference
+- CIS Controls v8 - 18 critical security controls for cyber defense
+- NIST SP 800-53 Rev. 5 - Security and Privacy Controls for Information Systems
+- NIST SP 800-171 - Protecting Controlled Unclassified Information (CUI)
+- MITRE ATT&CK Framework - Adversary tactics and techniques knowledge base
+- OWASP Top 10 - Top application security risks (injection, broken authentication, XSS, etc.)
+- OWASP ASVS (Application Security Verification Standard) - Application security requirements
+- SANS Top 25 - Most dangerous software weaknesses
+- Zero Trust Architecture - NIST SP 800-207 principles (never trust, always verify)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Compliance & Regulatory Standards**:
+- SOC 2 Type II - Trust Services Criteria (security, availability, confidentiality, privacy)
+- PCI DSS 4.0 - Payment Card Industry Data Security Standard
+- HIPAA Security Rule - Healthcare data protection requirements
+- GDPR - EU General Data Protection Regulation (privacy and data protection)
+- FedRAMP - Federal Risk and Authorization Management Program
+- FISMA - Federal Information Security Management Act
+- CCPA - California Consumer Privacy Act
+
+**Threat Modeling & Risk Assessment**:
+- Microsoft Threat Modeling Tool - STRIDE threat modeling (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege)
+- OWASP Threat Dragon - Open-source threat modeling tool
+- PASTA (Process for Attack Simulation and Threat Analysis) - Risk-centric threat modeling
+- DREAD - Risk assessment model (Damage, Reproducibility, Exploitability, Affected Users, Discoverability)
+- CVSS (Common Vulnerability Scoring System) - Vulnerability severity scoring
+- Common Weakness Enumeration (CWE) - Software weakness classification
+
+**Cryptography & Encryption Standards**:
+- AES (Advanced Encryption Standard) - AES-128, AES-256 for symmetric encryption
+- RSA - Asymmetric encryption algorithm (2048-bit, 4096-bit)
+- TLS 1.3 (Transport Layer Security) - Secure communication protocol for data-in-transit
+- mTLS (Mutual TLS) - Certificate-based mutual authentication
+- NIST FIPS 140-2/140-3 - Cryptographic module validation standard
+- Common Criteria (ISO 15408) - Security evaluation criteria for IT products
+- PKCS (Public Key Cryptography Standards) - RSA cryptography standards
+
+**Identity & Access Management**:
+- OAuth 2.0 / OAuth 2.1 - Authorization framework for delegated access
+- OpenID Connect (OIDC) - Identity layer on top of OAuth 2.0
+- SAML 2.0 - Security Assertion Markup Language for SSO
+- FIDO2 / WebAuthn - Passwordless authentication standards
+- SCIM (System for Cross-domain Identity Management) - Identity provisioning
+- JWT (JSON Web Tokens) - Compact token format for claims-based identity
+
+**Security Tools & Platforms**:
+- WAF (Web Application Firewall) - ModSecurity, AWS WAF, Azure WAF, Cloudflare WAF
+- SIEM (Security Information and Event Management) - Splunk, ELK Stack, Azure Sentinel, QRadar
+- IDS/IPS - Snort, Suricata, Zeek (formerly Bro)
+- Secrets Management - HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, CyberArk
+- HSM (Hardware Security Module) - Thales, Gemalto, AWS CloudHSM, Azure Dedicated HSM
+- KMS (Key Management Service) - AWS KMS, Azure Key Vault, GCP Cloud KMS
+- Certificate Management - Let's Encrypt, DigiCert, cert-manager (Kubernetes)
+
+**Cloud Security**:
+- AWS Security Hub - Centralized security and compliance dashboard
+- Azure Security Center / Microsoft Defender for Cloud - Cloud security posture management
+- GCP Security Command Center - Security and risk management for GCP
+- CSPM (Cloud Security Posture Management) - Prisma Cloud, Wiz, Orca Security
+- CASB (Cloud Access Security Broker) - Microsoft Cloud App Security, Netskope
+
+**Architecture Frameworks with Security Integration**:
+- TOGAF Security Architecture - Integrated security into enterprise architecture
+- SABSA (Sherwood Applied Business Security Architecture) - Risk-driven architecture framework
+- O-ESA (Open Enterprise Security Architecture) - Security architecture patterns
+
+**Reference**: Consult organizational security architecture, InfoSec, and compliance teams for detailed guidance on security control implementation, cryptographic standards selection, and regulatory compliance requirements for your specific industry and threat landscape
 
 ## Integration Points
 

@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Contributing Guide is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Contributing Guides provide comprehensive documentation for community contributors, external developers, and internal teams to participate in open-source projects, documentation improvements, and collaborative development. Typically stored as CONTRIBUTING.md in repository root following GitHub/GitLab conventions, contributing guides establish clear expectations for code contributions, documentation updates, issue reporting, and community engagement while defining workflows, coding standards, and review processes.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+These guides implement inclusive community practices aligned with open-source governance models, incorporating Developer Certificate of Origin (DCO) or Contributor License Agreement (CLA) requirements, pull request templates for consistency, code review guidelines, commit message conventions (Conventional Commits), and community codes of conduct. Written in Markdown following plain language principles and the Google Developer Documentation Style Guide, contributing guides reduce friction for new contributors, standardize contribution quality, and scale community participation through clear, accessible documentation of processes and expectations.
 
 ### Strategic Importance
 
@@ -20,27 +20,48 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+Contributing Guides serve as the gateway for community participation by documenting how to contribute code, documentation, bug reports, and feature requests while establishing quality standards, review processes, and community norms. They solve the problem of inconsistent contributions and repeated questions by providing clear, step-by-step guidance that reduces maintainer burden and accelerates contributor onboarding.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Contribution process overview (how to get started, finding issues to work on)
+- Development environment setup for contributors
+- Git workflow and branching strategy (fork-and-pull, feature branches)
+- Commit message conventions (Conventional Commits, semantic messages)
+- Pull request process (PR templates, description requirements, review expectations)
+- Code review guidelines (what reviewers look for, responding to feedback)
+- Coding standards and style guides (language-specific conventions, linting, formatting)
+- Testing requirements (unit tests, integration tests, coverage thresholds)
+- Documentation expectations (API docs, README updates, changelog entries)
+- Issue reporting guidelines (bug reports, feature requests, templates)
+- Community guidelines and code of conduct
+- Legal requirements (CLA, DCO, license compatibility)
+- Recognition and attribution practices
+- Communication channels (Slack, Discord, forums, mailing lists)
+- Maintainer responsibilities and response expectations
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Product roadmap and feature prioritization (covered in product documentation)
+- Detailed technical architecture (covered in architecture docs)
+- User-facing documentation (covered in user guides and API docs)
+- Internal team processes not relevant to external contributors
+- Project governance and decision-making authority (covered in governance docs)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Open-source contributors making their first contribution
+- External developers contributing code, documentation, or bug fixes
+- Community members reporting issues or suggesting features
+- Documentation contributors improving docs and examples
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Project maintainers enforcing contribution standards
+- Technical Writers ensuring documentation quality
+- Community managers fostering healthy participation
+- Legal/Compliance teams ensuring proper attribution and licensing
+- DevRel teams promoting community contributions
 
 ## Document Information
 
@@ -106,19 +127,29 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Welcoming First-Time Contributors**: Create "good first issue" labels for beginner-friendly tasks, provide detailed mentorship on first PRs, celebrate first-time contributors with bot comments or recognition, offer office hours or pair programming for newcomers, maintain comprehensive setup documentation, and respond promptly and kindly to questions
+
+**Clear Contribution Process**: Document step-by-step contribution workflow with examples, provide flowcharts or diagrams showing PR lifecycle, include troubleshooting for common setup issues, create video walkthroughs of contribution process, link to all required templates (PR, issue), and set clear expectations for response times
+
+**Automated Quality Gates**: Implement pre-commit hooks for code formatting and linting, run automated tests on every PR, validate commit message format automatically, check license headers and attribution, scan for security vulnerabilities, enforce code coverage thresholds, and provide clear feedback when checks fail
+
+**Maintainable PR Standards**: Request small, focused PRs (< 400 lines ideal), encourage draft PRs for early feedback, require linked issue for context, enforce descriptive PR titles and descriptions, mandate testing evidence (screenshots, test results), and provide PR templates with checklist
+
+**Inclusive Community Culture**: Enforce code of conduct consistently, use inclusive language in all communications, provide multiple communication channels for different preferences, accommodate different time zones and languages, recognize diverse contribution types (code, docs, community support), and foster psychological safety for questions
+
+**Legal Compliance**: Clearly state licensing requirements upfront, implement DCO or CLA signing workflow, automate license compliance checking, document acceptable licenses for dependencies, provide guidance on copyright and attribution, and maintain clear intellectual property policies
+
+**Effective Code Review**: Provide constructive, specific feedback with examples, suggest improvements with code snippets, distinguish between required changes and suggestions, respond to contributor questions promptly, approve when requirements met (don't bikeshed), recognize good work in reviews, and maintain review turnaround SLAs
+
+**Documentation Requirements**: Require documentation updates with code changes, mandate changelog entries for user-facing changes, enforce API documentation for new endpoints/functions, include README updates for new features, provide examples and use cases in documentation, and validate documentation builds in CI/CD
+
+**Contribution Diversity**: Accept various contribution types (code, documentation, testing, issue triage, community support), recognize non-code contributions equally, provide contribution pathways for different skill levels, create opportunities for technical writing contributions, and encourage domain expertise contributions
+
+**Maintainer Sustainability**: Set realistic response time expectations, use automation to reduce manual work, empower trusted contributors with triage permissions, rotate maintainer responsibilities to prevent burnout, document maintainer escalation paths, and provide maintainer onboarding and offboarding
+
+**Transparency & Communication**: Publicly document decision-making processes, explain rejection reasons constructively, provide project roadmap and priorities, share metrics on contributor health, communicate breaking changes well in advance, maintain public issue tracker, and hold regular community calls
+
+**Continuous Improvement**: Regularly review contribution guidelines based on feedback, track contribution metrics (velocity, diversity, retention), survey contributors about their experience, identify and remove contribution friction, update guides when processes change, and learn from other successful projects
 
 ## Quality Criteria
 
@@ -165,9 +196,131 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Open Source Governance**:
+- OSI (Open Source Initiative) approved licenses
+- Apache Software Foundation contribution guidelines
+- Linux Foundation open source best practices
+- CNCF (Cloud Native Computing Foundation) contributor guidance
+- GitHub Open Source Guides
+- GitLab's guide to open source contributions
+- TODO Group open source program office resources
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Contribution Legal Frameworks**:
+- Developer Certificate of Origin (DCO) with signed-off-by commits
+- Contributor License Agreement (CLA) individual and corporate
+- License compatibility and inbound=outbound licensing
+- Copyright and attribution requirements
+- Patent grant considerations
+- Third-party dependency license compliance
+
+**Version Control Workflows**:
+- Fork-and-pull model for external contributors
+- Shared repository model for internal teams
+- Git branching strategies (GitFlow, GitHub Flow, trunk-based development)
+- Conventional Commits specification for commit messages
+- Semantic versioning (SemVer) for releases
+- Git commit signing and verification (GPG, SSH)
+
+**Pull Request Standards**:
+- PR templates with required sections (description, testing, checklist)
+- Commit message format and conventions
+- PR size guidelines (optimal lines changed, review complexity)
+- Draft PR workflow for early feedback
+- PR labels and categorization
+- Automated PR checks (CI/CD, linting, tests)
+- Review approval requirements
+
+**Code Review Practices**:
+- Google Code Review Guidelines
+- Thoughtful Code Review practices
+- Conventional Comments for review feedback
+- Code review etiquette and inclusive language
+- Review response time expectations
+- Addressing review feedback effectively
+- Approving and merging criteria
+
+**Documentation Standards**:
+- README.md best practices (shields.io badges, clear structure)
+- CHANGELOG.md format (Keep a Changelog specification)
+- LICENSE file selection and placement
+- CODE_OF_CONDUCT.md (Contributor Covenant, custom codes)
+- SECURITY.md for responsible disclosure
+- SUPPORT.md for getting help
+- Documentation style guides (Google, Microsoft, Write the Docs)
+
+**Coding Standards & Quality**:
+- Language-specific style guides (PEP 8, Standard JS, Go fmt, Rustfmt)
+- Automated formatting tools (Prettier, Black, gofmt, rustfmt)
+- Linting standards (ESLint, Pylint, Clippy, golangci-lint)
+- Static analysis tools (SonarQube, CodeClimate, Coverity)
+- Code coverage requirements and reporting
+- Security scanning (Dependabot, Snyk, Trivy)
+
+**Testing Requirements**:
+- Test-driven development (TDD) practices
+- Unit testing frameworks and conventions
+- Integration testing requirements
+- End-to-end testing guidelines
+- Test coverage thresholds (line, branch, function coverage)
+- Continuous integration testing requirements
+- Performance and load testing expectations
+
+**Issue Management**:
+- Issue templates for bugs, features, questions
+- Issue labeling taxonomy and conventions
+- Issue triage process and prioritization
+- "Good first issue" identification for newcomers
+- Issue assignment and claiming workflow
+- Stale issue management and closure policies
+
+**Community Standards**:
+- Contributor Covenant Code of Conduct
+- Mozilla Community Participation Guidelines
+- Inclusive language guidelines
+- Diversity and inclusion best practices
+- Community health metrics (CHAOSS project)
+- Contributor recognition and attribution
+
+**Automation & CI/CD**:
+- GitHub Actions workflows for contribution validation
+- GitLab CI/CD pipelines for automated testing
+- Pre-commit hooks for local validation
+- Automated code formatting on commit
+- License header checking automation
+- Changelog generation from commits
+- Release automation with semantic-release
+
+**Communication Channels**:
+- GitHub Discussions for community conversations
+- Discord/Slack for real-time chat
+- Mailing lists for announcements and RFC
+- Stack Overflow tags for Q&A
+- Reddit communities for broader discussions
+- Twitter/Mastodon for project updates
+
+**Contributor Recognition**:
+- All Contributors specification
+- CONTRIBUTORS.md or AUTHORS file
+- GitHub contributor graphs and insights
+- Contributor badges and swag programs
+- Hall of fame or contributor spotlights
+- GitHub Sponsors or Open Collective funding
+
+**Accessibility Standards**:
+- WCAG 2.1 for web contributions
+- Inclusive language in code and docs
+- Clear, plain language for all audiences
+- Multiple formats for documentation
+- Keyboard navigation requirements
+- Screen reader compatibility
+
+**Project Metrics**:
+- Contribution velocity metrics
+- Time-to-first-response for PRs/issues
+- Contributor diversity and growth
+- PR acceptance rate
+- Code review turnaround time
+- Contributor retention rates
 
 ## Integration Points
 

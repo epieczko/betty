@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Telemetry Schema is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Telemetry Schemas define the structure and semantics of observability data including traces, metrics, and logs collected from distributed systems. These schemas ensure consistent telemetry instrumentation, enable correlation across signals, and support effective monitoring, debugging, and performance analysis of cloud-native applications.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Built following OpenTelemetry standards, W3C Trace Context, Prometheus data model, and observability best practices, telemetry schemas leverage frameworks like OpenTelemetry SDK, Jaeger, Zipkin, Prometheus, Grafana, Datadog, New Relic, and AWS X-Ray. They define span attributes, metric dimensions, log fields, semantic conventions, resource attributes, and sampling strategies that enable unified observability, distributed tracing, and SLO/SLI monitoring across microservices and serverless architectures.
 
 ### Strategic Importance
 
@@ -20,27 +20,43 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines the structure, semantic conventions, and standards for telemetry data (traces, metrics, logs) collected from distributed systems. It establishes consistent instrumentation patterns, attribute naming, span semantics, metric types, and log fields that enable unified observability, distributed tracing correlation, and effective monitoring across heterogeneous services and infrastructure.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- OpenTelemetry Trace schema (spans, span attributes, span events, span links)
+- OpenTelemetry Metrics schema (counters, gauges, histograms, summaries)
+- OpenTelemetry Logs schema (log records, severity, attributes)
+- Semantic conventions (HTTP, RPC, database, messaging, FaaS)
+- Resource attributes (service.name, service.version, deployment.environment)
+- W3C Trace Context (traceparent, tracestate headers)
+- Prometheus metric naming conventions and labels
+- Span status codes and error attributes
+- Sampling strategies and decisions
+- Context propagation and baggage
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Telemetry backend configuration (Jaeger, Prometheus, Grafana)
+- Instrumentation library implementations
+- Alert rules and dashboard definitions
+- Log aggregation pipeline configuration
+- APM vendor-specific features
+- Infrastructure monitoring agents
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- SRE Engineers implementing observability
+- Platform Engineers managing observability infrastructure
+- Backend Engineers instrumenting services
+- DevOps Engineers monitoring systems
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Software Architects designing observable systems
+- Security Engineers analyzing audit logs
+- Performance Engineers optimizing applications
+- Support Teams troubleshooting production issues
 
 ## Document Information
 
@@ -168,19 +184,89 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Semantic Conventions**:
+- **Follow OTel Standards**: Use OpenTelemetry semantic conventions for consistency
+- **Attribute Naming**: Use snake_case for attribute names; include namespace prefix (http., db., messaging.)
+- **Resource Attributes**: Always set service.name, service.version, deployment.environment
+- **Standard Attributes**: Prefer standard attributes over custom ones; extends existing conventions when needed
+
+**Trace Instrumentation**:
+- **Span Naming**: Use meaningful span names describing operation (HTTP GET /users, db.query users)
+- **Span Hierarchy**: Create parent-child relationships reflecting call stack
+- **Span Attributes**: Add relevant attributes (http.method, http.status_code, db.statement)
+- **Span Events**: Record important events within span lifetime (exception, retry, cache hit)
+- **Span Status**: Set span status (OK, ERROR) and status message for failures
+- **Error Recording**: Always record exceptions with exception.type, exception.message, exception.stacktrace
+
+**Metrics Instrumentation**:
+- **Metric Naming**: Use descriptive names with unit suffixes (http_requests_total, response_time_seconds)
+- **Metric Types**: Choose correct type - Counter (monotonic), Gauge (fluctuating), Histogram (distribution)
+- **Dimensions**: Add dimensions as labels/attributes (method, status_code, environment)
+- **Cardinality**: Avoid high-cardinality labels (user_id, request_id); prevents metric explosion
+- **Aggregation**: Design metrics for aggregation (SUM, AVG, P95, P99)
+
+**Structured Logging**:
+- **JSON Format**: Use structured JSON logs for machine readability
+- **Standard Fields**: Include timestamp, severity, message, trace_id, span_id
+- **Log Correlation**: Always include trace_id and span_id for trace-log correlation
+- **Severity Levels**: Use appropriate levels (ERROR for errors, WARN for warnings, INFO for informational)
+- **Avoid PII**: Sanitize logs to remove sensitive data (passwords, credit cards, SSNs)
+
+**Context Propagation**:
+- **W3C Trace Context**: Use traceparent/tracestate headers for HTTP
+- **gRPC Metadata**: Propagate context via gRPC metadata
+- **Async Operations**: Propagate context to async/background tasks
+- **Baggage**: Use baggage sparingly for cross-cutting concerns (user_id, tenant_id)
+
+**Sampling Strategy**:
+- **Head-Based Sampling**: Sample at request entry point; consistent sampling decision
+- **Adaptive Sampling**: Adjust sampling rates based on traffic volume
+- **Error Sampling**: Always sample error traces (100% error sampling)
+- **Tail-Based Sampling**: Sample after trace completes based on latency/errors (requires collector)
+- **Debug Override**: Allow forcing sampling for debugging (X-Debug header)
+
+**Performance Considerations**:
+- **Instrumentation Overhead**: Minimize instrumentation impact (<5% overhead target)
+- **Batch Exports**: Export telemetry in batches, not per-event
+- **Async Export**: Export asynchronously; don't block request processing
+- **Sampling**: Use sampling to reduce data volume for high-traffic services
+- **Attribute Limits**: Limit number of attributes per span/metric (avoid unbounded attributes)
+
+**Correlation & Observability**:
+- **Trace-Log Correlation**: Include trace_id and span_id in all logs
+- **Metric-Trace Exemplars**: Link metrics to traces with exemplars
+- **Distributed Context**: Propagate context across all service boundaries
+- **Request IDs**: Use consistent correlation IDs across entire request path
+
+**Schema Evolution**:
+- **Backward Compatibility**: Additive changes only (new attributes, metrics)
+- **Deprecation**: Mark deprecated attributes; maintain for transition period
+- **Versioning**: Version telemetry schemas; document changes
+- **Migration**: Provide migration guides when changing conventions
+
+**Cardinality Management**:
+- **Bounded Dimensions**: Use finite value sets for dimensions (avoid user_id, request_id)
+- **Aggregation Labels**: Group low-value dimensions (http status: 2xx, 4xx, 5xx)
+- **Cardinality Limits**: Monitor metric cardinality; alert on explosions
+- **Drop High-Cardinality**: Drop or aggregate high-cardinality dimensions
+
+**Security & Privacy**:
+- **Sensitive Data**: Never log passwords, tokens, API keys, credit cards
+- **PII Scrubbing**: Sanitize PII from logs and traces automatically
+- **Data Retention**: Define retention policies for telemetry data
+- **Access Control**: Restrict access to production telemetry data
+
+**Testing & Validation**:
+- **Instrumentation Tests**: Test that instrumentation produces expected telemetry
+- **Trace Validation**: Validate trace structure and attributes
+- **Metric Validation**: Verify metrics increment correctly
+- **End-to-End Tests**: Test telemetry propagation across services
+
+**Documentation**:
+- **Semantic Conventions**: Document custom attributes and their meanings
+- **Instrumentation Guide**: Provide instrumentation guidelines for teams
+- **Troubleshooting**: Document how to use telemetry for debugging
+- **SLI/SLO Definitions**: Document SLIs, SLOs, and how they're measured
 
 ## Quality Criteria
 
@@ -227,9 +313,111 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**OpenTelemetry (OTel)**:
+- OpenTelemetry Specification 1.x (CNCF standard)
+- OpenTelemetry Protocol (OTLP) for data export
+- Traces: Spans, span context, span attributes, span events, span links
+- Metrics: Instruments (Counter, Gauge, Histogram, UpDownCounter)
+- Logs: Log records, severity levels, log attributes
+- Resource semantic conventions (service, cloud, container, k8s)
+- Instrumentation libraries (auto/manual instrumentation)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**OpenTelemetry Semantic Conventions**:
+- HTTP: http.method, http.status_code, http.url, http.route
+- RPC: rpc.system, rpc.service, rpc.method, rpc.grpc.status_code
+- Database: db.system, db.connection_string, db.statement, db.operation
+- Messaging: messaging.system, messaging.destination, messaging.operation
+- FaaS: faas.trigger, faas.execution, faas.coldstart
+- General: exception.type, exception.message, exception.stacktrace
+
+**W3C Trace Context**:
+- traceparent header (version-trace_id-span_id-flags)
+- tracestate header (vendor-specific trace state)
+- Context propagation across service boundaries
+- Baggage for cross-cutting concerns
+
+**Prometheus Data Model**:
+- Metric naming conventions (snake_case with unit suffixes)
+- Label naming (avoid label cardinality explosion)
+- Metric types: Counter, Gauge, Histogram, Summary
+- PromQL query language
+- Recording rules and aggregation
+- Remote write protocol
+
+**Distributed Tracing**:
+- Jaeger: Trace collection, storage, and visualization
+- Zipkin: Distributed tracing system
+- AWS X-Ray: Trace segments and subsegments
+- Google Cloud Trace: Latency data collection
+- Datadog APM: Application performance monitoring
+
+**Log Standards**:
+- Structured logging (JSON format)
+- Common log fields: timestamp, severity, message, trace_id, span_id
+- Severity levels: TRACE, DEBUG, INFO, WARN, ERROR, FATAL
+- ECS (Elastic Common Schema) for log standardization
+- Syslog RFC 5424
+- GELF (Graylog Extended Log Format)
+
+**Metrics Conventions**:
+- RED Method: Rate, Errors, Duration (for requests)
+- USE Method: Utilization, Saturation, Errors (for resources)
+- Four Golden Signals: Latency, Traffic, Errors, Saturation (Google SRE)
+- SLI/SLO/SLA: Service Level Indicators, Objectives, Agreements
+
+**Observability Backends**:
+- Jaeger (traces)
+- Prometheus + Grafana (metrics + visualization)
+- Elasticsearch + Kibana (logs)
+- Grafana Loki (log aggregation)
+- ClickHouse (high-performance analytics)
+- Tempo (distributed tracing backend)
+
+**Commercial APM Platforms**:
+- Datadog: Unified observability platform
+- New Relic: Application monitoring
+- Dynatrace: Full-stack monitoring
+- Splunk: Log management and analytics
+- Elastic APM: Application Performance Monitoring
+- Honeycomb: Observability for production systems
+
+**Sampling Strategies**:
+- Always-on sampling (100% of traces)
+- Probabilistic sampling (random percentage)
+- Rate-limiting sampling (max traces per second)
+- Tail-based sampling (sample after trace completion)
+- Adaptive sampling (adjust based on load)
+- Parent-based sampling (follow parent span decision)
+
+**Context Propagation**:
+- Trace context propagation (HTTP headers, gRPC metadata)
+- Baggage for cross-cutting concerns
+- Span context injection/extraction
+- In-process context propagation
+- Correlation IDs for request tracing
+
+**Instrumentation Patterns**:
+- Auto-instrumentation (bytecode injection, eBPF)
+- Manual instrumentation (SDK usage)
+- Library instrumentation (middleware, interceptors)
+- Custom metrics and traces
+- Exemplars (linking metrics to traces)
+
+**Data Export Formats**:
+- OTLP (OpenTelemetry Protocol): gRPC, HTTP/Protobuf, HTTP/JSON
+- Jaeger Thrift format
+- Zipkin JSON format
+- Prometheus remote write
+- StatsD protocol
+
+**Tooling & SDKs**:
+- OpenTelemetry SDKs (Java, .NET, Python, Go, Node.js, Ruby, PHP)
+- OpenTelemetry Collector (agent, gateway modes)
+- OpenTelemetry Auto-Instrumentation
+- Prometheus client libraries
+- Grafana (visualization and dashboards)
+
+**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application. Refer to opentelemetry.io and prometheus.io documentation.
 
 ## Integration Points
 

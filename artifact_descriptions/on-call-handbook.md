@@ -2,45 +2,60 @@
 
 ## Executive Summary
 
-The On Call Handbook is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The On-Call Handbook is a comprehensive operational guide that defines on-call rotation schedules, escalation policies, response procedures, and support expectations for SRE teams and operations engineers. This critical artifact ensures 24/7 service reliability by establishing clear accountability, response protocols aligned with ITIL 4 incident management practices, and handoff procedures that minimize MTTR (Mean Time To Resolution).
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Drawing from industry best practices including the Google SRE Book, PagerDuty on-call management framework, and follow-the-sun rotation models, this handbook provides both strategic guidance for incident commanders and tactical procedures for on-call engineers responding to production incidents. It integrates with alerting platforms (PagerDuty, Opsgenie, VictorOps), defines SLA-based response times (P0: 15min, P1: 1hr, P2: 4hrs, P3: next business day), and establishes escalation paths through L1/L2/L3 support tiers.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Service Reliability**: Ensures 24/7 coverage with defined rotation schedules and backup escalation paths
+- **Response Time Optimization**: Establishes SLA-based response times tied to incident severity (SEV0/P0 through SEV3/P3)
+- **Reduced Burnout**: Implements fair rotation policies, compensatory time off, and workload balancing across on-call engineers
+- **Knowledge Transfer**: Documents tribal knowledge, common incident patterns, and quick-reference troubleshooting guides
+- **Compliance & Audit**: Supports SOC 2, ISO 27001, and PCI-DSS requirements for incident response capabilities
+- **Continuous Improvement**: Captures post-incident learnings and refines on-call procedures based on retrospective analysis
+- **Cross-Team Coordination**: Integrates with follow-the-sun rotations, regional handoffs, and multi-team escalation matrices
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the authoritative reference for all on-call operations, defining rotation schedules, escalation policies, SLA response times, handoff procedures, and support expectations. It solves the problem of inconsistent incident response by standardizing how engineers engage with production alerts, conduct shift handoffs, and escalate complex incidents through appropriate support tiers.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- On-call rotation schedules (primary, secondary, tertiary) across teams and time zones
+- Escalation policies and paths (L1 → L2 → L3 → management → executive)
+- SLA response time requirements by severity level (P0/SEV0: 15min, P1/SEV1: 1hr, P2/SEV2: 4hrs, P3/SEV3: next business day)
+- Shift handoff procedures, handoff checklists, and knowledge transfer protocols
+- Integration with alerting platforms (PagerDuty, Opsgenie, VictorOps, xMatters)
+- Incident response workflows, initial triage procedures, and incident commander responsibilities
+- On-call compensation policies, rotation fairness, and workload balancing
+- Contact directories, team phone trees, and emergency escalation contacts
+- Common troubleshooting runbooks and quick-reference guides
+- Follow-the-sun rotation coordination across global teams
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed incident response playbooks (covered in separate playbooks artifact)
+- Post-mortem procedures (covered in post-mortem-report artifact)
+- Root cause analysis methodologies (covered in root-cause-analyses artifact)
+- Specific application/service troubleshooting guides (maintained in service-specific runbooks)
+- Development/deployment procedures (covered in DevOps documentation)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- On-Call Engineers actively participating in rotation schedules
+- SRE Teams responsible for production system reliability
+- Incident Commanders coordinating major incident response
+- Operations Teams managing 24/7 service availability
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Engineering Managers establishing rotation policies and workload expectations
+- DevOps Engineers integrating alerting and monitoring platforms
+- Support Teams interfacing with on-call rotations for customer escalations
+- Security Teams coordinating security incident response with on-call procedures
 
 ## Document Information
 
@@ -106,19 +121,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Rotation Fairness**: Distribute on-call burden equitably across team members; use metrics to track rotation balance and alert fatigue
+**Clear Escalation Paths**: Define explicit L1 → L2 → L3 → management escalation chains with specific trigger criteria for each level
+**SLA-Based Response Times**: Enforce response time commitments based on incident severity (P0: 15min, P1: 1hr, P2: 4hrs, P3: next business day)
+**Shift Handoff Rituals**: Conduct structured handoffs with written summaries of ongoing incidents, pending alerts, and system status
+**Runbook Integration**: Link common alert types to specific troubleshooting runbooks and automated remediation playbooks
+**Alert Quality**: Continuously refine alerting thresholds to reduce noise and false positives; target <5% false positive rate
+**On-Call Compensation**: Provide fair compensation (on-call pay, comp time, bonus) to acknowledge off-hours availability
+**Maximum Rotation Length**: Limit consecutive on-call days (typically 7 days max) to prevent burnout
+**Follow-the-Sun Coordination**: For global teams, coordinate handoffs across time zones at consistent daily times (e.g., 9 AM local)
+**Backup Coverage**: Always define secondary and tertiary on-call engineers for redundancy when primary is unavailable
+**Testing & Drills**: Regularly test escalation chains and conduct incident response drills (quarterly minimum)
+**Contact Directory**: Maintain up-to-date contact information, including phone numbers, Slack handles, and time zones
+**Platform Integration**: Integrate handbook procedures directly into PagerDuty/Opsgenie escalation policies for enforcement
+**Version Control**: Store in Git to track changes, enable reviews, and maintain history of rotation policy evolution
+**Regular Reviews**: Review on-call metrics quarterly (MTTR, MTTA, escalation rate, alert volume) and refine procedures
+**Blameless Culture**: Emphasize learning over blame; no penalties for escalating incidents or requesting help
+**Knowledge Capture**: Document tribal knowledge and edge cases discovered during on-call shifts in runbooks
 
 ## Quality Criteria
 
@@ -165,9 +184,72 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Incident Management Frameworks**:
+- ITIL 4 Incident Management and Service Operations
+- Google SRE Book (Chapters on On-Call, Incident Response, Postmortem Culture)
+- Site Reliability Engineering Workbook (Google)
+- NIST SP 800-61 Computer Security Incident Handling Guide
+- ISO/IEC 20000 Service Management System
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**On-Call Management Platforms & Tools**:
+- PagerDuty (incident management, on-call scheduling, escalation policies)
+- Opsgenie (alert aggregation, on-call rotations, team collaboration)
+- VictorOps (now Splunk On-Call)
+- xMatters (mass notifications, workflow automation)
+- FireHydrant (incident management, status pages)
+- Incident.io (incident response, Slack-native workflows)
+
+**Severity Level Standards**:
+- SEV0/P0 (Critical): Complete service outage, revenue-impacting, customer-facing
+- SEV1/P1 (High): Major functionality degraded, significant customer impact
+- SEV2/P2 (Medium): Minor functionality affected, workaround available
+- SEV3/P3 (Low): Cosmetic issues, no immediate impact
+- SLA Response Times: P0: 15min, P1: 1hr, P2: 4hrs, P3: next business day
+
+**Rotation Models & Best Practices**:
+- Follow-the-sun rotation (24/7 coverage across time zones)
+- Primary-Secondary-Tertiary escalation model
+- Weekly rotation vs. daily rotation trade-offs
+- Compensatory time off (comp time) policies
+- Maximum consecutive on-call days (typically 7 days)
+- Minimum rest periods between rotations (typically 48 hours)
+
+**Communication & Status Pages**:
+- Statuspage.io (Atlassian)
+- Atlassian Statuspage
+- Status.io
+- Cachet (open-source)
+- Slack incident channels (#incidents, #p0-alerts)
+- Microsoft Teams incident response workflows
+
+**Monitoring & Alerting Integration**:
+- Prometheus AlertManager
+- Grafana OnCall
+- Datadog Monitors and Alerts
+- New Relic Alerts
+- AWS CloudWatch Alarms
+- Azure Monitor
+- Google Cloud Monitoring (formerly Stackdriver)
+- Splunk Enterprise Security
+
+**Compliance & Audit Standards**:
+- SOC 2 Type II (Availability, Security controls)
+- ISO 27001 (Information Security Management)
+- PCI-DSS (Payment Card Industry Data Security Standard)
+- HIPAA (for healthcare systems)
+- FedRAMP (for government systems)
+
+**Operational Metrics**:
+- MTTR (Mean Time To Resolution)
+- MTTA (Mean Time To Acknowledge)
+- MTTD (Mean Time To Detection)
+- MTTF (Mean Time To Failure)
+- Incident frequency by severity
+- On-call load distribution and fairness metrics
+- Alert fatigue metrics (alerts per on-call shift)
+- Escalation rate (% of incidents requiring escalation)
+
+**Reference**: Consult SRE leadership and operations team for detailed guidance on framework application
 
 ## Integration Points
 

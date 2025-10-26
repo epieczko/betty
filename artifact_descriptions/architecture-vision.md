@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Architecture Vision is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Architecture Vision defines the target state architecture and transformation roadmap for evolving from current state to desired future state, aligning with TOGAF 9.2 ADM Phase A (Architecture Vision). This strategic artifact articulates the long-term architectural direction, technology evolution path, capability model development, and migration strategy using proven patterns like the Strangler Fig pattern for legacy modernization.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+The vision incorporates a Technology Radar (ThoughtWorks model with adopt/trial/assess/hold quadrants) to communicate technology direction, a capability heat map showing maturity levels across business capabilities, and a multi-phase migration roadmap with defined milestones. It addresses target state quality attributes (ISO 25010), cloud adoption strategy (AWS/Azure/GCP Well-Architected alignment), microservices evolution, data architecture transformation, and security architecture maturity progression toward Zero Trust. The artifact provides executive-level strategic context while maintaining technical depth for architecture teams to execute the transformation.
 
 ### Strategic Importance
 
@@ -20,27 +20,48 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact establishes strategic architectural direction and transformation roadmap, providing long-term guidance for technology decisions, investment prioritization, and capability development. It aligns technical strategy with business objectives, communicates architectural intent to stakeholders, and provides framework for evaluating architecture decisions against vision.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Target state architecture: desired end-state system structure, patterns, technologies, and capabilities
+- Current state assessment: baseline architecture, technical debt inventory, capability gaps, constraint analysis
+- Gap analysis: detailed comparison of current vs. target state across multiple dimensions
+- Migration roadmap: multi-phase transformation plan with waves, milestones, dependencies, and timeline
+- Capability model: business capabilities mapped to application services and technology platforms
+- Technology Radar: adopt/trial/assess/hold guidance for technology choices aligned with vision
+- Architectural principles: guiding principles that govern architecture decisions and tradeoffs
+- Quality attribute targets: measurable ISO 25010 quality goals (performance, scalability, security, reliability)
+- Cloud strategy: cloud adoption approach, multi-cloud or single-cloud, hybrid cloud, cloud-native maturity model
+- Modernization patterns: Strangler Fig, Branch by Abstraction, parallel run, incremental migration approaches
+- Data architecture vision: data lake/warehouse strategy, master data management, data mesh, event streaming
+- Security architecture evolution: Zero Trust maturity roadmap, identity and access management, encryption strategy
+- Integration architecture: API strategy, event-driven architecture, service mesh, ESB rationalization
+- Reference architectures: target patterns for common scenarios (web applications, batch processing, real-time analytics)
+- Technology stack evolution: programming languages, frameworks, platforms, databases, middleware
+- Investment priorities: sequencing of transformation initiatives based on business value and risk
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed implementation plans (handled in project documentation)
+- Specific project timelines and resource assignments (handled in program/project planning)
+- Current state documentation in exhaustive detail (captured separately in architecture repository)
+- Operational procedures and run books (handled in operations documentation)
+- Business strategy and objectives (referenced from business planning artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Enterprise Architects: define and maintain vision, ensure consistency across organization
+- Solution Architects: align solution designs with vision and transformation roadmap
+- Technical Architects: understand technology direction for detailed design decisions
+- Architecture Review Board (ARB) Members: use vision as decision criteria for approvals
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Executive Leadership (CTO, CIO): strategic technology direction and investment priorities
+- Product Management: understand platform capabilities and technology constraints
+- Engineering Leadership: technical direction for team skill development and hiring
+- Infrastructure/Platform Teams: target state infrastructure and platform requirements
 
 ## Document Information
 
@@ -106,19 +127,30 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Business Alignment**: Ground vision in business strategy and objectives; map technical capabilities to business capabilities; demonstrate ROI and business value of transformation
+**Stakeholder Engagement**: Conduct architecture workshops with business, product, and technology leaders; build consensus on priorities; address concerns and constraints early
+**Current State Honesty**: Conduct thorough current state assessment including technical debt, security vulnerabilities, scalability limitations; avoid sugar-coating challenges
+**Measurable Targets**: Define specific, measurable quality attribute targets using ISO 25010 and SEI scenarios; avoid vague aspirations like "improve performance"
+**Phased Approach**: Break transformation into manageable phases (typically 3-5 phases over 2-4 years); define clear milestones and success criteria for each phase
+**Technology Radar**: Maintain living Technology Radar with quarterly updates; classify technologies as adopt (standard), trial (pilot), assess (investigate), hold (avoid)
+**Strangler Fig Planning**: For legacy modernization, identify high-value functionality to migrate first; maintain parallel operation; define decommissioning triggers
+**Capability Heat Maps**: Create visual capability maturity assessments with color coding (red=lacking, yellow=developing, green=mature); prioritize red/yellow capabilities
+**Reference Architectures**: Develop target state reference architectures for common patterns (web apps, APIs, batch processing, real-time analytics); provide reusable blueprints
+**Cloud Strategy Clarity**: Define explicit cloud adoption approach (cloud-first, cloud-native, hybrid, multi-cloud); align with AWS/Azure/GCP Well-Architected Framework
+**Security Evolution**: Map Zero Trust maturity progression; define identity-centric security approach; eliminate implicit trust zones over time
+**Data Strategy**: Articulate data architecture vision (centralized warehouse, decentralized mesh, lakehouse); address master data management and data governance
+**Integration Patterns**: Define target integration patterns (synchronous APIs, asynchronous events, batch); rationalize or eliminate legacy ESB if applicable
+**API Strategy**: Adopt API-first approach; standardize on REST/GraphQL; implement API gateway for cross-cutting concerns; version APIs from inception
+**Observability Vision**: Define target state for monitoring, logging, tracing, and alerting; adopt OpenTelemetry standards; implement SLO-based alerting
+**Investment Sequencing**: Use value stream mapping to identify highest-value transformation areas; sequence initiatives based on WSJF (value/effort/risk)
+**Dependency Management**: Create dependency maps showing which initiatives enable others; identify critical path; plan for parallel workstreams
+**Risk Mitigation**: Document transformation risks (technology, organizational, integration, security); define mitigation strategies; plan for contingencies
+**Skills Assessment**: Evaluate team skills against target state requirements; plan training, hiring, or partnering to close gaps
+**Iterative Refinement**: Treat vision as living document; update quarterly based on lessons learned, technology evolution, business changes
+**Visual Communication**: Use ArchiMate for enterprise views, C4 Model for system views, capability heat maps, roadmap timelines; make vision scannable and understandable
+**Executive Summary**: Provide 1-page executive summary highlighting business value, investment required, timeline, and key risks; enable executive decision-making
+**Governance Alignment**: Ensure vision aligns with architecture principles and governance framework; socialize with ARB for endorsement
+**Communication Plan**: Present vision in town halls, architecture forums, engineering all-hands; create FAQ, demos, and reference implementations to build buy-in
 
 ## Quality Criteria
 
@@ -165,9 +197,111 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**Architecture**: TOGAF, Zachman Framework, C4 Model, ArchiMate
+**Enterprise Architecture Frameworks**:
+- TOGAF 9.2 ADM Phase A (Architecture Vision) - stakeholder management, architecture principles, capability assessment
+- TOGAF Architecture Roadmap - transition architectures, implementation and migration planning
+- Zachman Framework - enterprise architecture classification (scope, business, system, technology, detailed)
+- FEAF (Federal Enterprise Architecture Framework) - reference models for business, data, applications, technology
+- Gartner Enterprise Architecture Framework - business, information, solution, technology architecture domains
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Capability Planning**:
+- Business Capability Modeling - hierarchical decomposition of business capabilities
+- Capability Maturity Models (CMM) - maturity levels for capability assessment
+- Capability Heat Maps - visual representation of capability maturity and priority
+- Value Stream Mapping - identifying value flows and transformation opportunities
+- Operating Model Canvas - business architecture alignment with technology capabilities
+
+**Transformation & Migration**:
+- Strangler Fig Pattern (Martin Fowler) - incremental migration by gradually replacing legacy functionality
+- Branch by Abstraction - introducing abstractions to enable parallel implementation
+- Blue-Green Deployment - parallel environments for risk-free migration
+- Canary Releases - gradual rollout with monitoring and rollback capability
+- Feature Toggles - runtime configuration for controlled feature migration
+
+**Technology Strategy**:
+- Technology Radar (ThoughtWorks) - adopt, trial, assess, hold quadrants for technology guidance
+- Wardley Mapping - evolution and positioning of technology components
+- Hype Cycle (Gartner) - technology maturity assessment
+- Technology Lifecycle Management - introduction, growth, maturity, decline phases
+- Build vs. Buy vs. Partner - sourcing strategy framework
+
+**Cloud Strategy**:
+- Cloud Adoption Framework - AWS CAF, Azure CAF, Google Cloud Adoption Framework
+- AWS Well-Architected Framework - operational excellence, security, reliability, performance, cost, sustainability
+- Azure Well-Architected Framework - cost optimization, operational excellence, performance, reliability, security
+- Google Cloud Architecture Framework - operational excellence, security/privacy, reliability, cost, performance
+- Cloud Maturity Model - ad hoc, opportunistic, repeatable, managed, optimized levels
+- FinOps Framework - cloud financial management and optimization practices
+- Cloud-Native Maturity Model (CNCF) - build, operate, scale, improve, optimize stages
+
+**Architecture Patterns**:
+- Microservices Architecture - bounded contexts, API gateway, service mesh, event-driven communication
+- Event-Driven Architecture - event sourcing, CQRS, saga pattern, event streaming (Kafka, Pulsar)
+- Hexagonal Architecture - ports and adapters, domain-driven design, clean architecture
+- Service-Oriented Architecture (SOA) - enterprise service bus, orchestration, choreography
+- Serverless Architecture - FaaS, BaaS, event-driven, auto-scaling
+- Data Mesh - domain-oriented decentralized data ownership, data-as-a-product
+
+**Quality Frameworks**:
+- ISO/IEC 25010 (SQuaRE) - quality attributes: performance, security, reliability, maintainability, usability, compatibility, portability
+- SEI Quality Attribute Workshop - eliciting quality scenarios with stimulus-response-measure
+- Architecture Tradeoff Analysis Method (ATAM) - evaluating architecture quality attributes
+- Non-Functional Requirements (NFR) Framework - defining measurable quality criteria
+- SLA/SLO/SLI Framework - service level indicators, objectives, and agreements
+
+**Data Architecture**:
+- Data Lake Architecture - schema-on-read, data catalog, data governance
+- Data Warehouse Architecture - dimensional modeling, ETL/ELT, OLAP
+- Data Mesh - domain ownership, data-as-a-product, self-serve data platform
+- Master Data Management (MDM) - golden records, data quality, data stewardship
+- Data Fabric - unified data management layer across hybrid/multi-cloud
+- Event Streaming Architecture - Kafka, Pulsar, change data capture, stream processing
+
+**Security Architecture**:
+- Zero Trust Architecture (NIST SP 800-207) - never trust, always verify, least privilege
+- NIST Cybersecurity Framework - identify, protect, detect, respond, recover
+- Security Reference Architecture - defense in depth, identity-centric security
+- OWASP Security by Design - threat modeling, secure SDLC, security controls
+- Cloud Security Alliance (CSA) Reference Architecture - cloud security controls
+- DevSecOps - security automation, shift-left security, continuous security testing
+
+**Integration Architecture**:
+- API-First Architecture - RESTful APIs, GraphQL, OpenAPI specification
+- Event-Driven Integration - event streaming, publish-subscribe, event mesh
+- Service Mesh - Istio, Linkerd, service-to-service communication, observability
+- API Gateway Pattern - single entry point, rate limiting, authentication, routing
+- Enterprise Service Bus (ESB) - message transformation, routing, orchestration (legacy)
+
+**Modernization Approaches**:
+- 6 R's of Cloud Migration - rehost, replatform, refactor, repurchase, retire, retain
+- Strangler Fig Pattern - incremental replacement of monolithic systems
+- Microservices Decomposition - bounded contexts, domain-driven design, database per service
+- Containerization Strategy - Docker, Kubernetes, container orchestration
+- API-fication - exposing legacy functionality via modern APIs
+
+**Roadmap Planning**:
+- Agile Release Train (SAFe) - program increment planning, architectural runway
+- Portfolio Kanban - visualizing and managing architecture initiatives
+- Technology Adoption Curves - innovators, early adopters, early majority, late majority, laggards
+- Dependency Mapping - identifying critical path and parallel workstreams
+- WSJF (Weighted Shortest Job First) - prioritizing initiatives by value and urgency
+
+**Reference Architectures**:
+- Cloud-Native Reference Architecture - containers, orchestration, service mesh, observability
+- Microservices Reference Architecture - API gateway, service discovery, circuit breakers
+- Data Platform Reference Architecture - ingestion, storage, processing, serving, governance
+- IoT Reference Architecture - device management, edge computing, telemetry, analytics
+- ML/AI Platform Reference Architecture - data pipelines, model training, serving, MLOps
+
+**Tools & Platforms**:
+- ArchiMate 3.1 - modeling current and target state architectures
+- Structurizr - C4 Model diagrams for architecture visualization
+- Ardoq - enterprise architecture tool for capability modeling and roadmaps
+- LeanIX - SaaS EA platform for application portfolio management
+- BiZZdesign - TOGAF-compliant EA tool with roadmap capabilities
+- Technology Radar Tools - Zalando's Tech Radar, Backstage Tech Docs
+
+**Reference**: Consult organizational architecture team for vision template, capability model framework, and roadmap planning guidance
 
 ## Integration Points
 

@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Network Topology Diagram is a critical governance and audit artifact that provides a chronological record of network topology diagram throughout the General phase. This structured log serves as both a real-time management tool and a historical record for post-project reviews, audits, and lessons learned activities.
+The Network Topology Diagram artifact provides visual representations of cloud and on-premises network architecture, documenting the logical and physical layout of network infrastructure including VPCs/VNets, subnets, availability zones, regions, routing tables, security boundaries, connectivity patterns, and data flow paths. This artifact establishes comprehensive network architecture diagrams using industry-standard tools (Lucidchart, Draw.io, Visio, CloudCraft, Diagrams.net) to communicate complex network designs to technical and non-technical stakeholders, support security assessments, enable compliance audits (PCI DSS network segmentation, HIPAA data flow), and facilitate incident response and disaster recovery planning.
 
-As a cornerstone of program governance, this artifact enables transparency, accountability, and informed decision-making by providing stakeholders with immediate visibility into key events, decisions, and their outcomes. It supports root cause analysis, trend identification, and continuous improvement by maintaining a complete audit trail.
+As a foundational documentation artifact for cloud infrastructure and security architecture, this artifact serves Network Engineers designing network segmentation strategies, Cloud Platform Engineers implementing multi-tier VPC architectures, Security Engineers conducting threat modeling and security assessments, Compliance Officers validating regulatory requirements, and Enterprise Architects communicating infrastructure designs to leadership. It addresses critical architectural patterns including DMZ isolation, multi-tier application segmentation, hub-and-spoke topologies, transit gateway architectures, Zero Trust network boundaries, and hybrid cloud connectivity (Direct Connect, ExpressRoute, Cloud Interconnect).
 
 ### Strategic Importance
 
@@ -18,27 +18,50 @@ As a cornerstone of program governance, this artifact enables transparency, acco
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact visually documents network architecture to communicate infrastructure design decisions, support security assessments and threat modeling, demonstrate compliance with network segmentation requirements (PCI DSS, HIPAA, Zero Trust), enable rapid incident response by providing clear data flow documentation, and serve as authoritative reference for network changes and disaster recovery planning.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Cloud network architecture (AWS VPC, Azure VNet, GCP VPC, multi-cloud topologies)
+- Network segmentation and trust zones (public DMZ, private app tier, data tier, management network)
+- Availability zones, regions, and multi-region architectures
+- Subnets (public, private, database, management, transit) and CIDR ranges
+- Routing tables, internet gateways, NAT gateways, and route propagation
+- Security boundaries (security groups, network ACLs, firewalls, WAF)
+- Load balancers (ALB, NLB, Application Gateway, Cloud Load Balancing)
+- VPN connections (site-to-site VPN, client VPN, OpenVPN, WireGuard)
+- Hybrid connectivity (AWS Direct Connect, Azure ExpressRoute, GCP Cloud Interconnect)
+- Transit gateways and hub-and-spoke topologies
+- Peering connections (VPC peering, VNet peering, VPC Network Peering)
+- DNS architecture (Route 53, Azure DNS, Cloud DNS, private hosted zones)
+- CDN and edge locations (CloudFront, Akamai, Cloudflare, Azure Front Door)
+- Data flow paths (client → CDN → WAF → ALB → application → database)
+- Egress points and internet connectivity patterns
+- Kubernetes cluster networking (CNI, pod networks, service networks, ingress)
+- Service mesh architecture (Istio, Linkerd, control plane, data plane)
+- Network monitoring and logging collection points
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed firewall rule specifications (covered by firewall-rules artifact)
+- Load balancer configuration details (covered by load-balancer-configurations)
+- Application architecture and microservices design (covered by application architecture artifacts)
+- Detailed security group rules (covered by firewall-rules)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Network Engineers designing and implementing network architecture
+- Cloud Platform Engineers building cloud infrastructure
+- Security Engineers conducting security assessments and threat modeling
+- Compliance Officers validating network segmentation requirements
+- Enterprise Architects communicating infrastructure to leadership
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- DevOps Engineers understanding deployment environments
+- Site Reliability Engineers troubleshooting connectivity issues
+- Incident Response Teams investigating security incidents
+- Auditors validating compliance controls
 
 ## Document Information
 
@@ -104,18 +127,30 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
+**Version Control**: Store diagrams in Git alongside infrastructure-as-code, use semantic versioning, maintain diagram source files (.drawio, .vsdx)
+**Multiple View Levels**: Create high-level overview for executives, detailed technical diagrams for engineers, security-focused views for assessments
+**Consistent Iconography**: Use official cloud provider icons (AWS Architecture Icons, Azure Icons, GCP Icons) for consistency
+**Color Coding**: Use consistent color scheme for trust zones (red=public DMZ, yellow=private app, green=data tier, blue=management)
+**Layered Approach**: Separate logical (VPC, subnets, routing) from physical (regions, AZs) to avoid cluttering single diagram
+**Data Flow Annotations**: Show traffic flow with directional arrows, label protocols and ports (HTTPS:443, SSH:22)
+**CIDR Notation**: Document subnet CIDR ranges and IP addressing schemes for each network segment
+**Security Boundaries**: Clearly delineate security group boundaries, firewall inspection points, and trust zone transitions
+**Naming Consistency**: Use consistent naming for resources matching actual infrastructure (prod-vpc-us-east-1, web-subnet-1a)
+**Legend and Key**: Include legend explaining symbols, colors, line types, and abbreviations
+**As-Built Documentation**: Maintain accurate as-built diagrams reflecting current production state, update within 48 hours of changes
+**Change Tracking**: Document diagram version, last update date, and change description in diagram metadata
+**Tool Selection**: Use diagram-as-code tools (Diagrams Python library, Terraform Graph) for automated diagram generation from IaC
+**Accessibility**: Export diagrams as PNG, PDF, and SVG formats for broad accessibility across teams
+**Compliance Focus**: Highlight PCI DSS cardholder data environment, HIPAA protected zones, and compliance boundaries
+**Incident Response**: Include emergency contact information, escalation paths, and critical system dependencies
+**Disaster Recovery**: Show failover paths, backup connectivity, and multi-region disaster recovery architecture
+**Zoom Levels**: Design diagrams to be readable when printed on standard paper and when zoomed in for detail
+**Network Addressing**: Document IP address allocation, reserved ranges, and DHCP/static assignment patterns
+**Load Balancer Placement**: Show load balancer positioning, health check paths, and backend target distribution
+**Egress Patterns**: Document all internet egress points (NAT gateways, internet gateways) and outbound filtering
+**Hybrid Connectivity**: Clearly show on-premises connections, Direct Connect/ExpressRoute circuits, and VPN tunnels
+**Kubernetes Overlay**: For container platforms, show pod networks, service networks, CNI plugin topology
+**Regular Updates**: Update diagrams immediately after infrastructure changes, review quarterly for accuracy
 **Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
 
 ## Quality Criteria
@@ -163,7 +198,138 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Network Architecture Standards**:
+- OSI Model (7-Layer Network Model)
+- TCP/IP Protocol Suite Standards
+- IEEE 802.1Q VLAN Standards
+- IEEE 802.3 Ethernet Standards
+- RFC 1918 (Private Address Space)
+- RFC 4632 (CIDR Notation)
+
+**Cloud Platform Standards**:
+- AWS Well-Architected Framework (Reliability, Security Pillars)
+- AWS VPC Architecture Best Practices
+- Azure Virtual Network Best Practices
+- Google Cloud VPC Network Design
+- Multi-Cloud Networking Patterns
+
+**Network Segmentation**:
+- PCI DSS 4.0 (Requirement 1 - Network Segmentation)
+- NIST SP 800-53 (SC-7 Boundary Protection)
+- Zero Trust Architecture (NIST SP 800-207)
+- Micro-Segmentation Patterns
+- DMZ Architecture Best Practices
+
+**Diagram Standards & Notation**:
+- UML Deployment Diagrams
+- C4 Model for Software Architecture
+- ArchiMate Network Notation
+- AWS Architecture Icons
+- Azure Architecture Icons
+- GCP Architecture Diagramming Tool
+- Cisco Network Topology Icons
+
+**Compliance & Regulatory**:
+- PCI DSS Network Segmentation Guidance
+- HIPAA Security Rule (Network Security Requirements)
+- SOC 2 Type II (Network Architecture Documentation)
+- FedRAMP Network Architecture Requirements
+- ISO/IEC 27001:2022 (A.13.1 Network Security Management)
+- CMMC Level 2/3 (Network Segmentation Requirements)
+
+**Routing & Connectivity**:
+- BGP (Border Gateway Protocol) RFC 4271
+- OSPF (Open Shortest Path First) RFC 2328
+- Static Routing Best Practices
+- Route Propagation Patterns
+- Multi-Exit Discriminator (MED) for Path Selection
+
+**Hybrid Cloud Connectivity**:
+- AWS Direct Connect Architecture
+- Azure ExpressRoute Reference Architecture
+- Google Cloud Interconnect Patterns
+- SD-WAN Architecture Patterns
+- MPLS Network Design
+
+**VPN Standards**:
+- IPsec (RFC 4301, ESP, AH)
+- WireGuard Protocol
+- OpenVPN Best Practices
+- Site-to-Site VPN Architecture
+- Client VPN Design Patterns
+
+**Load Balancing Architecture**:
+- Global Server Load Balancing (GSLB)
+- DNS-Based Load Balancing
+- Layer 4 vs Layer 7 Load Balancing
+- Multi-Region Load Balancing
+- Cross-AZ Load Distribution
+
+**CDN Architecture**:
+- CDN Edge Location Distribution
+- Origin Shield Architecture
+- Multi-CDN Failover Patterns
+- Edge Computing Topologies
+
+**Kubernetes Networking**:
+- Kubernetes Network Model
+- Container Network Interface (CNI) Plugins
+- Calico, Cilium, Flannel, Weave Net Architecture
+- Service Mesh Topology (Istio, Linkerd)
+- Ingress Controller Patterns
+
+**DNS Architecture**:
+- DNS Hierarchy and Resolution
+- Split-Horizon DNS
+- Private Hosted Zones
+- DNS Failover Patterns
+- DNSSEC Implementation
+
+**Security Architecture**:
+- Defense in Depth Network Design
+- Trust Zone Boundaries
+- Bastion Host Placement
+- Jump Box Architecture
+- Security Group Chaining
+
+**High Availability Patterns**:
+- Multi-AZ Architecture
+- Multi-Region Active-Active
+- Multi-Region Active-Passive
+- Disaster Recovery Network Design
+- Regional Failover Patterns
+
+**Transit Gateway Architecture**:
+- AWS Transit Gateway Hub-and-Spoke
+- Azure Virtual WAN Topology
+- GCP Network Connectivity Center
+- Centralized Egress Architecture
+
+**Network Monitoring**:
+- VPC Flow Logs Architecture
+- Network Tap Placement
+- SPAN/Mirror Port Configuration
+- NetFlow/sFlow Collection Points
+
+**Diagramming Tools**:
+- Lucidchart for Network Diagrams
+- Draw.io/Diagrams.net
+- Microsoft Visio Network Templates
+- CloudCraft for AWS Architecture
+- AWS Architecture Diagrams
+- Azure Architecture Center Diagrams
+
+**Documentation Standards**:
+- Network Documentation Best Practices
+- Change Management Documentation
+- As-Built vs As-Designed Documentation
+- Version Control for Diagrams
+
+**Industry Best Practices**:
+- SANS Network Architecture Best Practices
+- Cloud Architecture Patterns (AWS, Azure, GCP)
+- Network Design for Cloud Native Applications
+- CNCF Networking Patterns
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

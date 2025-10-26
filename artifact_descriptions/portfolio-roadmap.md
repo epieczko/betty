@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Portfolio Roadmap is a critical deliverable within the Portfolio, Governance, and Delivery Ops phase, supporting Governance & Planning activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Portfolio Roadmap is a strategic planning artifact that visualizes the product development timeline, strategic themes, major initiatives, and delivery milestones across the product portfolio. This artifact translates product strategy into a sequenced execution plan using industry-standard roadmapping approaches including Now/Next/Later frameworks, theme-based roadmaps, and outcome-driven planning.
 
-As a core component of the Governance & Planning practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Built using tools like Aha!, ProductPlan, Roadmunk, Jira Product Discovery, or ProductBoard, this roadmap communicates what's being built, why it matters, when it's targeted, and what dependencies exist. It serves Product Managers, Engineering Leadership, Executive teams, and cross-functional stakeholders who need visibility into product direction, resource allocation, and strategic priorities. The roadmap balances strategic vision with tactical execution, using confidence levels (committed, likely, exploring) to manage stakeholder expectations while maintaining strategic flexibility.
 
 ### Strategic Importance
 
@@ -20,27 +20,43 @@ As a core component of the Governance & Planning practice, this artifact serves 
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the strategic and tactical plan for product development, communicating what initiatives are being built, in what sequence, and aligned to which strategic objectives. It provides a unified view of the product portfolio, enabling resource allocation, dependency management, and stakeholder alignment on product direction.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Now/Next/Later roadmap structure or time-boxed quarters (Q1, Q2, Q3, Q4)
+- Theme-based organization (strategic themes tied to OKRs or strategic bets)
+- Major initiatives, epics, and feature sets (not individual stories or tasks)
+- Strategic context and rationale for prioritization
+- Confidence levels (committed, likely, exploring) for roadmap items
+- Cross-team dependencies and integration points
+- Milestones, target dates, and release planning
+- Resource allocation and capacity planning
+- Alignment to strategic objectives, OKRs, and product strategy
+- Internal and external roadmap views (stakeholder-specific)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed sprint planning and story-level tasks (covered in agile/sprint planning)
+- Detailed technical architecture and implementation plans (covered in technical design docs)
+- Specific OKR targets and KPI definitions (covered in OKR Definitions and KPI Framework)
+- Product strategy and market positioning (covered in Product Strategy and Positioning Documents)
+- Launch plans and GTM tactics (covered in Product Launch Plan and GTM Checklist)
+- Individual bug fixes and maintenance work (tracked in backlogs)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Product Managers who own and maintain the roadmap
+- Product Leaders (VP Product, CPO) who set strategic direction and allocate resources
+- Engineering Leadership who plan capacity and technical dependencies
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Executive Leadership (CEO, Board) who need visibility into product direction
+- Sales and Customer Success teams who communicate roadmap to customers
+- Marketing teams who plan campaigns around major releases
+- Strategy Teams who ensure alignment with business objectives
+- Customer Advisory Boards (CAB) who provide input on priorities
 
 ## Document Information
 
@@ -130,6 +146,17 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 **Dependency Visualization**: Clearly show dependencies between initiatives
 **Capacity Overlay**: Show resource capacity constraints alongside demand
 **Milestone Tracking**: Highlight critical milestones and decision points
+**Outcome-Focused**: Frame roadmap items as outcomes and customer value, not features
+**Confidence Levels**: Use confidence indicators (committed, likely, exploring) to manage expectations
+**Strategic Themes**: Organize by themes tied to OKRs and strategic bets, not just feature lists
+**Now/Next/Later**: Consider Now/Next/Later format to avoid over-committing to distant dates
+**Stakeholder Variants**: Create tailored roadmap views for different audiences (exec, sales, engineering)
+**Regular Updates**: Update roadmap monthly or quarterly based on learnings and changing priorities
+**Customer Input**: Integrate customer feedback and requests systematically (ProductBoard scoring)
+**Data-Driven**: Use analytics (Amplitude, Mixpanel) to validate prioritization assumptions
+**Cross-Functional**: Involve Engineering, Design, Marketing, Sales in roadmap planning
+**Visual Clarity**: Use clear visual hierarchy, color coding, and swim lanes for readability
+**Dependency Mapping**: Explicitly show and track cross-team and technical dependencies
 
 ## Quality Criteria
 
@@ -176,9 +203,63 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Roadmapping Frameworks**:
+- Now/Next/Later roadmap framework (avoids date commitments, focuses on sequence)
+- Theme-based roadmapping (organizing by strategic themes vs. features)
+- Outcome-driven roadmaps (focusing on outcomes vs. outputs)
+- Dual-track roadmap (discovery track + delivery track)
+- Opportunity Solution Trees (Teresa Torres)
+- GIST Planning Framework (Goals, Ideas, Steps, Tasks by Itamar Gilad)
+- OKR-aligned roadmaps (mapping initiatives to OKRs)
+- Confidence-based roadmapping (committed, likely, exploring)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Prioritization Frameworks**:
+- RICE prioritization (Reach, Impact, Confidence, Effort)
+- WSJF (Weighted Shortest Job First) from SAFe
+- Value vs. Effort matrix (2x2 prioritization)
+- MoSCoW (Must have, Should have, Could have, Won't have)
+- Kano Model for feature prioritization
+- ICE scoring (Impact, Confidence, Ease)
+- Opportunity Scoring and cost of delay analysis
+
+**Roadmapping Tools**:
+- Dedicated Roadmap Tools: Aha!, ProductPlan, Roadmunk, ProductBoard, airfocus
+- Product Management Platforms: Jira Product Discovery, Jira Align, ProductBoard
+- Collaboration Tools: Miro, Mural, Figma (FigJam) for roadmap workshops
+- Project Management: Monday.com, Asana, Smartsheet (with roadmap views)
+- Presentations: PowerPoint, Google Slides, Keynote for executive roadmaps
+
+**Agile & Delivery Frameworks**:
+- SAFe (Scaled Agile Framework) - PI Planning and Program Roadmaps
+- Scrum release planning
+- Kanban flow-based roadmaps
+- Lean Portfolio Management
+- Shape Up methodology (Basecamp) - cycles and bets
+- Continuous Delivery and trunk-based development considerations
+
+**Stakeholder Communication**:
+- Internal vs. External roadmap views
+- Executive roadmaps (strategic themes, business outcomes)
+- Engineering roadmaps (technical initiatives, platform work)
+- Sales/Customer roadmaps (customer-facing features, timelines)
+- Roadmap presentation best practices
+- Roadmap update cadences (monthly, quarterly)
+
+**Capacity Planning & Resource Management**:
+- Team capacity modeling and velocity tracking
+- Resource allocation frameworks
+- Dependency mapping and critical path analysis
+- Portfolio-level capacity planning
+- Team topology and Conway's Law considerations
+
+**Strategic Alignment**:
+- OKR alignment (mapping initiatives to company/product OKRs)
+- Product Strategy Canvas alignment
+- North Star Metric and metric trees
+- Jobs-to-be-Done prioritization
+- Customer feedback integration (ProductBoard, Canny, UserVoice)
+
+**Reference**: Product Roadmaps Relaunched (C. Todd Lombardo et al.), Inspired (Marty Cagan), Continuous Discovery Habits (Teresa Torres)
 
 ## Integration Points
 

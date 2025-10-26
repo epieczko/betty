@@ -2,45 +2,57 @@
 
 ## Executive Summary
 
-The Dag Definitions is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The DAG Definitions artifact is a critical deliverable for data engineering and workflow orchestration teams, documenting Directed Acyclic Graph (DAG) configurations for Apache Airflow, Prefect, Dagster, and similar workflow orchestration platforms. This artifact provides comprehensive specifications for task dependencies, scheduling patterns, retry logic, SLA monitoring, and execution parameters that enable reliable, scalable data pipeline automation.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As orchestration platforms become the backbone of modern data infrastructure, this artifact serves multiple constituencies—from Data Engineers implementing complex ETL/ELT workflows to Platform Engineers managing orchestration infrastructure, and from Analytics Engineers scheduling dbt transformations to SRE teams monitoring pipeline reliability and performance. It bridges technical implementation details with operational requirements, ensuring workflows are maintainable, observable, and aligned with organizational data governance standards.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Workflow Automation**: Defines automated data pipelines using Apache Airflow, Prefect, Dagster, AWS Step Functions, Azure Logic Apps, or Google Cloud Composer
+- **Task Orchestration**: Specifies task dependencies (upstream/downstream), execution order, parallelization strategies, and dynamic task generation
+- **Reliability Engineering**: Documents retry policies, failure handling, circuit breakers, SLA definitions, alerting thresholds, and backfill strategies
+- **Scheduling Patterns**: Defines cron expressions (@daily, @hourly, custom schedules), catchup behavior, execution dates, and timezone handling
+- **Observability**: Enables pipeline monitoring, execution metrics, duration tracking, cost attribution, and troubleshooting through structured DAG documentation
+- **Data Lineage**: Supports data governance by documenting data flow, transformation dependencies, and system integration points
+- **Operational Excellence**: Facilitates knowledge transfer, reduces mean time to recovery (MTTR), and enables consistent deployment across environments
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents Apache Airflow DAG configurations (or equivalent orchestration platform definitions) including task specifications, dependency graphs, scheduling parameters, execution settings, and operational metadata. It enables Data Engineers to define repeatable, maintainable workflow orchestration for data pipelines, ETL/ELT processes, ML model training, and business process automation.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- DAG configuration: DAG ID, description, owner, tags, schedule_interval, start_date, end_date, catchup settings
+- Task definitions: PythonOperator, BashOperator, DockerOperator, KubernetesPodOperator, custom operators
+- Task dependencies: set_upstream/set_downstream, bit-shift operators (>> <<), cross-DAG dependencies (TriggerDagRunOperator)
+- Scheduling patterns: Cron expressions, preset schedules (@daily, @weekly, @monthly), data interval concepts
+- Retry logic: retries, retry_delay, retry_exponential_backoff, max_retry_delay
+- SLA monitoring: sla, sla_miss_callback, execution_timeout, dagrun_timeout
+- Execution parameters: concurrency, max_active_runs, max_active_tasks, pool assignments
+- Connection & variable management: Airflow Connections, Variables, XCom for task communication
+- Sensor configurations: FileSensor, S3KeySensor, ExternalTaskSensor, time-based sensors
+- Dynamic DAG generation: DAG factory patterns, configuration-driven DAG creation
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Infrastructure configuration (Airflow deployment architecture, executor configuration, scaling policies)
+- Detailed transformation logic within tasks (covered in ETL/ELT Specifications)
+- Monitoring dashboards and alerting configurations (covered in operational runbooks)
+- Data quality validation rules (covered in Data Quality Specifications)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Data Engineers implementing and maintaining orchestrated data pipelines
+- Analytics Engineers scheduling dbt transformations and data modeling workflows
+- Platform Engineers managing workflow orchestration infrastructure
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- SRE Teams monitoring pipeline reliability and performance
+- Data Platform Architects designing orchestration patterns and standards
+- DevOps Engineers implementing CI/CD for DAG deployment
 
 ## Document Information
 
@@ -106,19 +118,19 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**DAG Design Patterns**: Use idempotent tasks, implement task retries with exponential backoff, leverage task groups for logical organization
+**Naming Conventions**: Use descriptive DAG IDs with environment prefixes (prod_, dev_), follow snake_case for task IDs, tag DAGs by domain/team
+**Version Control**: Store DAG files in Git with feature branch workflows, implement CI/CD for DAG deployment, use pre-commit hooks for validation
+**Testing Strategy**: Implement unit tests for custom operators, validate DAG structure with dag.test(), use staging environments for testing
+**Scheduling Best Practices**: Set appropriate start_date (not dynamic), disable catchup for most DAGs, use timezone-aware datetime objects
+**Dependency Management**: Keep task dependencies explicit and minimal, avoid circular dependencies, document cross-DAG dependencies
+**Resource Management**: Configure task pools for resource-intensive operations, set appropriate concurrency limits, use Kubernetes executor for isolation
+**Error Handling**: Implement comprehensive retry logic, use on_failure_callback for alerting, document expected failure scenarios
+**Observability**: Add detailed task logging, use XCom sparingly, implement custom metrics for business KPIs, configure SLA monitoring
+**Security**: Store credentials in Airflow Connections (not code), use role-based access control (RBAC), encrypt sensitive XCom data
+**Performance**: Avoid top-level code in DAG files, use dynamic task generation judiciously, optimize sensor poke_interval
+**Documentation**: Document DAG purpose and owner, specify data lineage and dependencies, maintain runbook for operational procedures
+**Monitoring**: Configure alerts for SLA misses, track DAG run duration trends, monitor task failure rates and retry patterns
 
 ## Quality Criteria
 
@@ -165,9 +177,62 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Workflow Orchestration Platforms**:
+- Apache Airflow (open-source, Python-based workflow orchestration)
+- Prefect (modern workflow orchestration with dynamic DAGs)
+- Dagster (data orchestrator with software-defined assets)
+- AWS Step Functions (serverless workflow orchestration)
+- Azure Logic Apps (cloud-based workflow automation)
+- Google Cloud Composer (managed Airflow on GCP)
+- Temporal (microservice orchestration platform)
+- Argo Workflows (Kubernetes-native workflow engine)
+- Luigi (Python workflow orchestration by Spotify)
+- Kedro (data pipeline framework with orchestration)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Airflow Operators & Integrations**:
+- Airflow Providers (AWS, GCP, Azure, Snowflake, dbt, Kubernetes, Docker)
+- PythonOperator, BashOperator, DockerOperator, KubernetesPodOperator
+- Sensors (FileSensor, S3KeySensor, ExternalTaskSensor, TimeSensor)
+- TriggerDagRunOperator, SubDagOperator, TaskGroup
+- Custom Operators (extending BaseOperator)
+
+**Scheduling & Execution Standards**:
+- Cron expressions (Unix-style scheduling syntax)
+- ISO 8601 (datetime and timezone standards)
+- UTC timezone conventions for distributed systems
+- Airflow schedule presets (@daily, @weekly, @hourly, @monthly, @yearly, @once)
+- Timetables (custom scheduling logic in Airflow 2.2+)
+
+**Data Pipeline Patterns**:
+- ETL/ELT orchestration patterns
+- Medallion architecture (Bronze/Silver/Gold data layers)
+- Lambda architecture (batch + streaming)
+- Kappa architecture (streaming-first)
+- Data mesh (domain-oriented data ownership)
+- Change Data Capture (CDC) orchestration
+
+**Observability & Monitoring**:
+- OpenTelemetry (distributed tracing standard)
+- Prometheus metrics for workflow monitoring
+- StatsD for custom metrics collection
+- SLA monitoring and alerting patterns
+- DataDog, New Relic, Grafana integration
+
+**CI/CD for DAGs**:
+- GitOps workflows for DAG deployment
+- GitHub Actions, GitLab CI, Jenkins for DAG testing
+- Pre-commit hooks for DAG validation
+- Integration testing frameworks (pytest-airflow)
+- Blue/green deployment for DAG updates
+
+**Data Governance & Lineage**:
+- OpenLineage (data lineage standard)
+- Apache Atlas (metadata management)
+- Data Catalog integration (Alation, Collibra)
+- RBAC (Role-Based Access Control) in Airflow
+- Data classification and PII handling
+
+**Reference**: Consult organizational data platform and orchestration standards team for detailed guidance on framework application
 
 ## Integration Points
 

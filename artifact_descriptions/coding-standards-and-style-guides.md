@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Coding Standards And Style Guides is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Coding Standards and Style Guides are normative technical documentation that establishes language-specific conventions, formatting rules, architectural patterns, and quality standards for software development. This artifact ensures code consistency, maintainability, and quality across development teams through enforceable guidelines supported by automated linting, formatting tools, and code review processes.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a foundational engineering practice artifact, coding standards integrate industry-proven methodologies (Clean Code, SOLID principles, language-specific best practices) with organization-specific conventions. These standards are enforced through tooling (ESLint, Prettier, Pylint, SonarQube) and CI/CD pipeline checks, enabling teams to maintain high code quality, reduce technical debt, and accelerate onboarding while supporting security, performance, and accessibility requirements.
 
 ### Strategic Importance
 
@@ -20,27 +20,45 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the authoritative reference for code quality, formatting, naming conventions, architectural patterns, and language-specific best practices. It provides enforceable guidelines that ensure consistency, readability, and maintainability across codebases while reducing cognitive load through standardized approaches.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Language-specific formatting rules (JavaScript/TypeScript, Python, Java, Go, C#, etc.)
+- Naming conventions for variables, functions, classes, files, and modules
+- Code organization and project structure standards
+- Commenting and documentation requirements (JSDoc, docstrings, XML comments)
+- Automated linting configurations (ESLint, Prettier, Pylint, RuboCop, Checkstyle)
+- Architectural patterns and design principles (SOLID, DRY, YAGNI)
+- Error handling and logging standards
+- Testing requirements (unit, integration, coverage thresholds)
+- Code review checklists and approval criteria
+- Git commit message conventions (Conventional Commits)
+- Security coding practices (OWASP Top 10, input validation)
+- Performance optimization guidelines
+- Accessibility standards for frontend code (ARIA, semantic HTML)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Infrastructure as Code standards (handled by IaC design artifacts)
+- API design standards (handled by API specifications)
+- Database schema conventions (handled by data architecture artifacts)
+- Deployment and release processes (handled by DevOps documentation)
+- Language selection criteria (handled by technology selection artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Software Engineers/Developers who write and review code daily
+- Engineering Leads and Tech Leads who enforce standards and conduct code reviews
+- DevOps Engineers who configure linting and CI/CD quality gates
+- New Team Members who need onboarding to coding conventions
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Engineering Managers who assess code quality metrics
+- Security Engineers who validate secure coding practices
+- QA Engineers who understand code structure for test automation
+- Technical Writers who document code and APIs
 
 ## Document Information
 
@@ -165,9 +183,75 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Language-Specific Style Guides**:
+- Airbnb JavaScript Style Guide (widely-adopted JS/React standards)
+- Google Style Guides (Java, Python, C++, JavaScript, Go, Shell)
+- PEP 8 (Python Enhancement Proposal for Python code style)
+- Microsoft C# Coding Conventions
+- Effective Go (official Go programming guidelines)
+- Ruby Style Guide (community-driven Ruby standards)
+- Rust Style Guide (official Rust formatting standards)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Automated Linting & Formatting Tools**:
+- ESLint (JavaScript/TypeScript linting)
+- Prettier (opinionated code formatter for JS/TS/CSS/HTML)
+- Pylint/Flake8/Black (Python linting and formatting)
+- RuboCop (Ruby static code analyzer)
+- Checkstyle/PMD/SpotBugs (Java code quality tools)
+- SwiftLint (Swift style and conventions enforcer)
+- rustfmt (Rust code formatter)
+- Go fmt (official Go formatting tool)
+- EditorConfig (cross-editor formatting consistency)
+
+**Code Quality & Analysis**:
+- SonarQube/SonarCloud (continuous code quality inspection)
+- CodeClimate (automated code review)
+- Codacy (automated code analysis)
+- DeepSource (static analysis platform)
+- CodeScene (behavioral code analysis)
+
+**Documentation Standards**:
+- JSDoc (JavaScript documentation generator)
+- TSDoc (TypeScript documentation standard)
+- Sphinx/reStructuredText (Python documentation)
+- Javadoc (Java API documentation)
+- Doxygen (multi-language documentation generator)
+- Swagger/OpenAPI (API documentation)
+
+**Coding Principles & Design Patterns**:
+- Clean Code (Robert C. Martin principles)
+- SOLID Principles (object-oriented design)
+- DRY (Don't Repeat Yourself)
+- YAGNI (You Aren't Gonna Need It)
+- KISS (Keep It Simple, Stupid)
+- Gang of Four Design Patterns
+- Domain-Driven Design (DDD) patterns
+
+**Version Control & Commit Standards**:
+- Conventional Commits (standardized commit message format)
+- Semantic Versioning (SemVer)
+- Git Flow/GitHub Flow/GitLab Flow (branching strategies)
+- Trunk-Based Development
+
+**Security Coding Standards**:
+- OWASP Secure Coding Practices
+- CWE/SANS Top 25 Most Dangerous Software Errors
+- CERT Secure Coding Standards
+- NIST Secure Software Development Framework (SSDF)
+
+**Testing & Quality Standards**:
+- Test Pyramid (unit, integration, E2E testing strategy)
+- Code coverage thresholds (80%+ for critical paths)
+- Behavior-Driven Development (BDD) with Gherkin syntax
+- Test-Driven Development (TDD) practices
+
+**Accessibility & Frontend Standards**:
+- WCAG 2.1 (Web Content Accessibility Guidelines)
+- ARIA Authoring Practices Guide
+- Semantic HTML5 standards
+- Progressive Enhancement principles
+
+**Reference**: Consult organizational engineering standards team for approved tooling configurations, language-specific guides, and enforcement mechanisms
 
 ## Integration Points
 

@@ -2,45 +2,61 @@
 
 ## Executive Summary
 
-The Trademark Guidance is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Trademark Guidance documents establish rules for using organization and third-party trademarks, logos, service marks, and brand assets in software, documentation, marketing, and community contexts. This guidance protects trademark rights under Lanham Act (15 USC 1051) while enabling nominative fair use, open-source attribution, and partner co-branding. Organizations must balance brand protection (preventing dilution, tarnishment, and generic use) with community enablement (allowing accurate product references, compatibility claims, and derivative works).
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Modern trademark management addresses digital-era challenges: domain name disputes (UDRP/URS procedures), social media impersonation, app store trademark infringement, and open-source project naming conflicts. Companies like Linux Foundation, Apache Software Foundation, and Cloud Native Computing Foundation have established reference trademark policies governing logo usage, merchandise, and project naming that balance enforcement with ecosystem growth. Trademark guidance must address international considerations (Madrid Protocol for international registration), country-specific requirements (USPTO in US, EUIPO in EU), and trademark class classifications (Nice Classification for goods/services).
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Brand Protection**: Prevents trademark dilution, consumer confusion, and unauthorized commercial exploitation of brand equity
+- **Legal Defensibility**: Establishes documentary evidence of trademark policing required to maintain trademark validity and prevent abandonment
+- **Open Source Governance**: Enables community use of project trademarks while preventing fork confusion and competitive hijacking
+- **Partner Enablement**: Provides clear co-branding, reseller, and integration partner guidelines reducing legal friction and approval delays
+- **Domain/App Protection**: Combats cybersquatting, typosquatting, app store impersonation, and trademark keyword abuse
+- **International Consistency**: Harmonizes trademark usage across jurisdictions with varying trademark laws and enforcement mechanisms
+- **M&A Asset Valuation**: Well-documented trademark portfolio and usage guidelines increase brand asset valuation in acquisitions
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This guidance establishes permitted and prohibited uses of trademarks (word marks, logos, slogans, service marks) by internal teams, partners, community members, and third parties. It documents nominative fair use boundaries, logo usage specifications (minimum sizes, clear space, color requirements), attribution requirements, and enforcement procedures to maintain trademark distinctiveness while enabling ecosystem growth.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Trademark symbols: ® for registered marks, ™ for unregistered trademarks, ℠ for service marks, usage requirements
+- Logo usage: minimum size, clear space, approved color variations (full color, monochrome, reverse), prohibited modifications
+- Nominative fair use: accurate product references, compatibility statements, comparative advertising boundaries
+- Attribution requirements: trademark acknowledgment language, first use bolding/capitalization, trademark notices in documentation
+- Open-source project naming: project mark usage, fork naming restrictions, domain name guidelines
+- Partner/reseller guidelines: co-branding approvals, integration badges, certified partner logos, marketing collateral review
+- Merchandise/swag: branded apparel, stickers, promotional items requiring trademark license or approval
+- Domain names: permissible domain registrations, typosquatting prevention, UDRP/URS dispute procedures
+- App store guidelines: application naming, icon usage, subtitle/description trademark usage
+- Social media: official account verification, parody/fan account distinctions, handle registration
+- Enforcement: cease and desist procedures, trademark opposition, infringement reporting workflows
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Copyright licensing for software code (covered by open-source licenses)
+- Patent licensing and defensive patent grants
+- Trade secret protection and confidential information policies
+- Domain name technical management (DNS, hosting) separate from trademark rights
+- General brand style guides for marketing (typography, voice, tone) beyond trademark-specific rules
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Legal Counsel: Trademark enforcement, UDRP filings, cease and desist letters, licensing agreement drafting
+- Marketing/Brand Teams: Logo usage approvals, partner collateral review, brand compliance monitoring
+- Open Source Program Office (OSPO): Community trademark usage, project naming, fork governance, contributor swag
+- Developer Relations: Third-party integration branding, API documentation trademark usage, certification badges
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- External Developers: Nominative fair use in documentation, blog posts, conference talks, integration marketing
+- Partners/Resellers: Co-branding guidelines, certified partner logo usage, joint marketing approvals
+- Community Members: Merchandise creation, fan sites, meetup group branding, user group logos
+- Sales/Business Development: Partner agreement trademark clauses, licensing terms, co-marketing approvals
 
 ## Document Information
 
@@ -106,19 +122,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Public Trademark Guidelines Page**: Publish trademark policy at domain.com/trademark or /legal/trademark-policy for easy reference and linking
+**Registered Mark Documentation**: Maintain registry of ® marks with USPTO registration numbers, registration dates, and renewal schedules
+**First Use Symbol Requirements**: Require ® or ™ on first prominent use in documents, presentations, and web pages (can omit in subsequent uses)
+**Logo Asset Portal**: Provide downloadable logo packages (ZIP with SVG, PNG, EPS formats) with usage guidelines PDF in brand portal
+**Nominative Use Examples**: Include acceptable examples: "integrates with [Trademark]", "compatible with [Product]", "migration from [Product]"
+**Prohibited Use Examples**: Document unacceptable uses: altered logos, misleading sponsorship claims, generic trademark use (e.g., "kubernetes" as common noun)
+**Partner Co-Branding Approval**: Establish review process with 5-10 business day SLA for partner logo usage in marketing materials
+**Domain Monitoring**: Use trademark watch services (MarkMonitor, Corsearch) to detect domain registrations containing brand terms
+**App Store Monitoring**: Regularly search Apple App Store and Google Play for apps using trademarks in names/icons without authorization
+**Social Media Verification**: Secure verified accounts (blue checkmark) on major platforms to prevent impersonation
+**Open Source Fork Naming**: Require fork projects to use differentiated names (e.g., "MySQL" vs "MariaDB" differentiation model)
+**Generic Use Prevention**: Train marketing teams to avoid generic trademark use (e.g., "google it" → "search for it") to prevent genericide
+**Attribution Template**: Provide standard trademark acknowledgment: "[Trademark]® is a registered trademark of [Company] in the U.S. and other countries"
+**Merchandise Licensing**: Implement trademark license for community-created merchandise with royalty-free terms for non-commercial swag
+**UDRP Ready Documentation**: Maintain evidence of trademark use in commerce, policing efforts, and bad-faith cybersquatting patterns for UDRP filings
+**Clear Space Enforcement**: Specify minimum clear space around logos (typically equal to logo height) in all brand guidelines
+**Color Specifications**: Document primary colors with Pantone, HEX, RGB, CMYK values for consistent reproduction across media
+**Scalability Testing**: Ensure logos remain legible at minimum size (typically 72px digital, 0.25 inches print)
+**Modification Prohibition**: Explicitly prohibit logo rotation, stretching, recoloring, adding effects, or combining with other graphics
+**Enforcement Escalation**: Define tiered response: friendly reminder → cease and desist → UDRP/legal action based on violation severity
 
 ## Quality Criteria
 
@@ -165,9 +188,61 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**U.S. Trademark Law**:
+- Lanham Act 15 USC 1051 et seq. (federal trademark registration and enforcement)
+- TMEP (Trademark Manual of Examining Procedure) USPTO guidelines
+- USPTO TEAS (Trademark Electronic Application System) filing procedures
+- Federal Trademark Dilution Act (FTDA) protecting famous marks
+- Anticybersquatting Consumer Protection Act (ACPA) 15 USC 1125(d)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**International Trademark Systems**:
+- Madrid Protocol (WIPO international trademark registration system)
+- Nice Classification (international goods/services classification system with 45 classes)
+- EUIPO (European Union Intellectual Property Office) EU trademark system
+- WIPO Trademark Law Treaty and Singapore Treaty on the Law of Trademarks
+- Paris Convention for the Protection of Industrial Property
+
+**Domain Name Dispute Resolution**:
+- UDRP (Uniform Domain-Name Dispute-Resolution Policy) by ICANN
+- URS (Uniform Rapid Suspension) for clear-cut cybersquatting cases
+- WIPO Arbitration and Mediation Center domain dispute services
+- National Arbitration Forum (NAF) UDRP services
+- Canadian Internet Registration Authority (CIRA) domain dispute policy
+
+**Open Source Trademark Policies**:
+- Linux Foundation Trademark Usage Guidelines
+- Apache Software Foundation Trademark Policy
+- Mozilla Trademark Policy (Firefox, Thunderbird branding)
+- Rust Foundation Trademark Policy
+- Cloud Native Computing Foundation (CNCF) Trademark Guidelines
+- Python Software Foundation Trademark Usage Policy
+- Kubernetes Trademark Usage Guidelines
+
+**Nominative Fair Use Framework**:
+- New Kids on the Block v. News America Publishing (three-part test for nominative fair use)
+- Playboy Enterprises v. Welles (nominative use analysis)
+- Ninth Circuit nominative fair use test: (1) product not readily identifiable, (2) only as necessary, (3) no false sponsorship
+
+**Logo and Brand Standards**:
+- Brand asset management systems (Brandfolder, Bynder, Frontify)
+- Logo specification: clear space (typically 1x logo height), minimum size (72px digital, 0.25" print)
+- Pantone Matching System (PMS) for color specifications
+- HEX/RGB/CMYK color code documentation
+- Acceptable file formats: SVG (vector), PNG (raster), EPS (print)
+
+**Enforcement Mechanisms**:
+- DMCA takedown notices for trademark infringement (though primarily copyright tool)
+- Cease and desist letter templates
+- Trademark oppositions (USPTO) and cancellation proceedings
+- App store trademark complaint procedures (Apple App Store, Google Play)
+- Social media trademark infringement reporting (Twitter, Facebook, Instagram verified accounts)
+
+**Industry Reference Policies**:
+- OpenChain Trademark Policy (ISO/IEC 5230 compliance program branding)
+- Creative Commons Trademark Policy (CC logo and badge usage)
+- GitHub Trademark Policy and logo usage guidelines
+- Docker Trademark Guidelines (Moby project and Docker branding)
+- WordPress Foundation Trademark Policy
 
 ## Integration Points
 

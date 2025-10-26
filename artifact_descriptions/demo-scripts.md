@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Demo Scripts is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Demo Scripts provide the choreographed narrative and click-through sequence for product demonstrations, transforming raw product features into compelling stories that resonate with specific buyer personas and address their unique pain points. This artifact applies sales engineering best practices, demo automation methodologies from platforms like Reprise and Consensus, and value selling frameworks (MEDDIC, SPIN Selling, Challenger Sale) to solve the problem of generic "feature tours" that showcase everything but sell nothing.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Drawing on proven demo frameworks—discovery-driven demonstrations, problem-agitate-solve narratives, and outcome-focused storytelling—these scripts guide Sales Engineers, Account Executives, and Solution Consultants through customized demo flows that lead with business value, handle common objections proactively, and create "aha moments" that advance deals. The scripts include setup instructions, data preparation, navigation paths, talk tracks, discovery questions, objection responses, proof points, and recovery strategies for when demos go sideways—because they always do.
 
 ### Strategic Importance
 
@@ -20,27 +20,47 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact enables consistent, high-impact product demonstrations that map directly to prospect pain points and buying criteria, accelerating deal velocity and win rates by ensuring every demo tells the right story to the right audience. It solves the "spray and pray" demo problem where sales teams showcase random features hoping something sticks, supporting strategic decisions about demo flow customization, feature prioritization, and narrative sequencing that maximizes engagement and conversion at each sales stage.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Demo narrative structure and storyline (problem → solution → value)
+- Persona-specific demo flows (economic buyer, technical buyer, end user)
+- Pre-demo discovery question framework
+- Demo environment setup and data preparation checklist
+- Screen-by-screen navigation path with click sequence
+- Talk tracks and value statements for each demo beat
+- Feature-to-benefit translation scripts
+- Objection handling responses and competitive traps
+- Proof points and customer story integration
+- Demo pacing and time-boxing guidance (15-min, 30-min, 60-min formats)
+- Interactive elements and audience engagement prompts
+- Demo recovery strategies for technical issues
+- Post-demo next steps and call-to-action
+- Industry/vertical-specific demo customizations
+- Use case-based demo scenarios
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed product documentation and user guides (covered by product docs)
+- Technical implementation guides (covered by solution architecture)
+- Pricing and contract negotiations (covered by sales playbooks)
+- Full sales methodology training (covered by sales enablement programs)
+- Marketing product overview videos (covered by video production briefs)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Sales Engineers (SEs) and Solution Consultants delivering technical demos
+- Account Executives running discovery and demo calls
+- Demo Engineers creating demo environments and automation
+- Sales Enablement teams training revenue organizations
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Partner Sales Engineers adapting demos for channel
+- Customer Success teams conducting onboarding demos
+- Product Marketing creating demo videos and screenshots
+- Pre-sales leadership standardizing demo excellence
 
 ## Document Information
 
@@ -106,19 +126,30 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Discovery Before Demo**: Never demo blind; run discovery to understand pain points, success criteria, technical requirements, and decision process; customize demo to what you learned
+**Lead with Value Not Features**: Start with business outcome ("reduce manual processing time 70%"), not product capability ("we have automation"); outcomes sell, features inform
+**Show Don't Tell**: Demonstrate the value, don't just talk about it; "Here's how you'd save 10 hours per week" with actual workflow > feature list presentation
+**Use Realistic Data**: Demo with data that mirrors prospect's environment—their industry, use case, scale; generic "Acme Corp" data loses credibility
+**The 10-Minute Rule**: Hook them in first 10 minutes with biggest "wow" moment; lose them early and you've lost them forever; save minor features for later
+**Tell a Story**: Structure demo as narrative with character (persona), challenge (pain point), journey (using product), and resolution (value realized); stories stick, feature tours don't
+**Pause for Interaction**: Every 5-7 minutes, pause for questions, engagement, or prospect input; monologue demos lose audience; dialogue builds engagement
+**Handle Objections Proactively**: Address known concerns before they're raised; "You might be wondering about security..." disarms objection before it becomes blocker
+**Proof Points at the Ready**: Have customer stories, metrics, case studies queued for each demo beat; abstract claims need concrete evidence
+**Time-Box Ruthlessly**: 30-minute demo means 25 minutes presenting, 5 minutes buffer; running over signals poor preparation and disrespects prospect's time
+**Customize by Persona**: Economic buyer wants ROI and risk mitigation; technical buyer wants architecture and integration; end user wants usability and productivity; one demo doesn't fit all
+**Practice the Transitions**: Clunky navigation between features breaks flow; practice click paths until they're muscle memory; fluency signals product mastery
+**Have a Backup Plan**: Wi-Fi fails, demo environment breaks, screen share glitches; have video backup, offline screenshots, or alternate path ready
+**Feature Flagging**: Don't show half-baked features or irrelevant capabilities; configure demo environment to showcase only what matters for this prospect
+**Competitive Landmines**: Know competitor's demo and plant subtle traps; "Notice how we do X in one click... many tools require 5 steps for this"; indirect wins trust
+**End with Clear CTA**: Don't let demo fizzle out; end decisively with next steps, mutual action plan, and commitment from both sides
+**Record and Review**: Record demos (with permission) and review for improvement; what worked, what flopped, what questions surprised you
+**Avoid Jargon**: Prospect doesn't know your internal product terminology; speak their language from their industry, not your product names
+**Speed Optimization**: Audiences get impatient; show fast product loading, quick searches, instant results; slow demos feel like slow product
+**Mobile Matters**: If you have mobile app, show it; 70%+ users will access on mobile; desktop-only demo misses their reality
+**Integration Showcase**: B2B buyers care about ecosystem; show Salesforce/Slack/whatever integrations that matter to their stack
+**Silence is Golden**: After asking question or making key point, pause; don't fill silence; let it land and let prospect respond
+**Screen Real Estate**: Use highest resolution, hide desktop clutter, close unnecessary apps, maximize demo window; messy screen signals disorganization
+**Annotate as You Go**: Use cursor highlighting, on-screen annotation tools to draw attention; verbal "click here" loses attention; visual arrows guide eyes
 
 ## Quality Criteria
 
@@ -165,9 +196,45 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Sales Methodologies**: MEDDIC/MEDDPICC (Metrics, Economic buyer, Decision criteria, Decision process, Identify pain, Champion, Paper process), SPIN Selling (Situation-Problem-Implication-Need-payoff), Challenger Sale (Teach-Tailor-Take Control), Solution Selling, Consultative Selling, Value Selling Framework
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Demo Platforms & Tools**: Reprise (interactive demo platform), Consensus (automated demo platform), Demostack (demo automation), Walnut (no-code demo creation), Navattic (product tours), Storylane (interactive demos), TestBox (POC automation), Saleo (demo customization)
+
+**Demo Engineering**: Demo environment management, Test data generation and seeding, Demo scripting automation, Sandbox management, Demo account provisioning, Cloud-based demo infrastructure
+
+**Presentation Frameworks**: Problem-Agitate-Solve (PAS) narrative, Before-After-Bridge storytelling, Feature-Advantage-Benefit (FAB) translation, Hero's Journey for B2B demos, AIDA framework (Attention-Interest-Desire-Action)
+
+**Discovery Frameworks**: BANT (Budget-Authority-Need-Timeline), CHAMP (Challenges-Authority-Money-Prioritization), Discovery questions frameworks, Pain discovery techniques, Qualification criteria, Needs analysis methodologies
+
+**Objection Handling**: Objection handling frameworks, Feel-Felt-Found technique, Boomerang method, Question method, Denial method, Competitive displacement strategies
+
+**Value Articulation**: ROI demonstration, TCO (Total Cost of Ownership) modeling, Business case building during demos, Value realization timelines, Economic Value to Customer (EVC)
+
+**Competitive Intelligence**: Competitive battlecards for demos, Competitive traps and landmines, Differentiation talking points, Feature comparison positioning, Win-loss analysis insights for demos
+
+**Demo Best Practices**: Demo2Win methodology, Great Demo! (Peter Cohan) principles, The Three Levels of Demonstration, Presales Collective resources, SE Leaders community best practices
+
+**Persona Targeting**: Buyer persona frameworks, Decision-making unit (DMU) mapping, Stakeholder analysis, Multi-threading demos, Executive vs. practitioner demo variations
+
+**Sales Enablement Platforms**: Highspot demo content, Seismic demo library, Showpad demo organization, Guru knowledge base, Lessonly/Seismic Learning for demo training
+
+**Video Demos**: Loom for async demos, Vidyard for video prospecting, Wistia for hosted demos, BombBomb for personalized video, Screen recording best practices
+
+**Interactive Demos**: Product tours (Appcues, Pendo, WalkMe), Embedded interactive demos, Self-serve demo experiences, Guided trial experiences
+
+**Demo Metrics & Analytics**: Demo engagement tracking, Feature showcase analytics, Demo-to-opportunity conversion, Demo effectiveness scoring, Win rate by demo type
+
+**Technical Preparation**: Pre-demo technical checklist, Backup plans and failover strategies, Internet connectivity contingency, Screen sharing optimization, Audio/video quality standards
+
+**Industry Customization**: Vertical-specific demo scenarios, Regulatory compliance demonstrations (HIPAA, SOC 2, GDPR), Industry terminology and use cases, Compliance and security demos
+
+**Remote Demo Techniques**: Virtual demo best practices, Zoom/Teams demo optimization, Screen sharing strategies, Engagement techniques for virtual audiences, Camera and lighting for video calls
+
+**POC & Trial Support**: Proof of Concept design, Evaluation criteria definition, Success criteria alignment, Trial onboarding demos, Technical validation demonstrations
+
+**Storytelling Techniques**: Nancy Duarte presentation design, Presentation Zen principles, StoryBrand framework for demos, Pixar storytelling structure adapted for B2B
+
+**Reference**: Consult Presales Collective, Sales Engineering Leadership communities, Demo2Win resources, and sales methodology trainers for evolving demo excellence practices and competitive demo strategies
 
 ## Integration Points
 

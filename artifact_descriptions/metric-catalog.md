@@ -2,43 +2,62 @@
 
 ## Executive Summary
 
-The Metric Catalog is a critical governance and audit artifact that provides a chronological record of metric catalog throughout the General phase. This structured log serves as both a real-time management tool and a historical record for post-project reviews, audits, and lessons learned activities.
+The Metric Catalog is a comprehensive registry that documents all observability metrics collected across systems, services, and infrastructure. This artifact standardizes metric naming conventions, defines semantic meaning, manages cardinality, and ensures consistent instrumentation using Prometheus, OpenTelemetry, StatsD, and platform-specific metric libraries. It serves as the single source of truth for what metrics exist, how they're instrumented, and their intended use in monitoring, alerting, and SLO tracking.
 
-As a cornerstone of program governance, this artifact enables transparency, accountability, and informed decision-making by providing stakeholders with immediate visibility into key events, decisions, and their outcomes. It supports root cause analysis, trend identification, and continuous improvement by maintaining a complete audit trail.
+As a foundational element of observability governance, the Metric Catalog prevents metric sprawl, reduces storage costs, and enables teams to discover and reuse existing metrics rather than creating duplicates. It enforces naming standards (Prometheus conventions, OpenTelemetry semantic conventions), manages high-cardinality labels, and documents metric lifecycles from instrumentation through deprecation.
 
 ### Strategic Importance
 
-- **Governance Excellence**: Demonstrates rigorous program management and adherence to organizational standards
-- **Risk Mitigation**: Early identification of patterns and trends enables proactive intervention
-- **Audit Readiness**: Provides comprehensive trail for internal and external audits
-- **Knowledge Capture**: Preserves institutional knowledge beyond individual personnel tenure
-- **Continuous Improvement**: Enables data-driven process improvements through trend analysis
+- **Metric Standardization**: Enforces consistent naming conventions following Prometheus and OpenTelemetry semantic conventions across all services and teams
+- **Cardinality Management**: Prevents high-cardinality explosions that degrade query performance and increase storage costs in time-series databases
+- **Observability Governance**: Establishes metric ownership, approval workflows, and deprecation policies to maintain metric catalog quality
+- **Cost Optimization**: Reduces observability platform costs by eliminating duplicate metrics, optimizing retention, and managing cardinality
+- **Discoverability**: Enables engineers to search and discover existing metrics before instrumenting new ones, reducing redundancy
+- **SLI Foundation**: Provides curated metrics for Service Level Indicators, error budget calculations, and reliability tracking
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact maintains a centralized registry of all metrics instrumented across applications, services, and infrastructure. It documents metric names, types (counter, gauge, histogram, summary), labels, semantic meaning, data sources, and usage context. The catalog enforces naming conventions (Prometheus snake_case, OpenTelemetry semantic conventions), manages cardinality budgets, and provides metric discovery capabilities for engineers, SREs, and observability platforms.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Prometheus metric naming conventions (snake_case, base units, suffixes like _total, _seconds, _bytes)
+- OpenTelemetry semantic conventions for metrics (http.server.duration, db.client.connections.usage)
+- Metric types: Counter, Gauge, Histogram, Summary (Prometheus); UpDownCounter, Observable metrics (OTEL)
+- Label/tag taxonomy and cardinality limits (maximum label count, value cardinality per label)
+- Custom application metrics with business context (orders_processed_total, payment_failures_total)
+- Infrastructure metrics (CPU, memory, disk, network, container, Kubernetes resources)
+- Platform-specific metrics (AWS CloudWatch, Datadog, New Relic, Dynatrace custom metrics)
+- Metric lifecycle management (proposal, approval, instrumentation, deprecation, removal)
+- Recording rules and aggregations for expensive queries
+- Metric retention policies and downsampling strategies
+- SLI metric definitions for error rate, latency, availability calculations
+- Cardinality estimation and optimization guidelines
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Dashboard implementations (covered in monitoring-dashboards artifact)
+- Alert rule definitions and thresholds (covered in alerting policies)
+- Log message formats and structured logging (covered in logging-taxonomy artifact)
+- Distributed tracing span attributes (covered in tracing instrumentation)
+- Time-series database infrastructure setup (covered in platform architecture)
+- Metric ingestion pipelines and collection agents (covered in observability infrastructure)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Observability Engineers: Define metric standards, manage catalog governance, optimize cardinality and storage costs
+- SRE Teams: Instrument SLI metrics, create recording rules, define error budget tracking metrics
+- Platform Engineers: Instrument infrastructure metrics, Kubernetes metrics, resource utilization tracking
+- Application Developers: Discover existing metrics, instrument custom business metrics, follow naming conventions
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- DevOps Engineers: Instrument deployment metrics, CI/CD pipeline metrics, release tracking
+- Engineering Leadership: Review metric coverage, observability maturity, cost allocation
+- FinOps Teams: Track metrics-related costs, analyze cardinality impact on billing
+- Data Engineers: Export metrics to data warehouses, integrate with BI/analytics platforms
 
 ## Document Information
 
@@ -104,19 +123,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Prometheus Naming**: Use snake_case with base units (seconds not milliseconds, bytes not megabytes), suffix counters with _total, timers with _seconds/_milliseconds
+**OpenTelemetry Conventions**: Follow OTEL semantic conventions for HTTP (http.server.duration), RPC (rpc.server.duration), database (db.client.*)
+**Metric Type Selection**: Use Counter for monotonically increasing values, Gauge for up/down values, Histogram for distributions (latency, size)
+**Cardinality Limits**: Enforce strict limits on label count (max 10-15 labels) and label value cardinality (max 100-1000 unique values per label)
+**Label Consistency**: Use consistent label names across metrics (service, environment, region vs service_name, env, aws_region)
+**Avoid High-Cardinality**: Never use user_id, request_id, IP addresses, timestamps, or unbounded strings as label values
+**Recording Rules**: Pre-compute expensive aggregations and multi-metric calculations using Prometheus recording rules
+**Metric Ownership**: Assign DRI (Directly Responsible Individual) and owning team for each metric with Slack/email contact
+**Deprecation Policy**: Mark deprecated metrics, provide migration paths, maintain deprecated metrics for 90 days minimum
+**Cost Awareness**: Monitor active time series count; estimate storage costs; set cardinality budgets per team/service
+**Documentation Requirements**: Document metric purpose, example queries, related dashboards/alerts, SLO usage
+**Base Units Only**: Always use base units (seconds, bytes, ratios 0-1) to enable automatic conversion in dashboards
+**Histogram Buckets**: Define sensible histogram buckets (e.g., latency: 0.001, 0.01, 0.1, 0.5, 1, 5, 10 seconds)
+**Counter Suffixes**: Always suffix counters with _total (requests_total, errors_total, bytes_processed_total)
+**Rate Calculations**: Document that counters require rate() function; never use irate() for alerting (use rate() instead)
+**Label Ordering**: Order labels consistently (service before method before status_code) for better query performance
+**Catalog Automation**: Auto-discover metrics from Prometheus targets; validate against catalog schema; flag undocumented metrics
 
 ## Quality Criteria
 
@@ -163,9 +186,67 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Metric Standards**:
+- Prometheus Naming Conventions - snake_case, base units, suffixes (_total, _seconds, _bytes, _ratio)
+- OpenTelemetry Semantic Conventions - Standardized metric names for HTTP, RPC, database, messaging, runtime
+- OpenMetrics - Prometheus exposition format standard with enhanced metadata support
+- StatsD Protocol - UDP-based metric aggregation and collection protocol
+- Datadog Metrics - Custom metrics API, tags, metric types (gauge, count, rate, histogram)
+- CloudWatch Metrics - AWS custom metrics, dimensions, statistics, metric math
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Time-Series Databases**:
+- Prometheus - Pull-based monitoring with PromQL query language
+- InfluxDB - High-performance time-series database with InfluxQL and Flux
+- M3DB - Distributed TSDB with clustering and long-term storage
+- VictoriaMetrics - Fast, cost-effective, Prometheus-compatible storage
+- Cortex - Multi-tenant, horizontally scalable Prometheus
+- Thanos - Prometheus with unlimited retention and global querying
+- Graphite - Push-based metrics with Whisper storage engine
+- TimescaleDB - PostgreSQL extension for time-series data
+
+**OpenTelemetry**:
+- OTEL Metrics SDK - Meter, instruments (Counter, Histogram, Gauge), metric exporters
+- OTEL Semantic Conventions - Standard attributes for HTTP, RPC, DB, messaging, K8s, cloud
+- OTEL Collector - Metric collection, processing, batching, and export
+- OTEL Protocol (OTLP) - gRPC and HTTP/JSON metric transport
+- Exemplars - Link metrics to traces for high-cardinality debugging
+
+**Metric Libraries & Instrumentation**:
+- Prometheus Client Libraries - Go, Java, Python, Ruby, .NET client libraries
+- OpenTelemetry SDKs - Language-specific instrumentation for metrics collection
+- Micrometer - Vendor-neutral application metrics facade for JVM
+- StatsD Client Libraries - UDP metric submission from applications
+- Datadog SDKs - DogStatsD protocol, tracing integration
+- New Relic Agents - Language agents with automatic instrumentation
+
+**Cardinality Management**:
+- Prometheus Relabeling - Drop high-cardinality labels, normalize values
+- Metric Limits - Configure max samples per scrape, label count limits
+- Adaptive Metrics - Dynamic sampling, aggregation, and filtering (Datadog, Lightstep)
+- Cardinality Estimation - Bloom filters, HyperLogLog for cardinality tracking
+- Cost Attribution - Tag-based cost allocation and chargeback
+
+**Query Languages**:
+- PromQL - Prometheus Query Language for time-series queries and aggregations
+- LogQL - Grafana Loki log query language (similar to PromQL)
+- Flux - InfluxDB functional data scripting language
+- MetricsQL - VictoriaMetrics query language (PromQL extension)
+- M3 Query Language - M3DB query capabilities
+- CloudWatch Insights - Metric math, search expressions, anomaly detection
+
+**Metric Exporters**:
+- Node Exporter - Hardware and OS metrics from Linux/Unix systems
+- kube-state-metrics - Kubernetes object state metrics
+- cAdvisor - Container resource usage metrics
+- Blackbox Exporter - Probing endpoints (HTTP, HTTPS, DNS, TCP, ICMP)
+- Custom Exporters - Application-specific Prometheus exporters
+
+**Standards & Best Practices**:
+- Google SRE Book - Monitoring distributed systems chapter
+- SLI/SLO Framework - Service level metrics and reliability tracking
+- RED Metrics - Rate, Errors, Duration for services
+- USE Metrics - Utilization, Saturation, Errors for resources
+- Four Golden Signals - Latency, Traffic, Errors, Saturation
 
 ## Integration Points
 

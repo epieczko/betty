@@ -2,43 +2,65 @@
 
 ## Executive Summary
 
-The Acceptable Use Policy is a formal directive that establishes organizational rules, standards, and requirements for acceptable use. This governance artifact provides mandatory guidance that applies across the organization, ensuring consistency, compliance, and risk management.
+The Acceptable Use Policy (AUP) is a formal directive that establishes organizational rules, standards, and requirements for appropriate use of information systems, networks, applications, and data. This governance artifact leverages industry frameworks including NIST SP 800-53 (AC-20, PS-6, PS-8), ISO 27001 (A.8.1.3, A.11.2), and CIS Controls v8 (5.4, 6.1, 6.2) to define permissible activities and prohibited behaviors for all users accessing organizational resources.
 
-As a cornerstone of organizational governance, policies translate strategic intent and risk appetite into concrete requirements. They establish the "rules of the road" that guide behavior, decision-making, and operational activities while providing the foundation for controls, procedures, and audit criteria.
+Modern AUPs address contemporary security challenges including shadow IT detection through Cloud Access Security Broker (CASB) platforms (e.g., Netskope, Zscaler, Microsoft Defender for Cloud Apps), Bring Your Own Device (BYOD) management via Enterprise Mobility Management (EMM) solutions (e.g., Intune, Jamf, VMware Workspace ONE), and acceptable use monitoring through Data Loss Prevention (DLP) tools (e.g., Symantec DLP, Forcepoint, Digital Guardian) and User and Entity Behavior Analytics (UEBA) platforms (e.g., Exabeam, Splunk UBA, Microsoft Sentinel). The policy establishes clear boundaries around personal use, social media engagement, email usage, internet browsing, software installation, mobile device usage, remote access, and third-party service adoption.
 
 ### Strategic Importance
 
-- **Risk Management**: Mitigates organizational risk through standardized requirements
-- **Compliance Assurance**: Ensures adherence to regulatory and legal obligations
-- **Consistency**: Drives uniform approach across business units and geographies
-- **Accountability**: Establishes clear expectations and consequences
-- **Efficiency**: Reduces redundant decision-making through established standards
+- **Risk Management**: Mitigates insider threats, data exfiltration, malware infections, and compliance violations through clearly defined usage boundaries and automated enforcement mechanisms
+- **Compliance Assurance**: Ensures adherence to SOC 2 Type II (CC6.1, CC6.7), GDPR Article 32, CCPA, PCI DSS Requirement 12.3, HIPAA Security Rule 164.308(a)(3), and industry-specific regulations
+- **Shadow IT Governance**: Controls unauthorized SaaS adoption, unmanaged cloud storage, and rogue application usage through CASB discovery and enforcement
+- **BYOD Security**: Establishes mandatory mobile device management (MDM), containerization, and acceptable personal device usage patterns
+- **Legal Protection**: Provides legal basis for monitoring, investigation, and employment actions; establishes no expectation of privacy for business systems
+- **Incident Response Foundation**: Defines baseline for anomalous behavior detection and security incident investigation criteria
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact establishes mandatory requirements for appropriate use of all organizational technology resources, defines prohibited activities, specifies monitoring and enforcement mechanisms, and establishes accountability framework for user behavior. It serves as the foundation for security awareness training, user access agreements, violation investigation procedures, and progressive disciplinary actions.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- **Authorized Systems & Applications**: Corporate laptops, desktops, mobile devices, email systems (Microsoft 365, Google Workspace), collaboration platforms (Slack, Teams, Zoom), approved SaaS applications, VPN/remote access, corporate Wi-Fi networks
+- **Shadow IT Detection & Control**: CASB-based discovery of unauthorized cloud services, unapproved file sharing (Dropbox, WeTransfer, personal Google Drive), rogue collaboration tools, unmanaged browser extensions, personal VPN usage on corporate devices
+- **BYOD Management**: Personal smartphone/tablet usage for business purposes, MDM enrollment requirements, containerization/sandboxing (e.g., Microsoft Intune MAM, Samsung Knox, BlackBerry UEM), acceptable use of personal devices, separation of personal/business data
+- **Acceptable Use Monitoring**: DLP policy enforcement, email content filtering, web proxy/filtering (Cisco Umbrella, Zscaler), egress traffic monitoring, USB device controls, print job logging, screen recording for privileged users
+- **Internet & Email Usage**: Personal use limitations (e.g., up to 30 minutes/day), prohibited websites (adult content, gambling, hate speech), social media policies, external email forwarding restrictions, attachment restrictions
+- **Software & Application Control**: Approved software catalog, software installation restrictions (admin rights), application allowlisting/blocklisting, license compliance, open-source software usage policies
+- **Data Handling Requirements**: Permissible data download/upload, encryption requirements for sensitive data, prohibition on storing regulated data in unauthorized locations, secure file transfer requirements
+- **Remote Access Standards**: VPN usage requirements, multi-factor authentication (MFA) mandates, remote desktop protocols, acceptable remote work locations (not public Wi-Fi without VPN)
+- **Mobile Device Usage**: Corporate mobile device policies, acceptable personal use, roaming/international usage, mobile app installation restrictions, jailbreaking/rooting prohibitions
+- **Social Media & External Communication**: Prohibition on unauthorized company representation, confidential information disclosure restrictions, social engineering awareness
+- **Consequences & Enforcement**: Violation investigation procedures, progressive discipline (warning, suspension, termination), legal action for criminal violations, system access revocation procedures
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- **Incident Response Procedures**: Covered in incident-response-plan artifact (how to respond to security events, breach notification, forensic procedures)
+- **Data Classification Standards**: Covered in data-classification-policy artifact (how to label and handle different data types)
+- **Access Control Requirements**: Covered in access-control-policy artifact (role-based access, least privilege, provisioning/deprovisioning workflows)
+- **Cryptography Standards**: Covered in cryptographic-standards artifact (encryption algorithms, key management, certificate requirements)
+- **Physical Security**: Covered in physical-security-policy artifact (badge access, visitor management, device theft reporting)
+- **Third-Party Vendor Security**: Covered in vendor-risk-management artifact (vendor assessments, SLA requirements, data processing agreements)
+- **Specific Application Usage Procedures**: Covered in system-specific user guides and standard operating procedures
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- **All Employees, Contractors, and Temporary Workers**: Must read, acknowledge, and comply with policy; sign acceptable use agreement annually
+- **Chief Information Security Officer (CISO)**: Approves policy, defines monitoring mechanisms, authorizes enforcement actions
+- **IT Security Team**: Implements technical controls (DLP, CASB, web filtering), investigates violations, produces compliance reports
+- **Human Resources (HR)**: Integrates into onboarding process, conducts violation investigations with IT Security, administers disciplinary actions
+- **Legal/Compliance Team**: Reviews policy for legal sufficiency, advises on monitoring legality, supports termination for cause proceedings
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- **IT Helpdesk & Support Teams**: Assists users with compliance questions, reports suspicious behavior, enforces software installation policies
+- **Managers & Supervisors**: Monitors team compliance, addresses minor violations, escalates serious violations to HR/Security
+- **Internal Audit**: Validates policy compliance, tests control effectiveness, reviews violation logs and disciplinary actions
+- **Privacy Officer/Data Protection Officer (DPO)**: Ensures monitoring activities comply with privacy regulations, reviews employee privacy impact assessments
+- **External Auditors**: Reviews policy during SOC 2, ISO 27001, PCI DSS, or regulatory audits
+- **Board of Directors/Audit Committee**: Reviews policy annually as part of cybersecurity governance oversight
 
 ## Document Information
 
@@ -121,6 +143,18 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 **Exception Process**: Define clear exception request and approval process
 **Communication Plan**: Communicate policy broadly with training as needed
 **Enforcement Mechanism**: Define how compliance is monitored and enforced
+**Shadow IT Discovery**: Deploy CASB in discovery mode initially; analyze 30-90 days of cloud application usage before enforcing blocks
+**DLP Tuning**: Implement DLP policies in monitor-only mode for 60-90 days; tune false positives before enforcement mode
+**BYOD Enrollment**: Offer incentives for voluntary MDM enrollment; clearly communicate privacy boundaries (what corporate IT can/cannot see)
+**User Acknowledgment**: Require annual re-acceptance of AUP; track acknowledgments in HRIS; block access for non-compliant users
+**Monitoring Transparency**: Clearly communicate that systems are monitored; eliminate expectation of privacy; comply with jurisdictional notification requirements
+**Acceptable Personal Use**: Define reasonable limits (e.g., 30 minutes/day) rather than absolute prohibition; increases compliance and morale
+**Progressive Discipline**: Establish tiered response (1st offense: warning + training, 2nd: written warning, 3rd: suspension, 4th: termination); exceptions for egregious violations
+**Executive Exemptions**: Avoid creating executive carve-outs that undermine policy credibility; apply monitoring to all levels
+**Regular Awareness Training**: Integrate AUP into annual security awareness training; include real examples of violations and consequences
+**Periodic Policy Reviews**: Review annually and after major incidents; update for new technologies (e.g., generative AI, ChatGPT usage)
+**Metrics & Reporting**: Track violation rates by department, violation type, time-to-resolution; report to senior leadership quarterly
+**Integration with Offboarding**: Ensure HR offboarding checklist includes AUP violation review and system access revocation verification
 
 ## Quality Criteria
 
@@ -167,9 +201,52 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Security & Privacy Frameworks**:
+- NIST SP 800-53 Rev 5: AC-20 (Use of External Systems), PS-6 (Access Agreements), PS-8 (Personnel Sanctions), SI-4 (System Monitoring)
+- NIST Cybersecurity Framework (CSF): PR.AT-1 (Users informed and trained), DE.CM-1 (Network monitored), DE.AE-2 (Detected events analyzed)
+- ISO/IEC 27001:2022: A.6.4 (Disciplinary process), A.8.1.3 (Acceptable use of assets), A.8.2.3 (Handling of assets), A.11.2.6 (Security of equipment off-premises)
+- ISO/IEC 27002:2022: 5.10 (Acceptable use of information), 6.4 (Disciplinary process), 8.1 (User endpoint devices)
+- CIS Controls v8: 5.4 (Restrict Administrator Privileges), 6.1 (Establish Access Control Policy), 6.2 (Establish Access Based on Need to Know), 7.3 (Perform Automated Operating System Patch Management), 9.2 (Ensure Only Approved Ports, Protocols and Services Are Running), 13.6 (Encrypt Mobile Device Data)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Compliance Regulations**:
+- SOC 2 Type II: CC6.1 (Logical and physical access controls), CC6.7 (Restricts access to system resources), CC7.2 (System monitoring)
+- GDPR (EU): Article 32 (Security of processing), Article 88 (Processing in employment context - monitoring legality), Recital 39 (Processing of personal data should be designed to serve mankind)
+- CCPA (California): Section 1798.100 (Notice at collection - employee monitoring), Section 1798.140(o) (Personal information definition)
+- PCI DSS v4.0: Requirement 12.3 (Acceptable use policies for critical technologies), Requirement 8.2 (User authentication), Requirement 10.2 (Audit logs)
+- HIPAA Security Rule: 164.308(a)(3)(i) (Workforce clearance procedure), 164.308(a)(4)(ii)(C) (Termination procedures), 164.310(b) (Workstation use)
+- GLBA (Financial Services): 16 CFR Part 314.4(c) (Information security program - access controls and monitoring)
+- FISMA/FedRAMP: AC-20 (Use of External Systems), PS-6 (Access Agreements), SI-4 (Information System Monitoring)
+
+**Industry Best Practices**:
+- SANS Security Policy Templates: Acceptable Use Policy template and implementation guidance
+- NIST SP 800-46 Rev 2: Guide to Enterprise Telework, Remote Access, and BYOD Security
+- NIST SP 800-114 Rev 1: User's Guide to Telework and BYOD Security
+- NIST SP 800-124 Rev 2: Guidelines for Managing the Security of Mobile Devices in the Enterprise
+- ENISA: Bring Your Own Device (BYOD) Security Guidelines
+- Cloud Security Alliance (CSA): Security Guidance for Critical Areas of Cloud Computing - CASB Usage
+- ITIL 4: Service Desk function for policy exception handling and user support
+
+**Privacy & Employment Law Considerations**:
+- Electronic Communications Privacy Act (ECPA): Employer monitoring provisions, consent requirements
+- Computer Fraud and Abuse Act (CFAA): Unauthorized access definitions, exceeding authorized access
+- EU ePrivacy Directive (2002/58/EC): Cookies, electronic communications confidentiality, employee monitoring
+- State-specific privacy laws: New York SHIELD Act, Virginia CDPA, Colorado Privacy Act (employee data protections)
+- National Labor Relations Act (NLRA): Protected concerted activity considerations in policy language
+- Works Council consultation requirements (EU): Employee representative involvement in monitoring policies
+
+**Technology-Specific Standards**:
+- IEEE 802.1X: Network Access Control for authentication and authorization
+- OWASP Mobile Security Project: Mobile application security requirements for BYOD
+- NIST SP 1800-22: Mobile Device Security: Cloud and Hybrid Builds
+- FIPS 140-2/140-3: Cryptographic module standards for mobile device encryption
+- ISO/IEC 27032: Cybersecurity guidelines for internet usage policies
+- ISO/IEC 27035: Incident management (policy violation investigation procedures)
+
+**Monitoring & DLP Standards**:
+- ISO/IEC 27040: Storage security - data retention and secure deletion
+- Gartner Magic Quadrant for Enterprise DLP: Vendor selection and capability benchmarking
+- Forrester Wave for DLP: Technology evaluation and implementation best practices
+- CASB Vendor Comparisons: Gartner, Forrester reports on shadow IT discovery capabilities
 
 ## Integration Points
 

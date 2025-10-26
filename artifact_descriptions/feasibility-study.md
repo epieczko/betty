@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Feasibility Study is a critical deliverable within the Inception / Strategy phase, supporting Business & Strategy activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Feasibility Study is a comprehensive assessment artifact that evaluates whether a proposed initiative is viable across market, technical, financial, and operational dimensions. Using frameworks like SWOT analysis, Porter's Five Forces, PESTLE analysis, and TAM/SAM/SOM market sizing, this study provides executive leadership and portfolio management with evidence-based recommendations on whether to proceed, pivot, or pass on an opportunity.
 
-As a core component of the Business & Strategy practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Modern feasibility studies leverage collaborative platforms (Miro, Mural, Confluence) and financial modeling tools to analyze market opportunity, technical feasibility, resource requirements, and return on investment. The study synthesizes market research, competitive intelligence, technical assessments, and financial projections (NPV, IRR, payback period) into a decision-ready format. It directly feeds strategic decision frameworks like DACI (Driver, Approver, Contributor, Informed) and RAPID (Recommend, Agree, Perform, Input, Decide) to support go/no-go investment decisions.
 
 ### Strategic Importance
 
@@ -20,27 +20,40 @@ As a core component of the Business & Strategy practice, this artifact serves mu
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+The Feasibility Study provides evidence-based analysis across market, technical, financial, and operational dimensions to support go/no-go investment decisions. It answers critical questions: Is there market demand? Can we build it? Will it be profitable? Do we have the capabilities? The study enables portfolio management and executive leadership to make informed decisions using structured frameworks (SWOT, Porter's Five Forces, financial analysis) and quantitative projections.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Market analysis and sizing (TAM/SAM/SOM methodology)
+- Competitive landscape assessment (Porter's Five Forces, competitive positioning)
+- Technical feasibility evaluation (architecture options, technology assessment, build vs. buy)
+- Financial viability analysis (NPV, IRR, payback period, ROI projections)
+- SWOT analysis (Strengths, Weaknesses, Opportunities, Threats)
+- PESTLE analysis (Political, Economic, Social, Technological, Legal, Environmental factors)
+- Resource requirements assessment (people, technology, budget)
+- Risk assessment and mitigation strategies
+- Scenario analysis (best case, base case, worst case)
+- Go/no-go recommendation with supporting rationale
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed project execution plans (covered in Project Charter, Implementation Plan)
+- Full business case development (covered in Business Case artifact)
+- Detailed technical architecture (covered in Solution Architecture)
+- Vendor selection and RFP process (covered in Vendor Selection artifacts)
+- Change management planning (covered in Change Management Plan)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- **Executive Leadership** (CEO, CFO, CTO): Makes final investment decision based on study recommendations
+- **Portfolio Management**: Evaluates opportunity against other potential investments
+- **Product Leaders**: Assesses product-market fit and strategic alignment
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- **Program Managers**: Plans execution if approved
+- **Finance Teams**: Reviews financial assumptions and projections
+- **Technical Leadership**: Validates technical feasibility and architecture approaches
 
 ## Document Information
 
@@ -119,9 +132,21 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 **Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
 **Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
 **Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
-**Market Validation**: Validate assumptions with market research and customer feedback
-**Financial Rigor**: Use discounted cash flow, NPV, and scenario analysis for financial projections
-**Competitive Intelligence**: Incorporate competitive analysis and market positioning
+**Market-First Approach**: Start with market analysis (TAM/SAM/SOM) before diving into technical details
+**Financial Rigor**: Use NPV, IRR, and scenario analysis; include sensitivity analysis for key assumptions
+**Competitive Intelligence**: Apply Porter's Five Forces and competitive positioning analysis systematically
+**SWOT Integration**: Conduct comprehensive SWOT analysis involving cross-functional stakeholders
+**Multi-Scenario Modeling**: Develop best case, base case, and worst case financial scenarios
+**Assumption Documentation**: Explicitly document and validate all critical assumptions
+**Technical Realism**: Involve technical architects early; avoid over-optimistic technical assessments
+**Risk Quantification**: Quantify risks financially where possible; use probability × impact matrices
+**Pre-Mortem Analysis**: Conduct pre-mortem sessions to identify potential failure modes
+**Stakeholder Validation**: Validate market assumptions through customer interviews and market research
+**Decision Framework**: Structure recommendations to support DACI or RAPID decision processes
+**Build vs. Buy**: Rigorously evaluate build vs. buy vs. partner options with TCO analysis
+**Tools for Collaboration**: Use Miro/Mural for collaborative SWOT, market mapping workshops
+**Data-Driven**: Base conclusions on quantitative data; avoid purely qualitative assessments
+**Clear Recommendation**: Provide unambiguous go/no-go recommendation with supporting rationale
 
 ## Quality Criteria
 
@@ -168,7 +193,76 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Market Analysis Frameworks**:
+- TAM/SAM/SOM (Total Addressable Market, Serviceable Available Market, Serviceable Obtainable Market)
+- Porter's Five Forces - Competitive dynamics analysis
+- Competitive positioning maps and matrices
+- Market segmentation frameworks
+- Customer discovery methodologies (Lean Startup, Jobs to Be Done)
+- Market research methodologies (surveys, interviews, focus groups)
+- Gartner Hype Cycle - Technology maturity assessment
+- Technology Adoption Lifecycle (Crossing the Chasm)
+
+**Strategic Analysis Frameworks**:
+- SWOT Analysis (Strengths, Weaknesses, Opportunities, Threats)
+- PESTLE Analysis (Political, Economic, Social, Technological, Legal, Environmental)
+- TOWS Matrix - Strategic options from SWOT
+- Value Chain Analysis - Porter's framework
+- Core Competency Assessment - Prahalad & Hamel
+- Resource-Based View (RBV) - Competitive advantage analysis
+- Blue Ocean Strategy - Value innovation assessment
+
+**Financial Analysis Methods**:
+- Net Present Value (NPV) - Discounted cash flow analysis
+- Internal Rate of Return (IRR)
+- Payback Period calculation
+- Return on Investment (ROI) projections
+- Break-even analysis
+- Sensitivity analysis and scenario modeling
+- Monte Carlo simulation for uncertainty
+- Weighted Average Cost of Capital (WACC)
+- Cost-Benefit Analysis (CBA)
+- Total Cost of Ownership (TCO)
+
+**Technical Feasibility Frameworks**:
+- Technology Readiness Levels (TRL) - NASA framework
+- Build vs. Buy decision frameworks
+- Make vs. Buy vs. Partner analysis
+- Technical architecture assessment frameworks
+- Technology stack evaluation criteria
+- Proof of Concept (PoC) planning
+- Minimum Viable Product (MVP) scoping
+- Technical debt assessment
+
+**Risk Assessment Frameworks**:
+- Risk matrices (probability × impact)
+- FMEA (Failure Mode and Effects Analysis)
+- Pre-mortem analysis - Gary Klein methodology
+- Risk-adjusted return calculations
+- Scenario planning - Shell methodology
+- Decision trees for uncertain outcomes
+- Real Options Analysis - Strategic flexibility valuation
+
+**Decision Support Frameworks**:
+- DACI (Driver, Approver, Contributor, Informed) - Intuit
+- RAPID (Recommend, Agree, Perform, Input, Decide) - Bain & Company
+- Decision Matrix Analysis (weighted scoring)
+- Cost of Delay (CD3) - Don Reinertsen
+- Cynefin Framework - Dave Snowden (complexity assessment)
+- Multi-criteria decision analysis (MCDA)
+
+**Collaborative Analysis Tools**:
+- Miro - Market mapping, SWOT workshops, competitive analysis
+- Mural - Strategy workshops, feasibility assessment sessions
+- Confluence - Study documentation and collaboration
+- LucidChart - Process flows, competitive positioning maps
+- ProductPlan - Market opportunity visualization
+- Aha! - Strategic assessment and roadmap planning
+
+**Financial Modeling Tools**:
+- Excel/Google Sheets - Financial modeling
+- Tableau/Power BI - Market data visualization
+- Adaptive Insights / Anaplan - Planning and modeling platforms
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

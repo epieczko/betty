@@ -2,45 +2,58 @@
 
 ## Executive Summary
 
-The Acceptance Criteria is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Acceptance Criteria are the specific, testable conditions that must be met for a user story, feature, or requirement to be considered complete and accepted. Written in clear, unambiguous language often using Given/When/Then (Gherkin) format from Behavior-Driven Development (BDD), acceptance criteria transform vague requirements into concrete, verifiable specifications that guide development, testing, and product acceptance.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As the definition of "done" for individual work items, acceptance criteria provide product owners with assurance that features meet business needs, developers with clear implementation targets, QA engineers with test scenarios, and stakeholders with transparent validation of deliverables. They shift quality left by defining expectations before development begins, reducing rework and misalignment.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Shared Understanding**: Creates common definition of "done" between product, development, QA, and stakeholders
+- **Testability**: Provides specific, measurable scenarios that can be automated (BDD frameworks: Cucumber, SpecFlow, Behave)
+- **Scope Control**: Prevents scope creep by clearly defining boundaries of each feature
+- **Quality Assurance**: Enables test-driven development (TDD) and behavior-driven development (BDD)
+- **Reduced Rework**: Catches misalignments early when implementing against clear criteria
+- **Sprint Planning**: Helps teams estimate work by understanding scope and complexity
+- **Product Acceptance**: Provides objective criteria for user acceptance testing (UAT) and product owner sign-off
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+Acceptance Criteria define the specific, testable conditions that determine when a user story or feature is complete, written in Given/When/Then (Gherkin) format or structured checklists to enable objective validation and automated testing.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Given/When/Then format: "Given [context], When [action], Then [outcome]" (Gherkin/BDD)
+- Scenario coverage: Happy path, alternative flows, edge cases, error handling
+- Functional criteria: Feature behavior, user interactions, system responses
+- Non-functional criteria: Performance thresholds, accessibility requirements, browser compatibility
+- Data validation: Input validation, data format requirements, boundary conditions
+- UI/UX criteria: Display requirements, responsiveness, user feedback
+- Negative testing: Error messages, validation failures, unauthorized access attempts
+- Integration points: API responses, third-party service behavior, data synchronization
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Implementation details (how code is written - that's for developers to decide)
+- Comprehensive test cases (AC guides testing but doesn't replace full test suite)
+- Technical architecture (covered in Technical Design)
+- Detailed UI mockups (AC describes behavior, design specs show appearance)
+- Project timelines or estimates (covered in Sprint Planning)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Product Owners writing AC to define feature completion
+- QA/Test Engineers using AC to create test cases and automation
+- Developers implementing features that satisfy AC
+- Business Analysts elaborating AC from requirements
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Scrum Masters ensuring AC meet Definition of Ready
+- Stakeholders validating features during UAT
+- Automated Test Frameworks (Cucumber, SpecFlow, Behave) parsing Gherkin syntax
+- Documentation teams understanding feature behavior
 
 ## Document Information
 

@@ -2,45 +2,66 @@
 
 ## Executive Summary
 
-The Genai Safety Evaluations is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The GenAI Safety Evaluations assess large language models (LLMs) and generative AI systems for safety vulnerabilities including prompt injection, jailbreaking, hallucinations, toxic content generation, data leakage, and adversarial attacks. These evaluations align with OWASP LLM Top 10, NIST AI RMF trustworthy characteristics, and emerging GenAI security frameworks to identify risks specific to foundation models.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+This evaluation documents red teaming exercises, adversarial testing results, hallucination rate measurement, toxicity scoring (Perspective API), prompt injection detection, PII leakage testing, and content filtering effectiveness. It assesses guardrails (input validation, output filtering), RAG security (retrieval poisoning, context injection), agent safety (tool misuse, unintended actions), and model alignment (RLHF effectiveness, value alignment).
+
+The evaluation supports ML Engineers in implementing safety controls, AI Governance Teams in risk assessment for LLM deployments, Security Teams in threat modeling, and Product Teams in understanding safety limitations. It informs deployment decisions, user warnings, content moderation policies, and incident response playbooks for GenAI-specific risks.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Emerging Risk Management**: Addresses novel risks specific to LLMs and GenAI not present in traditional ML models
+- **Security Hardening**: Identifies vulnerabilities to prompt injection, jailbreaking, and adversarial manipulation
+- **Trust & Safety**: Measures hallucination rates, toxicity, bias, and harmful content generation
+- **Data Protection**: Detects PII leakage, training data memorization, and sensitive information disclosure
+- **Regulatory Preparedness**: Aligns with EU AI Act transparency requirements and emerging GenAI regulations
+- **Reputational Protection**: Prevents public safety incidents from unsafe LLM outputs
+- **User Safety**: Protects users from misinformation, harmful advice, and malicious content
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact provides comprehensive safety evaluation of LLMs and GenAI systems to identify vulnerabilities, measure safety metrics, test adversarial robustness, and validate safety controls. It supports risk-based deployment decisions and defines safety monitoring requirements for production LLMs.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Prompt injection attacks: Direct injection, indirect injection, context manipulation
+- Jailbreaking techniques: DAN prompts, persona switching, encoding attacks, multi-turn manipulation
+- Hallucination measurement: Factual accuracy, groundedness, citation accuracy, hallucination rate
+- Toxicity & harmful content: Perspective API toxicity scores, hate speech, violence, self-harm
+- Bias amplification: Stereotyping, demographic biases, representation harms in generation
+- PII & data leakage: Training data memorization, PII extraction, sensitive information disclosure
+- Adversarial robustness: Input perturbations, prompt obfuscation, adversarial suffixes
+- Content filtering: Input validation effectiveness, output filtering, safety guardrails
+- RAG-specific risks: Retrieval poisoning, context injection, citation manipulation
+- Agent safety: Tool misuse, unintended actions, goal misalignment, privilege escalation
+- Model alignment: RLHF effectiveness, value alignment, refusal behavior, safety fine-tuning
+- Red teaming: Structured adversarial testing, attack surface mapping, exploit discovery
+- Safety benchmarks: TruthfulQA, RealToxicityPrompts, BBQ (Bias Benchmark), AdvBench
+- Multi-modal safety: Image generation safety, audio deepfakes, video generation harms
+- Chain-of-thought safety: Reasoning transparency, intermediate step safety
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Traditional ML bias testing (handled by bias assessment artifacts)
+- Model performance metrics (handled by model evaluation reports)
+- Infrastructure security (handled by security assessments)
+- Privacy impact assessments (handled by separate privacy reviews)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- ML Engineers: Implement safety controls, guardrails, content filtering, monitoring
+- AI Safety Researchers: Conduct red teaming, adversarial testing, safety evaluations
+- AI Governance Teams: Assess safety risks, approve LLM deployments, set safety thresholds
+- Security Engineers: Threat model LLM systems, implement security controls
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Product Managers: Understand safety limitations, define user warnings, content policies
+- Legal & Compliance: Assess regulatory compliance, review disclosure requirements
+- Customer Trust & Safety: Define content moderation policies, incident response procedures
+- Executive Leadership: Understand GenAI-specific risks and mitigation strategies
 
 ## Document Information
 
@@ -149,19 +170,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Red Team Before Deployment**: Conduct structured red teaming with adversarial mindset before production deployment
+**OWASP LLM Top 10 Coverage**: Test for all OWASP LLM Top 10 vulnerabilities systematically
+**Automated Safety Testing**: Integrate safety tests (hallucination, toxicity, injection) into CI/CD pipelines
+**Diverse Attack Vectors**: Test multiple jailbreaking techniques (DAN, persona, encoding, multi-turn manipulation)
+**Quantitative Metrics**: Measure hallucination rate, toxicity scores, injection success rate, not just qualitative assessment
+**Benchmark Baselines**: Evaluate on standard benchmarks (TruthfulQA, RealToxicityPrompts, BBQ) for comparability
+**Production Monitoring**: Deploy runtime safety monitoring (Guardrails AI, NeMo Guardrails, LLM Guard)
+**Layered Defenses**: Implement defense-in-depth (input validation, prompt engineering, output filtering, content moderation)
+**RAG Security**: Test retrieval poisoning, context injection; validate document sources
+**Agent Sandboxing**: Restrict agent tool access, implement human-in-loop for high-risk actions
+**PII Detection**: Use automated PII detection (Microsoft Presidio, AWS Comprehend) on inputs and outputs
+**Hallucination Mitigation**: Implement citation requirements, confidence scoring, factuality checking
+**User Warnings**: Provide clear disclaimers about limitations, hallucination risks, accuracy caveats
+**Incident Response**: Define playbooks for safety incidents (viral jailbreak, toxic output, PII leak)
+**Continuous Evaluation**: Re-run safety evaluations after model updates, fine-tuning, or prompt changes
+**Adversarial Suffixes**: Test robustness to adversarial suffixes (GCG attacks, universal adversarial prompts)
+**Multi-Turn Attacks**: Test multi-turn jailbreaking strategies that build context gradually
+**System Prompt Protection**: Use instruction hierarchy, delimiter-based separation to protect system prompts
+**Output Validation**: Implement structured output validation, schema enforcement, content policies
+**Third-Party Model Risk**: Apply same safety rigor to API-based models (GPT-4, Claude, PaLM) as internal models
 
 ## Quality Criteria
 
@@ -208,9 +236,90 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**GenAI Security Frameworks**:
+- OWASP LLM Top 10: Prompt injection, data leakage, model poisoning, supply chain, overreliance
+- NIST AI RMF: Trustworthy AI characteristics (safe, secure, resilient, transparent, accountable)
+- MLCommons AI Safety Benchmark: Standardized safety evaluations for LLMs
+- DeepMind Sparrow principles: Helpful, harmless, honest AI assistant design
+- Anthropic Constitutional AI: Value alignment through self-critique and refinement
+- OpenAI Model Spec: Desired behavior specification for LLMs
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Prompt Injection & Jailbreaking**:
+- Direct prompt injection: System prompt override, instruction hijacking
+- Indirect prompt injection: Retrieval poisoning, web content injection
+- Jailbreak taxonomy: DAN (Do Anything Now), persona switching, ethical dilemma framing
+- Prompt injection defenses: Input validation, output filtering, context isolation
+- LLM Guard: Open-source prompt injection detection and mitigation
+
+**Hallucination & Factuality**:
+- TruthfulQA: Benchmark for measuring truthful question answering
+- HaluEval: Hallucination evaluation benchmark across multiple tasks
+- RAGAS: RAG Assessment metrics (faithfulness, answer relevance, context precision)
+- Groundedness measurement: Citation accuracy, source attribution verification
+- Hallucination rate: % of responses containing factual errors or unsupported claims
+
+**Toxicity & Harmful Content**:
+- Perspective API: Toxicity, severe toxicity, identity attack, profanity, threat scores
+- RealToxicityPrompts: Benchmark for toxic language generation
+- ToxiGen: Adversarially collected toxicity generation benchmark
+- CivilComments: Toxicity classification dataset and benchmark
+- Content filtering: OpenAI Moderation API, Azure Content Safety, LlamaGuard
+
+**Bias & Fairness in GenAI**:
+- BBQ (Bias Benchmark for Question Answering): Stereotype bias measurement
+- BOLD (Bias in Open-Ended Language Generation): Fairness in text generation
+- Winogender: Gender bias in coreference resolution
+- HONEST: Hurtful Sentence Completion for bias measurement
+- Demographic representation in generation: Analyze generated content for stereotyping
+
+**Red Teaming & Adversarial Testing**:
+- Red LM: Red teaming language models for safety
+- AdvBench: Adversarial attack benchmark for LLMs
+- HarmBench: Automated red teaming for LLM safety
+- PICT (Prompt Injection Attack Classification): Taxonomy of injection attacks
+- Garak: LLM vulnerability scanner
+
+**RAG-Specific Safety**:
+- Retrieval poisoning: Adversarial documents in knowledge base
+- Context injection: Malicious instructions in retrieved context
+- Citation manipulation: False attribution, source fabrication
+- RAG guardrails: Document verification, source authentication, context validation
+
+**Agent Safety**:
+- Tool misuse: Unintended API calls, privilege escalation
+- Goal misalignment: Agent pursuing unintended objectives
+- Deceptive behavior: Agent hiding true intentions or actions
+- Shutdown avoidance: Agent resisting oversight or control
+- Agent containment: Sandboxing, capability limitations, oversight mechanisms
+
+**Model Alignment Methods**:
+- RLHF (Reinforcement Learning from Human Feedback): Proximal Policy Optimization
+- DPO (Direct Preference Optimization): Alternative to RLHF without reward model
+- Constitutional AI: Self-critique and refinement based on principles
+- Red teaming feedback: Adversarial testing to identify safety gaps
+- Safety fine-tuning: Supervised fine-tuning on safe responses
+
+**Safety Benchmarks**:
+- TruthfulQA: Truthfulness across 38 categories
+- RealToxicityPrompts: Toxicity continuation benchmark
+- BBQ: Bias benchmark for question answering
+- AdvBench: Adversarial attacks benchmark
+- HarmBench: Safety evaluation across harm categories
+- SafetyBench: Comprehensive Chinese and English safety evaluation
+
+**Multi-Modal Safety**:
+- DALL-E content policy: Image generation safety guidelines
+- Stable Diffusion safety filter: NSFW content detection
+- Audio deepfake detection: Synthetic speech identification
+- Video generation safety: Deepfake, non-consensual imagery prevention
+
+**Regulatory & Policy Frameworks**:
+- EU AI Act Article 50: Transparency obligations for generative AI
+- Executive Order on Safe AI: Safety testing requirements
+- NIST GenAI profile: Risk management for generative AI
+- Partnership on AI responsible practices: GenAI deployment guidelines
+
+**Reference**: Consult AI Safety Team and Security Engineering for GenAI-specific threat models and mitigation strategies
 
 ## Integration Points
 

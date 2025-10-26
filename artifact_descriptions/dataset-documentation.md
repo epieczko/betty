@@ -2,45 +2,72 @@
 
 ## Executive Summary
 
-The Dataset Documentation is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Dataset Documentation provides comprehensive metadata and contextual information about datasets, following industry standards including Datasheets for Datasets (Microsoft), Data Nutrition Labels (MIT), and dataset metadata schemas (DCAT, Schema.org). This artifact enables data discovery, quality assessment, appropriate usage, regulatory compliance, and responsible data practices through systematic documentation of dataset characteristics, collection methodology, known limitations, and ethical considerations.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Modern dataset documentation integrates with data catalogs like DataHub, Amundsen, OpenMetadata, and Apache Atlas to provide searchable, version-controlled dataset metadata with automated lineage tracking. By documenting data sources, collection procedures, data quality metrics, sensitive attributes, bias considerations, and usage restrictions, this artifact supports data governance, GDPR compliance, informed model training decisions, and cross-functional collaboration between data engineers, data scientists, legal teams, and business stakeholders.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Data Discoverability**: Enables efficient discovery of datasets through rich metadata in data catalogs
+- **Informed Usage**: Ensures appropriate dataset usage through documentation of limitations and intended use cases
+- **Data Quality**: Establishes quality expectations through documented completeness, accuracy, and freshness metrics
+- **Regulatory Compliance**: Satisfies GDPR data inventory, CCPA consumer rights, and sector-specific requirements
+- **Responsible Data Practices**: Addresses privacy, fairness, and ethical data collection considerations
+- **Reproducibility**: Enables reproducible research and model training through versioned dataset snapshots
+- **Risk Mitigation**: Documents data risks, biases, and limitations to prevent misuse
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as comprehensive metadata documentation for datasets, enabling discovery, assessment, appropriate usage, quality validation, and regulatory compliance. It provides essential context about data sources, collection methodology, quality characteristics, limitations, and ethical considerations necessary for informed data usage decisions.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Dataset overview including name, description, purpose, and business context
+- Data source information with system of origin, collection methodology, and update frequency
+- Schema documentation with field names, data types, constraints, and relationships
+- Data quality metrics including completeness, accuracy, consistency, and timeliness
+- Statistical summaries with distribution statistics, null rates, and cardinality
+- Sample data and example records (where privacy-safe)
+- Data lineage with upstream sources and transformation logic
+- Access controls and data classification (PII, confidential, public)
+- Usage guidelines including intended use cases and known limitations
+- Privacy considerations with sensitive attributes and de-identification methods
+- Bias assessment documenting known biases and representation gaps
+- Version history with dataset versioning and snapshot management
+- Refresh schedule and staleness indicators
+- Data ownership with steward, owner, and contact information
+- Regulatory metadata for GDPR, CCPA, HIPAA compliance
+- Known issues and caveats with workarounds or mitigation strategies
+- Related datasets and dependencies
+- Retention policies and archival procedures
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Actual dataset contents (reference data storage location instead)
+- Data processing code and ETL pipelines (reference code repositories)
+- Model documentation (covered in model documentation artifact)
+- General data governance policies (reference organization policies)
+- Specific analytical insights derived from the data
+- Business intelligence reports and dashboards
+- Real-time data monitoring and alerting (operational concern)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Data scientists selecting datasets for analysis and model training
+- Data engineers building data pipelines and integrations
+- Analytics engineers creating data transformations and marts
+- Data consumers evaluating dataset fitness for purpose
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Data stewards managing data quality and governance
+- Privacy officers assessing data privacy compliance
+- Legal teams evaluating data usage restrictions
+- Compliance teams ensuring regulatory adherence
+- Business stakeholders understanding data availability
+- External researchers or partners accessing shared datasets
 
 ## Document Information
 
@@ -165,7 +192,67 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**Data Management**: DAMA-DMBOK, DCAM, Data Governance Framework
+**Dataset Documentation Standards**:
+- Datasheets for Datasets (Microsoft): Comprehensive dataset documentation framework
+- Data Nutrition Labels (MIT): Dataset health and transparency labels
+- Dataset Documentation (Hugging Face): ML dataset cards and documentation
+- OpenML Dataset Metadata: Machine learning dataset descriptions
+- Croissant (MLCommons): ML-ready dataset metadata format
+
+**Metadata Standards**:
+- DCAT (Data Catalog Vocabulary): W3C standard for dataset catalogs
+- Schema.org Dataset: Structured data markup for datasets
+- Dublin Core Metadata Terms: Cross-domain resource description
+- ISO 19115: Geographic information metadata standards
+- DDI (Data Documentation Initiative): Social science data documentation
+- PROV-O: W3C provenance ontology for data lineage
+
+**Data Catalogs & Discovery**:
+- DataHub (LinkedIn): Open-source metadata platform with data discovery
+- Amundsen (Lyft): Data discovery and metadata engine
+- OpenMetadata: Open-source metadata platform for data teams
+- Apache Atlas: Data governance and metadata management
+- Alation: Enterprise data catalog with collaborative features
+- Collibra: Data intelligence and governance platform
+- Google Data Catalog: GCP-native metadata management
+- AWS Glue Data Catalog: AWS metadata repository
+
+**Data Quality Frameworks**:
+- DAMA-DMBOK: Data Management Body of Knowledge
+- ISO 8000: Data quality standards
+- DCAM (Data Management Capability Assessment Model): EDM Council framework
+- Great Expectations: Data validation and documentation
+- Soda Core: Data quality testing and monitoring
+- deequ (Amazon): Data quality validation library
+
+**Data Governance & Compliance**:
+- GDPR (General Data Protection Regulation): EU data privacy requirements
+- CCPA (California Consumer Privacy Act): California privacy law
+- HIPAA: Healthcare data protection standards
+- SOX (Sarbanes-Oxley): Financial data controls
+- BCBS 239: Banking data risk principles
+- ISO 27001: Information security management
+
+**Data Lineage & Provenance**:
+- OpenLineage: Open standard for data lineage collection
+- PROV-DM (W3C): Provenance data model
+- Marquez (OpenLineage): Metadata service for lineage tracking
+- Spline (Apache): Data lineage tracking for Spark
+- Egeria (ODPi): Open metadata and governance framework
+
+**Privacy & De-identification**:
+- k-anonymity / l-diversity / t-closeness: Privacy models
+- Differential Privacy: Privacy-preserving data analysis
+- NIST Privacy Framework: Privacy risk management
+- ISO 29100: Privacy framework standards
+- Anonymization techniques: Generalization, suppression, perturbation
+
+**Data Versioning & Reproducibility**:
+- DVC (Data Version Control): Git-like versioning for data
+- LakeFS: Git-like version control for data lakes
+- Pachyderm: Data versioning and pipelines
+- Delta Lake: ACID transactions and versioning for data lakes
+- Apache Iceberg: Table format with snapshot isolation
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

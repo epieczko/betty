@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Installation Guides is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Installation Guides provide step-by-step instructions for deploying software, configuring systems, and setting up environments from initial prerequisites through final verification. Following the Diátaxis Framework's how-to guide format, installation documentation addresses multiple deployment scenarios (bare metal, virtual machines, containers, cloud platforms, package managers) with platform-specific instructions, prerequisite checks, troubleshooting guidance, and verification steps to ensure successful installations.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+These guides implement docs-as-code practices, storing documentation alongside deployment automation (Ansible playbooks, Terraform modules, Helm charts, Docker Compose files) in version control, testing installation procedures in CI/CD pipelines, and maintaining version-specific documentation synchronized with software releases. Written in clear, procedural language following the Google Developer Documentation Style Guide, installation guides include command examples with expected output, prerequisite validation scripts, common error resolutions, and rollback procedures to minimize deployment friction and reduce time-to-value.
 
 ### Strategic Importance
 
@@ -20,27 +20,52 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+Installation Guides enable successful software deployment by providing comprehensive, tested procedures that cover prerequisites, installation steps, configuration, verification, and troubleshooting. They solve the problem of failed or incomplete installations by anticipating common issues, providing clear instructions with expected outcomes, and offering multiple deployment paths for different environments and use cases.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- System prerequisites and requirements (hardware, software, dependencies, network, permissions)
+- Pre-installation checks and validation scripts
+- Installation methods (package managers, installers, source builds, containers, cloud marketplace)
+- Platform-specific installation (Linux distributions, Windows, macOS, cloud platforms)
+- Container deployment (Docker, Kubernetes, Helm charts)
+- Configuration procedures (initial setup, environment variables, configuration files)
+- Database setup and initialization
+- Service startup and daemon configuration
+- SSL/TLS certificate installation
+- Network configuration (ports, firewall rules, DNS)
+- Authentication and authorization setup
+- Post-installation verification and smoke tests
+- License activation and registration
+- Common installation errors and resolutions
+- Troubleshooting diagnostics and logs
+- Uninstallation and cleanup procedures
+- Offline/air-gapped installation procedures
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Ongoing system administration (covered in admin guides)
+- Upgrade and migration procedures (covered in upgrade guides)
+- Detailed feature configuration (covered in admin guides)
+- Performance tuning and optimization (covered in admin guides)
+- Application usage and end-user procedures (covered in user guides)
+- Development environment setup (covered in developer handbook)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- System Administrators installing software on production systems
+- DevOps Engineers automating deployment pipelines
+- IT Operations teams deploying to enterprise environments
+- Site Reliability Engineers (SREs) managing infrastructure
+- Technical evaluators testing software in proof-of-concept
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Technical Writers maintaining installation documentation
+- Quality Assurance teams testing installation procedures
+- Support Engineers troubleshooting installation issues
+- Solutions Architects designing deployment architectures
+- Cloud Engineers deploying to AWS, Azure, GCP
 
 ## Document Information
 
@@ -106,19 +131,29 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Test Every Step**: Execute each installation step in clean environment before documenting, test on all supported platforms and versions, verify expected output matches documentation, include validation commands after each major step, document actual error messages encountered, test troubleshooting procedures, and maintain automated testing of installation procedures
+
+**Clear Prerequisites**: List all requirements upfront (hardware, software, network, permissions), provide prerequisite validation scripts or commands, document minimum and recommended specifications, specify version compatibility clearly, identify optional vs. required dependencies, include storage and network capacity planning, and provide prerequisite installation guides
+
+**Procedural Clarity**: Begin each step with action verb (Install, Configure, Verify), number steps sequentially with sub-steps, include expected output after each command, highlight commands in code blocks with copy buttons, explain parameters and options clearly, warn before destructive or irreversible operations, and provide estimated time for each section
+
+**Platform-Specific Instructions**: Use tabbed content for platform variations (Linux/Windows/macOS), document platform-specific commands and paths, address platform-specific prerequisites, provide native package manager instructions, include container and cloud platform options, and maintain consistent structure across platforms
+
+**Code Examples with Context**: Provide complete, copy-pasteable commands, show full command syntax with all required parameters, include environment variable substitution examples, demonstrate both interactive and automated installation, provide sample configuration files with inline comments, and show both development and production configurations
+
+**Verification Steps**: Include health check commands after installation, provide smoke test procedures, document expected service status output, include log verification steps, show how to verify network connectivity, provide database connection tests, and include rollback verification if needed
+
+**Troubleshooting Integration**: Anticipate common errors and provide inline solutions, document error messages verbatim for searchability, provide diagnostic commands for each failure mode, include log file locations and analysis tips, offer workarounds for known issues, provide rollback procedures when installation fails, and link to extended troubleshooting guides
+
+**Security-First Approach**: Never include actual credentials in examples (use placeholders), document secure credential storage methods, include TLS/SSL configuration procedures, document least-privilege service account setup, provide security hardening steps, include firewall configuration guidance, and reference security benchmarks (CIS)
+
+**Automation Support**: Provide infrastructure-as-code examples (Terraform, CloudFormation), include Ansible playbook examples, offer Docker Compose files for quick setup, document API-based installation endpoints, provide silent/unattended installation options, include configuration management templates, and maintain compatibility with CI/CD pipelines
+
+**Version-Specific Documentation**: Maintain separate documentation for each major version, clearly indicate version applicability, provide migration notes between versions, archive deprecated installation methods, update promptly when releases occur, maintain compatibility matrices, and document version-specific prerequisites
+
+**Progressive Disclosure**: Offer quick-start for common scenarios first, provide detailed installation for advanced scenarios, link to separate advanced configuration guides, defer tuning to post-installation documentation, focus on getting working installation first, and provide "next steps" after successful installation
+
+**Offline Installation Support**: Document offline/air-gapped installation procedures, provide dependency bundle download instructions, include package repository setup for offline use, document license file installation for air-gapped environments, and maintain checksums for download verification
 
 ## Quality Criteria
 
@@ -165,9 +200,127 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Documentation Frameworks**:
+- Diátaxis Framework (how-to guides for goal-oriented installation tasks)
+- DITA (Darwin Information Typing Architecture) for structured installation procedures
+- Simplified Technical English (STE) for international audiences
+- Task-based authoring for procedural documentation
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Deployment Methods**:
+- Package managers (apt, yum, dnf, pacman, brew, choco, winget)
+- Container platforms (Docker, containerd, Podman)
+- Container orchestration (Kubernetes, Docker Swarm, Nomad)
+- Helm charts for Kubernetes applications
+- Cloud marketplaces (AWS Marketplace, Azure Marketplace, GCP Marketplace)
+- Configuration management (Ansible, Puppet, Chef, SaltStack)
+- Infrastructure as Code (Terraform, Pulumi, CloudFormation)
+- Binary distributions and installers
+- Source builds and compilation
+
+**Installation Automation**:
+- Ansible playbooks for automated installation
+- Terraform modules for infrastructure provisioning
+- Packer for machine image creation
+- Docker Compose for multi-container deployments
+- Kubernetes operators for lifecycle management
+- Helm charts for Kubernetes deployments
+- Cloud-init for cloud instance initialization
+- Systemd service units for Linux services
+- Windows installers (MSI, exe, MSIX)
+
+**Platform Documentation**:
+- Linux installation (Debian/Ubuntu, RHEL/CentOS, SUSE, Arch)
+- Windows Server installation procedures
+- macOS installation and code signing
+- Cloud platform deployment (AWS, Azure, GCP, DigitalOcean)
+- Kubernetes deployment patterns
+- Edge and IoT device installation
+- Air-gapped/offline installation procedures
+
+**Prerequisites & System Requirements**:
+- Hardware requirements (CPU, RAM, disk, network)
+- Operating system compatibility matrix
+- Software dependencies (runtime, libraries, frameworks)
+- Network requirements (ports, protocols, bandwidth)
+- Permissions and privileges required
+- Database requirements (PostgreSQL, MySQL, MongoDB)
+- Third-party service dependencies
+
+**Verification & Testing**:
+- Health check endpoints and readiness probes
+- Smoke tests for basic functionality
+- Integration tests for dependencies
+- Monitoring and alerting verification
+- Log verification and troubleshooting
+- Performance baseline validation
+- Security scanning post-installation
+
+**Documentation Tools**:
+- Docusaurus for versioned installation documentation
+- Read the Docs with version selector
+- MkDocs Material with tabbed content for multiple platforms
+- AsciiDoc for complex installation procedures
+- Markdown with platform-specific tabs
+- Swagger/OpenAPI for API installation endpoints
+
+**Style Guides**:
+- Google Developer Documentation Style Guide (procedures, commands, code)
+- Microsoft Writing Style Guide (clarity, conciseness)
+- Red Hat Style Guide for Technical Documentation
+- Procedural writing best practices
+- Command-line documentation standards
+
+**Command Documentation**:
+- Command syntax notation (brackets, pipes, options)
+- Example commands with expected output
+- Code block syntax highlighting
+- Copy-to-clipboard buttons for commands
+- Platform-specific command variations
+- Environment variable documentation
+- Error message reference
+
+**Security Standards**:
+- Secure installation practices (HTTPS, encrypted credentials)
+- Least privilege principles for service accounts
+- Security hardening checklists (CIS Benchmarks)
+- Certificate management (TLS/SSL)
+- Secrets management (HashiCorp Vault, AWS Secrets Manager)
+- Security scanning tools (vulnerability assessment)
+- Compliance requirements (HIPAA, PCI DSS, SOC 2)
+
+**Container Standards**:
+- OCI (Open Container Initiative) image specifications
+- Docker best practices (multi-stage builds, layer optimization)
+- Kubernetes deployment best practices
+- Helm chart conventions and best practices
+- Container security scanning (Trivy, Clair, Anchore)
+- Container registry management
+- Dockerfile linting and validation
+
+**Cloud Deployment Patterns**:
+- AWS deployment (EC2, ECS, EKS, Lambda)
+- Azure deployment (VMs, AKS, Container Instances, Functions)
+- GCP deployment (Compute Engine, GKE, Cloud Run)
+- Multi-cloud deployment strategies
+- Hybrid cloud installation
+- Cloud-native architecture patterns
+
+**Troubleshooting Standards**:
+- Error message documentation
+- Log file locations and analysis
+- Diagnostic commands and tools
+- Common installation issues and solutions
+- Rollback and recovery procedures
+- Support escalation paths
+- Known issues and workarounds
+
+**Version Management**:
+- Semantic versioning for software releases
+- Version compatibility matrix
+- Documentation versioning synchronized with releases
+- Breaking changes and migration notes
+- Deprecation warnings for old installation methods
+- Support lifecycle and end-of-life dates
 
 ## Integration Points
 

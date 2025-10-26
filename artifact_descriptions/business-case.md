@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Business Case is a critical deliverable within the Inception / Strategy phase, supporting Business & Strategy activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Business Case is a critical financial and strategic deliverable that provides quantitative justification for investment decisions using industry-standard financial analysis frameworks including Net Present Value (NPV), Internal Rate of Return (IRR), payback period analysis, and Total Cost of Ownership (TCO) modeling. This artifact applies strategic frameworks such as Porter's Five Forces, Business Model Canvas, and Value Proposition Canvas to evaluate market positioning and competitive advantage.
 
-As a core component of the Business & Strategy practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a foundational component of portfolio management and capital allocation, this artifact supports CFOs, Finance Teams, Product Managers, and Executive Leadership in making data-driven investment decisions. It incorporates sensitivity analysis, scenario planning (best/worst/most likely cases), break-even analysis, and risk-adjusted return calculations to provide comprehensive financial visibility. The business case leverages financial modeling tools, ROI calculators, and discounted cash flow (DCF) analysis to quantify both CapEx and OpEx implications across multi-year planning horizons.
 
 ### Strategic Importance
 
@@ -20,27 +20,39 @@ As a core component of the Business & Strategy practice, this artifact serves mu
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the financial and strategic justification for major investments, providing quantitative analysis of costs, benefits, risks, and alternatives to support go/no-go decisions. It calculates NPV, IRR, payback period, ROI, and TCO while evaluating strategic fit, market opportunity, competitive positioning, and organizational capability requirements.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Financial analysis: NPV, IRR, payback period, ROI, TCO calculations
+- Investment alternatives comparison and evaluation
+- Sensitivity analysis and scenario modeling (best/worst/most likely)
+- CapEx vs OpEx breakdown and multi-year cash flow projections
+- Risk quantification and mitigation cost estimates
+- Strategic alignment to Business Model Canvas and Value Proposition Canvas
+- Market sizing, competitive analysis, and Porter's Five Forces assessment
+- Implementation roadmap and resource requirements
+- Success metrics, KPIs, and benefits realization tracking plan
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed project plans and execution schedules (covered in Project Charter)
+- Technical architecture specifications (covered in Architecture artifacts)
+- Vendor contract negotiations and procurement details
+- Detailed operational procedures post-implementation
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- CFO and Finance Teams: Capital allocation and budget approval decisions
+- Executive Leadership (CEO, COO): Strategic investment prioritization
+- Product Managers: Product roadmap and feature investment justification
+- Portfolio Management Office: Portfolio optimization and resource allocation
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Business Analysts: Requirements validation and benefits quantification
+- Board of Directors: Major capital expenditure approvals
+- Investors/Stakeholders: Strategic direction and value creation visibility
 
 ## Document Information
 
@@ -168,9 +180,54 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Financial Analysis & Valuation**:
+- Net Present Value (NPV) analysis and discounted cash flow (DCF) modeling
+- Internal Rate of Return (IRR) and Modified Internal Rate of Return (MIRR)
+- Payback Period and Discounted Payback Period
+- Return on Investment (ROI) and Return on Assets (ROA)
+- Total Cost of Ownership (TCO) modeling
+- Economic Value Added (EVA) and Shareholder Value Analysis
+- Benefit-Cost Ratio (BCR) and Profitability Index
+- Sensitivity analysis and Monte Carlo simulation
+- Break-even analysis and contribution margin analysis
+- Weighted Average Cost of Capital (WACC) calculations
+- Real Options Valuation for strategic flexibility
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Strategic Analysis Frameworks**:
+- Business Model Canvas (Osterwalder & Pigneur)
+- Value Proposition Canvas for customer value alignment
+- Porter's Five Forces competitive analysis
+- BCG Growth-Share Matrix for portfolio positioning
+- SWOT Analysis (Strengths, Weaknesses, Opportunities, Threats)
+- PEST/PESTLE analysis (Political, Economic, Social, Technological, Legal, Environmental)
+- Ansoff Matrix for growth strategy evaluation
+- Value Chain Analysis (Porter)
+- Blue Ocean Strategy framework
+- Jobs-to-be-Done (JTBD) framework
+
+**Investment & Portfolio Management**:
+- PMI Portfolio Management Standard
+- Project Management Body of Knowledge (PMBOK Guide)
+- PRINCE2 Business Case methodology
+- MSP (Managing Successful Programmes) Benefits Management
+- Investment appraisal standards (IAS/IFRS)
+- Capital budgeting best practices
+- Stage-Gate innovation process (Cooper)
+
+**Risk & Scenario Planning**:
+- Risk-adjusted return calculations
+- Scenario analysis (optimistic/pessimistic/most likely)
+- Decision tree analysis
+- Expected Monetary Value (EMV) calculations
+- Risk register integration
+
+**Industry Standards**:
+- ISO 21500 (Project Management)
+- ISO 9001 (Quality Management)
+- Generally Accepted Accounting Principles (GAAP)
+- International Financial Reporting Standards (IFRS)
+
+**Reference**: Consult organizational finance, strategy, and portfolio management teams for detailed guidance on framework application and corporate financial policies
 
 ## Integration Points
 

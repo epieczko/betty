@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Hsm Procedures is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The HSM Procedures artifact documents operational procedures for Hardware Security Modules (HSMs) including FIPS 140-2 Level 3 initialization, crypto officer role management, key generation and backup, firmware updates, and disaster recovery operations. This artifact provides comprehensive operational guidance for managing SafeNet Luna, Thales nShield, AWS CloudHSM, Azure Dedicated HSM, and YubiHSM platforms ensuring cryptographic key protection, tamper resistance, and regulatory compliance.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a critical operational control for cryptographic infrastructure, HSM procedures serve crypto officers performing daily HSM operations, security engineers implementing key management workflows, PKI administrators managing certificate authority infrastructure, and compliance teams demonstrating FIPS 140-2/3, PCI-DSS, and Common Criteria adherence. Integration with key management systems, certificate authorities, code signing infrastructure, and encryption services ensures HSM-protected cryptographic operations across the enterprise while maintaining detailed audit logs and access controls.
 
 ### Strategic Importance
 
@@ -20,27 +20,45 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as authoritative operational documentation for HSM lifecycle management including initialization, partitioning, crypto officer credential management, key generation and storage, backup and recovery, firmware updates, security monitoring, and decommissioning. It provides step-by-step procedures for FIPS 140-2 Level 3 operations, emergency response for HSM failures, and compliance validation ensuring cryptographic operations meet regulatory and security requirements.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- HSM initialization and FIPS mode activation (FIPS 140-2 Level 2/3)
+- Crypto Officer (CO) and Security Officer (SO) role management
+- HSM partitioning and client application access controls
+- Key generation within HSM (RSA, ECDSA, AES, HMAC keys)
+- Key backup and cloning (HSM-to-HSM secure transfer)
+- PKCS#11, JCE, CNG, and KSP integration
+- Firmware update and vulnerability patching procedures
+- HSM health monitoring and performance metrics
+- Audit log management and SIEM integration
+- Disaster recovery and failover procedures
+- HSM decommissioning and secure key destruction
+- Cloud HSM operations (AWS CloudHSM, Azure Dedicated HSM, Google Cloud HSM)
+- USB HSM operations (YubiHSM 2, Nitrokey HSM)
+- Network HSM clustering and high availability
+- Entropy pool monitoring and RNG validation
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Key ceremony procedures for root CA operations (covered by key ceremony records)
+- Certificate issuance workflows (covered by CA operational procedures)
+- Application-specific cryptographic implementations (covered by application artifacts)
+- HSM procurement and vendor selection (covered by procurement artifacts)
+- Physical data center security (covered by facilities security)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Crypto Officers performing daily HSM operations and key management
+- HSM Administrators configuring partitions, policies, and access controls
+- Security Engineers integrating applications with HSM services
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- PKI Administrators using HSMs for CA operations
+- DevOps Engineers managing cloud HSM infrastructure (CloudHSM, Azure)
+- Compliance Officers demonstrating FIPS 140-2, PCI-DSS, HIPAA compliance
 
 ## Document Information
 
@@ -106,19 +124,25 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**FIPS Mode Always**: Initialize HSMs in FIPS 140-2 mode; never operate in non-FIPS mode for production; verify FIPS validation certificate
+**Dual Control**: Implement dual control for all critical operations; require minimum 2 crypto officers for key generation, backup, restore
+**M-of-N Authentication**: Use M-of-N quorum authentication (e.g., 3-of-5 COs required) for high-security operations
+**Partition Isolation**: Create separate HSM partitions per application/environment; isolate development, staging, production keys
+**Role Separation**: Maintain strict separation between Security Officer (SO) and Crypto Officer (CO) roles; never combine roles
+**Credential Security**: Store CO/SO credentials in password manager or physical safe; enforce password complexity; rotate quarterly
+**Backup HSMs**: Maintain backup HSM in geographically separate facility; regularly test backup/restore procedures
+**Firmware Updates**: Apply firmware updates promptly; follow vendor security advisories; test updates in non-production HSM first
+**Audit Logging**: Enable comprehensive audit logging; forward logs to SIEM in real-time; retain logs 7+ years per compliance requirements
+**Tamper Monitoring**: Monitor tamper sensors continuously; implement immediate alerting for tamper events; investigate all tamper alerts
+**Network Segmentation**: Isolate HSMs on dedicated network segment; implement strict firewall rules; use VPN/TLS for remote access
+**Physical Security**: Secure HSMs in locked data center with access controls; implement video surveillance; use tamper-evident seals
+**Key Lifecycle**: Document key generation dates, expiration, usage policies; implement automated key rotation; track key usage metrics
+**Entropy Monitoring**: Monitor HSM random number generator health; alert on entropy pool exhaustion; validate RNG quality periodically
+**Capacity Planning**: Monitor HSM capacity (keys, sessions, throughput); plan for growth; implement clustering for scalability
+**Disaster Recovery**: Document and test DR procedures annually; maintain runbooks for HSM failover; validate backup restoration
+**Cloud HSM Security**: For CloudHSM/Azure HSM, use VPC/VNet isolation; implement least privilege IAM policies; enable CloudTrail/Azure Monitor
+**Decommissioning**: Zeroize HSMs before decommissioning; verify complete key destruction; document destruction certificate
+**Vendor Support**: Maintain active support contracts; establish direct vendor escalation path; participate in vendor security bulletins
 
 ## Quality Criteria
 
@@ -165,9 +189,96 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**HSM Platforms & Vendors**:
+- SafeNet Luna HSM (Thales Luna Network HSM, Luna PCIe, Luna USB)
+- Thales nShield HSM (nShield Connect, nShield Solo, nShield Edge, nShield as a Service)
+- AWS CloudHSM (FIPS 140-2 Level 3 validated)
+- Azure Dedicated HSM (Thales Luna Network HSM in Azure)
+- Google Cloud HSM (FIPS 140-2 Level 3 validated)
+- IBM Cloud HSM (based on Thales Luna)
+- Utimaco CryptoServer (HSM for payment and PKI)
+- YubiHSM 2 (USB HSM for small-scale PKI and code signing)
+- Nitrokey HSM (open-source USB HSM)
+- Marvell LiquidSecurity HSM (formerly Cavium)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**FIPS & Security Standards**:
+- FIPS 140-2 (Security Requirements for Cryptographic Modules) Levels 1-4
+- FIPS 140-3 (updated standard with enhanced requirements)
+- Common Criteria for Information Technology Security Evaluation (CC EAL4+)
+- Protection Profile for Cryptographic Modules (PP-CM)
+- NIST SP 800-131A (Transitioning the Use of Cryptographic Algorithms and Key Lengths)
+- NIST SP 800-133 (Recommendation for Cryptographic Key Generation)
+- NIST SP 800-57 (Recommendation for Key Management)
+- NIST SP 800-90A/B/C (Random Number Generation)
+
+**HSM APIs & Interfaces**:
+- PKCS#11 (Cryptographic Token Interface Standard)
+- Microsoft CNG (Cryptography API: Next Generation)
+- Microsoft CAPI (CryptoAPI - legacy)
+- Java JCA/JCE (Java Cryptography Architecture/Extension)
+- OpenSSL Engine interface
+- KMIP (Key Management Interoperability Protocol)
+- REST APIs (cloud HSM management)
+
+**Key Management Standards**:
+- NIST SP 800-57 Parts 1-3 (Key Management)
+- NIST SP 800-130 (Framework for Designing Cryptographic Key Management Systems)
+- ANSI X9.24 (Retail Financial Services Symmetric Key Management)
+- PCI-DSS Appendix A1 (Additional PCI DSS Requirements for HSM usage)
+- PKCS#1 (RSA Cryptography Standard)
+- PKCS#12 (Personal Information Exchange Syntax)
+
+**Cloud HSM Management**:
+- AWS CloudHSM CLI and SDK
+- Azure Key Vault with Dedicated HSM
+- Google Cloud KMS and Cloud HSM
+- HashiCorp Vault Transit Engine with HSM
+- Kubernetes External Secrets with HSM backend
+
+**HSM Clustering & HA**:
+- SafeNet Luna HSM HA (high availability clustering)
+- Thales nShield CodeSafe (custom firmware for HSM)
+- Load balancing across HSM partitions
+- Disaster recovery HSM synchronization
+- Multi-region HSM deployment (active-active, active-passive)
+
+**Regulatory Compliance**:
+- PCI-DSS Requirement 3.5/3.6 (HSM for encryption key management)
+- HIPAA Security Rule 164.312(a)(2)(iv) (Encryption and Decryption)
+- GDPR Article 32 (Security of Processing - encryption)
+- SOC 2 Type II (CC6.1, CC6.6 - Logical and Physical Access Controls)
+- ISO 27001 A.10.1.2 (Key Management)
+- Federal PKI (FPKI) requirements for HSM usage
+- Payment Card Industry PIN Transaction Security (PCI PTS) HSM requirements
+- eIDAS Regulation (EU electronic identification and trust services)
+
+**HSM Operations**:
+- Crypto Officer (CO) procedures (key generation, backup, restore)
+- Security Officer (SO) procedures (partition management, CO credential management)
+- Dual control and split knowledge implementation
+- M-of-N authentication schemes (quorum authentication)
+- HSM firmware update procedures
+- Backup and disaster recovery procedures
+- Key destruction and zeroization procedures
+
+**Monitoring & Logging**:
+- HSM audit log formats (syslog, CEF, LEEF)
+- SIEM integration (Splunk, QRadar, ArcSight, Sentinel)
+- HSM health monitoring (performance, capacity, temperature)
+- Tamper detection and alerting
+- Key usage analytics and anomaly detection
+
+**Use Cases**:
+- Certificate Authority (CA) key protection
+- Code signing certificate key storage
+- Database encryption (Transparent Data Encryption - TDE)
+- SSL/TLS private key protection for web servers
+- Payment processing (PIN encryption, key derivation)
+- Document signing and digital signatures
+- Blockchain and cryptocurrency key management
+- Key management for tokenization systems
+
+**Reference**: Consult HSM vendor documentation, FIPS 140-2 validation certificates, and crypto team for platform-specific procedures and compliance validation
 
 ## Integration Points
 

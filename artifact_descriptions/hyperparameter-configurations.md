@@ -2,45 +2,68 @@
 
 ## Executive Summary
 
-The Hyperparameter Configurations is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Hyperparameter Configurations artifact documents the hyperparameter search space, optimization methodology, tuning results, and final parameter selections for ML models. This artifact enables reproducible model training, tracks hyperparameter tuning experiments, and provides evidence of systematic optimization for model performance and fairness objectives.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+This artifact leverages hyperparameter optimization frameworks including Optuna, Ray Tune, Hyperopt, and scikit-learn GridSearchCV/RandomizedSearchCV. It documents search strategies (grid search, random search, Bayesian optimization, evolutionary algorithms), optimization objectives (accuracy, F1, AUC-ROC, fairness-constrained optimization), and computational resources consumed during tuning experiments.
+
+The configuration enables ML Engineers and Data Scientists to reproduce model training, understand hyperparameter sensitivity, compare tuning runs, and justify parameter selections. It integrates with MLflow Tracking for experiment logging, Weights & Biases for visualization, and model registries for linking hyperparameters to deployed model versions.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Reproducibility**: Enables exact reproduction of model training with documented hyperparameters and random seeds
+- **Performance Optimization**: Systematically searches hyperparameter space to maximize model performance
+- **Audit Trail**: Provides evidence of rigorous hyperparameter tuning for model risk assessments
+- **Knowledge Transfer**: Documents successful hyperparameter configurations for reuse across similar problems
+- **Resource Efficiency**: Tracks computational costs and enables optimization of tuning budgets
+- **Fairness Integration**: Supports fairness-constrained hyperparameter optimization with Fairlearn integration
+- **Model Versioning**: Links hyperparameters to specific model versions in MLflow or SageMaker Model Registry
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents hyperparameter search space, optimization strategy, tuning experiments, and final parameter selections to enable reproducible model training, justify modeling decisions, and provide audit trail for model governance. It serves as technical documentation for model deployment and retraining procedures.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Hyperparameter search space: Ranges, distributions, discrete vs. continuous parameters
+- Optimization methodology: Grid search, random search, Bayesian optimization, TPE, CMA-ES, evolutionary algorithms
+- Tuning framework: Optuna, Ray Tune, Hyperopt, scikit-learn GridSearchCV, Weights & Biases Sweeps
+- Optimization objectives: Primary metric (accuracy, AUC-ROC, F1), multi-objective (performance + fairness)
+- Cross-validation strategy: K-fold, stratified K-fold, time-series split, holdout validation
+- Search budget: Number of trials, wall-clock time, computational resources (GPU hours, CPU hours)
+- Best hyperparameters: Final selected parameters and their optimization objective values
+- Hyperparameter sensitivity: Which parameters most impact performance
+- Tuning history: All trial runs with hyperparameters and metrics (logged to MLflow, W&B)
+- Early stopping criteria: Patience, min_delta, max_trials without improvement
+- Random seeds: Fixed seeds for reproducibility across runs
+- Framework-specific parameters: XGBoost (n_estimators, max_depth, learning_rate, subsample)
+- Deep learning parameters: Learning rate schedules, batch sizes, optimizer settings (Adam, SGD)
+- Regularization parameters: L1/L2 penalties, dropout rates, weight decay
+- Fairness-constrained tuning: Fairlearn-integrated optimization with fairness constraints
+- Parallel tuning: Distributed hyperparameter search configuration (Ray, Dask)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Model architecture design (for neural networks, handled separately)
+- Feature engineering decisions (handled by feature store documentation)
+- Training data preparation (handled by data pipeline documentation)
+- Model evaluation results (handled by model evaluation reports)
+- Production inference configuration (handled by deployment documentation)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- ML Engineers: Configure hyperparameter tuning pipelines, reproduce model training, deploy models
+- Data Scientists: Design search spaces, analyze tuning results, select final hyperparameters
+- AI Governance Teams: Review hyperparameter tuning rigor, validate reproducibility
+- Model Risk Managers: Verify systematic optimization approach, assess model development quality
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- MLOps Engineers: Integrate hyperparameter tuning into CI/CD pipelines
+- Research Scientists: Understand modeling decisions, build on prior work
+- Auditors: Verify model development process follows best practices
+- Technical Reviewers: Assess quality of hyperparameter optimization methodology
 
 ## Document Information
 
@@ -106,19 +129,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Bayesian Over Random**: Prefer Bayesian optimization (Optuna, Ray Tune with TPE) over random search for sample-efficient tuning
+**Log Everything**: Log all hyperparameters, metrics, and artifacts to MLflow or W&B; enable experiment comparison
+**Fixed Random Seeds**: Always set random seeds for NumPy, TensorFlow, PyTorch, scikit-learn for reproducibility
+**Search Space Design**: Use log-uniform distributions for learning rates, exponential distributions for batch sizes
+**Sufficient Budget**: Allocate sufficient trials (50-100+ for Bayesian, 1000+ for random search) before declaring convergence
+**Cross-Validation**: Use stratified K-fold (k=5 or 10) for hyperparameter tuning; avoid holdout validation
+**Early Stopping**: Implement early stopping (ASHA, Hyperband) to prune poor configurations and save compute
+**Warm Start**: Initialize Bayesian optimization with grid search or expert knowledge as priors
+**Parallel Tuning**: Leverage distributed tuning (Ray Tune, SageMaker) to reduce wall-clock time
+**Multi-Objective Optimization**: For production models, optimize for multiple objectives (accuracy + latency, performance + fairness)
+**Sensitivity Analysis**: Use ANOVA or Sobol indices to identify most important hyperparameters
+**Nested CV**: Use nested cross-validation for unbiased performance estimates when tuning hyperparameters
+**Resource Tracking**: Log GPU hours, CPU hours, and cost for hyperparameter tuning; optimize ROI
+**Transfer Learning**: Reuse successful hyperparameter configurations from similar problems as starting points
+**Fairness Integration**: Incorporate fairness constraints using Fairlearn's GridSearch or ThresholdOptimizer
+**Avoid Overfitting**: Monitor train-validation gap; tune regularization parameters (L2, dropout, weight_decay)
+**Version Hyperparameters**: Store hyperparameters in version control (YAML/JSON config files)
+**Link to Model Registry**: Record MLflow run_id or W&B run_id in model registry for full traceability
+**Document Rationale**: Explain hyperparameter choices, search space design decisions, and optimization objectives
+**Automate Pipelines**: Integrate hyperparameter tuning into CI/CD pipelines for continuous model improvement
 
 ## Quality Criteria
 
@@ -165,9 +195,68 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Hyperparameter Optimization Frameworks**:
+- Optuna: Bayesian optimization, TPE sampler, multi-objective optimization, pruning
+- Ray Tune: Distributed hyperparameter tuning, ASHA scheduler, PBT, Hyperband
+- Hyperopt: Tree-structured Parzen estimators (TPE), random search, adaptive TPE
+- Weights & Biases Sweeps: Bayesian search, grid search, random search with visualization
+- Keras Tuner: Hyperparameter tuning for TensorFlow/Keras models
+- Scikit-learn: GridSearchCV, RandomizedSearchCV, HalvingGridSearchCV
+- SageMaker Hyperparameter Tuning: AWS-native automatic model tuning
+- Azure HyperDrive: Cloud-based hyperparameter optimization
+- Google Vertex AI Vizier: Black-box optimization as a service
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Search Strategies**:
+- Grid Search: Exhaustive search over parameter grid (combinatorial explosion)
+- Random Search: Random sampling from parameter distributions (Bergstra & Bengio 2012)
+- Bayesian Optimization: Gaussian process-based sequential optimization
+- Tree-structured Parzen Estimators (TPE): Sequential model-based optimization
+- Successive Halving (Hyperband): Early stopping of poor-performing configurations
+- Asynchronous Successive Halving (ASHA): Distributed hyperparameter tuning
+- Population-Based Training (PBT): Evolutionary hyperparameter optimization
+- CMA-ES: Covariance Matrix Adaptation Evolution Strategy
+- Multi-fidelity optimization: Use cheaper proxies (smaller datasets, fewer epochs)
+
+**Optimization Objectives**:
+- Single-objective: Accuracy, F1-score, AUC-ROC, precision, recall, log-loss
+- Multi-objective: Pareto optimization (accuracy + inference latency, performance + fairness)
+- Fairness-constrained: Demographic parity, equalized odds constraints via Fairlearn
+- Business metrics: Revenue, conversion rate, customer lifetime value
+- Surrogate objectives: Validation loss as proxy for test performance
+
+**ML Framework Parameters**:
+- Scikit-learn: C (SVM), max_depth (trees), n_estimators (ensemble), penalty (linear models)
+- XGBoost: learning_rate, max_depth, n_estimators, subsample, colsample_bytree, gamma, reg_alpha, reg_lambda
+- LightGBM: num_leaves, learning_rate, n_estimators, min_child_samples, bagging_fraction
+- Random Forest: n_estimators, max_depth, min_samples_split, max_features
+- Neural Networks: learning_rate, batch_size, optimizer, weight_decay, dropout_rate, hidden_layer_sizes
+- Transformers: learning_rate, warmup_steps, batch_size, gradient_accumulation_steps
+
+**Experiment Tracking Tools**:
+- MLflow Tracking: Log hyperparameters, metrics, artifacts with MLflow
+- Weights & Biases: Real-time experiment tracking, hyperparameter visualization
+- TensorBoard: TensorFlow experiment tracking and visualization
+- Neptune.ai: Experiment management and model registry
+- Comet.ml: Experiment tracking and model management
+
+**Cross-Validation Strategies**:
+- K-fold cross-validation: Stratified, non-stratified, grouped
+- Time-series split: Expanding window, sliding window, walk-forward validation
+- Nested cross-validation: Outer loop for model evaluation, inner loop for hyperparameter tuning
+- Leave-one-out cross-validation: For small datasets
+
+**Reproducibility Standards**:
+- Fixed random seeds: Set seeds for NumPy, Python, TensorFlow, PyTorch, scikit-learn
+- Deterministic operations: Disable non-deterministic GPU operations
+- Environment documentation: Python version, library versions, hardware specifications
+- Data versioning: Track training data version with DVC, Delta Lake, or Pachyderm
+
+**Model Documentation**:
+- Model Cards: Include hyperparameter tuning methodology in model documentation
+- Datasheets for Datasets: Document data splits used for validation
+- MLflow Model Schema: Standardized hyperparameter logging format
+
+**Reference**: Consult ML Platform Team for organization-approved hyperparameter tuning frameworks and best practices
 
 ## Integration Points
 

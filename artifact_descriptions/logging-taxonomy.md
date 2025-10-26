@@ -2,43 +2,63 @@
 
 ## Executive Summary
 
-The Logging Taxonomy is a critical governance and audit artifact that provides a chronological record of logging taxonomy throughout the General phase. This structured log serves as both a real-time management tool and a historical record for post-project reviews, audits, and lessons learned activities.
+The Logging Taxonomy defines standardized logging practices including structured logging formats (JSON), log levels (TRACE, DEBUG, INFO, WARN, ERROR, FATAL), semantic field naming, and log aggregation patterns using ELK Stack, Splunk, Loki, Fluentd, and OpenTelemetry. This artifact establishes consistent logging conventions that enable efficient log search, correlation with metrics and traces, compliance with retention policies, and actionable insights for troubleshooting and incident response.
 
-As a cornerstone of program governance, this artifact enables transparency, accountability, and informed decision-making by providing stakeholders with immediate visibility into key events, decisions, and their outcomes. It supports root cause analysis, trend identification, and continuous improvement by maintaining a complete audit trail.
+As the second pillar of observability (alongside metrics and traces), structured logging provides essential context for debugging production issues, security investigations, compliance audits, and user behavior analysis. The taxonomy ensures logs are machine-parseable, searchable, cost-effective to store, and integrated with distributed tracing through correlation IDs and OpenTelemetry context propagation.
 
 ### Strategic Importance
 
-- **Governance Excellence**: Demonstrates rigorous program management and adherence to organizational standards
-- **Risk Mitigation**: Early identification of patterns and trends enables proactive intervention
-- **Audit Readiness**: Provides comprehensive trail for internal and external audits
-- **Knowledge Capture**: Preserves institutional knowledge beyond individual personnel tenure
-- **Continuous Improvement**: Enables data-driven process improvements through trend analysis
+- **Structured Logging**: Enforces JSON log format with consistent field names, enabling programmatic parsing, filtering, and analysis across all services
+- **Observability Integration**: Correlates logs with metrics and distributed traces using trace_id, span_id, and OpenTelemetry context propagation
+- **Incident Response**: Accelerates troubleshooting through standardized log levels, error messages, stack traces, and contextual metadata
+- **Compliance & Audit**: Supports regulatory requirements (SOC 2, GDPR, HIPAA) with audit logs, data classification, PII redaction, and retention policies
+- **Cost Optimization**: Reduces log storage costs through appropriate log levels, sampling, retention tiers, and cost-per-GB awareness
+- **Security Monitoring**: Enables SIEM integration, threat detection, authentication logging, and security event correlation
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact standardizes log message formats, field names, log levels, and logging patterns across applications and infrastructure. It defines JSON structured logging schemas, required/optional fields (timestamp, level, message, service, trace_id), log level usage guidelines, PII redaction rules, and integration with log aggregation platforms (ELK, Splunk, Loki, CloudWatch Logs, Datadog Logs).
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- JSON structured logging format with standard fields (timestamp, level, logger, message, context)
+- Log levels: TRACE, DEBUG, INFO, WARN, ERROR, FATAL with usage guidelines per environment
+- OpenTelemetry logs integration with trace_id, span_id for logs-traces correlation
+- Common log fields: service_name, environment, version, hostname, pod_name, request_id
+- Error logging patterns: exception type, stack trace, error code, user impact
+- Security/audit logging: authentication events, authorization failures, data access, admin actions
+- PII/sensitive data redaction: credit cards, SSN, passwords, API keys, personal data
+- Log aggregation platforms: ELK Stack (Elasticsearch, Logstash, Kibana), Splunk, Grafana Loki
+- Log shippers: Fluentd, Fluent Bit, Logstash, Vector, Filebeat, CloudWatch Agent
+- Retention policies: production (30-90 days), compliance logs (7 years), debug logs (7 days)
+- Log sampling and rate limiting for high-volume events
+- Multi-line log handling: stack traces, JSON payloads, SQL queries
+- Log parsing patterns (Grok, regex) and field extraction rules
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Metric instrumentation and metric catalog (covered in metric-catalog artifact)
+- Distributed tracing span creation (covered in tracing instrumentation)
+- Log-based alerting rules and thresholds (covered in alerting policies)
+- Log storage infrastructure and capacity planning (covered in platform architecture)
+- Application code logging implementation details (covered in development standards)
+- SIEM-specific security rules and threat detection (covered in security artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Platform Engineers: Deploy log aggregation infrastructure, configure log shippers, manage retention policies
+- SRE Teams: Define log-based alerts, troubleshoot production issues, correlate logs with metrics/traces
+- Application Developers: Implement structured logging, follow log level guidelines, add contextual fields
+- Security Engineers: Configure security/audit logging, implement PII redaction, integrate with SIEM
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- DevOps Engineers: Configure CI/CD pipeline logging, deployment tracking, build logs
+- Compliance Officers: Review audit log requirements, retention policies, data classification
+- Support Engineers: Search logs for customer issues, troubleshoot support tickets
+- Engineering Leadership: Review logging costs, retention strategies, observability maturity
 
 ## Document Information
 
@@ -104,19 +124,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Structured JSON**: Always use JSON format with consistent field names; never use plain text logs in production
+**ISO 8601 Timestamps**: Use RFC3339/ISO 8601 timestamps with UTC timezone (2024-01-15T10:30:00Z)
+**Log Level Discipline**: DEBUG/TRACE off in production; INFO for business events; WARN for degraded state; ERROR for failures
+**Trace Correlation**: Include trace_id, span_id in all logs when request context available (OpenTelemetry auto-instrumentation)
+**Required Fields**: Always include: timestamp, level, service, environment, version, message, logger
+**PII Redaction**: Automatically redact credit cards, SSN, passwords, tokens; use [REDACTED] placeholder
+**Error Context**: Log exception type, message, stack trace, user_id, request_id, related entity IDs
+**Semantic Field Names**: Use snake_case (user_id not userId), consistent names (http_status_code, request_method)
+**No Log Injection**: Sanitize user input in log messages to prevent log injection attacks
+**Sampling High-Volume**: Sample high-frequency logs (1% or 1 in 100); use dynamic sampling for errors (100%)
+**Multi-Line Handling**: Properly format stack traces, SQL queries, JSON payloads as single log events
+**Cost Awareness**: Monitor log volume GB/day; set quotas per service; archive cold logs to S3/GCS
+**Retention Tiers**: Hot (7-30 days searchable), warm (30-90 days), cold (1-7 years archive), compliance (per regulation)
+**Index Optimization**: Use time-based indices (logs-2024-01-15); optimize field mapping; limit analyzed fields
+**Context Propagation**: Use logging frameworks with MDC/ThreadLocal for request_id, user_id across call chain
+**Avoid Logs for Metrics**: Use metrics for counters/histograms; logs for contextual debugging; don't parse logs for metrics
+**Security Logging**: Log authentication (success/failure), authorization decisions, sensitive data access, admin actions
 
 ## Quality Criteria
 
@@ -163,9 +187,72 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Logging Standards**:
+- OpenTelemetry Logs - OTEL logs SDK, log bridge API, logs-traces correlation
+- Syslog Protocol (RFC 5424) - Standard message format for logging
+- Common Event Format (CEF) - ArcSight log format for SIEM integration
+- JSON Schema - Structured logging field validation
+- RFC 3339 - Timestamp format standard (ISO 8601 profile)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Log Aggregation Platforms**:
+- ELK Stack - Elasticsearch (storage/search), Logstash (processing), Kibana (visualization)
+- Splunk - Enterprise log management, search, analysis, and alerting
+- Grafana Loki - Log aggregation optimized for Kubernetes and Grafana
+- Datadog Logs - Cloud-native log management with APM integration
+- New Relic Logs - Application logs with traces and metrics correlation
+- AWS CloudWatch Logs - AWS-native log aggregation and monitoring
+- Azure Monitor Logs - Azure Log Analytics and KQL query language
+- Google Cloud Logging - GCP-native log management with log router
+
+**Log Shippers & Collectors**:
+- Fluentd - Unified logging layer, CNCF graduated project
+- Fluent Bit - Lightweight log processor and forwarder
+- Logstash - Data processing pipeline for Elastic Stack
+- Vector - High-performance observability data pipeline (Datadog)
+- Filebeat - Lightweight log shipper (Elastic)
+- Promtail - Log aggregator for Grafana Loki
+- AWS CloudWatch Agent - Unified metrics and logs collection for AWS
+- OpenTelemetry Collector - Vendor-agnostic logs, metrics, traces collector
+
+**Logging Libraries**:
+- Logback (Java) - Successor to log4j with SLF4J API
+- Log4j 2 (Java) - Advanced logging framework with async appenders
+- Winston (Node.js) - Universal logging library for Node applications
+- Zap (Go) - Uber's high-performance structured logging
+- Serilog (.NET) - Structured logging with sinks for various destinations
+- Python logging - Standard library with handlers and formatters
+- Bunyan (Node.js) - JSON logging library
+- Logrus (Go) - Structured logger for Go
+
+**Structured Logging**:
+- JSON Logging - Machine-parseable log format with key-value pairs
+- Logfmt - Key-value logging format (Heroku)
+- ECS (Elastic Common Schema) - Standardized field names for Elastic
+- MozDef Schema - Mozilla Defense Platform log schema
+- OCSF (Open Cybersecurity Schema Framework) - Security log standard
+
+**Log Search & Analysis**:
+- Elasticsearch - Distributed search and analytics engine
+- Splunk SPL - Splunk Search Processing Language
+- LogQL - Grafana Loki query language
+- KQL (Kusto Query Language) - Azure Log Analytics query language
+- CloudWatch Logs Insights - AWS log query and analysis
+- BigQuery - Google's serverless data warehouse for log analytics
+
+**Compliance & Security**:
+- GDPR - Data privacy and PII protection requirements
+- SOC 2 - Audit log requirements for security controls
+- HIPAA - Healthcare data logging and retention
+- PCI DSS - Payment card industry logging standards
+- NIST SP 800-92 - Guide to computer security log management
+- CIS Controls - Log collection, retention, and review requirements
+- ISO 27001 - Information security logging requirements
+
+**Log Retention & Archival**:
+- Amazon S3 - Long-term log archival with lifecycle policies
+- Google Cloud Storage - Cold storage for historical logs
+- Azure Blob Storage - Archive tier for compliance logs
+- Glacier/Deep Archive - Ultra-low-cost archival storage
 
 ## Integration Points
 

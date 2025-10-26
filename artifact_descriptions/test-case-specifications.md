@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Test Case Specifications is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Test Case Specifications artifact documents detailed, structured test scenarios with preconditions, test steps, expected results, and acceptance criteria using formats such as Gherkin syntax (Given-When-Then), traditional step-by-step procedures, or tabular test case templates. Specifications employ test design techniques including equivalence partitioning, boundary value analysis, decision tables, state transition testing, and pairwise testing to ensure comprehensive coverage with optimized test case count.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As the foundational test design deliverable, this artifact serves QA engineers, manual testers, test automation engineers, business analysts, and developers who need unambiguous test scenarios for validation. Test cases map to requirements via traceability matrix, include priority/severity classifications (P0-Critical path, P1-High, P2-Medium, P3-Low), specify test data requirements, document environmental prerequisites, and integrate with test management platforms (TestRail, Zephyr, qTest, Azure Test Plans, Xray). Specifications target measurable coverage goals: 100% of critical user journeys, 80%+ requirements coverage, risk-based prioritization focusing on high-impact/high-probability defect areas.
 
 ### Strategic Importance
 
@@ -20,27 +20,48 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the authoritative specification of test scenarios that validate functional requirements, non-functional requirements, and acceptance criteria. It provides repeatable, unambiguous test procedures enabling consistent test execution by manual testers or automation engineers, with clear pass/fail criteria for each verification point.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Functional test cases validating feature requirements and user stories
+- Gherkin/BDD specifications (Given-When-Then format) for behavior validation
+- Equivalence partitioning test cases (valid/invalid input classes)
+- Boundary value analysis test cases (min, max, just inside/outside boundaries)
+- Decision table test cases (complex business rule combinations)
+- State transition test cases (valid/invalid state changes)
+- User journey test cases (end-to-end workflows across features)
+- Positive test cases (happy path scenarios)
+- Negative test cases (error handling, validation, exception scenarios)
+- Integration test cases (component interaction scenarios)
+- Acceptance test cases (UAT scenarios with business stakeholder validation)
+- Regression test selection (critical scenarios for change validation)
+- Test data specifications per test case
+- Prerequisites and test environment setup requirements
+- Expected results with detailed acceptance criteria
+- Requirements traceability (test case to requirement mapping)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Automated test scripts (code implementation in automation framework)
+- Test execution results and defects (tracked in test management system)
+- Performance test scenarios (handled in performance test specification)
+- Security test cases (handled in security test specification)
+- Test strategy and approach (separate test strategy document)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- QA Engineers who execute manual test cases and validate features
+- Test Automation Engineers who implement automated scripts from specifications
+- Business Analysts who validate test scenarios match requirements
+- Manual Testers who perform exploratory and scripted testing
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Product Owners who review acceptance criteria and UAT scenarios
+- Developers who understand testing scope and validation approach
+- QA Managers who track test coverage and progress metrics
+- Compliance Auditors who verify validation completeness
 
 ## Document Information
 
@@ -231,9 +252,87 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Testing Standards**:
+- ISO/IEC/IEEE 29119-3 (Test Documentation)
+- ISO/IEC/IEEE 29119-4 (Test Techniques)
+- ISTQB Foundation Level Syllabus (Test design techniques)
+- ISTQB Advanced Test Analyst certification
+- IEEE 829 (Software Test Documentation - legacy standard)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Test Design Techniques**:
+- Equivalence Partitioning (EP) - Divide inputs into valid/invalid classes
+- Boundary Value Analysis (BVA) - Test at boundaries and edges
+- Decision Table Testing - Combinations of conditions and actions
+- State Transition Testing - Valid/invalid state changes
+- Use Case Testing - End-to-end user scenarios
+- Pairwise Testing (All-pairs) - Combinatorial test optimization
+- Exploratory Testing - Simultaneous learning, test design, execution
+- Error Guessing - Experience-based test design
+- Risk-Based Testing - Priority based on impact and likelihood
+
+**BDD & Gherkin Specifications**:
+- Gherkin Language - Given-When-Then syntax for BDD
+- Cucumber - BDD framework with Gherkin
+- SpecFlow - BDD for .NET applications
+- Behave - BDD framework for Python
+- Specification by Example (Gojko Adzic)
+- Acceptance Test-Driven Development (ATDD)
+
+**Test Management Platforms**:
+- TestRail - Comprehensive test case management
+- Zephyr (Jira integration) - Agile test management
+- qTest (Tricentis) - Enterprise test management
+- Azure Test Plans - Microsoft DevOps test management
+- Xray (Jira) - Test management for Jira
+- PractiTest - End-to-end test management
+- TestLink - Open-source test management
+- HP ALM/Quality Center - Enterprise test management
+
+**Requirements Traceability**:
+- Requirements Traceability Matrix (RTM)
+- Bidirectional traceability (requirements to tests, tests to defects)
+- Coverage analysis tools (requirement coverage %, test coverage %)
+- DOORS (IBM) - Requirements management with traceability
+- Jama Connect - Requirements and test management
+
+**Test Case Documentation Formats**:
+- IEEE 829 Test Case Template
+- Gherkin Feature Files (.feature files)
+- Test Case Management Tool formats (TestRail, Zephyr)
+- Markdown-based test specifications
+- Excel/Spreadsheet test case documentation
+- Confluence Test Case templates
+
+**Test Prioritization & Risk-Based Testing**:
+- Priority Levels: P0 (Critical), P1 (High), P2 (Medium), P3 (Low)
+- Severity Levels: Critical, Major, Minor, Trivial
+- Risk Matrix (Probability × Impact)
+- MoSCoW Prioritization (Must, Should, Could, Won't)
+- Test Coverage Metrics: Requirement coverage, code coverage, risk coverage
+
+**Agile Testing Practices**:
+- User Story Acceptance Criteria
+- Definition of Done (DoD) with testing criteria
+- Test-Driven Development (TDD) - Tests before code
+- Behavior-Driven Development (BDD) - Specification by example
+- Acceptance Test-Driven Development (ATDD)
+- Three Amigos (Product Owner, Developer, Tester) collaboration
+
+**Test Data Design**:
+- Test Data Requirements Specification
+- Data-Driven Testing (DDT) - Parameterized test data
+- Boundary Value Test Data (min, max, just inside, just outside)
+- Equivalence Class Test Data (representative values per partition)
+- Combinatorial Test Data (pairwise, orthogonal arrays)
+
+**Coverage Metrics**:
+- Requirements Coverage: 100% critical requirements, 80%+ total
+- Code Coverage: 80%+ line coverage, 70%+ branch coverage
+- User Journey Coverage: 100% critical paths tested
+- Defect Detection Percentage (DDP): Defects found / Total defects
+- Test Effectiveness: Defects found by testing / Total production defects
+
+**Reference**: Consult QA leads, test architects, and ISTQB-certified test analysts for detailed guidance on test design techniques and case specification best practices
 
 ## Integration Points
 

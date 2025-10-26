@@ -2,43 +2,59 @@
 
 ## Executive Summary
 
-The Incident Management Plan is a comprehensive planning artifact that establishes the strategic approach, resource allocation, timeline, and success criteria for incident management activities within the General phase. This forward-looking document serves as the authoritative reference for execution teams, stakeholders, and governance bodies.
+The Incident Management Plan defines the processes, roles, procedures, and tools for detecting, responding to, containing, and recovering from security and operational incidents. Following ITIL service management principles and NIST incident response framework (SP 800-61), this plan ensures rapid, coordinated, and effective incident response to minimize business impact and restore normal operations.
 
-As a foundational planning deliverable, it translates strategic objectives into actionable tasks, identifies dependencies and constraints, allocates resources optimally, and establishes measurable outcomes. The plan balances ambition with pragmatism, incorporating risk mitigation strategies and contingency approaches.
+As the authoritative guide for incident response operations, this plan establishes clear incident classification, escalation paths, communication protocols, and response procedures. It provides incident responders with the playbooks they need to act decisively, incident commanders with the structure to coordinate cross-functional teams, and leadership with the metrics to measure response effectiveness and continuous improvement.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities directly support organizational objectives and expected outcomes
-- **Resource Optimization**: Enables efficient allocation of personnel, budget, and technology resources
-- **Risk Management**: Identifies potential obstacles and defines proactive mitigation strategies
-- **Stakeholder Alignment**: Creates shared understanding of approach, timeline, and expectations
-- **Success Measurement**: Establishes clear metrics and criteria for evaluating outcomes
+- **Business Continuity**: Minimizes downtime and business impact through structured incident response
+- **MTTR Optimization**: Reduces Mean Time to Detect (MTTD) and Mean Time to Resolve (MTTR) through standardized procedures
+- **Regulatory Compliance**: Meets incident response requirements for SOC 2, ISO 27001, PCI-DSS, HIPAA, and GDPR
+- **Stakeholder Communication**: Defines clear communication protocols for internal teams, customers, regulators, and media
+- **Post-Incident Learning**: Establishes blameless post-mortem processes to identify root causes and prevent recurrence
+- **Resource Coordination**: Enables efficient mobilization of on-call engineers, security analysts, and subject matter experts
+- **Evidence Preservation**: Ensures proper chain of custody and forensic evidence handling for security incidents
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+The Incident Management Plan provides the framework for rapidly detecting, triaging, containing, resolving, and learning from incidents affecting service availability, security, or business operations. It defines severity classifications, escalation criteria, response procedures, roles and responsibilities, and communication protocols to ensure coordinated, effective incident response.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Incident classification and severity definitions (P1/Critical through P4/Low)
+- Incident response lifecycle (Detection, Triage, Containment, Eradication, Recovery, Post-Mortem)
+- Roles and responsibilities (Incident Commander, Communications Lead, Technical Lead, SMEs)
+- Escalation procedures and on-call rotation management
+- Communication protocols (internal status updates, customer notifications, regulatory reporting)
+- Incident response playbooks for common scenario types
+- Post-incident review and blameless post-mortem processes
+- Metrics and KPIs (MTTD, MTTR, incident frequency, SLA compliance)
+- Tool stack (ticketing, chat ops, war rooms, status pages)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed technical runbooks for specific systems (covered in operational runbooks)
+- Disaster recovery and business continuity procedures (covered in DR/BC Plan)
+- Crisis management for non-IT incidents (covered in Crisis Management Plan)
+- Detailed forensic investigation procedures (covered in Digital Forensics Plan)
+- Vulnerability management processes (covered in Vulnerability Management Plan)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Incident Responders and On-Call Engineers who detect, triage, and resolve incidents
+- Incident Commanders who coordinate multi-team response efforts
+- SRE/DevOps teams responsible for service reliability and availability
+- Security Operations Center (SOC) analysts responding to security incidents
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Engineering managers understanding escalation procedures and on-call expectations
+- Customer Support teams communicating incident status to customers
+- Compliance teams demonstrating incident response capabilities to auditors
+- Executive Leadership understanding incident severity, business impact, and response effectiveness
 
 ## Document Information
 
@@ -163,9 +179,34 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**IT Service Management**:
+- **ITIL 4**: IT Service Management best practices for incident management lifecycle
+- **ISO/IEC 20000**: IT service management system standard
+- **FitSM**: Lightweight IT service management for federated environments
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Cybersecurity Incident Response**:
+- **NIST SP 800-61 Rev 2**: Computer Security Incident Handling Guide
+- **SANS Incident Response Process**: Six-phase incident response methodology
+- **ISO/IEC 27035**: Information security incident management
+- **FIRST**: Forum of Incident Response and Security Teams best practices
+
+**Incident Command & Coordination**:
+- **ICS (Incident Command System)**: Standardized incident management framework from emergency management
+- **PagerDuty/Incident.io**: Modern incident management platform best practices
+- **Google SRE Incident Management**: Practices from "Site Reliability Engineering" book
+
+**Regulatory Requirements**:
+- **SOC 2 Trust Service Criteria**: CC7.3, CC7.4 (incident response and communication)
+- **PCI-DSS**: Requirement 12.10 (incident response plan)
+- **GDPR**: Article 33 (breach notification within 72 hours)
+- **HIPAA**: Security Rule §164.308(a)(6) (security incident procedures)
+- **NIS Directive**: Incident reporting for critical infrastructure operators
+
+**SRE & Reliability**:
+- **Google SRE Handbook**: Incident management, postmortems, and on-call practices
+- **DevOps Research**: State of DevOps Report incident management metrics
+
+**Reference**: Consult organizational security and service management teams for guidance on framework selection and regulatory requirements
 
 ## Integration Points
 

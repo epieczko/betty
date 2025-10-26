@@ -2,45 +2,59 @@
 
 ## Executive Summary
 
-The Attribution Files is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Attribution Files (NOTICE, LICENSE, THIRD-PARTY-NOTICES) are legal documents bundled with software distributions that acknowledge open-source components, copyright holders, and license obligations. These files satisfy Apache License 2.0 Section 4(d) NOTICE requirements, GPL attribution clauses, and general copyright law obligations to preserve author credit and license text. Attribution files prevent copyright infringement claims by providing evidence of license compliance and proper credit to original authors.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Modern attribution management uses automated tools (FOSSA, Black Duck, license-maven-plugin, CycloneDX) to generate attribution files from SBOM and license scan data, ensuring accuracy across hundreds of dependencies. Organizations must distinguish between LICENSE files (verbatim license text for the project itself), NOTICE files (third-party attributions required by Apache 2.0 and similar licenses), and THIRD-PARTY-NOTICES files (comprehensive attribution for all dependencies). Attribution completeness is increasingly scrutinized in M&A due diligence, enterprise procurement, and open-source license audits.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **License Compliance**: Satisfies Apache 2.0, MIT, BSD license attribution requirements preventing copyright infringement and license breach
+- **Copyright Preservation**: Maintains legal chain of attribution from original authors through derivative works and commercial distributions
+- **Audit Defense**: Provides documentary evidence of license compliance for OpenChain certification, customer audits, and litigation discovery
+- **Transparency**: Demonstrates respect for open-source authors and adherence to community norms building ecosystem trust
+- **REUSE Specification**: Supports REUSE 3.0 compliance for machine-readable copyright and licensing information in source files
+- **M&A Due Diligence**: Accelerates IP verification by documenting all third-party code attributions and license obligations
+- **Customer Requirements**: Satisfies enterprise buyer policies requiring full third-party component disclosure and attribution documentation
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents all copyright notices, license texts, and attribution statements for third-party open-source components included in software distributions. It ensures compliance with license attribution clauses (Apache 2.0 Section 4, MIT/BSD copyright preservation, GPL copyright notices) by providing complete, accurate credit to original authors and copyright holders as required by respective licenses.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- LICENSE file: Full verbatim license text for the project's own code and licensing terms
+- NOTICE file: Apache-style attribution per Section 4(d), trademark disclaimers, patent notices, required attributions
+- THIRD-PARTY-NOTICES / CREDITS file: Comprehensive list of dependencies with copyright holders, licenses, and required attribution text
+- Copyright headers: SPDX-FileCopyrightText and SPDX-License-Identifier in source files per REUSE specification
+- Attribution text format: component name, version, copyright holders, license type, license text or URL
+- Automated generation: Integration with FOSSA, Black Duck, license-maven-plugin, npm-license-crawler, pip-licenses
+- Binary distribution attribution: Including attribution in "About" dialogs, help screens, or documentation for GUI applications
+- Container image attribution: Embedding attribution files in container metadata or /usr/share/doc locations
+- Attribution for modified code: Documenting changes per license requirements (GPL Section 5(a), Apache Section 4(b))
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed legal analysis of license compatibility (covered by License BOM)
+- Source code disclosure obligations for GPL/LGPL (separate compliance process)
+- Patent grant analysis beyond what's stated in NOTICE files
+- Contributor License Agreements (separate CLA artifact)
+- Commercial software EULA terms
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Legal Counsel: Verifying attribution completeness, license compliance validation, audit defense preparation
+- Compliance Officers: OpenChain certification, customer audit responses, policy enforcement
+- Open Source Program Office (OSPO): Attribution automation, license compliance workflows, SBOM-to-attribution synchronization
+- Release Engineers: Automated attribution file generation in CI/CD, distribution packaging, container image builds
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- End Users/Customers: Reviewing third-party components and licenses in products they deploy
+- Security Teams: Correlating attributions with vulnerability disclosures, verifying component provenance
+- Product Management: Understanding third-party dependencies for customer disclosures and competitive analysis
+- M&A Due Diligence: Validating IP chain-of-title and attribution accuracy during acquisitions
 
 ## Document Information
 
@@ -106,19 +120,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Automated Generation**: Generate attribution files automatically from SBOM/license scans using FOSSA, Black Duck, or language-specific tools
+**CI/CD Integration**: Regenerate attribution files on every build to ensure accuracy as dependencies change
+**Root Directory Placement**: Place LICENSE, NOTICE, THIRD-PARTY-NOTICES in repository root for discoverability and compliance
+**Verbatim License Text**: Include full license text verbatim; some licenses (Apache 2.0) explicitly require unmodified license text
+**Copyright Holder Accuracy**: Extract copyright holders from source file headers, not package metadata (which may be incomplete)
+**Attribution Grouping**: Group components by license type for readability (all MIT components, then Apache 2.0, then BSD, etc.)
+**SPDX Identifiers**: Use SPDX license identifiers in attribution for machine readability and standardization
+**Transitive Dependencies**: Include transitive dependencies in attribution, not just direct dependencies (licenses cascade through dep tree)
+**Binary Distribution Inclusion**: Embed attribution files in binary distributions, container images, executables (not just source releases)
+**GUI Attribution**: For GUI applications, provide "About" dialog or menu item showing third-party licenses and attributions
+**Web Application Display**: For web apps, link to /licenses or /attributions page from footer or settings
+**Modification Notices**: When modifying open-source code, add modification notices per GPL Section 5(a) and Apache Section 4(b)
+**NOTICE File Specificity**: Apache NOTICE should contain only required attributions, not general credits or advertising (per ASF policy)
+**License Text URLs**: Include URLs to license texts for long licenses (GPL, LGPL) to avoid 1000+ line LICENSE files
+**Archival Copies**: Maintain local copies of license texts; upstream URLs may change or disappear over time
+**Version-Specific Attribution**: Generate separate attribution files for each release version; dependencies change between versions
+**Container Layer Attribution**: For container images, document attribution per layer or provide aggregate attribution in final image
+**REUSE Compliance**: Adopt REUSE 3.0 with SPDX headers in source files for machine-readable attribution at file level
+**Validation Testing**: Run reuse-tool lint or license compliance validators in CI to detect missing attributions before release
+**Legal Review Workflow**: Have legal counsel spot-check attribution completeness quarterly or before major releases
 
 ## Quality Criteria
 
@@ -165,9 +186,61 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**License Attribution Requirements**:
+- Apache License 2.0 Section 4(d) (NOTICE file requirements, attribution preservation)
+- MIT License (copyright notice preservation in distributions)
+- BSD Licenses (copyright notice, conditions list, disclaimer preservation)
+- GPL v2/v3 Section 5 (copyright notices, license text, modification notices)
+- MPL 2.0 Section 3.3 (attribution notice requirements)
+- CC-BY licenses (Creative Commons attribution for non-code assets)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**REUSE Specification**:
+- REUSE Software 3.0 (machine-readable copyright and licensing in source files)
+- SPDX-FileCopyrightText tag for copyright holders
+- SPDX-License-Identifier tag for license identification
+- DEP5 (Debian copyright format) for bulk file licensing
+- reuse-tool for automated REUSE compliance validation
+
+**Copyright Law Frameworks**:
+- Berne Convention Article 5 (copyright notice not required but preserving author attribution protects moral rights)
+- 17 USC 401 (copyright notice format: © [year] [owner])
+- WIPO Copyright Treaty protection of author attribution rights
+
+**Automated Attribution Tools**:
+- FOSSA (automated attribution file generation from dependency scanning)
+- Black Duck (attribution report generation, NOTICE file creation)
+- FOSSology (license and copyright extraction for attribution)
+- license-maven-plugin (Maven plugin for THIRD-PARTY.txt generation)
+- npm-license-crawler (Node.js dependency license extraction)
+- pip-licenses (Python package license listing)
+- cargo-about (Rust dependency attribution generation)
+- go-licenses (Go module license extraction)
+- license-checker (npm package for license audit and attribution)
+
+**Attribution File Formats**:
+- Plain text NOTICE/LICENSE files (most common, human-readable)
+- Markdown THIRD-PARTY-NOTICES.md for formatted attribution
+- HTML attributions.html for web-based software About pages
+- JSON/XML structured attribution for programmatic processing
+- SPDX Document as comprehensive attribution + license data
+- CycloneDX BOM with license and copyright metadata
+
+**Apache Software Foundation Standards**:
+- Apache NOTICE file requirements (ASF policy for trademark, patent, attribution notices)
+- Apache LICENSE file format (project license with appendix for dependency attributions)
+- Apache license headers in source files (SPDX-License-Identifier preferred)
+
+**Industry Best Practices**:
+- OpenChain ISO/IEC 5230 Section 3.3.2 (attribution documentation requirements)
+- Linux Foundation SPDX Lite profile for minimal attribution data
+- TODO Group attribution guidance for open-source programs
+- CHAOSS Project metrics for attribution completeness
+
+**GPL Specific Requirements**:
+- GPL Section 1 "Appropriate Legal Notices" preservation
+- GPL Section 5(a) modification notices in changed files
+- GPL Section 7 additional permissions preservation
+- LGPL Section 4(d) combined work attribution requirements
 
 ## Integration Points
 

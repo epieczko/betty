@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Positioning Documents is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Positioning Documents define how a product or company occupies a distinct and valued place in the minds of target customers relative to competitive alternatives. These strategic artifacts articulate the unique value proposition, competitive differentiation, target buyer personas, and messaging framework that guide all customer-facing communications and go-to-market activities.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Grounded in proven positioning frameworks including Obviously Awesome (April Dunford), Positioning: The Battle for Your Mind (Al Ries & Jack Trout), and the Pragmatic Marketing positioning methodology, this artifact translates product strategy into compelling market narratives. It serves as the foundation for messaging hierarchies, sales pitch decks, marketing campaigns, website copy, and analyst briefings. Product Marketing Managers use this artifact to align cross-functional teams on consistent positioning and ensure messaging resonates with target buyer personas.
 
 ### Strategic Importance
 
@@ -20,27 +20,42 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the definitive source of truth for product positioning, competitive differentiation, and messaging strategy. It answers critical questions: Who is this for? What problem do we solve? How are we different from alternatives? What market category do we compete in? What proof points support our claims?
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Positioning statement and value proposition
+- Target buyer personas (roles, pain points, goals, buying criteria)
+- Competitive differentiation and unique value proposition
+- Market category definition and category positioning
+- Messaging framework (positioning, pillars, proof points)
+- Key messages for different buyer personas and use cases
+- Elevator pitch and boilerplate descriptions (25/50/100/150 words)
+- Competitive landscape and positioning relative to key competitors
+- Feature/benefit translation and value messaging
+- Proof points, customer stories, and credibility indicators
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed product roadmap and feature specifications (covered in Portfolio Roadmap)
+- Pricing and packaging strategy (covered in separate pricing documents)
+- Complete GTM plan and launch tactics (covered in GTM Checklist and Product Launch Plan)
+- Detailed buyer journey and sales process (covered in sales playbooks)
+- Content calendar and campaign execution plans (covered in marketing plans)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Product Marketing Managers who develop and own positioning
+- Product Managers who inform product strategy with market insights
+- Marketing teams (Content, Demand Gen, Brand) who create campaigns
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Sales teams who need positioning for pitches and demos
+- Executive Leadership who communicate vision to board and investors
+- Customer Success teams who articulate value during onboarding
+- Product Leaders who ensure alignment between strategy and positioning
+- Analyst Relations teams who brief industry analysts
 
 ## Document Information
 
@@ -119,6 +134,18 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 **Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
 **Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
 **Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Customer-Centric**: Ground positioning in customer pain points and outcomes, not product features
+**Differentiation Clarity**: Articulate clear, defensible differentiation vs. competitive alternatives
+**Evidence-Based**: Validate positioning through win/loss analysis, customer interviews, and market research
+**Persona Alignment**: Create specific messaging variations for each key buyer persona
+**Framework Selection**: Apply Obviously Awesome or similar structured positioning framework
+**Competitive Awareness**: Understand how competitors position and find white space
+**Category Clarity**: Define clear market category; consider category creation if applicable
+**Message Testing**: Test key messages with target buyers before broad rollout
+**Sales Alignment**: Ensure sales teams can articulate positioning clearly and consistently
+**Messaging Hierarchy**: Build clear messaging house (positioning > pillars > proof points > supporting messages)
+**Proof Points**: Support every claim with concrete proof points (customers, data, awards, analyst recognition)
+**Consistency**: Ensure positioning aligns with product strategy, roadmap, and GTM plans
 
 ## Quality Criteria
 
@@ -165,9 +192,62 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Positioning Frameworks**:
+- Obviously Awesome positioning framework (April Dunford) - 5 components: competitive alternatives, unique attributes, value, target customers, market category
+- Positioning: The Battle for Your Mind (Al Ries & Jack Trout) - owning a word in the customer's mind
+- The Positioning Manual (Tim Rowe, Aprimo) - positioning statement structure
+- Pragmatic Marketing positioning methodology
+- Geoffrey Moore's positioning framework (Crossing the Chasm)
+- Value Proposition Canvas (Strategyzer) - customer jobs, pains, gains
+- Brand positioning frameworks (Keller's Brand Resonance Model)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Messaging Frameworks**:
+- Messaging hierarchy (positioning > pillars > proof points)
+- Message House or Message Box structures
+- Feature-Advantage-Benefit (FAB) framework
+- AIDA framework (Attention, Interest, Desire, Action)
+- PAS framework (Problem, Agitation, Solution)
+- Unique Selling Proposition (USP) development
+- Elevator pitch structure (problem, solution, differentiation, proof)
+
+**Persona Development**:
+- Buyer persona frameworks (roles, goals, challenges, buying criteria)
+- Jobs-to-be-Done (JTBD) for persona development
+- Persona segmentation (economic buyer, technical buyer, end user)
+- B2B buying committee mapping
+- Persona interview and research methodologies
+- Empathy mapping and customer journey mapping
+
+**Competitive Analysis**:
+- Competitive positioning matrix (perceptual mapping)
+- SWOT analysis (Strengths, Weaknesses, Opportunities, Threats)
+- Feature comparison and competitive battlecards
+- Win/loss analysis frameworks
+- Competitive intelligence gathering (G2, Gartner Peer Insights, TrustRadius reviews)
+- Porter's Five Forces for competitive landscape
+
+**Category Design & Differentiation**:
+- Category Creation frameworks (Play Bigger)
+- Blue Ocean Strategy (creating uncontested market space)
+- Differentiation strategies (Michael Porter)
+- Category maturity analysis (nascent, developing, mature)
+- Point of View (POV) development for thought leadership
+
+**Messaging Testing & Validation**:
+- Message testing methodologies (A/B testing, focus groups, surveys)
+- Win/loss interview insights
+- Sales feedback loops on messaging effectiveness
+- Customer advisory board (CAB) feedback
+- Market research and message resonance testing
+
+**Documentation & Collaboration Tools**:
+- Messaging Platforms: Highspot, Seismic, Showpad, Guru
+- Collaboration: Notion, Confluence, Google Workspace, Coda
+- Design: Figma, Canva, Adobe Creative Suite
+- Research: Dovetail, Qualtrics, SurveyMonkey
+- Competitive Intelligence: Crayon, Kompyte, Klue
+
+**Reference**: Pragmatic Marketing Framework (Positioning), Product Marketing Alliance resources, Category Pirates frameworks
 
 ## Integration Points
 

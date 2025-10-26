@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Test Strategy is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Test Strategy artifact defines the comprehensive testing approach, methodologies, test levels, test types, tools, metrics, and resource allocation across the software development lifecycle following ISTQB standards and ISO/IEC/IEEE 29119 guidelines. It establishes the test pyramid strategy (70% unit tests, 20% integration tests, 10% end-to-end tests), shift-left testing practices, continuous testing integration, risk-based test prioritization, and quality metrics including code coverage targets (80%+), defect density goals (<1 per KLOC), and mean time to detect/repair thresholds.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As the master testing governance document, this artifact serves QA managers, test leads, development managers, product owners, and executive leadership who need to understand testing scope, approach, resource requirements, timeline, and success criteria. The strategy encompasses unit testing (JUnit, Jest, pytest), integration testing (API testing with REST Assured, Postman), system testing (functional, usability, security), end-to-end testing (Selenium, Cypress, Playwright), non-functional testing (performance with JMeter/Gatling, security with OWASP ZAP, accessibility with axe), test automation framework selection, test environment strategy, defect management workflow, test data management approach, entry/exit criteria per test phase, and continuous testing in CI/CD pipelines (Jenkins, GitLab CI, GitHub Actions).
 
 ### Strategic Importance
 
@@ -20,27 +20,52 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the strategic blueprint for all testing activities, defining the what, when, how, and who of testing across the project/product lifecycle. It establishes quality standards, testing methodologies, automation strategy, risk-based prioritization, resource allocation, and success metrics ensuring comprehensive validation while optimizing testing efficiency and effectiveness.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Test levels: Unit, Integration, System, Acceptance (ISTQB test levels)
+- Test types: Functional, Performance, Security, Usability, Accessibility, Compatibility
+- Test pyramid strategy (70% unit, 20% integration, 10% E2E)
+- Shift-left testing approach (testing early in development cycle)
+- Continuous testing integration in CI/CD pipelines
+- Test automation framework and tool selection (Selenium, Cypress, Playwright, Jest, JUnit)
+- Manual testing approach and exploratory testing strategy
+- Risk-based test prioritization (high risk/high value features first)
+- Test environment strategy (dev, test, staging, performance environments)
+- Test data management strategy and compliance (GDPR/CCPA/HIPAA)
+- Defect management workflow and severity/priority definitions
+- Entry and exit criteria for each test phase
+- Test metrics and KPIs (code coverage 80%+, defect density, MTTD, MTTR)
+- Roles and responsibilities (QA engineers, test automation engineers, developers)
+- Test schedule and resource allocation
+- Regression testing strategy and test selection criteria
+- Performance testing strategy (load, stress, spike, endurance testing)
+- Security testing approach (OWASP Top 10, penetration testing, SAST/DAST)
+- Accessibility testing strategy (WCAG 2.1 AA compliance validation)
+- Test reporting and stakeholder communication
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed test case specifications (separate test case artifacts)
+- Automated test scripts implementation (code in test automation repositories)
+- Project management and sprint planning (handled by project management)
+- Development methodology and coding standards (separate development standards)
+- Production operations and monitoring (handled by operations team)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- QA Managers and Test Leads who oversee testing execution and resource management
+- Development Managers who coordinate testing activities with development sprints
+- Product Owners who understand quality approach and acceptance criteria
+- Test Architects who design test automation frameworks and strategies
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Executive Leadership who need visibility into quality assurance approach and metrics
+- Project Managers who integrate testing activities into project schedules
+- DevOps Engineers who implement continuous testing in CI/CD pipelines
+- Compliance Officers who validate testing approach meets regulatory requirements
 
 ## Document Information
 
@@ -169,9 +194,104 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Testing Standards**:
+- ISO/IEC/IEEE 29119 (Software Testing) - International testing standard
+- ISTQB (International Software Testing Qualifications Board) - Testing certification
+- IEEE 829 (Software Test Documentation) - Test documentation standard
+- ISO/IEC 25010 (Software Quality Model - SQuaRE)
+- ISO 9001 (Quality Management Systems)
+- CMMI-DEV (Capability Maturity Model Integration for Development)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Testing Methodologies & Approaches**:
+- Test Pyramid (Martin Fowler) - 70% unit, 20% integration, 10% E2E
+- Test-Driven Development (TDD) - Write tests before code
+- Behavior-Driven Development (BDD) - Specification by example
+- Acceptance Test-Driven Development (ATDD) - Collaborative test design
+- Shift-Left Testing - Testing early in development lifecycle
+- Shift-Right Testing - Testing in production with monitoring
+- Continuous Testing - Testing integrated throughout CI/CD
+- Risk-Based Testing - Prioritize by risk (probability × impact)
+- Exploratory Testing - Simultaneous learning and test execution
+- Session-Based Test Management (SBTM) - Structured exploratory testing
+
+**Agile & DevOps Testing**:
+- Agile Testing Quadrants (Lisa Crispin & Janet Gregory)
+- Whole Team Approach - Developers, testers, business collaborate
+- Test Automation Pyramid - Unit > Service > UI tests
+- Continuous Integration/Continuous Testing
+- DevOps Test Strategy - Testing in deployment pipeline
+- Shift-Left/Shift-Right Testing in DevOps
+
+**Test Automation Frameworks & Tools**:
+- Unit Testing: JUnit 5, Jest, pytest, RSpec, NUnit, xUnit
+- Integration Testing: REST Assured, Postman/Newman, Testcontainers
+- E2E Testing: Selenium WebDriver, Cypress, Playwright, TestCafe
+- BDD Frameworks: Cucumber, SpecFlow, Behave
+- Mobile Testing: Appium, Espresso, XCUITest
+- Performance Testing: JMeter, Gatling, K6, Locust
+- Security Testing: OWASP ZAP, Burp Suite, Snyk, SonarQube
+- Accessibility Testing: axe DevTools, WAVE, Pa11y, Lighthouse
+
+**Test Management & Reporting**:
+- TestRail - Comprehensive test management platform
+- Zephyr (Jira) - Agile test management
+- qTest (Tricentis) - Enterprise test management
+- Azure Test Plans - Microsoft DevOps test management
+- Xray (Jira) - Test management for Jira
+- Allure Framework - Test reporting and analytics
+- ReportPortal - AI-powered test analytics
+
+**Quality Metrics & KPIs**:
+- Code Coverage: 80%+ line coverage, 70%+ branch coverage
+- Defect Density: <1 defect per 1000 lines of code (KLOC)
+- Defect Removal Efficiency (DRE): >95%
+- Test Automation Coverage: >70% of regression tests automated
+- Mean Time to Detect (MTTD): <24 hours for critical issues
+- Mean Time to Repair (MTTR): <4 hours for critical defects
+- Test Execution Pass Rate: >95% for regression suite
+- Escaped Defects: <5% of defects found in production
+- Test Case Effectiveness: Defects found / Total test cases
+
+**Risk-Based Testing**:
+- Risk Assessment Matrix (Probability × Impact)
+- FMEA (Failure Mode and Effects Analysis)
+- Risk-Based Test Prioritization
+- Defect Prediction Models
+- Critical Path Testing
+
+**Performance Testing Standards**:
+- ISO/IEC 25023 (System and software quality measurement)
+- Load Testing - Normal expected load
+- Stress Testing - Beyond normal capacity
+- Spike Testing - Sudden traffic increases
+- Endurance Testing - Sustained load over time
+- Volume Testing - Large data volumes
+
+**Security Testing Standards**:
+- OWASP Top 10 - Most critical web application security risks
+- OWASP ASVS (Application Security Verification Standard)
+- SANS Top 25 - Most dangerous software weaknesses
+- NIST Cybersecurity Framework
+- ISO/IEC 27001 (Information security management)
+- SAST (Static Application Security Testing)
+- DAST (Dynamic Application Security Testing)
+- IAST (Interactive Application Security Testing)
+- Penetration Testing (PTES, OSSTMM methodologies)
+
+**Accessibility Testing Standards**:
+- WCAG 2.1/2.2 (Web Content Accessibility Guidelines)
+- Section 508 (US Federal accessibility)
+- EN 301 549 (European accessibility standard)
+- ARIA 1.2 (Accessible Rich Internet Applications)
+
+**Test Environment Management**:
+- Infrastructure as Code (Terraform, CloudFormation)
+- Containerization (Docker, Kubernetes)
+- Test environment provisioning automation
+- Environment configuration management
+- Test data management and refresh strategies
+
+**Reference**: Consult test management, QA leadership, and test architecture teams for detailed guidance on strategy definition, methodology selection, and metrics tracking
 
 ## Integration Points
 

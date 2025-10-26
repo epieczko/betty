@@ -2,45 +2,59 @@
 
 ## Executive Summary
 
-The Raci Per Workstream is a critical deliverable within the Portfolio, Governance, and Delivery Ops phase, supporting Governance & Planning activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The RACI per Workstream artifact is a responsibility assignment matrix that clearly defines who is Responsible, Accountable, Consulted, and Informed for each major activity, decision, or deliverable within initiatives and projects. This critical governance tool eliminates role confusion, prevents ownership gaps, and ensures cross-functional alignment by making decision rights and accountability explicit across Engineering, Product, Design, Security, and other teams.
 
-As a core component of the Governance & Planning practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Building on the RACI framework (Responsible-Accountable-Consulted-Informed) and related models like RAPID (Bain) and DACI (Intuit), this artifact maps organizational roles to workstreams, clarifying who does the work (Responsible), who has final approval authority (Accountable), who provides input (Consulted), and who needs to be kept informed. It supports efficient decision-making, reduces bottlenecks, and enables autonomous teams by establishing clear accountability boundaries for complex, cross-functional initiatives.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Decision Rights Clarity**: Eliminates confusion about who makes decisions and who executes
+- **Accountability Definition**: Ensures every workstream activity has exactly one Accountable owner
+- **Cross-Functional Alignment**: Coordinates responsibilities across Engineering, Product, Design, Security teams
+- **Approval Path Optimization**: Streamlines approval workflows by clarifying Consulted vs. Informed roles
+- **Bottleneck Reduction**: Identifies decision-making choke points and over-consulted stakeholders
+- **Organizational Efficiency**: Enables faster execution by making responsibility boundaries explicit
+- **Governance Transparency**: Provides clear audit trail of decision authority and accountability
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact establishes clear decision rights and execution accountability across cross-functional workstreams using RACI (Responsible-Accountable-Consulted-Informed) framework. It eliminates ambiguity about who owns what, who approves decisions, who must be consulted, and who simply needs to be informed, enabling efficient execution and reducing organizational friction.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- RACI assignments: Responsible, Accountable, Consulted, Informed per major activity
+- Workstream decomposition: key activities, deliverables, and decision points
+- Cross-functional coordination: Engineering, Product, Design, Security, Legal, Compliance roles
+- Decision rights matrix: who has authority to approve, recommend, or provide input
+- Approval workflows: routing for architecture decisions, security reviews, compliance sign-offs
+- Escalation paths: when consensus fails, who has decision authority
+- Stakeholder engagement model: which roles must be consulted vs. simply informed
+- Dependency management: identifying cross-workstream coordination needs
+- Alternative frameworks: RAPID (Recommend-Agree-Perform-Input-Decide), DACI (Driver-Approver-Contributor-Informed)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Service ownership and operational accountability (see ownership-charters)
+- Team organizational structure and topologies (see team-topology-map)
+- Individual skills and competency assessments (see skills-matrix)
+- Time allocation and capacity planning (see time-allocation-worksheets)
+- Overall initiative governance (see initiative-charter)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Engineering Managers coordinating cross-functional delivery
+- Product Leaders clarifying decision authority and stakeholder involvement
+- Team Leads understanding their workstream responsibilities and decision rights
+- Program Managers orchestrating complex, multi-team initiatives
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Individual Contributors understanding approval paths and stakeholder consultation requirements
+- Architecture teams clarifying review and approval roles
+- Security and Compliance teams defining their consultation and approval authority
+- Organizational Designers optimizing decision-making efficiency
 
 ## Document Information
 
@@ -119,12 +133,58 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 **Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
 **Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
 **Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**RACI Assignment Best Practices**:
+- **One Accountable**: Each activity must have exactly one Accountable person (never zero, never multiple)
+- **Clear Responsible**: Define who does the work; can be multiple people but needs coordination
+- **Minimize Consulted**: Over-consultation slows decisions; consult only when input truly needed
+- **Right-Size Informed**: Inform those who need to know; avoid over-communicating to reduce noise
+- **Combine R and A**: When possible, same person/team should be Responsible and Accountable
+- **Avoid RACI Gaps**: Every workstream activity must have assigned roles; no blank cells
+- **Resolve Conflicts**: Address disagreements about assignments before finalizing matrix
+
+**Decision Authority Clarity**:
+- **Accountable Owns Outcome**: Accountable person has final decision authority and accountability
+- **Consulted Provides Input**: Consultation is two-way dialogue; Accountable must seek their input
+- **Informed Receives Updates**: One-way communication; no input required or expected
+- **Escalation Path**: Define who breaks ties when Accountable and Consulted disagree
+- **Delegation Clarity**: Document when Accountable delegates decision-making to Responsible
+- **Time Boundaries**: Specify consultation and approval SLAs to prevent bottlenecks
+
+**Cross-Functional Coordination**:
+- **Engineering-Product Alignment**: Clarify Product's decision authority on what/why, Engineering on how
+- **Security Gates**: Define when Security is Consulted (design review) vs. Accountable (approval)
+- **Architecture Review**: Specify ARB as Consulted for guidance vs. Approver for standards compliance
+- **Design Involvement**: Clarify when Design is Responsible vs. Consulted
+- **Legal/Compliance**: Define approval authority for contracts, privacy, regulatory requirements
+- **Platform Teams**: Specify platform team consultation for infrastructure and standards
+
+**Process Efficiency**:
+- **Parallel Consultation**: Consult multiple stakeholders in parallel, not sequentially
+- **Asynchronous Reviews**: Use RFCs, design docs, pull requests for asynchronous input
+- **Decision Logs**: Document decisions and rationale in ADRs, reducing re-consultation
+- **Informed Automation**: Use Slack, email, dashboards for automatic status updates
+- **Pre-Approval Patterns**: Pre-approve common scenarios to reduce approval overhead
+- **Lightweight Reviews**: Risk-based review depth (quick review for low risk, thorough for high)
+
+**Organizational Patterns**:
+- **DRI Model**: Assign Directly Responsible Individuals for clear accountability
+- **Product Trio**: Product Manager (Accountable for what), Designer (Responsible for UX), Tech Lead (Responsible for how)
+- **Agile Roles**: Product Owner (Accountable for backlog), Scrum Master (Responsible for process), Team (Responsible for delivery)
+- **Platform Service Model**: Platform Accountable for capabilities, stream-aligned teams Responsible for consumption
+- **Security Champions**: Embedded security role for consultation, CISO org Accountable for approval
+
+**Tools and Visualization**:
+- **Visual RACI Matrix**: Use color coding (R=blue, A=red, C=yellow, I=green) for clarity
+- **RACI Templates**: Start with Miro, Mural, or Excel templates for consistency
+- **Integration with Tools**: Link RACI to Jira workflows, approval routing in tools
+- **Regular Review**: Update RACI quarterly or when organizational changes occur
+- **Complexity Analysis**: Flag activities with too many Consulted roles for simplification
+
 **Executive Sponsorship**: Ensure visible executive sponsorship and regular executive review
 **Governance Alignment**: Align with organizational governance framework and decision-making bodies
-**Metric-Driven**: Include measurable metrics and KPIs to track progress and outcomes
+**Metric-Driven**: Track decision cycle time, approval SLA adherence, bottleneck identification
 **Dependency Management**: Explicitly identify and track dependencies on other initiatives or resources
 **Risk Integration**: Integrate with risk management processes; escalate risks appropriately
-**Change Control**: Submit significant changes through formal change control process
 **Audit Trail**: Maintain comprehensive audit trail for governance and compliance purposes
 
 ## Quality Criteria
@@ -172,7 +232,119 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Responsibility Assignment Frameworks**:
+- RACI Matrix: Responsible (does the work), Accountable (final authority), Consulted (input), Informed (notified)
+- RAPID (Bain): Recommend, Agree, Perform, Input, Decide - emphasizes decision authority
+- DACI (Intuit): Driver, Approver, Contributor, Informed - focuses on driver ownership
+- RASCI: Adds "Support" role for those providing resources
+- RACI-VS: Adds "Verify" (quality check) and "Sign-off" (formal approval)
+- Responsibility Assignment Matrix (RAM): Generic term for role-to-task mapping
+- Linear Responsibility Chart (LRC): Visual representation of RACI assignments
+
+**Decision-Making Frameworks**:
+- Decision Rights Framework: clarity on who makes which decisions
+- Delegation of Authority (DOA): formal delegation levels and limits
+- Consensus Decision-Making: when and how to seek group alignment
+- Consultative Decision-Making: seeking input while retaining authority
+- Command Decision Model: hierarchical authority in time-critical situations
+- Advice Process (Reinventing Organizations): seek advice but decide autonomously
+
+**Accountability and Governance Models**:
+- Single Wringable Neck (SWN): exactly one person accountable per outcome
+- Directly Responsible Individual (DRI) - Apple's accountability model
+- Owner-Approver-Contributor model used in OKR frameworks
+- Governance boards and steering committees: decision authority structures
+- Program governance: roles in program boards and oversight committees
+
+**Agile and Product Development Models**:
+- Scrum roles: Product Owner, Scrum Master, Development Team responsibilities
+- SAFe roles: Release Train Engineer, Product Management, System Architect
+- Product Trio: Product Manager, Designer, Tech Lead collaboration model
+- Spotify Model: Squad autonomy with aligned decision-making
+- Shape Up (Basecamp): Shaper, Designer, Programmers role clarity
+
+**Cross-Functional Collaboration Patterns**:
+- Design-Development-Product triangle of accountability
+- Security champions: embedded security consultation model
+- Architecture Review Board (ARB): review and approval authority
+- Technical Design Review (TDR): consultation and approval process
+- Change Advisory Board (CAB): ITIL change approval authority
+- Compliance review gates: legal, privacy, security approval checkpoints
+
+**Approval and Review Processes**:
+- Multi-stage approval workflows: peer review, manager approval, architecture sign-off
+- Lightweight vs. heavyweight review processes by risk level
+- Asynchronous review and approval (RFC process, pull request reviews)
+- Architecture Decision Records (ADRs): documenting who decided what and why
+- Request for Comments (RFC): structured consultation and decision process
+- Design review checkpoints: concept, detailed design, implementation review
+
+**Organizational Design Patterns**:
+- Centralized vs. Decentralized decision-making structures
+- Federated model: domain-specific decision authority
+- Matrix organization accountability: functional vs. project reporting
+- Committee-based governance: steering committees, review boards
+- Empowerment and delegation: push decisions to edges
+- Escalation paths: when to escalate unresolved decisions
+
+**Lean and Efficiency Principles**:
+- Eliminate unnecessary approvals: reduce "Consulted" and "Informed" roles
+- Push decisions to information: those closest to work should decide
+- Reduce handoffs: combine Responsible and Accountable when possible
+- Just-in-time consultation: consult when needed, not by default
+- Information radiators: make status visible, reduce need for "Informed" meetings
+- Decision velocity: measure and improve decision cycle time
+
+**Stakeholder Management**:
+- Power-Interest Grid: mapping stakeholder influence and engagement level
+- Stakeholder engagement plans: when to consult vs. inform
+- Communication plans: RACI-informed notification strategies
+- Influence mapping: understanding formal vs. informal decision influence
+- RACI-based communication matrix: who communicates what to whom
+
+**Tools and Visualization**:
+- RACI matrix templates (Excel, Google Sheets, Miro, Mural)
+- Project management tools: Asana, Jira, Monday.com RACI features
+- Organizational charting tools: LucidChart, OrgChart
+- Decision log tools: ADR repositories, Confluence decision pages
+- Workflow automation: approval routing in Jira, ServiceNow
+- RACI audit and analysis: identifying gaps, overlaps, bottlenecks
+
+**Process Improvement Methodologies**:
+- Lean Six Sigma: SIPOC (Suppliers-Inputs-Process-Outputs-Customers) and RACI alignment
+- Business Process Reengineering: redesigning processes with clear accountability
+- Value Stream Mapping: identifying decision points and ownership
+- Process mining: analyzing actual vs. intended decision flows
+- Continuous improvement: regularly review and optimize RACI assignments
+
+**Quality and Compliance**:
+- ISO 9001: Quality management system roles and responsibilities
+- ISO 27001: Information Security Management System (ISMS) accountability
+- SOC 2: Control ownership and accountability documentation
+- GDPR: Data Protection Officer and data controller/processor roles
+- ITIL 4: Service management roles and accountability
+- COBIT: IT governance roles and decision authority
+
+**Program and Portfolio Management**:
+- PMI PMBOK: Project roles and responsibility assignment
+- Portfolio governance: investment decision authority
+- Program-level vs. project-level decision authority
+- Multi-project coordination: resolving cross-project dependencies
+- Resource allocation authority: who approves staffing decisions
+
+**Conflict Resolution and Escalation**:
+- Escalation triggers: when to escalate unresolved RACI conflicts
+- Tie-breaking authority: who decides when Accountable parties disagree
+- Consensus vs. consultative thresholds: when to seek agreement vs. input
+- Escalation paths: team lead → manager → director → VP
+- Mediation and arbitration: neutral third-party decision support
+
+**Related Standards**:
+- PMI Project Management Body of Knowledge (PMBOK): Responsibility Assignment Matrix
+- PRINCE2: Project roles and responsibility definitions
+- ITIL 4: Service management accountability framework
+- TOGAF: Enterprise Architecture governance roles
+- Agile frameworks: Scrum, SAFe, LeSS role definitions
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

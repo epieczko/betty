@@ -2,45 +2,59 @@
 
 ## Executive Summary
 
-The Explainability Reports is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Explainability Reports provide structured, human-readable explanations of AI/ML model predictions using techniques like SHAP (Shapley values), LIME, InterpretML, and AI Explainability 360. These reports translate complex model behaviors into understandable feature importance rankings, decision boundaries, and prediction rationales that enable stakeholders to trust, validate, and comply with regulatory transparency requirements (EU AI Act Article 13, GDPR automated decision-making).
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As AI systems increasingly impact high-stakes decisions (credit scoring, medical diagnosis, hiring, pricing), regulators and customers demand explainability beyond black-box predictions. Explainability reports address this by generating feature attributions (which input features most influenced the prediction), counterfactual explanations (what would need to change for a different outcome), and global model behavior summaries. These reports support EU AI Act transparency obligations, model risk management frameworks, and customer trust in automated decision systems.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Regulatory Compliance**: Meets EU AI Act Article 13 transparency requirements and GDPR Article 22 (automated decision-making explanation rights)
+- **Model Risk Management**: Supports SR 11-7 (OCC model risk management) with documented model behavior and validation evidence
+- **Customer Trust**: Provides explanation interfaces for decisions affecting individuals (loan denials, pricing, content moderation)
+- **Bias Detection**: Identifies discriminatory patterns through feature importance analysis across protected classes
+- **Model Debugging**: Accelerates model improvement by identifying problematic features, data quality issues, and unexpected behaviors
+- **Stakeholder Alignment**: Enables non-technical business stakeholders to understand and validate model logic
+- **Audit Trail**: Creates documentation trail for regulatory audits, compliance reviews, and bias assessments
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the documentation standard for generating and publishing AI/ML model explainability reports using SHAP, LIME, and other interpretability frameworks. Reports translate model predictions into human-understandable explanations through feature importance, decision boundaries, counterfactual scenarios, and prediction confidence intervals.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- SHAP (Shapley Additive Explanations) feature importance reports for tabular, tree-based, and deep learning models
+- LIME (Local Interpretable Model-Agnostic Explanations) for individual prediction explanations
+- Feature importance rankings (global and local explanations)
+- Counterfactual explanations (minimal changes needed to flip prediction)
+- Partial dependence plots (how predictions change with feature values)
+- Model Cards (structured documentation per Google model card framework)
+- EU AI Act transparency documentation (Article 13 high-risk AI systems)
+- GDPR Article 22 automated decision-making explanations
+- Bias and fairness analysis (disparate impact across protected classes)
+- Model performance reporting (accuracy, precision, recall, F1 across subgroups)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Complete model development documentation (covered in ML pipeline documentation)
+- Training data provenance (handled through data lineage and provenance attestations)
+- Model deployment and infrastructure (managed through MLOps documentation)
+- Real-time prediction APIs (documented in API specifications)
+- Model monitoring and drift detection (covered in ML observability systems)
+- Adversarial robustness testing (specialized security assessment)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Data Science Teams: Generate explainability reports for model validation and stakeholder communication
+- Model Risk Management: Review model explanations for compliance and risk assessment
+- Compliance Officers: Ensure AI systems meet EU AI Act and GDPR transparency requirements
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Business Stakeholders: Understand model logic and validate alignment with business rules
+- Customer-Facing Teams: Explain automated decisions to affected individuals (GDPR right to explanation)
+- Regulators & Auditors: Review model transparency documentation during examinations
 
 ## Document Information
 
@@ -145,19 +159,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Model-Appropriate Explainer**: Use TreeExplainer for tree-based models (XGBoost, LightGBM, Random Forest), KernelExplainer for model-agnostic explanations
+**SHAP for Global Importance**: Generate SHAP summary plots showing feature importance distributions across entire dataset
+**LIME for Individual Explanations**: Use LIME to explain specific high-stakes predictions (loan denials, fraud flags)
+**Counterfactual Scenarios**: Provide actionable counterfactuals ("If income increased $5K, loan would be approved")
+**Protected Class Analysis**: Always disaggregate model performance and explanations by protected classes (race, gender, age)
+**Plain Language Explanations**: Translate technical feature names to business terms ("credit_utilization" → "percentage of available credit used")
+**Visual Explanations**: Use SHAP force plots, waterfall charts, and feature importance bar charts for stakeholder communication
+**Confidence Intervals**: Report prediction confidence alongside explanations to communicate uncertainty
+**Model Card Publication**: Publish model cards for customer-facing AI systems (EU AI Act transparency requirement)
+**Quarterly Bias Audits**: Re-run fairness metrics quarterly to detect model drift and discriminatory patterns
+**Explanation Validation**: Test that explanations accurately reflect model behavior (explanation faithfulness testing)
+**Regulatory Documentation**: Maintain explainability reports as evidence for EU AI Act and SR 11-7 compliance audits
+**User-Facing Explanations**: Provide simplified explanations in customer portals for GDPR Article 22 compliance
+**Disagreement Analysis**: When SHAP and LIME disagree, investigate why and document findings
+**Feature Dependency**: Use partial dependence plots to show non-linear feature relationships
+**Subgroup Performance**: Report model accuracy separately for protected classes to identify disparate performance
+**Explanation Stability**: Test explanation consistency across similar inputs (stable models produce stable explanations)
+**Automated Report Generation**: Integrate explainability reporting into CI/CD for continuous documentation
+**Explanation APIs**: Expose SHAP/LIME explanations through APIs for customer-facing applications
+**Third-Party Validation**: Have independent reviewers validate explanations for high-risk AI systems (credit, hiring, healthcare)
 
 ## Quality Criteria
 
@@ -204,9 +225,87 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Explainability Frameworks & Libraries**:
+- SHAP (SHapley Additive exPlanations): Python library for unified feature importance (tree, kernel, deep, gradient explainers)
+- LIME (Local Interpretable Model-Agnostic Explanations): Model-agnostic local explanation framework
+- InterpretML (Microsoft): Glass-box models (EBM) and black-box explanations
+- AI Explainability 360 (IBM): Comprehensive explainability algorithms and metrics
+- Captum (Meta/PyTorch): Model interpretability for PyTorch deep learning models
+- DALEX (DrWhy.AI): Model-agnostic explanations for R and Python
+- Alibi (Seldon): Black-box and white-box explainability algorithms
+- What-If Tool (Google): Visual interface for model understanding and fairness
+- Explainable Boosting Machine (EBM): Inherently interpretable gradient boosting (Microsoft)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Model Cards & Documentation Standards**:
+- Model Cards for Model Reporting (Google): Structured documentation template for ML models
+- FactSheets (IBM): AI transparency documentation framework
+- Datasheets for Datasets: Dataset documentation template (analogous to model cards)
+- ML Test Score (Google): Rubric for ML production readiness
+- IEEE 7000-2021: Model process for addressing ethical concerns in system design
+
+**Regulatory & Compliance Frameworks**:
+- EU AI Act Article 13: Transparency obligations for high-risk AI systems (2025 enforcement)
+- EU AI Act Article 52: Transparency obligations for certain AI systems (emotion recognition, biometric categorization)
+- GDPR Article 22: Right not to be subject to automated decision-making (requires explanation capability)
+- GDPR Article 15: Right of access (includes right to meaningful information about logic of automated processing)
+- CCPA Section 1798.185: Automated decision-making disclosure requirements
+- OECD AI Principles: Transparency and explainability requirements
+- NIST AI Risk Management Framework: Explainability and interpretability guidance
+
+**Financial Services Model Risk Management**:
+- SR 11-7 (OCC): Supervisory Guidance on Model Risk Management (banking model validation)
+- SR 15-18 / SR 15-19 (Federal Reserve): Model risk management for machine learning
+- TRIM (Targeted Review of Internal Models): ECB model validation framework
+- IFRS 9 / CECL: Credit risk model validation and documentation requirements
+
+**Explainability Techniques**:
+- Global Explanations: Feature importance across entire model (permutation importance, SHAP summary plots)
+- Local Explanations: Individual prediction explanations (SHAP force plots, LIME)
+- Counterfactual Explanations: Minimal changes to flip prediction (Dice, Alibi counterfactuals)
+- Partial Dependence Plots (PDP): How predictions vary with feature values
+- Individual Conditional Expectation (ICE): Per-instance partial dependence plots
+- Accumulated Local Effects (ALE): Unbiased feature effect estimates
+- Anchors: High-precision rule-based explanations (Alibi anchors)
+
+**Bias & Fairness Assessment**:
+- Disparate Impact Analysis: Protected class outcome disparities (80% rule)
+- Equalized Odds: Error rate parity across groups
+- Demographic Parity: Equal positive prediction rates across groups
+- Calibration: Prediction confidence accuracy across subgroups
+- Fairness Indicators (TensorFlow): Bias metrics visualization
+- AI Fairness 360 (IBM): Bias detection and mitigation algorithms
+- Aequitas (University of Chicago): Bias and fairness audit toolkit
+
+**High-Risk AI System Categories (EU AI Act)**:
+- Biometric identification and categorization
+- Critical infrastructure management
+- Education and vocational training (admissions, grading)
+- Employment decisions (hiring, promotion, termination)
+- Access to essential services (credit scoring, insurance underwriting)
+- Law enforcement (predictive policing, crime risk assessment)
+- Migration and asylum (visa decisions, border control)
+- Justice system (recidivism prediction, case prioritization)
+
+**Explanation Types**:
+- Feature Attribution: Which features contributed most to prediction (SHAP, LIME)
+- Example-Based: Similar training examples that influenced prediction (influence functions)
+- Rule-Based: Decision rules that led to prediction (decision trees, rule extraction)
+- Saliency Maps: Visual highlighting of important image regions (GradCAM, attention maps)
+- Natural Language: Text-based explanations generated from model internals
+
+**Model Interpretability Spectrum**:
+- Inherently Interpretable: Linear regression, decision trees, rule-based systems, GAMs
+- Post-Hoc Interpretable: Neural networks, ensemble models, SVMs with SHAP/LIME explanations
+- Opaque Models: Complex deep learning, black-box ensembles requiring explanation frameworks
+
+**Performance & Fairness Metrics**:
+- Accuracy, Precision, Recall, F1 Score (overall and per subgroup)
+- AUC-ROC, AUC-PR (ranking quality)
+- Calibration Plots (prediction reliability)
+- Confusion Matrices (per protected class)
+- Mean Absolute Error (MAE), Root Mean Squared Error (RMSE) for regression
+
+**Reference**: Consult AI ethics, model risk management, and legal/compliance teams for detailed guidance on explainability requirements and regulatory obligations
 
 ## Integration Points
 

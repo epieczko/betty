@@ -2,45 +2,62 @@
 
 ## Executive Summary
 
-The Error Taxonomy is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Error Taxonomy defines standardized error classification, error codes, exception hierarchies, and failure handling patterns across distributed systems. This artifact establishes consistent error responses using HTTP status codes (4xx, 5xx), gRPC status codes, application-specific error codes, and structured error messages that enable automated error tracking, SLO measurement, error budget calculations, and effective client retry strategies.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a critical component of SRE reliability practices, the Error Taxonomy distinguishes user errors from system failures, enables error budget tracking per Google SRE methodology, and supports intelligent error handling including circuit breakers, retries with exponential backoff, and graceful degradation. Consistent error classification powers error rate metrics, SLI calculations, and automated alerting.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Error Budget Management**: Classifies errors for SLO tracking, error budget consumption, and burn rate calculations per Google SRE principles
+- **Reliability Measurement**: Enables accurate error rate SLIs by distinguishing user errors (4xx) from system failures (5xx) in availability calculations
+- **Client Experience**: Provides actionable error messages with error codes, retry guidance, and resolution steps for API consumers
+- **Automated Monitoring**: Powers error tracking platforms (Sentry, Rollbar, Bugsnag) with structured exceptions, stack traces, and contextual metadata
+- **Incident Response**: Accelerates troubleshooting through error code search, exception aggregation, and historical error pattern analysis
+- **API Consistency**: Standardizes error responses across REST APIs, GraphQL, gRPC, and asynchronous messaging systems
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact standardizes error classification, error code formats, exception hierarchies, and error response structures across all services and APIs. It defines HTTP status codes usage, gRPC status codes, custom application error codes (ERR-1001, AUTH-403-01), error message templates, retry semantics, and integration with error tracking platforms like Sentry, Rollbar, and Datadog Error Tracking.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- HTTP status codes (4xx client errors, 5xx server errors) with semantic usage guidelines
+- gRPC status codes (OK, INVALID_ARGUMENT, UNAVAILABLE, INTERNAL, etc.)
+- REST API error responses (RFC 7807 Problem Details, JSON:API error format)
+- GraphQL error extensions and error codes
+- Application error code taxonomy (domain-specific, hierarchical error codes)
+- Exception class hierarchies (RetryableException, PermanentException, ValidationException)
+- Error SLI classification (which errors count against SLOs, which are excluded)
+- Error budget impact scoring (critical vs. minor errors, weight by severity)
+- Structured error logging with exception types, stack traces, correlation IDs
+- Error tracking platform integration (Sentry, Rollbar, Bugsnag, Datadog APM)
+- Retry strategies (exponential backoff, jitter, circuit breaker patterns)
+- Error message localization and user-facing error text
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Application-specific business logic error handling (covered in development standards)
+- Infrastructure failure modes and disaster recovery (covered in resilience architecture)
+- Security incident classification and threat taxonomy (covered in security artifacts)
+- Performance degradation and latency issues (covered in SLO definitions)
+- Metric instrumentation for error rates (covered in metric-catalog artifact)
+- Alert definitions and escalation policies (covered in alerting workflows)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- SRE Teams: Define error budget calculations, classify errors for SLI tracking, set error rate thresholds
+- Application Developers: Implement exception handling, return structured errors, integrate error tracking SDKs
+- API Engineers: Design consistent error responses, document error codes, implement retry logic
+- Platform Engineers: Configure error tracking infrastructure, aggregate errors, define error budgets
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- DevOps Engineers: Monitor error rates, troubleshoot deployment failures, track rollback triggers
+- Support Engineers: Interpret error codes, troubleshoot customer issues, escalate based on error severity
+- Engineering Leadership: Review error budgets, reliability trends, incident patterns
+- QA Engineers: Validate error handling, test retry logic, verify error messages
 
 ## Document Information
 
@@ -106,19 +123,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**4xx vs 5xx**: Use 4xx for client errors (bad request, auth failure) that don't count against SLOs; 5xx for system failures that consume error budget
+**Specific Status Codes**: Use precise codes (401 Unauthorized, 403 Forbidden, 404 Not Found, 429 Too Many Requests, 503 Service Unavailable)
+**gRPC Status Codes**: Map to gRPC canonical codes (INVALID_ARGUMENT, UNAUTHENTICATED, PERMISSION_DENIED, UNAVAILABLE)
+**Structured Errors**: Return JSON error objects with code, message, details, request_id, documentation_url
+**Error Code Format**: Use hierarchical codes (AUTH-401-001, VAL-400-002, SYS-500-001) for categorization
+**Retryable Classification**: Clearly mark errors as retryable (503, 429) or permanent (400, 404, 403)
+**Idempotency Keys**: Support idempotency for POST/PUT requests to enable safe retries
+**Exponential Backoff**: Implement exponential backoff with jitter (initial 1s, max 60s) for retry logic
+**Circuit Breakers**: Use circuit breaker pattern after N consecutive failures to prevent cascade failures
+**Error Budget Tracking**: Classify which errors consume error budget (5xx yes, 4xx no, specific exceptions)
+**User-Facing Messages**: Provide actionable error messages; avoid stack traces or internal details in API responses
+**Correlation IDs**: Include request_id/correlation_id in errors for distributed tracing and log correlation
+**Error Grouping**: Use fingerprinting/grouping in Sentry/Rollbar to aggregate similar errors
+**Stack Trace Capture**: Capture full stack traces in logs and error tracking; sanitize PII before sending
+**Rate Limit Guidance**: Include Retry-After header for 429 responses; document rate limits in API docs
+**Graceful Degradation**: Return partial results with warnings rather than hard failures when possible
+**Error Documentation**: Maintain error catalog with each error code, meaning, resolution steps, examples
 
 ## Quality Criteria
 
@@ -165,9 +186,62 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**HTTP Standards**:
+- RFC 7231 - HTTP/1.1 Semantics (status codes definitions)
+- RFC 7807 - Problem Details for HTTP APIs (structured error format)
+- RFC 6585 - Additional HTTP Status Codes (428, 429, 431, 511)
+- RFC 8288 - Web Linking for error documentation URLs
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**gRPC Standards**:
+- gRPC Status Codes - Canonical error codes (OK, CANCELLED, UNKNOWN, INVALID_ARGUMENT, etc.)
+- gRPC Error Model - Rich error model with details, metadata, retry info
+- google.rpc.Status - Protobuf error status format
+
+**API Error Standards**:
+- JSON:API Error Format - Standardized JSON error object structure
+- OData Error Format - Microsoft OData error response format
+- GraphQL Errors - GraphQL error extensions and error codes
+- OpenAPI 3.0 - Error response schema definitions
+
+**Error Tracking Platforms**:
+- Sentry - Real-time error tracking with stack traces, breadcrumbs, releases
+- Rollbar - Error monitoring and alerting with deployment tracking
+- Bugsnag - Application stability monitoring with error grouping
+- Datadog Error Tracking - APM-integrated error tracking and analytics
+- New Relic Errors - Error analytics within APM platform
+- Airbrake - Error monitoring with smart error grouping
+- Raygun - Error tracking with user tracking and crash reporting
+
+**Resilience Patterns**:
+- Circuit Breaker - Netflix Hystrix, Resilience4j circuit breaker pattern
+- Retry with Backoff - Exponential backoff with jitter algorithms
+- Bulkhead Pattern - Isolate resources to prevent cascading failures
+- Timeout Pattern - Fail fast with configurable timeouts
+- Fallback Pattern - Graceful degradation and default responses
+
+**SRE & Error Budgets**:
+- Google SRE Book - Error budget methodology and SLI/SLO framework
+- Error Budget Policy - How errors affect reliability targets
+- Burn Rate Alerts - Fast/slow burn rate for SLO violations
+- Blameless Postmortems - Root cause analysis without blame
+
+**Exception Monitoring**:
+- Sentry SDK - Language-specific error tracking integration
+- Rollbar SDKs - Multi-language error reporting
+- OpenTelemetry Exception Events - OTEL exception span events
+- Application Insights - Azure exception tracking and analytics
+
+**Error Response Frameworks**:
+- Spring Boot - @ExceptionHandler, @ControllerAdvice error handling
+- Express.js - Error handling middleware patterns
+- ASP.NET Core - Exception filters and problem details
+- Django REST Framework - Exception handling and error views
+
+**Retry Libraries**:
+- Resilience4j - Fault tolerance library for JVM
+- Polly - .NET resilience and transient fault handling
+- Tenacity - Python retry library with various strategies
+- node-retry - Node.js retry library with exponential backoff
 
 ## Integration Points
 

@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Pull Request Summaries is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Pull Request Summaries artifact provides concise, structured documentation of code changes proposed for integration into the main codebase, following industry best practices for PR descriptions, Conventional Commits, linked issue tracking, and automated changelog generation. This artifact ensures reviewers can quickly understand the what, why, and how of changes while maintaining traceability to product requirements, bug reports, and feature requests.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a cornerstone of collaborative software development, PR summaries serve development teams communicating change intent, reviewers assessing risk and impact, release managers generating changelogs, and product managers tracking feature delivery. Integration with platforms like GitHub, GitLab, Bitbucket, and Jira enables automated workflows including PR templates, commit message linting (commitlint), semantic versioning, changelog generation (standard-version, semantic-release), and deployment tracking across environments.
 
 ### Strategic Importance
 
@@ -20,27 +20,42 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as clear, contextual documentation for each code change, explaining the motivation (why), implementation approach (how), testing strategy (validation), and impact (what changes). It enables reviewers to perform effective code reviews, facilitates changelog generation for release notes, provides traceability to user stories/bugs, and supports deployment decisions by clearly communicating breaking changes, feature flags, and rollback procedures.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- PR title and description following Conventional Commits (feat, fix, docs, style, refactor, perf, test, chore)
+- Motivation and context (problem statement, user story, business value)
+- Implementation approach and technical decisions
+- Testing performed (unit, integration, E2E, manual testing scenarios)
+- Screenshots/recordings for UI changes
+- Breaking changes documentation (API changes, migration guides)
+- Linked issues and user stories (Jira, GitHub Issues, Linear)
+- Reviewer checklist (security, performance, accessibility, documentation)
+- Deployment notes (feature flags, database migrations, configuration changes)
+- Test coverage metrics (coverage delta, new/modified tests)
+- Rollback procedures for high-risk changes
+- Changelog entry preview (semantic-release format)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed code review comments (covered by code review records)
+- Build/CI logs and test results (covered by CI/CD artifacts)
+- Production deployment records (covered by deployment artifacts)
+- Incident response for failed deployments (covered by incident management)
+- Detailed test plans (covered by QA test plan artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Software Engineers authoring PRs with clear context for reviewers
+- Code Reviewers assessing change impact, risk, and quality
+- Engineering Managers tracking feature delivery and change velocity
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- QA Engineers understanding test coverage and validation approach
+- Product Managers tracking feature completion and release scope
+- DevOps/SRE Engineers assessing deployment risk and rollback requirements
 
 ## Document Information
 
@@ -106,19 +121,24 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Conventional Commits**: Use Conventional Commits format (feat:, fix:, docs:, refactor:) for PR titles; automate changelog generation with semantic-release
+**Clear Title**: Write concise, imperative PR titles (max 72 chars) describing the change outcome, not implementation
+**Comprehensive Description**: Include WHY (motivation), WHAT (changes), HOW (approach), TESTING (validation), IMPACT (breaking changes, rollout)
+**Link Issues**: Always link related issues/tickets (Closes #123, Fixes #456); enables automated issue closure and traceability
+**Screenshots for UI**: Include before/after screenshots/GIFs for all UI changes; use tools like Loom for interactive demos
+**Breaking Changes**: Explicitly document breaking changes in BREAKING CHANGE section; provide migration guide with code examples
+**Test Coverage**: Report test coverage delta; add tests for bug fixes to prevent regressions; document manual test scenarios
+**Small PRs**: Keep PRs focused and under 400 lines; split large features into incremental PRs with feature flags
+**Draft PRs**: Use draft/WIP PRs for early feedback; convert to ready-for-review when CI passes and self-review complete
+**Self-Review**: Review your own PR first; add inline comments explaining complex logic; ensure CI passes before requesting review
+**Reviewer Guidance**: Tag specific reviewers for different aspects (security team for auth changes, DBA for schema changes)
+**Deployment Notes**: Document required migrations, configuration changes, feature flag states, and rollback procedures
+**Changelog Preview**: Include changelog entry in PR description; preview what users/operators will see in release notes
+**Review Checklist**: Provide reviewer checklist (security, performance, tests, docs, breaking changes, rollback plan)
+**Semantic Labels**: Apply semantic labels (major, minor, patch, breaking-change) to automate version bumps
+**Update Frequently**: Rebase/merge main branch frequently to minimize merge conflicts and catch integration issues early
+**Respond Timely**: Address review comments within 24 hours; resolve or explain each comment; request re-review explicitly
+**Template Enforcement**: Enforce PR templates via CI checks (e.g., danger.js, semantic-pull-requests GitHub App)
 
 ## Quality Criteria
 
@@ -165,9 +185,82 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Conventional Commits & Semantic Versioning**:
+- Conventional Commits v1.0.0 (feat, fix, docs, style, refactor, perf, test, chore, build, ci)
+- Semantic Versioning (SemVer) 2.0.0 (MAJOR.MINOR.PATCH)
+- Angular Commit Message Conventions
+- Commitizen (interactive commit message builder)
+- commitlint (enforce commit message conventions)
+- Husky (Git hooks for commit message validation)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**PR Templates & Guidelines**:
+- GitHub Pull Request Templates (.github/pull_request_template.md)
+- GitLab Merge Request Templates (.gitlab/merge_request_templates/)
+- Bitbucket Pull Request Templates
+- PR Template Best Practices (Atlassian, GitHub, GitLab docs)
+- Pull Request Size Guidelines (Google: <400 LOC ideal)
+- Stacked PR/Diff Practices (Phabricator-style workflows)
+
+**Changelog Generation**:
+- Keep a Changelog (keepachangelog.com)
+- standard-version (automated versioning and CHANGELOG generation)
+- semantic-release (fully automated version management and package publishing)
+- auto (generate releases based on semantic version labels)
+- Release Drafter (GitHub Action for draft releases)
+- Conventional Changelog (generate changelog from git metadata)
+
+**Issue Tracking Integration**:
+- Jira Smart Commits (issue keys in commit messages)
+- GitHub Issues (closes #123, fixes #456, resolves #789)
+- GitLab Issues (closes, fixes, resolves keywords)
+- Linear Integration (automatic status updates from PR states)
+- Azure DevOps Work Items (AB#123 syntax)
+- Shortcut (formerly Clubhouse) integration
+
+**PR Metadata & Labels**:
+- GitHub Labels (bug, enhancement, documentation, breaking-change, needs-review)
+- Semantic Pull Requests (GitHub App enforcing conventional PR titles)
+- PR size labels (XS, S, M, L, XL based on lines changed)
+- Release labels (major, minor, patch for SemVer)
+- Status labels (WIP, ready-for-review, changes-requested, approved)
+- Type labels (feature, bugfix, hotfix, refactor, docs)
+
+**Code Coverage & Testing**:
+- Codecov (PR comments with coverage delta)
+- Coveralls (coverage tracking and PR badges)
+- SonarCloud (quality gate results in PR)
+- Test coverage thresholds (e.g., minimum 80% for new code)
+- Mutation testing results (Stryker, PIT)
+
+**Breaking Changes & Migration**:
+- BREAKING CHANGE footer in commit body (triggers major version bump)
+- Migration guide templates
+- Deprecation notices (version when deprecated, version when removed)
+- API versioning strategies (URL versioning, header versioning)
+- Backward compatibility checklist
+
+**Documentation Requirements**:
+- README updates for new features
+- API documentation (Swagger/OpenAPI, JSDoc, Javadoc)
+- Architecture Decision Records (ADR) for significant changes
+- Runbook updates for operational changes
+- Configuration documentation for new settings
+
+**Deployment & Rollback**:
+- Feature flags/toggles (LaunchDarkly, Split.io, Unleash)
+- Database migration scripts (Flyway, Liquibase, Alembic)
+- Blue-green deployment considerations
+- Canary deployment criteria
+- Rollback procedures and safe revert commits
+
+**Compliance & Audit**:
+- SOC 2 Type II (CC6.7 - Change Management)
+- ISO 27001 (A.14.2.2 - System Change Control Procedures)
+- PCI-DSS Requirement 6.4.5 (Change Control Processes)
+- 21 CFR Part 11 (Electronic Records; Electronic Signatures)
+- NIST SP 800-53 CM-3 (Configuration Change Control)
+
+**Reference**: Consult engineering team for PR template standards, commit message conventions, and changelog automation tooling
 
 ## Integration Points
 

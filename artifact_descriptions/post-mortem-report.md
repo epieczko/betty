@@ -2,45 +2,62 @@
 
 ## Executive Summary
 
-The Post Mortem Report is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Post-Mortem Report is a comprehensive incident review document that captures what happened, why it happened, how it was resolved, and what actions will prevent recurrence. Following the blameless postmortem culture pioneered by Google SRE and Etsy, this artifact transforms production incidents into learning opportunities by systematically documenting incident timelines, root causes, impact metrics, and SMART remediation actions in a psychologically safe, blame-free environment.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Structured around the Google SRE postmortem template and ITIL 4 problem management principles, each post-mortem includes a detailed timeline (detection → escalation → mitigation → resolution), severity classification (P0-P3), impact quantification (MTTR, customers affected, revenue impact, error budget burn), root cause analysis using 5 Whys or Fishbone techniques, and categorized action items (immediate, short-term, long-term) with assigned owners and completion deadlines. Post-mortems are reviewed in team retrospectives and published to a searchable knowledge base for organizational learning.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Learning Culture**: Establishes blameless incident review as standard practice, fostering psychological safety and continuous improvement
+- **Recurrence Prevention**: Reduces repeat incidents by 60-80% through systematic root cause elimination
+- **Transparency**: Builds customer trust through honest, timely communication about service reliability
+- **Knowledge Capture**: Creates searchable repository of failure modes, troubleshooting strategies, and solutions
+- **Metric-Driven Improvement**: Tracks MTTR trends, incident frequency, and action item completion rates
+- **Team Development**: Accelerates engineer growth by documenting expert troubleshooting and decision-making
+- **Compliance**: Satisfies SOC 2, ISO 27001, and audit requirements for incident documentation and corrective action
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents production incidents through comprehensive, blameless analysis including detailed timelines, root causes, impact metrics, and actionable remediation plans. It transforms failure into organizational learning by systematically capturing what went wrong, why it went wrong, and how to prevent recurrence, while fostering a culture of psychological safety and continuous improvement.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Incident overview and severity classification (P0/SEV0 through P3/SEV3)
+- Detailed timeline with UTC timestamps (detection, acknowledgment, escalation, mitigation, resolution)
+- Impact quantification (MTTR, MTTA, customers affected, revenue loss, error budget burn)
+- Root cause analysis using 5 Whys, Fishbone, or Fault Tree Analysis
+- Contributing factors across people/process/technology dimensions
+- What went well and what went poorly during incident response
+- SMART action items categorized by timeline (immediate, 30-day, 90-day, long-term)
+- Action item owners (DRI - Directly Responsible Individual) and deadlines
+- Lessons learned and knowledge base updates
+- Related incidents and pattern analysis
+- Blameless facilitation ensuring psychological safety
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Individual performance reviews or disciplinary action
+- Legal liability or blame attribution
+- Detailed RCA methodologies (covered in root-cause-analyses artifact)
+- Incident response execution (covered in playbooks artifact)
+- Compensation or financial impact beyond technical metrics
+- Customer communication strategies (handled by customer success/PR)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- SRE Teams conducting and learning from post-mortem analysis
+- Incident Commanders documenting incident response and coordination
+- Engineering Teams implementing remediation actions
+- Operations Teams preventing future incident recurrence
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Engineering Leadership tracking reliability trends and prioritizing investments
+- Product Management understanding customer impact and service quality
+- Customer Success Teams communicating incident impacts to customers
+- Compliance/Audit Teams validating incident response processes
 
 ## Document Information
 
@@ -145,19 +162,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Blameless Culture**: Explicitly state "this is a blameless post-mortem" at the start; focus on systems, not individuals
+**Timely Completion**: Publish post-mortem within 48-72 hours while details are fresh; don't wait weeks
+**Precise Timeline**: Use UTC timestamps accurate to minutes; include detection, acknowledgment, escalation, mitigation, resolution
+**Quantify Impact**: Always include MTTR, customers affected, error budget burn; use data, not vague estimates
+**Honest Assessment**: Document both successes and failures; "what went well" is as important as "what went poorly"
+**Root Cause Focus**: Apply 5 Whys or Fishbone; don't stop at symptoms; identify fundamental causes
+**Actionable Items**: Every action item must have owner, deadline, and success criteria (SMART)
+**Categorize Actions**: Separate immediate fixes (done), short-term (30 days), long-term (90+ days)
+**Track Completion**: Follow up on action items in subsequent reviews; report completion rates
+**Facilitate Discussion**: Host synchronous review meeting; don't just circulate document asynchronously
+**Invite Participants**: Include all incident responders in post-mortem review for diverse perspectives
+**Related Incidents**: Link to similar past incidents; identify patterns requiring systemic fixes
+**Knowledge Sharing**: Publish to searchable repository; present interesting post-mortems in team meetings
+**Customer Perspective**: Include customer impact narrative; read actual customer support tickets
+**Avoid Counterfactuals**: Focus on what happened, not hypotheticals; "we should have" is less useful than "we will"
+**Template Consistency**: Use standard template (Google SRE format) for predictable structure
+**Executive Summary**: Provide 2-3 paragraph TL;DR for leadership; don't force executives to read full timeline
 
 ## Quality Criteria
 
@@ -204,9 +225,73 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Post-Mortem Culture & Templates**:
+- Google SRE Book (Chapter on Postmortem Culture and Blameless Reviews)
+- Google SRE Postmortem Template
+- Etsy Debriefing Facilitation Guide (blameless post-mortem facilitation)
+- Site Reliability Engineering Workbook (Google)
+- PagerDuty Incident Response Documentation
+- Atlassian Incident Postmortem Template
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Blameless Culture Principles**:
+- Psychological safety (Google's Project Aristotle findings)
+- Just Culture (balancing accountability and learning)
+- Learning from Incidents (Sidney Dekker, Human Error)
+- Resilience Engineering principles
+- Human Factors analysis in incident investigation
+
+**Timeline & Analysis Frameworks**:
+- ITIL 4 Problem Management
+- 5 Whys (Toyota Production System)
+- Fishbone/Ishikawa Diagram
+- Incident timeline reconstruction best practices
+- Contributing factors analysis (people/process/technology)
+
+**Impact Quantification Metrics**:
+- MTTR (Mean Time To Resolution)
+- MTTA (Mean Time To Acknowledgment)
+- MTTD (Mean Time To Detection)
+- MTTF (Mean Time To Failure)
+- Error budget consumption (SRE concept)
+- Customer impact metrics (users affected, revenue loss)
+- Availability metrics (uptime %, SLA compliance)
+
+**Action Item Management**:
+- SMART criteria (Specific, Measurable, Achievable, Relevant, Time-bound)
+- Action item categorization (immediate, short-term, long-term)
+- DRI (Directly Responsible Individual) assignment
+- Follow-through tracking and completion reporting
+- Priority frameworks (P0: immediate, P1: 30 days, P2: 90 days)
+
+**Post-Mortem Facilitation Tools**:
+- Incident.io (automated timeline generation, Slack integration)
+- FireHydrant (retrospective facilitation, action item tracking)
+- Jeli.io (incident analysis and learning platform)
+- Confluence/Notion (knowledge base publishing)
+- Google Docs (collaborative editing)
+- Miro/Mural (visual timeline mapping)
+
+**Knowledge Management**:
+- Searchable post-mortem repositories
+- Incident tagging taxonomies (service, cause, severity)
+- Related incident linking and pattern analysis
+- Knowledge base integration (Confluence, Notion, Wiki)
+- Post-mortem review cadence (monthly team reviews)
+
+**Communication Patterns**:
+- Internal stakeholder communication
+- Customer-facing incident reports (status page updates)
+- Executive summaries for leadership
+- Cross-team sharing and learning sessions
+
+**Compliance & Audit**:
+- SOC 2 Type II (incident response documentation)
+- ISO 27001 (nonconformity and corrective action)
+- PCI-DSS (security incident documentation)
+- GDPR (data breach notification requirements)
+- HIPAA (breach notification rules)
+
+**Reference**: Consult SRE leadership and incident management team for post-mortem standards
 
 ## Integration Points
 

@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Export Control Screening is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Export Control Screening artifact documents compliance verification procedures for software, cryptography, and technology exports under U.S. Export Administration Regulations (EAR), International Traffic in Arms Regulations (ITAR), and international export control regimes. This artifact provides systematic screening of products, technologies, customers, and destinations against denied parties lists, ECCN classification requirements, and license exception eligibility ensuring legal distribution of controlled items and technologies.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a critical compliance control for software distribution and technology transfer, export control screening records serve compliance officers verifying export authorization, legal teams assessing regulatory requirements, release managers implementing geographic restrictions, and executives managing regulatory risk. Integration with Bureau of Industry and Security (BIS) denied parties screening, ECCN self-classification tools, encryption registration (ENC) procedures, and automated compliance platforms ensures systematic verification before international software distribution while maintaining comprehensive audit trails for regulatory examinations.
 
 ### Strategic Importance
 
@@ -20,27 +20,43 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as comprehensive documentation of export compliance verification including ECCN (Export Control Classification Number) self-classification for software and cryptography, denied party screening against BIS Denied Persons List and OFAC SDN List, license exception determination (TSU, ENC), encryption registration with BIS, and geographic distribution restrictions. It provides evidence of export compliance due diligence, supports regulatory audits, enables incident response for export violations, and demonstrates adherence to EAR, ITAR, Wassenaar Arrangement, and international export control requirements.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- ECCN classification for software (5D002 - cryptographic software, 5D992 - mass market cryptography)
+- Encryption strength assessment (key length, algorithms, cryptographic functions)
+- BIS encryption registration and classification requests
+- License exception determination (TSU Technology and Software Unrestricted, ENC encryption)
+- Denied party screening (BIS Denied Persons, Entity List, Unverified List)
+- OFAC sanctions screening (Specially Designated Nationals SDN List)
+- Wassenaar Arrangement dual-use controls
+- EU Dual-Use Regulation (EU 2021/821)
+- Country-based restrictions (embargoed countries, E:1 E:2 classification)
+- Cryptography export notifications and self-classifications
+- Open-source software exception eligibility (publicly available encryption)
+- Mass market encryption eligibility (≤64-bit symmetric, consumer products)
+- Technology transfer controls (foreign person access, deemed exports)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- ITAR-controlled defense articles (separate DDTC registration and licensing)
+- Physical product export logistics (covered by shipping/customs artifacts)
+- Tariff classification and customs duties (covered by trade compliance)
+- International privacy regulations (GDPR, covered by privacy compliance)
+- Product safety certifications (CE, FCC, covered by product compliance)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Export Compliance Officers performing ECCN classification and screening
+- Legal Counsel assessing export control requirements and violations
+- Trade Compliance Specialists managing denied party screening
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Release Engineers implementing geographic distribution controls
+- Product Managers determining market availability and restrictions
+- Engineering Leaders managing technology transfer and foreign person access
 
 ## Document Information
 
@@ -106,19 +122,24 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**ECCN Self-Classification**: Determine ECCN for all software products before distribution; document classification rationale; retain classification memos 5+ years
+**Encryption Registration**: File one-time BIS encryption registration within 30 days of first export; update annually if product changes significantly
+**Mass Market Eligibility**: Verify mass market encryption criteria (≤64-bit symmetric, consumer products, retail availability) for 5D992 classification
+**TSU/ENC Exceptions**: Leverage License Exception TSU for publicly available software; use ENC exception for encryption products meeting criteria
+**Denied Party Screening**: Screen all international customers, distributors, end-users against consolidated screening lists before each transaction
+**Automated Screening**: Implement automated denied party screening in order management systems; screen at order entry and fulfillment
+**Geographic Controls**: Implement IP geolocation and download restrictions for embargoed countries (Cuba, Iran, North Korea, Syria, Russia regions)
+**Open Source Notifications**: For publicly available encryption software on GitHub/GitLab, provide BIS notification URL and ECCN classification
+**Deemed Export Controls**: Screen foreign person employees for access to controlled technology; implement technology transfer agreements
+**Documentation Retention**: Retain export classification records, screening results, licenses, exception claims for 5+ years per EAR recordkeeping requirements
+**Sanctions Compliance**: Monitor OFAC sanctions updates; implement sectoral sanctions (Russia, Venezuela); screen beneficial owners
+**License Requirements**: If license required, file application with BIS; track license conditions, expiration, reporting requirements
+**Red Flags**: Train staff on export control red flags (evasive answers, unusual shipping, sanctioned destinations); escalate suspicious inquiries
+**Voluntary Disclosure**: If export violation discovered, consult counsel immediately; prepare VSD to BIS Office of Export Enforcement within 30 days
+**Annual Reviews**: Review ECCN classifications annually or when product changes; update encryption registrations; refresh denied party screening procedures
+**Compliance Training**: Train sales, engineering, shipping staff on export controls; conduct annual refresher training; document training completion
+**Audit Preparedness**: Maintain comprehensive audit trail of classifications, screenings, licenses, exceptions; prepare for potential BIS audit
+**Legal Counsel**: Engage export control counsel for ECCN determinations, license applications, VSD filings, and regulatory interpretation
 
 ## Quality Criteria
 
@@ -165,9 +186,113 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**U.S. Export Control Regulations**:
+- Export Administration Regulations (EAR) 15 CFR Parts 730-774
+- International Traffic in Arms Regulations (ITAR) 22 CFR Parts 120-130
+- EAR Part 740 (License Exceptions: TSU, ENC, TMP, BAG)
+- EAR Part 742.15 (Encryption Items)
+- EAR Part 734 (Scope of EAR - software, technology)
+- EAR Part 774 Supplement No. 1 (Commerce Control List)
+- ECCN 5D002 (Information Security Software)
+- ECCN 5D992 (Software not controlled by 5D002)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**ECCN Classification Resources**:
+- BIS ECCN Classification Tool
+- Commerce Control List (CCL) Category 5 Part 2
+- Encryption Registration and Classification Requests
+- Self-Classification Report Procedures
+- BIS Advisory Opinions (formal ECCN determinations)
+- Commodity Jurisdiction (CJ) determinations (EAR vs. ITAR)
+
+**Denied Party Screening Lists**:
+- BIS Denied Persons List (DPL)
+- BIS Entity List (restricted end-users)
+- BIS Unverified List (UVL)
+- BIS Military End User (MEU) List
+- OFAC Specially Designated Nationals (SDN) List
+- OFAC Consolidated Sanctions List
+- Debarred Parties List (State Department)
+- FBI Most Wanted Terrorists
+- Nonproliferation Sanctions Lists
+
+**License Exceptions**:
+- TSU (Technology and Software Unrestricted)
+- ENC (Encryption Commodities, Software, and Technology)
+- TMP (Temporary Imports, Exports, Re-exports)
+- BAG (Baggage)
+- APR (Additional Permissive Re-exports)
+- RPL (Servicing and Replacement of Parts and Equipment)
+
+**Encryption Controls**:
+- BIS Encryption Registration (one-time annual reporting)
+- Self-Classification Reports for ENC license exception
+- Mass Market Encryption (5A992, 5D992 - ≤64-bit symmetric)
+- Publicly Available Encryption Software exception
+- Open-source software and encryption exemptions
+- Wassenaar Arrangement Category 5 Part 2 (cryptography)
+
+**International Export Control Regimes**:
+- Wassenaar Arrangement on Export Controls (dual-use goods)
+- EU Dual-Use Regulation (EU 2021/821)
+- Australia Group (chemical, biological controls)
+- Missile Technology Control Regime (MTCR)
+- Nuclear Suppliers Group (NSG)
+
+**Country & Sanctions Controls**:
+- Office of Foreign Assets Control (OFAC) Sanctions Programs
+- Comprehensive Embargoes (Cuba, Iran, North Korea, Syria, Russia regions)
+- Country Groups (E:1 terrorist supporting, E:2 regional stability)
+- Sectoral sanctions (Russia, Venezuela)
+- Entity-specific sanctions (Huawei, ZTE)
+
+**Technology Transfer**:
+- Deemed Export Rules (foreign person access to controlled technology)
+- Fundamental Research Exclusion (university research exemption)
+- Public Domain (publicly available information exemption)
+- Educational Information exemption
+- Know Your Customer (KYC) procedures for technology transfer
+
+**Compliance Programs**:
+- Export Management and Compliance Program (EMCP) Guidelines
+- BIS Export Compliance Guidelines (Supplement No. 3 to Part 732)
+- Voluntary Self-Disclosure (VSD) procedures for violations
+- Recordkeeping requirements (5 years minimum)
+
+**Automated Screening Tools**:
+- Visual Compliance (OFAC/BIS screening)
+- Descartes Denied Party Screening
+- C4 (Customs4Trade) Compliance
+- Oracle Global Trade Management
+- SAP Global Trade Services
+- Amber Road (now E2open)
+- Integration with CRM/ERP for customer screening
+
+**Cryptography Standards**:
+- FIPS 140-2/140-3 (cryptographic modules)
+- NIST SP 800-57 (key management recommendations)
+- Suite B Cryptography (NSA cryptographic algorithms)
+- Commercial National Security Algorithm Suite (CNSA)
+- AES-256, RSA-2048/3072/4096, ECDSA P-256/384/521
+
+**Open Source & Public Availability**:
+- Publicly Available Encryption Software (PAES) exemption criteria
+- Open-source license requirements (OSI-approved licenses)
+- GitHub/GitLab public repository notifications to BIS
+- Unrestricted publication and availability requirements
+
+**Industry-Specific Controls**:
+- Aerospace and Defense (ITAR controls, DDTC registration)
+- Telecommunications (encryption, lawful intercept requirements)
+- Financial Services (encryption for payments, trading systems)
+- Healthcare (encryption for HIPAA, patient data)
+
+**Compliance & Audit**:
+- Voluntary Self-Disclosure (VSD) to BIS Office of Export Enforcement
+- Administrative Enforcement Actions (warning letters, civil penalties)
+- Criminal Enforcement (willful violations, jail time, corporate fines)
+- Recordkeeping and audit trail requirements (5+ years)
+
+**Reference**: Consult export compliance counsel, BIS classification specialists, and trade compliance team for ECCN determinations, screening procedures, and regulatory interpretation
 
 ## Integration Points
 

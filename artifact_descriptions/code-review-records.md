@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Code Review Records is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Code Review Records artifact documents systematic peer review activities for source code changes, capturing review comments, security findings, quality metrics, and approval decisions aligned with Google Code Review Guidelines, Conventional Comments taxonomy, and pull request best practices. This artifact provides auditable evidence of code quality assurance, security verification, and knowledge transfer activities conducted throughout the software development lifecycle.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a foundational component of quality assurance and security programs, these records serve development teams implementing peer review workflows, security teams tracking vulnerability remediation, and compliance teams demonstrating adherence to secure development practices. Integration with platforms like GitHub Pull Requests, GitLab Merge Requests, Bitbucket, Gerrit, and Crucible enables automated metrics collection covering review velocity, LGTM criteria compliance, defect density, and code quality trends.
 
 ### Strategic Importance
 
@@ -20,27 +20,41 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as comprehensive documentation of code review activities, capturing reviewer comments, defect identification, security findings, code quality assessments, and approval workflows. It provides auditable evidence of peer review compliance, supports knowledge sharing, enables defect trend analysis, and demonstrates adherence to LGTM (Looks Good To Me) criteria including functionality correctness, security verification, test coverage adequacy, and coding standards compliance.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Pull request/merge request review documentation (GitHub, GitLab, Bitbucket)
+- Review comments taxonomy (Conventional Comments: praise, suggestion, issue, question, thought, chore)
+- Security findings (OWASP Top 10, CWE vulnerabilities identified during review)
+- Code quality metrics (complexity, duplication, maintainability, technical debt)
+- LGTM approval criteria (functionality, security, tests, performance, documentation)
+- Review workflows (author submission, peer review, revision cycles, final approval)
+- Reviewer assignments and rotation policies
+- Review velocity metrics (time to first review, time to approval, review cycles)
+- Blocking issues and resolution tracking
+- Code standards compliance verification (linter results, style guide adherence)
+- Test coverage verification (unit tests, integration tests, coverage thresholds)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Automated SAST tool findings (covered by secure coding checklist artifacts)
+- Runtime application behavior (covered by testing and monitoring artifacts)
+- Infrastructure/deployment reviews (covered by infrastructure artifacts)
+- Architecture design reviews (covered by architecture decision records)
+- Incident post-mortem reviews (covered by incident management artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Software Engineers performing peer code reviews
+- Engineering Managers tracking code quality metrics and review velocity
+- Security Engineers reviewing security-sensitive code changes
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- QA Engineers verifying test coverage requirements
+- DevOps Engineers reviewing CI/CD pipeline changes
+- Compliance Officers demonstrating secure development lifecycle adherence
 
 ## Document Information
 
@@ -106,19 +120,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**PR Templates**: Implement standardized PR templates requiring description, testing approach, screenshots, breaking changes, and linked issues
+**Conventional Comments**: Adopt Conventional Comments taxonomy (praise, suggestion, issue, question, thought, chore) for clear feedback categorization
+**LGTM Criteria**: Define explicit approval criteria: functionality verified, security reviewed, tests added/passing, documentation updated, no performance regressions
+**Review Size Limits**: Keep PRs under 400 lines of code for effective review; split larger changes into incremental PRs
+**Review SLA**: Establish service-level expectations (first review within 24 hours, approval within 48 hours for non-blocking changes)
+**Security-Focused Review**: Require dedicated security review for authentication, authorization, cryptography, input validation, and sensitive data handling code
+**CODEOWNERS**: Implement CODEOWNERS file for automatic reviewer assignment based on file paths (security team for auth/* files)
+**Required Reviewers**: Mandate minimum 2 reviewers for production code; 1 must be senior engineer or security engineer for security-sensitive changes
+**Automated Checks**: Block merge until CI passes, SAST tools approve, test coverage meets threshold (e.g., 80%), no high-severity vulnerabilities
+**Review Checklists**: Use checklists covering: functionality, security (OWASP), performance, error handling, logging, tests, documentation
+**Constructive Feedback**: Provide specific, actionable feedback; explain the "why" behind suggestions; balance criticism with praise
+**Knowledge Sharing**: Use code review as teaching opportunity; share context, explain patterns, reference documentation
+**Non-Blocking Suggestions**: Distinguish blocking issues (security, correctness) from non-blocking suggestions (style, optimization)
+**Timely Reviews**: Prioritize code review in daily workflow; batch review time (e.g., 10 AM, 3 PM); minimize context switching
+**Author Responsiveness**: Respond to review comments within 24 hours; resolve discussions before requesting re-review
+**Metrics Tracking**: Monitor review velocity, defect escape rate, review thoroughness; identify bottlenecks and process improvements
+**Trunk-Based Development**: Integrate code review with trunk-based development or GitFlow; maintain fast feedback cycles
 
 ## Quality Criteria
 
@@ -165,9 +183,88 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Code Review Guidelines**:
+- Google Engineering Practices: Code Review Guidelines
+- Conventional Comments (conventionalcomments.org)
+- Thoughtworks Technology Radar: Code Review Practices
+- Microsoft Code Review Best Practices
+- SmartBear Best Practices for Code Review
+- Linux Kernel Code Review Process
+- IETF Code Review Guidelines
+- GitLab Code Review Guidelines
+- GitHub Pull Request Best Practices
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Code Review Platforms**:
+- GitHub Pull Requests (PR templates, review assignments, CODEOWNERS)
+- GitLab Merge Requests (approval rules, merge checks)
+- Bitbucket Pull Requests (default reviewers, merge checks)
+- Gerrit Code Review (change-based review workflow)
+- Crucible by Atlassian (formal code review)
+- Review Board (web-based collaborative code review)
+- Phabricator Differential
+- Azure DevOps Pull Requests
+- CodeStream (IDE-integrated code review)
+
+**LGTM Criteria & Checklists**:
+- Google's "The Standard of Code Review" (functionality, complexity, tests, naming, comments)
+- Checklist for Code Reviews (security, performance, error handling, logging)
+- Security-Focused Review Checklist (OWASP Code Review Guide)
+- Performance Review Checklist (algorithmic complexity, database queries, caching)
+- Accessibility Review Checklist (WCAG 2.1 compliance)
+- API Design Review Checklist (RESTful conventions, versioning, error responses)
+
+**Code Quality & Metrics**:
+- SonarQube Quality Gates (bugs, code smells, security vulnerabilities, coverage)
+- Code Climate maintainability ratings
+- CodeFactor quality analysis
+- Codacy automated code review
+- DeepSource code analysis
+- Codecov test coverage analysis
+- Coveralls coverage tracking
+- Cyclomatic complexity thresholds (McCabe)
+- Code duplication detection (CPD, Simian)
+
+**Security Review**:
+- OWASP Code Review Guide
+- OWASP Application Security Verification Standard (ASVS)
+- CERT Secure Coding Standards
+- CWE/SANS Top 25 vulnerability patterns
+- Security code review checklists (injection, authentication, authorization)
+- Threat modeling during code review (STRIDE)
+
+**Testing Requirements**:
+- Test Pyramid (unit, integration, E2E test ratios)
+- Test coverage thresholds (line, branch, function coverage)
+- Mutation testing (Stryker, PIT)
+- Approval testing for legacy code refactoring
+- Property-based testing verification
+
+**Conventional Commits & PR Standards**:
+- Conventional Commits (feat, fix, docs, style, refactor, test, chore)
+- Semantic Versioning (SemVer) for release decisions
+- Angular Commit Message Conventions
+- Keep a Changelog format
+- PR template standards (description, testing, screenshots, breaking changes)
+
+**Code Style & Linting**:
+- Language-specific style guides (PEP 8, Google Java Style, Airbnb JavaScript)
+- EditorConfig for consistent formatting
+- Prettier (JavaScript/TypeScript formatter)
+- Black (Python formatter)
+- Gofmt (Go formatter)
+- Rustfmt (Rust formatter)
+- ktlint (Kotlin linter)
+- SwiftLint (Swift linter)
+
+**Compliance & Regulatory**:
+- SOC 2 Type II (CC6.7 - System Operations: Change Management)
+- ISO 27001:2013 (A.14.2 Security in Development and Support Processes)
+- PCI-DSS Requirement 6.3.2 (Code review prior to release)
+- NIST SP 800-53 SA-11 (Developer Security Testing and Evaluation)
+- FDA 21 CFR Part 11 (software validation and change control)
+- DO-178C (software considerations in airborne systems)
+
+**Reference**: Consult engineering leadership and AppSec team for code review workflow standards and tooling guidance
 
 ## Integration Points
 

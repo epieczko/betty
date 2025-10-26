@@ -2,43 +2,52 @@
 
 ## Executive Summary
 
-The Logical Architecture Diagram is a critical governance and audit artifact that provides a chronological record of logical architecture diagram throughout the General phase. This structured log serves as both a real-time management tool and a historical record for post-project reviews, audits, and lessons learned activities.
+The Logical Architecture Diagram is a critical visual artifact that represents the conceptual structure and organization of a system's key components, their relationships, and logical groupings independent of physical implementation details. This artifact uses industry-standard notations (UML 2.5, ArchiMate 3.1, C4 Model) to communicate the system's logical design to technical and business stakeholders.
 
-As a cornerstone of program governance, this artifact enables transparency, accountability, and informed decision-making by providing stakeholders with immediate visibility into key events, decisions, and their outcomes. It supports root cause analysis, trend identification, and continuous improvement by maintaining a complete audit trail.
+As a foundational element of enterprise architecture practice, this diagram bridges business requirements and technical implementation by showing how functional capabilities map to logical components, services, and data flows. It supports architecture governance, design decisions, and impact analysis while maintaining technology independence to enable flexible deployment strategies.
 
 ### Strategic Importance
 
-- **Governance Excellence**: Demonstrates rigorous program management and adherence to organizational standards
-- **Risk Mitigation**: Early identification of patterns and trends enables proactive intervention
-- **Audit Readiness**: Provides comprehensive trail for internal and external audits
-- **Knowledge Capture**: Preserves institutional knowledge beyond individual personnel tenure
-- **Continuous Improvement**: Enables data-driven process improvements through trend analysis
+- **Architecture Communication**: Provides technology-neutral view of system structure using TOGAF, Zachman Framework, or C4 Model notations
+- **Design Validation**: Enables architecture review boards to validate alignment with patterns (microservices, layered, hexagonal, event-driven)
+- **Technology Independence**: Separates logical design from physical infrastructure to support cloud-native, hybrid, and multi-cloud strategies
+- **Impact Analysis**: Facilitates assessment of change impacts across logical boundaries and dependencies
+- **Standards Compliance**: Demonstrates adherence to enterprise architecture frameworks (TOGAF ADM, ArchiMate) and architecture decision records (ADR)
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents the logical architecture of a system using standardized notation (UML 2.5 Component/Package diagrams, ArchiMate, C4 Container/Component diagrams) to show functional decomposition, component responsibilities, service boundaries, and logical data flows. Created using tools like Lucidchart, draw.io/diagrams.net, PlantUML, Mermaid, or Structurizr, it supports architecture decisions, pattern selection, and technical communication.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Logical component decomposition and service boundaries using C4 Model levels 2-3 (Container and Component)
+- Logical relationships, dependencies, and integration patterns (REST, GraphQL, messaging, events)
+- Application of architectural patterns: microservices, layered architecture, hexagonal/ports-and-adapters, CQRS, event sourcing, service mesh
+- Logical data flows and information exchange using ArchiMate notation or UML sequence diagrams
+- Technology stack categories (API Gateway, Service Bus, Cache Layer) without vendor-specific details
+- Diagrams-as-code implementations using PlantUML, Mermaid, Structurizr DSL for version control
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Physical infrastructure details (covered in Physical Architecture Diagram)
+- Network topology, IP addressing, firewall rules (see Network Architecture Diagram)
+- Detailed security controls and encryption (see Security Architecture Diagram)
+- Database schema and detailed data models (see Data Architecture artifacts)
+- Deployment pipelines and CI/CD processes (see Deployment Architecture)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Solution Architects and Enterprise Architects using TOGAF ADM or Zachman Framework for design governance
+- Technical Leads selecting architectural patterns and evaluating technology approaches
+- Development teams understanding component boundaries, interfaces, and integration requirements
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Architecture Review Boards (ARB) validating design decisions against enterprise standards and ADRs
+- Platform Engineers planning infrastructure requirements based on logical component needs
+- Product Managers and Business Analysts understanding system capabilities and functional organization
 
 ## Document Information
 
@@ -163,9 +172,51 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**Architecture**: TOGAF, Zachman Framework, C4 Model, ArchiMate
+**Architecture Frameworks & Methodologies**:
+- TOGAF 10 ADM (Architecture Development Method) - Phase B: Business Architecture, Phase C: Information Systems Architecture
+- Zachman Framework - Rows 2-3 (Business Model, System Model) for logical perspective
+- C4 Model (Context, Container, Component, Code) - Levels 2-3 for logical architecture visualization
+- ArchiMate 3.1 - Application Layer modeling for logical components and services
+- arc42 Documentation Template - Section 5: Building Block View for logical decomposition
+- AWS Well-Architected Framework - Architectural principles and best practices
+- Microsoft Azure Architecture Framework - Design principles and reference architectures
+- Google Cloud Architecture Framework - System design guidance
+- ISO/IEC/IEEE 42010 (Architecture Description) - Standard for architecture documentation
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Diagramming Notations & Standards**:
+- UML 2.5 (Unified Modeling Language) - Component Diagrams, Package Diagrams, Deployment Diagrams
+- ArchiMate 3.1 Notation - Visual language for enterprise architecture modeling
+- C4 Model Notation - Context, Container, Component diagram standards
+- BPMN 2.0 (Business Process Model and Notation) - For process-centric logical views
+- SysML (Systems Modeling Language) - For systems engineering perspectives
+
+**Diagramming Tools & Platforms**:
+- Lucidchart - Cloud-based diagramming with UML, ArchiMate, C4 templates
+- draw.io / diagrams.net - Open-source diagramming tool with extensive shape libraries
+- PlantUML - Text-based UML diagram generation with version control integration
+- Mermaid - Markdown-based diagram creation for diagrams-as-code
+- Structurizr - C4 Model tooling with DSL for architecture as code
+- Enterprise Architect (Sparx Systems) - Full-featured UML and ArchiMate modeling
+- Archi - Open-source ArchiMate modeling tool
+- Visual Paradigm - UML, BPMN, ArchiMate modeling platform
+
+**Architectural Patterns & Styles**:
+- Microservices Architecture - Distributed services with bounded contexts (Domain-Driven Design)
+- Layered Architecture (N-Tier) - Presentation, Business Logic, Data Access layers
+- Hexagonal Architecture (Ports and Adapters) - Alistair Cockburn's pattern for testability
+- Event-Driven Architecture - Event sourcing, CQRS (Command Query Responsibility Segregation)
+- Service-Oriented Architecture (SOA) - Enterprise service bus, service composition
+- Clean Architecture (Robert C. Martin) - Dependency inversion and separation of concerns
+- Serverless Architecture - Function-as-a-Service (FaaS) and Backend-as-a-Service (BaaS)
+- Reactive Architecture - Responsive, resilient, elastic, message-driven systems
+
+**Documentation & Governance**:
+- Architecture Decision Records (ADR) - Lightweight architecture documentation format (Michael Nygard)
+- Request for Comments (RFC) - Collaborative decision-making documentation
+- Diagrams-as-Code - Version-controlled, text-based diagram definitions (PlantUML, Mermaid, Structurizr DSL)
+- Living Documentation - Continuous documentation aligned with code (Cyrille Martraire)
+
+**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application, notation standards, and tool selection for your specific context
 
 ## Integration Points
 

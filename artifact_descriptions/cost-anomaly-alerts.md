@@ -2,45 +2,62 @@
 
 ## Executive Summary
 
-The Cost Anomaly Alerts is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Cost Anomaly Alerts artifact defines automated detection of unexpected cloud spending using AWS Cost Anomaly Detection, Azure Cost Management anomaly alerts, GCP cost anomaly detection, and FinOps platform integrations. This artifact establishes spending baselines, anomaly detection thresholds, cost forecasting models, budget alerts, and notification workflows that prevent bill shock and enable proactive cost optimization.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a cornerstone of FinOps practices, cost anomaly detection enables teams to identify misconfigured resources, unexpected traffic spikes, pricing model changes, and orphaned infrastructure before they result in significant overspending. Integration with AWS Cost Explorer, Azure Cost Management, GCP Cloud Billing, and third-party platforms (CloudHealth, Spot.io, Vantage) provides multi-cloud cost visibility and actionable alerts.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Cost Governance**: Detects spending anomalies early (>20% variance from baseline) preventing budget overruns and bill shock
+- **FinOps Enablement**: Implements FinOps Foundation principles with unit economics, cost allocation, tagging standards, and showback/chargeback
+- **Forecasting Accuracy**: Uses ML-powered forecasting (AWS Cost Anomaly Detection, Azure ML) to predict monthly costs with 90%+ accuracy
+- **Budget Enforcement**: Enforces departmental budgets with tiered alerts (80% warning, 90% critical, 100% breach) and automated remediation
+- **Waste Reduction**: Identifies idle resources, oversized instances, unused reservations, and orphaned storage for cleanup
+- **Multi-Cloud Visibility**: Aggregates costs across AWS, Azure, GCP, and SaaS vendors into unified cost dashboards and reports
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines cost anomaly detection systems, budget alert configurations, spending forecasting methodologies, and cost optimization workflows. It establishes ML-powered anomaly thresholds, cost allocation tagging, unit economics tracking, and notification routing for unexpected cloud spending across AWS, Azure, GCP, and SaaS platforms.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- AWS Cost Anomaly Detection: ML-powered anomaly detection with spend patterns and variance thresholds
+- Azure Cost Management: Budget alerts, anomaly detection, cost forecasting with Azure Monitor integration
+- GCP Cost Anomaly Detection: BigQuery cost analysis, budget alerts, billing anomaly notifications
+- Budget alerts: Tiered thresholds (50%, 80%, 90%, 100% of budget), departmental budgets, project-level quotas
+- Cost forecasting: Linear regression, ML models, seasonal adjustments, growth trend analysis
+- Tagging standards: Cost allocation tags (team, project, environment, cost-center), tag compliance enforcement
+- Unit economics: Cost per request, cost per user, cost per transaction, cost per GB processed
+- Reserved Instance optimization: RI utilization alerts, savings plan recommendations, commitment analysis
+- Spot/Preemptible instance recommendations: Cost savings opportunities with acceptable risk profiles
+- Waste detection: Idle EC2/VMs, unattached EBS volumes, old snapshots, unused load balancers
+- Multi-cloud cost dashboards: Unified view across AWS, Azure, GCP, Snowflake, Databricks, SaaS vendors
+- Showback/chargeback: Cost attribution to teams, departments, products for accountability
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Infrastructure capacity planning and sizing (covered in capacity management)
+- Application performance optimization (covered in APM and SRE artifacts)
+- Contract negotiations with cloud providers (covered in procurement)
+- Financial accounting and invoice reconciliation (covered in finance operations)
+- Security cost optimization (covered in security architecture)
+- Detailed cloud architecture design (covered in architecture artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- FinOps Teams: Configure cost anomaly detection, analyze spending patterns, generate cost reports, enforce budgets
+- Platform Engineers: Implement tagging standards, optimize resource sizing, manage reserved instances
+- Engineering Leadership: Review departmental budgets, approve major spending, prioritize cost optimization initiatives
+- Finance Teams: Track cloud spending against budgets, forecast costs, allocate costs to departments
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- SRE Teams: Monitor infrastructure costs in context of reliability and performance requirements
+- DevOps Engineers: Optimize CI/CD costs, manage ephemeral environments, clean up unused resources
+- Application Developers: Understand cost impact of architectural decisions, optimize expensive queries/operations
+- Procurement: Negotiate enterprise discount programs, reserved capacity commitments, volume discounts
 
 ## Document Information
 
@@ -106,19 +123,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Tagging Enforcement**: Require cost allocation tags (team, project, environment, cost-center) on all resources; reject untagged resources
+**Tiered Alerts**: Set budget alerts at 50% (info), 80% (warning), 90% (critical), 100% (breach) thresholds
+**Anomaly Thresholds**: Configure anomaly detection for >20% daily variance, >30% weekly variance from ML baseline
+**Unit Economics**: Track cost per request, cost per user, cost per GB to identify efficiency trends and regressions
+**Daily Reviews**: Review cost dashboards daily; investigate anomalies >$100/day immediately
+**Forecasting**: Forecast monthly costs with 7-day, 14-day, 30-day lookback; update forecasts weekly
+**Right-Sizing**: Analyze CPU/memory utilization weekly; downsize instances with <20% average utilization
+**Reserved Instance Coverage**: Maintain 60-80% RI/savings plan coverage for stable workloads; use spot/on-demand for variable
+**Waste Cleanup**: Automate detection and deletion of idle resources (7 days idle EC2, 30 days unattached EBS)
+**Multi-Cloud Attribution**: Tag cloud provider, region, service for cross-cloud cost comparison and optimization
+**Showback Reports**: Generate monthly showback reports per team/department for cost awareness and accountability
+**Chargeback Models**: Implement chargeback for production environments; showback for dev/staging
+**Cost Dashboards**: Publish real-time cost dashboards; send weekly summaries to engineering leaders
+**Optimization Recommendations**: Auto-generate and prioritize cost optimization recommendations (RI purchases, rightsizing)
+**Notification Routing**: Route anomaly alerts to team Slack channels, email DLs based on resource tags
+**Seasonal Adjustments**: Account for seasonal traffic patterns (Black Friday, tax season) in anomaly baselines
+**Commitment Review**: Review RI/savings plan commitments quarterly; adjust based on usage patterns and forecast
 
 ## Quality Criteria
 
@@ -165,9 +186,56 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**FinOps Foundation**:
+- FinOps Framework - Inform, Optimize, Operate phases for cloud financial management
+- FinOps Principles - Real-time decision making, centralized team, everyone owns cost
+- FinOps Personas - Engineers, finance, executives, procurement roles
+- FinOps Maturity Model - Crawl, walk, run stages for FinOps adoption
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Cloud Cost Management Platforms**:
+- AWS Cost Explorer - Native AWS cost analysis, forecasting, anomaly detection
+- AWS Cost Anomaly Detection - ML-powered anomaly detection with email/SNS alerts
+- AWS Budgets - Budget creation with alert notifications at custom thresholds
+- Azure Cost Management - Native Azure cost analysis, budgets, recommendations
+- GCP Cloud Billing - Native GCP cost tracking, budgets, cost allocation reports
+- CloudHealth (VMware) - Multi-cloud cost management and optimization platform
+- Spot.io (NetApp) - Cloud cost optimization with spot instance automation
+- Vantage - Multi-cloud cost transparency and optimization platform
+- Kubecost - Kubernetes cost allocation and optimization
+- CloudZero - Unit economics and cost per customer analytics
+- Apptio Cloudability - Enterprise cloud financial management
+- ProsperOps - Automated RI/savings plan management
+
+**Cost Allocation**:
+- AWS Cost Allocation Tags - Tag-based cost tracking and reporting
+- Azure Tags - Resource tagging for cost attribution
+- GCP Labels - Labeling for cost organization and reporting
+- Tag Policies - Enforce tagging standards with AWS Organizations, Azure Policy
+
+**Reserved Capacity**:
+- AWS Reserved Instances - 1-year and 3-year EC2, RDS, ElastiCache reservations
+- AWS Savings Plans - Compute Savings Plans, EC2 Instance Savings Plans
+- Azure Reserved VM Instances - 1-year and 3-year VM reservations
+- Azure Reserved Capacity - Database, Cosmos DB, Synapse reserved capacity
+- GCP Committed Use Discounts - 1-year and 3-year resource commitments
+
+**Cost Optimization Tools**:
+- AWS Compute Optimizer - ML-powered rightsizing recommendations
+- AWS Trusted Advisor - Cost optimization checks and recommendations
+- Azure Advisor - Cost optimization recommendations for Azure resources
+- GCP Recommender - Cost and performance optimization recommendations
+- Spot by NetApp - Automated spot instance management and optimization
+
+**Unit Economics**:
+- Cost per Request - Track API/service cost per million requests
+- Cost per User - Calculate infrastructure cost per active user
+- Cost per Transaction - E-commerce transaction cost tracking
+- Cost per GB - Data processing and storage cost efficiency metrics
+
+**Budget Management**:
+- Zero-Based Budgeting - Justify all expenses each budget cycle
+- Rolling Forecasts - Continuous forecasting vs annual budgets
+- Variance Analysis - Actual vs budget variance tracking and explanation
 
 ## Integration Points
 

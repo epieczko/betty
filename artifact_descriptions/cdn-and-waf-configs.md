@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Cdn And Waf Configs is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The CDN and WAF Configs artifact defines content delivery network and web application firewall configurations for cloud-native applications, specifying edge computing policies, security rules, caching behaviors, and threat protection mechanisms across global distribution networks. This artifact establishes the configuration-as-code foundation for CDN platforms (AWS CloudFront, Akamai, Cloudflare, Azure Front Door, Google Cloud CDN) and WAF solutions (AWS WAF, Cloudflare WAF, Imperva, F5 Advanced WAF, ModSecurity) to optimize content delivery performance while protecting against OWASP Top 10 vulnerabilities, DDoS attacks, and sophisticated application-layer threats.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a critical component of cloud infrastructure security and performance optimization, this artifact serves Cloud Platform Engineers implementing edge computing strategies, DevOps Engineers automating infrastructure deployments, Site Reliability Engineers ensuring global availability, and Security Engineers enforcing defense-in-depth protection. It balances performance optimization through intelligent caching, geographic routing, and compression with robust security through rate limiting, geo-blocking, bot management, and OWASP Core Rule Set implementation.
 
 ### Strategic Importance
 
@@ -20,27 +20,41 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines CDN and WAF configurations to accelerate global content delivery, reduce origin server load, enhance user experience through edge caching, and protect web applications from malicious traffic, SQL injection, cross-site scripting (XSS), credential stuffing, and zero-day exploits through comprehensive security policies.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- CDN distribution configurations (AWS CloudFront, Akamai, Cloudflare, Azure Front Door, Google Cloud CDN, Fastly)
+- WAF rule sets and security policies (AWS WAF, Cloudflare, Imperva, F5 Advanced WAF, ModSecurity with OWASP CRS 3.x/4.x)
+- Edge caching behaviors, TTL strategies, cache invalidation patterns, and origin shield configurations
+- Geo-blocking, geo-restriction, and geolocation-based routing policies
+- Rate limiting, request throttling, and DDoS mitigation strategies
+- SSL/TLS termination, certificate management, and HTTP/2, HTTP/3 (QUIC) configurations
+- Custom security rules for bot management, API protection, and credential abuse prevention
+- Lambda@Edge, CloudFront Functions, Cloudflare Workers, and edge compute configurations
+- Origin fetch optimization, connection pooling, and origin failover strategies
+- Real-time logs, metrics, and security event monitoring integration
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Application source code security scanning (covered by SAST/DAST artifacts)
+- Network-layer DDoS protection (covered by network security artifacts)
+- API gateway configurations (covered by API management artifacts)
+- Container and Kubernetes ingress controllers (covered by helm-charts and load-balancer-configurations)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Cloud Platform Engineers implementing CDN and WAF infrastructure
+- DevOps Engineers automating edge configuration deployments
+- Site Reliability Engineers optimizing global content delivery
+- Security Engineers implementing application security controls
+- Network Engineers managing traffic routing and geo-distribution
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Application Architects designing distributed systems
+- Compliance Officers validating security controls
+- Performance Engineers optimizing user experience metrics
 
 ## Document Information
 
@@ -107,17 +121,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 ## Best Practices
 
 **Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
+**Infrastructure as Code**: Define CDN and WAF configurations using Terraform, AWS CDK, Pulumi, or CloudFormation for repeatability and auditability
+**Edge Security First**: Implement defense-in-depth with WAF as primary application protection layer before traffic reaches origin servers
+**Caching Strategy Optimization**: Configure appropriate TTL values based on content type (static assets: 1 year, API responses: seconds/minutes)
+**OWASP Core Rule Set**: Deploy OWASP ModSecurity CRS as baseline WAF ruleset, customize based on application-specific false positive tuning
+**Geo-Blocking Implementation**: Implement country-level restrictions based on business requirements and threat intelligence
+**Rate Limiting**: Configure adaptive rate limiting per endpoint, IP address, and user session to prevent abuse and DDoS attacks
+**Bot Management**: Deploy bot detection and mitigation to distinguish legitimate crawlers from malicious bots and scrapers
+**SSL/TLS Best Practices**: Enforce TLS 1.3, disable weak ciphers, implement HSTS, OCSP stapling, and certificate pinning where applicable
+**Origin Shield**: Enable CDN origin shield to reduce origin load and improve cache hit ratios for globally distributed content
+**Real-Time Monitoring**: Configure CloudWatch, Datadog, or Splunk integration for CDN/WAF metrics, security events, and performance analytics
+**False Positive Tuning**: Continuously monitor WAF block/challenge logs, tune rules to minimize false positives while maintaining security posture
+**Multi-CDN Strategy**: Consider multi-CDN architecture using Akamai + Cloudflare or CloudFront + Fastly for redundancy and performance optimization
+**HTTP/3 Enablement**: Enable HTTP/3 (QUIC) for improved performance over lossy networks and mobile connections
+**Edge Compute**: Leverage Lambda@Edge, CloudFront Functions, or Cloudflare Workers for request/response manipulation at edge locations
+**Peer Review**: Have at least one qualified security engineer and platform architect review configurations before deployment
+**Testing**: Validate WAF rules in audit/count mode before switching to block mode, test CDN caching behaviors thoroughly
+**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes, new OWASP CRS releases, or emerging threats
 **Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
 
 ## Quality Criteria
@@ -165,7 +185,59 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Cloud Platform Standards**:
+- AWS Well-Architected Framework (Performance Efficiency, Security Pillars)
+- Azure Well-Architected Framework (Performance Optimization, Security)
+- Google Cloud Architecture Framework (Edge Caching, Security Best Practices)
+- CDN Industry Standards (Streaming Video Alliance, CDN Interconnection)
+
+**Security Standards & Frameworks**:
+- OWASP Top 10 Web Application Security Risks (2021, 2023)
+- OWASP ModSecurity Core Rule Set (CRS) 3.x and 4.x
+- OWASP API Security Top 10
+- CWE/SANS Top 25 Most Dangerous Software Weaknesses
+- NIST SP 800-53 (SC-7 Boundary Protection, SC-23 Session Authenticity)
+- NIST Cybersecurity Framework (PR.AC, PR.PT, DE.CM, RS.MI)
+- PCI DSS 4.0 (Requirement 6.4.3 WAF Implementation)
+- ISO/IEC 27001:2022 (A.13.1 Network Security, A.14.1 Security in Development)
+
+**Web & Network Standards**:
+- IETF RFC 9000 (HTTP/3 QUIC Protocol)
+- IETF RFC 9110/9111 (HTTP Semantics and Caching)
+- IETF RFC 8446 (TLS 1.3)
+- IETF RFC 7234 (HTTP Caching)
+- W3C Content Security Policy (CSP) Level 3
+- W3C Subresource Integrity (SRI)
+
+**CDN & Caching Standards**:
+- RFC 9211 (Cache-Status HTTP Response Header)
+- CDN-Loop Detection (RFC 8586)
+- Surrogate-Control Header Specifications
+- Vary Header Best Practices for Multi-Device Content
+
+**WAF & Security Testing**:
+- WASC Threat Classification
+- CAPEC (Common Attack Pattern Enumeration and Classification)
+- MITRE ATT&CK Framework (T1190 Exploit Public-Facing Application)
+- CVSS 3.1/4.0 Vulnerability Scoring
+
+**Compliance & Regulatory**:
+- GDPR Article 32 (Security of Processing)
+- CCPA Data Security Requirements
+- SOC 2 Type II (CC6.1 Logical Access Controls)
+- HIPAA Security Rule (164.312 Technical Safeguards)
+- FedRAMP Moderate/High Security Controls
+
+**Industry Best Practices**:
+- SANS Securing Web Application Technologies (SWAT)
+- CIS Controls v8 (Control 13 Network Monitoring and Defense)
+- Cloud Security Alliance (CSA) Cloud Controls Matrix
+- Center for Internet Security (CIS) Benchmarks for Cloud Services
+
+**DDoS Protection Standards**:
+- NIST SP 800-61r2 (Computer Security Incident Handling)
+- IETF BCP 38 (Network Ingress Filtering)
+- DDoS Best Practices (MANRS, M3AAWG)
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

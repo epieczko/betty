@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Domain Model is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Domain Model is a critical deliverable for software architecture, defining the core business domain using Domain-Driven Design (DDD) principles and patterns. This artifact captures entities, aggregates, value objects, domain events, and the ubiquitous language that forms the foundation of business logic implementation.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Built using DDD tactical patterns and strategic design principles, the Domain Model leverages modeling tools like PlantUML, Mermaid, draw.io, or enterprise solutions such as Enterprise Architect and Visual Paradigm. It follows UML 2.5 class diagram notation, DDD pattern language (aggregates, repositories, factories, domain services), and bounded context mapping techniques to ensure rich, behavior-driven domain representations that align with business requirements and support event-driven architectures.
 
 ### Strategic Importance
 
@@ -20,27 +20,38 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines the core domain model using Domain-Driven Design principles, capturing business entities, aggregates, value objects, domain events, and their relationships. It establishes the ubiquitous language and bounded contexts that guide implementation of business logic within hexagonal/clean architecture patterns.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- DDD tactical patterns: Entities, value objects, aggregates, aggregate roots
+- Domain events and event sourcing patterns
+- Repositories, factories, and domain services
+- Ubiquitous language definitions and glossary
+- Bounded context boundaries and context mapping
+- Invariants, business rules, and domain constraints
+- Aggregate lifecycle and consistency boundaries
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Physical database schemas (covered by data models)
+- Infrastructure concerns (messaging, persistence implementations)
+- Application service orchestration
+- UI/presentation layer models
+- API contracts (covered by API specifications)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Software Architects designing domain-centric systems
+- Domain Experts collaborating on ubiquitous language
+- Backend Engineers implementing business logic
+- Technical Leads establishing DDD patterns
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Product Managers understanding domain capabilities
+- QA Engineers designing domain-driven test scenarios
+- Data Architects aligning persistence models
 
 ## Document Information
 
@@ -168,19 +179,42 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Domain-Driven Design Principles**:
+- **Ubiquitous Language**: Collaborate with domain experts to establish shared vocabulary; use exact business terms in models and code
+- **Bounded Contexts**: Define clear boundaries where specific domain models apply; avoid leaking concepts across contexts
+- **Rich Domain Models**: Embed business logic in entities and value objects, not in services; avoid anemic domain models
+- **Small Aggregates**: Design aggregates with minimal scope; reference other aggregates by ID only, never by direct object reference
+- **Aggregate Invariants**: Ensure aggregates maintain all business invariants within transactional boundaries
+- **Domain Events**: Capture all significant state changes as domain events for auditability and decoupling
+- **Repository Pattern**: Abstract persistence behind repositories; never expose data access details to domain layer
+
+**Modeling Best Practices**:
+- **Entity Identity**: Use globally unique identifiers (UUID, GUID) for entities crossing system boundaries
+- **Value Object Immutability**: Make all value objects immutable and side-effect-free
+- **Factory Complexity**: Use factories for complex aggregate construction; simple constructors for basic creation
+- **Specification Pattern**: Encapsulate complex business rules in reusable specification objects
+- **Anti-Corruption Layer**: Protect domain model from external systems using adapters and translators
+
+**Event Sourcing & CQRS**:
+- **Event Store**: When using event sourcing, design events as immutable facts; never modify historical events
+- **Read Models**: In CQRS, optimize read models for queries independently from write model aggregates
+- **Eventual Consistency**: Accept eventual consistency between aggregates; use domain events for cross-aggregate updates
+
+**Version Control & Documentation**:
+- **Diagram as Code**: Store domain models in version control as PlantUML, Mermaid, or structured text formats
+- **Event Storming Sessions**: Document outcomes from event storming workshops; maintain as living documentation
+- **Context Maps**: Keep context mapping diagrams current as system boundaries evolve
+- **Glossary Maintenance**: Maintain ubiquitous language glossary; version it alongside domain model
+
+**Validation & Review**:
+- **Domain Expert Review**: Have domain experts validate model accuracy and ubiquitous language correctness
+- **Architecture Review**: Verify aggregate boundaries, consistency guarantees, and bounded context definitions
+- **Invariant Testing**: Test that all business invariants are properly enforced by aggregates
+
+**Continuous Refinement**:
+- **Model Refactoring**: Continuously refine domain model based on deeper domain insights
+- **Bounded Context Evolution**: Split or merge bounded contexts as understanding of domain boundaries improves
+- **Pattern Recognition**: Identify recurring patterns; apply appropriate DDD tactical patterns consistently
 
 ## Quality Criteria
 
@@ -227,9 +261,61 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Domain-Driven Design (DDD)**:
+- Entities with unique identity and lifecycle
+- Value Objects as immutable, side-effect-free concepts
+- Aggregates as consistency and transactional boundaries
+- Aggregate Roots as entry points to aggregates
+- Domain Events for capturing state changes
+- Repositories for aggregate persistence abstraction
+- Factories for complex aggregate creation
+- Domain Services for stateless domain operations
+- Specifications pattern for business rules
+- Ubiquitous Language shared by domain experts and developers
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Strategic DDD Patterns**:
+- Bounded Contexts for domain model boundaries
+- Context Mapping (Shared Kernel, Customer/Supplier, Conformist, Anti-Corruption Layer)
+- Core Domain, Supporting Subdomain, Generic Subdomain classification
+- Domain Vision Statement
+- Event Storming for collaborative domain discovery
+- Aggregate design principles (small aggregates, reference by ID)
+
+**Architecture Patterns**:
+- Hexagonal Architecture (Ports & Adapters)
+- Clean Architecture (dependency inversion)
+- Onion Architecture
+- CQRS (Command Query Responsibility Segregation)
+- Event Sourcing patterns
+- Saga pattern for distributed transactions
+
+**Modeling Standards**:
+- UML 2.5 Class Diagrams for structural representation
+- UML Sequence Diagrams for behavior
+- PlantUML, Mermaid for diagram-as-code
+- C4 Model for architecture visualization
+- ArchiMate for enterprise architecture
+
+**Design Principles**:
+- SOLID principles (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion)
+- Tell, Don't Ask principle
+- Law of Demeter
+- Persistence Ignorance
+- Anemic vs. Rich Domain Models
+
+**Event-Driven Architecture**:
+- Domain Event pattern
+- Event notification vs. Event-Carried State Transfer
+- Event Sourcing with event store
+- CQRS with separate read/write models
+- Eventual consistency patterns
+
+**Tooling**:
+- Modeling: PlantUML, Mermaid, draw.io, Lucidchart, Enterprise Architect, Visual Paradigm, Sparx EA
+- Event Storming: Miro, Mural, physical sticky notes
+- Code generation: Protobuf, OpenAPI Generator for domain stubs
+
+**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application. Refer to "Domain-Driven Design" by Eric Evans and "Implementing Domain-Driven Design" by Vaughn Vernon.
 
 ## Integration Points
 

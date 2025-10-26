@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Offboarding Checklist is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Offboarding Checklist is a critical security and compliance deliverable that orchestrates immediate access revocation, knowledge transfer, and asset recovery when employees separate from the organization. This artifact ensures zero-delay deprovisioning through automated workflows in IAM platforms (Okta, Azure AD, SailPoint), HRIS-triggered termination events (Workday, BambooHR), and systematic account disablement across all enterprise applications.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+The checklist covers voluntary resignations, involuntary terminations, and contractor end-of-engagement scenarios, ensuring consistent execution regardless of separation type. It coordinates cross-functional activities including IT access removal (immediate), manager-led knowledge transfer sessions, equipment return tracking, exit interview completion, and alumni network enrollment. The artifact maintains compliance with SOX ITGC controls for timely access revocation, supports forensic preservation requirements, and provides complete audit trails for regulatory examinations and security certifications.
 
 ### Strategic Importance
 
@@ -20,27 +20,48 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the authoritative framework for employee separation procedures, ensuring immediate access revocation, systematic knowledge transfer, complete asset recovery, and compliant offboarding processes. It protects organizational data, maintains business continuity, and ensures regulatory compliance during all employee departures.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Immediate access revocation (within 1 hour of notification for involuntary terminations)
+- Automated account disablement via HRIS-triggered workflows
+- Application-by-application access removal across SaaS and on-premise systems
+- Email forwarding setup and mailbox archival procedures
+- Knowledge transfer sessions and documentation handoffs
+- Equipment return (laptop, mobile devices, security tokens, badges)
+- Physical access revocation (building access, parking, key cards)
+- Exit interview scheduling and completion tracking
+- Final expense reimbursement and benefits coordination
+- Alumni network enrollment and LinkedIn transition support
+- Manager-led handoff of responsibilities and work-in-progress
+- COBRA and benefits continuation information
+- Retrieval of confidential documents and intellectual property
+- Personal data removal per GDPR/privacy requirements
+- License reclamation and cost optimization
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Legal proceedings related to termination disputes
+- Detailed severance package negotiations
+- HRIS payroll and final compensation calculations
+- Long-term alumni engagement programs
+- Rehire eligibility determinations and processes
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- HR Business Partners managing separations
+- IT Operations teams executing access revocation
+- IAM Administrators coordinating deprovisioning
+- Hiring Managers facilitating knowledge transfer
+- Security teams validating complete access removal
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Legal and Compliance teams ensuring regulatory adherence
+- Internal Audit reviewing offboarding controls
+- Finance teams managing asset recovery and license reclamation
+- Facilities teams coordinating physical access removal
 
 ## Document Information
 
@@ -106,19 +127,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Immediate Access Revocation**: Disable all accounts within 1 hour of involuntary termination notification; within 24 hours for voluntary resignations
+**HRIS-Driven Automation**: Configure Workday or equivalent to automatically trigger deprovisioning workflows upon termination date
+**Separation Type Classification**: Distinguish between voluntary, involuntary, contractor end-of-engagement, and executive departures with appropriate procedures
+**Privileged Access Priority**: Immediately revoke privileged accounts, VPN access, and production system credentials before standard application access
+**Email Continuity**: Set up email forwarding to manager with auto-reply message; archive mailbox per retention policy
+**Knowledge Transfer Requirements**: Mandate documented handoff sessions 2 weeks before departure date for critical roles
+**Equipment Recovery Tracking**: Use asset management system to track all issued equipment and verify 100% return
+**Exit Interview Completion**: Schedule within final week; capture feedback on experience, reasons for departure, and improvement suggestions
+**Alumni Network Enrollment**: Offer enrollment in alumni programs for eligible departures to maintain talent pipeline
+**License Reclamation**: Immediately reclaim SaaS licenses to optimize costs; track in license management platform
+**Physical Security Coordination**: Notify facilities and security teams same-day to disable badge access and retrieve credentials
+**Legal Hold Preservation**: Before any data deletion, verify no active litigation holds or eDiscovery requirements
+**Manager Enablement**: Provide managers with offboarding playbooks and 1-week advance notice when possible
+**Audit Trail Documentation**: Maintain timestamped records of all deprovisioning actions for compliance verification
+**Access Certification Cleanup**: Remove terminated users from quarterly access reviews and certification campaigns
+**Shared Account Rotation**: Rotate passwords for any shared accounts the departing employee had access to
+**Data Migration Ownership**: Transfer ownership of critical files, folders, and documents to designated successors
+**Compliance Validation**: Conduct post-termination access review 7 days after departure to verify complete removal
+**Graceful Degradation**: For planned departures, implement phased access removal to maintain productivity through final day
+**Metrics and Monitoring**: Track offboarding completion rate, time-to-full-removal, equipment recovery rate, and exit interview participation
 
 ## Quality Criteria
 
@@ -165,7 +193,68 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Identity & Access Management**:
+- Okta Workflows for automated deprovisioning on termination events
+- Azure AD Lifecycle Workflows for leaver processes
+- SailPoint IdentityIQ termination workflows and certification
+- Saviynt IGA for access removal orchestration
+- CyberArk for privileged account deprovisioning
+- SCIM 2.0 for automated account deactivation
+- Active Directory account disablement and OU moves
+- Google Workspace offboarding automation
+- Microsoft 365 retention and eDiscovery holds
+- Conditional Access policies for immediate blocking
+
+**HRIS Integration**:
+- Workday termination event triggers for downstream systems
+- BambooHR offboarding workflows and integrations
+- ADP Workforce Now separation processing
+- UKG Pro termination notifications
+- SuccessFactors Employee Central offboarding
+- PeopleSoft HRMS deprovisioning triggers
+
+**ITSM & Automation**:
+- ServiceNow HR Service Delivery offboarding cases
+- Jira Service Management termination workflows
+- PagerDuty on-call rotation removal
+- Slack workspace deactivation
+- Microsoft Teams guest access removal
+- Zoom account deprovisioning
+
+**Asset Management**:
+- Jamf Pro for Mac device lock and wipe
+- Microsoft Intune for mobile device management
+- Workspace ONE for device decommissioning
+- ServiceNow Asset Management for equipment tracking
+- Atlassian Asset Discovery for license reclamation
+- Snow Software for license optimization
+
+**Data Retention & eDiscovery**:
+- Microsoft 365 Litigation Hold procedures
+- Google Vault for email preservation
+- Mailbox archival and forwarding setup
+- SharePoint/OneDrive data migration
+- Slack export and archival
+- Box and Dropbox folder ownership transfer
+
+**Compliance & Security Standards**:
+- SOC 2 CC6.1 (Logical Access Controls - Terminations)
+- ISO 27001 A.9.2.6 (Removal of Access Rights)
+- SOX ITGC controls for timely access revocation
+- NIST SP 800-53 AC-2(3) (Account Disablement)
+- CIS Controls v8 - Control 5.5 (Account Deactivation)
+- GDPR Article 17 (Right to Erasure) for personal data
+- PCI DSS Requirement 8.1.4 (Remove terminated user access)
+- HIPAA 164.308(a)(3)(ii)(C) (Termination Procedures)
+- COBIT 2019 DSS05.05 (Manage User Accounts)
+- Federal Rules of Civil Procedure (FRCP) for legal holds
+
+**Knowledge Management**:
+- Confluence knowledge transfer templates
+- SharePoint runbook documentation handoffs
+- README maintenance for code repositories
+- Tribal knowledge capture procedures
+- Work-in-progress transition plans
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

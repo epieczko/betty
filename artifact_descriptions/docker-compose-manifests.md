@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Docker Compose Manifests is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Docker Compose Manifests artifact defines multi-container application orchestration for local development, testing, and small-scale production deployments using Docker Compose. This artifact specifies service definitions, networking configurations, volume mounts, environment variable management, health checks, resource constraints, and service dependencies to enable consistent, reproducible containerized environments across development teams. It provides YAML-based infrastructure-as-code for orchestrating application stacks with databases (PostgreSQL, MySQL, MongoDB), caching layers (Redis, Memcached), message queues (RabbitMQ, Kafka), and supporting services through declarative compose file specifications (v3.8+).
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a foundational tool for containerized application development and deployment, this artifact serves DevOps Engineers automating local development environments, Cloud Platform Engineers prototyping infrastructure patterns, Backend Developers requiring consistent test environments, and Site Reliability Engineers managing Docker Swarm deployments. It bridges the gap between local development and production Kubernetes deployments by providing a simplified orchestration model for multi-container applications while maintaining production-ready configuration patterns.
 
 ### Strategic Importance
 
@@ -20,27 +20,45 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines Docker Compose configurations to orchestrate multi-container applications for local development, integration testing, CI/CD pipelines, and Docker Swarm production deployments, enabling developers to spin up complete application stacks (frontend, backend, databases, caches, queues) with a single `docker-compose up` command.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Docker Compose file specifications (compose file v3.8, v3.9, and Compose Specification)
+- Service definitions (image, build context, ports, networks, volumes, environment variables)
+- Multi-container application orchestration (web servers, APIs, databases, caches, message brokers)
+- Network configurations (bridge networks, overlay networks, custom networks, network aliases)
+- Volume management (named volumes, bind mounts, tmpfs mounts, volume drivers)
+- Environment variable management (.env files, environment sections, variable substitution)
+- Health check definitions (HTTP probes, TCP probes, command-based health checks)
+- Service dependencies and startup ordering (depends_on, service_healthy conditions)
+- Resource constraints (CPU limits, memory limits, reservations, PIDs limit)
+- Secrets management (Docker secrets, environment variable encryption)
+- Logging configurations (json-file, syslog, journald, fluentd drivers)
+- Restart policies (no, always, on-failure, unless-stopped)
+- Profile configurations for environment-specific overrides (development, testing, production)
+- Extension fields and YAML anchors for DRY configuration
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Production Kubernetes deployments (covered by helm-charts and Kubernetes manifest artifacts)
+- Dockerfile build instructions (covered by dockerfiles artifact)
+- Container registry management and image distribution
+- Large-scale container orchestration with auto-scaling (use Kubernetes/ECS/EKS instead)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- DevOps Engineers creating reproducible development environments
+- Cloud Platform Engineers prototyping infrastructure patterns
+- Backend Developers requiring local multi-service testing environments
+- QA Engineers running integration test suites
+- Site Reliability Engineers managing Docker Swarm deployments
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Frontend Developers connecting to containerized backend services
+- CI/CD Engineers integrating Docker Compose into pipelines
+- Technical Leads standardizing development workflows
 
 ## Document Information
 
@@ -106,18 +124,30 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
+**Version Control**: Store docker-compose.yml in Git with .env.example (never commit .env with secrets)
+**Compose File Version**: Use Compose Specification or v3.8+ for latest features and Docker Swarm compatibility
+**Service Naming**: Use descriptive service names matching architecture (frontend, api, postgres, redis, nginx)
+**Image Pinning**: Always pin specific image versions (`postgres:15.3-alpine`) rather than `latest` to ensure reproducibility
+**Environment Variables**: Use .env files for configuration, provide .env.example as template, add .env to .gitignore
+**Secrets Management**: Use Docker secrets for production Swarm deployments, environment variables for development, never hardcode credentials
+**Health Checks**: Define health checks for all services to enable proper dependency ordering and automatic restart on failure
+**Resource Limits**: Set memory and CPU limits to prevent resource exhaustion (`mem_limit: 512m`, `cpus: '0.5'`)
+**Named Volumes**: Use named volumes for persistent data (databases, uploaded files) to survive container recreation
+**Custom Networks**: Create custom bridge networks to isolate services and enable DNS-based service discovery
+**Dependency Management**: Use `depends_on` with `service_healthy` condition to ensure proper startup ordering
+**Build Context**: Optimize build context size using .dockerignore to exclude unnecessary files from build
+**Multi-Stage Builds**: Reference Dockerfiles using multi-stage builds for optimized production images
+**Port Mapping**: Avoid port conflicts by using non-standard ports or port ranges for local development
+**Volume Mounts**: Use relative paths and consistent mount points for development volume binds
+**Logging Configuration**: Configure appropriate logging drivers (json-file with max-size/max-file rotation)
+**Restart Policies**: Set `restart: unless-stopped` for production services, `restart: no` for one-off commands
+**Profiles**: Use compose profiles to separate development vs production service configurations
+**YAML Anchors**: Use YAML anchors and extensions to reduce duplication in compose files
+**Override Files**: Maintain docker-compose.override.yml for local developer-specific customizations (git-ignored)
+**Documentation**: Include README.md with setup instructions, required .env variables, and common commands
+**Testing**: Test compose stack with `docker-compose config` to validate YAML syntax before deployment
+**Clean Shutdown**: Use `docker-compose down -v` cautiously (removes volumes), prefer `docker-compose down` for normal shutdown
+**Regular Updates**: Review and update base images and compose file quarterly, test for breaking changes
 **Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
 
 ## Quality Criteria
@@ -165,7 +195,87 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Docker & Container Standards**:
+- Docker Compose Specification (Compose Specification v1.0+)
+- Docker Compose File Format v3.8, v3.9
+- OCI (Open Container Initiative) Image Specification
+- OCI Distribution Specification
+- OCI Runtime Specification
+- Container Network Interface (CNI) Specification
+- Container Storage Interface (CSI) Specification
+
+**Development Best Practices**:
+- The Twelve-Factor App Methodology (Factor 3: Config, Factor 6: Processes, Factor 8: Concurrency)
+- Infrastructure as Code (IaC) Principles
+- GitOps Workflow Patterns
+- Immutable Infrastructure Principles
+
+**Cloud Platform Standards**:
+- AWS ECS Task Definition Best Practices
+- Azure Container Instances Configuration
+- Google Cloud Run Service Specifications
+- Docker Swarm Mode Best Practices
+
+**Security Standards**:
+- CIS Docker Benchmark v1.6.0
+- NIST SP 800-190 (Application Container Security Guide)
+- Docker Security Best Practices
+- OWASP Docker Security Cheat Sheet
+- Secrets Management Best Practices (Vault, AWS Secrets Manager, Azure Key Vault integration)
+
+**Networking Standards**:
+- Docker Bridge Networking
+- Docker Overlay Networking (for Swarm)
+- Service Discovery Patterns
+- DNS-Based Service Discovery
+- Load Balancing Configurations (internal DNS round-robin)
+
+**Logging & Monitoring**:
+- Docker Logging Drivers (json-file, syslog, journald, fluentd, splunk, gelf)
+- Structured Logging Best Practices (JSON logging)
+- Log Aggregation Patterns (ELK, EFK, Loki)
+- Prometheus Metrics Exposure
+
+**Volume Management**:
+- Docker Volume Plugins
+- Persistent Storage Best Practices
+- Backup and Recovery Strategies for Docker Volumes
+- StatefulSet Patterns (for databases)
+
+**CI/CD Integration**:
+- Jenkins Docker Pipeline Integration
+- GitLab CI Docker Executor
+- GitHub Actions Docker Support
+- CircleCI Docker Layer Caching
+- Docker Compose in CI/CD Best Practices
+
+**Resource Management**:
+- Docker Resource Constraints (CPU, Memory, I/O limits)
+- cgroups v1 and v2 Resource Limiting
+- Docker Resource Reservation Strategies
+
+**Health Check Standards**:
+- Health Check API Patterns (HTTP /health endpoints)
+- Liveness vs Readiness Probes
+- Startup Probes for Slow-Starting Containers
+
+**Environment Management**:
+- Environment Variable Best Practices
+- .env File Management (git-ignored, example files)
+- Config Management Patterns
+- Feature Flag Integration
+
+**Testing Standards**:
+- Integration Testing with Docker Compose
+- Testcontainers Framework Integration
+- Docker Compose for E2E Testing
+- Database Migration Testing Patterns
+
+**Industry Best Practices**:
+- Docker Official Images Best Practices
+- Multi-Stage Build Patterns
+- Layer Caching Optimization
+- Development-Production Parity
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

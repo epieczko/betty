@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Feature Flag Registry is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Feature Flag Registry is a comprehensive inventory and governance system for managing feature flags across the software delivery lifecycle. This artifact serves as the single source of truth for all feature flag configurations, targeting rules, rollout percentages, and lifecycle management across platforms like LaunchDarkly, Split.io, Unleash, Flagsmith, and CloudBees Feature Management.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Feature flags have become critical infrastructure for progressive delivery, enabling teams to decouple deployment from release, conduct canary releases, implement percentage rollouts, and maintain kill switches for immediate rollback. However, without proper governance, technical debt accumulates through abandoned flags, inconsistent naming conventions, and unclear ownership. This registry prevents flag sprawl, ensures compliance with release processes, and provides visibility into experimentation and rollout strategies across the organization.
 
 ### Strategic Importance
 
@@ -20,27 +20,38 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the authoritative registry for all feature flags, providing centralized governance, lifecycle tracking, and technical debt management for feature flag infrastructure. It enables teams to maintain visibility into flag usage, enforce cleanup policies, and prevent flag sprawl that can degrade system performance and increase maintenance burden.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Feature flag inventory across all platforms (LaunchDarkly, Split.io, Unleash, etc.)
+- Targeting rules, percentage rollouts, and segmentation strategies
+- Flag lifecycle management (creation, rollout, retirement)
+- Kill switch configurations for emergency rollback
+- Ownership assignments and approval workflows
+- Technical debt tracking for stale and deprecated flags
+- Integration with CI/CD pipelines and deployment processes
+- Compliance with release management policies
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- A/B test experiment design and statistical analysis (covered by experiment-tracking-logs)
+- Infrastructure-level circuit breakers and rate limiting
+- Application configuration management unrelated to feature releases
+- Business logic rules that don't control feature availability
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Product Engineers managing feature rollouts and progressive delivery
+- Platform Engineers maintaining feature flag infrastructure
+- DevOps Engineers integrating flags with CI/CD pipelines
+- Engineering Managers overseeing release strategies
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Product Managers defining feature targeting and rollout plans
+- QA Engineers validating feature flag behavior across environments
+- SRE teams monitoring flag performance impact and kill switch procedures
 
 ## Document Information
 
@@ -106,19 +117,24 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Flag Naming Conventions**: Establish consistent naming patterns (e.g., team-feature-date, product-experiment-variant) to enable filtering and automated cleanup
+**Lifecycle Management**: Define clear phases (dev, staging, production) with automated promotion gates and approval workflows
+**Expiration Policies**: Set expiration dates on all flags at creation; implement automated alerts 30/60/90 days before expiration
+**Technical Debt Tracking**: Monitor stale flags (flags at 100% rollout for >90 days); establish quarterly cleanup sprints
+**Kill Switch Readiness**: Maintain designated kill switches for critical features with documented rollback procedures and ownership
+**Targeting Strategy**: Document targeting rules (user segments, geographies, beta tester lists) with clear business justification
+**Progressive Rollout**: Follow staged rollout patterns: internal (5%), beta (10%), early adopters (25%), general (50-100%)
+**Code References**: Use static analysis to track flag references in codebase; prevent deletion of flags still in use
+**Performance Monitoring**: Track flag evaluation latency and cache hit rates; set SLOs for flag evaluation (<10ms p99)
+**Ownership Assignment**: Every flag must have designated owner and approval chain; no orphaned flags
+**Audit Logging**: Enable comprehensive audit trails for all flag changes with change rationale and approver
+**Testing Strategy**: Include flag permutations in test plans; use flag overrides in testing environments
+**Documentation**: Maintain runbooks for high-risk flags including rollback procedures and incident response
+**Version Control**: Store flag configurations as code (Terraform, YAML) alongside application code
+**Regular Reviews**: Conduct monthly flag reviews to identify candidates for cleanup and technical debt reduction
+**Metrics Dashboards**: Track flag count by team, flag age distribution, and cleanup velocity
+**Change Management**: Route production flag changes through standard change approval process
+**SDK Version Management**: Keep feature flag SDKs up to date; test new SDK versions in staging environments
 
 ## Quality Criteria
 
@@ -165,7 +181,63 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Feature Flag Platforms**:
+- LaunchDarkly (feature flag management and experimentation)
+- Split.io (feature delivery and experimentation platform)
+- Unleash (open-source feature toggle system)
+- Flagsmith (open-source feature flag and remote config service)
+- CloudBees Feature Management (formerly Rollout.io)
+- Harness Feature Flags (integrated with CI/CD)
+- ConfigCat (multi-platform feature flag service)
+- DevCycle (feature flag management with edge delivery)
+- Statsig (feature flags with experimentation and analytics)
+- GrowthBook (open-source feature flagging and A/B testing)
+
+**OpenFeature Specification**:
+- OpenFeature standard for vendor-neutral feature flag APIs
+- OpenFeature SDK implementations (Java, .NET, Go, JavaScript, Python)
+- Provider integrations for LaunchDarkly, Split, Flagsmith, CloudBees
+- Context propagation and evaluation hooks
+- Flag evaluation telemetry and observability standards
+
+**Feature Flag Patterns & Best Practices**:
+- Release toggles (temporary flags for deployment decoupling)
+- Ops toggles (kill switches and circuit breakers)
+- Experiment toggles (A/B test variants and multivariate tests)
+- Permission toggles (entitlements and feature access control)
+- Progressive delivery strategies (canary, blue-green, ring deployments)
+- Percentage rollouts and gradual rollout strategies
+- User targeting and segmentation rules
+- Flag lifecycle management (creation, rollout, cleanup)
+
+**Technical Debt & Governance**:
+- Flag expiration policies and automated cleanup
+- Stale flag detection and technical debt metrics
+- Flag naming conventions and taxonomy
+- Code reference tracking (static analysis for flag usage)
+- Deprecated flag migration strategies
+- Flag approval workflows and change management
+
+**Integration & Tooling**:
+- CI/CD pipeline integration (GitHub Actions, GitLab CI, Jenkins)
+- Infrastructure as Code (Terraform providers for LaunchDarkly, Split)
+- SDK integrations (server-side, client-side, mobile)
+- Observability integration (DataDog, New Relic, Splunk)
+- Audit logging and compliance tracking
+- Flag evaluation analytics and performance monitoring
+
+**Experimentation Integration**:
+- Integration with experimentation platforms (Optimizely, VWO, Amplitude)
+- Experiment variant assignment via feature flags
+- Metric tracking for flag-based experiments
+- Statistical significance testing for flag rollouts
+
+**Security & Compliance**:
+- Flag evaluation security (preventing flag enumeration attacks)
+- PII handling in targeting rules and flag contexts
+- SOC 2 controls for feature flag changes
+- Audit trails for flag modifications
+- RBAC for flag management (read, write, approve permissions)
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Configuration Design is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Configuration Design documents define application and infrastructure configuration strategies, including environment-specific settings, feature flags, secrets management, and configuration-as-code approaches. This artifact ensures applications can be deployed consistently across environments while maintaining security, scalability, and operational flexibility through externalized configuration management.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a critical DevOps and platform engineering deliverable, configuration design integrates industry-standard tools (Terraform, Ansible, Kubernetes ConfigMaps, HashiCorp Vault) and methodologies (12-Factor App, GitOps, Infrastructure as Code) to separate configuration from code. This approach enables teams to manage environment promotion, implement feature toggles, secure sensitive data, and support multi-tenancy while adhering to compliance requirements and operational best practices.
 
 ### Strategic Importance
 
@@ -20,27 +20,45 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the authoritative specification for how applications and infrastructure components are configured across environments (dev, staging, production). It defines configuration storage, retrieval, versioning, and deployment strategies while ensuring security, auditability, and environment-specific customization without code changes.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Environment-specific configuration strategies (dev, test, staging, production)
+- Configuration storage mechanisms (environment variables, config files, remote config stores)
+- Secrets management using HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, Google Secret Manager
+- Configuration-as-Code using Terraform, Pulumi, CloudFormation, ARM templates
+- Feature flag/toggle implementations (LaunchDarkly, Split.io, Unleash, ConfigCat)
+- Application configuration patterns (12-Factor App methodology)
+- Kubernetes configuration (ConfigMaps, Secrets, Helm values)
+- Configuration versioning and rollback strategies
+- Configuration validation and schema enforcement
+- Dynamic configuration and runtime updates
+- Multi-tenancy and customer-specific configuration
+- Configuration drift detection and remediation
+- Encryption at rest and in transit for sensitive configuration
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Application code implementation (handled by development teams)
+- Infrastructure architecture design (handled by architecture artifacts)
+- Deployment orchestration (handled by CI/CD pipeline documentation)
+- Monitoring and observability configuration (handled by observability design)
+- Network configuration details (handled by network architecture)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Platform Engineers and DevOps Engineers who design and implement configuration strategies
+- Site Reliability Engineers (SREs) who manage configuration across environments
+- Backend Developers who consume and validate application configuration
+- Security Engineers who ensure secure configuration and secrets management
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Cloud Architects who define cloud-native configuration patterns
+- Compliance Officers who audit configuration management practices
+- Operations Teams who troubleshoot configuration-related issues
+- Product Managers who manage feature flag strategies
 
 ## Document Information
 
@@ -165,9 +183,76 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Configuration Management Methodologies**:
+- 12-Factor App (modern application configuration principles)
+- GitOps (Git as single source of truth for configuration)
+- Infrastructure as Code (IaC) principles
+- Immutable Infrastructure patterns
+- Configuration Drift Detection practices
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Infrastructure as Code Tools**:
+- Terraform (HashiCorp's multi-cloud IaC tool)
+- Pulumi (modern IaC with programming languages)
+- AWS CloudFormation (AWS infrastructure provisioning)
+- Azure Resource Manager (ARM) templates
+- Google Cloud Deployment Manager
+- Ansible (configuration management and automation)
+- Chef/Puppet (traditional configuration management)
+
+**Secrets Management**:
+- HashiCorp Vault (enterprise secrets management)
+- AWS Secrets Manager (AWS-native secrets storage)
+- Azure Key Vault (Azure secrets and key management)
+- Google Secret Manager (GCP secrets management)
+- Doppler (universal secrets manager)
+- CyberArk (enterprise privileged access management)
+- SOPS (Secrets OPerationS for encrypted files)
+
+**Kubernetes Configuration**:
+- ConfigMaps (non-sensitive configuration data)
+- Kubernetes Secrets (base64 encoded sensitive data)
+- Helm (Kubernetes package manager with values files)
+- Kustomize (template-free Kubernetes configuration)
+- External Secrets Operator (sync secrets from external systems)
+- Sealed Secrets (encrypted Kubernetes secrets)
+
+**Feature Flag/Toggle Platforms**:
+- LaunchDarkly (enterprise feature management)
+- Split.io (feature flags with experimentation)
+- Unleash (open-source feature toggle service)
+- ConfigCat (cloud-based feature flag service)
+- Flagsmith (open-source feature flag platform)
+- AWS AppConfig (AWS feature flag service)
+
+**Configuration Validation & Schema**:
+- JSON Schema (configuration structure validation)
+- Open Policy Agent (OPA) for policy-based validation
+- Conftest (test configuration files using OPA)
+- Terratest (automated testing for IaC)
+
+**Cloud-Native Configuration**:
+- AWS Systems Manager Parameter Store
+- AWS AppConfig (dynamic configuration management)
+- Azure App Configuration
+- Google Cloud Runtime Configurator
+- Consul (distributed configuration and service discovery)
+- etcd (distributed key-value store for Kubernetes)
+
+**Configuration Security Standards**:
+- CIS Benchmarks (security configuration standards)
+- NIST SP 800-53 (security and privacy controls)
+- OWASP Configuration Management best practices
+- Least Privilege principles for configuration access
+- Encryption standards (AES-256, TLS 1.3)
+
+**Monitoring & Compliance**:
+- Config drift detection (Terraform drift, AWS Config)
+- AWS Config (AWS resource configuration tracking)
+- Azure Policy (Azure compliance automation)
+- Cloud Custodian (cloud security and governance)
+- Checkov (static analysis for IaC security)
+
+**Reference**: Consult organizational platform engineering and security teams for approved configuration tools, secrets management platforms, and compliance requirements
 
 ## Integration Points
 

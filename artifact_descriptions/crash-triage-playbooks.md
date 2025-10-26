@@ -2,45 +2,64 @@
 
 ## Executive Summary
 
-The Crash Triage Playbooks is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Crash Triage Playbooks artifact provides standardized, repeatable procedures for rapidly diagnosing, categorizing, and responding to application crashes and system failures. These playbooks enable security operations and development teams to systematically investigate crashes that may indicate security incidents, perform root cause analysis, and coordinate remediation efforts while maintaining evidence integrity for potential forensic investigation.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a critical component of incident response and security operations, this artifact serves both technical responders who need step-by-step guidance during high-pressure triage situations and security leadership who require assurance that crashes are evaluated for security implications. It bridges the gap between traditional crash debugging and security incident response, ensuring that potential exploitation attempts, vulnerabilities, or malicious activity are identified during crash investigation.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Security-First Response**: Ensures crashes are evaluated for security implications before treating as operational issues
+- **Evidence Preservation**: Maintains forensic integrity of crash artifacts for potential security investigations
+- **Response Consistency**: Standardizes triage procedures across teams and incident types
+- **Threat Detection**: Identifies patterns that may indicate active exploitation or attack campaigns
+- **Integration with SIEM/SOAR**: Enables automated enrichment and correlation with security event data
+- **Compliance Support**: Demonstrates systematic approach to investigating potential security incidents
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the definitive procedural guide for triaging application crashes and system failures with a security-first mindset, ensuring rapid classification, appropriate escalation, evidence preservation, and coordinated response while distinguishing between benign software defects and potential security incidents.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Crash detection and initial classification procedures
+- Security-focused triage decision trees and criteria
+- Memory dump collection and analysis procedures
+- Crash signature extraction and correlation techniques
+- MITRE ATT&CK technique identification from crash patterns
+- Integration with SIEM, SOAR, and ticketing systems
+- Evidence preservation and chain of custody procedures
+- Escalation paths for suspected exploitation attempts
+- Communication templates for stakeholder notifications
+- Post-crash system state validation procedures
+- Automated crash analysis tool integration
+- Correlation with vulnerability intelligence and threat feeds
+- Metrics collection for crash trend analysis
+- Playbook versioning and continuous improvement
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed code-level debugging procedures (covered by development documentation)
+- Long-term application performance tuning (covered by operational runbooks)
+- Infrastructure capacity planning (handled by infrastructure team)
+- Product feature decisions based on crash data (product management responsibility)
+- Legal proceedings and litigation support (legal department handles)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Security Operations Center (SOC) analysts performing initial crash triage
+- Incident Response team members investigating suspected security incidents
+- DevSecOps engineers integrating security into crash analysis workflows
+- Site Reliability Engineers (SREs) evaluating production system stability
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Application security engineers reviewing crash patterns for vulnerability indicators
+- Threat intelligence analysts correlating crashes with known attack campaigns
+- Security leadership requiring visibility into potential security-related failures
+- Compliance teams documenting incident response capabilities
+- Development teams implementing crash mitigation and remediation
 
 ## Document Information
 
@@ -48,15 +67,15 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 **File Pattern**: `*.crash-triage-playbooks.md`
 
-**Naming Convention**: Follow standard pattern with project/initiative identifier, artifact type, and appropriate extension
+**Naming Convention**: `{system-name}.{environment}.crash-triage-playbooks.md` (e.g., `payment-api.production.crash-triage-playbooks.md`)
 
-**Template Location**: Access approved template from centralized template repository
+**Template Location**: `templates/crash-triage-playbooks-template.md`
 
-**Storage & Access**: Store in designated document repository with appropriate access controls based on classification
+**Storage & Access**: Store in security operations repository with access controls limiting to security and incident response personnel
 
-**Classification**: [Define typical classification level - Public | Internal | Confidential | Restricted]
+**Classification**: Confidential (contains sensitive operational security procedures)
 
-**Retention**: [Define retention period per organizational records management policy]
+**Retention**: Retain for 7 years minimum to support security incident investigations and compliance audits
 
 
 ### Document Control
@@ -66,59 +85,88 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 - `documentId`: Unique identifier in document management system
 - `createdDate`: ISO 8601 timestamp of initial creation
 - `lastModified`: ISO 8601 timestamp of most recent update
-- `nextReviewDate`: Scheduled date for next formal review
-- `documentOwner`: Role/person responsible for maintenance
-- `classification`: Information classification level
-- `retentionPeriod`: How long document must be retained
+- `nextReviewDate`: Quarterly review required, or after any critical security incident
+- `documentOwner`: Security Operations Manager or Incident Response Lead
+- `classification`: Confidential
+- `retentionPeriod`: 7 years
 
 **Authorship & Review**:
-- `primaryAuthor`: Lead author name and role
-- `contributors`: Additional contributors and their roles
-- `reviewers`: Designated reviewers (technical, security, compliance, etc.)
-- `approvers`: Formal approvers with sign-off authority
-- `reviewStatus`: Current review status
-- `approvalDate`: Date of formal approval
+- `primaryAuthor`: Security Operations team lead with incident response expertise
+- `contributors`: Application security engineers, SREs, threat analysts
+- `reviewers`: CISO or designee, Incident Response Manager, SOC Manager
+- `approvers`: CISO, VP Engineering
+- `reviewStatus`: Current review status (Draft | In Review | Approved | Archived)
+- `approvalDate`: Date of formal approval by CISO
 
 **Document Purpose**:
-- `executiveSummary`: 2-3 paragraph overview for executive audience
-- `businessContext`: Why this document exists and its business value
-- `scope`: What is covered and what is explicitly out of scope
-- `applicability`: Who this applies to and under what circumstances
-- `relatedDocuments`: References to related artifacts and dependencies
+- `executiveSummary`: Standardized crash triage procedures with security-first approach
+- `businessContext`: Ensures crashes are systematically evaluated for security implications and enables rapid, consistent response
+- `scope`: Covers crash detection through remediation coordination for all production systems
+- `applicability`: Mandatory for all security operations and incident response personnel
+- `relatedDocuments`: Incident Response Plan, Security Monitoring Runbooks, Forensics Procedures
 
 ### Main Content Sections
 
-(Content structure will vary based on specific artifact type. Include all relevant sections needed to fully document the subject matter.)
+**Crash Detection & Classification**:
+- Automated crash detection mechanisms (monitoring, APM, SIEM integration)
+- Initial severity classification matrix (Critical, High, Medium, Low)
+- Security indicator checklist (exploitation signatures, abnormal patterns)
+- Decision tree for security vs. operational routing
+- Timeframe requirements for each severity level
 
-**Core Information**:
-- Document the primary information this artifact is meant to capture
-- Organize in logical sections appropriate to the content type
-- Use consistent formatting and structure
-- Include sufficient detail for intended audience
-- Provide examples where helpful
+**Security-Focused Triage Procedures**:
+- Memory dump acquisition and secure storage procedures
+- Crash signature extraction and normalization techniques
+- Correlation with CVE databases and exploit intelligence
+- MITRE ATT&CK technique mapping from crash characteristics
+- User context and access level analysis
+- Network activity correlation around crash time
+- File system and registry changes detection
 
-**Supporting Information**:
-- Background context necessary for understanding
-- Assumptions and constraints
-- Dependencies on other artifacts or systems
-- Related information and cross-references
+**Evidence Preservation & Forensics**:
+- Chain of custody documentation requirements
+- Secure artifact storage procedures and access controls
+- Forensic imaging procedures for suspected compromises
+- Log aggregation and timeline reconstruction
+- Preservation of volatile vs. non-volatile data
+- Integration with forensic analysis tools
+
+**Escalation & Communication**:
+- Escalation criteria and decision matrices
+- Stakeholder notification templates and timing requirements
+- Incident declaration procedures
+- War room activation criteria
+- External reporting requirements (regulators, customers, partners)
+- Post-incident communication protocols
 
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Automated Detection Integration**: Deploy crash detection across all monitoring platforms (APM, SIEM, logging aggregators) with automated enrichment and correlation
+**Security-First Mindset**: Always evaluate crashes for security implications before treating as pure operational issues
+**Evidence Preservation**: Immediately secure crash artifacts, memory dumps, and logs before any remediation activities
+**Standardized Classification**: Use consistent severity and security risk classification across all crash types and systems
+**MITRE ATT&CK Mapping**: Map crash characteristics to MITRE ATT&CK techniques to identify potential attack patterns
+**Chain of Custody**: Maintain strict chain of custody for all crash artifacts that may become forensic evidence
+**Automated Correlation**: Integrate with threat intelligence feeds and vulnerability databases for real-time correlation
+**Playbook Versioning**: Version control all playbooks and track changes to ensure teams use current procedures
+**Regular Testing**: Conduct tabletop exercises and simulated crash scenarios quarterly to validate procedures
+**Metrics & KPIs**: Track triage time, escalation accuracy, and false positive rates to optimize procedures
+**Tool Integration**: Integrate with SOAR platforms for automated playbook execution and decision support
+**Knowledge Base**: Maintain searchable repository of historical crashes and resolutions for pattern analysis
+**Cross-Team Collaboration**: Establish clear handoff procedures between SOC, IR, SRE, and development teams
+**Continuous Learning**: Incorporate lessons learned from each significant crash into playbook updates
+**Secure Communication**: Use encrypted channels for discussing potential security incidents
+**Sandbox Analysis**: Utilize isolated sandbox environments for analyzing suspicious crash artifacts
+**Third-Party Coordination**: Establish procedures for coordinating with vendors on third-party component crashes
+**Compliance Alignment**: Ensure procedures meet regulatory requirements for incident documentation
+**Resource Accessibility**: Ensure playbooks are accessible during outages via offline copies or redundant systems
+**Training & Certification**: Require annual training and certification for all personnel executing playbooks
+**Escalation Awareness**: Maintain updated contact information and escalation paths with 24/7 availability
+**Documentation Quality**: Use clear, concise language with visual decision trees and flowcharts
+**Regular Reviews**: Review and update playbooks quarterly and after any major incident or infrastructure change
+**Stakeholder Engagement**: Include input from all affected teams (security, operations, development) in playbook development
+**Incident Simulation**: Conduct realistic crash simulations to identify gaps in procedures and improve response times
 
 ## Quality Criteria
 
@@ -165,7 +213,21 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Security Operations**: NIST SP 800-61 (Incident Handling), NIST SP 800-86 (Forensics), ISO/IEC 27035 (Incident Management), SANS Incident Response, FIRST CSIRT Framework
+**Threat Intelligence**: MITRE ATT&CK Framework, MITRE D3FEND, Cyber Kill Chain, Diamond Model of Intrusion Analysis
+**Forensics**: NIST SP 800-86, RFC 3227 (Evidence Collection), ISO/IEC 27037 (Digital Evidence), ACPO Digital Evidence Principles
+**Application Security**: OWASP Top 10, CWE Top 25, SANS Top 25 Software Errors, NIST SSDF
+**Monitoring & Observability**: OpenTelemetry, W3C Trace Context, OTEL Semantic Conventions
+**Vulnerability Management**: CVSS v3.1/v4.0, CVE, NVD, FIRST EPSS
+**Compliance**: SOC 2 (CC7 Incident Response), ISO 27001 A.16, PCI DSS v4.0 (Req 12.10), GDPR Article 33, HIPAA 45 CFR 164.308(a)(6)
+**DevSecOps**: NIST SP 800-218 (SSDF), OWASP DevSecOps Maturity Model, BSIMM
+**Cloud Security**: AWS Well-Architected Security Pillar, Azure Security Benchmark, GCP Security Best Practices, CSA CCM v4
+**Logging**: NIST SP 800-92 (Log Management), OWASP Logging Cheat Sheet, Common Event Format (CEF), Syslog RFC 5424
+**SIEM/SOAR Integration**: OASIS STIX/TAXII, OpenC2, MISP, Sigma Rules
+**Memory Analysis**: Volatility Framework, Rekall, Windows Memory Forensics
+**Crash Analysis**: Microsoft Debugging Tools, GDB, LLDB, Crashlytics standards
+**Service Management**: ITIL v4 Incident Management, ISO/IEC 20000
+**Business Continuity**: ISO 22301, NIST SP 800-34 (Contingency Planning)
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 
@@ -175,227 +237,259 @@ Before considering this artifact complete and ready for approval, verify:
 
 These artifacts or information sources should exist before this artifact can be completed:
 
-- [List artifacts that provide input to this one]
-- [Data sources that feed this artifact]
-- [Prerequisites that must be satisfied]
+- Security Monitoring Strategy and SIEM configuration
+- Incident Response Plan and escalation procedures
+- Asset inventory with criticality classifications
+- Vulnerability management program and CVE tracking
+- Threat intelligence feeds and indicator sources
+- Forensics procedures and evidence handling policies
+- System architecture documentation for each application
+- Logging standards and log aggregation infrastructure
+- Access control policies and role definitions
 
 ### Downstream Consumers (Who Uses This)
 
 This artifact provides input to:
 
-- [Artifacts that consume information from this one]
-- [Processes that use this artifact]
-- [Teams or roles that rely on this information]
+- Incident Response Plan execution and case management
+- Security Operations Center (SOC) runbooks and procedures
+- Post-incident review and lessons learned documentation
+- Threat intelligence analysis and adversary profiling
+- Vulnerability remediation prioritization decisions
+- Security metrics and KPI dashboards
+- Compliance audit evidence and documentation
+- Training materials for security operations personnel
 
 ### Related Artifacts
 
 Closely related artifacts that should be referenced or aligned with:
 
-- [Complementary artifacts in same phase]
-- [Artifacts in adjacent phases]
-- [Cross-cutting artifacts (e.g., risk register)]
+- Incident Response Plan and procedures
+- Security Monitoring Runbooks
+- Forensics Investigation Procedures
+- Vulnerability Management Policy
+- Security Test Results and penetration testing reports
+- Security Detections Catalog
+- Triage Rules for automated classification
+- DDoS Posture Assessments
+- Purple Team Reports and Red Team Reports
 
 ## Review & Approval Process
 
 ### Review Workflow
 
 1. **Author Self-Review**: Creator performs completeness check against template and quality criteria
-2. **Peer Review**: Subject matter expert review for technical accuracy and completeness
-3. **Stakeholder Review**: Review by all affected stakeholders for alignment and acceptance
-4. **Architecture Review**: [If applicable] Architecture board review for standards compliance
-5. **Security Review**: [If applicable] Security team review for security requirements
-6. **Compliance Review**: [If applicable] Compliance review for regulatory requirements
-7. **Legal Review**: [If applicable] Legal counsel review
-8. **Final Approval**: Designated approver(s) provide formal sign-off
+2. **Peer Review**: SOC analysts and incident responders review for technical accuracy and operational feasibility
+3. **Stakeholder Review**: SRE, development, and application security teams review for alignment
+4. **Security Architecture Review**: Security architecture team reviews for standards compliance and integration
+5. **Compliance Review**: Compliance team reviews for regulatory alignment
+6. **Legal Review**: Legal counsel reviews if procedures involve evidence collection for potential legal action
+7. **Final Approval**: CISO and VP Engineering provide formal sign-off
 
 ### Approval Requirements
 
 **Required Approvers**:
-- Primary Approver: [Define role - e.g., Program Manager, Architecture Lead, CISO]
-- Secondary Approver: [For high-risk or cross-functional artifacts]
-- Governance Approval: [If requires board or committee approval]
+- Primary Approver: CISO or Security Operations Director
+- Secondary Approver: VP Engineering or Infrastructure Lead
+- Governance Approval: Security Governance Committee for major changes
 
 **Approval Evidence**:
 - Document approval in artifact metadata
 - Capture approver name, role, date, and any conditional approvals
-- Store approval records per records management requirements
+- Store approval records in compliance management system for 7 years
 
 ## Maintenance & Lifecycle
 
 ### Update Frequency
 
-**Regular Reviews**: [Define cadence - e.g., Quarterly, Annually]
+**Regular Reviews**: Quarterly review required minimum
 
 **Event-Triggered Updates**: Update immediately when:
-- Significant organizational changes occur
+- Major security incident reveals playbook deficiency
+- New attack techniques or exploitation methods emerge
+- Organizational infrastructure or architecture changes significantly
 - Regulatory requirements change
-- Major incidents reveal deficiencies
-- Stakeholder requests identify needed updates
-- Related artifacts are substantially updated
+- Major tool or platform changes occur
+- Post-incident reviews identify improvement opportunities
 
 ### Version Control Standards
 
 Use semantic versioning: **MAJOR.MINOR.PATCH**
 
-- **MAJOR**: Significant restructuring, scope changes, or approach changes
-- **MINOR**: New sections, substantial additions, or enhancements
-- **PATCH**: Corrections, clarifications, minor updates
+- **MAJOR**: Significant restructuring, new crash types, or fundamental approach changes
+- **MINOR**: New procedures, additional integrations, or substantial enhancements
+- **PATCH**: Corrections, clarifications, contact updates
 
 ### Change Log Requirements
 
 Maintain change log with:
 - Version number and date
 - Author(s) of changes
-- Summary of what changed and why
-- Impact assessment (who/what is affected)
+- Summary of what changed and why (incident-driven vs. proactive)
+- Impact assessment (affected teams, required training)
 - Approver of changes
+- Related incident or improvement ticket IDs
 
 ### Archival & Retention
 
-**Retention Period**: [Define based on regulatory and business requirements]
+**Retention Period**: 7 years minimum (compliance and legal requirements)
 
 **Archival Process**:
-- Move superseded versions to archive repository
-- Maintain access for historical reference and audit
-- Follow records management policy for eventual destruction
+- Move superseded versions to secure archive with access logging
+- Maintain complete version history for audit and investigation purposes
+- Archive includes all supporting documentation and approval evidence
+- Ensure archived versions remain accessible for historical incident investigation
 
 ### Ownership & Accountability
 
-**Document Owner**: [Define role responsible for maintenance]
+**Document Owner**: Security Operations Manager
 
 **Responsibilities**:
-- Ensure artifact remains current and accurate
-- Coordinate required updates
+- Ensure playbooks remain current, accurate, and aligned with infrastructure
+- Coordinate quarterly reviews and post-incident updates
 - Manage review and approval process
-- Respond to stakeholder questions
-- Archive superseded versions
+- Respond to questions and clarification requests from SOC and IR teams
+- Track playbook usage metrics and effectiveness
+- Coordinate training and tabletop exercises
 
 ## Templates & Examples
 
 ### Template Access
 
-**Primary Template**: `templates/{artifact_name}-template.{format_type.lower()}`
+**Primary Template**: `templates/crash-triage-playbooks-template.md`
 
-**Alternative Formats**: [If multiple formats supported]
+**Alternative Formats**: Word, PDF for offline access during incidents
 
-**Template Version**: Use latest approved template version from repository
+**Template Version**: Use latest approved template version from security operations repository
 
 ### Example Artifacts
 
-**Reference Examples**: `examples/{artifact_name}-example-*.{format_type.lower()}`
+**Reference Examples**: `examples/crash-triage-playbooks-example-{application-type}.md`
 
-**Annotated Guidance**: See annotated examples showing best practices and common approaches
+**Annotated Guidance**: See annotated examples showing best practices for different application types (web applications, APIs, microservices, databases)
 
 ### Quick-Start Checklist
 
 Before starting this artifact, ensure:
 
 - [ ] Reviewed template and understand all sections
-- [ ] Identified and engaged all required stakeholders
-- [ ] Gathered prerequisite information and inputs
-- [ ] Obtained access to necessary systems and data
-- [ ] Allocated sufficient time for quality completion
+- [ ] Identified all critical applications and systems requiring crash triage procedures
+- [ ] Gathered monitoring and detection capabilities inventory
+- [ ] Obtained access to SIEM, APM, and forensics tools
+- [ ] Engaged SOC, IR, SRE, and development teams
 - [ ] Identified reviewers and approvers
-- [ ] Understood applicable standards and requirements
+- [ ] Understood applicable regulatory and compliance requirements
 
 While creating this artifact:
 
 - [ ] Following approved template structure
-- [ ] Documenting sources and references
-- [ ] Writing clearly for intended audience
-- [ ] Including visual aids where helpful
-- [ ] Self-reviewing against quality criteria
-- [ ] Seeking input from stakeholders
+- [ ] Documenting specific tools, commands, and procedures
+- [ ] Including decision trees and visual aids
+- [ ] Specifying timeframes and SLAs for each procedure
+- [ ] Defining clear escalation criteria
+- [ ] Incorporating lessons learned from previous incidents
 
 Before submitting for approval:
 
-- [ ] Completed all required sections
-- [ ] Verified accuracy of all information
-- [ ] Obtained peer review feedback
+- [ ] Completed all required sections with sufficient detail
+- [ ] Verified technical accuracy with SMEs
+- [ ] Validated procedures through tabletop exercise
+- [ ] Obtained peer review feedback from SOC and IR teams
 - [ ] Addressed all review comments
-- [ ] Spell-checked and proofread
 - [ ] Completed all metadata fields
-- [ ] Verified compliance with standards
+- [ ] Verified integration points with related systems
 - [ ] Ready for formal approval process
 
 ## Governance & Compliance
 
 ### Regulatory Considerations
 
-[Define any regulatory requirements applicable to this artifact type, such as:]
+This artifact supports compliance with multiple regulatory frameworks:
 
-- SOC 2: [If artifact supports SOC 2 controls]
-- ISO 27001: [If part of ISMS documentation]
-- GDPR/Privacy: [If contains or references personal data]
-- Industry-Specific: [Healthcare, Financial Services, etc.]
+- **SOC 2**: CC7.3 (Incident response), CC7.4 (Analysis and resolution)
+- **ISO 27001**: A.16.1 (Incident management), A.12.4 (Logging and monitoring)
+- **PCI DSS v4.0**: Requirement 12.10 (Incident response), 10.2 (Logging)
+- **GDPR**: Article 33 (Breach notification), Article 32 (Security measures)
+- **HIPAA**: 45 CFR 164.308(a)(6) (Security incident procedures)
+- **NIST CSF**: DE.AE (Anomalies and events), RS.AN (Analysis), RS.MI (Mitigation)
 
 ### Audit Requirements
 
 This artifact may be subject to:
 
-- Internal audits by IA team
-- External audits by third-party auditors
-- Regulatory examinations
-- Customer security assessments
+- Internal security audits quarterly
+- External SOC 2 and ISO 27001 audits annually
+- Regulatory examinations by industry-specific regulators
+- Customer security assessments and vendor reviews
+- Penetration testing and red team validation
 
 **Audit Preparation**:
-- Maintain complete version history
-- Document all approvals with evidence
-- Keep change log current
-- Ensure accessibility for auditors
+- Maintain complete version history in secure repository
+- Document all approvals with timestamps and approver details
+- Keep detailed change log showing continuous improvement
+- Ensure artifact and all supporting documentation accessible to auditors
+- Track playbook usage metrics and incident response effectiveness
 
 ### Policy Alignment
 
 This artifact must align with:
 
-- [Relevant organizational policies]
-- [Industry regulations and standards]
-- [Contractual obligations]
-- [Governance framework requirements]
+- Incident Response Policy and procedures
+- Security Monitoring and Detection Policy
+- Evidence Handling and Forensics Policy
+- Data Classification and Handling Policy
+- Access Control and Least Privilege policies
+- Security Operations Charter and scope
+- Vulnerability Disclosure and Remediation policies
 
 ## Metrics & Success Criteria
 
 ### Artifact Quality Metrics
 
-- **Completeness Score**: Percentage of template sections completed
-- **Review Cycle Time**: Days from draft to approval
-- **Defect Rate**: Number of errors found post-approval
-- **Stakeholder Satisfaction**: Survey rating from artifact consumers
+- **Completeness Score**: 100% of template sections completed with specific procedures
+- **Review Cycle Time**: Quarterly reviews completed within 30 days
+- **Stakeholder Coverage**: Input from all affected teams (SOC, IR, SRE, Dev)
+- **Approval Time**: Initial approval within 45 days of draft completion
 
 ### Usage Metrics
 
-- **Access Frequency**: How often artifact is accessed/referenced
-- **Update Frequency**: How often artifact requires updates
-- **Downstream Impact**: How many artifacts/processes depend on this
+- **Playbook Execution Frequency**: Number of crashes triaged using playbooks per month
+- **Mean Time to Triage (MTTT)**: Average time from crash detection to classification
+- **Escalation Accuracy**: Percentage of security escalations that are true positives
+- **Security Detection Rate**: Percentage of crashes with security implications identified
+- **False Positive Rate**: Percentage of security escalations that are operational issues
+- **Coverage**: Percentage of production systems with applicable playbooks
 
 ### Continuous Improvement
 
-- Gather feedback from users and reviewers
-- Track common questions or confusion points
-- Identify recurring issues or challenges
-- Update template and guidance based on lessons learned
-- Share best practices across organization
+- Conduct post-incident reviews for all security-related crashes
+- Track playbook gaps or deficiencies identified during incidents
+- Analyze trends in crash types and security indicators
+- Incorporate threat intelligence on new exploitation techniques
+- Update procedures based on tooling and infrastructure changes
+- Share lessons learned across security and engineering organizations
+- Benchmark against industry standards and peer organizations
 
 ## Metadata Tags
 
-**Phase**: {phase}
+**Phase**: Security Operations
 
-**Category**: {category}
+**Category**: Incident Response & Triage
 
-**Typical Producers**: [Roles/teams that typically create this artifact]
+**Typical Producers**: Security Operations team, Incident Response team, Application Security engineers
 
-**Typical Consumers**: [Roles/teams that typically use this artifact]
+**Typical Consumers**: SOC analysts, Incident responders, SREs, On-call engineers, Forensics analysts
 
-**Effort Estimate**: [Typical hours/days required to complete]
+**Effort Estimate**: 40-80 hours for initial creation, 8-16 hours per quarterly update
 
-**Complexity Level**: [Low | Medium | High | Very High]
+**Complexity Level**: High (requires deep security, forensics, and application architecture expertise)
 
-**Business Criticality**: [Low | Medium | High | Mission Critical]
+**Business Criticality**: Mission Critical (essential for security incident response)
 
-**Change Frequency**: [Static | Infrequent | Regular | Frequent]
+**Change Frequency**: Regular (quarterly reviews plus event-triggered updates)
 
 ---
 
 *This artifact definition follows Big Five consulting methodology standards and incorporates industry best practices. Tailor to your organization's specific requirements and context.*
 
-*Last Updated: {phase} - Version 2.0*
+*Last Updated: Security Operations - Version 2.0*

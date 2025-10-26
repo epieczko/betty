@@ -2,45 +2,62 @@
 
 ## Executive Summary
 
-The Configuration Drift Reports is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Configuration Drift Reports artifact defines automated detection of infrastructure configuration drift from Infrastructure as Code (IaC) definitions using tools like Terraform drift detection, CloudFormation drift detection, Pulumi refresh, and compliance scanning with Checkov, tfsec, and Open Policy Agent (OPA). This artifact identifies manual changes, shadow IT, compliance violations, and security misconfigurations that deviate from approved infrastructure state.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a critical security and compliance control, configuration drift detection prevents unauthorized changes, ensures infrastructure matches IaC definitions (Terraform state, CloudFormation templates), and maintains compliance with security policies (CIS benchmarks, SOC 2, PCI DSS). Integration with GitOps workflows, policy-as-code, and automated remediation enables infrastructure immutability and continuous compliance.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Infrastructure Immutability**: Detects manual infrastructure changes that bypass IaC approval workflows, preventing configuration drift
+- **Security Compliance**: Identifies security misconfigurations (open security groups, unencrypted storage, public S3 buckets) violating policies
+- **Cost Control**: Detects unauthorized resource creation, oversized instances, and shadow IT that increases costs
+- **Audit Readiness**: Provides compliance evidence for SOC 2, ISO 27001, PCI DSS audits with drift detection reports
+- **Change Accountability**: Tracks who made changes, when, and whether through approved IaC pipelines or manual console access
+- **Automated Remediation**: Enables automatic drift correction, policy enforcement, and infrastructure self-healing
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines automated infrastructure drift detection, compliance policy scanning, and remediation workflows for IaC-managed infrastructure. It establishes drift detection schedules (hourly, daily), compliance policies (CIS benchmarks, custom OPA policies), reporting formats, and automated remediation strategies using Terraform, CloudFormation, Pulumi, and policy-as-code tools.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Terraform drift detection: terraform plan -refresh-only, drift detection in Terraform Cloud/Enterprise
+- AWS CloudFormation drift detection: detect-stack-drift, describe-stack-resource-drifts APIs
+- Pulumi refresh: pulumi refresh, pulumi preview for state comparison
+- Compliance scanning: Checkov (Terraform/CloudFormation), tfsec (Terraform), Terrascan, OPA (Open Policy Agent)
+- Policy-as-code: Sentinel (HashiCorp), OPA/Rego policies, AWS Config Rules, Azure Policy
+- Security baselines: CIS AWS Foundations Benchmark, CIS Azure Benchmark, CIS GCP Benchmark
+- Configuration drift types: resource property changes, resource deletions, new unmanaged resources
+- Drift reporting: daily/weekly reports, Slack/email notifications, dashboard visualization
+- Automated remediation: Terraform apply to correct drift, AWS Config auto-remediation, Azure Policy remediation
+- Change tracking: CloudTrail, Azure Activity Log, GCP Cloud Audit Logs for manual change detection
+- GitOps enforcement: Ensure infrastructure changes only through Git commits, block console access
+- Compliance frameworks: SOC 2, PCI DSS, HIPAA, ISO 27001, FedRAMP compliance requirements
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Application configuration management (covered in application deployment artifacts)
+- Secret rotation and credential management (covered in secrets management)
+- Network security policies (covered in network security architecture)
+- Kubernetes configuration drift (covered in K8s governance artifacts)
+- Database schema drift (covered in database management)
+- Incident response for detected drift (covered in incident management runbooks)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Platform Engineers: Configure drift detection, implement policy-as-code, remediate infrastructure drift
+- Security Engineers: Define security compliance policies, review drift for violations, enforce security baselines
+- DevOps Engineers: Maintain IaC code, investigate drift causes, coordinate drift remediation
+- Compliance Officers: Review drift reports for audit compliance, track policy violations, generate compliance evidence
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- SRE Teams: Monitor infrastructure stability, correlate drift with incidents, prevent manual changes
+- Cloud Architects: Design infrastructure immutability patterns, define IaC standards, approve policy exceptions
+- IT Audit: Review drift detection logs for compliance audits, validate controls effectiveness
+- Engineering Leadership: Review drift trends, approve remediation priorities, enforce IaC-only changes
 
 ## Document Information
 
@@ -145,19 +162,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Daily Drift Detection**: Run terraform plan daily in CI/CD; alert on any detected drift for immediate investigation
+**Block Console Access**: Restrict AWS console, Azure portal access to read-only; enforce infrastructure changes only through IaC
+**Automated Remediation**: Auto-apply Terraform to correct benign drift; require approval for security-impacting changes
+**Policy-as-Code**: Define security policies in OPA, Sentinel, AWS Config Rules; enforce at plan-time before apply
+**CIS Compliance**: Scan IaC with Checkov, tfsec against CIS benchmarks; block non-compliant infrastructure in CI/CD
+**State Locking**: Use remote state with locking (S3 + DynamoDB, Terraform Cloud) to prevent concurrent modifications
+**Change Attribution**: Correlate drift with CloudTrail/activity logs to identify who made manual changes
+**Drift Categories**: Classify drift as: benign (tags), concerning (configs), critical (security groups, encryption)
+**Notification Routing**: Alert security team for critical drift (security groups, IAM); ops team for resource changes
+**Remediation Workflow**: Investigate drift cause, update IaC if intentional, auto-revert if unauthorized
+**Compliance Scanning**: Scan for open security groups, unencrypted storage, public S3 buckets, overprivileged IAM
+**GitOps Workflow**: All infrastructure changes via Git PR, automated plan on PR, automated apply on merge to main
+**Immutable Infrastructure**: Prefer replacing resources over in-place modification; reduces drift surface
+**Drift Metrics**: Track drift detection rate, time to remediation, drift by team/service for accountability
+**Exception Management**: Document approved drift exceptions (legacy resources, vendor integrations) with expiration
+**Pre-Commit Hooks**: Run tfsec, Checkov in pre-commit hooks; catch policy violations before commit
+**Regular Audits**: Weekly drift reports to engineering leads; monthly reports to security/compliance teams
 
 ## Quality Criteria
 
@@ -204,9 +225,75 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Infrastructure as Code (IaC)**:
+- Terraform - HashiCorp IaC with HCL, state management, drift detection
+- AWS CloudFormation - AWS-native IaC with JSON/YAML templates
+- Pulumi - Multi-language IaC (TypeScript, Python, Go, .NET, Java)
+- Azure Resource Manager (ARM) Templates - Azure-native IaC
+- Google Cloud Deployment Manager - GCP-native IaC
+- Ansible - Configuration management and infrastructure provisioning
+- CDK (Cloud Development Kit) - AWS CDK, CDK for Terraform programmatic IaC
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Drift Detection Tools**:
+- Terraform Cloud/Enterprise - Built-in drift detection with scheduled runs
+- Spacelift - Terraform management platform with drift detection
+- env0 - IaC management with drift detection and remediation
+- Scalr - Terraform automation with drift detection workflows
+- Driftctl - Open-source IaC drift detection tool
+- CloudQuery - Cloud asset inventory and drift detection
+
+**Compliance Scanning**:
+- Checkov - Static analysis for Terraform, CloudFormation, Kubernetes, Dockerfiles
+- tfsec - Terraform security scanner with 1000+ checks
+- Terrascan - IaC scanner for security and compliance (500+ policies)
+- TFLint - Terraform linter for best practices and errors
+- Prowler - AWS security assessment and CIS benchmark scanning
+- ScoutSuite - Multi-cloud security auditing tool
+
+**Policy-as-Code**:
+- Open Policy Agent (OPA) - CNCF policy engine with Rego language
+- HashiCorp Sentinel - Policy-as-code for Terraform Enterprise/Cloud
+- AWS Config Rules - Managed and custom rules for AWS resource compliance
+- Azure Policy - Azure resource compliance and governance
+- GCP Policy Intelligence - GCP policy recommendations and enforcement
+- Cloud Custodian - Cloud governance with YAML policies (AWS, Azure, GCP)
+
+**Security Baselines**:
+- CIS AWS Foundations Benchmark - Security configuration baseline for AWS
+- CIS Microsoft Azure Foundations Benchmark - Azure security baseline
+- CIS Google Cloud Platform Benchmark - GCP security baseline
+- AWS Security Best Practices - Well-Architected Framework security pillar
+- Azure Security Benchmark - Microsoft cloud security baseline
+- NIST Cybersecurity Framework - NIST CSF compliance mapping
+
+**Change Tracking**:
+- AWS CloudTrail - AWS API call logging and change tracking
+- Azure Activity Log - Azure resource change and activity logging
+- GCP Cloud Audit Logs - GCP admin activity and data access logs
+- AWS Config - Resource configuration history and compliance
+- Azure Resource Graph - Azure resource queries and change tracking
+
+**GitOps**:
+- ArgoCD - Declarative GitOps CD for Kubernetes
+- Flux - GitOps toolkit for Kubernetes
+- Atlantis - Terraform pull request automation
+- Terragrunt - Terraform wrapper with DRY configurations
+- GitHub Actions - CI/CD for IaC workflows
+- GitLab CI/CD - Integrated CI/CD for infrastructure pipelines
+
+**Compliance Frameworks**:
+- SOC 2 - Service Organization Control compliance (change management controls)
+- ISO 27001 - Information security management system requirements
+- PCI DSS - Payment card industry security standards
+- HIPAA - Healthcare data security requirements
+- FedRAMP - Federal cloud security compliance
+- GDPR - Data protection and privacy compliance
+
+**Remediation Platforms**:
+- AWS Systems Manager - Automated remediation with SSM Automation
+- Azure Automation - Runbooks for automated remediation
+- AWS Lambda - Event-driven remediation functions
+- Azure Functions - Serverless remediation automation
 
 ## Integration Points
 

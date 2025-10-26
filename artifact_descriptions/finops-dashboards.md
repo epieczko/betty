@@ -2,45 +2,69 @@
 
 ## Executive Summary
 
-The Finops Dashboards is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The FinOps Dashboards are comprehensive visualizations that provide real-time visibility into cloud spending, unit economics, cost per customer, COGS (Cost of Goods Sold), gross margin, and cloud resource utilization across AWS, Azure, and GCP environments. These mission-critical dashboards enable FinOps teams, engineering leaders, and CFOs to monitor cloud spend trends, identify cost anomalies, optimize resource allocation, and track cost efficiency metrics against business growth.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As essential Cloud Financial Management tools, FinOps dashboards integrate data from AWS Cost Explorer, Azure Cost Management, GCP Cost Management, Kubecost, CloudHealth, and Apptio Cloudability to provide unified views of cloud spend by service, team, environment, project, and business unit. They track key metrics including cost per transaction, cost per user, cost per GB stored, infrastructure costs as % of revenue, cloud efficiency ratios, Reserved Instance/Savings Plan coverage, and month-over-month/year-over-year cost trends enabling proactive cost optimization and budget management.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Cost Visibility**: Provides real-time visibility into cloud spending by service, team, environment, and cost center to drive accountability
+- **Unit Economics**: Tracks cost per customer, cost per transaction, cost per API call enabling optimization of unit cost structure
+- **Gross Margin Tracking**: Monitors infrastructure COGS as % of revenue to protect and improve gross margins
+- **Budget Management**: Enables proactive budget monitoring with alerts for overruns and anomaly detection
+- **Optimization Opportunities**: Identifies rightsizing opportunities, idle resources, unattached volumes, and RI/Savings Plan gaps
+- **Chargeback/Showback**: Supports cost allocation and chargeback to business units through detailed cost attribution
+- **Predictive Forecasting**: Projects future costs based on historical trends, growth rates, and seasonal patterns
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+These dashboards provide comprehensive cloud financial visibility through:
+- **Unit Economics Dashboard**: Cost per customer, cost per transaction, cost per user, cost per API call, infrastructure cost per dollar of revenue
+- **Cost by Service/Team/Environment**: Breakdown of cloud spend by AWS/Azure/GCP service, engineering team, environment (prod/staging/dev)
+- **COGS Dashboard**: Infrastructure costs as % of revenue, gross margin trends, direct cloud costs allocated to COGS
+- **Gross Margin Analysis**: Revenue vs infrastructure costs, margin trends, margin by customer segment or product line
+- **Budget Tracking**: Actual vs budget spend by month/quarter, forecast vs actuals, variance analysis, burn rate
+- **Cost Optimization**: RI/Savings Plan coverage, rightsizing recommendations, idle resource costs, unattached volume costs
+- **Anomaly Detection**: Unusual spend spikes, cost outliers, unexpected service usage increases
+- **Trend Analysis**: Month-over-month growth, year-over-year trends, seasonal patterns, cost efficiency over time
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Cloud spend visualization (AWS, Azure, GCP)
+- Cost allocation by team, service, environment, project, cost center
+- Unit economics metrics (cost per customer, per transaction, per user, per API call)
+- COGS tracking (infrastructure costs, third-party services, direct cloud costs)
+- Gross margin analysis (revenue vs infrastructure costs)
+- Budget vs actual tracking and variance analysis
+- RI/Savings Plan utilization and coverage
+- Cost optimization opportunities (rightsizing, idle resources, waste)
+- Forecasting and predictive cost modeling
+- Anomaly detection and alerts
+- Multi-cloud consolidated view
+- Kubernetes cost visibility (via Kubecost/OpenCost)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed TCO modeling (covered in ROI-TCO Calculators)
+- Chargeback/showback report generation (covered in Showback & Chargeback Reports)
+- Application performance monitoring (APM)
+- Infrastructure monitoring and alerting (covered by observability tools)
+- Revenue analytics (covered by revenue dashboards)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- FinOps Teams: Daily monitoring and cost optimization
+- CFO/Finance Leadership: COGS, gross margin, and budget oversight
+- VP Engineering/CTO: Engineering cost efficiency and resource allocation
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Engineering Teams: Team-specific cost visibility and accountability
+- Product Management: Product-level unit economics
+- FP&A: Budget planning and forecasting
+- Business Unit Leaders: Cost allocation and showback visibility
 
 ## Document Information
 
@@ -120,6 +144,27 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 **Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
 **Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
 
+**FinOps Dashboard Best Practices**:
+**Tagging Strategy**: Enforce comprehensive tagging (cost center, team, environment, project, application); target >95% tag compliance
+**Automated Data Pipelines**: Automate data ingestion from AWS CUR, Azure, GCP; refresh dashboards daily (or hourly for real-time)
+**Multi-Cloud Normalization**: Normalize cost data across AWS/Azure/GCP for consistent cross-cloud comparison
+**Unit Economics Focus**: Prioritize cost per customer, cost per transaction metrics; align infrastructure efficiency with business growth
+**Anomaly Alerts**: Configure automated alerts for unusual spend spikes (>20% day-over-day or week-over-week)
+**Budget Guardrails**: Set budget alerts at 50%, 75%, 90%, 100% thresholds with escalating notifications
+**RI/SP Tracking**: Monitor RI and Savings Plan coverage, utilization, and expiration; target >70% coverage for steady-state workloads
+**Rightsizing Recommendations**: Surface rightsizing opportunities weekly; track implementation and realized savings
+**Idle Resource Detection**: Identify idle EC2 instances, unattached EBS volumes, orphaned snapshots; automate cleanup where safe
+**Environment Segregation**: Separate prod, staging, dev costs; challenge non-prod spending >20% of total
+**Team Accountability**: Provide team-level dashboards; make engineering teams responsible for their cloud spend
+**Executive Dashboards**: Create CFO/CTO dashboards showing COGS%, gross margin, infrastructure cost as % of revenue
+**Historical Trending**: Show 12-month trailing trends to identify seasonal patterns and growth trajectory
+**Forecast Accuracy**: Compare forecast vs actuals monthly; refine forecasting models to improve accuracy
+**Cost Attribution**: Allocate 100% of costs to business units/teams; break down shared costs (network, security) proportionally
+**Optimization Tracking**: Track cost optimization initiatives (RI purchases, rightsizing) and actual savings realized
+**Reserved Capacity Planning**: Model RI/SP purchases based on 3-6 month stable usage patterns; avoid overcommitment
+**Kubernetes Cost Visibility**: Use Kubecost/OpenCost for pod-level, namespace-level, and deployment-level cost attribution
+**Drill-Down Capability**: Enable drill-down from high-level metrics to resource-level detail for root cause analysis
+
 ## Quality Criteria
 
 Before considering this artifact complete and ready for approval, verify:
@@ -165,9 +210,104 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**FinOps Framework**:
+- FinOps Foundation Principles (Inform, Optimize, Operate)
+- FinOps Certified Practitioner Standards
+- Cloud Financial Management Maturity Model
+- FinOps Domains (Understand Cloud Usage, Performance Tracking, Real-Time Decision Making, Cloud Rate Optimization, Cloud Usage Optimization, Organizational Alignment)
+- FOCUS (FinOps Open Cost and Usage Specification)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Cloud-Native Cost Tools**:
+- AWS Cost Explorer
+- AWS Cost and Usage Reports (CUR)
+- AWS Cost Anomaly Detection
+- Azure Cost Management + Billing
+- Azure Consumption API
+- Azure Cost Analysis
+- Google Cloud Cost Management
+- GCP Billing Export to BigQuery
+- GCP Recommender (cost optimization)
+
+**FinOps Platforms**:
+- CloudHealth (VMware)
+- Apptio Cloudability
+- Flexera One
+- CloudCheckr
+- Spot.io
+- ProsperOps
+- Vantage
+- Zesty
+
+**Container & Kubernetes Cost**:
+- Kubecost (Kubernetes cost visibility)
+- OpenCost (CNCF open source)
+- AWS Container Insights
+- Azure Monitor for Containers
+- GCP GKE Cost Allocation
+
+**Visualization & BI Tools**:
+- Tableau (cloud cost dashboards)
+- Power BI (Azure integration)
+- Looker (GCP integration)
+- Grafana (with FinOps plugins)
+- Datadog (infrastructure cost visibility)
+- QuickSight (AWS)
+
+**Unit Economics Metrics**:
+- Cost per Customer (total infrastructure cost / active customers)
+- Cost per Transaction (cloud cost / transaction volume)
+- Cost per API Call
+- Cost per GB Stored
+- Cost per Compute Hour
+- Infrastructure Cost as % of Revenue
+- COGS as % of Revenue
+- Gross Margin %
+
+**Cloud Cost Metrics**:
+- Total Cloud Spend (TCS)
+- Month-over-Month (MoM) Growth %
+- Year-over-Year (YoY) Growth %
+- Cost per Service (EC2, RDS, S3, Lambda, etc.)
+- Cost by Environment (prod, staging, dev, test)
+- Cost by Team/Cost Center
+- Cost by Tag (project, owner, application)
+
+**Optimization Metrics**:
+- Reserved Instance (RI) Coverage %
+- Savings Plan Coverage %
+- RI/SP Utilization Rate
+- On-Demand vs RI/SP Mix
+- Rightsizing Opportunities ($)
+- Idle Resource Cost
+- Unattached EBS Volume Cost
+- Orphaned Snapshots Cost
+- Cost Savings Realized
+
+**Budget & Forecasting**:
+- Budget vs Actual Variance
+- Forecast Accuracy
+- Burn Rate ($/day)
+- Run Rate (current spend * 12)
+- Trending Forecast (based on historical)
+- Commitment-Based Forecast
+
+**Tags & Attribution**:
+- Cost Allocation Tags
+- Tag Compliance %
+- Untagged Resource Cost
+- Business Unit Attribution
+- Project/Application Attribution
+- Environment Attribution
+
+**Data Sources**:
+- AWS Cost and Usage Reports (CUR) - S3/Athena/QuickSight
+- Azure Consumption API / Billing Export
+- GCP Billing Export to BigQuery
+- CloudWatch Metrics
+- Third-Party SaaS Costs
+- Revenue Data (for unit economics)
+
+**Reference**: Consult FinOps team, Cloud Center of Excellence, and Finance for detailed guidance on dashboard design, metric definitions, cost allocation methodologies, and tagging standards
 
 ## Integration Points
 

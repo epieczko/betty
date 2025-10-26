@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Artifact Registry Policies is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Artifact Registry Policies defines governance rules for managing container images, application packages, and build artifacts across JFrog Artifactory, Sonatype Nexus, GitHub Packages, and cloud-native registries (ECR, GCR, ACR). This policy establishes retention rules, vulnerability scanning requirements, promotion workflows, and access controls that support continuous delivery pipelines while maintaining security posture and reducing storage costs.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+In modern DevOps practices, artifact registries serve as the central source of truth for deployable packages, enabling teams to achieve deployment frequencies of 10-100x per day with change failure rates below 5%. This policy ensures consistency across microservices architectures, enables reliable environment promotion (Dev to Staging to Prod), and provides audit trails for compliance requirements (SOC 2, ISO 27001). By implementing quantitative metrics such as artifact retention policies (keep last 10 versions or 90 days) and automated vulnerability gates (block Critical/High CVEs), organizations reduce storage costs by 40-60% while improving security incident response time from days to hours.
 
 ### Strategic Importance
 
@@ -20,27 +20,44 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact establishes mandatory governance policies for all artifact registries used in the software delivery lifecycle. It defines retention rules, access controls, vulnerability scanning requirements, artifact promotion workflows, and naming conventions that ensure secure, traceable, and cost-effective artifact management. The policy enables teams to implement immutable infrastructure principles while maintaining auditability and compliance across container registries (Docker Hub, ECR, GCR, ACR, Harbor), package repositories (npm, PyPI, Maven Central, NuGet), and binary artifact stores (JFrog Artifactory, Sonatype Nexus, GitHub Packages).
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Container image registries (Docker Hub, Quay.io, ECR, GCR, ACR, Harbor, distribution/distribution)
+- Binary artifact repositories (JFrog Artifactory, Sonatype Nexus, Azure Artifacts)
+- Package management registries (npm registry, PyPI, Maven Central, NuGet Gallery, RubyGems)
+- Cloud-native artifact storage (GitHub Packages, GitLab Container Registry, AWS CodeArtifact)
+- Retention policies (version limits, time-based expiration, storage quota management)
+- Vulnerability scanning requirements (Trivy, Clair, Snyk, Aqua Security, Anchore)
+- Access control policies (RBAC, service accounts, registry authentication, pull secrets)
+- Artifact promotion workflows (Dev to Staging to Production, quality gates)
+- Tagging conventions (semantic versioning, immutable tags, environment labels)
+- Artifact signing and verification (Notary, Sigstore/Cosign, GPG signatures)
+- Storage cost optimization (deduplication, compression, regional replication)
+- Audit logging and compliance tracking (who pulled what, when, from where)
+- Integration with CI/CD pipelines (Jenkins, GitLab CI, GitHub Actions, CircleCI, Azure DevOps)
+- Disaster recovery and backup policies (registry replication, backup schedules)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Source code repository policies (covered in source-code-repositories.md)
+- Infrastructure as Code module registries (covered in iac-module-registry.md)
+- Build and deployment pipeline configuration (covered in deployment artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Platform Engineers and SRE teams responsible for registry operations and policy enforcement
+- DevOps Engineers configuring CI/CD pipelines and artifact promotion workflows
+- Security Engineers defining vulnerability scanning gates and access controls
+- Release Managers overseeing artifact promotion through environments
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Application Development teams consuming artifacts from registries
+- Cloud Architects designing multi-region artifact distribution strategies
+- Compliance Officers auditing artifact access and retention practices
+- Executive Leadership tracking DevOps metrics and security posture
 
 ## Document Information
 
@@ -106,19 +123,29 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Immutable Artifact Tags**: Never overwrite existing artifact versions; use immutable tags (SHA256 digests) for production deployments to ensure reproducibility
+**Retention by Recency**: Keep last 10 versions per artifact OR last 90 days, whichever retains more; automatically prune older versions to reduce storage costs by 40-60%
+**Vulnerability Scanning Gates**: Block deployment of artifacts with Critical or High severity CVEs; scan all artifacts on push and daily for newly disclosed vulnerabilities using Trivy, Snyk, or Aqua
+**Semantic Versioning**: Enforce SemVer 2.0 (MAJOR.MINOR.PATCH) for all artifacts; use pre-release identifiers (1.2.3-rc.1, 1.2.3-dev) for non-production versions
+**Environment-Specific Repositories**: Separate registries or repositories for Dev, Staging, and Production; artifacts promoted through environments never skip stages
+**Automated Promotion Workflows**: Use CI/CD pipelines (GitLab CI, GitHub Actions, Jenkins) to promote artifacts; require quality gates (tests pass, no high CVEs, signed artifacts)
+**Artifact Signing**: Sign all production artifacts using Sigstore/Cosign, Notary, or GPG; verify signatures before deployment to prevent supply chain attacks
+**Access Control by Least Privilege**: Grant pull access broadly, push access restrictively; use service accounts with scoped permissions for CI/CD pipelines
+**Comprehensive Audit Logging**: Log all registry operations (push, pull, delete, tag) with user/service account, timestamp, and IP; retain logs for 365 days minimum for compliance
+**Multi-Region Replication**: Replicate critical artifacts to multiple geographic regions for disaster recovery and reduced latency; test failover procedures quarterly
+**Cost Optimization through Deduplication**: Enable layer deduplication for container registries; use repository proxies (Artifactory, Nexus) to cache external dependencies
+**Registry Health Monitoring**: Track registry availability (99.9% SLO), pull latency (p95 < 500ms), and storage growth; alert on SLO violations or capacity thresholds
+**Disaster Recovery Testing**: Quarterly test registry backup restoration and failover procedures; document RTO of 4 hours and RPO of 1 hour for critical artifacts
+**Namespace Organization**: Use hierarchical naming (org/team/artifact-name) for large organizations; enforce naming conventions via admission webhooks or CI checks
+**External Dependency Proxying**: Cache external artifacts (Docker Hub, npm, Maven Central) in internal registries; reduces external dependency risks and improves build reliability
+**Artifact Metadata Tagging**: Tag artifacts with git commit SHA, build number, environment, and timestamp; enables traceability from deployed artifact back to source code
+**Storage Quota Management**: Set per-team or per-project storage quotas; alert teams at 80% utilization and block pushes at 100% to prevent storage exhaustion
+**Registry Security Hardening**: Enable TLS 1.2+ for all connections, disable anonymous pull access, rotate credentials quarterly, and conduct annual penetration testing
+**Promotion Quality Gates**: Require passing tests (unit, integration, E2E), successful security scans, and manual approval for production promotions
+**Artifact Bill of Materials**: Generate and store SBOM (Software Bill of Materials) for all artifacts; enables rapid response to zero-day vulnerabilities
+**Deprecation Policies**: Mark deprecated artifacts with labels; provide 90-day notice before removal; redirect consumers to replacement artifacts
+**Performance Baselines**: Establish baseline metrics for pull latency by artifact size and region; investigate degradations exceeding 20% of baseline
+**Change Management Integration**: Link artifact promotions to change tickets (ServiceNow, Jira); ensures compliance with change control procedures
 
 ## Quality Criteria
 
@@ -165,7 +192,31 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Container Registries**: Docker Hub, Quay.io, Amazon ECR, Google GCR, Azure ACR, Harbor, distribution/distribution (Docker Registry), GitHub Container Registry, GitLab Container Registry
+**Binary Artifact Repositories**: JFrog Artifactory, Sonatype Nexus Repository, Azure Artifacts, AWS CodeArtifact, Google Artifact Registry, CloudSmith, ProGet
+**Package Registries**: npm registry, PyPI, Maven Central, NuGet Gallery, RubyGems.org, Cargo (Rust), Hex.pm (Elixir), Packagist (PHP)
+**Vulnerability Scanning**: Trivy, Clair, Snyk Container, Aqua Security, Anchore Engine, Grype, Docker Scout, JFrog Xray
+**Artifact Signing**: Sigstore/Cosign, Notary v2, TUF (The Update Framework), GPG signatures, Docker Content Trust
+**Access Control**: OAuth 2.0, OpenID Connect, RBAC (Role-Based Access Control), IAM policies (AWS/GCP/Azure), Kubernetes RBAC for registry access
+**Semantic Versioning**: SemVer 2.0, CalVer (Calendar Versioning), Git tagging conventions, conventional commits
+**CI/CD Integration**: Jenkins, GitLab CI/CD, GitHub Actions, CircleCI, Azure DevOps Pipelines, Tekton, ArgoCD, Spinnaker
+**Security Standards**: CIS Docker Benchmark, NIST SP 800-190 (Container Security), SLSA Framework (Supply Chain Levels for Software Artifacts)
+**Compliance Frameworks**: SOC 2 Type II (audit trails for artifact access), ISO 27001 (information security), GDPR (data residency for artifacts), HIPAA (healthcare artifact security)
+**Image Building**: Docker, Buildah, Kaniko, BuildKit, Podman, Skopeo, Google Cloud Build, AWS CodeBuild
+**Registry Proxying**: Artifactory as Docker proxy, Nexus as npm/Maven proxy, Verdaccio (npm proxy), Athens (Go modules proxy)
+**Kubernetes Integration**: ImagePullSecrets, Admission Webhooks (validate image signatures), Policy engines (OPA/Gatekeeper, Kyverno)
+**GitOps Workflows**: ArgoCD Image Updater, Flux image automation, promotion via Git commits, declarative artifact references
+**Backup and DR**: Velero (Kubernetes backup), registry replication, S3/GCS backend storage, cross-region sync
+**Monitoring and Observability**: Prometheus metrics for registries, Grafana dashboards, ELK Stack for audit logs, Datadog/New Relic integrations
+**Storage Backends**: S3, GCS, Azure Blob Storage, MinIO, Ceph, local filesystem, garbage collection policies
+**Content Delivery**: CDN integration (CloudFront, CloudFlare, Fastly), geo-replication, pull-through caching
+**Bill of Materials**: CycloneDX, SPDX, Syft (SBOM generation), Grype (SBOM vulnerability scanning)
+**Policy as Code**: Open Policy Agent (OPA), Rego policies for artifact validation, Conftest for testing policies
+**Supply Chain Security**: SLSA levels 1-4, in-toto attestations, provenance tracking, SBOM requirement for production artifacts
+**Retention Policies**: Time-based expiration (TTL), version-based retention (keep N versions), tag-based lifecycle rules
+**Artifact Metadata**: OCI Distribution Spec, Docker Manifest V2, Image labels, annotations, build metadata
+**Cost Management**: Storage tiering (frequent/infrequent access), lifecycle policies for cold storage, deduplication strategies
+**Industry Best Practices**: DORA metrics (deployment frequency, lead time), Google SRE principles, CNCF best practices for cloud-native registries
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

@@ -2,43 +2,67 @@
 
 ## Executive Summary
 
-The Capitalization Policy is a formal directive that establishes organizational rules, standards, and requirements for capitalization. This governance artifact provides mandatory guidance that applies across the organization, ensuring consistency, compliance, and risk management.
+The Capitalization Policy is a formal accounting policy that establishes rules, thresholds, and procedures for determining when expenditures should be capitalized as assets versus expensed immediately. This critical financial governance artifact ensures compliance with GAAP (ASC 350-40), IFRS, and SOX requirements while providing clear guidance for capitalizing software development costs, cloud implementation costs, and technology infrastructure investments.
 
-As a cornerstone of organizational governance, policies translate strategic intent and risk appetite into concrete requirements. They establish the "rules of the road" that guide behavior, decision-making, and operational activities while providing the foundation for controls, procedures, and audit criteria.
+As a cornerstone of financial compliance and accurate financial reporting, this policy defines specific criteria for capitalizing internal-use software, R&D expenditures, cloud migration costs, and IT projects. It establishes minimum capitalization thresholds (typically $5K-$25K), useful life assumptions for depreciation/amortization, and documentation requirements to support audit trails. The policy directly impacts balance sheet composition, EBITDA calculations, earnings quality, and tax treatment of technology investments.
 
 ### Strategic Importance
 
-- **Risk Management**: Mitigates organizational risk through standardized requirements
-- **Compliance Assurance**: Ensures adherence to regulatory and legal obligations
-- **Consistency**: Drives uniform approach across business units and geographies
-- **Accountability**: Establishes clear expectations and consequences
-- **Efficiency**: Reduces redundant decision-making through established standards
+- **GAAP/IFRS Compliance**: Ensures adherence to ASC 350-40 (internal-use software), ASC 985-20 (software for sale), and IAS 38 (intangible assets)
+- **Financial Statement Accuracy**: Drives correct classification of costs between CapEx (balance sheet) and OpEx (income statement)
+- **SOX Compliance**: Establishes internal controls over financial reporting for technology expenditures subject to Section 404 requirements
+- **Tax Optimization**: Maximizes tax benefits through proper timing of deductions, R&D tax credits, and depreciation schedules
+- **EBITDA Management**: Impacts reported EBITDA through capitalization of development costs (adding back amortization)
+- **Audit Defense**: Provides documented rationale and controls to support external audit, SEC filings, and tax examinations
+- **Capital Allocation**: Enables accurate tracking of capital deployed in technology assets versus operational spending
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This policy provides mandatory guidance for:
+- **GAAP/IFRS Rules**: Application of FASB ASC 350-40 (internal-use software) and ASC 985-20 (software for sale)
+- **Software Development Capitalization**: Criteria for capitalizing application development, preliminary phase vs implementation
+- **R&D Expense vs Capitalize**: Distinction between research costs (expense) and development costs (potentially capitalize)
+- **Capitalization Thresholds**: Minimum dollar amounts ($5K, $10K, $25K) and useful life requirements (typically >1 year)
+- **Cloud Implementation Costs**: Treatment of SaaS implementation, hosting setup, and configuration costs per ASC 350-40
+- **Useful Life & Amortization**: Standard useful lives (3-7 years for software) and amortization methods (straight-line)
+- **Documentation Requirements**: Project tracking, labor capitalization timesheets, phase gate approvals
+- **Impairment Testing**: Annual review for indicators of impairment and write-down requirements
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Internal-use software development (custom applications, platforms, infrastructure software)
+- Software purchased for internal use (license costs, implementation, customization)
+- Cloud implementation costs (SaaS setup, configuration, data migration)
+- Website development costs (application functionality, not content)
+- Capitalized labor costs (employee and contractor time during application development stage)
+- Capitalized interest on software projects (if applicable)
+- Hardware and infrastructure (servers, network, datacenter buildouts)
+- Useful life determination and amortization schedules
+- Impairment assessment and write-off procedures
+- Controls and approval workflows for capitalization decisions
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Operating expense classification (covered in expense policy)
+- Detailed project accounting procedures (covered in project accounting guidelines)
+- Revenue recognition policies
+- Inventory or fixed asset policies (unless technology-related)
+- Lease accounting (ASC 842/IFRS 16)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Finance Teams: Controllers, accounting managers, financial analysts responsible for capitalizations
+- CFO: Final approval authority and financial statement responsibility
+- External Auditors: Understanding policy for audit procedures and testing
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- IT/Engineering Leaders: Understanding which project costs qualify for capitalization
+- FP&A Analysts: Budget planning and forecasting for CapEx vs OpEx
+- Project Managers: Tracking capitalizable vs expense labor and costs
+- Tax Team: Coordination with tax depreciation and R&D tax credit calculations
 
 ## Document Information
 
@@ -129,6 +153,24 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 **Communication Plan**: Communicate policy broadly with training as needed
 **Enforcement Mechanism**: Define how compliance is monitored and enforced
 
+**Capitalization Policy Best Practices**:
+**Clear Thresholds**: Establish clear dollar thresholds ($5K, $10K, $25K) and useful life minimums (>1 year) for capitalization
+**Phase Documentation**: Document project phases (preliminary, application development, post-implementation) per ASC 350-40
+**Labor Tracking**: Implement time tracking for development labor to support capitalization; distinguish capitalizable vs expense activities
+**Agile Considerations**: For agile projects, capitalize sprints during application development phase; expense planning/design sprints
+**Cloud Guidance**: Provide specific guidance for SaaS implementation costs (capitalize setup, expense subscription/hosting)
+**Approval Workflow**: Require finance approval before capitalizing projects; establish authorization limits
+**Quarterly Reviews**: Conduct quarterly reviews of capitalized projects for continued viability and impairment indicators
+**Useful Life Standards**: Establish standard useful lives (e.g., 3 years for internally developed software, 5 years for purchased)
+**Straight-Line Amortization**: Use straight-line amortization unless alternative method better reflects consumption pattern
+**Impairment Testing**: Test for impairment annually or when indicators present (abandoned projects, obsolescence)
+**Asset Retirement**: Establish process for retiring fully amortized or obsolete software assets
+**R&D Coordination**: Coordinate with tax team on R&D tax credit vs capitalization (IRC 174 post-2021 requirements)
+**Auditor Alignment**: Review policy with external auditors annually; incorporate their feedback
+**Training Program**: Train project managers and IT leaders on what qualifies for capitalization
+**Exception Tracking**: Log all policy exceptions with business justification and approval evidence
+**Controls Testing**: Include capitalization in SOX 404 control testing; document control design and operating effectiveness
+
 ## Quality Criteria
 
 Before considering this artifact complete and ready for approval, verify:
@@ -174,9 +216,71 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Accounting Standards (U.S. GAAP)**:
+- FASB ASC 350-40: Internal-Use Software
+- FASB ASC 985-20: Costs of Software to Be Sold, Leased, or Marketed
+- FASB ASC 350-30: General Intangibles Other Than Goodwill
+- FASB ASC 360: Property, Plant, and Equipment
+- FASB ASC 730: Research and Development
+- FASB ASC 720: Other Expenses (cloud computing arrangements)
+- SAB 104 (SEC Staff Accounting Bulletin): Revenue Recognition
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**International Standards (IFRS)**:
+- IAS 38: Intangible Assets
+- IAS 16: Property, Plant and Equipment
+- IFRS 15: Revenue from Contracts with Customers
+- IFRIC 12: Service Concession Arrangements
+
+**Software Capitalization Guidance**:
+- AICPA Software Revenue Recognition (SOP 97-2 superseded by ASC 985)
+- AICPA Audit Guide: Software
+- Cloud Computing Cost Guidance (ASU 2018-15)
+- Implementation Costs in Hosting Arrangements
+- Agile Development Capitalization Considerations
+
+**SOX Compliance**:
+- Sarbanes-Oxley Section 404: Internal Controls over Financial Reporting
+- PCAOB Auditing Standards for Capitalization
+- COSO Internal Control Framework
+- IT General Controls (ITGC) for Financial Systems
+
+**Tax Regulations**:
+- IRC Section 174: Research and Experimental Expenditures
+- IRC Section 41: R&D Tax Credit
+- IRC Section 167: Depreciation (MACRS)
+- IRC Section 197: Amortization of Intangibles
+- Tangible Property Regulations (Repair vs Capitalize)
+- Tax Cuts and Jobs Act (TCJA) R&D Capitalization Requirements (post-2021)
+
+**Industry Guidance & Best Practices**:
+- Big 4 Accounting Firm Technical Guidance (Deloitte, PwC, EY, KPMG)
+- Financial Executives International (FEI) Guidelines
+- Institute of Management Accountants (IMA) Standards
+- TechAmerica Software Capitalization Working Group
+- Software & Information Industry Association (SIIA)
+
+**Technology & Project Frameworks**:
+- Agile/Scrum Development and Capitalization
+- DevOps and Continuous Delivery Capitalization Challenges
+- Cloud Migration Capitalization (IaaS, PaaS, SaaS)
+- Open Source Software Capitalization Considerations
+- SaaS Implementation Cost Guidance
+
+**Corporate Governance**:
+- Audit Committee Charter Requirements
+- Financial Delegation of Authority
+- Capital Approval Processes
+- Investment Review Board Guidelines
+- Project Portfolio Management (PPM) Lifecycle Gates
+
+**Tools & Systems**:
+- ERP Systems (SAP, Oracle, NetSuite) - Fixed Asset/Intangible Asset Modules
+- Project Accounting Systems
+- Time Tracking Systems (for labor capitalization)
+- Workflow and Approval Systems
+- Asset Management Systems
+
+**Reference**: Consult CFO, Corporate Controller, external auditors, and tax advisors for detailed guidance on framework application, especially for complex scenarios involving cloud computing, agile development, and R&D capitalization
 
 ## Integration Points
 

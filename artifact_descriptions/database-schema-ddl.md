@@ -2,45 +2,60 @@
 
 ## Executive Summary
 
-The Database Schema Ddl is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Database Schema DDL (Data Definition Language) are version-controlled SQL scripts defining tables, columns, indexes, constraints, and relationships that constitute the database structure. Following database migration best practices (Flyway, Liquibase, Alembic), DDL scripts enable reproducible database provisioning, zero-downtime schema evolution, and rollback capabilities through sequential, idempotent migration files tracked in version control.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As the authoritative source of database structure, DDL scripts provide DBAs with deployment automation, developers with local development setup, DevOps teams with infrastructure-as-code database provisioning, and QA teams with consistent test environments. They transform manual database changes into automated, auditable, and reversible migrations.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Zero-Downtime Migrations**: Enables expand-contract pattern for schema changes without application downtime
+- **Environment Consistency**: Ensures dev, staging, and production schemas are identical through automated migrations
+- **Rollback Capability**: Provides tested rollback scripts for each migration to enable rapid recovery
+- **Audit Trail**: Complete history of schema changes with who, when, why for compliance and debugging
+- **Database as Code**: Treats schema as version-controlled code with peer review and CI/CD integration
+- **Disaster Recovery**: Enables rapid database recreation from DDL scripts for DR scenarios
+- **Performance Optimization**: Documents index strategy, partitioning, and performance-related schema decisions
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+Database Schema DDL scripts define database structure through version-controlled, sequential migration files (CREATE TABLE, ALTER TABLE, CREATE INDEX) enabling automated, repeatable, and reversible schema deployments across all environments.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Table definitions: Column names, data types, constraints (NOT NULL, UNIQUE, CHECK)
+- Primary keys: Single-column and composite primary keys
+- Foreign keys: Relationships, referential integrity, cascade rules (ON DELETE CASCADE, ON UPDATE CASCADE)
+- Indexes: B-tree indexes, unique indexes, partial indexes, covering indexes for query optimization
+- Constraints: CHECK constraints, DEFAULT values, UNIQUE constraints
+- Migration versioning: Sequential numbering (V001, V002) or timestamp-based (20240101_120000)
+- Idempotency: IF NOT EXISTS, IF EXISTS checks for safe rerun capability
+- Rollback scripts: Corresponding DOWN migrations for each UP migration
+- Data type selection: INT vs BIGINT, VARCHAR vs TEXT, TIMESTAMP vs DATE
+- Schema evolution: Expand-contract pattern, backward-compatible changes, breaking change handling
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Database stored procedures and functions (covered in Database Functions/Procedures)
+- Data manipulation (INSERT, UPDATE, DELETE - covered in Data Migration Scripts)
+- Database performance tuning configuration (covered in Database Configuration)
+- Query optimization (covered in Query Performance Optimization)
+- Database backup/restore procedures (covered in Backup and Recovery Plan)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Database Administrators (DBAs) executing schema migrations and managing databases
+- Backend Developers designing tables and defining schema changes
+- DevOps Engineers automating database deployments in CI/CD pipelines
+- Migration Tool Operators using Flyway, Liquibase, or Alembic for deployments
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- QA Engineers setting up test databases with correct schema
+- Data Engineers understanding data structure for ETL/analytics
+- Security Teams reviewing data protection controls (encryption, PII columns)
+- Compliance Teams auditing schema changes for regulatory requirements
 
 ## Document Information
 

@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Feature Store Contracts is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Feature Store Contracts artifact defines the formal specifications, SLAs, and data contracts for features stored in ML feature stores like Feast, Tecton, AWS SageMaker Feature Store, Databricks Feature Store, and Vertex AI Feature Store. This artifact establishes feature definitions, schemas, freshness requirements, point-in-time correctness guarantees, and consumer expectations that enable reliable, consistent feature access across training and serving workflows.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Feature stores solve the critical problem of training-serving skew by providing a centralized repository for engineered features with consistent semantics across offline (training) and online (inference) contexts. This artifact documents feature schemas, data types, SLA commitments (freshness, latency, availability), point-in-time lookup semantics, backfill policies, and data quality expectations. It prevents training-serving skew, enables feature reuse across models, and establishes clear ownership and accountability for feature pipelines.
 
 ### Strategic Importance
 
@@ -20,27 +20,43 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact establishes formal contracts between feature producers and consumers, defining feature schemas, SLAs, freshness guarantees, and point-in-time correctness requirements. It serves as the interface specification for feature stores, enabling teams to discover, understand, and reliably consume features for ML model training and serving.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Feature definitions (name, description, data type, entity relationships)
+- Feature schemas and evolution policies (backward compatibility, versioning)
+- Freshness SLAs (maximum age of feature values)
+- Point-in-time correctness guarantees (historical feature lookup)
+- Online serving latency SLAs (p99 < 10ms)
+- Offline retrieval performance expectations
+- Training-serving skew prevention mechanisms
+- Feature value ranges and validation rules
+- Backfill policies for historical feature materialization
+- Feature ownership and approval workflows
+- Feature documentation and discovery metadata
+- Deprecation policies and migration paths
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Feature engineering implementation details and ETL pipelines
+- Data quality validation rules (covered by great-expectations-suites)
+- Model training and serving infrastructure
+- Feature importance and model-specific feature selection
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- ML Engineers consuming features for model training and serving
+- Data Engineers building and maintaining feature pipelines
+- Platform Engineers operating feature store infrastructure
+- MLOps Engineers integrating feature stores with ML platforms
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Data Scientists discovering and evaluating features for modeling
+- Product Managers understanding feature availability and SLAs
+- Data Governance teams ensuring data lineage and compliance
+- Analytics Engineers using features for reporting and analysis
 
 ## Document Information
 
@@ -106,19 +122,27 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Schema-First Design**: Define feature schemas explicitly with data types, constraints, and validation rules before implementation
+**Point-in-Time Guarantees**: Always use point-in-time correct feature retrieval for training to prevent data leakage
+**Freshness SLAs**: Document explicit freshness requirements (e.g., user features <5min, session features <1min)
+**Backward Compatibility**: Evolve feature schemas with backward compatibility; version breaking changes
+**Feature Versioning**: Version features to enable model reproducibility and A/B testing of feature implementations
+**Documentation Standards**: Include feature description, business logic, data sources, owner, and example usage
+**Online-Offline Consistency**: Use identical computation logic for offline training and online serving features
+**Monitoring Alerts**: Set up alerts for freshness violations, null rate spikes, and distribution drift
+**Data Quality Checks**: Validate feature values at ingestion (range checks, null checks, schema validation)
+**Ownership Assignment**: Every feature must have a designated owner responsible for quality and SLAs
+**Discovery Metadata**: Tag features with domains, use cases, and quality tier (gold/silver/bronze)
+**Testing Strategy**: Test feature pipelines with production-like data volumes before deployment
+**Latency Budgets**: Set p99 latency budgets for online features (typically <10ms) and monitor continuously
+**Backfill Policies**: Define backfill window requirements (e.g., 1 year history for training)
+**Deprecation Process**: Establish clear deprecation timeline (announce 90 days before removal)
+**Training-Serving Validation**: Compare feature distributions between training and serving to detect skew
+**Feature Reuse**: Promote feature discovery and reuse across teams to avoid duplicate feature pipelines
+**Incremental Updates**: Use incremental processing where possible to reduce computation costs
+**Cost Tracking**: Monitor feature storage and computation costs; optimize expensive features
+**Access Controls**: Implement RBAC for feature access based on data sensitivity
+**Lineage Tracking**: Maintain complete data lineage from raw data to final feature values
 
 ## Quality Criteria
 
@@ -165,7 +189,109 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Feature Store Platforms**:
+- Feast (open-source feature store from Tecton)
+- Tecton (enterprise feature platform with streaming and batch support)
+- AWS SageMaker Feature Store (managed feature store on AWS)
+- Databricks Feature Store (Unity Catalog integrated feature store)
+- Google Vertex AI Feature Store (GCP managed feature store)
+- Hopsworks Feature Store (open-source with enterprise edition)
+- Feathr (LinkedIn's open-source feature store)
+- ByteHub (open-source feature store for production ML)
+- Rasgo (feature engineering and feature store platform)
+
+**Point-in-Time Correctness**:
+- Time-travel queries for historical feature values
+- Event timestamp vs. processing timestamp semantics
+- Temporal joins for avoiding data leakage
+- Backfill mechanisms for historical feature materialization
+- Lookback windows and sliding time windows
+- Late-arriving data handling
+
+**Feature Store Architecture Patterns**:
+- Offline store (data warehouse: Snowflake, BigQuery, Redshift)
+- Online store (low-latency serving: Redis, DynamoDB, Cassandra)
+- Feature registry/catalog (metadata and discovery)
+- Feature transformation engine (streaming and batch)
+- Feature monitoring and observability
+
+**Schema & Data Types**:
+- Primitive types (int, float, string, boolean, timestamp)
+- Complex types (arrays, maps, structs)
+- Schema evolution (backward/forward compatibility)
+- Feature versioning strategies
+- Null handling and missing value semantics
+- Data validation rules (range, enum, regex)
+
+**SLA Specifications**:
+- Freshness SLA (maximum feature age: 1 min, 5 min, 1 hour, 1 day)
+- Online serving latency (p50, p95, p99 latencies)
+- Online availability (99.9%, 99.99% uptime)
+- Offline retrieval throughput (records per second)
+- Backfill completion time (hours to backfill 1 year)
+- Data quality SLA (max % of null/invalid values)
+
+**Training-Serving Skew Prevention**:
+- Identical feature computation for training and serving
+- Feature versioning to lock training and serving semantics
+- Monitoring for feature distribution drift between training and serving
+- Shadow mode testing for new feature implementations
+- Canary deployments for feature pipeline changes
+
+**Feature Discovery & Documentation**:
+- Feature catalog with searchable metadata
+- Feature descriptions, owners, and use cases
+- Feature lineage (upstream data sources)
+- Feature consumers (which models use this feature)
+- Example values and value distributions
+- Feature quality metrics (completeness, uniqueness)
+- Feature tags and categorization
+
+**Feature Engineering Patterns**:
+- Aggregation features (count, sum, avg over time windows)
+- Windowed statistics (rolling mean, std dev, percentiles)
+- Ratio and interaction features
+- Embedding features (text, image, user embeddings)
+- Time-series features (lag, diff, seasonality)
+- Real-time streaming features (Kafka, Kinesis processing)
+
+**Data Lineage & Governance**:
+- Upstream data source tracking
+- Feature transformation code versioning
+- Data quality validations in feature pipelines
+- PII detection and handling
+- Data retention policies
+- GDPR right-to-delete compliance
+
+**Integration Patterns**:
+- Python SDK for feature retrieval
+- REST API for online serving
+- SQL interface for offline retrieval
+- Spark integration for batch processing
+- Streaming framework integration (Flink, Kafka Streams)
+- Model serving integration (SageMaker, Vertex AI, MLflow)
+
+**Feature Monitoring**:
+- Feature value distribution monitoring
+- Feature staleness detection
+- Feature null rate tracking
+- Feature schema violation alerts
+- Feature serving latency monitoring
+- Feature computation lag monitoring
+
+**Tecton-Specific Patterns**:
+- Feature views (logical feature definitions)
+- Feature services (grouped features for serving)
+- Stream feature views (real-time processing)
+- Batch feature views (scheduled computation)
+- On-demand feature views (request-time computation)
+
+**Feast-Specific Patterns**:
+- Feature definitions in Python
+- Entity definitions (join keys)
+- Data sources (batch and stream)
+- Feature retrieval for training and serving
+- Registry management
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

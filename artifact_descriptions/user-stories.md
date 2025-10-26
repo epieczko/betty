@@ -2,45 +2,60 @@
 
 ## Executive Summary
 
-The User Stories is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+User Stories are short, simple descriptions of features told from the perspective of end users, following the format "As a [persona], I want [capability], so that [benefit]." Originating from Extreme Programming (XP) and central to Agile/Scrum methodologies, user stories shift focus from technical specifications to user value, enabling incremental delivery, continuous feedback, and collaborative refinement through conversation and acceptance criteria.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As the atomic unit of work in Agile development, user stories provide product managers with a backlog of prioritized user value, development teams with clear, implementable work items, QA teams with testable acceptance criteria, and stakeholders with visibility into feature delivery. They enable iterative development where working software emerges through short sprints rather than lengthy upfront requirements analysis.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **User-Centric Development**: Focuses teams on delivering user value rather than technical features
+- **Incremental Delivery**: Enables shipping small, valuable increments every sprint (1-2 weeks) for faster feedback
+- **Flexibility**: Allows requirements to evolve based on user feedback and changing business needs
+- **Collaboration**: Promotes conversation between product, development, and users over written specifications
+- **Estimation & Planning**: Provides estimable units for sprint planning and release forecasting
+- **Traceability**: Links code changes to user value and business objectives
+- **INVEST Principles**: Independent, Negotiable, Valuable, Estimable, Small, Testable stories for quality
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+User Stories capture user needs and desired functionality in simple, conversational language using the "As a/I want/So that" format, accompanied by acceptance criteria that define when the story is complete, enabling teams to collaborate, estimate, and deliver user value incrementally.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Story format: "As a [persona/role], I want [capability/feature], so that [business value/benefit]"
+- INVEST criteria: Independent, Negotiable, Valuable, Estimable, Small, Testable
+- Acceptance criteria: Given/When/Then scenarios (Gherkin/BDD format) or checklist-based criteria
+- Story points: Relative effort estimation (Fibonacci: 1, 2, 3, 5, 8, 13, 21)
+- Priority ranking: MoSCoW (Must have, Should have, Could have, Won't have) or value/effort matrix
+- Dependencies: Prerequisites, blockers, related stories
+- Definition of Ready: Criteria before story enters sprint (clear acceptance criteria, estimated, dependencies identified)
+- Definition of Done: Criteria for story completion (code complete, tested, documented, deployed)
+- Story decomposition: Epics → Features → User Stories → Tasks/Subtasks
+- Personas: User archetypes guiding story creation
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed technical specifications (emerged through conversation and implementation)
+- UI mockups/wireframes (covered in Design Artifacts, though may reference)
+- Comprehensive system requirements (covered in Requirements Specification)
+- Project timeline/Gantt charts (Agile uses velocity-based forecasting)
+- Detailed test cases (though acceptance criteria guide testing)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Product Owners/Managers writing and prioritizing stories in the backlog
+- Scrum Masters facilitating story refinement and sprint planning
+- Development Teams estimating and implementing stories
+- QA/Test Engineers validating stories against acceptance criteria
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Stakeholders understanding feature delivery and priorities
+- UX Designers creating experiences that fulfill story needs
+- Business Analysts elaborating story details and edge cases
+- End Users (indirectly) whose needs drive story creation
 
 ## Document Information
 

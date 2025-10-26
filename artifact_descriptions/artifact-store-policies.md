@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Artifact Store Policies is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Artifact Store Policies defines governance for centralized storage of build outputs, dependencies, and deployable packages across the software delivery lifecycle. This policy establishes rules for JFrog Artifactory Universal Repositories, Sonatype Nexus Repository Manager, and cloud-native artifact stores (AWS CodeArtifact, Google Artifact Registry, Azure Artifacts) that serve as the single source of truth for all binary artifacts, enabling reproducible builds, dependency management, and artifact lifecycle automation.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+In high-performing DevOps organizations achieving 208x faster deployment frequency (per DORA research), artifact stores eliminate "works on my machine" problems by providing consistent, versioned dependencies across all environments. This policy reduces build times by 50-70% through intelligent caching, lowers supply chain security risks through vulnerability scanning and proxying of external dependencies, and ensures compliance through comprehensive audit trails. By implementing storage lifecycle rules (automatic cleanup of old versions, tiered storage for cold artifacts), organizations reduce infrastructure costs by 40% while maintaining audit requirements for 7-year retention of production artifacts.
 
 ### Strategic Importance
 
@@ -20,27 +20,45 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact establishes mandatory policies for artifact storage infrastructure that supports reproducible builds, dependency management, and secure software supply chains. It defines repository types (release vs snapshot, public vs private), retention rules, caching strategies for external dependencies, and integration patterns with CI/CD pipelines. The policy ensures teams can reliably build and deploy software while maintaining security posture through vulnerability scanning, license compliance checking, and artifact provenance tracking across Maven, npm, Docker, Python, NuGet, and other package ecosystems.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Universal binary repositories (JFrog Artifactory Universal, Sonatype Nexus Repository Manager)
+- Package-type-specific repositories (Maven, npm, Docker, PyPI, NuGet, Helm, Go modules, Conan)
+- Cloud-native artifact storage (AWS CodeArtifact, Google Artifact Registry, Azure Artifacts, GitHub Packages)
+- Repository types (local, remote/proxy, virtual, federated)
+- External dependency proxying and caching (Maven Central, npm registry, Docker Hub)
+- Artifact lifecycle management (retention, cleanup, archival, promotion)
+- Build reproducibility (checksums, signatures, build metadata, SBOM integration)
+- License compliance scanning (FOSSA, Black Duck, WhiteSource/Mend, Snyk)
+- Vulnerability management (CVE scanning, auto-patching policies, security gates)
+- Access control and permissions (RBAC, LDAP/AD integration, API tokens, service accounts)
+- Storage optimization (deduplication, compression, storage tiering, quota management)
+- Backup and disaster recovery (replication, backup schedules, RTO/RPO targets)
+- Audit logging and compliance (download logs, upload logs, access patterns, retention)
+- Integration with build tools (Maven, Gradle, npm, pip, NuGet, Docker, Helm)
+- Cost allocation and chargeback (storage usage by team/project, transfer costs)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Container registry-specific policies (covered in artifact-registry-policies.md)
+- Source code version control (covered in source-code-repositories.md)
+- Infrastructure as Code module management (covered in iac-module-registry.md)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Platform Engineering teams operating artifact store infrastructure and enforcing policies
+- Build Engineers configuring dependency resolution and artifact publishing
+- Security Engineers implementing vulnerability scanning and compliance checks
+- DevOps Engineers integrating artifact stores with CI/CD pipelines
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Software Developers configuring build tool dependencies and publishing artifacts
+- Release Managers tracking artifact promotion through environments
+- Compliance Officers auditing license compliance and artifact retention
+- Financial Controllers tracking artifact storage costs and implementing chargeback
 
 ## Document Information
 
@@ -106,19 +124,30 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Repository Separation**: Separate release and snapshot repositories; releases are immutable, snapshots allow overwrites for development iterations
+**Proxy External Dependencies**: Cache Maven Central, npm registry, PyPI in internal proxy repositories; reduces external dependency failures and improves build speed by 50-70%
+**Checksum Verification**: Validate SHA-256 checksums for all downloaded artifacts; reject artifacts with mismatched checksums to prevent supply chain attacks
+**Retention by Stability**: Keep release artifacts indefinitely or per compliance requirements (7 years); auto-delete snapshots after 30 days or keep last 10 versions
+**License Compliance Scanning**: Scan all artifacts for license conflicts using FOSSA, Black Duck, or Snyk; block artifacts with non-approved licenses (GPL in commercial products)
+**Virtual Repository Pattern**: Use virtual repositories (Artifactory) or repository groups (Nexus) to aggregate multiple repositories; provides single endpoint for clients
+**Build Reproducibility**: Store artifact metadata (git commit, build timestamp, CI job ID, dependencies) to enable reproducible builds and incident investigation
+**Vulnerability Auto-Remediation**: Automatically update dependency versions when CVEs are patched; test in dev, promote to prod after validation
+**Storage Tiering**: Move artifacts older than 90 days to cheaper storage tiers (S3 Glacier, Azure Cool Blob); reduces storage costs by 40-60%
+**Access Control by Repository**: Grant read access to release repositories broadly; restrict write access to CI/CD service accounts only
+**Audit Trail Completeness**: Log all artifact operations (publish, download, delete) with user, timestamp, IP address; retain logs for 365+ days
+**Backup and Replication**: Daily incremental backups with weekly full backups; replicate to secondary region for disaster recovery (RTO: 4 hours, RPO: 1 hour)
+**Quota Management**: Set storage quotas per team or project; alert at 80% utilization, prevent new artifacts at 100% to control costs
+**Dependency Update Policies**: Automatically update patch versions (1.2.3 to 1.2.4); require manual approval for minor/major version updates
+**Artifact Promotion Workflow**: Promote artifacts from dev repository to staging to production; require quality gates (tests pass, security scans clear)
+**Build Tool Integration**: Configure Maven settings.xml, npm .npmrc, pip pip.conf to use artifact store; provide templates and documentation
+**Security Scanning on Upload**: Scan artifacts for vulnerabilities immediately on upload; quarantine high-severity findings until reviewed
+**Deduplication**: Enable artifact deduplication (Artifactory filestore optimization); reduces storage by 30-50% for similar versions
+**Metadata Enrichment**: Add custom properties to artifacts (team, project, environment, cost center); enables reporting and chargeback
+**External Registry Mirroring**: Mirror critical external dependencies locally; ensures builds succeed even when external registries are down
+**Garbage Collection**: Run weekly garbage collection to remove unreferenced artifacts; prevents storage bloat from deleted or overwritten artifacts
+**Performance Monitoring**: Track artifact store response time (p95 < 200ms), throughput (downloads/sec), and availability (99.9% SLO)
+**Disaster Recovery Drills**: Quarterly test artifact store restoration from backup; document procedures and validate RTO/RPO targets
+**Cost Allocation Reporting**: Generate monthly reports of storage usage by team/project; implement chargeback to drive accountability for storage costs
 
 ## Quality Criteria
 
@@ -165,7 +194,31 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Universal Artifact Repositories**: JFrog Artifactory, Sonatype Nexus Repository Manager, Azure Artifacts, AWS CodeArtifact, Google Artifact Registry, GitHub Packages
+**Package Ecosystems**: Maven (Java), npm (JavaScript), PyPI (Python), NuGet (.NET), RubyGems (Ruby), Go modules, Cargo (Rust), Conan (C++), Helm (Kubernetes)
+**Build Tools**: Maven, Gradle, npm, yarn, pnpm, pip, pipenv, NuGet, Cargo, Go, Helm, Docker, Bazel
+**Dependency Management**: Maven POM, package.json, requirements.txt, packages.config, Gemfile, go.mod, Cargo.toml, build.gradle
+**License Compliance**: FOSSA, Black Duck by Synopsys, WhiteSource/Mend, Snyk License Compliance, Sonatype Lifecycle, Licensee
+**Vulnerability Scanning**: Snyk, JFrog Xray, Sonatype Nexus IQ, WhiteSource Bolt, Dependabot, GitHub Advanced Security, npm audit, pip-audit
+**Artifact Signing**: GPG signatures for Maven, npm publish signatures, Docker Content Trust, Sigstore/Cosign, Notary
+**Repository Standards**: Maven Repository Layout, npm registry protocol, PyPI Simple API, NuGet V3 protocol, Docker Registry HTTP API V2
+**SBOM Standards**: CycloneDX, SPDX, Syft for SBOM generation, dependency-track for SBOM analysis
+**Access Control**: LDAP, Active Directory, SAML 2.0, OAuth 2.0, OpenID Connect, API tokens, service account credentials
+**Storage Backends**: S3, GCS, Azure Blob Storage, NFS, local filesystem, MinIO, Ceph
+**Backup and DR**: AWS Backup, Azure Backup, Velero, Restic, repository replication, cross-region sync
+**Monitoring**: Prometheus metrics, Grafana dashboards, JFrog Mission Control, Sonatype Nexus Insights, ELK Stack for logs
+**CI/CD Integration**: Jenkins, GitLab CI, GitHub Actions, Azure DevOps Pipelines, CircleCI, Travis CI, TeamCity
+**Infrastructure as Code**: Terraform providers for Artifactory/Nexus, Ansible roles, Helm charts, CloudFormation templates
+**Security Standards**: OWASP Dependency-Check, CWE Top 25, NIST NVD (vulnerability database), CVE numbering
+**Compliance Frameworks**: SOC 2 (audit trails), ISO 27001 (information security), GDPR (data residency), HIPAA (healthcare compliance)
+**Cost Management**: AWS Cost Explorer, Azure Cost Management, GCP Billing, storage tiering strategies, chargeback models
+**Caching Strategies**: HTTP cache headers, CDN integration (CloudFront, Fastly, Akamai), edge caching, cache invalidation
+**API Standards**: REST APIs for artifact operations, GraphQL APIs (JFrog Artifactory), webhook integrations for notifications
+**Performance Optimization**: Content Delivery Networks, geographic distribution, artifact deduplication, compression (gzip, brotli)
+**Metadata Management**: Artifact properties, custom metadata, tags, labels, search indexing (Elasticsearch integration)
+**Policy as Code**: Open Policy Agent (OPA) for artifact policies, Rego rules for compliance checking, automated policy enforcement
+**Supply Chain Security**: SLSA Framework levels, in-toto attestations, provenance metadata, transparency logs (Rekor)
+**Industry Best Practices**: DORA metrics, Google SRE handbook, CNCF best practices, Apache Maven best practices, npm security best practices
 
 **Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
 

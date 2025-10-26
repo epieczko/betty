@@ -2,45 +2,59 @@
 
 ## Executive Summary
 
-The Adr Index is a critical deliverable within the Portfolio, Governance, and Delivery Ops phase, supporting Governance & Planning activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Architecture Decision Records (ADR) Index is a catalog of significant architectural decisions documenting the context, decision, consequences, and alternatives considered for technical choices that shape system design. Following Michael Nygard's lightweight ADR format, each record captures why decisions were made, enabling future teams to understand architectural evolution, revisit decisions when context changes, and avoid repeating past mistakes.
 
-As a core component of the Governance & Planning practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As the collective memory of architectural reasoning, the ADR Index provides current architects with historical decision context, new team members with system design rationale, future maintainers with understanding of trade-offs made, and leadership with transparency into technical decision-making. It prevents "we've always done it this way" syndrome by documenting the "why" behind technical choices.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Decision Transparency**: Documents why technical choices were made, not just what was chosen
+- **Onboarding Acceleration**: New team members understand system design rationale without archaeology
+- **Decision Reversibility**: Enables revisiting decisions when context changes (technology evolution, scale changes)
+- **Knowledge Preservation**: Prevents architectural knowledge loss when team members leave
+- **Pattern Recognition**: Identifies recurring architectural patterns and anti-patterns across projects
+- **Stakeholder Communication**: Provides non-technical stakeholders with decision context and trade-offs
+- **Technical Debt Tracking**: Documents decisions made under constraint that may need revisiting
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+The ADR Index catalogs architectural decisions using the Nygard ADR format (Title, Status, Context, Decision, Consequences) or MADR template, capturing why decisions were made, alternatives considered, and trade-offs accepted to preserve architectural reasoning.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- ADR format: Title, Status (Proposed, Accepted, Deprecated, Superseded), Context, Decision, Consequences, Alternatives
+- Decision scope: Technology choices (databases, frameworks, languages), architecture patterns (microservices, event-driven), infrastructure decisions (cloud providers, deployment strategies)
+- Sequential numbering: ADR-0001, ADR-0002 for chronological tracking
+- Status transitions: Proposed → Accepted, Accepted → Deprecated, Superseded by ADR-XXXX
+- Consequences: Positive outcomes, negative trade-offs, risks introduced, technical debt incurred
+- Alternatives considered: Options evaluated, why alternatives were rejected
+- Version control: ADRs stored in Git alongside code (docs/adr/ folder)
+- Immutability: ADRs are never deleted, only deprecated/superseded
+- Cross-references: Links to related ADRs, RFCs, technical specs
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed technical implementation (covered in Technical Design Docs)
+- Day-to-day coding decisions (only architecturally significant decisions)
+- Requirements documentation (covered in PRD, Functional Specs)
+- Project management decisions (covered in Project Plans)
+- Operational procedures (covered in Runbooks)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Software Architects documenting and reviewing architectural decisions
+- Technical Leads making technology choices and design decisions
+- Senior Engineers understanding system design rationale
+- New Team Members learning why the system is designed as it is
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Engineering Managers understanding technical direction and trade-offs
+- Product Managers understanding technical constraints and capabilities
+- Security Teams reviewing security-relevant architectural decisions
+- Compliance Teams demonstrating decision governance for audits
 
 ## Document Information
 

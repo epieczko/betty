@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Code Signing Records is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Code Signing Records artifact documents the usage of digital signatures to verify software authenticity, integrity, and publisher identity across platforms including Windows Authenticode, Apple Developer ID, Java jarsigner, Android APK signing, and container image signing with Sigstore Cosign. This artifact provides comprehensive audit trails of signing operations, certificate lifecycle management, timestamp authority usage, and signature verification workflows essential for establishing trust in software supply chains.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a critical security control for software distribution, code signing records serve release engineers performing signing operations, security teams managing signing certificates, compliance officers demonstrating software provenance, and end users verifying software authenticity. Integration with tools like Sigstore (Cosign, Fulcio, Rekor), HashiCorp Vault, Azure Key Vault, AWS KMS, and HSM platforms ensures cryptographic key protection while maintaining detailed logs of certificate issuance, key usage, signature generation, and verification outcomes.
 
 ### Strategic Importance
 
@@ -20,27 +20,42 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as authoritative documentation of code signing operations including certificate acquisition (EV, OV validation), private key protection (HSM, cloud KMS), signing workflows (automated CI/CD signing, manual signing ceremonies), timestamp authority usage (RFC 3161), and signature verification. It provides evidence of software authenticity, enables revocation response, supports incident investigation, and demonstrates compliance with software supply chain security requirements.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Certificate lifecycle (CSR generation, CA issuance, renewal, revocation)
+- Code signing certificate types (EV Code Signing, OV Code Signing, Apple Developer ID, Google Play signing)
+- Private key storage and protection (HSM, Azure Key Vault, AWS KMS, YubiKey)
+- Platform-specific signing (Windows Authenticode signtool, macOS codesign, jarsigner, apksigner, Cosign)
+- Signature formats (PKCS#7, CMS, detached signatures, embedded signatures)
+- Timestamp Authority (TSA) usage (RFC 3161 compliant timestamps)
+- Signature verification workflows (signtool verify, codesign -v, jarsigner -verify, cosign verify)
+- Certificate pinning and trust anchors
+- Signing automation in CI/CD (GitHub Actions, Jenkins, GitLab CI)
+- Container image signing (Docker Content Trust, Sigstore Cosign, Notary v2)
+- Software Bill of Materials (SBOM) signing
+- Supply chain security attestations (SLSA provenance, in-toto)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Certificate Authority operations (covered by PKI infrastructure artifacts)
+- HSM deployment and configuration (covered by HSM procedures)
+- Malware scanning and notarization (covered by notarization records)
+- Binary vulnerability scanning (covered by security scanning artifacts)
+- Digital Rights Management (DRM) implementations
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Release Engineers performing code signing in CI/CD pipelines
+- Security Engineers managing code signing certificates and keys
+- DevOps Engineers implementing automated signing workflows
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- PKI Administrators maintaining certificate infrastructure
+- Compliance Officers demonstrating software provenance
+- Software Architects designing secure build and release processes
 
 ## Document Information
 
@@ -106,19 +121,24 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**HSM/Hardware Token Requirement**: Use FIPS 140-2 Level 2+ HSM or hardware token for EV Code Signing certificates (CA/Browser Forum requirement)
+**Certificate Type Selection**: Use EV Code Signing for public distribution (avoids SmartScreen warnings); OV acceptable for internal/enterprise distribution
+**Private Key Protection**: Never extract private keys from HSM; store in Azure Key Vault, AWS KMS, or hardware HSM; implement strict access controls
+**Timestamp Always**: Always timestamp signatures with RFC 3161 compliant TSA; enables signature validation after certificate expiration
+**Automated Signing**: Integrate signing into CI/CD (GitHub Actions, Jenkins) with HSM/KMS; avoid manual signing processes
+**Certificate Lifecycle**: Track certificate expiration (typically 1-3 years); renew 30+ days before expiration; test new certificates before old ones expire
+**Signature Verification**: Verify signatures immediately after signing; implement verification in deployment pipelines before distribution
+**Multi-Platform Support**: Use appropriate tools per platform (signtool for Windows, codesign for macOS, jarsigner for Java, cosign for containers)
+**Revocation Monitoring**: Monitor CRL/OCSP for certificate revocation; implement emergency revocation procedures; resign affected binaries immediately
+**Dual Signing**: For Windows, dual-sign with SHA-1 (legacy) and SHA-256 (modern) for Windows 7-10 compatibility
+**Certificate Pinning**: For high-security scenarios, implement certificate pinning in applications to prevent MITM attacks
+**Audit Logging**: Log all signing operations (who, what, when, which certificate); retain logs per compliance requirements (typically 7+ years)
+**Access Control**: Implement least privilege for signing operations; require MFA for HSM access; rotate credentials quarterly
+**Signing Server Hardening**: Isolate signing infrastructure; disable unnecessary services; patch regularly; monitor for compromise
+**SBOM Integration**: Sign SBOMs (CycloneDX, SPDX) alongside binaries; include dependency signatures in supply chain verification
+**Cosign for Containers**: Use Sigstore Cosign for container signing; leverage keyless signing with OIDC; publish signatures to Rekor transparency log
+**Signature Formats**: Use detached signatures for flexibility; embed signatures for convenience; support multiple signature formats where needed
+**Emergency Procedures**: Document certificate compromise response; maintain revocation contact with CA; prepare rapid re-signing workflow
 
 ## Quality Criteria
 
@@ -165,9 +185,89 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Code Signing Platforms & Tools**:
+- Windows Authenticode (signtool.exe, SignTool SDK)
+- Apple codesign (macOS/iOS code signing, Developer ID, Gatekeeper)
+- Java jarsigner (JAR signing, certificate chains)
+- Android apksigner (APK Signature Scheme v2, v3, v4)
+- Sigstore Cosign (keyless container signing, OCI signatures)
+- Sigstore Fulcio (certificate authority for code signing)
+- Sigstore Rekor (transparency log for signatures)
+- Docker Content Trust (Notary v1)
+- Notary v2 (CNCF signature specification)
+- GPG/PGP signing (Linux packages, Git commits)
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Certificate Authorities & Types**:
+- DigiCert Code Signing Certificates (EV, OV)
+- Sectigo Code Signing Certificates
+- GlobalSign Code Signing Certificates
+- SSL.com EV Code Signing
+- Apple Developer ID Certificates (Application, Installer)
+- Google Play App Signing
+- Microsoft Trusted Root Program
+- EV Code Signing (Extended Validation with HSM/token requirement)
+- OV Code Signing (Organization Validation)
+
+**Key Management & HSM**:
+- FIPS 140-2 Level 2/3 HSM for EV Code Signing (mandatory)
+- Azure Key Vault (code signing with managed keys)
+- AWS Key Management Service (KMS)
+- Google Cloud KMS
+- HashiCorp Vault Transit Engine
+- YubiKey (USB HSM for code signing)
+- SafeNet Luna HSM
+- Thales (formerly Gemalto) HSM
+- PKCS#11 interface for HSM integration
+
+**Timestamp Authorities (RFC 3161)**:
+- DigiCert Timestamp Server
+- Sectigo Timestamp Authority
+- GlobalSign Timestamp Service
+- Comodo Timestamp Server
+- Microsoft Authenticode Timestamp Service
+- FreeTSA.org (free RFC 3161 timestamp)
+
+**Supply Chain Security**:
+- SLSA Framework (Supply chain Levels for Software Artifacts)
+- SLSA Provenance (attestation of build integrity)
+- in-toto (supply chain security framework)
+- SBOM Signing (Software Bill of Materials with signatures)
+- TUF (The Update Framework for secure software updates)
+- OpenSSF Scorecard (supply chain security metrics)
+
+**Container & Cloud Native**:
+- Sigstore (Cosign, Fulcio, Rekor) for container signing
+- OCI Image Spec (Open Container Initiative signatures)
+- Docker Content Trust (DCT) with Notary
+- Harbor (container registry with signature support)
+- Kubernetes admission controllers (signature verification)
+
+**Standards & Specifications**:
+- RFC 3161 (Time-Stamp Protocol TSP)
+- RFC 5652 (Cryptographic Message Syntax CMS)
+- PKCS#7 (Cryptographic Message Syntax Standard)
+- PKCS#11 (Cryptographic Token Interface)
+- X.509 Digital Certificates
+- CA/Browser Forum Code Signing Baseline Requirements
+- Microsoft Authenticode Specification
+- Apple Code Signing Guide
+
+**Platform-Specific Guidelines**:
+- Windows: Microsoft Trusted Root Certificate Program Requirements
+- macOS: Apple Developer Program Certificate Requirements
+- iOS: App Store Code Signing Requirements
+- Android: Google Play signing key management
+- Linux: Debian package signing (debsigs), RPM signing (rpm --addsign)
+
+**Compliance & Regulatory**:
+- SOC 2 Type II (CC6.1 - Logical and Physical Access Controls)
+- ISO 27001 (A.14.2.5 - Secure System Engineering Principles)
+- PCI-DSS (software integrity verification)
+- NIST SP 800-53 SA-10 (Developer Configuration Management)
+- NIST SP 800-218 (Secure Software Development Framework SSDF)
+- Executive Order 14028 (Improving the Nation's Cybersecurity - SBOM)
+
+**Reference**: Consult security team for code signing infrastructure, certificate management, and HSM integration guidance
 
 ## Integration Points
 

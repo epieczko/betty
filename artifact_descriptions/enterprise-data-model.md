@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Enterprise Data Model is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Enterprise Data Model is a critical artifact for enterprise data architecture, providing conceptual, logical, and physical representations of organizational data assets. This model establishes the canonical data model (CDM), enterprise entities, reference data standards, and master data structures that ensure consistency across all systems and applications.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Built using industry-standard modeling methodologies including DAMA-DMBOK, Data Vault 2.0, dimensional modeling (Kimball), and normalized modeling (Inmon), the Enterprise Data Model leverages tools like ERwin, ER/Studio, IBM InfoSphere Data Architect, Oracle SQL Developer Data Modeler, and open-source solutions like dbdiagram.io. It follows modeling standards such as IDEF1X, Crow's Foot notation, UML class diagrams, and supports Master Data Management (MDM), data governance, and data lineage initiatives across the enterprise.
 
 ### Strategic Importance
 
@@ -20,27 +20,43 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact establishes the authoritative enterprise-wide data model spanning conceptual, logical, and physical layers. It defines canonical enterprise entities, master data structures, reference data standards, and data relationships that ensure consistency, integration, and governance across all organizational data assets.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Conceptual data model (high-level business entities and relationships)
+- Logical data model (normalized entities, attributes, relationships, keys)
+- Physical data model (database-specific schemas, tables, indexes, partitions)
+- Canonical Data Model (CDM) for enterprise integration
+- Master Data entities (Customer, Product, Location, Employee, etc.)
+- Reference data and code tables
+- Subject area models and data domains
+- Data lineage and traceability
+- Naming standards and metadata definitions
+- Data quality rules and constraints
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Application-specific transactional models (covered by application data models)
+- Real-time event schemas (covered by event schemas)
+- API data contracts (covered by API specifications)
+- Unstructured data organization (documents, media)
+- Data warehouse ETL processes (covered by data pipeline documentation)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Enterprise Data Architects defining data standards
+- Data Architects designing system-specific models
+- Data Engineers implementing physical schemas
+- MDM Teams managing master data
+- Data Governance Teams establishing data policies
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Database Administrators optimizing schemas
+- BI Analysts understanding data sources
+- Application Architects aligning with enterprise standards
+- Compliance Teams ensuring data regulatory compliance
 
 ## Document Information
 
@@ -168,19 +184,59 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Modeling Layer Separation**:
+- **Conceptual Models**: Focus on business concepts; keep implementation details out; use for stakeholder communication
+- **Logical Models**: Design platform-independent normalized structures; apply 3NF/BCNF; document all constraints
+- **Physical Models**: Optimize for specific DBMS; apply indexes, partitions, denormalization where justified by performance
+
+**Master Data Management**:
+- **Golden Records**: Establish clear rules for creating golden records from multiple source systems
+- **Data Stewardship**: Assign data stewards to each master data domain; document ownership and accountability
+- **Unique Identification**: Use enterprise-wide unique identifiers (UUIDs) for master entities
+- **Hierarchy Management**: Model product, organizational, and geographic hierarchies with effective dating
+- **Reference Data**: Centralize reference data management; version code lists and taxonomies
+
+**Normalization & Design**:
+- **Normalize First**: Start with fully normalized logical models (3NF/BCNF); denormalize only with justification
+- **Natural Keys**: Document natural business keys even when using surrogate keys
+- **Slowly Changing Dimensions**: Model temporal changes using SCD Type 1 (overwrite), Type 2 (history), or Type 3 (limited history)
+- **Avoid Over-Normalization**: Balance normalization with practical performance considerations
+
+**Enterprise Integration**:
+- **Canonical Data Model**: Maintain CDM as integration layer; map all system-specific models to CDM
+- **Subject Areas**: Organize models into logical subject areas (Customer, Product, Finance, etc.)
+- **Cross-Reference Tables**: Model system-to-system mappings and data crosswalks
+- **Data Lineage**: Document data flow from source systems through transformations to targets
+
+**Naming Standards**:
+- **Consistent Nomenclature**: Establish and enforce naming conventions (PascalCase, snake_case, etc.)
+- **Abbreviation Registry**: Maintain approved abbreviation list; avoid ambiguous abbreviations
+- **Semantic Naming**: Use business-meaningful names; avoid technical jargon
+- **Metadata Definitions**: Document business definitions for all entities and attributes
+
+**Data Governance Integration**:
+- **Data Ownership**: Tag entities with data owner and data steward
+- **Data Classification**: Mark sensitive/PII data; apply appropriate security classifications
+- **Data Quality Rules**: Embed validation rules, acceptable value ranges, and constraints
+- **Regulatory Compliance**: Model data retention periods, consent management, and privacy requirements
+
+**Tooling & Version Control**:
+- **Model Repository**: Use enterprise modeling tools with centralized repositories (ERwin, ER/Studio)
+- **Version Control**: Store model definitions in Git; track changes to DDL scripts
+- **Model Comparison**: Use diff tools to compare model versions; track structural changes
+- **Forward/Reverse Engineering**: Sync models with physical databases; automate DDL generation
+
+**Performance Optimization**:
+- **Index Strategy**: Define indexes on foreign keys, frequently queried columns, and composite search keys
+- **Partitioning**: Model horizontal/vertical partitions for large tables
+- **Archival Strategy**: Design data archival patterns for historical data
+- **Denormalization**: Document denormalization decisions with performance justification
+
+**Review & Validation**:
+- **Data Architect Review**: Validate adherence to enterprise standards and patterns
+- **DBA Review**: Verify physical model optimization and database-specific features
+- **Business Stakeholder Review**: Confirm logical model matches business understanding
+- **Impact Analysis**: Assess downstream impact before making model changes
 
 ## Quality Criteria
 
@@ -227,9 +283,78 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**Data Management**: DAMA-DMBOK, DCAM, Data Governance Framework
+**Data Management Frameworks**:
+- DAMA-DMBOK (Data Management Body of Knowledge) v2
+- DCAM (Data Management Capability Assessment Model)
+- EDM Council CDMC (Cloud Data Management Capabilities)
+- ISO/IEC 38505 (Data Governance framework)
+- COBIT Data Governance framework
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Data Modeling Methodologies**:
+- Normalized Modeling (Inmon approach, 3NF/BCNF)
+- Dimensional Modeling (Kimball star/snowflake schemas)
+- Data Vault 2.0 (Hub, Link, Satellite patterns)
+- Anchor Modeling (temporal 6NF)
+- Conceptual-Logical-Physical (CLP) modeling layers
+
+**Modeling Notations & Standards**:
+- IDEF1X (Integration Definition for Information Modeling)
+- Crow's Foot notation (also called IE notation)
+- UML 2.5 Class Diagrams for data structures
+- Barker's notation (Oracle methodology)
+- Chen ERD notation
+- ISO/IEC 11179 Metadata Registries
+
+**Master Data Management (MDM)**:
+- Golden record creation and matching
+- Entity resolution and deduplication
+- Data stewardship workflows
+- Hierarchy management (product, organizational)
+- Survivorship rules for attribute prioritization
+- MDM styles: Registry, Consolidation, Coexistence, Centralized
+
+**Normalization Theory**:
+- First Normal Form (1NF): Atomic values, no repeating groups
+- Second Normal Form (2NF): No partial dependencies
+- Third Normal Form (3NF): No transitive dependencies
+- Boyce-Codd Normal Form (BCNF): Stricter 3NF
+- Fourth Normal Form (4NF): Multivalued dependencies
+- Fifth Normal Form (5NF): Join dependencies
+- Denormalization patterns for performance
+
+**Data Governance**:
+- Data domains and data ownership
+- Data quality dimensions (accuracy, completeness, consistency, timeliness)
+- Metadata management and business glossary
+- Data lineage and impact analysis
+- Data classification and sensitivity tagging
+- Privacy by Design (GDPR, CCPA compliance)
+
+**Data Architecture Patterns**:
+- Canonical Data Model (CDM) for enterprise integration
+- Operational Data Store (ODS)
+- Data Warehouse (DW) dimensional models
+- Data Lake (schema-on-read)
+- Data Lakehouse (Delta Lake, Apache Iceberg)
+- Lambda and Kappa architectures
+
+**Tooling & Platforms**:
+- ERwin Data Modeler
+- ER/Studio (Idera)
+- IBM InfoSphere Data Architect
+- Oracle SQL Developer Data Modeler
+- PowerDesigner (SAP)
+- Hackolade (NoSQL modeling)
+- dbdiagram.io, SqlDBM (online tools)
+- Informatica MDM, Reltio, Profisee (MDM platforms)
+
+**Data Quality & Profiling**:
+- Data profiling standards
+- Data quality scorecards
+- Validation rules and constraints
+- Data quality monitoring
+
+**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application. Refer to DAMA-DMBOK for comprehensive data management practices.
 
 ## Integration Points
 

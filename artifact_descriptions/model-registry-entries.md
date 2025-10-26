@@ -2,45 +2,67 @@
 
 ## Executive Summary
 
-The Model Registry Entries is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Model Registry Entries are structured metadata records in centralized model registries (MLflow, SageMaker Model Registry, Vertex AI Model Registry) that track model versions, deployment status, lineage, performance metrics, and approval history. These entries enable model lifecycle management, version control, deployment tracking, and audit trail for governance.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Model registry entries integrate MLOps platforms (MLflow, Kubeflow, SageMaker, Vertex AI) with model governance frameworks, providing single source of truth for model versions, lineage tracking from training data through deployment, stage transitions (staging, production, archived), and metadata including hyperparameters, metrics, tags, and signatures.
+
+The entries enable ML Engineers to deploy and rollback model versions, Data Scientists to compare model experiments and select champion models, AI Governance Teams to track approval status and compliance metadata, and Model Risk Managers to audit model provenance and change history.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Version Control**: Tracks all model versions with lineage from training run to deployment
+- **Deployment Management**: Controls stage transitions (staging→production) with approval gates
+- **Audit Trail**: Provides immutable history of model changes, approvals, and deployments
+- **Rollback Capability**: Enables rapid rollback to previous model version in case of issues
+- **Model Lineage**: Traces model ancestry from training data, code version, hyperparameters to predictions
+- **Compliance Documentation**: Stores compliance metadata (risk tier, bias assessment, approval date) with model
+- **Integration Hub**: Integrates model training (MLflow Tracking), deployment (Kubernetes), monitoring (Evidently AI)
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact documents the structure, metadata schema, and lifecycle management of model registry entries to enable standardized model versioning, deployment tracking, and governance integration. It provides technical specification for model registry implementation and usage.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Model registry platforms: MLflow Model Registry, AWS SageMaker Model Registry, Azure ML Model Registry, Google Vertex AI Model Registry
+- Model versioning: Semantic versioning, version history, parent-child relationships
+- Model stages: Development, Staging, Production, Archived (stage transition workflows)
+- Model metadata: Name, version, description, tags, hyperparameters, metrics, signature
+- Model lineage: Training run ID, dataset version, code version (Git commit), framework version
+- Model artifacts: Serialized model files (pickle, ONNX, TensorFlow SavedModel, PyTorch state dict)
+- Model signature: Input/output schema, data types, tensor shapes
+- Model flavors: Scikit-learn, XGBoost, TensorFlow, PyTorch, Transformers, ONNX
+- Stage transitions: Approval workflows for promoting models to production
+- Model aliases: Champion, challenger, canary, stable (for A/B testing)
+- Model tags: Custom metadata (risk_tier, business_unit, use_case, owner, fairness_tested)
+- Model descriptions: Documentation, use case, limitations, intended use
+- Model provenance: Training dataset checksum, data quality scores, feature engineering version
+- Integration with CI/CD: Automated registration from training pipelines
+- Webhook integrations: Trigger deployments, notifications, monitoring on stage transitions
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Model training code (stored in Git repositories)
+- Training datasets (stored in data lakes, feature stores)
+- Model monitoring dashboards (separate MLOps monitoring tools)
+- Detailed model documentation (handled by Model Cards)
+- Model risk assessments (separate governance artifacts)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- ML Engineers: Register models, manage versions, deploy to production, implement rollbacks
+- Data Scientists: Track experiments, compare model versions, promote champion models
+- MLOps Engineers: Configure model registry, integrate with CI/CD, automate deployments
+- AI Governance Teams: Review metadata for compliance, audit model lineage, enforce approval gates
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Model Risk Managers: Audit model provenance, verify approval evidence, track production models
+- DevOps Engineers: Deploy model serving infrastructure, configure endpoints, manage scaling
+- Platform Engineers: Maintain model registry infrastructure, optimize storage, ensure availability
+- Auditors: Verify model change history, review approval workflows, validate compliance metadata
 
 ## Document Information
 
@@ -168,19 +190,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Automated Registration**: Automatically register models from training pipelines; avoid manual registration
+**Semantic Versioning**: Use MAJOR.MINOR.PATCH versioning; increment MAJOR for breaking changes
+**Complete Metadata**: Populate all metadata fields (tags, description, hyperparameters, metrics) at registration time
+**Model Signature**: Always include model signature (input/output schema) for contract enforcement
+**Immutable Versions**: Never modify registered model artifacts; create new version for changes
+**Stage Transitions**: Require approval for production promotion; log approvers and approval date
+**Model Aliases**: Use aliases (champion, challenger) instead of hardcoding version numbers in code
+**Git Integration**: Tag model versions with Git commit SHA; enable code-to-model traceability
+**Dataset Versioning**: Record dataset version (DVC, Delta Lake) used for training; link to model
+**Comprehensive Tags**: Tag models with risk_tier, business_unit, use_case, owner, compliance_status
+**Model Descriptions**: Write clear descriptions including use case, limitations, intended users
+**Artifact Organization**: Store all model artifacts (preprocessor, encoder, model) as single package
+**Environment Specification**: Include conda.yaml or requirements.txt for reproducible serving
+**Lineage Tracking**: Log training run ID (MLflow run_id) for full lineage to hyperparameters and metrics
+**Archive Old Versions**: Archive models after newer version deployed; set retention policies
+**Monitoring Integration**: Configure webhooks to trigger monitoring setup on production promotion
+**Deployment Metadata**: Record deployment endpoints, traffic allocation, and rollout strategy
+**Rollback Plan**: Document rollback procedures; test rollback to previous version
+**Access Control**: Implement RBAC for model registration, stage transitions, production promotion
+**Audit Logging**: Enable audit logs for all model registry operations; retain for compliance
 
 ## Quality Criteria
 
@@ -227,9 +256,71 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Model Registry Platforms**:
+- MLflow Model Registry: Open-source model versioning, stage transitions, model lineage
+- AWS SageMaker Model Registry: AWS-native model management, approval workflows, deployment integration
+- Azure ML Model Registry: Azure-native model versioning, endpoints, online/batch deployment
+- Google Vertex AI Model Registry: GCP-native model management, versioning, deployment
+- Databricks Unity Catalog: Unified governance for models, data, and ML artifacts
+- Kubeflow Model Registry: Kubernetes-native model management
+- Seldon Core Model Registry: Cloud-agnostic model deployment and versioning
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Model Versioning Standards**:
+- Semantic Versioning (SemVer): MAJOR.MINOR.PATCH for model versions
+- Git-based versioning: Track model code and config with Git commits
+- Data Version Control (DVC): Version training datasets alongside models
+- MLflow Run ID: Unique identifier linking model to training experiment
+- Model hash/checksum: Content-based versioning for reproducibility
+
+**Model Serialization Formats**:
+- Pickle: Python object serialization (scikit-learn default)
+- ONNX (Open Neural Network Exchange): Interoperable neural network format
+- TensorFlow SavedModel: TensorFlow model export format
+- PyTorch State Dict: PyTorch model weights serialization
+- PMML (Predictive Model Markup Language): XML-based model interchange
+- TorchScript: PyTorch model serialization for production
+- Hugging Face Model Hub: Transformer model serialization and distribution
+
+**Model Signature & Schema**:
+- MLflow Model Signature: Input/output schema with data types and shapes
+- TensorFlow Serving Signature: Input/output tensors for serving
+- ONNX Model Signature: Input/output specification in ONNX format
+- JSON Schema: API contract definition for model inputs/outputs
+- Protobuf: Schema definition for gRPC model serving
+
+**Model Lineage & Provenance**:
+- MLflow Tracking: Log training runs, parameters, metrics, artifacts
+- DVC Pipelines: Track data and model provenance through pipeline DAGs
+- Pachyderm: Data lineage and versioning for ML pipelines
+- Delta Lake: Data versioning and time travel for training data
+- ML Metadata (MLMD): Google's metadata store for ML workflows
+- OpenLineage: Open standard for data and ML lineage
+
+**Model Deployment Patterns**:
+- Champion/Challenger: A/B test production model vs. candidate model
+- Canary deployment: Gradual traffic shift to new model version
+- Blue-green deployment: Zero-downtime model replacement
+- Shadow deployment: Run new model in parallel without serving predictions
+- Multi-armed bandit: Dynamic traffic allocation based on performance
+
+**Model Governance Integration**:
+- Model approval workflows: Stage transition gates (dev→staging→production)
+- Model tags for governance: risk_tier, compliance_status, bias_tested, approved_date
+- Model retirement: Deprecation procedures, archival, end-of-life tracking
+- Audit trail: Immutable log of version changes, stage transitions, approvals
+
+**MLOps Standards**:
+- MLOps Maturity Model: Levels 0-4 for model lifecycle automation
+- Continuous Training (CT): Automated model retraining pipelines
+- Model monitoring integration: Link registry to observability tools (Evidently AI, Fiddler)
+- Feature store integration: Track feature definitions used in model training
+
+**Documentation Standards**:
+- Model Cards: Embedded or linked from model registry entries
+- Datasheets for Datasets: Link to training data documentation
+- Model descriptions: Use case, limitations, intended use, out-of-scope applications
+
+**Reference**: Consult MLOps Platform Team for approved model registry platforms and integration patterns
 
 ## Integration Points
 

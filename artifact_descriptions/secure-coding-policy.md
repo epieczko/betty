@@ -2,43 +2,60 @@
 
 ## Executive Summary
 
-The Secure Coding Policy is a formal directive that establishes organizational rules, standards, and requirements for secure coding. This governance artifact provides mandatory guidance that applies across the organization, ensuring consistency, compliance, and risk management.
+The Secure Coding Policy mandates secure software development practices that prevent common vulnerabilities (OWASP Top 10, CWE Top 25) through input validation, output encoding, parameterized queries, proper authentication/authorization, secure cryptography, and defense-in-depth principles. Following OWASP Secure Coding Practices and NIST secure software development guidelines, this policy requires security training, code review, SAST/DAST scanning, and vulnerability remediation to build security into applications from the start.
 
-As a cornerstone of organizational governance, policies translate strategic intent and risk appetite into concrete requirements. They establish the "rules of the road" that guide behavior, decision-making, and operational activities while providing the foundation for controls, procedures, and audit criteria.
+As the foundation for application security, this policy provides developers with clear security requirements, security teams with enforceable standards, code reviewers with security criteria, and leadership with assurance that applications are developed securely. It transforms reactive vulnerability patching into proactive secure-by-design development that prevents vulnerabilities before they reach production.
 
 ### Strategic Importance
 
-- **Risk Management**: Mitigates organizational risk through standardized requirements
-- **Compliance Assurance**: Ensures adherence to regulatory and legal obligations
-- **Consistency**: Drives uniform approach across business units and geographies
-- **Accountability**: Establishes clear expectations and consequences
-- **Efficiency**: Reduces redundant decision-making through established standards
+- **Vulnerability Prevention**: Eliminates common weaknesses (SQL injection, XSS, CSRF) through secure coding practices
+- **Shift-Left Security**: Identifies security issues during development when remediation costs 100x less than production
+- **Breach Reduction**: Prevents exploitation of application vulnerabilities that account for 43% of data breaches
+- **Compliance**: Satisfies PCI-DSS 6.5, SOC 2 CC7.2, ISO 27001 A.14.2 secure development requirements
+- **Security Culture**: Embeds security into developer workflows through training and automated tools
+- **Code Quality**: Improves overall code quality through security-focused code reviews and testing
+- **Liability Reduction**: Demonstrates due diligence in secure development for legal/insurance purposes
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+The Secure Coding Policy mandates secure software development practices that prevent vulnerabilities through input validation, output encoding, secure authentication, proper authorization, cryptographic protection, and security testing integrated into the SDLC.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- OWASP Top 10 prevention: Injection, broken authentication, sensitive data exposure, XXE, broken access control, security misconfiguration, XSS, insecure deserialization, insufficient logging, vulnerable components
+- Input validation: Whitelist validation, type checking, length limits, format validation, canonicalization
+- Output encoding: Context-aware encoding (HTML, JavaScript, URL, CSS), prevention of XSS, template injection
+- Authentication/Authorization: Strong password requirements, MFA, session management, JWT validation, RBAC, ABAC
+- Cryptography: Approved algorithms (AES-256, RSA-2048+, SHA-256+), proper key management, TLS 1.3, no custom crypto
+- SQL injection prevention: Parameterized queries, stored procedures, ORM usage, input sanitization
+- Dependency management: SCA scanning (Snyk, Dependabot), vulnerability patching, SBOM generation
+- Security testing: SAST in IDE/CI, DAST in pre-prod, penetration testing, security code review
+- Secure defaults: Fail secure, least privilege, defense in depth, complete mediation
+- Error handling: Safe error messages, comprehensive logging, no sensitive info in errors
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Infrastructure security (covered in Infrastructure Security Policy)
+- Network security (covered in Network Security Policy)
+- Third-party vendor security (covered in Third-Party Risk Management)
+- Physical security (covered in Physical Security Policy)
+- Detailed language-specific guidelines (covered in Secure Coding Standards)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Software Developers writing secure code following policy requirements
+- Application Security Engineers reviewing code and enforcing policy
+- Security Champions embedding security practices in development teams
+- Code Reviewers validating security during peer review
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Engineering Managers ensuring teams follow secure coding practices
+- Security Leadership defining organizational security posture
+- Compliance Teams demonstrating secure development for audits
+- Training Teams designing secure coding training programs
 
 ## Document Information
 

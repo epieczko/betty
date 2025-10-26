@@ -2,45 +2,62 @@
 
 ## Executive Summary
 
-The Roi Model is a critical deliverable within the Inception / Strategy phase, supporting Business & Strategy activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The ROI Model is a critical financial analysis deliverable within the Inception / Strategy phase, supporting investment decision-making across the initiative lifecycle. This artifact provides rigorous financial evaluation using industry-standard metrics including Net Present Value (NPV), Internal Rate of Return (IRR), payback period, and sensitivity analysis to justify capital allocation and technology investments.
 
-As a core component of the Business & Strategy practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As a cornerstone of financial planning and analysis (FP&A), this artifact enables CFOs, finance teams, and executive leadership to evaluate investment opportunities using discounted cash flow (DCF) analysis, scenario modeling (best case, worst case, expected case), and risk-adjusted returns. Built using tools like Excel, Google Sheets, Anaplan, or Adaptive Insights, the ROI model translates technical initiatives into quantifiable business value with specific emphasis on CapEx vs OpEx trade-offs, total cost of ownership (TCO), and long-term value creation.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Investment Justification**: Provides data-driven financial rationale for capital allocation decisions using NPV, IRR, and payback analysis
+- **Financial Planning**: Supports FP&A processes with multi-year cash flow projections, operating budget impacts, and capital budgeting
+- **Risk Quantification**: Quantifies financial risks through sensitivity analysis, Monte Carlo simulation, and scenario modeling
+- **Value Realization**: Establishes baseline metrics and KPIs to track actual vs projected returns and economic value added (EVA)
+- **Stakeholder Alignment**: Communicates financial impact to Board, CFO, and executive leadership using standardized financial metrics
+- **Resource Optimization**: Enables portfolio-level comparison across competing investment opportunities using consistent financial framework
+- **Compliance & Governance**: Supports SOX compliance, capital approval processes, and financial governance requirements
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact provides comprehensive financial analysis to support investment decision-making through:
+- **NPV Calculation**: Discounted cash flow analysis using weighted average cost of capital (WACC) to determine net present value
+- **IRR Analysis**: Internal rate of return calculation to evaluate investment yield relative to hurdle rate
+- **Payback Period**: Time-to-recovery analysis showing when cumulative cash flows turn positive
+- **Sensitivity Analysis**: Impact assessment of key variables (revenue growth, cost assumptions, discount rate, implementation timeline)
+- **Scenario Modeling**: Best case, worst case, and expected case financial projections with probability weighting
+- **Risk-Adjusted Returns**: Incorporation of implementation risk, technology risk, and market risk into financial projections
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Multi-year financial projections (typically 3-5 years) with annual and quarterly breakdown
+- Revenue impact analysis including new revenue, revenue acceleration, and revenue protection
+- Cost analysis covering one-time costs (CapEx) and recurring costs (OpEx)
+- Cash flow modeling with detailed timing of inflows and outflows
+- NPV, IRR, payback period, and profitability index calculations
+- Sensitivity analysis on key drivers (±10%, ±20%, ±30% variance scenarios)
+- Monte Carlo simulation for probabilistic outcomes (when applicable)
+- Comparison to alternative investment options or "do nothing" baseline
+- Assumptions documentation and validation approach
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Total Cost of Ownership (TCO) detailed breakdown (covered in ROI-TCO Calculators artifact)
+- Detailed project implementation plan (covered in Project Charter)
+- Capitalization accounting treatment (covered in Capitalization Policy)
+- Operational metrics beyond financial impact (covered in separate KPI frameworks)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- CFO and Finance Leadership: Investment approval and capital allocation decisions
+- FP&A Analysts: Financial modeling, analysis, and business case development
+- Executive Leadership/Board: Strategic investment evaluation and portfolio prioritization
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Program/Project Managers: Understanding financial targets and value realization requirements
+- Business Unit Leaders: Evaluating business case for technology or process investments
+- Corporate Development: M&A evaluation and strategic initiative assessment
 
 ## Document Information
 
@@ -181,9 +198,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 **Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
 **Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
 **Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
-**Market Validation**: Validate assumptions with market research and customer feedback
-**Financial Rigor**: Use discounted cash flow, NPV, and scenario analysis for financial projections
-**Competitive Intelligence**: Incorporate competitive analysis and market positioning
+
+**Financial Modeling Best Practices**:
+**DCF Methodology**: Use discounted cash flow with organization's standard WACC; document discount rate assumptions and source
+**Conservative Assumptions**: Apply conservative revenue growth and aggressive cost estimates to avoid optimism bias
+**Sensitivity Analysis**: Test ±20% variance on all key assumptions; identify breakeven points and critical success factors
+**Scenario Modeling**: Model best case (P90), expected case (P50), worst case (P10) with probability-weighted expected value
+**Cash Flow Timing**: Use realistic implementation timelines; model cash outflows before inflows; account for working capital
+**Incremental Analysis**: Measure incremental cash flows only; exclude sunk costs; include opportunity costs
+**Tax Treatment**: Account for tax shields on interest, depreciation (if CapEx), and tax impact on operational savings
+**Terminal Value**: For long-term investments, calculate terminal value using perpetuity growth or exit multiple approach
+**Hurdle Rates**: Compare IRR to organization's hurdle rate (typically WACC + risk premium); NPV must be positive
+**Assumption Documentation**: Document all assumptions with sources; distinguish facts from estimates; note confidence levels
+**Market Validation**: Validate revenue assumptions with market research, customer interviews, and pilot data
+**Competitive Benchmarking**: Compare assumptions to industry benchmarks and competitive intelligence
+**Risk Quantification**: Quantify implementation risk, technology risk, and market risk; incorporate into probability-weighted scenarios
+**Audit Trail**: Maintain clear links between inputs, calculations, and outputs; enable formula auditing
+**FP&A Alignment**: Align with annual operating plan, long-range plan, and capital allocation framework
 
 ## Quality Criteria
 
@@ -230,9 +261,72 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Financial Metrics & Analysis**:
+- Net Present Value (NPV) - Discounted cash flow valuation
+- Internal Rate of Return (IRR) - Investment yield metric
+- Modified Internal Rate of Return (MIRR) - Addresses IRR limitations
+- Payback Period - Time to recover initial investment
+- Discounted Payback Period - Time to recover using discounted cash flows
+- Profitability Index (PI) - Ratio of NPV to initial investment
+- Return on Investment (ROI) - Simple return calculation
+- Return on Assets (ROA) - Asset efficiency metric
+- Return on Equity (ROE) - Shareholder return metric
+- Economic Value Added (EVA) - Value creation above cost of capital
+- Total Shareholder Return (TSR) - Combined stock price appreciation and dividends
+- Weighted Average Cost of Capital (WACC) - Discount rate calculation
+- Free Cash Flow (FCF) - Cash available after capital expenditures
+- Discounted Cash Flow (DCF) Analysis - Core valuation methodology
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Financial Planning Standards**:
+- GAAP (Generally Accepted Accounting Principles)
+- IFRS (International Financial Reporting Standards)
+- CFA Institute Standards - Investment analysis best practices
+- PMI Standard for Business Analysis
+- IIBA BABOK (Business Analysis Body of Knowledge)
+- Capital Budgeting Best Practices
+- Investment Committee Governance Standards
+
+**SaaS & Technology Metrics**:
+- Total Cost of Ownership (TCO)
+- CapEx vs OpEx Analysis
+- Rule of 40 (Growth Rate + Profit Margin)
+- Magic Number (ARR Growth / Sales & Marketing Spend)
+- CAC Payback Period (Customer Acquisition Cost recovery)
+- LTV:CAC Ratio (Lifetime Value to Customer Acquisition Cost)
+- Cloud Migration ROI Models
+- Digital Transformation Value Frameworks
+
+**Risk Analysis Frameworks**:
+- Monte Carlo Simulation
+- Sensitivity Analysis (Tornado Diagrams)
+- Scenario Analysis (Best/Base/Worst Case)
+- Decision Tree Analysis
+- Real Options Valuation
+- Risk-Adjusted Net Present Value (rNPV)
+- Value at Risk (VaR)
+- Expected Monetary Value (EMV)
+
+**Tools & Platforms**:
+- Microsoft Excel with Financial Modeling Add-ins
+- Google Sheets with Finance Functions
+- Anaplan (Enterprise Planning Platform)
+- Adaptive Insights (Workday Adaptive Planning)
+- Oracle Hyperion Planning
+- SAP BPC (Business Planning and Consolidation)
+- Prophix (CPM Software)
+- Board International
+- @RISK (Monte Carlo Simulation Add-in)
+- Crystal Ball (Oracle Risk Analysis)
+
+**Governance & Compliance**:
+- SOX (Sarbanes-Oxley) Section 404 - Internal Controls
+- Capital Allocation Framework
+- Investment Committee Charter
+- Financial Authorization Matrix
+- Project Portfolio Management (PPM) Standards
+- IT Investment Governance (ITIL Financial Management)
+
+**Reference**: Consult CFO, FP&A leadership, and corporate finance team for detailed guidance on framework application and organization-specific hurdle rates, discount rates, and approval thresholds
 
 ## Integration Points
 

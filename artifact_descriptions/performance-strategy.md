@@ -2,45 +2,58 @@
 
 ## Executive Summary
 
-The Performance Strategy is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Performance Strategy artifact defines comprehensive approach to application performance including performance budgets (P95 latency <200ms), Service Level Objectives (SLOs), monitoring strategy, testing cadence, optimization roadmap, and tooling decisions. This strategy ensures performance is treated as a first-class requirement throughout the development lifecycle, from design through production operation, with clear accountability and measurement frameworks.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Performance strategy establishes measurable targets (P95 API latency <200ms, P99 <500ms, Apdex >0.9), defines testing approach (load testing with JMeter/Gatling/k6, continuous performance regression testing in CI/CD), specifies monitoring stack (Prometheus, Grafana, Datadog, New Relic), and creates optimization roadmap prioritized by user impact. It transforms performance from reactive firefighting to proactive engineering discipline with clear SLOs, automated testing, and continuous measurement.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Performance Culture**: Establishes performance as shared responsibility with clear targets and accountability
+- **Proactive Optimization**: Shifts from reactive firefighting to planned optimization based on performance budgets
+- **SLO-Driven Development**: Defines measurable Service Level Objectives for latency, throughput, and availability
+- **Continuous Validation**: Integrates performance testing into CI/CD to catch regressions before production
+- **User Experience Focus**: Aligns technical metrics with user experience through Apdex scores and percentile targets
+- **Cost Efficiency**: Balances performance requirements with infrastructure costs through right-sizing and optimization
+- **Competitive Advantage**: Fast, responsive applications improve conversion rates, user satisfaction, and retention
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact defines organizational approach to application performance including performance budgets, SLO targets (P95 latency <200ms), monitoring strategy (tools, metrics, dashboards), testing methodology (load testing, regression testing), optimization roadmap, and governance framework to ensure performance is measurable, manageable, and continuously improved.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Performance budgets: Target latency percentiles (P50, P95, P99), throughput (RPS/TPS), error rates (<0.1%)
+- Service Level Objectives (SLOs): Measurable targets for API latency, page load times, transaction throughput
+- Apdex configuration: Satisfaction thresholds (T) for different transaction types (API: 200ms, pages: 1s)
+- Monitoring strategy: Tools (Prometheus, Grafana, Datadog, New Relic), key metrics, alerting thresholds
+- Testing approach: Load testing cadence, tools (JMeter, Gatling, k6), regression detection in CI/CD
+- Profiling strategy: APM tools, distributed tracing (Jaeger, Zipkin), CPU/memory profiling
+- Optimization roadmap: Prioritized improvements (database tuning, caching, code optimization)
+- Tooling decisions: Performance testing tools, APM platforms, profiling tools, cost vs. capability
+- Performance reviews: Quarterly performance assessment, trend analysis, SLO compliance reporting
+- Team responsibilities: Performance engineering ownership, developer accountability, SRE involvement
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed load test execution and results (covered in load-test-report)
+- Specific capacity models and infrastructure sizing (covered in capacity-models)
+- Implementation details of specific optimizations (covered in architecture/design docs)
+- Production incident response procedures (covered in runbooks)
+- Detailed monitoring dashboard configurations
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Performance Engineers establishing testing practices and optimization priorities
+- Engineering Leadership setting performance standards and accountability framework
+- Development Teams understanding performance targets and testing requirements
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Product Owners understanding performance impact on user experience and business metrics
+- SRE Teams aligning performance strategy with reliability and capacity planning
+- QA Teams integrating performance testing into quality assurance processes
 
 ## Document Information
 
@@ -165,9 +178,72 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Performance Budgets & SLOs**:
+- Google SRE SLO Framework: SLI (indicators), SLO (objectives), SLA (agreements), error budgets
+- Performance Budgets: Page load <2s, API latency P95 <200ms, P99 <500ms, Time to Interactive <3.5s
+- Apdex Scoring: T (satisfied) = 200ms for APIs, 1s for pages; 4T (frustrated) threshold
+- Core Web Vitals: LCP (Largest Contentful Paint) <2.5s, FID (First Input Delay) <100ms, CLS (Cumulative Layout Shift) <0.1
+- Error Budget: SLO 99.9% = 43.2 min/month downtime budget for changes and optimization
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Performance Testing Frameworks**:
+- Load Testing Tools: JMeter, Gatling, k6, Locust, LoadRunner, Artillery, BlazeMeter
+- Browser Performance: Lighthouse, WebPageTest, Chrome DevTools, Sitespeed.io
+- API Testing: k6, Gatling, Postman, Apache Bench, wrk, vegeta
+- Database Performance: pgBench, HammerDB, SysBench, Yahoo! Cloud Serving Benchmark (YCSB)
+- Continuous Performance: Integration with Jenkins, GitLab CI, GitHub Actions, CircleCI
+
+**Application Performance Monitoring**:
+- APM Platforms: New Relic, Dynatrace, AppDynamics, Datadog APM, Elastic APM
+- Open-Source APM: Prometheus + Grafana, OpenTelemetry, Jaeger, Zipkin
+- Real User Monitoring (RUM): Google Analytics, New Relic Browser, Dynatrace RUM, SpeedCurve
+- Synthetic Monitoring: Pingdom, Uptime Robot, Catchpoint, ThousandEyes
+- Log Analytics: ELK Stack (Elasticsearch, Logstash, Kibana), Splunk, Datadog Logs
+
+**Distributed Tracing**:
+- Jaeger: CNCF distributed tracing platform with OpenTelemetry support
+- Zipkin: Open-source distributed tracing system
+- AWS X-Ray: AWS distributed tracing service
+- Google Cloud Trace: GCP distributed tracing
+- OpenTelemetry: Vendor-neutral observability framework (traces, metrics, logs)
+
+**Profiling & Analysis Tools**:
+- Java Profiling: YourKit, JProfiler, VisualVM, async-profiler, JFR (Java Flight Recorder)
+- Python Profiling: cProfile, py-spy, Pyflame, memory_profiler
+- Node.js Profiling: Node.js built-in profiler, Clinic.js, 0x
+- Go Profiling: pprof, trace, benchmarks
+- Database Profiling: pg_stat_statements, MySQL slow query log, MongoDB profiler, query explain plans
+
+**Performance Optimization Techniques**:
+- Caching Strategies: Browser cache, CDN, application cache (Redis, Memcached), database query cache
+- Database Optimization: Index optimization, query tuning, connection pooling, read replicas
+- Code Optimization: Algorithm efficiency, lazy loading, code splitting, tree shaking
+- Network Optimization: HTTP/2, compression (Gzip, Brotli), minification, CDN distribution
+- Rendering Optimization: Server-side rendering, static generation, progressive enhancement
+- Async Processing: Background jobs, message queues, event-driven architecture
+
+**Testing Methodologies**:
+- Load Testing: Validate performance under expected concurrent users
+- Stress Testing: Find breaking points by exceeding normal capacity
+- Soak Testing: Long-duration tests (24-72h) to detect memory leaks and degradation
+- Spike Testing: Sudden traffic increases to validate auto-scaling
+- Scalability Testing: Incrementally increase load to measure scaling characteristics
+- Regression Testing: Automated performance tests in CI/CD to catch regressions
+
+**Performance Patterns & Antipatterns**:
+- Release It! (Nygard): Stability patterns and antipatterns (circuit breakers, timeouts, bulkheads)
+- Performance Antipatterns: N+1 queries, unbounded result sets, synchronous I/O, memory leaks
+- Scaling Patterns: Horizontal scaling, vertical scaling, auto-scaling, load balancing
+- Caching Patterns: Cache-aside, read-through, write-through, write-behind
+- Database Patterns: Connection pooling, read replicas, sharding, CQRS
+
+**Monitoring Best Practices**:
+- USE Method (Gregg): Utilization, Saturation, Errors for resource monitoring
+- RED Method: Rate, Errors, Duration for service-level monitoring
+- Four Golden Signals (Google SRE): Latency, traffic, errors, saturation
+- Percentile Monitoring: P50, P90, P95, P99 (not just averages)
+- Service Level Indicators: Availability %, latency percentiles, error rate, throughput
+
+**Reference**: Consult performance engineering and SRE teams for strategy implementation and tool selection
 
 ## Integration Points
 

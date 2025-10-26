@@ -2,45 +2,58 @@
 
 ## Executive Summary
 
-The Provenance Attestations is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Provenance Attestations artifact provides cryptographically-signed build provenance records using SLSA (Supply-chain Levels for Software Artifacts), in-toto, and Sigstore frameworks to establish tamper-evident chains of custody for software artifacts, container images, and AI/ML models. These attestations create verifiable audit trails documenting what was built, when, by whom, from what source code, using what dependencies, enabling detection of supply chain compromises and compliance with emerging software security regulations.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Software supply chain attacks have increased 742% since 2019, with high-profile incidents like SolarWinds and Log4j demonstrating the critical need for build provenance verification. Provenance attestations solve this by generating cryptographically-signed metadata (SLSA provenance, SBOM, VEX) that can be verified at deployment time, ensuring artifacts haven't been tampered with between build and runtime. This artifact documents the standards, tools (Sigstore, in-toto, SLSA), and processes for generating, signing, and verifying provenance attestations across CI/CD pipelines.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **Supply Chain Security**: Prevents malicious code injection by verifying artifact integrity from source to deployment (SLSA framework)
+- **Regulatory Compliance**: Meets emerging software security requirements (Executive Order 14028, EU Cyber Resilience Act, NIST SSDF)
+- **Incident Response**: Enables rapid identification of affected systems during vulnerability disclosures (Log4j-style incidents)
+- **Dependency Transparency**: Provides SBOM (Software Bill of Materials) for license compliance and vulnerability management
+- **Non-Repudiation**: Cryptographic signatures establish legal accountability for software provenance
+- **Zero Trust Architecture**: Enables verification of artifact provenance before deployment in zero-trust environments
+- **Customer Assurance**: Provides verifiable evidence of secure build practices to security-conscious enterprise customers
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the implementation guide for generating, signing, and verifying cryptographic provenance attestations using SLSA, in-toto, and Sigstore. It documents how to instrument CI/CD pipelines to automatically generate SLSA provenance, sign artifacts with Sigstore (Cosign), and verify attestations at deployment time to prevent supply chain compromises.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- SLSA (Supply-chain Levels for Software Artifacts) provenance generation for builds (SLSA Levels 1-4)
+- in-toto attestations documenting build steps and artifact transformations
+- Sigstore signing (Cosign for container images, Rekor transparency log, Fulcio keyless signing)
+- SBOM (Software Bill of Materials) generation using SPDX, CycloneDX, and Syft
+- VEX (Vulnerability Exploitability eXchange) for vulnerability disclosure
+- Build provenance for container images (Docker, OCI images)
+- AI/ML model provenance (training data lineage, model cards, reproducibility metadata)
+- Cryptographic signing of release artifacts (binaries, packages, containers)
+- Provenance verification in deployment pipelines (admission controllers, policy enforcement)
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Source code signing and commit verification (handled through Git commit signing)
+- Runtime security monitoring and anomaly detection (covered in runtime security tooling)
+- Vulnerability scanning and remediation (managed through security scanning tools)
+- Dependency management and update automation (handled by Dependabot, Renovate)
+- Secrets management and key rotation (covered in secrets management documentation)
+- Incident response playbooks (documented in security incident response plans)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- DevSecOps Engineers: Implement provenance attestation generation in CI/CD pipelines
+- Security Engineers: Configure provenance verification policies and admission controls
+- Platform Engineers: Deploy Sigstore infrastructure (Fulcio, Rekor, Cosign) and in-toto tooling
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Compliance Teams: Demonstrate software supply chain security controls to auditors and customers
+- Release Managers: Understand provenance requirements for production releases
+- Customer Security Teams: Verify provenance attestations of vendor-provided software and containers
 
 ## Document Information
 
@@ -106,23 +119,26 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
-**Test Pyramid**: Follow test pyramid pattern (more unit tests, fewer E2E tests)
-**Coverage Targets**: Aim for 80%+ code coverage with meaningful tests
-**Test Data Management**: Use realistic but sanitized test data
-**Continuous Testing**: Integrate testing into CI/CD pipeline
+**SLSA Level 2 Minimum**: Achieve SLSA Level 2 (hosted build, signed provenance) as baseline for all production artifacts
+**Keyless Signing**: Use Sigstore Fulcio keyless signing to avoid long-lived private key management burden
+**Automated Provenance**: Generate SLSA provenance automatically in CI/CD; never manually create provenance
+**Builder Identity**: Use OIDC identity from GitHub Actions, GitLab CI as signer identity (no service accounts with keys)
+**Transparency Logging**: Record all signatures in Rekor transparency log for public accountability
+**SBOM Generation**: Generate SBOM (SPDX or CycloneDX) automatically on every build using Syft or Trivy
+**Provenance Attachment**: Store provenance as OCI artifact attestations alongside container images
+**Hermetic Builds**: Use containerized builds or Bazel for reproducible, hermetic build environments (SLSA Level 4 goal)
+**Dependency Pinning**: Pin all dependencies with cryptographic hashes (npm lock files, Go sum files, Python requirements.txt with hashes)
+**Build Isolation**: Run builds in ephemeral, isolated environments (GitHub Actions hosted runners, GitLab shared runners)
+**Two-Party Review**: Require code review approval before merge (GitHub branch protection, GitLab approval rules)
+**Verification at Deploy**: Enforce signature verification in Kubernetes admission controllers (Kyverno, Policy Controller)
+**Policy-as-Code**: Define provenance verification policies in OPA Rego or Kyverno YAML
+**Git Commit Signing**: Sign Git commits with Sigstore Gitsign for end-to-end source-to-artifact traceability
+**VEX Publication**: Publish VEX documents when vulnerabilities are not exploitable in your context
+**Attestation Bundles**: Package SLSA provenance, SBOM, and signatures together for verification
+**Public Transparency**: Make provenance attestations publicly verifiable when possible (open source projects)
+**Incident Readiness**: Practice supply chain incident response (what if Rekor is compromised, how to rotate identities)
+**Reproducible Builds**: Invest in reproducible builds for critical software (Debian reproducible builds model)
+**Dependency Scanning**: Scan SBOM for known vulnerabilities using Grype, Trivy, or Snyk before deployment
 
 ## Quality Criteria
 
@@ -169,9 +185,96 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**General**: ISO 9001 (Quality), PMI Standards, Industry best practices
+**Supply Chain Security Frameworks**:
+- SLSA (Supply-chain Levels for Software Artifacts): Framework defining 4 levels of supply chain security maturity
+- in-toto: Framework for securing software supply chain integrity through layout and link metadata
+- NIST SSDF (Secure Software Development Framework): Secure development practices including provenance
+- NIST SP 800-218: Secure Software Development Framework implementation guidance
+- SCVS (Software Component Verification Standard): OWASP standard for software supply chain security
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Sigstore Ecosystem**:
+- Cosign: Container signing and verification tool (OCI image signatures)
+- Rekor: Transparency log for software artifact signatures (certificate transparency for software)
+- Fulcio: Keyless signing using OIDC identity (no long-lived private keys)
+- Gitsign: Git commit signing using Sigstore (ephemeral certificates)
+- Policy Controller: Kubernetes admission controller for signature verification
+
+**SBOM (Software Bill of Materials) Standards**:
+- SPDX (Software Package Data Exchange): ISO/IEC 5962:2021 SBOM standard
+- CycloneDX: OWASP SBOM standard optimized for security use cases
+- SWID (Software Identification Tags): ISO/IEC 19770-2 software identification
+- Syft: SBOM generation tool supporting SPDX and CycloneDX
+- Trivy: Security scanner with SBOM generation capabilities
+
+**Provenance Generation Tools**:
+- GitHub Actions Attestations: Native SLSA provenance generation in GitHub Actions
+- GitLab Attestations: Built-in provenance for GitLab CI/CD
+- SLSA Generators: Reference implementations for SLSA provenance (slsa-github-generator)
+- Tekton Chains: Kubernetes-native provenance for Tekton Pipelines
+- witness: in-toto attestation framework for CI/CD pipelines
+
+**SLSA Levels & Requirements**:
+- SLSA Level 1: Build provenance exists (documented build process)
+- SLSA Level 2: Hosted build platform, signed provenance (GitHub Actions, GitLab CI)
+- SLSA Level 3: Hardened build platform, non-falsifiable provenance (isolated build)
+- SLSA Level 4: Two-party review, hermetic builds (reproducible, maximum security)
+
+**Regulatory & Compliance**:
+- Executive Order 14028 (US): Improving the Nation's Cybersecurity (SBOM requirement for federal software)
+- EU Cyber Resilience Act: Software supply chain security and SBOM requirements
+- NIST Cybersecurity Framework: Supply chain risk management (SC.GRC, SC.RA)
+- FedRAMP Requirements: Software supply chain controls for cloud services
+- PCI DSS 4.0: Requirement 6.3 (secure software development lifecycle)
+
+**Vulnerability Disclosure**:
+- VEX (Vulnerability Exploitability eXchange): Machine-readable vulnerability impact statements
+- CVE (Common Vulnerabilities and Exposures): Vulnerability identification system
+- OSV (Open Source Vulnerabilities): Vulnerability database for open source
+- CVSS v3.1/v4.0: Common Vulnerability Scoring System
+- EPSS (Exploit Prediction Scoring System): Probability of vulnerability exploitation
+
+**Cryptographic Standards**:
+- X.509 Certificates: Public key infrastructure for code signing
+- PGP/GPG: Traditional artifact signing (less common, being replaced by Sigstore)
+- Keyless Signing: Ephemeral certificates via OIDC (Fulcio) eliminating key management
+- Certificate Transparency: Public append-only logs for certificate issuance (Rekor model)
+- Notary v2: OCI artifact signing and verification specification
+
+**Container Image Security**:
+- OCI (Open Container Initiative): Container image and distribution specifications
+- Container Image Signing: Cosign signatures for Docker/OCI images
+- Container Registry: Harbor, Artifactory, GHCR with signature verification
+- Admission Controllers: Kyverno, OPA Gatekeeper, Sigstore Policy Controller for verification
+- Image Provenance: SLSA provenance for container builds (source, builder, materials)
+
+**CI/CD Integration**:
+- GitHub Actions: Native provenance generation and artifact attestations
+- GitLab CI/CD: Integrated provenance and signing workflows
+- Jenkins: Provenance plugins (SLSA plugin, in-toto integration)
+- Tekton: Chains for automatic SLSA provenance generation
+- CircleCI, Travis CI: Third-party provenance generation tools
+
+**Build Reproducibility**:
+- Reproducible Builds: Bit-for-bit identical artifacts from source (hermetic builds)
+- Build Environment Capture: Record build tool versions, OS, dependencies
+- Dependency Pinning: Lock files for exact dependency versions
+- Hermetic Build Systems: Bazel, Nix for deterministic builds
+
+**Artifact Types Requiring Provenance**:
+- Container Images: Docker, OCI images deployed to Kubernetes
+- Binary Executables: CLI tools, services, applications
+- Software Packages: npm, PyPI, Maven, NuGet packages
+- Release Archives: tar.gz, zip files with application code
+- AI/ML Models: Model weights, training data references, model cards
+- Infrastructure as Code: Terraform modules, Helm charts, Kubernetes manifests
+
+**Provenance Verification**:
+- Policy-as-Code: OPA Rego policies for provenance verification
+- Admission Control: Kubernetes admission webhooks rejecting unsigned images
+- Supply Chain Policy: Automated policy enforcement (Sigstore Policy Controller, Kyverno)
+- Attestation Storage: OCI registries, artifact stores with attestation support
+
+**Reference**: Consult security engineering, DevSecOps, and compliance teams for detailed guidance on provenance attestation implementation and verification requirements
 
 ## Integration Points
 

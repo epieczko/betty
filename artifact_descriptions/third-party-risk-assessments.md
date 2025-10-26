@@ -2,45 +2,67 @@
 
 ## Executive Summary
 
-The Third Party Risk Assessments is a critical deliverable within the Portfolio, Governance, and Delivery Ops phase, supporting Governance & Planning activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+Third-Party Risk Assessments (TPRM - Third Party Risk Management) are critical vendor due diligence artifacts providing structured evaluation of vendor security, compliance, financial stability, and operational risks using standardized questionnaires (SIG Lite/Core/Full, CAIQ, VSAQ), SOC 2 Type II reports, ISO 27001 certifications, and penetration test results. This foundational TPRM deliverable enables risk-based vendor selection, ongoing vendor monitoring, and regulatory compliance aligned to NIST SP 800-161, ISO 27036, FFIEC guidance, and industry TPRM frameworks.
 
-As a core component of the Governance & Planning practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+As the cornerstone of vendor risk management, this artifact serves Vendor Risk Managers, Procurement Teams, CISOs, Compliance Officers, and Business Owners by providing inherent risk assessment (vendor's baseline risk profile), residual risk calculation (after vendor controls), risk tiering (critical/high/medium/low), and evidence-based vendor approval decisions. It integrates with GRC platforms (ServiceNow TPRM, OneTrust Vendorpedia, Prevalent, RiskRecon, SecurityScorecard) for automated risk scoring, continuous monitoring, and vendor risk dashboards.
 
 ### Strategic Importance
 
-- **Strategic Alignment**: Ensures activities and decisions support organizational objectives
-- **Standardization**: Promotes consistent approach and quality across teams and projects
-- **Risk Management**: Identifies and mitigates risks through structured analysis
-- **Stakeholder Communication**: Facilitates clear, consistent communication among diverse audiences
-- **Knowledge Management**: Captures and disseminates institutional knowledge and best practices
-- **Compliance**: Supports adherence to regulatory, policy, and contractual requirements
-- **Continuous Improvement**: Enables measurement, learning, and process refinement
+- **TPRM Questionnaires**: Leverages standardized questionnaires including SIG (Standardized Information Gathering) Lite/Core/Full, CAIQ (Consensus Assessments Initiative Questionnaire), VSAQ (Vendor Security Assessment Questionnaire) for consistent vendor evaluation
+- **Inherent vs Residual Risk**: Assesses inherent vendor risk (baseline risk profile) and residual risk (after vendor controls and contractual mitigations) supporting risk-informed procurement
+- **Risk Tiering**: Categorizes vendors into tiers (Tier 1 Critical, Tier 2 High, Tier 3 Medium, Tier 4 Low) based on data sensitivity, business criticality, and regulatory scope determining assessment rigor
+- **SOC 2 / ISO 27001 Validation**: Reviews vendor SOC 2 Type II reports, ISO 27001/27701 certificates, penetration test results, and compliance attestations validating security controls
+- **Continuous Monitoring**: Enables ongoing vendor risk monitoring through annual reassessments, security ratings (BitSight, SecurityScorecard), breach notifications, and performance metrics
+- **Regulatory Compliance**: Satisfies TPRM requirements for FFIEC, OCC, GDPR Article 28, HIPAA Business Associates, PCI DSS 12.8, SOC 2 CC9, NYDFS 23 NYCRR 500, and CMMC vendor assessment
+- **Fourth Party Risk**: Extends assessments to vendor subcontractors (fourth parties) when vendors use sub-processors handling organizational data
 
 ## Purpose & Scope
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact provides comprehensive Third-Party Risk Assessment documenting vendor security posture, compliance status, financial viability, operational resilience, and data handling practices. It supports risk-based vendor selection through standardized questionnaire analysis (SIG, CAIQ, VSAQ), evidence review (SOC 2 Type II, ISO 27001, pentest reports), inherent/residual risk scoring, risk tiering assignment, and vendor approval/rejection recommendations aligned to organizational risk appetite and TPRM policies.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- Vendor risk tiering based on data classification, business criticality, and regulatory scope (Tier 1 Critical through Tier 4 Low)
+- Standardized questionnaire distribution and analysis (SIG Lite for Tier 4, SIG Core for Tier 2/3, SIG Full for Tier 1)
+- Alternative questionnaires (CAIQ for cloud vendors, VSAQ for software vendors, custom questionnaires for specialized services)
+- Evidence collection including SOC 2 Type II reports, SOC 3, ISO 27001/27701 certificates, PCI DSS AOC, HITRUST CSF, FedRAMP authorization
+- Penetration test report review with findings remediation validation
+- Financial stability assessment using D&B ratings, financial statements, credit scores
+- Business continuity and disaster recovery capability evaluation
+- Data handling, data residency, and cross-border data transfer assessment
+- Right to audit clauses and on-site assessment scheduling
+- Inherent risk scoring (before vendor controls) and residual risk scoring (after controls)
+- Risk acceptance for vendors exceeding risk tolerance with documented compensating controls and executive approval
+- Contract security requirements and data processing agreements (DPAs) for GDPR/privacy compliance
+- Fourth party (subcontractor) identification and risk assessment
+- Annual vendor reassessment scheduling and continuous monitoring integration (BitSight, SecurityScorecard, RiskRecon)
+- Vendor risk dashboard with risk trends, assessment completion rates, and high-risk vendor alerts
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Vendor contract negotiation and commercial terms (covered in Vendor Management Pack)
+- Vendor performance management and SLA tracking (covered in Vendor Scorecards)
+- Vendor payment processing and invoice management (covered in Accounts Payable)
+- Vendor onboarding and offboarding procedures (covered in Vendor Lifecycle Management)
+- Internal procurement approval workflows (covered in Procurement process documentation)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Vendor Risk Managers for TPRM program execution, risk assessment coordination, and vendor risk portfolio oversight
+- Chief Information Security Officer (CISO) for security risk evaluation, SOC 2/ISO 27001 validation, and vendor approval decisions
+- Procurement/Sourcing Teams for risk-informed vendor selection and vendor approval workflow integration
+- Compliance Officers for regulatory TPRM requirements validation (GDPR Article 28, HIPAA BAA, PCI DSS 12.8)
+- Privacy Officers for data processing agreement review and cross-border data transfer assessment
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Business Owners as vendor sponsors requiring vendor services and accountable for vendor risk
+- Legal/Contracts Teams for contract security requirements and right to audit clause negotiation
+- Internal Audit for TPRM program assessment and vendor risk control testing
+- Enterprise Risk Management for high-risk vendor escalation and Enterprise Risk Register integration
+- External Auditors requiring TPRM evidence for SOC 2 CC9, ISO 27001, or regulatory audits
 
 ## Document Information
 
@@ -169,6 +191,22 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 **Risk Integration**: Integrate with risk management processes; escalate risks appropriately
 **Change Control**: Submit significant changes through formal change control process
 **Audit Trail**: Maintain comprehensive audit trail for governance and compliance purposes
+**TPRM Assessment Best Practices**:
+**Risk-Based Tiering**: Implement vendor risk tiering (Tier 1-4) based on data classification, business criticality, and regulatory scope to tailor assessment rigor
+**Standardized Questionnaires**: Use SIG Lite for low-risk vendors, SIG Core for medium-risk, SIG Full for high-risk/critical vendors to ensure consistency
+**SOC 2 Type II Preferred**: Prioritize vendors with current SOC 2 Type II reports (within 12 months) reducing questionnaire burden and assessment time
+**Inherent + Residual Risk**: Calculate both inherent risk (before vendor controls) and residual risk (after controls and contractual mitigations)
+**Evidence Validation**: Don't accept questionnaire responses alone - validate with SOC 2, ISO 27001 certificates, penetration test reports, insurance certificates
+**Right to Audit**: Include contractual right to audit clause enabling on-site assessments for Tier 1/2 vendors or high-risk vendors
+**Annual Reassessment**: Conduct annual risk reassessments for Tier 1/2 vendors, biennial for Tier 3, and every 3 years for Tier 4
+**Continuous Monitoring**: Integrate continuous monitoring tools (SecurityScorecard, BitSight, RiskRecon) for real-time vendor security posture tracking
+**Fourth Party Disclosure**: Require vendors to disclose all subcontractors/sub-processors and assess fourth party risks
+**DPA Requirements**: Ensure GDPR-compliant Data Processing Agreement (DPA) for any vendor processing personal data
+**Financial Stability**: Assess vendor financial viability using Dun & Bradstreet ratings, financial statements, and credit reports preventing vendor failure risk
+**Breach Notification**: Require contractual 24-48 hour breach notification and annual security incident disclosure
+**Penetration Testing**: Request penetration test reports for Tier 1/2 vendors and validate critical/high findings are remediated
+**Risk Acceptance**: Require executive/risk committee approval for vendors exceeding risk tolerance with documented compensating controls
+**TPRM Platform**: Leverage TPRM platform (ServiceNow TPRM, OneTrust, Prevalent) for workflow automation, evidence repository, and vendor risk dashboard
 
 ## Quality Criteria
 
@@ -215,9 +253,78 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**Risk Management**: ISO 31000, COSO ERM, FAIR, NIST RMF
+**TPRM Frameworks & Standards**:
+- NIST SP 800-161 Cybersecurity Supply Chain Risk Management
+- ISO 27036-1:2021 Information Security for Supplier Relationships
+- ISO 28000:2022 Supply Chain Security Management Systems
+- Shared Assessments TPRM framework and tools
+- FFIEC Information Technology Examination Handbook - Outsourcing Technology Services
+- OCC Bulletin 2013-29 Third-Party Relationships: Risk Management Guidance
+- NIST Cybersecurity Framework Supply Chain Risk Management (C-SCRM)
+- CIS Critical Security Controls for Effective Cyber Defense - Supply Chain
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Standardized Questionnaires**:
+- SIG (Standardized Information Gathering) - Lite, Core, Full (Shared Assessments)
+- CAIQ (Consensus Assessments Initiative Questionnaire) - Cloud Security Alliance
+- VSAQ (Vendor Security Assessment Questionnaire) - Google open-source
+- HECVAT (Higher Education Community Vendor Assessment Toolkit)
+- EdVASSA (Education Vendor Assessment for Student Safety Alliance)
+- CIS RAM (CIS Risk Assessment Method) for supply chain
+- NIST SP 800-171 Supplier Assessment questionnaire
+
+**Vendor Security Standards & Certifications**:
+- SOC 2 Type II (Trust Services Criteria - Security, Availability, Confidentiality, Processing Integrity, Privacy)
+- SOC 3 (public summary report)
+- ISO 27001:2022 Information Security Management System
+- ISO 27701:2019 Privacy Information Management System
+- PCI DSS (Payment Card Industry Data Security Standard) AOC/ROC
+- HITRUST CSF (Health Information Trust Alliance Common Security Framework)
+- FedRAMP (Federal Risk and Authorization Management Program) - Low/Moderate/High
+- StateRAMP for state/local government cloud services
+- CSA STAR (Cloud Security Alliance Security, Trust, Assurance, and Risk) Certification/Attestation
+- CMMC (Cybersecurity Maturity Model Certification) Levels 1-3 for defense contractors
+
+**Regulatory TPRM Requirements**:
+- GDPR Article 28 (Processor requirements and Data Processing Agreements)
+- HIPAA Business Associate Agreement (BAA) requirements - 45 CFR 164.308(b)
+- PCI DSS Requirement 12.8 (Third-party service provider management)
+- SOX Section 404 (Vendor controls and SSAE 18 review)
+- NYDFS 23 NYCRR 500 (Cybersecurity Requirements - Third Party Service Provider Policy)
+- GLBA/FFIEC Outsourced Services guidance
+- DORA (EU Digital Operational Resilience Act) ICT third-party risk management
+- Singapore MAS Technology Risk Management Guidelines
+- Hong Kong HKMA Outsourcing Circular
+
+**TPRM Platforms & Tools**:
+- ServiceNow Third-Party Risk Management (TPRM)
+- OneTrust Vendorpedia
+- Prevalent Third-Party Risk Management
+- RiskRecon (now Mastercard)
+- SecurityScorecard vendor ratings
+- BitSight Security Ratings
+- ProcessUnity Vendor Risk Management
+- Venminder Third Party Risk Management
+- Whistic vendor assessment automation
+- CyberGRX exchange
+- NAVEX Global Third Party Management
+- LogicGate Vendor Risk Management
+
+**Continuous Monitoring & Ratings**:
+- SecurityScorecard A-F security ratings
+- BitSight Security Ratings (250-900 scale)
+- RiskRecon cyber risk scores
+- UpGuard vendor risk ratings
+- Bitsight for TPRM continuous monitoring
+- Black Kite cyber risk intelligence
+
+**Compliance & Audit Standards**:
+- SOC 2 Trust Services Criteria CC9 (Risk Assessment including third parties)
+- ISO 27001:2022 Annex A.5.19-5.23 (Supplier security)
+- COBIT 2019 (APO10 Manage Vendors)
+- SSAE 18 / AT-C 320 (SOC reporting standards)
+- ISAE 3402 (International Standard for SOC reporting)
+
+**Reference**: Consult Vendor Risk Management, CISO, Procurement, and Compliance teams for detailed guidance on TPRM program design, questionnaire selection, risk tiering methodology, and vendor security assessment procedures
 
 ## Integration Points
 

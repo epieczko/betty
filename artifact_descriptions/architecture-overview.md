@@ -2,9 +2,9 @@
 
 ## Executive Summary
 
-The Architecture Overview is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, and deliver consistent, high-quality outcomes.
+The Architecture Overview is a comprehensive technical artifact that documents the complete architectural landscape of a system or solution using industry-standard frameworks and modeling techniques. This artifact leverages the C4 Model (Context, Containers, Components, Code) for hierarchical decomposition, Kruchten's 4+1 View Model for multi-perspective analysis, and quality attribute scenarios from SEI to capture both functional and non-functional requirements.
 
-As a core component of the General practice, this artifact serves multiple constituencies—from hands-on practitioners who require detailed technical guidance to executive leadership seeking assurance of appropriate governance and risk management. It balances comprehensiveness with usability, ensuring that information is both thorough and accessible.
+Using tools like Structurizr for diagrams-as-code, PlantUML for UML diagrams, or Archi for ArchiMate 3.1 modeling, the architecture overview provides a complete picture spanning system context, container architecture, component design, and code structure. It addresses ISO 25010 quality attributes including performance efficiency, security, reliability, maintainability, and scalability while documenting architectural patterns such as microservices, hexagonal architecture, CQRS/event sourcing, and strangler fig migration strategies.
 
 ### Strategic Importance
 
@@ -20,27 +20,41 @@ As a core component of the General practice, this artifact serves multiple const
 
 ### Primary Purpose
 
-This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
+This artifact serves as the authoritative technical reference for system architecture, providing multiple views and perspectives that enable different stakeholders to understand structural, behavioral, and deployment aspects. It supports architecture decisions, technology selection, capacity planning, security reviews, and serves as the foundation for detailed design and implementation.
 
 ### Scope
 
 **In Scope**:
-- [Define what is included in this artifact]
-- [Key topics or areas covered]
-- [Processes or systems documented]
+- C4 Model diagrams: System Context (Level 1), Container (Level 2), Component (Level 3), and optionally Code (Level 4)
+- 4+1 architectural views: Logical view, Process view, Physical/Deployment view, Development view, and Use Case/Scenario view
+- Quality attribute scenarios using SEI's three-part structure (stimulus, response, response measure)
+- Architectural patterns and styles employed (microservices, event-driven, layered, hexagonal, etc.)
+- Technology stack and platform decisions with rationale
+- Cross-cutting concerns: security architecture, data architecture, integration architecture, deployment topology
+- Architectural decisions records (ADRs) for significant choices
+- Constraints, assumptions, and dependencies
+- Runtime behavior through sequence/collaboration diagrams
 
 **Out of Scope**:
-- [Explicitly state what is NOT covered]
-- [Related topics handled by other artifacts]
-- [Boundaries of this artifact's remit]
+- Detailed implementation-level code documentation (handled in code repositories)
+- Project planning, timelines, resource allocation (handled in project artifacts)
+- Detailed requirements specifications (handled in requirements artifacts)
+- Operational runbooks and procedures (handled in operations documentation)
+- Business process models (handled in business architecture)
 
 ### Target Audience
 
 **Primary Audience**:
-- [Define primary consumers and how they use this artifact]
+- Enterprise Architects: validate alignment with enterprise architecture principles and standards
+- Solution Architects: understand overall solution design and integration points
+- Technical Architects: detailed component design and technology decisions
+- Architecture Review Board (ARB) Members: evaluate architectural compliance and approve significant decisions
 
 **Secondary Audience**:
-- [Define secondary audiences and their use cases]
+- Development Teams: understand system structure for implementation
+- Infrastructure/Platform Engineers: provision and configure deployment environments
+- Security Architects: validate security controls and threat mitigation
+- Technical Program Managers: understand technical dependencies and constraints
 
 ## Document Information
 
@@ -106,19 +120,23 @@ This artifact serves as [define primary purpose based on artifact type - what pr
 
 ## Best Practices
 
-**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
-**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
-**Template Usage**: Use approved templates to ensure completeness and consistency across teams
-**Peer Review**: Have at least one qualified peer review before submitting for approval
-**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
-**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
-**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
-**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
-**Traceability**: Reference source materials, related documents, and dependencies to provide context and enable navigation
-**Regular Updates**: Review and update on scheduled cadence or when triggered by significant changes
-**Approval Evidence**: Maintain clear record of who approved, when, and any conditions or caveats
-**Distribution Management**: Clearly communicate where artifact is published and notify stakeholders of updates
-**Retention Compliance**: Follow organizational retention policies for how long to maintain and when to archive/destroy
+**Diagrams-as-Code**: Use Structurizr DSL, PlantUML, or Mermaid to version control diagrams alongside documentation; enables automated rendering and consistency
+**C4 Model Hierarchy**: Start with System Context (Level 1) for stakeholder communication, drill down to Container (Level 2) for system decomposition, Component (Level 3) for design, Code (Level 4) only when necessary
+**Multiple Perspectives**: Document all 4+1 views - logical (what), process (how/when), development (organization), physical (where), scenarios (why) - to address different stakeholder concerns
+**Quality Attribute Scenarios**: Define measurable quality requirements using SEI's three-part format: source-stimulus → architectural element → response-measure (e.g., "User requests web page → Load balancer → 95th percentile <2 seconds")
+**ADR Documentation**: Capture significant architecture decisions in lightweight Architecture Decision Records (ADRs) using Michael Nygard's template (context, decision, consequences, status)
+**Consistent Notation**: Use ArchiMate 3.1 notation for enterprise architecture, UML 2.5 for software design, BPMN 2.0 for processes; document notation legend in each diagram
+**Technology Radar**: Maintain ThoughtWorks-style technology radar (adopt, trial, assess, hold) for technology choices and evolution
+**Pattern Documentation**: Explicitly identify architectural patterns used (microservices, CQRS, event sourcing, hexagonal) with rationale and trade-offs
+**Cross-Cutting Concerns**: Document security architecture, data architecture, integration architecture, and observability strategy separately for clarity
+**Constraint Documentation**: Clearly separate architectural decisions from imposed constraints (regulatory, organizational, technical debt)
+**Tool Consistency**: Standardize on organization-approved tools (Structurizr, Archi, Enterprise Architect) for diagram creation and maintenance
+**Version Control**: Store diagrams-as-code in Git alongside documentation; use conventional commits for change tracking
+**Peer Review**: Conduct architecture peer reviews with other architects before ARB submission
+**Stakeholder Validation**: Walk through each view with relevant stakeholders - business owners for context, developers for components, operations for deployment
+**Regular Updates**: Update architecture overview when significant changes occur; maintain "living documentation" rather than point-in-time snapshots
+**Cloud-Native Patterns**: For cloud deployments, reference AWS/Azure/GCP Well-Architected Framework pillars and document alignment
+**Validation**: Verify architecture against quality attribute scenarios through prototyping, proof-of-concepts, or architectural fitness functions
 
 ## Quality Criteria
 
@@ -165,9 +183,66 @@ Before considering this artifact complete and ready for approval, verify:
 
 ## Related Standards & Frameworks
 
-**Architecture**: TOGAF, Zachman Framework, C4 Model, ArchiMate
+**Architecture Frameworks**:
+- TOGAF 9.2 Architecture Development Method (ADM) - particularly Architecture Vision (Phase A) and Information Systems Architecture (Phase C)
+- C4 Model (Context, Containers, Components, Code) - hierarchical software architecture diagrams
+- ArchiMate 3.1 - enterprise architecture modeling language for business, application, and technology layers
+- Zachman Framework - enterprise architecture framework with 6x6 classification schema
+- 4+1 View Model (Kruchten) - logical, process, physical, development views plus scenarios
+- IEEE 1471/ISO/IEC/IEEE 42010 - architecture description standard
+- Hexagonal Architecture (Ports and Adapters) - isolation of business logic from external concerns
+- Clean Architecture (Robert C. Martin) - dependency rule and concentric layers
 
-**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application
+**Modeling Standards**:
+- UML 2.5 - Unified Modeling Language for component, deployment, sequence, class diagrams
+- SysML 1.6 - Systems Modeling Language for complex systems
+- BPMN 2.0 - Business Process Model and Notation for process flows
+- ArchiMate 3.1 - enterprise architecture modeling with business, application, technology, motivation layers
+
+**Quality Frameworks**:
+- ISO/IEC 25010 (SQuaRE) - quality model covering functional suitability, performance efficiency, compatibility, usability, reliability, security, maintainability, portability
+- SEI Quality Attribute Workshop (QAW) - scenarios with stimulus-response-measure structure
+- ATAM (Architecture Tradeoff Analysis Method) - evaluating architecture against quality attributes
+- ISO/IEC 25040 - evaluation process for software product quality
+
+**Cloud Architecture**:
+- AWS Well-Architected Framework - operational excellence, security, reliability, performance efficiency, cost optimization, sustainability pillars
+- Azure Well-Architected Framework - cost optimization, operational excellence, performance efficiency, reliability, security
+- Google Cloud Architecture Framework - operational excellence, security/privacy/compliance, reliability, cost optimization, performance optimization
+- Cloud Native Computing Foundation (CNCF) maturity model
+- 12-Factor App methodology for cloud-native applications
+
+**Architectural Patterns**:
+- Microservices Architecture - distributed services with bounded contexts, API gateways, service mesh
+- Event-Driven Architecture - event sourcing, CQRS, saga pattern for distributed transactions
+- Layered Architecture - presentation, business logic, data access, infrastructure layers
+- Service-Oriented Architecture (SOA) - enterprise service bus, orchestration, choreography
+- Backend for Frontend (BFF) - purpose-built backends for specific frontend experiences
+- Strangler Fig Pattern - incremental migration from legacy to modern architecture
+- API Gateway Pattern - single entry point, routing, composition, protocol translation
+- Circuit Breaker Pattern - fault tolerance and resilience (Hystrix, Resilience4j)
+- CQRS (Command Query Responsibility Segregation) - separate read and write models
+- Event Sourcing - storing state changes as sequence of events
+
+**Security Architecture**:
+- NIST Cybersecurity Framework - identify, protect, detect, respond, recover
+- OWASP Top 10 - web application security risks
+- Zero Trust Architecture (NIST SP 800-207)
+- OAuth 2.0 / OpenID Connect - authorization and authentication
+- SAML 2.0 - Security Assertion Markup Language
+
+**Documentation Tools**:
+- Structurizr - diagrams-as-code for C4 Model using Java, .NET, or DSL
+- PlantUML - text-based UML diagram generation
+- Mermaid - markdown-like diagram syntax for sequence, class, state, ER diagrams
+- draw.io (diagrams.net) - web-based diagramming with Confluence/Jira integration
+- Lucidchart - collaborative diagramming with team collaboration
+- Microsoft Visio - enterprise diagramming tool
+- Archi - open-source ArchiMate modeling tool
+- Sparx Enterprise Architect - comprehensive UML/SysML/BPMN modeling
+- Visual Paradigm - UML, BPMN, ArchiMate modeling
+
+**Reference**: Consult organizational architecture and standards team for detailed guidance on framework application and tooling standards
 
 ## Integration Points
 
