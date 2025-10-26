@@ -15,6 +15,10 @@ from typing import Dict, Any, Optional, Tuple
 import re
 import yaml
 
+# Add parent directory to path for governance imports
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+from betty.governance import enforce_governance, log_governance_action
+
 
 def load_artifact_registry() -> Dict[str, Any]:
     """Load artifact registry from artifact.define skill"""
@@ -152,6 +156,39 @@ def populate_markdown_template(template_content: str, context: str, artifact_typ
     return '\n'.join(result_lines)
 
 
+def load_existing_artifact_metadata(artifact_path: Path) -> Optional[Dict[str, Any]]:
+    """
+    Load metadata from an existing artifact file.
+
+    Args:
+        artifact_path: Path to the existing artifact file
+
+    Returns:
+        Dictionary containing artifact metadata, or None if file doesn't exist
+    """
+    if not artifact_path.exists():
+        return None
+
+    try:
+        with open(artifact_path, 'r') as f:
+            content = f.read()
+
+        # Try to parse as YAML first
+        try:
+            data = yaml.safe_load(content)
+            if isinstance(data, dict) and 'metadata' in data:
+                return data['metadata']
+        except yaml.YAMLError:
+            pass
+
+        # If YAML parsing fails or no metadata found, return None
+        return None
+
+    except Exception as e:
+        # If we can't read the file, return None
+        return None
+
+
 def generate_artifact(
     artifact_type: str,
     context: str,
@@ -208,6 +245,50 @@ def generate_artifact(
     # Ensure output directory exists
     output_file = Path(output_path)
     output_file.parent.mkdir(parents=True, exist_ok=True)
+
+    # Governance check: Enforce governance on existing artifact before overwriting
+    existing_metadata = load_existing_artifact_metadata(output_file)
+    if existing_metadata:
+        try:
+            # Add artifact ID if not present
+            if 'id' not in existing_metadata:
+                existing_metadata['id'] = str(output_file)
+
+            enforce_governance(existing_metadata)
+
+            # Log successful governance check
+            log_governance_action(
+                artifact_id=existing_metadata.get('id', str(output_file)),
+                action="write",
+                outcome="allowed",
+                message="Governance check passed, allowing artifact update",
+                metadata={
+                    'artifact_type': artifact_type,
+                    'output_path': str(output_file)
+                }
+            )
+
+        except PermissionError as e:
+            # Governance policy violation - return error
+            return {
+                'success': False,
+                'error': f"Governance policy violation: {str(e)}",
+                'artifact_type': artifact_type,
+                'policy_violation': True,
+                'existing_metadata': existing_metadata
+            }
+        except ValueError as e:
+            # Invalid metadata - log warning but allow write
+            log_governance_action(
+                artifact_id=str(output_file),
+                action="write",
+                outcome="warning",
+                message=f"Invalid metadata in existing artifact: {str(e)}",
+                metadata={
+                    'artifact_type': artifact_type,
+                    'output_path': str(output_file)
+                }
+            )
 
     # Save generated artifact
     with open(output_file, 'w') as f:
