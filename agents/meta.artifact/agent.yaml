@@ -1,4 +1,5 @@
 name: meta.artifact
+version: 0.1.0
 description: |
   The artifact standards authority - THE single source of truth for all
   artifact type definitions in Betty Framework.
@@ -38,9 +39,16 @@ artifact_metadata:
       content_type: "text/x-python"
       description: "Updated KNOWN_ARTIFACT_TYPES registry"
 
+status: draft
+reasoning_mode: iterative
+capabilities:
+  - Curate and register canonical artifact type definitions and schemas
+  - Synchronize documentation with changes to artifact standards
+  - Validate artifact compatibility across registries and manifests
 skills_available:
   - artifact.define    # Use existing artifact definitions
-  - registry.validate  # Validate against existing types
+  - registry.update    # Register or amend artifact metadata
+  - registry.query     # Inspect existing registry entries
 
 permissions:
   - filesystem:read

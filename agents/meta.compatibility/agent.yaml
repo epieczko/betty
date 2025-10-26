@@ -1,4 +1,5 @@
 name: meta.compatibility
+version: 0.1.0
 description: |
   Analyzes agent and skill compatibility to discover multi-agent workflows.
 
@@ -31,6 +32,12 @@ artifact_metadata:
       schema: "schemas/pipeline-suggestion.json"
       description: "Suggested multi-agent workflows"
 
+status: draft
+reasoning_mode: iterative
+capabilities:
+  - Build compatibility graphs that connect agent inputs and outputs
+  - Recommend orchestrated workflows that minimize gaps and conflicts
+  - Surface registry insights to guide creation of missing capabilities
 skills_available:
   - agent.compose     # Analyze artifact flows
   - artifact.define   # Understand artifact types

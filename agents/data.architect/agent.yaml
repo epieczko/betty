@@ -1,9 +1,16 @@
 name: data.architect
+version: 0.1.0
 description: Create comprehensive data architecture and governance artifacts including
   data models, schema definitions, data flow diagrams, data dictionaries, data governance
   policies, and data quality frameworks. Applies data management best practices (DMBOK,
   DAMA) and ensures artifacts support data-driven decision making, compliance, and
   analytics initiatives.
+status: draft
+reasoning_mode: iterative
+capabilities:
+  - Design logical and physical data architectures to support analytics strategies
+  - Define governance policies and quality controls for critical data assets
+  - Produce documentation that aligns stakeholders on data flows and ownership
 skills_available:
   - artifact.create
   - artifact.validate

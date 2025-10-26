@@ -5,48 +5,16 @@ Provides data models for skill manifests and workflow definitions to ensure
 schema compliance before registration or execution.
 """
 
+from typing import Any, Dict, List, Optional, Union
+
 from pydantic import BaseModel, Field, ValidationError, field_validator
-from typing import List, Optional, Dict, Any, Union
-from enum import Enum
 
-
-# ============================================================================
-# Enums for validation
-# ============================================================================
-
-class ReasoningMode(str, Enum):
-    """Valid agent reasoning modes."""
-    ITERATIVE = "iterative"
-    ONESHOT = "oneshot"
-
-
-class StatusType(str, Enum):
-    """Valid status values."""
-    DRAFT = "draft"
-    ACTIVE = "active"
-    BETA = "beta"
-    STABLE = "stable"
-    DEPRECATED = "deprecated"
-    DISABLED = "disabled"
-    ARCHIVED = "archived"
-
-
-class CommandExecutionType(str, Enum):
-    """Valid command execution types."""
-    AGENT = "agent"
-    SKILL = "skill"
-    WORKFLOW = "workflow"
-
-
-class HookEventType(str, Enum):
-    """Valid hook event types."""
-    ON_FILE_EDIT = "on_file_edit"
-    ON_FILE_SAVE = "on_file_save"
-    ON_COMMIT = "on_commit"
-    ON_PUSH = "on_push"
-    ON_TOOL_USE = "on_tool_use"
-    ON_AGENT_START = "on_agent_start"
-    ON_WORKFLOW_END = "on_workflow_end"
+from betty.enums import (
+    CommandExecutionType,
+    HookEvent,
+    ReasoningMode,
+    StatusType,
+)
 
 
 # ============================================================================
@@ -175,7 +143,7 @@ class HookManifest(BaseModel):
     name: str = Field(..., description="Hook name")
     version: str = Field(..., description="Semantic version (e.g., 1.0.0)")
     description: str = Field(..., description="Brief description of the hook")
-    event: HookEventType = Field(..., description="Hook event type")
+    event: HookEvent = Field(..., description="Hook event type")
     command: str = Field(..., min_length=1, description="Command to execute (cannot be empty)")
 
     # Optional fields
@@ -378,7 +346,7 @@ __all__ = [
     "ReasoningMode",
     "StatusType",
     "CommandExecutionType",
-    "HookEventType",
+    "HookEvent",
     # Skill models
     "SkillManifest",
     # Agent models

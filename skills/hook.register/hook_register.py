@@ -19,9 +19,8 @@ from betty.config import (
     BASE_DIR,
     REQUIRED_HOOK_FIELDS,
     HOOKS_REGISTRY_FILE,
-    HookEvent,
-    HookStatus
 )
+from betty.enums import HookEvent, HookStatus
 from betty.validation import (
     validate_path,
     validate_manifest_fields,
@@ -161,44 +160,43 @@ def validate_manifest(path: str) -> Dict[str, Any]:
             "path": path
         }
 
-    # Validate with Pydantic schema first
+    # Check required fields first so user-friendly errors appear before schema errors
+    missing = validate_manifest_fields(manifest, REQUIRED_HOOK_FIELDS)
+    if missing:
+        missing_message = f"Missing required fields: {', '.join(missing)}"
+        errors.append(missing_message)
+        logger.warning(f"Missing required fields: {missing}")
+
+    # Validate with Pydantic schema while still running custom checks
     schema_errors = validate_hook_schema(manifest)
     errors.extend(schema_errors)
 
-    # Check required fields
-    missing = validate_manifest_fields(manifest, REQUIRED_HOOK_FIELDS)
-    if missing:
-        errors.append(f"Missing required fields: {', '.join(missing)}")
-        logger.warning(f"Missing required fields: {missing}")
+    name = manifest.get("name")
+    if name is not None:
+        try:
+            validate_hook_name(name)
+        except Exception as e:
+            errors.append(f"Invalid name: {str(e)}")
+            logger.warning(f"Invalid name: {e}")
 
-    # If missing required fields, return early
-    if errors:
-        return {
-            "valid": False,
-            "errors": errors,
-            "path": path
-        }
+    version = manifest.get("version")
+    if version is not None:
+        try:
+            validate_version(version)
+        except Exception as e:
+            errors.append(f"Invalid version: {str(e)}")
+            logger.warning(f"Invalid version: {e}")
 
-    # Validate name format
-    try:
-        validate_hook_name(manifest["name"])
-    except Exception as e:
-        errors.append(f"Invalid name: {str(e)}")
-        logger.warning(f"Invalid name: {e}")
-
-    # Validate version format
-    try:
-        validate_version(manifest["version"])
-    except Exception as e:
-        errors.append(f"Invalid version: {str(e)}")
-        logger.warning(f"Invalid version: {e}")
-
-    # Validate event type
-    try:
-        validate_hook_event(manifest["event"])
-    except Exception as e:
-        errors.append(f"Invalid event: {str(e)}")
-        logger.warning(f"Invalid event: {e}")
+    event = manifest.get("event")
+    if event is not None:
+        try:
+            validate_hook_event(event)
+        except Exception as e:
+            errors.append(f"Invalid event: {str(e)}")
+            logger.warning(f"Invalid event: {e}")
+    elif "event" not in missing:
+        errors.append("event must be provided")
+        logger.warning("Hook event missing")
 
     # Validate command is not empty
     command = manifest.get("command", "")

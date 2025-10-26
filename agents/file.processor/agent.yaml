@@ -1,7 +1,17 @@
 name: file.processor
+version: 0.1.0
 description: Processes files through various transformations including format conversion,
   compression, encryption, and batch operations.
-skills_available: []
+status: draft
+reasoning_mode: oneshot
+capabilities:
+  - Execute configurable pipelines of file transformations
+  - Optimize files through compression and format conversion workflows
+  - Apply encryption and verification steps with detailed reporting
+skills_available:
+  - file.compare
+  - workflow.orchestrate
+  - build.optimize
 permissions: []
 artifact_metadata:
   consumes:

@@ -1,4 +1,5 @@
 name: meta.command
+version: 0.1.0
 description: |
   Creates complete command manifests from natural language descriptions.
 
@@ -38,6 +39,12 @@ artifact_metadata:
       content_type: "text/markdown"
       description: "Command documentation with usage examples"
 
+status: draft
+reasoning_mode: iterative
+capabilities:
+  - Transform natural language specifications into validated command manifests
+  - Recommend appropriate execution targets across agents, skills, and workflows
+  - Produce documentation and registration-ready assets for new commands
 skills_available:
   - command.define     # Register command in registry
   - artifact.define    # Generate artifact metadata

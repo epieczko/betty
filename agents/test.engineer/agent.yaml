@@ -1,9 +1,16 @@
 name: test.engineer
+version: 0.1.0
 description: Create comprehensive testing artifacts including test plans, test cases,
   test results, test automation strategies, and quality assurance reports. Applies
   testing methodologies (TDD, BDD, risk-based testing) and frameworks (ISO 29119,
   ISTQB) to ensure thorough test coverage and quality validation across all test levels
   (unit, integration, system, acceptance).
+status: draft
+reasoning_mode: iterative
+capabilities:
+  - Develop comprehensive test strategies across multiple levels and techniques
+  - Produce reusable automation assets and coverage reporting
+  - Analyze defect data to recommend quality improvements
 skills_available:
   - artifact.create
   - artifact.validate

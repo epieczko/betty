@@ -1,9 +1,16 @@
 name: governance.manager
+version: 0.1.0
 description: Create comprehensive program and project governance artifacts including
   project charters, RAID logs (Risks, Assumptions, Issues, Decisions), decision logs,
   governance frameworks, compliance matrices, and steering committee artifacts. Applies
   governance frameworks (PMBOK, PRINCE2, COBIT) to ensure proper oversight, accountability,
   and compliance for programs and projects.
+status: draft
+reasoning_mode: iterative
+capabilities:
+  - Establish governance structures and stakeholder engagement plans
+  - Maintain comprehensive RAID and decision logs for executive visibility
+  - Ensure compliance with regulatory and organizational policy requirements
 skills_available:
   - artifact.create
   - artifact.validate

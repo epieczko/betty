@@ -1,8 +1,15 @@
 name: strategy.architect
+version: 0.1.0
 description: Create comprehensive business strategy and planning artifacts including
   business cases, portfolio roadmaps, market analyses, competitive assessments, and
   strategic planning documents. Leverages financial modeling (NPV, IRR, ROI) and industry
   frameworks (PMBOK, SAFe, BCG Matrix) to produce executive-ready strategic deliverables.
+status: draft
+reasoning_mode: iterative
+capabilities:
+  - Build financial models and strategic roadmaps aligned to business objectives
+  - Analyze market and competitive data to inform executive decisions
+  - Produce governance-ready artifacts with risks, dependencies, and recommendations
 skills_available:
   - artifact.create
   - artifact.validate

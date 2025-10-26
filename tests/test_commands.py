@@ -21,11 +21,8 @@ from command_define import (
     CommandValidationError,
     CommandRegistryError
 )
-from betty.config import (
-    COMMANDS_REGISTRY_FILE,
-    CommandExecutionType,
-    CommandStatus
-)
+from betty.config import COMMANDS_REGISTRY_FILE
+from betty.enums import CommandExecutionType, CommandStatus
 from betty.validation import (
     validate_command_name,
     validate_command_execution_type,

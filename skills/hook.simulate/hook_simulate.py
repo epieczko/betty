@@ -22,9 +22,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from betty.config import (
     REQUIRED_HOOK_FIELDS,
-    HookEvent,
-    HookStatus,
 )
+from betty.enums import HookEvent, HookStatus
 from betty.validation import (
     validate_hook_name,
     validate_version,

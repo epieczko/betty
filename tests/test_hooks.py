@@ -32,7 +32,7 @@ from hook_register import (
     HookValidationError,
     HookRegistryError
 )
-from betty.config import HookEvent, HookStatus
+from betty.enums import HookEvent, HookStatus
 from betty.validation import validate_hook_name, validate_hook_event, ValidationError
 
 

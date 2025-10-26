@@ -1,11 +1,18 @@
 name: api.architect
+version: 0.1.0
 description: An agent that designs comprehensive REST APIs and validates them against
   best practices. Takes API requirements as input and produces validated OpenAPI specifications
   with generated data models ready for implementation.
+status: draft
+reasoning_mode: iterative
+capabilities:
+  - Translate API requirements into detailed OpenAPI specifications
+  - Validate API designs against organizational standards and linting rules
+  - Generate reference data models to accelerate implementation
 skills_available:
-- workflow.validate
-- api.validate
-- api.define
+  - workflow.validate
+  - api.validate
+  - api.define
 permissions: []
 artifact_metadata:
   consumes:

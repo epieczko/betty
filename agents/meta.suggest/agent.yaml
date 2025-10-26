@@ -1,4 +1,5 @@
 name: meta.suggest
+version: 0.1.0
 description: |
   Context-aware next-step recommender that helps Claude decide what to do next
   after an agent completes.
@@ -22,6 +23,12 @@ artifact_metadata:
       schema: "schemas/suggestion-report.json"
       description: "Context-aware recommendations for next steps"
 
+status: draft
+reasoning_mode: iterative
+capabilities:
+  - Analyze produced artifacts to understand project context
+  - Recommend next agents or workflows with supporting rationale
+  - Highlight gaps and dependencies to maintain delivery momentum
 skills_available:
   - meta.compatibility  # Analyze compatibility
   - artifact.define     # Understand artifacts
