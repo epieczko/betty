@@ -1,0 +1,657 @@
+{
+  "audit_timestamp": "2025-10-26T19:34:57.398089+00:00",
+  "total_plugins": 70,
+  "successful": 69,
+  "failed": 1,
+  "pass_rate": "98.6%",
+  "summary": {
+    "total_manifests": 70,
+    "skills": 50,
+    "agents": 20,
+    "valid": 69,
+    "invalid": 1,
+    "discoverable": 63,
+    "execution_verified": 70,
+    "registry_consistent": true,
+    "tests_passed": null
+  },
+  "warnings": [],
+  "errors": [
+    "Skill validation failed: build.optimize - Missing required fields: inputs, outputs, No entrypoints defined"
+  ],
+  "plugins": [
+    {
+      "plugin_name": "api.define",
+      "manifest_path": "/home/user/betty/skills/api.define/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "artifact.review",
+      "manifest_path": "/home/user/betty/skills/artifact.review/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "registry.query",
+      "manifest_path": "/home/user/betty/skills/registry.query/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "api.compatibility",
+      "manifest_path": "/home/user/betty/skills/api.compatibility/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "workflow.compose",
+      "manifest_path": "/home/user/betty/skills/workflow.compose/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "file.compare",
+      "manifest_path": "/home/user/betty/skills/file.compare/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "agent.run",
+      "manifest_path": "/home/user/betty/skills/agent.run/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "hook.register",
+      "manifest_path": "/home/user/betty/skills/hook.register/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "build.optimize",
+      "manifest_path": "/home/user/betty/skills/build.optimize/skill.yaml",
+      "plugin_type": "skill",
+      "status": "error",
+      "errors": [
+        "Missing required fields: inputs, outputs",
+        "No entrypoints defined"
+      ],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "command.define",
+      "manifest_path": "/home/user/betty/skills/command.define/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "workflow.orchestrate",
+      "manifest_path": "/home/user/betty/skills/workflow.orchestrate/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "docs.expand.glossary",
+      "manifest_path": "/home/user/betty/skills/docs.expand.glossary/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "generate.marketplace",
+      "manifest_path": "/home/user/betty/skills/generate.marketplace/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "api.generatemodels",
+      "manifest_path": "/home/user/betty/skills/api.generatemodels/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "docs.validate.skilldocs",
+      "manifest_path": "/home/user/betty/skills/docs.validate.skilldocs/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "docs.sync.readme",
+      "manifest_path": "/home/user/betty/skills/docs.sync.readme/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "docs.sync.pluginmanifest",
+      "manifest_path": "/home/user/betty/skills/docs.sync.pluginmanifest/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "artifact.define",
+      "manifest_path": "/home/user/betty/skills/artifact.define/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "registry.update",
+      "manifest_path": "/home/user/betty/skills/registry.update/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "hook.define",
+      "manifest_path": "/home/user/betty/skills/hook.define/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "generate.docs",
+      "manifest_path": "/home/user/betty/skills/generate.docs/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "docs.lint.links",
+      "manifest_path": "/home/user/betty/skills/docs.lint.links/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "git.cleanupbranches",
+      "manifest_path": "/home/user/betty/skills/git.cleanupbranches/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": false,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "plugin.sync",
+      "manifest_path": "/home/user/betty/skills/plugin.sync/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "telemetry.capture",
+      "manifest_path": "/home/user/betty/skills/telemetry.capture/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "workflow.validate",
+      "manifest_path": "/home/user/betty/skills/workflow.validate/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "plugin.publish",
+      "manifest_path": "/home/user/betty/skills/plugin.publish/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "plugin.build",
+      "manifest_path": "/home/user/betty/skills/plugin.build/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "registry.diff",
+      "manifest_path": "/home/user/betty/skills/registry.diff/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "agent.compose",
+      "manifest_path": "/home/user/betty/skills/agent.compose/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "api.validate",
+      "manifest_path": "/home/user/betty/skills/api.validate/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "hook.simulate",
+      "manifest_path": "/home/user/betty/skills/hook.simulate/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "agent.define",
+      "manifest_path": "/home/user/betty/skills/agent.define/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "policy.enforce",
+      "manifest_path": "/home/user/betty/skills/policy.enforce/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "artifact.create",
+      "manifest_path": "/home/user/betty/skills/artifact.create/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "api.test",
+      "manifest_path": "/home/user/betty/skills/api.test/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "data.transform",
+      "manifest_path": "/home/user/betty/skills/data.transform/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "artifact.validate",
+      "manifest_path": "/home/user/betty/skills/artifact.validate/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "skill.create",
+      "manifest_path": "/home/user/betty/skills/skill.create/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "audit.log",
+      "manifest_path": "/home/user/betty/skills/audit.log/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "skill.define",
+      "manifest_path": "/home/user/betty/skills/skill.define/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "git.createpr",
+      "manifest_path": "/home/user/betty/skills/git.createpr/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": false,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "code.format",
+      "manifest_path": "/home/user/betty/skills/code.format/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "meta.compatibility",
+      "manifest_path": "/home/user/betty/skills/meta.compatibility/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "epic.decompose",
+      "manifest_path": "/home/user/betty/skills/epic.decompose/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": false,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "artifact.scaffold",
+      "manifest_path": "/home/user/betty/skills/artifact.scaffold/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": false,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "test.example",
+      "manifest_path": "/home/user/betty/skills/test.example/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "epic.write",
+      "manifest_path": "/home/user/betty/skills/epic.write/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": false,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "story.write",
+      "manifest_path": "/home/user/betty/skills/story.write/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": false,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "hello.world",
+      "manifest_path": "/home/user/betty/examples/skills/hello.world/skill.yaml",
+      "plugin_type": "skill",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": false,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "test.engineer",
+      "manifest_path": "/home/user/betty/agents/test.engineer/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "meta.agent",
+      "manifest_path": "/home/user/betty/agents/meta.agent/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "meta.hook",
+      "manifest_path": "/home/user/betty/agents/meta.hook/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "code.reviewer",
+      "manifest_path": "/home/user/betty/agents/code.reviewer/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "deployment.engineer",
+      "manifest_path": "/home/user/betty/agents/deployment.engineer/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "meta.suggest",
+      "manifest_path": "/home/user/betty/agents/meta.suggest/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "meta.compatibility",
+      "manifest_path": "/home/user/betty/agents/meta.compatibility/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "data.validator",
+      "manifest_path": "/home/user/betty/agents/data.validator/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "meta.skill",
+      "manifest_path": "/home/user/betty/agents/meta.skill/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "governance.manager",
+      "manifest_path": "/home/user/betty/agents/governance.manager/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "meta.artifact",
+      "manifest_path": "/home/user/betty/agents/meta.artifact/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "data.architect",
+      "manifest_path": "/home/user/betty/agents/data.architect/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "api.analyzer",
+      "manifest_path": "/home/user/betty/agents/api.analyzer/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "meta.command",
+      "manifest_path": "/home/user/betty/agents/meta.command/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "file.processor",
+      "manifest_path": "/home/user/betty/agents/file.processor/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "api.architect",
+      "manifest_path": "/home/user/betty/agents/api.architect/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "api.designer",
+      "manifest_path": "/home/user/betty/agents/api.designer/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "strategy.architect",
+      "manifest_path": "/home/user/betty/agents/strategy.architect/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "security.architect",
+      "manifest_path": "/home/user/betty/agents/security.architect/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    },
+    {
+      "plugin_name": "meta.create",
+      "manifest_path": "/home/user/betty/agents/meta.create/agent.yaml",
+      "plugin_type": "agent",
+      "status": "ok",
+      "errors": [],
+      "discoverable_in_claude": true,
+      "execution_target_verified": true
+    }
+  ]
+}
