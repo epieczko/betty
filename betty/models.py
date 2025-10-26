@@ -200,6 +200,7 @@ class WorkflowStep(BaseModel):
     """Schema for a single workflow step."""
 
     skill: Optional[str] = Field(None, description="Skill to execute in namespace.action format")
+    version: Optional[str] = Field(None, description="Version constraint for skill (e.g., '>=1.0.0 <2.0.0', '^1.2.0')")
     inputs: Optional[Dict[str, Any]] = Field(None, description="Input parameters for the skill")
     required: bool = Field(default=False, description="Whether this step is required")
 

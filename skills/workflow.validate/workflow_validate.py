@@ -5,6 +5,7 @@ import json
 import os
 import sys
 from typing import Any, Dict, List, Optional
+from datetime import datetime, timezone
 
 import yaml
 from pydantic import ValidationError as PydanticValidationError
@@ -17,13 +18,18 @@ from betty.logging_utils import setup_logger  # noqa: E402
 from betty.validation import ValidationError, validate_path  # noqa: E402
 from betty.telemetry_integration import telemetry_tracked  # noqa: E402
 from betty.models import WorkflowDefinition  # noqa: E402
+from betty.config import REGISTRY_DIR  # noqa: E402
+from betty.versioning import satisfies  # noqa: E402
 
 logger = setup_logger(__name__)
 
 REQUIRED_FIELDS = ["steps"]
 # Steps can have either 'skill' or 'agent' (not both)
-# For skill steps: 'skill' and 'args' are required
+# For skill steps: 'skill', 'version', and 'args' are required
 # For agent steps: 'agent' is required, 'input' is optional
+
+SKILLS_REGISTRY_FILE = os.path.join(REGISTRY_DIR, "skills.json")
+LOCKFILE_DIR = os.path.join(REGISTRY_DIR, "runs")
 
 
 def build_response(ok: bool, path: str, errors: Optional[List[str]] = None, details: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
@@ -68,6 +74,48 @@ def _validate_required_fields(data: Dict[str, Any]) -> List[str]:
     return errors
 
 
+def _load_skills_registry() -> Dict[str, Any]:
+    """Load the skills registry from disk."""
+    try:
+        if not os.path.exists(SKILLS_REGISTRY_FILE):
+            logger.warning(f"Skills registry not found at {SKILLS_REGISTRY_FILE}")
+            return {"skills": []}
+
+        with open(SKILLS_REGISTRY_FILE, 'r') as f:
+            return json.load(f)
+    except Exception as e:
+        logger.error(f"Failed to load skills registry: {e}")
+        return {"skills": []}
+
+
+def _resolve_skill_version(skill_name: str, version_constraint: str, registry: Dict[str, Any]) -> Optional[str]:
+    """
+    Resolve a skill version from the registry that satisfies the constraint.
+
+    Args:
+        skill_name: Name of the skill to resolve
+        version_constraint: Version constraint (e.g., ">=1.0.0 <2.0.0")
+        registry: Skills registry data
+
+    Returns:
+        Resolved version string, or None if no matching version found
+    """
+    matching_versions = []
+
+    for skill in registry.get("skills", []):
+        if skill.get("name") == skill_name:
+            skill_version = skill.get("version")
+            if skill_version and satisfies(skill_version, version_constraint):
+                matching_versions.append(skill_version)
+
+    if not matching_versions:
+        return None
+
+    # Return the latest version that satisfies the constraint
+    # (assuming versions are stored in order, or we could sort them)
+    return matching_versions[-1]
+
+
 def _validate_steps(steps: Any) -> List[str]:
     """Validate the steps section of the workflow."""
     errors: List[str] = []
@@ -98,6 +146,14 @@ def _validate_steps(steps: Any) -> List[str]:
             skill_value = step.get("skill")
             if not isinstance(skill_value, str):
                 errors.append(f"Step {index} 'skill' must be a string")
+
+            # version field is required for skill steps
+            if "version" not in step:
+                errors.append(f"Step {index} missing 'version' constraint (required for skill steps)")
+            else:
+                version_value = step.get("version")
+                if not isinstance(version_value, str):
+                    errors.append(f"Step {index} 'version' must be a string")
 
             # args field is required for skill steps
             if "args" not in step:
@@ -149,8 +205,102 @@ def _validate_with_pydantic(data: Dict[str, Any]) -> List[str]:
     return errors
 
 
+def _resolve_versions_and_create_lockfile(
+    workflow_name: str,
+    workflow_data: Dict[str, Any],
+    registry: Dict[str, Any]
+) -> Dict[str, Any]:
+    """
+    Resolve skill versions from registry and create a lockfile.
+
+    Args:
+        workflow_name: Name of the workflow
+        workflow_data: Workflow definition data
+        registry: Skills registry data
+
+    Returns:
+        Dictionary with resolved versions and lockfile path
+
+    Raises:
+        WorkflowError: If version resolution fails
+    """
+    resolved = []
+    errors = []
+
+    for index, step in enumerate(workflow_data.get("steps", []), start=1):
+        if "skill" in step:
+            skill_name = step.get("skill")
+            version_constraint = step.get("version")
+
+            if skill_name and version_constraint:
+                resolved_version = _resolve_skill_version(skill_name, version_constraint, registry)
+
+                if resolved_version:
+                    resolved.append({
+                        "skill": skill_name,
+                        "version": resolved_version,
+                        "constraint": version_constraint
+                    })
+                else:
+                    errors.append(
+                        f"Step {index}: No version of skill '{skill_name}' "
+                        f"satisfies constraint '{version_constraint}'"
+                    )
+
+    if errors:
+        raise WorkflowError(
+            f"Version resolution failed for workflow '{workflow_name}':\n" +
+            "\n".join(f"  - {err}" for err in errors)
+        )
+
+    # Create lockfile
+    timestamp = datetime.now(timezone.utc).isoformat()
+    lockfile_data = {
+        "workflow": workflow_name,
+        "timestamp": timestamp,
+        "resolved": resolved
+    }
+
+    # Ensure lockfile directory exists
+    os.makedirs(LOCKFILE_DIR, exist_ok=True)
+
+    # Generate lockfile name
+    lockfile_name = f"{timestamp.replace(':', '-').replace('.', '-')}.lock.json"
+    lockfile_path = os.path.join(LOCKFILE_DIR, lockfile_name)
+
+    # Write lockfile
+    try:
+        with open(lockfile_path, 'w') as f:
+            json.dump(lockfile_data, f, indent=2)
+        logger.info(f"Lockfile created at {lockfile_path}")
+    except Exception as e:
+        logger.error(f"Failed to create lockfile: {e}")
+        raise WorkflowError(f"Failed to create lockfile: {e}")
+
+    return {
+        "resolved": resolved,
+        "lockfile_path": lockfile_path,
+        "lockfile_data": lockfile_data
+    }
+
+
 def validate_workflow(path: str) -> Dict[str, Any]:
-    """Validate a workflow definition file."""
+    """
+    Validate a workflow definition file.
+
+    Validates workflow structure, version constraints, and resolves skill versions
+    from the registry. On success, creates a lockfile under registry/runs/.
+
+    Args:
+        path: Path to workflow YAML file
+
+    Returns:
+        Validation result dictionary
+
+    Raises:
+        SkillValidationError: If validation fails
+        WorkflowError: If version resolution fails
+    """
     try:
         validate_path(path, must_exist=True)
     except ValidationError as exc:
@@ -168,13 +318,39 @@ def validate_workflow(path: str) -> Dict[str, Any]:
     errors.extend(_validate_required_fields(workflow_data))
     errors.extend(_validate_steps(workflow_data.get("steps", [])))
 
-    status = "validated" if not errors else "failed"
-    result = {
-        "valid": not errors,
-        "errors": errors,
-        "status": status,
-        "path": path,
-    }
+    if errors:
+        status = "failed"
+        result = {
+            "valid": False,
+            "errors": errors,
+            "status": status,
+            "path": path,
+        }
+        return result
+
+    # If validation passed, resolve versions and create lockfile
+    workflow_name = workflow_data.get("name", os.path.basename(path).replace(".yaml", ""))
+    registry = _load_skills_registry()
+
+    try:
+        lockfile_info = _resolve_versions_and_create_lockfile(workflow_name, workflow_data, registry)
+
+        result = {
+            "valid": True,
+            "errors": [],
+            "status": "validated",
+            "path": path,
+            "lockfile": lockfile_info["lockfile_path"],
+            "resolved_versions": lockfile_info["resolved"],
+        }
+    except WorkflowError as e:
+        # Version resolution failed
+        result = {
+            "valid": False,
+            "errors": [str(e)],
+            "status": "failed",
+            "path": path,
+        }
 
     return result
 

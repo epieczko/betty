@@ -21,9 +21,10 @@ from betty.config import BASE_DIR, REGISTRY_FILE, REGISTRY_VERSION, get_skill_ha
 from betty.file_utils import safe_update_json
 from betty.validation import validate_path
 from betty.logging_utils import setup_logger
-from betty.errors import RegistryError, format_error_response
+from betty.errors import RegistryError, VersionConflictError, format_error_response
 from betty.telemetry_capture import capture_execution
 from betty.models import SkillManifest
+from betty.versioning import is_monotonic_increase, parse_version
 
 logger = setup_logger(__name__)
 
@@ -382,6 +383,71 @@ def apply_auto_version(manifest_path: str, manifest: Dict[str, Any]) -> tuple[Di
     return updated_manifest, reason
 
 
+def enforce_version_constraints(manifest: Dict[str, Any], registry_data: Dict[str, Any]) -> None:
+    """
+    Enforce semantic version constraints on manifest updates.
+
+    Rules:
+    - Version field is required on all entries
+    - Cannot overwrite an active version with the same version number
+    - Version must be monotonically increasing (no downgrades)
+
+    Args:
+        manifest: Skill manifest to validate
+        registry_data: Current registry data
+
+    Raises:
+        RegistryError: If version field is missing
+        VersionConflictError: If version constraints are violated
+    """
+    skill_name = manifest.get("name")
+    new_version = manifest.get("version")
+
+    # Rule 1: Require explicit version field
+    if not new_version:
+        raise RegistryError(
+            f"Manifest for '{skill_name}' missing required 'version' field. "
+            "All registry entries must have an explicit semantic version."
+        )
+
+    # Validate version format
+    try:
+        parse_version(new_version)
+    except Exception as e:
+        raise RegistryError(f"Invalid version format '{new_version}': {e}")
+
+    # Find existing entry in registry
+    existing_entry = None
+    for skill in registry_data.get("skills", []):
+        if skill.get("name") == skill_name:
+            existing_entry = skill
+            break
+
+    if existing_entry:
+        old_version = existing_entry.get("version")
+        old_status = existing_entry.get("status", "draft")
+
+        if old_version:
+            # Rule 2: Refuse overwriting an active version with same version
+            if new_version == old_version and old_status == "active":
+                raise VersionConflictError(
+                    f"Cannot overwrite active version {old_version} of '{skill_name}'. "
+                    f"Active versions are immutable. Please increment the version number."
+                )
+
+            # Rule 3: Enforce monotonic SemVer order (no downgrades)
+            if not is_monotonic_increase(old_version, new_version):
+                # Allow same version if status is draft (for iterative development)
+                if new_version == old_version and old_status == "draft":
+                    logger.info(f"Allowing same version {new_version} for draft skill '{skill_name}'")
+                else:
+                    raise VersionConflictError(
+                        f"Version downgrade or same version detected for '{skill_name}': "
+                        f"{old_version} -> {new_version}. "
+                        f"Versions must follow monotonic SemVer order (e.g., 0.2.0 < 0.3.0)."
+                    )
+
+
 def update_registry_data(manifest_path: str, auto_version: bool = False) -> Dict[str, Any]:
     """
     Update the registry with a skill manifest.
@@ -397,6 +463,7 @@ def update_registry_data(manifest_path: str, auto_version: bool = False) -> Dict
 
     Raises:
         RegistryError: If update fails
+        VersionConflictError: If version constraints are violated
     """
     # Validate path
     validate_path(manifest_path, must_exist=True)
@@ -432,6 +499,15 @@ def update_registry_data(manifest_path: str, auto_version: bool = False) -> Dict
                 registry_before = json.load(f)
     except Exception:
         pass  # Ignore errors reading before state
+
+    # Enforce version constraints before update
+    # Use registry_before if available, otherwise use default empty structure
+    registry_for_validation = registry_before if registry_before else {
+        "registry_version": REGISTRY_VERSION,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "skills": []
+    }
+    enforce_version_constraints(manifest, registry_for_validation)
 
     def update_fn(registry_data):
         """Update function for safe_update_json."""
@@ -531,6 +607,10 @@ def update_registry_data(manifest_path: str, auto_version: bool = False) -> Dict
             logger.info(f"✅ Successfully updated registry for: {skill_name}")
             return result
 
+    except VersionConflictError as e:
+        # Re-raise version conflicts without wrapping
+        logger.error(f"Version conflict: {e}")
+        raise
     except Exception as e:
         logger.error(f"Failed to update registry: {e}")
         raise RegistryError(f"Failed to update registry: {e}")
@@ -562,7 +642,7 @@ def main():
         )
         print(json.dumps(response, indent=2))
         sys.exit(0)
-    except RegistryError as e:
+    except (RegistryError, VersionConflictError) as e:
         logger.error(str(e))
         error_info = format_error_response(e)
 
@@ -570,6 +650,10 @@ def main():
         is_schema_error = "schema validation failed" in str(e).lower()
         if is_schema_error:
             error_info["type"] = "SchemaError"
+
+        # Mark version conflicts with appropriate error type
+        if isinstance(e, VersionConflictError):
+            error_info["type"] = "VersionConflictError"
 
         response = build_response(
             False,
