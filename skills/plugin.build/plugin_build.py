@@ -15,6 +15,7 @@ import shutil
 from typing import Dict, Any, List, Optional, Tuple
 from datetime import datetime, timezone
 from pathlib import Path
+from pydantic import ValidationError as PydanticValidationError
 
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
@@ -22,6 +23,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../.
 from betty.config import BASE_DIR
 from betty.logging_utils import setup_logger
 from betty.telemetry_capture import capture_skill_execution
+from betty.models import PluginManifest
 from utils.telemetry_utils import capture_telemetry
 
 logger = setup_logger(__name__)
@@ -40,12 +42,27 @@ def load_plugin_yaml(plugin_path: str) -> Dict[str, Any]:
     Raises:
         FileNotFoundError: If plugin.yaml doesn't exist
         yaml.YAMLError: If YAML is invalid
+        ValueError: If schema validation fails
     """
     try:
         with open(plugin_path) as f:
             config = yaml.safe_load(f)
-            logger.info(f"✅ Loaded plugin.yaml from {plugin_path}")
-            return config
+
+        # Validate with Pydantic schema
+        try:
+            PluginManifest.model_validate(config)
+            logger.info(f"✅ Loaded and validated plugin.yaml from {plugin_path}")
+        except PydanticValidationError as exc:
+            errors = []
+            for error in exc.errors():
+                field = ".".join(str(loc) for loc in error["loc"])
+                message = error["msg"]
+                errors.append(f"{field}: {message}")
+            error_msg = f"Plugin schema validation failed: {'; '.join(errors)}"
+            logger.error(f"❌ {error_msg}")
+            raise ValueError(error_msg)
+
+        return config
     except FileNotFoundError:
         logger.error(f"❌ plugin.yaml not found: {plugin_path}")
         raise

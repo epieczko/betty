@@ -10,6 +10,7 @@ import json
 import yaml
 import subprocess
 from typing import Dict, Any, List, Optional
+from pydantic import ValidationError as PydanticValidationError
 from datetime import datetime, timezone
 
 # Add parent directory to path for imports
@@ -19,6 +20,7 @@ from betty.config import BASE_DIR, REQUIRED_SKILL_FIELDS
 from betty.validation import validate_path, validate_manifest_fields
 from betty.logging_utils import setup_logger
 from betty.errors import SkillValidationError, format_error_response
+from betty.models import SkillManifest
 
 logger = setup_logger(__name__)
 
@@ -60,6 +62,32 @@ def load_skill_manifest(path: str) -> Dict[str, Any]:
         raise SkillValidationError(f"Failed to parse YAML: {e}")
 
 
+def validate_skill_schema(manifest: Dict[str, Any]) -> List[str]:
+    """
+    Validate skill manifest using Pydantic schema.
+
+    Args:
+        manifest: Skill manifest dictionary
+
+    Returns:
+        List of validation errors (empty if valid)
+    """
+    errors: List[str] = []
+
+    try:
+        SkillManifest.model_validate(manifest)
+        logger.info("Pydantic schema validation passed for skill manifest")
+    except PydanticValidationError as exc:
+        logger.warning("Pydantic schema validation failed for skill manifest")
+        for error in exc.errors():
+            field = ".".join(str(loc) for loc in error["loc"])
+            message = error["msg"]
+            error_type = error["type"]
+            errors.append(f"Schema validation error at '{field}': {message} (type: {error_type})")
+
+    return errors
+
+
 def validate_manifest(path: str) -> Dict[str, Any]:
     """
     Validate that required fields exist in a skill manifest.
@@ -87,6 +115,15 @@ def validate_manifest(path: str) -> Dict[str, Any]:
         return {
             "valid": False,
             "error": str(e),
+            "path": path
+        }
+
+    # Validate with Pydantic schema first
+    schema_errors = validate_skill_schema(manifest)
+    if schema_errors:
+        return {
+            "valid": False,
+            "errors": schema_errors,
             "path": path
         }
 
@@ -172,6 +209,18 @@ def main():
                 errors.append("Missing required fields: " + ", ".join(validation["missing"]))
             if validation.get("error"):
                 errors.append(str(validation["error"]))
+            if validation.get("errors"):
+                errors.extend(validation.get("errors"))
+
+            # Check if there are schema validation errors
+            has_schema_errors = any("Schema validation error" in err for err in validation.get("errors", []))
+            if has_schema_errors:
+                details["error"] = {
+                    "type": "SchemaError",
+                    "error": "SchemaError",
+                    "message": "Skill manifest schema validation failed",
+                    "details": {"errors": validation.get("errors", [])}
+                }
 
         response = build_response(
             bool(validation.get("valid")),

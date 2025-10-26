@@ -7,6 +7,7 @@ import sys
 from typing import Any, Dict, List, Optional
 
 import yaml
+from pydantic import ValidationError as PydanticValidationError
 
 # Ensure project root on path for betty imports when executed directly
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
@@ -15,6 +16,7 @@ from betty.errors import SkillValidationError, WorkflowError  # noqa: E402
 from betty.logging_utils import setup_logger  # noqa: E402
 from betty.validation import ValidationError, validate_path  # noqa: E402
 from betty.telemetry_integration import telemetry_tracked  # noqa: E402
+from betty.models import WorkflowDefinition  # noqa: E402
 
 logger = setup_logger(__name__)
 
@@ -119,6 +121,34 @@ def _validate_steps(steps: Any) -> List[str]:
     return errors
 
 
+def _validate_with_pydantic(data: Dict[str, Any]) -> List[str]:
+    """
+    Validate workflow data using Pydantic schema.
+
+    Args:
+        data: Workflow data dictionary
+
+    Returns:
+        List of validation errors (empty if valid)
+    """
+    errors: List[str] = []
+
+    try:
+        # Attempt Pydantic validation
+        WorkflowDefinition.model_validate(data)
+        logger.info("Pydantic schema validation passed")
+    except PydanticValidationError as exc:
+        logger.warning("Pydantic schema validation failed")
+        # Convert Pydantic errors to human-readable messages
+        for error in exc.errors():
+            field = ".".join(str(loc) for loc in error["loc"])
+            message = error["msg"]
+            error_type = error["type"]
+            errors.append(f"Schema validation error at '{field}': {message} (type: {error_type})")
+
+    return errors
+
+
 def validate_workflow(path: str) -> Dict[str, Any]:
     """Validate a workflow definition file."""
     try:
@@ -129,6 +159,12 @@ def validate_workflow(path: str) -> Dict[str, Any]:
     workflow_data = _load_workflow(path)
 
     errors: List[str] = []
+
+    # First, validate with Pydantic schema
+    schema_errors = _validate_with_pydantic(workflow_data)
+    errors.extend(schema_errors)
+
+    # Then run existing validation for more specific checks
     errors.extend(_validate_required_fields(workflow_data))
     errors.extend(_validate_steps(workflow_data.get("steps", [])))
 
@@ -164,11 +200,24 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     try:
         result = validate_workflow(workflow_path)
+
+        # Check if there are schema validation errors
+        has_schema_errors = any("Schema validation error" in err for err in result.get("errors", []))
+
+        details = result.copy()
+        if not result.get("valid", False) and has_schema_errors:
+            details["error"] = {
+                "type": "SchemaError",
+                "error": "SchemaError",
+                "message": "Workflow schema validation failed",
+                "details": {"errors": result.get("errors", [])}
+            }
+
         response = build_response(
             result.get("valid", False),
             path=result.get("path", workflow_path),
             errors=result.get("errors", []),
-            details=result,
+            details=details,
         )
         print(json.dumps(response, indent=2))
         return 0 if response["ok"] else 1

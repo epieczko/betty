@@ -9,6 +9,7 @@ import yaml
 import json
 from typing import Dict, Any, List, Optional, Tuple
 from datetime import datetime, timezone
+from pydantic import ValidationError as PydanticValidationError
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 from betty.config import BASE_DIR, WORKFLOW_HISTORY_FILE, get_skill_handler_path
@@ -17,6 +18,7 @@ from betty.validation import validate_path
 from betty.logging_utils import setup_logger
 from betty.errors import WorkflowError, format_error_response
 from betty.telemetry_capture import capture_skill_execution
+from betty.models import WorkflowDefinition
 from betty.skill_executor import execute_skill_in_process
 from utils.telemetry_utils import capture_telemetry
 logger = setup_logger(__name__)
@@ -84,6 +86,19 @@ def load_workflow(workflow_file: str) -> Dict[str, Any]:
     try:
         with open(workflow_file) as f:
             workflow = yaml.safe_load(f)
+
+        # Validate with Pydantic schema
+        try:
+            WorkflowDefinition.model_validate(workflow)
+            logger.info("Pydantic schema validation passed for workflow")
+        except PydanticValidationError as exc:
+            errors = []
+            for error in exc.errors():
+                field = ".".join(str(loc) for loc in error["loc"])
+                message = error["msg"]
+                errors.append(f"{field}: {message}")
+            raise WorkflowError(f"Workflow schema validation failed: {'; '.join(errors)}")
+
         return workflow
     except FileNotFoundError:
         raise WorkflowError(f"Workflow file not found: {workflow_file}")
