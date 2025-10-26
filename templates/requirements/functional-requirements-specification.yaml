@@ -1,71 +1,75 @@
 # Functional Requirements Specification
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/functional-requirements-specification.md for complete guidance
+# See also: artifact_descriptions/functional-requirements-specification.md for complete guidance
+
+# The Functional Requirements Specification (FRS) is the authoritative document that defines what a system must do from a functional perspective, serving as the contractual foundation between business s
 
 metadata:
   # Document Control
-  version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
+  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
+  created: "YYYY-MM-DD"  # Date this artifact was created
+  lastModified: "YYYY-MM-DD"  # Date of most recent update
+  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+
+  # Ownership & Accountability
+  author: "Author Name"  # Primary author of this artifact
+  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
   classification: "Internal"  # Public | Internal | Confidential | Restricted
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
+  # Approvals
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      approvalDate: null  # Date of approval (YYYY-MM-DD)
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as the definitive specification of functional requirements, detailing what the system must do to meet business objectives. It documents user interactions, business processes, data transformations, system behaviors, validation rules, and acceptance criteria in sufficient detail t...
 
+# MAIN CONTENT
+# Complete the sections below based on your specific artifact needs
 
-# Specification Overview
-specificationName: "TODO: Name of what is being specified"
-version: "1.0.0"
-status: "Draft"  # Draft | Review | Approved | Deprecated
+# BEST PRACTICES:
+# - Requirements Elicitation: Conduct structured elicitation workshops with stakeholders; use techniques like interviews, observat
+# - Unique Identifiers: Assign unique IDs to each functional requirement (e.g., FR-001) for traceability through RTM
+# - Atomic Requirements: Write single, testable requirements; avoid compound statements that contain multiple requirements
+# - User Story Format: Use "As a [role], I want [capability], so that [benefit]" format for user-centric requirements
+# - Acceptance Criteria: Define clear, measurable acceptance criteria using Given-When-Then (Gherkin) format for each require
 
-# Requirements
-requirements:
-  functional:
-    - id: "FR-001"
-      requirement: "TODO: Functional requirement"
-      priority: "Must Have"  # Must Have | Should Have | Could Have
+content:
+  overview: |
+    # Provide a high-level overview of this artifact
+    # What is this document about?
+    # Why does it exist?
+    
+  scope:
+    inScope:
+      - "Detailed functional requirements with unique identifiers and traceability"
+      - "User roles, personas, and permission models"
+      - "Business rules, validation logic, and decision tables"
+      # Add additional in-scope items
+    outOfScope:
+      - "Item explicitly out of scope"
+      # Add additional out-of-scope items
 
-  nonFunctional:
-    - id: "NFR-001"
-      category: "Performance"  # Performance | Security | Scalability | etc.
-      requirement: "TODO: Non-functional requirement"
-      metric: "TODO: How it's measured"
-      target: "TODO: Target value"
+  details: |
+    # Provide detailed information specific to this artifact type
+    # Include all necessary technical details
+    # Reference the artifact description for required sections
+    
+# QUALITY CHECKLIST
+# Before finalizing, verify:
+# ✓ Completeness: All required sections present and adequately detailed
+# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
+# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
+# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
+# ✓ Currency: Based on current information; outdated content removed or updated
 
-# Design
-design:
-  architecture: |
-    TODO: High-level architecture description
-  components:
-    - name: "TODO: Component name"
-      purpose: "TODO: Component purpose"
-      interfaces:
-        - "TODO: Interface description"
+relatedDocuments:
+  - type: "Related Artifact Type"
+    path: "path/to/related/artifact"
+    relationship: "depends-on | references | supersedes | implements"
 
-# Validation
-validation:
-  testCriteria:
-    - "TODO: How this specification will be validated"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

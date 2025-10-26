@@ -1,57 +1,75 @@
 # Bounded Context Map
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/bounded-context-map.md for complete guidance
+# See also: artifact_descriptions/bounded-context-map.md for complete guidance
+
+# The Bounded Context Map is a strategic design artifact from Domain-Driven Design (DDD) that visualizes the boundaries between different domains, their relationships, and integration patterns. This art
 
 metadata:
   # Document Control
-  version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
+  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
+  created: "YYYY-MM-DD"  # Date this artifact was created
+  lastModified: "YYYY-MM-DD"  # Date of most recent update
+  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+
+  # Ownership & Accountability
+  author: "Author Name"  # Primary author of this artifact
+  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
   classification: "Internal"  # Public | Internal | Confidential | Restricted
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
+  # Approvals
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      approvalDate: null  # Date of approval (YYYY-MM-DD)
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact defines strategic domain boundaries and integration patterns for complex systems, enabling microservices decomposition, team organization, and integration architecture design. It supports decisions about service boundaries, API contracts, data ownership, and organizational structure al...
 
+# MAIN CONTENT
+# Complete the sections below based on your specific artifact needs
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/bounded-context-map.md for detailed structure
+# BEST PRACTICES:
+# - Event Storming Workshops: Use collaborative Event Storming to discover bounded contexts with domain experts, developers, archi
+# - Business Capability Alignment: Align bounded contexts with business capabilities; avoid technical decomposition (database, UI, API)
+# - Ubiquitous Language: Ensure each bounded context has consistent vocabulary; same term may mean different things in differ
+# - Single Team Ownership: Assign one team per bounded context; avoid shared ownership to maintain autonomy and reduce coordina
+# - Right-Size Contexts: Balance context size - too large loses modularity benefits, too small creates integration complexity
 
 content:
   overview: |
-    TODO: Provide overview
+    # Provide a high-level overview of this artifact
+    # What is this document about?
+    # Why does it exist?
+    
+  scope:
+    inScope:
+      - "Bounded contexts"
+      - "Context boundaries"
+      - "Context relationships"
+      # Add additional in-scope items
+    outOfScope:
+      - "Item explicitly out of scope"
+      # Add additional out-of-scope items
 
   details: |
-    TODO: Add detailed content
+    # Provide detailed information specific to this artifact type
+    # Include all necessary technical details
+    # Reference the artifact description for required sections
+    
+# QUALITY CHECKLIST
+# Before finalizing, verify:
+# ✓ Completeness: All required sections present and adequately detailed
+# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
+# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
+# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
+# ✓ Currency: Based on current information; outdated content removed or updated
 
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
+relatedDocuments:
+  - type: "Related Artifact Type"
+    path: "path/to/related/artifact"
+    relationship: "depends-on | references | supersedes | implements"
 
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

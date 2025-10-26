@@ -1,85 +1,99 @@
 # Architecture Review Board Minutes
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/architecture-review-board-minutes.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+<!-- Provide a 2-3 paragraph overview for executive audience -->
+<!-- What is this document about and why does it matter? -->
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+<!-- This artifact provides official record of ARB proceedings, capturing decisions, rationale, voting outcomes, and action items. It serves as legal record for audit compliance, enables decision traceabil... -->
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- Meeting metadata
+- Attendance
+- ARB charter compliance
+- Agenda items
+- Proposal summaries
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered by this artifact
 
-**Primary:**
-- TODO: Primary readers
+## Target Audience
 
-**Secondary:**
-- TODO: Secondary readers
+### Primary Audience
 
+- Architecture Review Board (ARB) Members: official record of decisions and commitments
+- Enterprise Architects: track board decisions and ensure enterprise alignment
+- Solution Architects: understand decision outcomes for their proposals
 
-## Background
+### Secondary Audience
 
-<!-- TODO: Provide necessary background information -->
+- Additional stakeholders who may reference this document
 
-## Main Content
+## [Main Section 1]
 
-### Section 1
+<!-- Complete this section with artifact-specific content -->
+<!-- Refer to the artifact description for required structure -->
 
-<!-- TODO: Add content -->
+## [Main Section 2]
 
-### Section 2
+<!-- Add additional sections as needed -->
 
-<!-- TODO: Add content -->
+## Best Practices
 
-## Summary
+**Pre-Meeting Preparation**: Distribute proposal materials 48-72 hours before meeting; require submitters to complete standardized proposal template with architecture diagrams, quality attribute scenarios, and compliance mapping
 
-<!-- TODO: Summarize key points -->
+**Quorum Verification**: Start each meeting with roll call and quorum verification per ARB charter; document voting vs. non-voting attendees; postpone decisions if quorum not met
 
-## Next Steps
+**Standardized Template**: Use consistent minutes template with sections: attendees, quorum status, proposals reviewed, discussions, decisions, action items, appeals; enable easy scanning and comparison
 
-- [ ] TODO: Action item 1
-- [ ] TODO: Action item 2
+**Real-Time Documentation**: Assign dedicated scribe (rotating role) to document minutes during meeting; use collaborative tools (Confluence, Google Docs) for simultaneous editing and review
 
-## References
+**Decision Recording**: Capture exact voting counts (e.g., "Approved 6-1-2: 6 for, 1 against, 2 abstentions"); document dissenting opinions and concerns for transparency
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/architecture-review-board-minutes.md` for detailed guidance
+## Quality Checklist
 
-## Appendix
+Before finalizing this artifact, verify:
 
-<!-- Add supporting materials as needed -->
+- [ ] **Completeness**: All required sections present and adequately detailed
+- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
+- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
+- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
+- [ ] **Currency**: Based on current information; outdated content removed or updated
+
+## Related Documents
+
+- [Related Artifact]: Description and relationship
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | Name | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

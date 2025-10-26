@@ -1,57 +1,75 @@
 # Model Cards
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/model-cards.md for complete guidance
+# See also: artifact_descriptions/model-cards.md for complete guidance
+
+# Model Cards are structured documentation artifacts that transparently communicate ML model characteristics, intended use, performance metrics, limitations, and ethical considerations. Introduced by Go
 
 metadata:
   # Document Control
-  version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
+  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
+  created: "YYYY-MM-DD"  # Date this artifact was created
+  lastModified: "YYYY-MM-DD"  # Date of most recent update
+  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+
+  # Ownership & Accountability
+  author: "Author Name"  # Primary author of this artifact
+  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
   classification: "Internal"  # Public | Internal | Confidential | Restricted
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
+  # Approvals
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      approvalDate: null  # Date of approval (YYYY-MM-DD)
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# Model Cards document ML model details, intended use, training data, performance metrics (overall and disaggregated by demographic groups), limitations, bias testing results, and ethical considerations to enable informed decisions about model deployment and use while promoting transparency and accoun...
 
+# MAIN CONTENT
+# Complete the sections below based on your specific artifact needs
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/model-cards.md for detailed structure
+# BEST PRACTICES:
+# - Version Control: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain comp
+# - Naming Conventions: Follow organization's document naming standards for consistency and discoverability
+# - Template Usage: Use approved templates to ensure completeness and consistency across teams
+# - Peer Review: Have at least one qualified peer review before submitting for approval
+# - Metadata Completion: Fully complete all metadata fields to enable search, classification, and lifecycle management
 
 content:
   overview: |
-    TODO: Provide overview
+    # Provide a high-level overview of this artifact
+    # What is this document about?
+    # Why does it exist?
+    
+  scope:
+    inScope:
+      - "Model details"
+      - "Intended use"
+      - "Out-of-scope use"
+      # Add additional in-scope items
+    outOfScope:
+      - "Item explicitly out of scope"
+      # Add additional out-of-scope items
 
   details: |
-    TODO: Add detailed content
+    # Provide detailed information specific to this artifact type
+    # Include all necessary technical details
+    # Reference the artifact description for required sections
+    
+# QUALITY CHECKLIST
+# Before finalizing, verify:
+# ✓ Completeness: All required sections present and adequately detailed
+# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
+# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
+# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
+# ✓ Currency: Based on current information; outdated content removed or updated
 
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
+relatedDocuments:
+  - type: "Related Artifact Type"
+    path: "path/to/related/artifact"
+    relationship: "depends-on | references | supersedes | implements"
 
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

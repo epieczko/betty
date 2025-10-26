@@ -1,85 +1,99 @@
 # Architecture Vision
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/architecture-vision.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+<!-- Provide a 2-3 paragraph overview for executive audience -->
+<!-- What is this document about and why does it matter? -->
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+<!-- This artifact establishes strategic architectural direction and transformation roadmap, providing long-term guidance for technology decisions, investment prioritization, and capability development. It... -->
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- Target state architecture
+- Current state assessment
+- Gap analysis
+- Migration roadmap
+- Capability model
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered by this artifact
 
-**Primary:**
-- TODO: Primary readers
+## Target Audience
 
-**Secondary:**
-- TODO: Secondary readers
+### Primary Audience
 
+- Enterprise Architects: define and maintain vision, ensure consistency across organization
+- Solution Architects: align solution designs with vision and transformation roadmap
+- Technical Architects: understand technology direction for detailed design decisions
 
-## Background
+### Secondary Audience
 
-<!-- TODO: Provide necessary background information -->
+- Additional stakeholders who may reference this document
 
-## Main Content
+## [Main Section 1]
 
-### Section 1
+<!-- Complete this section with artifact-specific content -->
+<!-- Refer to the artifact description for required structure -->
 
-<!-- TODO: Add content -->
+## [Main Section 2]
 
-### Section 2
+<!-- Add additional sections as needed -->
 
-<!-- TODO: Add content -->
+## Best Practices
 
-## Summary
+**Business Alignment**: Ground vision in business strategy and objectives; map technical capabilities to business capabilities; demonstrate ROI and business value of transformation
 
-<!-- TODO: Summarize key points -->
+**Stakeholder Engagement**: Conduct architecture workshops with business, product, and technology leaders; build consensus on priorities; address concerns and constraints early
 
-## Next Steps
+**Current State Honesty**: Conduct thorough current state assessment including technical debt, security vulnerabilities, scalability limitations; avoid sugar-coating challenges
 
-- [ ] TODO: Action item 1
-- [ ] TODO: Action item 2
+**Measurable Targets**: Define specific, measurable quality attribute targets using ISO 25010 and SEI scenarios; avoid vague aspirations like "improve performance"
 
-## References
+**Phased Approach**: Break transformation into manageable phases (typically 3-5 phases over 2-4 years); define clear milestones and success criteria for each phase
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/architecture-vision.md` for detailed guidance
+## Quality Checklist
 
-## Appendix
+Before finalizing this artifact, verify:
 
-<!-- Add supporting materials as needed -->
+- [ ] **Completeness**: All required sections present and adequately detailed
+- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
+- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
+- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
+- [ ] **Currency**: Based on current information; outdated content removed or updated
+
+## Related Documents
+
+- [Related Artifact]: Description and relationship
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | Name | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

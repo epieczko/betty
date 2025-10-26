@@ -1,77 +1,75 @@
 # Model Governance Policy
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/model-governance-policy.md for complete guidance
+# See also: artifact_descriptions/model-governance-policy.md for complete guidance
+
+# The Model Governance Policy establishes mandatory requirements, standards, and procedures for the entire ML model lifecycle from development through retirement. This policy defines roles and responsib
 
 metadata:
   # Document Control
-  version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
+  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
+  created: "YYYY-MM-DD"  # Date this artifact was created
+  lastModified: "YYYY-MM-DD"  # Date of most recent update
+  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+
+  # Ownership & Accountability
+  author: "Author Name"  # Primary author of this artifact
+  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
   classification: "Internal"  # Public | Internal | Confidential | Restricted
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
+  # Approvals
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      approvalDate: null  # Date of approval (YYYY-MM-DD)
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This policy establishes mandatory governance requirements for all ML models and AI systems, defining approval gates, risk classification, monitoring obligations, documentation standards, and accountability structures. It ensures consistent, risk-based oversight of the AI portfolio while enabling inn...
 
+# MAIN CONTENT
+# Complete the sections below based on your specific artifact needs
 
-# Policy Statement
-policyStatement: |
-  TODO: Clear, concise statement of the policy
-  What is required, prohibited, or permitted
+# BEST PRACTICES:
+# - Risk-Based Governance: Apply governance rigor proportional to model risk; streamline approval for low-risk models
+# - Clear Approval Gates: Define explicit go/no-go criteria for each approval gate; avoid subjective criteria
+# - Model Risk Committee: Establish committee with cross-functional representation (data science, risk, legal, business)
+# - Automated Compliance Checks: Integrate policy checks into CI/CD pipelines; prevent non-compliant deployments
+# - Champion/Challenger Standard: Require statistical significance testing (p < 0.05) before replacing production models
 
-# Purpose
-purpose: |
-  TODO: Why this policy exists
-  What risks it mitigates or objectives it supports
+content:
+  overview: |
+    # Provide a high-level overview of this artifact
+    # What is this document about?
+    # Why does it exist?
+    
+  scope:
+    inScope:
+      - "Model risk classification"
+      - "Model approval gates"
+      - "Model Risk Committee"
+      # Add additional in-scope items
+    outOfScope:
+      - "Item explicitly out of scope"
+      # Add additional out-of-scope items
 
-# Scope
-applicability:
-  appliesTo:
-    - "TODO: Who/what this policy applies to"
-  exceptions:
-    - "TODO: Specific exceptions if any"
+  details: |
+    # Provide detailed information specific to this artifact type
+    # Include all necessary technical details
+    # Reference the artifact description for required sections
+    
+# QUALITY CHECKLIST
+# Before finalizing, verify:
+# ✓ Completeness: All required sections present and adequately detailed
+# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
+# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
+# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
+# ✓ Currency: Based on current information; outdated content removed or updated
 
-# Requirements
-requirements:
-  - requirement: "TODO: Specific requirement"
-    rationale: "TODO: Why this is required"
-    enforcement: "TODO: How compliance is ensured"
+relatedDocuments:
+  - type: "Related Artifact Type"
+    path: "path/to/related/artifact"
+    relationship: "depends-on | references | supersedes | implements"
 
-# Roles & Responsibilities
-responsibilities:
-  - role: "TODO: Role name"
-    responsibilities:
-      - "TODO: Responsibility 1"
-
-# Compliance
-compliance:
-  reviewFrequency: "Annual"  # Monthly | Quarterly | Annual
-  owner: "TODO: Policy owner"
-  approver: "TODO: Approval authority"
-  effectiveDate: "{{date}}"
-
-# Exceptions
-exceptionProcess: |
-  TODO: Describe how exceptions are requested and approved
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

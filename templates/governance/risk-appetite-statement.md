@@ -1,83 +1,99 @@
 # Risk Appetite Statement
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/risk-appetite-statement.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+<!-- Provide a 2-3 paragraph overview for executive audience -->
+<!-- What is this document about and why does it matter? -->
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+<!-- This artifact serves as the Board-approved Risk Appetite Statement defining the organization's willingness to accept risk across strategic, operational, financial, compliance, cyber, third-party, and ... -->
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- Board-approved risk appetite philosophy and overarching risk culture principles
+- Quantitative risk tolerance thresholds by risk category (e.g., max single loss, annual aggregate loss, VaR percentiles)
+- Risk capacity definitions representing maximum risk organization can absorb (balance sheet, capital, liquidity constraints)
+- Risk appetite ranges defining acceptable variation zones (green/yellow/red zones or specific numerical ranges)
+- Risk category-specific appetite statements covering strategic, operational, financial, compliance, cyber security, third-party, reputational, and emerging risks
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered by this artifact
 
-**Primary:**
-- TODO: Primary readers
+## Target Audience
 
-**Secondary:**
-- TODO: Secondary readers
+### Primary Audience
 
+- Board of Directors and Board Risk Committee for risk appetite approval, oversight, and annual recalibration decisions
+- Chief Executive Officer (CEO) for enterprise strategy alignment and risk-informed decision making within Board-approved appetite
+- Chief Risk Officer (CRO) for risk appetite operationalization, monitoring, and Board reporting on appetite compliance
 
-## Statement
+### Secondary Audience
 
-<!-- TODO: The formal statement (vision, mission, etc.) -->
-<!-- Keep it concise, inspirational, and actionable -->
+- Additional stakeholders who may reference this document
 
-## Background
+## [Main Section 1]
 
-<!-- TODO: Context for why this statement was created -->
+<!-- Complete this section with artifact-specific content -->
+<!-- Refer to the artifact description for required structure -->
 
-## Strategic Alignment
+## [Main Section 2]
 
-<!-- TODO: How this aligns with organizational strategy -->
+<!-- Add additional sections as needed -->
 
-## Implications
+## Best Practices
 
-<!-- TODO: What this means for the organization -->
+**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
 
-## Communication Plan
+**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
 
-<!-- TODO: How this will be communicated to stakeholders -->
+**Template Usage**: Use approved templates to ensure completeness and consistency across teams
 
-## References
+**Peer Review**: Have at least one qualified peer review before submitting for approval
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/risk-appetite-statement.md` for detailed guidance
+**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
 
-## Appendix
+## Quality Checklist
 
-<!-- Add supporting materials as needed -->
+Before finalizing this artifact, verify:
+
+- [ ] **Completeness**: All required sections present and adequately detailed
+- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
+- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
+- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
+- [ ] **Currency**: Based on current information; outdated content removed or updated
+
+## Related Documents
+
+- [Related Artifact]: Description and relationship
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | Name | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

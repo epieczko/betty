@@ -1,57 +1,75 @@
 # Pull Request Summaries
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/pull-request-summaries.md for complete guidance
+# See also: artifact_descriptions/pull-request-summaries.md for complete guidance
+
+# The Pull Request Summaries artifact provides concise, structured documentation of code changes proposed for integration into the main codebase, following industry best practices for PR descriptions, C
 
 metadata:
   # Document Control
-  version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
+  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
+  created: "YYYY-MM-DD"  # Date this artifact was created
+  lastModified: "YYYY-MM-DD"  # Date of most recent update
+  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+
+  # Ownership & Accountability
+  author: "Author Name"  # Primary author of this artifact
+  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
   classification: "Internal"  # Public | Internal | Confidential | Restricted
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
+  # Approvals
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      approvalDate: null  # Date of approval (YYYY-MM-DD)
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as clear, contextual documentation for each code change, explaining the motivation (why), implementation approach (how), testing strategy (validation), and impact (what changes). It enables reviewers to perform effective code reviews, facilitates changelog generation for release...
 
+# MAIN CONTENT
+# Complete the sections below based on your specific artifact needs
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/pull-request-summaries.md for detailed structure
+# BEST PRACTICES:
+# - Conventional Commits: Use Conventional Commits format (feat:, fix:, docs:, refactor:) for PR titles; automate changelog ge
+# - Clear Title: Write concise, imperative PR titles (max 72 chars) describing the change outcome, not implementation
+# - Comprehensive Description: Include WHY (motivation), WHAT (changes), HOW (approach), TESTING (validation), IMPACT (breaking cha
+# - Link Issues: Always link related issues/tickets (Closes #123, Fixes #456); enables automated issue closure and tr
+# - Screenshots for UI: Include before/after screenshots/GIFs for all UI changes; use tools like Loom for interactive demos
 
 content:
   overview: |
-    TODO: Provide overview
+    # Provide a high-level overview of this artifact
+    # What is this document about?
+    # Why does it exist?
+    
+  scope:
+    inScope:
+      - "PR title and description following Conventional Commits (feat, fix, docs, style, refactor, perf, test, chore)"
+      - "Motivation and context (problem statement, user story, business value)"
+      - "Implementation approach and technical decisions"
+      # Add additional in-scope items
+    outOfScope:
+      - "Item explicitly out of scope"
+      # Add additional out-of-scope items
 
   details: |
-    TODO: Add detailed content
+    # Provide detailed information specific to this artifact type
+    # Include all necessary technical details
+    # Reference the artifact description for required sections
+    
+# QUALITY CHECKLIST
+# Before finalizing, verify:
+# ✓ Completeness: All required sections present and adequately detailed
+# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
+# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
+# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
+# ✓ Currency: Based on current information; outdated content removed or updated
 
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
+relatedDocuments:
+  - type: "Related Artifact Type"
+    path: "path/to/related/artifact"
+    relationship: "depends-on | references | supersedes | implements"
 
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

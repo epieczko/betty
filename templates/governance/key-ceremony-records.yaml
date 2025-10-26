@@ -1,57 +1,75 @@
 # Key Ceremony Records
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/key-ceremony-records.md for complete guidance
+# See also: artifact_descriptions/key-ceremony-records.md for complete guidance
+
+# The Key Ceremony Records artifact documents formal, witnessed procedures for generating, backing up, and managing cryptographic key material for critical PKI operations including root CA key generatio
 
 metadata:
   # Document Control
-  version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
+  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
+  created: "YYYY-MM-DD"  # Date this artifact was created
+  lastModified: "YYYY-MM-DD"  # Date of most recent update
+  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+
+  # Ownership & Accountability
+  author: "Author Name"  # Primary author of this artifact
+  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
   classification: "Internal"  # Public | Internal | Confidential | Restricted
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
+  # Approvals
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      approvalDate: null  # Date of approval (YYYY-MM-DD)
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as authoritative documentation of high-assurance key generation ceremonies including root CA key pair generation, HSM master key initialization, key backup and escrow procedures, and recovery drills. It provides evidence of split knowledge and dual control enforcement, witness a...
 
+# MAIN CONTENT
+# Complete the sections below based on your specific artifact needs
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/key-ceremony-records.md for detailed structure
+# BEST PRACTICES:
+# - Ceremony Scripts: Develop detailed ceremony scripts with numbered steps, checkpoints, and rollback procedures; peer-re
+# - Rehearsal Required: Conduct full rehearsal of ceremony with dummy keys; validate all procedures, equipment, and timings 
+# - FIPS 140-2 HSMs: Use only FIPS 140-2 Level 3 (or higher) validated HSMs for root CA keys; verify HSM firmware signatu
+# - Split Knowledge: Enforce strict split knowledge - no single person should ever possess complete key material or suffi
+# - M-of-N Thresholds: Implement M-of-N schemes (e.g., 3-of-5) for key backup; distribute components to trusted custodians 
 
 content:
   overview: |
-    TODO: Provide overview
+    # Provide a high-level overview of this artifact
+    # What is this document about?
+    # Why does it exist?
+    
+  scope:
+    inScope:
+      - "Root CA key generation ceremonies (offline root CA establishment)"
+      - "Intermediate CA key generation (online issuing CA keys)"
+      - "HSM initialization and master key generation (FIPS 140-2 Level 3 procedures)"
+      # Add additional in-scope items
+    outOfScope:
+      - "Item explicitly out of scope"
+      # Add additional out-of-scope items
 
   details: |
-    TODO: Add detailed content
+    # Provide detailed information specific to this artifact type
+    # Include all necessary technical details
+    # Reference the artifact description for required sections
+    
+# QUALITY CHECKLIST
+# Before finalizing, verify:
+# ✓ Completeness: All required sections present and adequately detailed
+# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
+# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
+# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
+# ✓ Currency: Based on current information; outdated content removed or updated
 
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
+relatedDocuments:
+  - type: "Related Artifact Type"
+    path: "path/to/related/artifact"
+    relationship: "depends-on | references | supersedes | implements"
 
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

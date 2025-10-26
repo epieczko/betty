@@ -1,112 +1,99 @@
 # Certificate Policy
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/certificate-policy.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+<!-- Provide a 2-3 paragraph overview for executive audience -->
+<!-- What is this document about and why does it matter? -->
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
-
-<!-- TODO: Explain why this document exists -->
-
-### Scope
-
-**In Scope:**
-- TODO: What is covered
-
-**Out of Scope:**
-- TODO: What is not covered
-
-### Target Audience
-
-**Primary:**
-- TODO: Primary readers
-
-**Secondary:**
-- TODO: Secondary readers
-
-
-## Policy Statement
-
-<!-- TODO: Clear, concise statement of what is required, prohibited, or permitted -->
-
-## Rationale
-
-<!-- TODO: Why this policy exists, what risks it mitigates -->
+<!-- This policy defines mandatory requirements for digital certificate provisioning, key generation, certificate validation, lifecycle management, revocation procedures, cryptographic standards, and PKI g... -->
 
 ## Scope
 
-This policy applies to:
-- TODO: Who or what is covered
+### In Scope
 
-This policy does NOT apply to:
-- TODO: Exceptions or exclusions
+- **TLS/SSL Certificates**
+- **Code Signing Certificates**
+- **Email Certificates**
+- **User & Device Authentication**
+- **Internal Certificate Authorities**
 
-## Requirements
+### Out of Scope
 
-### Requirement 1: [Title]
+- Items explicitly not covered by this artifact
 
-**Description:** TODO: Specific requirement
+## Target Audience
 
-**Rationale:** TODO: Why this is required
+### Primary Audience
 
-**Compliance:** TODO: How compliance is measured
+- **PKI Administrators**: Operates internal certificate authorities, manages certificate templates, processes certificate requests, monitors certificate inventory, handles revocations, performs CA maintenance and backups
+- **Security Engineers**: Defines cryptographic requirements, approves certificate policies, validates CA trust relationships, implements certificate pinning, monitors for unauthorized certificates, responds to certificate security incidents
+- **IT Operations & Infrastructure Teams**: Installs and renews certificates on servers and network devices, configures web servers and load balancers for TLS, troubleshoots certificate validation errors, monitors certificate expirations
 
-### Requirement 2: [Title]
+### Secondary Audience
 
-<!-- Repeat for additional requirements -->
+- Additional stakeholders who may reference this document
 
-## Roles & Responsibilities
+## [Main Section 1]
 
-| Role | Responsibilities |
-|------|------------------|
-| **[Role Name]** | TODO: What this role is responsible for |
+<!-- Complete this section with artifact-specific content -->
+<!-- Refer to the artifact description for required structure -->
 
-## Compliance & Enforcement
+## [Main Section 2]
 
-**Review Frequency:** Annual | Quarterly | Monthly
+<!-- Add additional sections as needed -->
 
-**Monitoring:** TODO: How compliance is monitored
+## Best Practices
 
-**Enforcement:** TODO: Consequences of non-compliance
+**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
 
-**Exceptions:** TODO: Process for requesting exceptions
+**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
 
-## Related Policies
+**Template Usage**: Use approved templates to ensure completeness and consistency across teams
 
-- [Policy Name]: Description and link
+**Peer Review**: Have at least one qualified peer review before submitting for approval
 
-## References
+**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/certificate-policy.md` for detailed guidance
+## Quality Checklist
 
-## Appendix
+Before finalizing this artifact, verify:
 
-<!-- Add supporting materials as needed -->
+- [ ] **Completeness**: All required sections present and adequately detailed
+- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
+- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
+- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
+- [ ] **Currency**: Based on current information; outdated content removed or updated
+
+## Related Documents
+
+- [Related Artifact]: Description and relationship
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | Name | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

@@ -1,108 +1,99 @@
 # Admin Guides
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/admin-guides.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+<!-- Provide a 2-3 paragraph overview for executive audience -->
+<!-- What is this document about and why does it matter? -->
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+<!-- Admin Guides serve as authoritative procedural documentation for system administrators to configure, maintain, and troubleshoot production systems. They solve the problem of inconsistent system admini... -->
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- System administration procedures (user management, permissions, role-based access control)
+- Configuration management (system settings, environment variables, service configuration)
+- Backup and restore procedures (automated backups, disaster recovery, point-in-time recovery)
+- Monitoring and alerting setup (metrics collection, dashboard configuration, alert thresholds)
+- Security hardening procedures (CIS Benchmarks, security patches, vulnerability remediation)
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered by this artifact
 
-**Primary:**
-- TODO: Primary readers
+## Target Audience
 
-**Secondary:**
-- TODO: Secondary readers
+### Primary Audience
 
+- System Administrators who configure and maintain production systems
+- DevOps Engineers who automate infrastructure and deployment pipelines
+- Site Reliability Engineers (SREs) who ensure system availability and performance
 
-## Overview
+### Secondary Audience
 
-<!-- TODO: Introduce what this guide covers -->
+- Additional stakeholders who may reference this document
 
-## Prerequisites
+## [Main Section 1]
 
-- TODO: What readers need to know before starting
-- TODO: Required access or tools
+<!-- Complete this section with artifact-specific content -->
+<!-- Refer to the artifact description for required structure -->
 
-## Instructions
+## [Main Section 2]
 
-### Step 1: [Step Title]
-
-**Objective:** TODO: What this step accomplishes
-
-**Instructions:**
-1. TODO: First action
-2. TODO: Second action
-3. TODO: Third action
-
-**Expected Outcome:** TODO: What should happen
-
-**Troubleshooting:**
-- **Problem**: TODO: Common issue
-  - **Solution**: TODO: How to resolve
-
-### Step 2: [Step Title]
-
-<!-- Repeat structure for additional steps -->
+<!-- Add additional sections as needed -->
 
 ## Best Practices
 
-- ✅ **DO**: TODO: Recommended practice
-- ❌ **DON'T**: TODO: Anti-pattern to avoid
+**Docs-as-Code Implementation**: Store documentation source in Git repositories alongside infrastructure code, enable branch-based workflows with pull requests, automate builds and deployments through CI/CD pipelines, and version documentation in sync with system releases
 
-## Reference
+**Task-Oriented Structure**: Organize admin guides by administrative tasks (user management, backup/restore, monitoring setup) rather than system components, following Diátaxis how-to guide format with clear goal statements, prerequisites, step-by-step procedures, verification steps, and troubleshooting guidance
 
-### Glossary
+**Procedural Writing Standards**: Begin procedures with action verbs, use numbered lists for sequential steps, include expected outcomes after each step, provide command examples with actual syntax, explain parameters and options, include screenshots or terminal output examples, and add warnings/cautions before potentially destructive operations
 
-- **Term 1**: Definition
-- **Term 2**: Definition
+**Configuration Examples**: Provide complete, working configuration file examples with inline comments explaining each setting, use syntax highlighting appropriate to file type, include environment-specific variations (dev, staging, production), and maintain example configurations as testable code
 
-### Related Resources
+**Validation & Quality Assurance**: Implement automated testing of documentation with Vale for style consistency, markdownlint for Markdown formatting, spell checkers for typos, link checkers for broken references, and code snippet validators to ensure command examples remain current
 
-- [Resource Name](url): Description
+## Quality Checklist
 
-## References
+Before finalizing this artifact, verify:
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/admin-guides.md` for detailed guidance
+- [ ] **Completeness**: All required sections present and adequately detailed
+- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
+- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
+- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
+- [ ] **Currency**: Based on current information; outdated content removed or updated
 
-## Appendix
+## Related Documents
 
-<!-- Add supporting materials as needed -->
+- [Related Artifact]: Description and relationship
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | Name | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

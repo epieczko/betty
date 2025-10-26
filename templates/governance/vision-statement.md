@@ -1,83 +1,99 @@
 # Vision Statement
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/vision-statement.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+<!-- Provide a 2-3 paragraph overview for executive audience -->
+<!-- What is this document about and why does it matter? -->
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+<!-- The Vision Statement articulates the organization's 3-5 year aspirational future state, answering "Where are we going and why does it matter?" It establishes the North Star metric that guides strategi... -->
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- Aspirational future state description (3-5 year time horizon)
+- North Star metric definition and rationale
+- Strategic positioning and market aspiration
+- Value proposition to customers and stakeholders
+- Connection to organizational mission and values
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered by this artifact
 
-**Primary:**
-- TODO: Primary readers
+## Target Audience
 
-**Secondary:**
-- TODO: Secondary readers
+### Primary Audience
 
+- **Executive Leadership** (CEO, C-Suite): Uses vision to guide strategic decisions, board communication, and organizational alignment
+- **Product Leaders** (CPO, VPs): Translates vision into product strategy, roadmaps, and portfolio prioritization
+- **Board of Directors**: Reviews vision for strategic oversight and governance
 
-## Statement
+### Secondary Audience
 
-<!-- TODO: The formal statement (vision, mission, etc.) -->
-<!-- Keep it concise, inspirational, and actionable -->
+- Additional stakeholders who may reference this document
 
-## Background
+## [Main Section 1]
 
-<!-- TODO: Context for why this statement was created -->
+<!-- Complete this section with artifact-specific content -->
+<!-- Refer to the artifact description for required structure -->
 
-## Strategic Alignment
+## [Main Section 2]
 
-<!-- TODO: How this aligns with organizational strategy -->
+<!-- Add additional sections as needed -->
 
-## Implications
+## Best Practices
 
-<!-- TODO: What this means for the organization -->
+**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
 
-## Communication Plan
+**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
 
-<!-- TODO: How this will be communicated to stakeholders -->
+**Template Usage**: Use approved templates to ensure completeness and consistency across teams
 
-## References
+**Peer Review**: Have at least one qualified peer review before submitting for approval
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/vision-statement.md` for detailed guidance
+**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
 
-## Appendix
+## Quality Checklist
 
-<!-- Add supporting materials as needed -->
+Before finalizing this artifact, verify:
+
+- [ ] **Completeness**: All required sections present and adequately detailed
+- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
+- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
+- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
+- [ ] **Currency**: Based on current information; outdated content removed or updated
+
+## Related Documents
+
+- [Related Artifact]: Description and relationship
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | Name | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

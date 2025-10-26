@@ -1,108 +1,99 @@
 # Golden Path Guide
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/golden-path-guide.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+<!-- Provide a 2-3 paragraph overview for executive audience -->
+<!-- What is this document about and why does it matter? -->
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+<!-- This artifact serves as the definitive reference for approved technology patterns, self-service platform capabilities, and blessed implementation paths that development teams should follow. It elimina... -->
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- Backstage Software Templates for common service archetypes (REST API, web frontend, data pipeline, microservice)
+- Approved technology stack recommendations by use case (languages, frameworks, databases)
+- Infrastructure-as-Code (IaC) reference implementations using Terraform, Pulumi, or CloudFormation
+- Pre-configured CI/CD pipeline templates (GitHub Actions, GitLab CI, Jenkins, CircleCI)
+- Containerization standards and base image repositories (Docker, Kaniko, Buildpacks)
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered by this artifact
 
-**Primary:**
-- TODO: Primary readers
+## Target Audience
 
-**Secondary:**
-- TODO: Secondary readers
+### Primary Audience
 
+- Software Engineers creating new services and applications
+- Platform Engineering teams maintaining golden path templates
+- Developer Experience (DevEx) teams improving self-service capabilities
 
-## Overview
+### Secondary Audience
 
-<!-- TODO: Introduce what this guide covers -->
+- Additional stakeholders who may reference this document
 
-## Prerequisites
+## [Main Section 1]
 
-- TODO: What readers need to know before starting
-- TODO: Required access or tools
+<!-- Complete this section with artifact-specific content -->
+<!-- Refer to the artifact description for required structure -->
 
-## Instructions
+## [Main Section 2]
 
-### Step 1: [Step Title]
-
-**Objective:** TODO: What this step accomplishes
-
-**Instructions:**
-1. TODO: First action
-2. TODO: Second action
-3. TODO: Third action
-
-**Expected Outcome:** TODO: What should happen
-
-**Troubleshooting:**
-- **Problem**: TODO: Common issue
-  - **Solution**: TODO: How to resolve
-
-### Step 2: [Step Title]
-
-<!-- Repeat structure for additional steps -->
+<!-- Add additional sections as needed -->
 
 ## Best Practices
 
-- ✅ **DO**: TODO: Recommended practice
-- ❌ **DON'T**: TODO: Anti-pattern to avoid
+**Opinionated but Escapable**: Provide strong defaults and recommendations while allowing justified deviations with architectural review
 
-## Reference
+**One-Click Creation**: Enable complete service creation from template in under 5 minutes with all integrations pre-configured
 
-### Glossary
+**Production-Ready from Start**: Include monitoring, logging, error tracking, security scanning, and deployment automation in every template
 
-- **Term 1**: Definition
-- **Term 2**: Definition
+**Living Examples**: Maintain reference implementations that actually run in production as proof-of-concept and testing grounds
 
-### Related Resources
+**Developer Feedback Loops**: Survey developers quarterly on template usability and pain points; iterate based on real usage data
 
-- [Resource Name](url): Description
+## Quality Checklist
 
-## References
+Before finalizing this artifact, verify:
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/golden-path-guide.md` for detailed guidance
+- [ ] **Completeness**: All required sections present and adequately detailed
+- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
+- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
+- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
+- [ ] **Currency**: Based on current information; outdated content removed or updated
 
-## Appendix
+## Related Documents
 
-<!-- Add supporting materials as needed -->
+- [Related Artifact]: Description and relationship
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | Name | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

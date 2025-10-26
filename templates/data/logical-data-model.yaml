@@ -1,51 +1,75 @@
 # Logical Data Model
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/logical-data-model.md for complete guidance
+# See also: artifact_descriptions/logical-data-model.md for complete guidance
+
+# A Logical Data Model is a technology-independent, business-oriented representation of data structures that captures entities, attributes, relationships, and business rules without concern for physical
 
 metadata:
   # Document Control
-  version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
+  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
+  created: "YYYY-MM-DD"  # Date this artifact was created
+  lastModified: "YYYY-MM-DD"  # Date of most recent update
+  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+
+  # Ownership & Accountability
+  author: "Author Name"  # Primary author of this artifact
+  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
   classification: "Internal"  # Public | Internal | Confidential | Restricted
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
+  # Approvals
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      approvalDate: null  # Date of approval (YYYY-MM-DD)
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact provides a platform-independent, business-oriented data structure specification defining entities, attributes, relationships, business rules, and constraints using normalized forms, dimensional models, or Data Vault architectures to serve as the blueprint for physical database implemen...
 
+# MAIN CONTENT
+# Complete the sections below based on your specific artifact needs
 
-# Log Entries
-entries:
-  - id: "001"
-    date: "{{date}}"
-    category: "TODO: Category"  # Risk | Issue | Decision | Change
-    title: "TODO: Entry title"
-    description: |
-      TODO: Detailed description
-    status: "Open"  # Open | In Progress | Resolved | Closed
-    owner: "TODO: Owner"
-    priority: "Medium"  # Low | Medium | High | Critical
+# BEST PRACTICES:
+# - Business Language First: Use business terminology for entity and attribute names, avoiding technical jargon or abbreviations
+# - Normalization for OLTP: Apply Third Normal Form (3NF) or Boyce-Codd Normal Form (BCNF) for transactional operational systems
+# - Dimensional for Analytics: Use star schema or snowflake schema for data warehouses and analytical data marts
+# - Data Vault for EDW: Consider Data Vault 2.0 (hubs, links, satellites) for enterprise data warehouses requiring historiza
+# - Consistent Notation: Standardize on one ERD notation (Crow's Foot, IE, UML) across the enterprise for consistency
 
-  # Add more entries as needed
+content:
+  overview: |
+    # Provide a high-level overview of this artifact
+    # What is this document about?
+    # Why does it exist?
+    
+  scope:
+    inScope:
+      - "Entity definitions with business names, descriptions, and purposes (Customer, Order, Product, Transaction)"
+      - "Attribute specifications with business names, data types (at logical level"
+      - "Relationship definitions with cardinality (one-to-one, one-to-many, many-to-many) and participation constraints (mandatory, optional)"
+      # Add additional in-scope items
+    outOfScope:
+      - "Item explicitly out of scope"
+      # Add additional out-of-scope items
 
-# Notes
-notes: |
-  TODO: Add any additional notes or context
+  details: |
+    # Provide detailed information specific to this artifact type
+    # Include all necessary technical details
+    # Reference the artifact description for required sections
+    
+# QUALITY CHECKLIST
+# Before finalizing, verify:
+# ✓ Completeness: All required sections present and adequately detailed
+# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
+# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
+# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
+# ✓ Currency: Based on current information; outdated content removed or updated
 
-# Change History
+relatedDocuments:
+  - type: "Related Artifact Type"
+    path: "path/to/related/artifact"
+    relationship: "depends-on | references | supersedes | implements"
+
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

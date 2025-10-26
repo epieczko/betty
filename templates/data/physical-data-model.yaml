@@ -1,57 +1,75 @@
 # Physical Data Model
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/physical-data-model.md for complete guidance
+# See also: artifact_descriptions/physical-data-model.md for complete guidance
+
+# A Physical Data Model is a platform-specific, implementation-ready database design that translates logical data models into actual database objects with DDL (Data Definition Language) scripts, indexes
 
 metadata:
   # Document Control
-  version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
+  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
+  created: "YYYY-MM-DD"  # Date this artifact was created
+  lastModified: "YYYY-MM-DD"  # Date of most recent update
+  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+
+  # Ownership & Accountability
+  author: "Author Name"  # Primary author of this artifact
+  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
   classification: "Internal"  # Public | Internal | Confidential | Restricted
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
+  # Approvals
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      approvalDate: null  # Date of approval (YYYY-MM-DD)
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact provides executable DDL scripts, index definitions, partitioning specifications, storage configurations, and performance optimization strategies for implementing databases on specific platforms (Oracle, PostgreSQL, Snowflake, BigQuery, MongoDB, etc.) aligned with performance, scalabili...
 
+# MAIN CONTENT
+# Complete the sections below based on your specific artifact needs
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/physical-data-model.md for detailed structure
+# BEST PRACTICES:
+# - Workload-Driven Design: Analyze query patterns, read/write ratios, and access patterns before finalizing indexes and partiti
+# - Platform-Native Features: Leverage platform-specific optimizations (Snowflake micro-partitions, BigQuery partitioned tables, P
+# - Index Strategy: Create covering indexes for critical queries, avoid over-indexing writes-heavy tables, use filtered/
+# - Partitioning by Access Pattern: Partition by date for time-series data, by geography for regional queries, by customer segment for m
+# - Denormalization with Purpose: Denormalize only when proven performance benefits outweigh maintenance complexity; document rational
 
 content:
   overview: |
-    TODO: Provide overview
+    # Provide a high-level overview of this artifact
+    # What is this document about?
+    # Why does it exist?
+    
+  scope:
+    inScope:
+      - "Complete DDL (CREATE TABLE, CREATE INDEX, ALTER TABLE) scripts for target database platform"
+      - "Physical data type mappings (VARCHAR2, NVARCHAR, TEXT, JSONB, DECIMAL, TIMESTAMP WITH TIME ZONE)"
+      - "Index design (B-tree, bitmap, hash, full-text, spatial, covering indexes, included columns)"
+      # Add additional in-scope items
+    outOfScope:
+      - "Item explicitly out of scope"
+      # Add additional out-of-scope items
 
   details: |
-    TODO: Add detailed content
+    # Provide detailed information specific to this artifact type
+    # Include all necessary technical details
+    # Reference the artifact description for required sections
+    
+# QUALITY CHECKLIST
+# Before finalizing, verify:
+# ✓ Completeness: All required sections present and adequately detailed
+# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
+# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
+# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
+# ✓ Currency: Based on current information; outdated content removed or updated
 
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
+relatedDocuments:
+  - type: "Related Artifact Type"
+    path: "path/to/related/artifact"
+    relationship: "depends-on | references | supersedes | implements"
 
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

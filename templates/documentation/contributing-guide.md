@@ -1,108 +1,99 @@
 # Contributing Guide
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/contributing-guide.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+<!-- Provide a 2-3 paragraph overview for executive audience -->
+<!-- What is this document about and why does it matter? -->
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+<!-- Contributing Guides serve as the gateway for community participation by documenting how to contribute code, documentation, bug reports, and feature requests while establishing quality standards, revie... -->
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- Contribution process overview (how to get started, finding issues to work on)
+- Development environment setup for contributors
+- Git workflow and branching strategy (fork-and-pull, feature branches)
+- Commit message conventions (Conventional Commits, semantic messages)
+- Pull request process (PR templates, description requirements, review expectations)
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered by this artifact
 
-**Primary:**
-- TODO: Primary readers
+## Target Audience
 
-**Secondary:**
-- TODO: Secondary readers
+### Primary Audience
 
+- Open-source contributors making their first contribution
+- External developers contributing code, documentation, or bug fixes
+- Community members reporting issues or suggesting features
 
-## Overview
+### Secondary Audience
 
-<!-- TODO: Introduce what this guide covers -->
+- Additional stakeholders who may reference this document
 
-## Prerequisites
+## [Main Section 1]
 
-- TODO: What readers need to know before starting
-- TODO: Required access or tools
+<!-- Complete this section with artifact-specific content -->
+<!-- Refer to the artifact description for required structure -->
 
-## Instructions
+## [Main Section 2]
 
-### Step 1: [Step Title]
-
-**Objective:** TODO: What this step accomplishes
-
-**Instructions:**
-1. TODO: First action
-2. TODO: Second action
-3. TODO: Third action
-
-**Expected Outcome:** TODO: What should happen
-
-**Troubleshooting:**
-- **Problem**: TODO: Common issue
-  - **Solution**: TODO: How to resolve
-
-### Step 2: [Step Title]
-
-<!-- Repeat structure for additional steps -->
+<!-- Add additional sections as needed -->
 
 ## Best Practices
 
-- ✅ **DO**: TODO: Recommended practice
-- ❌ **DON'T**: TODO: Anti-pattern to avoid
+**Welcoming First-Time Contributors**: Create "good first issue" labels for beginner-friendly tasks, provide detailed mentorship on first PRs, celebrate first-time contributors with bot comments or recognition, offer office hours or pair programming for newcomers, maintain comprehensive setup documentation, and respond promptly and kindly to questions
 
-## Reference
+**Clear Contribution Process**: Document step-by-step contribution workflow with examples, provide flowcharts or diagrams showing PR lifecycle, include troubleshooting for common setup issues, create video walkthroughs of contribution process, link to all required templates (PR, issue), and set clear expectations for response times
 
-### Glossary
+**Automated Quality Gates**: Implement pre-commit hooks for code formatting and linting, run automated tests on every PR, validate commit message format automatically, check license headers and attribution, scan for security vulnerabilities, enforce code coverage thresholds, and provide clear feedback when checks fail
 
-- **Term 1**: Definition
-- **Term 2**: Definition
+**Maintainable PR Standards**: Request small, focused PRs (< 400 lines ideal), encourage draft PRs for early feedback, require linked issue for context, enforce descriptive PR titles and descriptions, mandate testing evidence (screenshots, test results), and provide PR templates with checklist
 
-### Related Resources
+**Inclusive Community Culture**: Enforce code of conduct consistently, use inclusive language in all communications, provide multiple communication channels for different preferences, accommodate different time zones and languages, recognize diverse contribution types (code, docs, community support), and foster psychological safety for questions
 
-- [Resource Name](url): Description
+## Quality Checklist
 
-## References
+Before finalizing this artifact, verify:
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/contributing-guide.md` for detailed guidance
+- [ ] **Completeness**: All required sections present and adequately detailed
+- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
+- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
+- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
+- [ ] **Currency**: Based on current information; outdated content removed or updated
 
-## Appendix
+## Related Documents
 
-<!-- Add supporting materials as needed -->
+- [Related Artifact]: Description and relationship
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | Name | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

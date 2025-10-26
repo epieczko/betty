@@ -1,97 +1,99 @@
 # Bias And Fairness Reports
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/bias-and-fairness-reports.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+<!-- Provide a 2-3 paragraph overview for executive audience -->
+<!-- What is this document about and why does it matter? -->
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+<!-- This artifact provides recurring, time-series documentation of fairness metrics for ML models in production, enabling trend analysis, fairness drift detection, and compliance monitoring. It supports e... -->
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- Confusion matrix by demographic groups
+- Fairlearn MetricFrame output
+- AIF360 bias metrics
+- Demographic parity analysis
+- Equalized odds analysis
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered by this artifact
 
-**Primary:**
-- TODO: Primary readers
+## Target Audience
 
-**Secondary:**
-- TODO: Secondary readers
+### Primary Audience
 
+- ML Engineers: Monitor production fairness metrics, trigger retraining, implement bias mitigation
+- Data Scientists: Analyze fairness trends, investigate root causes, recommend mitigation strategies
+- AI Governance Teams: Oversee portfolio fairness, enforce fairness thresholds, coordinate remediation
 
-## Key Findings
+### Secondary Audience
 
-### Finding 1: [Title]
+- Additional stakeholders who may reference this document
 
-**Severity**: High | Medium | Low
+## [Main Section 1]
 
-**Description:**
-<!-- TODO: Describe the finding -->
+<!-- Complete this section with artifact-specific content -->
+<!-- Refer to the artifact description for required structure -->
 
-**Impact:**
-<!-- TODO: Describe business or technical impact -->
+## [Main Section 2]
 
-**Recommendation:**
-<!-- TODO: Provide specific recommendation -->
+<!-- Add additional sections as needed -->
 
-### Finding 2: [Title]
+## Best Practices
 
-<!-- Repeat structure for additional findings -->
+**Automated Report Generation**: Schedule automated fairness report generation (weekly, monthly, quarterly) from production data
 
-## Analysis
+**Standardized Metrics**: Use consistent fairness metrics across all models for comparability; define organizational standards
 
-<!-- TODO: Detailed analysis of findings -->
+**Statistical Significance**: Report confidence intervals and p-values; avoid over-interpreting small sample size results
 
-## Recommendations
+**Intersectional Analysis**: Always include compound protected classes (race × gender); use disaggregated analysis
 
-1. **[Recommendation Title]**
-   - **Priority**: P0 | P1 | P2 | P3
-   - **Owner**: TODO: Responsible party
-   - **Timeline**: TODO: Implementation timeline
-   - **Effort**: TODO: Effort estimate
+**Temporal Baselines**: Compare current metrics to historical baselines; identify trends and drift patterns
 
-## Conclusion
+## Quality Checklist
 
-<!-- TODO: Summarize key points and next steps -->
+Before finalizing this artifact, verify:
 
-## References
+- [ ] **Completeness**: All required sections present and adequately detailed
+- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
+- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
+- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
+- [ ] **Currency**: Based on current information; outdated content removed or updated
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/bias-and-fairness-reports.md` for detailed guidance
+## Related Documents
 
-## Appendix
+- [Related Artifact]: Description and relationship
 
-<!-- Add supporting materials as needed -->
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | Name | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

@@ -1,112 +1,99 @@
 # Customer Data Return Procedures
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/customer-data-return-procedures.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+<!-- Provide a 2-3 paragraph overview for executive audience -->
+<!-- What is this document about and why does it matter? -->
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
-
-<!-- TODO: Explain why this document exists -->
-
-### Scope
-
-**In Scope:**
-- TODO: What is covered
-
-**Out of Scope:**
-- TODO: What is not covered
-
-### Target Audience
-
-**Primary:**
-- TODO: Primary readers
-
-**Secondary:**
-- TODO: Secondary readers
-
-
-## Policy Statement
-
-<!-- TODO: Clear, concise statement of what is required, prohibited, or permitted -->
-
-## Rationale
-
-<!-- TODO: Why this policy exists, what risks it mitigates -->
+<!-- Defines technical processes and operational procedures for secure customer data return, migration, and destruction upon contract termination, ensuring 30-90 day SLA compliance, GDPR Article 17/28 obli... -->
 
 ## Scope
 
-This policy applies to:
-- TODO: Who or what is covered
+### In Scope
 
-This policy does NOT apply to:
-- TODO: Exceptions or exclusions
+- Structured data return (PostgreSQL, MySQL, Oracle, SQL Server databases)
+- Unstructured data return (S3, Azure Blob, GCS object storage)
+- Backup and disaster recovery copy destruction (Veeam, Commvault, Rubrik)
+- Log data purging (Splunk, ELK, Datadog, CloudWatch Logs)
+- Data warehouse extraction (Snowflake, BigQuery, Redshift, Synapse)
 
-## Requirements
+### Out of Scope
 
-### Requirement 1: [Title]
+- Items explicitly not covered by this artifact
 
-**Description:** TODO: Specific requirement
+## Target Audience
 
-**Rationale:** TODO: Why this is required
+### Primary Audience
 
-**Compliance:** TODO: How compliance is measured
+- Data Protection Officers (DPOs) coordinating GDPR Article 17/28 compliance
+- Cloud Operations Teams executing data deletion across AWS/Azure/GCP
+- Legal Counsel managing litigation holds and contractual obligations
 
-### Requirement 2: [Title]
+### Secondary Audience
 
-<!-- Repeat for additional requirements -->
+- Additional stakeholders who may reference this document
 
-## Roles & Responsibilities
+## [Main Section 1]
 
-| Role | Responsibilities |
-|------|------------------|
-| **[Role Name]** | TODO: What this role is responsible for |
+<!-- Complete this section with artifact-specific content -->
+<!-- Refer to the artifact description for required structure -->
 
-## Compliance & Enforcement
+## [Main Section 2]
 
-**Review Frequency:** Annual | Quarterly | Monthly
+<!-- Add additional sections as needed -->
 
-**Monitoring:** TODO: How compliance is monitored
+## Best Practices
 
-**Enforcement:** TODO: Consequences of non-compliance
+**30-90 Day SLA Tracking**: Establish clear data return timelines (30 days for GDPR erasure, 60-90 days for contractual return) with automated ticketing and escalation
 
-**Exceptions:** TODO: Process for requesting exceptions
+**Multi-Environment Purging**: Delete customer data from production, staging, development, test, backup, DR, and analytics environments to ensure complete removal
 
-## Related Policies
+**Backup Expiration Acceleration**: Override standard backup retention policies to force-expire customer data backups within 30-90 days vs standard 7-year retention
 
-- [Policy Name]: Description and link
+**Cryptographic Verification**: Generate SHA-256 hashes of returned data to enable customer verification of completeness and detect tampering
 
-## References
+**Encrypted Transit**: Use TLS 1.3 for SFTP, HTTPS for API exports, and AWS S3 SSE-C/GCS CSEK for customer-managed encryption keys
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/customer-data-return-procedures.md` for detailed guidance
+## Quality Checklist
 
-## Appendix
+Before finalizing this artifact, verify:
 
-<!-- Add supporting materials as needed -->
+- [ ] **Completeness**: All required sections present and adequately detailed
+- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
+- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
+- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
+- [ ] **Currency**: Based on current information; outdated content removed or updated
+
+## Related Documents
+
+- [Related Artifact]: Description and relationship
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | Name | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

@@ -1,57 +1,75 @@
 # Data Freshness Slas
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/data-freshness-slas.md for complete guidance
+# See also: artifact_descriptions/data-freshness-slas.md for complete guidance
+
+# Data Freshness SLAs define the maximum acceptable latency between data generation and availability for consumption, establishing formal service level agreements for data pipelines, ETL/ELT processes, 
 
 metadata:
   # Document Control
-  version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
+  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
+  created: "YYYY-MM-DD"  # Date this artifact was created
+  lastModified: "YYYY-MM-DD"  # Date of most recent update
+  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+
+  # Ownership & Accountability
+  author: "Author Name"  # Primary author of this artifact
+  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
   classification: "Internal"  # Public | Internal | Confidential | Restricted
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
+  # Approvals
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      approvalDate: null  # Date of approval (YYYY-MM-DD)
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# Data Freshness SLAs establish formal commitments for data latency, ensuring data consumers receive timely, actionable data to support business operations, analytics, and machine learning use cases. They answer critical questions: "How fresh does our revenue dashboard data need to be?", "What latency...
 
+# MAIN CONTENT
+# Complete the sections below based on your specific artifact needs
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/data-freshness-slas.md for detailed structure
+# BEST PRACTICES:
+# - Tiered SLA Approach: Define 3-4 freshness tiers (Real-time <1 min, Near real-time <15 min, Hourly <1 hour, Daily <24 hour
+# - Business-Driven SLAs: Tie freshness requirements to business value; 5-minute freshness is unnecessary for monthly reports
+# - Percentile-Based SLAs: Use p95 or p99 latencies instead of max latency; occasional spikes shouldn't breach SLAs
+# - Streaming for Critical Paths: Use Kafka/Kinesis for <5 minute SLAs; batch ETL can't reliably achieve sub-10 minute freshness
+# - Incremental dbt Models: Use incremental models for large tables; full refreshes can't meet tight SLAs at scale
 
 content:
   overview: |
-    TODO: Provide overview
+    # Provide a high-level overview of this artifact
+    # What is this document about?
+    # Why does it exist?
+    
+  scope:
+    inScope:
+      - "Real-time data freshness SLAs (<1 minute latency for operational dashboards, fraud detection, real-time personalization)"
+      - "Near real-time SLAs (<15 minutes for business intelligence, customer 360 views, inventory tracking)"
+      - "Hourly batch SLAs (<1 hour for marketing attribution, campaign performance)"
+      # Add additional in-scope items
+    outOfScope:
+      - "Item explicitly out of scope"
+      # Add additional out-of-scope items
 
   details: |
-    TODO: Add detailed content
+    # Provide detailed information specific to this artifact type
+    # Include all necessary technical details
+    # Reference the artifact description for required sections
+    
+# QUALITY CHECKLIST
+# Before finalizing, verify:
+# ✓ Completeness: All required sections present and adequately detailed
+# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
+# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
+# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
+# ✓ Currency: Based on current information; outdated content removed or updated
 
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
+relatedDocuments:
+  - type: "Related Artifact Type"
+    path: "path/to/related/artifact"
+    relationship: "depends-on | references | supersedes | implements"
 
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

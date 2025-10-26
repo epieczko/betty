@@ -1,70 +1,75 @@
 # Evaluation Protocols
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/evaluation-protocols.md for complete guidance
+# See also: artifact_descriptions/evaluation-protocols.md for complete guidance
+
+# The Evaluation Protocols artifact defines standardized methodologies for evaluating machine learning models, AI systems, and data products throughout their lifecycle. This artifact establishes consist
 
 metadata:
   # Document Control
-  version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
+  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
+  created: "YYYY-MM-DD"  # Date this artifact was created
+  lastModified: "YYYY-MM-DD"  # Date of most recent update
+  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+
+  # Ownership & Accountability
+  author: "Author Name"  # Primary author of this artifact
+  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
   classification: "Internal"  # Public | Internal | Confidential | Restricted
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
+  # Approvals
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      approvalDate: null  # Date of approval (YYYY-MM-DD)
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact establishes standardized evaluation procedures for ML models and AI systems, defining performance metrics, test datasets, validation strategies, and acceptance criteria that determine model readiness for production deployment. It ensures consistent, rigorous, and fair model evaluation ...
 
+# MAIN CONTENT
+# Complete the sections below based on your specific artifact needs
 
-# Assessment Overview
-assessmentType: "TODO: Type of assessment"
-assessmentDate: "{{date}}"
-assessedBy:
-  - "TODO: Assessor name and role"
+# BEST PRACTICES:
+# - Establish Baselines: Always compare against simple baseline models (random, most-frequent, mean prediction) before deploy
+# - Multiple Metrics: Use multiple complementary metrics; single metric optimization can hide important model weaknesses
+# - Stratified Evaluation: Report metrics broken down by key segments (demographics, geography, time periods) to detect bias
+# - Temporal Validation: Use time-based train/test splits for time-series or sequential data to prevent data leakage
+# - Calibration Checks: Verify predicted probabilities are well-calibrated using reliability diagrams and Brier scores
 
-# Scope
-scope:
-  systemsAssessed:
-    - "TODO: System or area assessed"
-  methodology: "TODO: Assessment framework or approach"
+content:
+  overview: |
+    # Provide a high-level overview of this artifact
+    # What is this document about?
+    # Why does it exist?
+    
+  scope:
+    inScope:
+      - "Model evaluation metrics (classification, regression, ranking, NLP, computer vision)"
+      - "Test dataset design (holdout sets, k-fold cross-validation, temporal splits)"
+      - "Offline evaluation procedures (batch evaluation on historical data)"
+      # Add additional in-scope items
+    outOfScope:
+      - "Item explicitly out of scope"
+      # Add additional out-of-scope items
 
-# Findings
-findings:
-  - id: "F-001"
-    title: "TODO: Finding title"
-    severity: "High"  # Low | Medium | High | Critical
-    category: "TODO: Finding category"
-    description: |
-      TODO: Detailed description
-    evidence: "TODO: Supporting evidence"
-    recommendation: "TODO: Remediation recommendation"
-    owner: "TODO: Remediation owner"
-    targetDate: "{{date}}"
+  details: |
+    # Provide detailed information specific to this artifact type
+    # Include all necessary technical details
+    # Reference the artifact description for required sections
+    
+# QUALITY CHECKLIST
+# Before finalizing, verify:
+# ✓ Completeness: All required sections present and adequately detailed
+# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
+# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
+# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
+# ✓ Currency: Based on current information; outdated content removed or updated
 
-# Summary
-summary:
-  overallRating: "TODO: Overall assessment result"
-  keyFindings:
-    - "TODO: Key finding 1"
-  priorityActions:
-    - "TODO: Priority action 1"
+relatedDocuments:
+  - type: "Related Artifact Type"
+    path: "path/to/related/artifact"
+    relationship: "depends-on | references | supersedes | implements"
 
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

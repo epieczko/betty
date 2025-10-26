@@ -1,85 +1,99 @@
 # Dataset Documentation
 
-> **Status**: Draft | Review | Approved | Published
-> **Version**: 1.0.0
-> **Last Updated**: {{date}}
-> **Owner**: {{your_name}}
+> **See also**: `artifact_descriptions/dataset-documentation.md` for complete guidance
 
 ## Document Control
 
 | Field | Value |
 |-------|-------|
-| **Document ID** | TODO: Unique identifier |
+| **Version** | 1.0.0 |
+| **Status** | Draft |
+| **Created** | YYYY-MM-DD |
+| **Last Updated** | YYYY-MM-DD |
+| **Author** | Author Name |
+| **Owner** | Owner Name/Role |
 | **Classification** | Internal |
-| **Approvers** | TODO: List approvers |
-| **Review Date** | TODO: Next review date |
 
 ## Executive Summary
 
-<!-- TODO: 2-3 paragraph overview for executive audience -->
-<!-- What is this document about? -->
-<!-- Why does it matter? -->
-<!-- What are the key takeaways? -->
+<!-- Provide a 2-3 paragraph overview for executive audience -->
+<!-- What is this document about and why does it matter? -->
 
-## Purpose & Scope
+## Purpose
 
-### Purpose
+<!-- This artifact serves as comprehensive metadata documentation for datasets, enabling discovery, assessment, appropriate usage, quality validation, and regulatory compliance. It provides essential conte... -->
 
-<!-- TODO: Explain why this document exists -->
+## Scope
 
-### Scope
+### In Scope
 
-**In Scope:**
-- TODO: What is covered
+- Dataset overview including name, description, purpose, and business context
+- Data source information with system of origin, collection methodology, and update frequency
+- Schema documentation with field names, data types, constraints, and relationships
+- Data quality metrics including completeness, accuracy, consistency, and timeliness
+- Statistical summaries with distribution statistics, null rates, and cardinality
 
-**Out of Scope:**
-- TODO: What is not covered
+### Out of Scope
 
-### Target Audience
+- Items explicitly not covered by this artifact
 
-**Primary:**
-- TODO: Primary readers
+## Target Audience
 
-**Secondary:**
-- TODO: Secondary readers
+### Primary Audience
 
+- Data scientists selecting datasets for analysis and model training
+- Data engineers building data pipelines and integrations
+- Analytics engineers creating data transformations and marts
 
-## Background
+### Secondary Audience
 
-<!-- TODO: Provide necessary background information -->
+- Additional stakeholders who may reference this document
 
-## Main Content
+## [Main Section 1]
 
-### Section 1
+<!-- Complete this section with artifact-specific content -->
+<!-- Refer to the artifact description for required structure -->
 
-<!-- TODO: Add content -->
+## [Main Section 2]
 
-### Section 2
+<!-- Add additional sections as needed -->
 
-<!-- TODO: Add content -->
+## Best Practices
 
-## Summary
+**Version Control**: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain complete history and enable rollback
 
-<!-- TODO: Summarize key points -->
+**Naming Conventions**: Follow organization's document naming standards for consistency and discoverability
 
-## Next Steps
+**Template Usage**: Use approved templates to ensure completeness and consistency across teams
 
-- [ ] TODO: Action item 1
-- [ ] TODO: Action item 2
+**Peer Review**: Have at least one qualified peer review before submitting for approval
 
-## References
+**Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
 
-- [Reference 1](url): Description
-- See also: `artifact_descriptions/dataset-documentation.md` for detailed guidance
+## Quality Checklist
 
-## Appendix
+Before finalizing this artifact, verify:
 
-<!-- Add supporting materials as needed -->
+- [ ] **Completeness**: All required sections present and adequately detailed
+- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
+- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
+- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
+- [ ] **Currency**: Based on current information; outdated content removed or updated
+
+## Related Documents
+
+- [Related Artifact]: Description and relationship
+
+## Approvals
+
+| Role | Name | Date | Status |
+|------|------|------|--------|
+| Approver | Name | YYYY-MM-DD | Pending |
 
 ---
 
-**Document History**
+## Document History
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0.0 | {{{{date}}}} | {{{{your_name}}}} | Initial version |
+| 1.0.0 | YYYY-MM-DD | Author Name | Initial version |

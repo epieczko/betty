@@ -1,57 +1,75 @@
 # Code Signing Records
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/code-signing-records.md for complete guidance
+# See also: artifact_descriptions/code-signing-records.md for complete guidance
+
+# The Code Signing Records artifact documents the usage of digital signatures to verify software authenticity, integrity, and publisher identity across platforms including Windows Authenticode, Apple De
 
 metadata:
   # Document Control
-  version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
+  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
+  created: "YYYY-MM-DD"  # Date this artifact was created
+  lastModified: "YYYY-MM-DD"  # Date of most recent update
+  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+
+  # Ownership & Accountability
+  author: "Author Name"  # Primary author of this artifact
+  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
   classification: "Internal"  # Public | Internal | Confidential | Restricted
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
+  # Approvals
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      approvalDate: null  # Date of approval (YYYY-MM-DD)
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as authoritative documentation of code signing operations including certificate acquisition (EV, OV validation), private key protection (HSM, cloud KMS), signing workflows (automated CI/CD signing, manual signing ceremonies), timestamp authority usage (RFC 3161), and signature v...
 
+# MAIN CONTENT
+# Complete the sections below based on your specific artifact needs
 
-# Content
-# TODO: Add artifact-specific content here
-# Refer to artifact_descriptions/code-signing-records.md for detailed structure
+# BEST PRACTICES:
+# - HSM/Hardware Token Requirement: Use FIPS 140-2 Level 2+ HSM or hardware token for EV Code Signing certificates (CA/Browser Forum req
+# - Certificate Type Selection: Use EV Code Signing for public distribution (avoids SmartScreen warnings); OV acceptable for interna
+# - Private Key Protection: Never extract private keys from HSM; store in Azure Key Vault, AWS KMS, or hardware HSM; implement s
+# - Timestamp Always: Always timestamp signatures with RFC 3161 compliant TSA; enables signature validation after certific
+# - Automated Signing: Integrate signing into CI/CD (GitHub Actions, Jenkins) with HSM/KMS; avoid manual signing processes
 
 content:
   overview: |
-    TODO: Provide overview
+    # Provide a high-level overview of this artifact
+    # What is this document about?
+    # Why does it exist?
+    
+  scope:
+    inScope:
+      - "Certificate lifecycle (CSR generation, CA issuance, renewal, revocation)"
+      - "Code signing certificate types (EV Code Signing, OV Code Signing, Apple Developer ID, Google Play signing)"
+      - "Private key storage and protection (HSM, Azure Key Vault, AWS KMS, YubiKey)"
+      # Add additional in-scope items
+    outOfScope:
+      - "Item explicitly out of scope"
+      # Add additional out-of-scope items
 
   details: |
-    TODO: Add detailed content
+    # Provide detailed information specific to this artifact type
+    # Include all necessary technical details
+    # Reference the artifact description for required sections
+    
+# QUALITY CHECKLIST
+# Before finalizing, verify:
+# ✓ Completeness: All required sections present and adequately detailed
+# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
+# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
+# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
+# ✓ Currency: Based on current information; outdated content removed or updated
 
-  conclusions: |
-    TODO: Summarize conclusions or outcomes
+relatedDocuments:
+  - type: "Related Artifact Type"
+    path: "path/to/related/artifact"
+    relationship: "depends-on | references | supersedes | implements"
 
-# Next Steps
-nextSteps:
-  - action: "TODO: Next action"
-    owner: "TODO: Responsible party"
-    dueDate: "{{date}}"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"

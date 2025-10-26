@@ -1,89 +1,75 @@
 # Success Plan Templates
-# Auto-generated template - Customize for your needs
-# See artifact_descriptions/success-plan-templates.md for complete guidance
+# See also: artifact_descriptions/success-plan-templates.md for complete guidance
+
+# The Success Plan Templates is a comprehensive planning artifact that establishes the strategic approach, resource allocation, timeline, and success criteria for success templates activities within the
 
 metadata:
   # Document Control
-  version: "1.0.0"
-  created: "{{date}}"  # YYYY-MM-DD
-  lastModified: "{{date}}"
-  author: "{{your_name}}"  # TODO: Add your name
-  status: "Draft"  # Draft | Review | Approved | Published
+  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
+  created: "YYYY-MM-DD"  # Date this artifact was created
+  lastModified: "YYYY-MM-DD"  # Date of most recent update
+  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+
+  # Ownership & Accountability
+  author: "Author Name"  # Primary author of this artifact
+  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
   classification: "Internal"  # Public | Internal | Confidential | Restricted
 
-  # Ownership
-  documentOwner: "{{role}}"  # TODO: Define owning role
+  # Approvals
   approvers:
-    - name: "{{approver_name}}"  # TODO: Add approvers
-      role: "{{approver_role}}"
-      approvalDate: null
+    - name: "Approver Name"
+      role: "Approver Role"
+      approvalDate: null  # Date of approval (YYYY-MM-DD)
 
-  # Related Documents
-  relatedDocuments:
-    - type: "{{artifact_type}}"  # TODO: Add upstream dependencies
-      path: "{{path}}"
-      relationship: "depends-on | references | supersedes"
+# PURPOSE
+# This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide]....
 
+# MAIN CONTENT
+# Complete the sections below based on your specific artifact needs
 
-# Executive Summary
-executiveSummary: |
-  TODO: 2-3 paragraph overview
-  - What is being planned
-  - Why it matters
-  - Key success criteria
+# BEST PRACTICES:
+# - Version Control: Store in centralized version control system (Git, SharePoint with versioning, etc.) to maintain comp
+# - Naming Conventions: Follow organization's document naming standards for consistency and discoverability
+# - Template Usage: Use approved templates to ensure completeness and consistency across teams
+# - Peer Review: Have at least one qualified peer review before submitting for approval
+# - Metadata Completion: Fully complete all metadata fields to enable search, classification, and lifecycle management
 
-# Objectives
-objectives:
-  - objective: "TODO: Primary objective"
-    successCriteria:
-      - "TODO: Measurable criterion 1"
-      - "TODO: Measurable criterion 2"
+content:
+  overview: |
+    # Provide a high-level overview of this artifact
+    # What is this document about?
+    # Why does it exist?
+    
+  scope:
+    inScope:
+      - "[Define what is included in this artifact]"
+      - "[Key topics or areas covered]"
+      - "[Processes or systems documented]"
+      # Add additional in-scope items
+    outOfScope:
+      - "Item explicitly out of scope"
+      # Add additional out-of-scope items
 
-# Scope
-scope:
-  inScope:
-    - "TODO: What is included"
-  outOfScope:
-    - "TODO: What is excluded"
+  details: |
+    # Provide detailed information specific to this artifact type
+    # Include all necessary technical details
+    # Reference the artifact description for required sections
+    
+# QUALITY CHECKLIST
+# Before finalizing, verify:
+# ✓ Completeness: All required sections present and adequately detailed
+# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
+# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
+# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
+# ✓ Currency: Based on current information; outdated content removed or updated
 
-# Timeline
-timeline:
-  phases:
-    - name: "Phase 1"
-      startDate: "2024-Q1"
-      endDate: "2024-Q2"
-      milestones:
-        - name: "Milestone 1"
-          date: "2024-01-31"
-          deliverables:
-            - "TODO: Deliverable"
+relatedDocuments:
+  - type: "Related Artifact Type"
+    path: "path/to/related/artifact"
+    relationship: "depends-on | references | supersedes | implements"
 
-# Resources
-resources:
-  team:
-    - role: "TODO: Role"
-      allocation: "100%"  # FTE percentage
-  budget:
-    total: 0
-    breakdown:
-      - category: "Personnel"
-        amount: 0
-
-# Risks
-risks:
-  - id: "RISK-001"
-    description: "TODO: Risk description"
-    likelihood: "Medium"  # Low | Medium | High
-    impact: "High"  # Low | Medium | High
-    mitigation: "TODO: Mitigation strategy"
-
-# Notes
-notes: |
-  TODO: Add any additional notes or context
-
-# Change History
 changeHistory:
   - version: "1.0.0"
-    date: "{{date}}"
-    author: "{{your_name}}"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
     changes: "Initial version"
