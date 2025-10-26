@@ -1,0 +1,1957 @@
+[
+  {
+    "name": "acceptable-use-policy",
+    "has_description": true,
+    "preview": "# Name: acceptable-use-policy\n\n## Executive Summary\n\nThe Acceptable Use Policy (AUP) is a formal directive that establishes organizational rules, standards, and requirements for appropriate use of inf"
+  },
+  {
+    "name": "acceptance-criteria",
+    "has_description": true,
+    "preview": "# Name: acceptance-criteria\n\n## Executive Summary\n\nAcceptance Criteria are the specific, testable conditions that must be met for a user story, feature, or requirement to be considered complete and ac"
+  },
+  {
+    "name": "access-recertification-plan",
+    "has_description": true,
+    "preview": "# Name: access-recertification-plan\n\n## Executive Summary\n\nThe Access Recertification Plan establishes a comprehensive, risk-based approach for periodic validation of user access rights across enterpr"
+  },
+  {
+    "name": "access-review-logs",
+    "has_description": true,
+    "preview": "# Name: access-review-logs\n\n## Executive Summary\n\nThe Access Review Logs artifact establishes comprehensive logging, retention, and audit trail requirements for all access governance activities includ"
+  },
+  {
+    "name": "accessibility-audits",
+    "has_description": true,
+    "preview": "# Name: accessibility-audits\n\n## Executive Summary\n\nThe Accessibility Audits artifact documents comprehensive evaluations of digital products and services against accessibility standards including WCA"
+  },
+  {
+    "name": "accessibility-requirements",
+    "has_description": true,
+    "preview": "# Name: accessibility-requirements\n\n## Executive Summary\n\nThe Accessibility Requirements artifact documents testable, specific requirements for ensuring digital products and services comply with acces"
+  },
+  {
+    "name": "admin-guides",
+    "has_description": true,
+    "preview": "# Name: admin-guides\n\n## Executive Summary\n\nAdmin Guides provide comprehensive system administration documentation for managing production systems, user accounts, security configurations, backup/recov"
+  },
+  {
+    "name": "adr-index",
+    "has_description": true,
+    "preview": "# Name: adr-index\n\n## Executive Summary\n\nArchitecture Decision Records (ADR) Index is a catalog of significant architectural decisions documenting the context, decision, consequences, and alternatives"
+  },
+  {
+    "name": "adversary-emulation-documents",
+    "has_description": true,
+    "preview": "# Name: adversary-emulation-documents\n\n## Executive Summary\n\nThe Adversary Emulation Documents establish comprehensive threat-informed defense capabilities through structured replication of real-world"
+  },
+  {
+    "name": "ai-ethics-and-bias-assessment",
+    "has_description": true,
+    "preview": "# Name: ai-ethics-and-bias-assessment\n\n## Executive Summary\n\nThe AI Ethics and Bias Assessment is a critical deliverable for evaluating machine learning models and AI systems for fairness, equity, and"
+  },
+  {
+    "name": "ai-use-case-inventory",
+    "has_description": true,
+    "preview": "# Name: ai-use-case-inventory\n\n## Executive Summary\n\nThe AI Use Case Inventory is a comprehensive catalog of all machine learning models and AI systems across the organization, providing centralized v"
+  },
+  {
+    "name": "alert-catalogs",
+    "has_description": true,
+    "preview": "# Name: alert-catalogs\n\n## Executive Summary\n\nAlert Catalogs are centralized inventories of all monitoring alerts documenting trigger conditions, thresholds, severity levels, notification channels, ru"
+  },
+  {
+    "name": "analytics-model-documentation",
+    "has_description": true,
+    "preview": "# Name: analytics-model-documentation\n\n## Executive Summary\n\nAnalytics Model Documentation provides comprehensive technical and operational documentation for machine learning models, statistical model"
+  },
+  {
+    "name": "api-catalogs",
+    "has_description": true,
+    "preview": "# Name: api-catalogs\n\n## Executive Summary\n\nThe API Catalog is a comprehensive inventory and documentation system that centralizes all organizational APIs, providing a single source of truth for API d"
+  },
+  {
+    "name": "api-versioning-policy",
+    "has_description": true,
+    "preview": "# Name: api-versioning-policy\n\n## Executive Summary\n\nThe API Versioning Policy is a formal governance directive that establishes mandatory standards for API evolution, backward compatibility, and depr"
+  },
+  {
+    "name": "app-store-metadata",
+    "has_description": true,
+    "preview": "# Name: app-store-metadata\n\n## Executive Summary\n\nApp Store Metadata is a strategic asset for mobile app visibility and conversion, optimizing discoverability across Apple App Store and Google Play Co"
+  },
+  {
+    "name": "approval-evidence",
+    "has_description": true,
+    "preview": "# Name: approval-evidence\n\n## Executive Summary\n\nThe Approval Evidence artifact provides tamper-evident documentation of formal approvals required for SOC 2 Type II audits, ISO 27001 certifications, a"
+  },
+  {
+    "name": "architecture-approvals",
+    "has_description": true,
+    "preview": "# Name: architecture-approvals\n\n## Executive Summary\n\nThe Architecture Approvals artifact documents formal decisions and authorizations from the Architecture Review Board (ARB) regarding architectural"
+  },
+  {
+    "name": "architecture-overview",
+    "has_description": true,
+    "preview": "# Name: architecture-overview\n\n## Executive Summary\n\nThe Architecture Overview is a comprehensive technical artifact that documents the complete architectural landscape of a system or solution using i"
+  },
+  {
+    "name": "architecture-review-board-minutes",
+    "has_description": true,
+    "preview": "# Name: architecture-review-board-minutes\n\n## Executive Summary\n\nThe Architecture Review Board (ARB) Minutes document the proceedings, discussions, and decisions of formal ARB meetings where architect"
+  },
+  {
+    "name": "architecture-vision",
+    "has_description": true,
+    "preview": "# Name: architecture-vision\n\n## Executive Summary\n\nThe Architecture Vision defines the target state architecture and transformation roadmap for evolving from current state to desired future state, ali"
+  },
+  {
+    "name": "architecture-waivers",
+    "has_description": true,
+    "preview": "# Name: architecture-waivers\n\n## Executive Summary\n\nThe Architecture Waivers artifact documents formal exception requests when projects or systems cannot comply with established architectural standard"
+  },
+  {
+    "name": "archival-plan",
+    "has_description": true,
+    "preview": "# Name: archival-plan\n\n## Executive Summary\n\nThe Archival Plan is a critical compliance and data governance artifact that defines the systematic approach for archiving, preserving, and managing record"
+  },
+  {
+    "name": "artifact-registry-policies",
+    "has_description": true,
+    "preview": "# Name: artifact-registry-policies\n\n## Executive Summary\n\nThe Artifact Registry Policies defines governance rules for managing container images, application packages, and build artifacts across JFrog "
+  },
+  {
+    "name": "artifact-store-policies",
+    "has_description": true,
+    "preview": "# Name: artifact-store-policies\n\n## Executive Summary\n\nThe Artifact Store Policies defines governance for centralized storage of build outputs, dependencies, and deployable packages across the softwar"
+  },
+  {
+    "name": "asyncapi-specification",
+    "has_description": true,
+    "preview": "# Name: asyncapi-specification\n\n## Executive Summary\n\nThe AsyncAPI Specification defines asynchronous, event-driven, and message-based APIs in a machine-readable format. This specification documents m"
+  },
+  {
+    "name": "attribution-files",
+    "has_description": true,
+    "preview": "# Name: attribution-files\n\n## Executive Summary\n\nAttribution Files (NOTICE, LICENSE, THIRD-PARTY-NOTICES) are legal documents bundled with software distributions that acknowledge open-source component"
+  },
+  {
+    "name": "audit-readiness-workbook",
+    "has_description": true,
+    "preview": "# Name: audit-readiness-workbook\n\n## Executive Summary\n\nThe Audit Readiness Workbook is a comprehensive checklist and evidence repository documenting control implementation, test results, and supporti"
+  },
+  {
+    "name": "auto-update-policies",
+    "has_description": true,
+    "preview": "# Name: auto-update-policies\n\n## Executive Summary\n\nThe Auto Update Policies artifact defines governance rules for automated dependency, package, and system updates across infrastructure and applicati"
+  },
+  {
+    "name": "automated-quality-gates",
+    "has_description": true,
+    "preview": "# Name: automated-quality-gates\n\n## Executive Summary\n\nThe Automated Quality Gates artifact defines enforceable quality criteria and automated checks integrated into CI/CD pipelines using tools such a"
+  },
+  {
+    "name": "automated-test-scripts",
+    "has_description": true,
+    "preview": "# Name: automated-test-scripts\n\n## Executive Summary\n\nThe Automated Test Scripts artifact comprises executable test code implementing unit tests (JUnit, Jest, pytest, RSpec), integration tests, end-to"
+  },
+  {
+    "name": "backup-and-recovery-plan",
+    "has_description": true,
+    "preview": "# Name: backup-and-recovery-plan\n\n## Executive Summary\n\nThe Backup and Recovery Plan is a critical disaster recovery and business continuity artifact that defines comprehensive backup strategies, reco"
+  },
+  {
+    "name": "backup-verification-logs",
+    "has_description": true,
+    "preview": "# Name: backup-verification-logs\n\n## Executive Summary\n\nThe Backup Verification Logs is a critical operational and compliance artifact that provides structured evidence of backup integrity testing and"
+  },
+  {
+    "name": "baseline-hardening-guides",
+    "has_description": true,
+    "preview": "# Name: baseline-hardening-guides\n\n## Executive Summary\n\nThe Baseline Hardening Guides establish comprehensive security configuration standards for operating systems, network devices, databases, cloud"
+  },
+  {
+    "name": "battlecards",
+    "has_description": true,
+    "preview": "# Name: battlecards\n\n## Executive Summary\n\nBattlecards are quick-reference competitive intelligence tools that equip sales teams, solution engineers, and customer-facing personnel with real-time compe"
+  },
+  {
+    "name": "benefits-realization-plan",
+    "has_description": true,
+    "preview": "# Name: benefits-realization-plan\n\n## Executive Summary\n\nThe Benefits Realization Plan is a portfolio and program governance artifact that defines expected business outcomes, quantifiable benefits, su"
+  },
+  {
+    "name": "benefits-realization-report",
+    "has_description": true,
+    "preview": "# Name: benefits-realization-report\n\n## Executive Summary\n\nThe Benefits Realization Report is a structured value measurement document that tracks actual achieved benefits against projected benefits fr"
+  },
+  {
+    "name": "bias-and-fairness-reports",
+    "has_description": true,
+    "preview": "# Name: bias-and-fairness-reports\n\n## Executive Summary\n\nThe Bias and Fairness Reports provide recurring, standardized documentation of fairness metrics, demographic performance disparities, and bias "
+  },
+  {
+    "name": "bounded-context-map",
+    "has_description": true,
+    "preview": "# Name: bounded-context-map\n\n## Executive Summary\n\nThe Bounded Context Map is a strategic design artifact from Domain-Driven Design (DDD) that visualizes the boundaries between different domains, thei"
+  },
+  {
+    "name": "budget-forecast",
+    "has_description": true,
+    "preview": "# Name: budget-forecast\n\n## Executive Summary\n\nThe Budget Forecast is a comprehensive financial planning document that projects multi-year operating and capital expenditures (OpEx/CapEx), incorporatin"
+  },
+  {
+    "name": "bug-bounty-brief",
+    "has_description": true,
+    "preview": "# Name: bug-bounty-brief\n\n## Executive Summary\n\nThe Bug Bounty Brief establishes a comprehensive vulnerability disclosure and crowdsourced security testing program that leverages the global security r"
+  },
+  {
+    "name": "build-reproducibility-notes",
+    "has_description": true,
+    "preview": "# Name: build-reproducibility-notes\n\n## Executive Summary\n\nBuild Reproducibility Notes document the technical specifications, environmental constraints, and verification procedures required to achieve"
+  },
+  {
+    "name": "build-scripts",
+    "has_description": true,
+    "preview": "# Name: build-scripts\n\n## Executive Summary\n\nBuild Scripts are executable automation code that orchestrate the compilation, testing, packaging, and deployment of software applications within CI/CD pip"
+  },
+  {
+    "name": "business-associate-agreement",
+    "has_description": true,
+    "preview": "# Name: business-associate-agreement\n\n## Executive Summary\n\nThe Business Associate Agreement (BAA) is a legally binding contract required under HIPAA (Health Insurance Portability and Accountability A"
+  },
+  {
+    "name": "business-case",
+    "has_description": true,
+    "preview": "# Name: business-case\n\n## Executive Summary\n\nThe Business Case is a critical financial and strategic deliverable that provides quantitative justification for investment decisions using industry-standa"
+  },
+  {
+    "name": "business-process-models",
+    "has_description": true,
+    "preview": "# Name: business-process-models\n\n## Executive Summary\n\nThe Business Process Models artifact provides visual and structured documentation of business processes using BPMN 2.0 (Business Process Model an"
+  },
+  {
+    "name": "business-rules-catalog",
+    "has_description": true,
+    "preview": "# Name: business-rules-catalog\n\n## Executive Summary\n\nThe Business Rules Catalog is a centralized repository that documents, manages, and versions all business logic, decision criteria, policies, and "
+  },
+  {
+    "name": "cab-approvals",
+    "has_description": true,
+    "preview": "# Name: cab-approvals\n\n## Executive Summary\n\nThe CAB (Change Advisory Board) Approvals artifact documents formal change authorization decisions following ITIL 4 Change Enablement practices. The CAB ev"
+  },
+  {
+    "name": "caching-strategy",
+    "has_description": true,
+    "preview": "# Name: caching-strategy\n\n## Executive Summary\n\nThe Caching Strategy artifact defines comprehensive multi-tier caching architecture for distributed systems, specifying cache technologies, invalidation"
+  },
+  {
+    "name": "caching-tiers",
+    "has_description": true,
+    "preview": "# Name: caching-tiers\n\n## Executive Summary\n\nThe Caching Tiers artifact documents multi-layer caching strategy across browser cache, CDN (CloudFront, Akamai, Cloudflare), application cache (Redis, Mem"
+  },
+  {
+    "name": "capability-model",
+    "has_description": true,
+    "preview": "# Name: capability-model\n\n## Executive Summary\n\nThe Capability Model is a strategic architecture artifact that defines and organizes business capabilities independent of organizational structure, proc"
+  },
+  {
+    "name": "capacity-models",
+    "has_description": true,
+    "preview": "# Name: capacity-models\n\n## Executive Summary\n\nThe Capacity Models artifact applies queueing theory, Little's Law, and empirical performance data to predict system behavior under varying loads and inf"
+  },
+  {
+    "name": "capacity-plan",
+    "has_description": true,
+    "preview": "# Name: capacity-plan\n\n## Executive Summary\n\nThe Capacity Plan is a strategic operational artifact that forecasts infrastructure resource requirements, establishes capacity targets, and defines scalin"
+  },
+  {
+    "name": "capitalization-policy",
+    "has_description": true,
+    "preview": "# Name: capitalization-policy\n\n## Executive Summary\n\nThe Capitalization Policy is a formal accounting policy that establishes rules, thresholds, and procedures for determining when expenditures should"
+  },
+  {
+    "name": "carbon-footprint-analysis",
+    "has_description": true,
+    "preview": "# Name: carbon-footprint-analysis\n\n## Executive Summary\n\nThe Carbon Footprint Analysis artifact quantifies greenhouse gas (GHG) emissions across Scope 1 (direct), Scope 2 (purchased energy), and Scope"
+  },
+  {
+    "name": "cdn-and-waf-configs",
+    "has_description": true,
+    "preview": "# Name: cdn-and-waf-configs\n\n## Executive Summary\n\nThe CDN and WAF Configs artifact defines content delivery network and web application firewall configurations for cloud-native applications, specifyi"
+  },
+  {
+    "name": "certificate-policy",
+    "has_description": true,
+    "preview": "# Name: certificate-policy\n\n## Executive Summary\n\nThe Certificate Policy establishes comprehensive governance for Public Key Infrastructure (PKI) and digital certificate management including TLS/SSL c"
+  },
+  {
+    "name": "certification-exams",
+    "has_description": true,
+    "preview": "# Name: certification-exams\n\n## Executive Summary\n\nThe Certification Exams artifact provides comprehensive documentation for compliance, security, and professional certification exam preparation, trac"
+  },
+  {
+    "name": "change-control-plan",
+    "has_description": true,
+    "preview": "# Name: change-control-plan\n\n## Executive Summary\n\nThe Change Control Plan establishes a comprehensive IT change management framework aligned with ITIL 4 Change Enablement practices, ISO/IEC 20000-1 c"
+  },
+  {
+    "name": "change-log",
+    "has_description": true,
+    "preview": "# Name: change-log\n\n## Executive Summary\n\nThe Change Log artifact provides a chronological audit trail documenting all modifications, decisions, issues, and resolutions throughout program and project "
+  },
+  {
+    "name": "changelogs",
+    "has_description": true,
+    "preview": "# Name: changelogs\n\n## Executive Summary\n\nThe Changelog artifact is a human-readable, chronologically-ordered record of all notable changes across software versions, documenting features, bug fixes, d"
+  },
+  {
+    "name": "chaos-engineering-experiments",
+    "has_description": true,
+    "preview": "# Name: chaos-engineering-experiments\n\n## Executive Summary\n\nChaos Engineering Experiments are controlled, hypothesis-driven tests that inject failures into production or production-like systems to di"
+  },
+  {
+    "name": "ci-cd-pipeline-definitions",
+    "has_description": true,
+    "preview": "# Name: ci-cd-pipeline-definitions\n\n## Executive Summary\n\nCI/CD Pipeline Definitions are declarative, version-controlled specifications defining the automated build, test, security scan, and deploymen"
+  },
+  {
+    "name": "circuit-breaker-configurations",
+    "has_description": true,
+    "preview": "# Name: circuit-breaker-configurations\n\n## Executive Summary\n\nThe Circuit Breaker Configurations document defines the resilience and fault tolerance settings for all service-to-service integrations, t"
+  },
+  {
+    "name": "class-diagrams",
+    "has_description": true,
+    "preview": "# Name: class-diagrams\n\n## Executive Summary\n\nClass Diagrams are fundamental UML (Unified Modeling Language) diagrams that represent the static structure of object-oriented systems through classes, at"
+  },
+  {
+    "name": "cloud-cost-optimization-reports",
+    "has_description": true,
+    "preview": "# Name: cloud-cost-optimization-reports\n\n## Executive Summary\n\nThe Cloud Cost Optimization Reports artifact provides comprehensive analysis of cloud infrastructure spending using AWS Cost Explorer, Az"
+  },
+  {
+    "name": "cloud-landing-zone-design",
+    "has_description": true,
+    "preview": "# Name: cloud-landing-zone-design\n\n## Executive Summary\n\nThe Cloud Landing Zone Design defines the foundational multi-account/multi-subscription cloud environment architecture implementing security gu"
+  },
+  {
+    "name": "cmp-configurations",
+    "has_description": true,
+    "preview": "# Name: cmp-configurations\n\n## Executive Summary\n\nThe CMP Configurations artifact documents the technical and operational settings for Consent Management Platforms (CMPs) such as OneTrust, TrustArc, C"
+  },
+  {
+    "name": "code-coverage-reports",
+    "has_description": true,
+    "preview": "# Name: code-coverage-reports\n\n## Executive Summary\n\nCode Coverage Reports provide quantitative analysis of test suite effectiveness by measuring which portions of source code are executed during auto"
+  },
+  {
+    "name": "code-review-records",
+    "has_description": true,
+    "preview": "# Name: code-review-records\n\n## Executive Summary\n\nThe Code Review Records artifact documents systematic peer review activities for source code changes, capturing review comments, security findings, q"
+  },
+  {
+    "name": "code-signing-records",
+    "has_description": true,
+    "preview": "# Name: code-signing-records\n\n## Executive Summary\n\nThe Code Signing Records artifact documents the usage of digital signatures to verify software authenticity, integrity, and publisher identity acros"
+  },
+  {
+    "name": "coding-standards-and-style-guides",
+    "has_description": true,
+    "preview": "# Name: coding-standards-and-style-guides\n\n## Executive Summary\n\nCoding Standards and Style Guides are normative technical documentation that establishes language-specific conventions, formatting rule"
+  },
+  {
+    "name": "commit-logs",
+    "has_description": true,
+    "preview": "# Name: commit-logs\n\n## Executive Summary\n\nThe Commit Logs is a critical governance and audit artifact that provides a chronological record of commits throughout the General phase. This structured log"
+  },
+  {
+    "name": "communication-plan",
+    "has_description": true,
+    "preview": "# Name: communication-plan\n\n## Executive Summary\n\nThe Communication Plan is a critical project management artifact that establishes stakeholder communication strategies, reporting cadences, and inform"
+  },
+  {
+    "name": "competitive-analysis",
+    "has_description": true,
+    "preview": "# Name: competitive-analysis\n\n## Executive Summary\n\nThe Competitive Analysis is a comprehensive strategic assessment that evaluates market dynamics, competitor capabilities, and competitive positionin"
+  },
+  {
+    "name": "component-diagrams",
+    "has_description": true,
+    "preview": "# Name: component-diagrams\n\n## Executive Summary\n\nComponent Diagrams are detailed technical artifacts that visualize the internal structure, interfaces, dependencies, and relationships of software com"
+  },
+  {
+    "name": "component-model",
+    "has_description": true,
+    "preview": "# Name: component-model\n\n## Executive Summary\n\nThe Component Model is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact prov"
+  },
+  {
+    "name": "configuration-design",
+    "has_description": true,
+    "preview": "# Name: configuration-design\n\n## Executive Summary\n\nConfiguration Design documents define application and infrastructure configuration strategies, including environment-specific settings, feature flag"
+  },
+  {
+    "name": "configuration-drift-reports",
+    "has_description": true,
+    "preview": "# Name: configuration-drift-reports\n\n## Executive Summary\n\nThe Configuration Drift Reports artifact defines automated detection of infrastructure configuration drift from Infrastructure as Code (IaC) "
+  },
+  {
+    "name": "consent-models",
+    "has_description": true,
+    "preview": "# Name: consent-models\n\n## Executive Summary\n\nThe Consent Models artifact defines the legal and technical frameworks for capturing, storing, and managing user consent across digital properties. This s"
+  },
+  {
+    "name": "consent-receipts",
+    "has_description": true,
+    "preview": "# Name: consent-receipts\n\n## Executive Summary\n\nThe Consent Receipts artifact documents the machine-readable and human-readable records of user consent transactions, providing verifiable proof that co"
+  },
+  {
+    "name": "content-strategy",
+    "has_description": true,
+    "preview": "# Name: content-strategy\n\n## Executive Summary\n\nContent Strategy is the systematic planning, creation, delivery, and governance of useful, usable content across the entire content lifecycle. This arti"
+  },
+  {
+    "name": "context-diagrams",
+    "has_description": true,
+    "preview": "# Name: context-diagrams\n\n## Executive Summary\n\nThe Context Diagram (C4 Model Level 1) provides the highest-level architectural view showing how the system fits within its environment, illustrating ex"
+  },
+  {
+    "name": "continuous-improvement-plan",
+    "has_description": true,
+    "preview": "# Name: continuous-improvement-plan\n\n## Executive Summary\n\nThe Continuous Improvement Plan is an operational excellence artifact that defines systematic approaches to identifying, prioritizing, and im"
+  },
+  {
+    "name": "contributing-guide",
+    "has_description": true,
+    "preview": "# Name: contributing-guide\n\n## Executive Summary\n\nContributing Guides provide comprehensive documentation for community contributors, external developers, and internal teams to participate in open-sou"
+  },
+  {
+    "name": "contributor-license-agreements",
+    "has_description": true,
+    "preview": "# Name: contributor-license-agreements\n\n## Executive Summary\n\nContributor License Agreements (CLAs) are legal instruments that establish intellectual property terms for contributions to open-source pr"
+  },
+  {
+    "name": "control-test-evidence-packs",
+    "has_description": true,
+    "preview": "# Name: control-test-evidence-packs\n\n## Executive Summary\n\nControl Test Evidence Packs are organized collections of documentation, screenshots, logs, reports, and attestations that demonstrate control"
+  },
+  {
+    "name": "cookie-policy-inventory",
+    "has_description": true,
+    "preview": "# Name: cookie-policy-inventory\n\n## Executive Summary\n\nThe Cookie Policy Inventory catalogs all cookies and tracking technologies deployed across web and mobile properties, providing IAB TCF 2.2 categ"
+  },
+  {
+    "name": "cookie-policy",
+    "has_description": true,
+    "preview": "# Name: cookie-policy\n\n## Executive Summary\n\nThe Cookie Policy is a public-facing transparency notice disclosing website cookies, tracking technologies, and similar identifiers to satisfy ePrivacy Dir"
+  },
+  {
+    "name": "cosign-signatures",
+    "has_description": true,
+    "preview": "# Name: cosign-signatures\n\n## Executive Summary\n\nThe Cosign Signatures artifact documents cryptographic signatures for container images and software artifacts using Sigstore's Cosign tool, a critical "
+  },
+  {
+    "name": "cost-anomaly-alerts",
+    "has_description": true,
+    "preview": "# Name: cost-anomaly-alerts\n\n## Executive Summary\n\nThe Cost Anomaly Alerts artifact defines automated detection of unexpected cloud spending using AWS Cost Anomaly Detection, Azure Cost Management ano"
+  },
+  {
+    "name": "cost-tagging-policy",
+    "has_description": true,
+    "preview": "# Name: cost-tagging-policy\n\n## Executive Summary\n\nThe Cost Tagging Policy establishes mandatory standards for tagging cloud resources (AWS, Azure, GCP) and SaaS applications to enable accurate cost a"
+  },
+  {
+    "name": "crash-reporting-taxonomy",
+    "has_description": true,
+    "preview": "# Name: crash-reporting-taxonomy\n\n## Executive Summary\n\nThe Crash Reporting Taxonomy is a structured classification system that standardizes crash categorization, severity assignment, and metadata cap"
+  },
+  {
+    "name": "crash-triage-playbooks",
+    "has_description": true,
+    "preview": "# Name: crash-triage-playbooks\n\n## Executive Summary\n\nThe Crash Triage Playbooks artifact provides standardized, repeatable procedures for rapidly diagnosing, categorizing, and responding to applicati"
+  },
+  {
+    "name": "customer-communication-templates",
+    "has_description": true,
+    "preview": "# Name: customer-communication-templates\n\n## Executive Summary\n\nThe Customer Communication Templates provide legally-reviewed, pre-approved templates for notifying customers of security incidents, dat"
+  },
+  {
+    "name": "customer-data-return-procedures",
+    "has_description": true,
+    "preview": "# Name: customer-data-return-procedures\n\n## Executive Summary\n\nThe Customer Data Return Procedures document defines the technical and operational processes for returning or destroying customer data up"
+  },
+  {
+    "name": "customer-onboarding-plan",
+    "has_description": true,
+    "preview": "# Name: customer-onboarding-plan\n\n## Executive Summary\n\nThe Customer Onboarding Plan defines the comprehensive strategy, touchpoints, resources, and success metrics for transitioning new customers fro"
+  },
+  {
+    "name": "cutover-checklist",
+    "has_description": true,
+    "preview": "# Name: cutover-checklist\n\n## Executive Summary\n\nCutover Checklists are comprehensive go-live verification lists that ensure all prerequisites are met before production deployments, major releases, an"
+  },
+  {
+    "name": "dag-definitions",
+    "has_description": true,
+    "preview": "# Name: dag-definitions\n\n## Executive Summary\n\nThe DAG Definitions artifact is a critical deliverable for data engineering and workflow orchestration teams, documenting Directed Acyclic Graph (DAG) co"
+  },
+  {
+    "name": "data-contracts",
+    "has_description": true,
+    "preview": "# Name: data-contracts\n\n## Executive Summary\n\nData Contracts are formal agreements defining the schema, quality, semantics, and SLAs for data exchanged between data producers and consumers. Inspired b"
+  },
+  {
+    "name": "data-dictionaries",
+    "has_description": true,
+    "preview": "# Name: data-dictionaries\n\n## Executive Summary\n\nThe Data Dictionary is a foundational metadata management artifact that provides comprehensive documentation of data elements, business definitions, an"
+  },
+  {
+    "name": "data-export-procedures",
+    "has_description": true,
+    "preview": "# Name: data-export-procedures\n\n## Executive Summary\n\nThe Data Export Procedures document defines the comprehensive technical, operational, and compliance requirements for exporting customer data, sys"
+  },
+  {
+    "name": "data-flow-diagrams",
+    "has_description": true,
+    "preview": "# Name: data-flow-diagrams\n\n## Executive Summary\n\nData Flow Diagrams (DFDs) are analytical artifacts that visualize how data moves through a system, showing processes, data stores, external entities, "
+  },
+  {
+    "name": "data-freshness-slas",
+    "has_description": true,
+    "preview": "# Name: data-freshness-slas\n\n## Executive Summary\n\nData Freshness SLAs define the maximum acceptable latency between data generation and availability for consumption, establishing formal service level"
+  },
+  {
+    "name": "data-lineage-maps",
+    "has_description": true,
+    "preview": "# Name: data-lineage-maps\n\n## Executive Summary\n\nData Lineage Maps are visual and technical documentation artifacts that trace the complete end-to-end flow of data from source systems through transfor"
+  },
+  {
+    "name": "data-lineage-tracking",
+    "has_description": true,
+    "preview": "# Name: data-lineage-tracking\n\n## Executive Summary\n\nData Lineage Tracking is the operational process and technical implementation for continuously capturing, updating, and maintaining data lineage me"
+  },
+  {
+    "name": "data-map",
+    "has_description": true,
+    "preview": "# Name: data-map\n\n## Executive Summary\n\nA Data Map is a comprehensive inventory and visualization artifact that documents the location, movement, and relationships of data across an organization's ent"
+  },
+  {
+    "name": "data-processing-addendum",
+    "has_description": true,
+    "preview": "# Name: data-processing-addendum\n\n## Executive Summary\n\nThe Data Processing Addendum (DPA) is a legally binding contract addendum that governs the processing of personal data between data controllers "
+  },
+  {
+    "name": "data-product-specification",
+    "has_description": true,
+    "preview": "# Name: data-product-specification\n\n## Executive Summary\n\nA Data Product Specification is a comprehensive design document that defines a data product as a self-contained, discoverable, addressable, tr"
+  },
+  {
+    "name": "data-protection-impact-assessment",
+    "has_description": true,
+    "preview": "# Name: data-protection-impact-assessment\n\n## Executive Summary\n\nThe Data Protection Impact Assessment (DPIA) is a mandatory privacy governance artifact required by GDPR Article 35 and other global pr"
+  },
+  {
+    "name": "data-quality-rules",
+    "has_description": true,
+    "preview": "# Name: data-quality-rules\n\n## Executive Summary\n\nData Quality Rules are executable specifications that define acceptable data characteristics, constraints, thresholds, and validation logic across the"
+  },
+  {
+    "name": "data-residency-plan",
+    "has_description": true,
+    "preview": "# Name: data-residency-plan\n\n## Executive Summary\n\nThe Data Residency Plan is a strategic compliance framework that defines where personal data and regulated information must be physically stored and "
+  },
+  {
+    "name": "data-retention-plan",
+    "has_description": true,
+    "preview": "# Name: data-retention-plan\n\n## Executive Summary\n\nThe Data Retention Plan is a comprehensive governance framework that defines retention periods, deletion schedules, archival procedures, and legal ho"
+  },
+  {
+    "name": "database-schema-ddl",
+    "has_description": true,
+    "preview": "# Name: database-schema-ddl\n\n## Executive Summary\n\nDatabase Schema DDL (Data Definition Language) are version-controlled SQL scripts defining tables, columns, indexes, constraints, and relationships t"
+  },
+  {
+    "name": "dataset-documentation",
+    "has_description": true,
+    "preview": "# Name: dataset-documentation\n\n## Executive Summary\n\nDataset Documentation provides comprehensive metadata and contextual information about datasets, following industry standards including Datasheets "
+  },
+  {
+    "name": "ddos-posture-assessments",
+    "has_description": true,
+    "preview": "# Name: ddos-posture-assessments\n\n## Executive Summary\n\nThe DDoS Posture Assessments artifact provides comprehensive evaluation of an organization's defensive capabilities against Distributed Denial o"
+  },
+  {
+    "name": "decision-log",
+    "has_description": true,
+    "preview": "# Name: decision-log\n\n## Executive Summary\n\nThe Decision Log is a structured governance artifact that captures critical decisions, their rationale, alternatives considered, decision-makers, and outcom"
+  },
+  {
+    "name": "decommissioning-plan",
+    "has_description": true,
+    "preview": "# Name: decommissioning-plan\n\n## Executive Summary\n\nThe Decommissioning Plan is a comprehensive operational artifact that defines procedures, timelines, and responsibilities for safely retiring system"
+  },
+  {
+    "name": "defect-log",
+    "has_description": true,
+    "preview": "# Name: defect-log\n\n## Executive Summary\n\nDefect Logs provide systematic tracking of software bugs, issues, and technical debt throughout the development lifecycle. These logs are essential for priori"
+  },
+  {
+    "name": "demo-scripts",
+    "has_description": true,
+    "preview": "# Name: demo-scripts\n\n## Executive Summary\n\nDemo Scripts provide the choreographed narrative and click-through sequence for product demonstrations, transforming raw product features into compelling st"
+  },
+  {
+    "name": "dependency-graph",
+    "has_description": true,
+    "preview": "# Name: dependency-graph\n\n## Executive Summary\n\nThe Dependency Graph is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact pr"
+  },
+  {
+    "name": "deployment-diagram",
+    "has_description": true,
+    "preview": "# Name: deployment-diagram\n\n## Executive Summary\n\nThe Deployment Diagram (UML Deployment Diagram) illustrates the physical infrastructure topology showing how software artifacts are deployed onto hard"
+  },
+  {
+    "name": "deployment-plan",
+    "has_description": true,
+    "preview": "# Name: deployment-plan\n\n## Executive Summary\n\nThe Deployment Plan defines the strategy, procedures, and infrastructure for safely releasing software to production environments with minimal downtime a"
+  },
+  {
+    "name": "deployment-topology-diagram",
+    "has_description": true,
+    "preview": "# Name: deployment-topology-diagram\n\n## Executive Summary\n\nThe Deployment Topology Diagram is a critical governance and audit artifact that provides a chronological record of deployment topology diagr"
+  },
+  {
+    "name": "deprecation-policy",
+    "has_description": true,
+    "preview": "# Name: deprecation-policy\n\n## Executive Summary\n\nA Deprecation Policy defines the structured process for phasing out software features, APIs, libraries, and services while minimizing disruption to us"
+  },
+  {
+    "name": "developer-handbook",
+    "has_description": true,
+    "preview": "# Name: developer-handbook\n\n## Executive Summary\n\nThe Developer Handbook serves as the definitive onboarding and reference guide for engineering teams, documenting development environment setup, codin"
+  },
+  {
+    "name": "disaster-recovery-runbooks",
+    "has_description": true,
+    "preview": "# Name: disaster-recovery-runbooks\n\n## Executive Summary\n\nDisaster Recovery (DR) Runbooks are step-by-step operational procedures for restoring critical systems and data following catastrophic failure"
+  },
+  {
+    "name": "discount-guardrails",
+    "has_description": true,
+    "preview": "# Name: discount-guardrails\n\n## Executive Summary\n\nThe Discount Guardrails are formal policies that establish maximum allowable discounts, approval authority levels, and deal desk workflows to protect"
+  },
+  {
+    "name": "dns-configurations",
+    "has_description": true,
+    "preview": "# Name: dns-configurations\n\n## Executive Summary\n\nDNS Configurations are the critical infrastructure artifacts that enable service discovery, load balancing, and automated certificate provisioning wit"
+  },
+  {
+    "name": "docker-compose-manifests",
+    "has_description": true,
+    "preview": "# Name: docker-compose-manifests\n\n## Executive Summary\n\nThe Docker Compose Manifests artifact defines multi-container application orchestration for local development, testing, and small-scale producti"
+  },
+  {
+    "name": "dockerfiles",
+    "has_description": true,
+    "preview": "# Name: dockerfiles\n\n## Executive Summary\n\nThe Dockerfiles artifact defines container image build specifications that transform application source code into production-ready, immutable container image"
+  },
+  {
+    "name": "domain-model",
+    "has_description": true,
+    "preview": "# Name: domain-model\n\n## Executive Summary\n\nThe Domain Model is a critical deliverable for software architecture, defining the core business domain using Domain-Driven Design (DDD) principles and patt"
+  },
+  {
+    "name": "dr-test-reports",
+    "has_description": true,
+    "preview": "# Name: dr-test-reports\n\n## Executive Summary\n\nDisaster Recovery (DR) Test Reports document the execution, results, and findings from disaster recovery tests including failover exercises, backup resto"
+  },
+  {
+    "name": "drift-detection-reports",
+    "has_description": true,
+    "preview": "# Name: drift-detection-reports\n\n## Executive Summary\n\nThe Drift Detection Reports is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. Th"
+  },
+  {
+    "name": "dsar-playbooks",
+    "has_description": true,
+    "preview": "# Name: dsar-playbooks\n\n## Executive Summary\n\nThe DSAR (Data Subject Access Request) Playbooks artifact documents standardized procedures for processing privacy requests under GDPR, CCPA, and other da"
+  },
+  {
+    "name": "eccn-classification",
+    "has_description": true,
+    "preview": "# Name: eccn-classification\n\n## Executive Summary\n\nThe Export Control Classification Number (ECCN) Classification artifact documents the export control classification of products, software, and techno"
+  },
+  {
+    "name": "encryption-and-key-management-design",
+    "has_description": true,
+    "preview": "# Name: encryption-and-key-management-design\n\n## Executive Summary\n\nThe Encryption and Key Management Design is a critical security artifact that specifies cryptographic controls, key management infra"
+  },
+  {
+    "name": "engagement-plan",
+    "has_description": true,
+    "preview": "# Name: engagement-plan\n\n## Executive Summary\n\nThe Engagement Plan is a strategic stakeholder management artifact that defines how project teams will engage stakeholders, manage expectations, gather f"
+  },
+  {
+    "name": "enterprise-data-model",
+    "has_description": true,
+    "preview": "# Name: enterprise-data-model\n\n## Executive Summary\n\nThe Enterprise Data Model is a critical artifact for enterprise data architecture, providing conceptual, logical, and physical representations of o"
+  },
+  {
+    "name": "enterprise-risk-register",
+    "has_description": true,
+    "preview": "# Name: enterprise-risk-register\n\n## Executive Summary\n\nThe Enterprise Risk Register is a comprehensive risk management artifact that provides centralized tracking and quantification of organizational"
+  },
+  {
+    "name": "environment-matrix",
+    "has_description": true,
+    "preview": "# Name: environment-matrix\n\n## Executive Summary\n\nThe Environment Matrix is a comprehensive configuration framework that defines infrastructure, application, and operational parameters across all depl"
+  },
+  {
+    "name": "environment-promotion-rules",
+    "has_description": true,
+    "preview": "# Name: environment-promotion-rules\n\n## Executive Summary\n\nThe Environment Promotion Rules is a critical deliverable within the General phase, supporting General activities across the initiative lifec"
+  },
+  {
+    "name": "epic-charter",
+    "has_description": true,
+    "preview": "# Name: epic-charter\n\n## Executive Summary\n\nThe Epic Charter is a strategic hypothesis-driven document that defines the business context, vision, success metrics, and investment boundaries for large-s"
+  },
+  {
+    "name": "er-diagrams",
+    "has_description": true,
+    "preview": "# Name: er-diagrams\n\n## Executive Summary\n\nEntity-Relationship Diagrams are fundamental visual artifacts for data modeling, depicting entities, their attributes, and the relationships between them. Th"
+  },
+  {
+    "name": "error-budget-policy",
+    "has_description": true,
+    "preview": "# Name: error-budget-policy\n\n## Executive Summary\n\nThe Error Budget Policy is a formal directive that establishes organizational rules, standards, and requirements for error budget. This governance ar"
+  },
+  {
+    "name": "error-taxonomy",
+    "has_description": true,
+    "preview": "# Name: error-taxonomy\n\n## Executive Summary\n\nThe Error Taxonomy defines standardized error classification, error codes, exception hierarchies, and failure handling patterns across distributed systems"
+  },
+  {
+    "name": "escalation-matrix",
+    "has_description": true,
+    "preview": "# Name: escalation-matrix\n\n## Executive Summary\n\nThe Escalation Matrix is a structured reference document that defines support tier responsibilities (L1/L2/L3), escalation paths, contact information, "
+  },
+  {
+    "name": "etl-elt-specifications",
+    "has_description": true,
+    "preview": "# Name: etl-elt-specifications\n\n## Executive Summary\n\nThe ETL/ELT Specifications artifact is a comprehensive technical document for data engineering teams, defining Extract-Transform-Load (ETL) or Ext"
+  },
+  {
+    "name": "evaluation-protocols",
+    "has_description": true,
+    "preview": "# Name: evaluation-protocols\n\n## Executive Summary\n\nThe Evaluation Protocols artifact defines standardized methodologies for evaluating machine learning models, AI systems, and data products throughou"
+  },
+  {
+    "name": "event-schemas",
+    "has_description": true,
+    "preview": "# Name: event-schemas\n\n## Executive Summary\n\nEvent Schemas define the structure, format, and contracts for event messages in event-driven architectures. These schemas ensure consistent event productio"
+  },
+  {
+    "name": "eviction-policies",
+    "has_description": true,
+    "preview": "# Name: eviction-policies\n\n## Executive Summary\n\nThe Eviction Policies artifact defines strategies for removing stale, unused, or low-value data from caches, feature flag systems, and data storage lay"
+  },
+  {
+    "name": "exception-log",
+    "has_description": true,
+    "preview": "# Name: exception-log\n\n## Executive Summary\n\nThe Exception Log captures deviations from planned baselines, approved variances, risk acceptances, and corrective actions taken when program constraints ("
+  },
+  {
+    "name": "exception-register",
+    "has_description": true,
+    "preview": "# Name: exception-register\n\n## Executive Summary\n\nThe Exception Register is a governance and compliance artifact that provides centralized tracking of approved policy exceptions, control deviations, a"
+  },
+  {
+    "name": "experiment-tracking-logs",
+    "has_description": true,
+    "preview": "# Name: experiment-tracking-logs\n\n## Executive Summary\n\nThe Experiment Tracking Logs is a comprehensive system for recording, monitoring, and analyzing A/B tests, multivariate experiments, and feature"
+  },
+  {
+    "name": "explainability-reports",
+    "has_description": true,
+    "preview": "# Name: explainability-reports\n\n## Executive Summary\n\nThe Explainability Reports provide structured, human-readable explanations of AI/ML model predictions using techniques like SHAP (Shapley values),"
+  },
+  {
+    "name": "export-control-screening",
+    "has_description": true,
+    "preview": "# Name: export-control-screening\n\n## Executive Summary\n\nThe Export Control Screening artifact documents compliance verification procedures for software, cryptography, and technology exports under U.S."
+  },
+  {
+    "name": "faq",
+    "has_description": true,
+    "preview": "# Name: faq\n\n## Executive Summary\n\nFAQ (Frequently Asked Questions) documentation provides curated question-and-answer content addressing the most common inquiries from users, developers, administrato"
+  },
+  {
+    "name": "feasibility-study",
+    "has_description": true,
+    "preview": "# Name: feasibility-study\n\n## Executive Summary\n\nThe Feasibility Study is a comprehensive assessment artifact that evaluates whether a proposed initiative is viable across market, technical, financial"
+  },
+  {
+    "name": "feature-flag-registry",
+    "has_description": true,
+    "preview": "# Name: feature-flag-registry\n\n## Executive Summary\n\nThe Feature Flag Registry is a comprehensive inventory and governance system for managing feature flags across the software delivery lifecycle. Thi"
+  },
+  {
+    "name": "feature-rollback-playbooks",
+    "has_description": true,
+    "preview": "# Name: feature-rollback-playbooks\n\n## Executive Summary\n\nFeature Rollback Playbooks are prescriptive operational procedures that enable rapid, safe reversal of problematic deployments, feature releas"
+  },
+  {
+    "name": "feature-store-contracts",
+    "has_description": true,
+    "preview": "# Name: feature-store-contracts\n\n## Executive Summary\n\nThe Feature Store Contracts artifact defines the formal specifications, SLAs, and data contracts for features stored in ML feature stores like Fe"
+  },
+  {
+    "name": "finops-dashboards",
+    "has_description": true,
+    "preview": "# Name: finops-dashboards\n\n## Executive Summary\n\nThe FinOps Dashboards are comprehensive visualizations that provide real-time visibility into cloud spending, unit economics, cost per customer, COGS ("
+  },
+  {
+    "name": "firewall-rules",
+    "has_description": true,
+    "preview": "# Name: firewall-rules\n\n## Executive Summary\n\nThe Firewall Rules artifact defines network security policies and access control rules that govern traffic flow between network segments, cloud resources,"
+  },
+  {
+    "name": "functional-requirements-specification",
+    "has_description": true,
+    "preview": "# Name: functional-requirements-specification\n\n## Executive Summary\n\nThe Functional Requirements Specification (FRS) is the authoritative document that defines what a system must do from a functional "
+  },
+  {
+    "name": "genai-safety-evaluations",
+    "has_description": true,
+    "preview": "# Name: genai-safety-evaluations\n\n## Executive Summary\n\nThe GenAI Safety Evaluations assess large language models (LLMs) and generative AI systems for safety vulnerabilities including prompt injection"
+  },
+  {
+    "name": "glossary-and-taxonomy-index",
+    "has_description": true,
+    "preview": "# Name: glossary-and-taxonomy-index\n\n## Executive Summary\n\nThe Glossary and Taxonomy Index provides a centralized, authoritative index of business glossaries, data dictionaries, taxonomy structures, a"
+  },
+  {
+    "name": "go-no-go-minutes",
+    "has_description": true,
+    "preview": "# Name: go-no-go-minutes\n\n## Executive Summary\n\nThe Go/No-Go Meeting Minutes artifact documents the final launch decision meeting where stakeholders formally decide whether to proceed with production "
+  },
+  {
+    "name": "golden-path-guide",
+    "has_description": true,
+    "preview": "# Name: golden-path-guide\n\n## Executive Summary\n\nThe Golden Path Guide, also known as \"Paved Roads\" or \"Blessed Paths,\" is a platform engineering artifact that defines opinionated, pre-approved techno"
+  },
+  {
+    "name": "governance-charter",
+    "has_description": true,
+    "preview": "# Name: governance-charter\n\n## Executive Summary\n\nThe Governance Charter is a Board-approved foundational document that establishes the governance committee structure, decision rights, RACI matrix, es"
+  },
+  {
+    "name": "graphql-schema",
+    "has_description": true,
+    "preview": "# Name: graphql-schema\n\n## Executive Summary\n\nThe GraphQL Schema is the foundational contract for GraphQL APIs, defining types, queries, mutations, subscriptions, and their relationships using the Gra"
+  },
+  {
+    "name": "great-expectations-suites",
+    "has_description": true,
+    "preview": "# Name: great-expectations-suites\n\n## Executive Summary\n\nThe Great Expectations Suites artifact defines data quality validation rules, expectation suites, validation checkpoints, and automated testing"
+  },
+  {
+    "name": "grpc-proto-files",
+    "has_description": true,
+    "preview": "# Name: grpc-proto-files\n\n## Executive Summary\n\ngRPC Proto Files define service contracts for gRPC APIs using Protocol Buffers (Protobuf) Interface Definition Language (IDL). These .proto files specif"
+  },
+  {
+    "name": "gtm-checklist",
+    "has_description": true,
+    "preview": "# Name: gtm-checklist\n\n## Executive Summary\n\nThe Go-to-Market Checklist is a comprehensive launch readiness artifact that ensures all critical workstreams\u2014product, marketing, sales, customer success, "
+  },
+  {
+    "name": "helm-charts",
+    "has_description": true,
+    "preview": "# Name: helm-charts\n\n## Executive Summary\n\nThe Helm Charts artifact defines Kubernetes application packaging and deployment specifications using Helm, the de facto package manager for Kubernetes that "
+  },
+  {
+    "name": "high-fidelity-mockups",
+    "has_description": true,
+    "preview": "# Name: high-fidelity-mockups\n\n## Executive Summary\n\nHigh-Fidelity Mockups are pixel-perfect visual design artifacts that represent the final appearance of digital products, including typography, colo"
+  },
+  {
+    "name": "hsm-procedures",
+    "has_description": true,
+    "preview": "# Name: hsm-procedures\n\n## Executive Summary\n\nThe HSM Procedures artifact documents operational procedures for Hardware Security Modules (HSMs) including FIPS 140-2 Level 3 initialization, crypto offi"
+  },
+  {
+    "name": "hyperparameter-configurations",
+    "has_description": true,
+    "preview": "# Name: hyperparameter-configurations\n\n## Executive Summary\n\nThe Hyperparameter Configurations artifact documents the hyperparameter search space, optimization methodology, tuning results, and final p"
+  },
+  {
+    "name": "iac-module-registry",
+    "has_description": true,
+    "preview": "# Name: iac-module-registry\n\n## Executive Summary\n\nThe Iac Module Registry is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artif"
+  },
+  {
+    "name": "iam-design",
+    "has_description": true,
+    "preview": "# Name: iam-design\n\n## Executive Summary\n\nIdentity and Access Management (IAM) Design documents define authentication, authorization, and identity governance strategies for applications and infrastruc"
+  },
+  {
+    "name": "idempotency-and-replay-protection-policy",
+    "has_description": true,
+    "preview": "# Name: idempotency-and-replay-protection-policy\n\n## Executive Summary\n\nThe Idempotency And Replay Protection Policy defines strategies and implementation patterns for ensuring operations are executed"
+  },
+  {
+    "name": "incident-management-plan",
+    "has_description": true,
+    "preview": "# Name: incident-management-plan\n\n## Executive Summary\n\nThe Incident Management Plan defines the processes, roles, procedures, and tools for detecting, responding to, containing, and recovering from s"
+  },
+  {
+    "name": "incident-reports",
+    "has_description": true,
+    "preview": "# Name: incident-reports\n\n## Executive Summary\n\nIncident Reports document the timeline, root cause analysis, impact assessment, and remediation actions for production incidents and outages. These repo"
+  },
+  {
+    "name": "information-architecture",
+    "has_description": true,
+    "preview": "# Name: information-architecture\n\n## Executive Summary\n\nThe Information Architecture is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. "
+  },
+  {
+    "name": "initiative-charter",
+    "has_description": true,
+    "preview": "# Name: initiative-charter\n\n## Executive Summary\n\nThe Initiative Charter is a formal authorization and strategic planning document that establishes the business case, objectives, scope, success metric"
+  },
+  {
+    "name": "installation-guides",
+    "has_description": true,
+    "preview": "# Name: installation-guides\n\n## Executive Summary\n\nInstallation Guides provide step-by-step instructions for deploying software, configuring systems, and setting up environments from initial prerequis"
+  },
+  {
+    "name": "installer-manifests",
+    "has_description": true,
+    "preview": "# Name: installer-manifests\n\n## Executive Summary\n\nInstaller Manifests are packaged, versioned deployment artifacts that encapsulate complex application and infrastructure installations through standa"
+  },
+  {
+    "name": "interactive-prototypes",
+    "has_description": true,
+    "preview": "# Name: interactive-prototypes\n\n## Executive Summary\n\nInteractive Prototypes are dynamic, functional demonstrations of data visualizations, analytics applications, or data-driven features that enable "
+  },
+  {
+    "name": "interface-control-document",
+    "has_description": true,
+    "preview": "# Name: interface-control-document\n\n## Executive Summary\n\nThe Interface Control Document (ICD) is a comprehensive technical specification that defines the contract, protocols, message formats, data mo"
+  },
+  {
+    "name": "ip-register",
+    "has_description": true,
+    "preview": "# Name: ip-register\n\n## Executive Summary\n\nThe Intellectual Property (IP) Register is a comprehensive database documenting all organizational IP assets including patents, trademarks, copyrights, trade"
+  },
+  {
+    "name": "iso-27001-mapping",
+    "has_description": true,
+    "preview": "# Name: iso-27001-mapping\n\n## Executive Summary\n\nThe ISO 27001 Mapping artifact provides a comprehensive traceability matrix linking organizational security controls, policies, procedures, and technic"
+  },
+  {
+    "name": "joiner-mover-leaver-workflows",
+    "has_description": true,
+    "preview": "# Name: joiner-mover-leaver-workflows\n\n## Executive Summary\n\nThe Joiner-Mover-Leaver (JML) Workflows artifact documents automated identity lifecycle management processes for employee onboarding (joine"
+  },
+  {
+    "name": "key-ceremony-records",
+    "has_description": true,
+    "preview": "# Name: key-ceremony-records\n\n## Executive Summary\n\nThe Key Ceremony Records artifact documents formal, witnessed procedures for generating, backing up, and managing cryptographic key material for cri"
+  },
+  {
+    "name": "kill-switch-designs",
+    "has_description": true,
+    "preview": "# Name: kill-switch-designs\n\n## Executive Summary\n\nKill Switch Designs define emergency shutdown and feature disablement mechanisms that enable rapid response to security incidents, compliance violati"
+  },
+  {
+    "name": "knowledge-base-articles",
+    "has_description": true,
+    "preview": "# Name: knowledge-base-articles\n\n## Executive Summary\n\nKnowledge Base Articles provide self-service support documentation addressing common questions, troubleshooting procedures, error resolutions, an"
+  },
+  {
+    "name": "kpi-framework",
+    "has_description": true,
+    "preview": "# Name: kpi-framework\n\n## Executive Summary\n\nThe KPI Framework defines the key performance indicators, metrics hierarchy, and measurement systems that track product health, business performance, and p"
+  },
+  {
+    "name": "kustomize-manifests",
+    "has_description": true,
+    "preview": "# Name: kustomize-manifests\n\n## Executive Summary\n\nKustomize Manifests are declarative Kubernetes configuration artifacts that enable template-free, environment-specific customization of YAML manifest"
+  },
+  {
+    "name": "labs-and-workshops",
+    "has_description": true,
+    "preview": "# Name: labs-and-workshops\n\n## Executive Summary\n\nLabs and Workshops provide hands-on, experiential learning materials that guide learners through practical exercises, real-world scenarios, and skill-"
+  },
+  {
+    "name": "legal-hold-procedures",
+    "has_description": true,
+    "preview": "# Name: legal-hold-procedures\n\n## Executive Summary\n\nThe Legal Hold Procedures artifact defines the process for preserving electronically stored information (ESI) and physical documents when litigatio"
+  },
+  {
+    "name": "lessons-learned-document",
+    "has_description": true,
+    "preview": "# Name: lessons-learned-document\n\n## Executive Summary\n\nThe Lessons Learned Document is a comprehensive knowledge repository that aggregates insights from multiple post-mortems, incident retrospective"
+  },
+  {
+    "name": "load-balancer-configurations",
+    "has_description": true,
+    "preview": "# Name: load-balancer-configurations\n\n## Executive Summary\n\nThe Load Balancer Configurations artifact defines traffic distribution and high availability strategies for web applications, APIs, and micr"
+  },
+  {
+    "name": "load-profiles",
+    "has_description": true,
+    "preview": "# Name: load-profiles\n\n## Executive Summary\n\nThe Load Profiles artifact defines realistic user concurrency patterns, traffic distributions, and workload characteristics that represent actual productio"
+  },
+  {
+    "name": "load-test-report",
+    "has_description": true,
+    "preview": "# Name: load-test-report\n\n## Executive Summary\n\nThe Load Test Report provides comprehensive analysis of load testing execution using tools like JMeter, Gatling, k6, or Locust, documenting test configu"
+  },
+  {
+    "name": "locale-files",
+    "has_description": true,
+    "preview": "# Name: locale-files\n\n## Executive Summary\n\nThe Locale Files artifact documents the translation resources, language-specific content, and cultural adaptations required for internationalization (i18n) "
+  },
+  {
+    "name": "localization-plan",
+    "has_description": true,
+    "preview": "# Name: localization-plan\n\n## Executive Summary\n\nThe Localization Plan establishes the comprehensive strategy, market prioritization, resource allocation, and execution roadmap for translating and cul"
+  },
+  {
+    "name": "logging-taxonomy",
+    "has_description": true,
+    "preview": "# Name: logging-taxonomy\n\n## Executive Summary\n\nThe Logging Taxonomy defines standardized logging practices including structured logging formats (JSON), log levels (TRACE, DEBUG, INFO, WARN, ERROR, FA"
+  },
+  {
+    "name": "logical-architecture-diagram",
+    "has_description": true,
+    "preview": "# Name: logical-architecture-diagram\n\n## Executive Summary\n\nThe Logical Architecture Diagram is a critical visual artifact that represents the conceptual structure and organization of a system's key c"
+  },
+  {
+    "name": "logical-data-model",
+    "has_description": true,
+    "preview": "# Name: logical-data-model\n\n## Executive Summary\n\nA Logical Data Model is a technology-independent, business-oriented representation of data structures that captures entities, attributes, relationship"
+  },
+  {
+    "name": "market-analysis",
+    "has_description": true,
+    "preview": "# Name: market-analysis\n\n## Executive Summary\n\nThe Market Analysis is a comprehensive research and intelligence artifact that defines the addressable market opportunity, competitive landscape, market "
+  },
+  {
+    "name": "messaging-frameworks",
+    "has_description": true,
+    "preview": "# Name: messaging-frameworks\n\n## Executive Summary\n\nMessaging Frameworks provide the strategic architecture for how an organization talks about itself, its products, and its value\u2014ensuring consistency"
+  },
+  {
+    "name": "metadata-catalogs",
+    "has_description": true,
+    "preview": "# Name: metadata-catalogs\n\n## Executive Summary\n\nMetadata Catalogs are centralized inventories that document and organize technical, business, and operational metadata across data assets, systems, and"
+  },
+  {
+    "name": "metric-catalog",
+    "has_description": true,
+    "preview": "# Name: metric-catalog\n\n## Executive Summary\n\nThe Metric Catalog is a comprehensive registry that documents all observability metrics collected across systems, services, and infrastructure. This artif"
+  },
+  {
+    "name": "microcopy-guides",
+    "has_description": true,
+    "preview": "# Name: microcopy-guides\n\n## Executive Summary\n\nMicrocopy Guides are the essential reference for interface copy\u2014the small but mighty words that guide users through products: button labels, error messa"
+  },
+  {
+    "name": "migration-scripts",
+    "has_description": true,
+    "preview": "# Name: migration-scripts\n\n## Executive Summary\n\nThe Migration Scripts is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact "
+  },
+  {
+    "name": "mission-statement",
+    "has_description": true,
+    "preview": "# Name: mission-statement\n\n## Executive Summary\n\nThe Mission Statement is a foundational strategic artifact that articulates the organization's or team's purpose, vision, values, and strategic directi"
+  },
+  {
+    "name": "model-cards",
+    "has_description": true,
+    "preview": "# Name: model-cards\n\n## Executive Summary\n\nModel Cards are structured documentation artifacts that transparently communicate ML model characteristics, intended use, performance metrics, limitations, a"
+  },
+  {
+    "name": "model-governance-policy",
+    "has_description": true,
+    "preview": "# Name: model-governance-policy\n\n## Executive Summary\n\nThe Model Governance Policy establishes mandatory requirements, standards, and procedures for the entire ML model lifecycle from development thro"
+  },
+  {
+    "name": "model-registry-entries",
+    "has_description": true,
+    "preview": "# Name: model-registry-entries\n\n## Executive Summary\n\nThe Model Registry Entries are structured metadata records in centralized model registries (MLflow, SageMaker Model Registry, Vertex AI Model Regi"
+  },
+  {
+    "name": "model-risk-assessments",
+    "has_description": true,
+    "preview": "# Name: model-risk-assessments\n\n## Executive Summary\n\nThe Model Risk Assessments are comprehensive evaluations of ML model risks including model performance risk, implementation risk, data quality ris"
+  },
+  {
+    "name": "monitoring-and-observability-design",
+    "has_description": true,
+    "preview": "# Name: monitoring-and-observability-design\n\n## Executive Summary\n\nThe Monitoring and Observability Design defines the comprehensive strategy for collecting, storing, analyzing, and alerting on system"
+  },
+  {
+    "name": "monitoring-dashboards",
+    "has_description": true,
+    "preview": "# Name: monitoring-dashboards\n\n## Executive Summary\n\nThe Monitoring Dashboards artifact defines comprehensive visualization and alerting strategies for system observability using industry-standard pla"
+  },
+  {
+    "name": "multi-region-active-active-plan",
+    "has_description": true,
+    "preview": "# Name: multi-region-active-active-plan\n\n## Executive Summary\n\nThe Multi-Region Active-Active Plan is a strategic infrastructure artifact that defines globally distributed architectures where multiple"
+  },
+  {
+    "name": "network-policies",
+    "has_description": true,
+    "preview": "# Name: network-policies\n\n## Executive Summary\n\nNetwork Policies are the fundamental security constructs that implement zero-trust networking principles within Kubernetes clusters by defining granular"
+  },
+  {
+    "name": "network-topology-diagram",
+    "has_description": true,
+    "preview": "# Name: network-topology-diagram\n\n## Executive Summary\n\nThe Network Topology Diagram artifact provides visual representations of cloud and on-premises network architecture, documenting the logical and"
+  },
+  {
+    "name": "non-functional-requirements-matrix",
+    "has_description": true,
+    "preview": "# Name: non-functional-requirements-matrix\n\n## Executive Summary\n\nThe Non-Functional Requirements (NFR) Matrix is a comprehensive quality attribute specification that defines measurable performance, s"
+  },
+  {
+    "name": "notarization-records",
+    "has_description": true,
+    "preview": "# Name: notarization-records\n\n## Executive Summary\n\nThe Notarization Records artifact documents platform-specific software verification and malware scanning processes required for distribution on Appl"
+  },
+  {
+    "name": "offboarding-checklist",
+    "has_description": true,
+    "preview": "# Name: offboarding-checklist\n\n## Executive Summary\n\nThe Offboarding Checklist is a critical security and compliance deliverable that orchestrates immediate access revocation, knowledge transfer, and "
+  },
+  {
+    "name": "okr-definitions",
+    "has_description": true,
+    "preview": "# Name: okr-definitions\n\n## Executive Summary\n\nOKR Definitions establish the Objectives and Key Results framework that drives goal-setting, strategic alignment, and performance measurement across prod"
+  },
+  {
+    "name": "on-call-handbook",
+    "has_description": true,
+    "preview": "# Name: on-call-handbook\n\n## Executive Summary\n\nThe On-Call Handbook is a comprehensive operational guide that defines on-call rotation schedules, escalation policies, response procedures, and support"
+  },
+  {
+    "name": "onboarding-checklist",
+    "has_description": true,
+    "preview": "# Name: onboarding-checklist\n\n## Executive Summary\n\nThe Onboarding Checklist is a critical deliverable for automating and standardizing employee onboarding through Identity and Access Management (IAM)"
+  },
+  {
+    "name": "onboarding-guide",
+    "has_description": true,
+    "preview": "# Name: onboarding-guide\n\n## Executive Summary\n\nThe Onboarding Guide is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact pr"
+  },
+  {
+    "name": "open-source-license-bom",
+    "has_description": true,
+    "preview": "# Name: open-source-license-bom\n\n## Executive Summary\n\nThe Open Source License Bill of Materials (BOM) is a critical legal compliance artifact that catalogs all open-source software components, their "
+  },
+  {
+    "name": "openapi-specification",
+    "has_description": true,
+    "preview": "# Name: openapi-specification\n\n## Executive Summary\n\nThe OpenAPI Specification (formerly Swagger) is a machine-readable, language-agnostic API contract that defines RESTful API endpoints, request/resp"
+  },
+  {
+    "name": "operational-acceptance-certificate",
+    "has_description": true,
+    "preview": "# Name: operational-acceptance-certificate\n\n## Executive Summary\n\nThe Operational Acceptance Certificate is a production readiness validation artifact that verifies systems meet operational excellence"
+  },
+  {
+    "name": "operations-manual",
+    "has_description": true,
+    "preview": "# Name: operations-manual\n\n## Executive Summary\n\nThe Operations Manual is comprehensive runbook documentation that enables site reliability engineers, DevOps teams, and system administrators to deploy"
+  },
+  {
+    "name": "ownership-charters",
+    "has_description": true,
+    "preview": "# Name: ownership-charters\n\n## Executive Summary\n\nThe Ownership Charters artifact defines clear service and component ownership responsibilities across engineering teams, establishing accountability f"
+  },
+  {
+    "name": "patterns-and-anti-patterns-library",
+    "has_description": true,
+    "preview": "# Name: patterns-and-anti-patterns-library\n\n## Executive Summary\n\nThe Integration Patterns and Anti-Patterns Library is a curated knowledge base documenting proven integration patterns, microservices "
+  },
+  {
+    "name": "penetration-testing-report",
+    "has_description": true,
+    "preview": "# Name: penetration-testing-report\n\n## Executive Summary\n\nThe Penetration Testing Report documents findings, vulnerabilities, attack paths, and remediation recommendations from authorized, simulated c"
+  },
+  {
+    "name": "performance-strategy",
+    "has_description": true,
+    "preview": "# Name: performance-strategy\n\n## Executive Summary\n\nThe Performance Strategy artifact defines comprehensive approach to application performance including performance budgets (P95 latency <200ms), Serv"
+  },
+  {
+    "name": "performance-test-plan",
+    "has_description": true,
+    "preview": "# Name: performance-test-plan\n\n## Executive Summary\n\nThe Performance Test Plan is a comprehensive testing artifact that defines performance benchmarks, load testing strategies, and validation criteria"
+  },
+  {
+    "name": "performance-test-results",
+    "has_description": true,
+    "preview": "# Name: performance-test-results\n\n## Executive Summary\n\nThe Performance Test Results artifact documents comprehensive load test execution outcomes, response time distributions (P50/P90/P95/P99 percent"
+  },
+  {
+    "name": "physical-architecture-diagram",
+    "has_description": true,
+    "preview": "# Name: physical-architecture-diagram\n\n## Executive Summary\n\nThe Physical Architecture Diagram is a critical technical artifact that documents the actual deployment topology, infrastructure components"
+  },
+  {
+    "name": "physical-data-model",
+    "has_description": true,
+    "preview": "# Name: physical-data-model\n\n## Executive Summary\n\nA Physical Data Model is a platform-specific, implementation-ready database design that translates logical data models into actual database objects w"
+  },
+  {
+    "name": "pipeline-architecture-diagram",
+    "has_description": true,
+    "preview": "# Name: pipeline-architecture-diagram\n\n## Executive Summary\n\nThe Pipeline Architecture Diagram artifact is a visual documentation of data pipeline or CI/CD pipeline architecture, illustrating data flo"
+  },
+  {
+    "name": "pipeline-definitions",
+    "has_description": true,
+    "preview": "# Name: pipeline-definitions\n\n## Executive Summary\n\nThe Pipeline Definitions artifact is a comprehensive specification for CI/CD (Continuous Integration/Continuous Deployment) pipelines, documenting b"
+  },
+  {
+    "name": "platform-services-catalog",
+    "has_description": true,
+    "preview": "# Name: platform-services-catalog\n\n## Executive Summary\n\nThe Platform Services Catalog is the authoritative registry of all platform capabilities, self-service APIs, and developer-facing services with"
+  },
+  {
+    "name": "playbooks",
+    "has_description": true,
+    "preview": "# Name: playbooks\n\n## Executive Summary\n\nIncident Response Playbooks are step-by-step operational procedures that guide SRE teams and on-call engineers through diagnosing, mitigating, and resolving pr"
+  },
+  {
+    "name": "portfolio-roadmap",
+    "has_description": true,
+    "preview": "# Name: portfolio-roadmap\n\n## Executive Summary\n\nThe Portfolio Roadmap is a strategic planning artifact that visualizes the product development timeline, strategic themes, major initiatives, and deliv"
+  },
+  {
+    "name": "positioning-documents",
+    "has_description": true,
+    "preview": "# Name: positioning-documents\n\n## Executive Summary\n\nPositioning Documents define how a product or company occupies a distinct and valued place in the minds of target customers relative to competitive"
+  },
+  {
+    "name": "post-implementation-review",
+    "has_description": true,
+    "preview": "# Name: post-implementation-review\n\n## Executive Summary\n\nThe Post-Implementation Review (PIR) is a comprehensive retrospective artifact that evaluates initiative outcomes against original objectives,"
+  },
+  {
+    "name": "post-mortem-report",
+    "has_description": true,
+    "preview": "# Name: post-mortem-report\n\n## Executive Summary\n\nThe Post-Mortem Report is a comprehensive incident review document that captures what happened, why it happened, how it was resolved, and what actions"
+  },
+  {
+    "name": "price-books",
+    "has_description": true,
+    "preview": "# Name: price-books\n\n## Executive Summary\n\nThe Price Books are comprehensive product and service catalogs that define official list prices, SKU structures, volume discounts, channel partner pricing, a"
+  },
+  {
+    "name": "pricing-and-packaging-strategy",
+    "has_description": true,
+    "preview": "# Name: pricing-and-packaging-strategy\n\n## Executive Summary\n\nThe Pricing and Packaging Strategy defines the comprehensive approach to monetizing products and services through value metrics, pricing m"
+  },
+  {
+    "name": "privacy-impact-assessment",
+    "has_description": true,
+    "preview": "# Name: privacy-impact-assessment\n\n## Executive Summary\n\nThe Privacy Impact Assessment (PIA), also known as Data Protection Impact Assessment (DPIA) under GDPR Article 35, is a systematic privacy risk"
+  },
+  {
+    "name": "privacy-labels",
+    "has_description": true,
+    "preview": "# Name: privacy-labels\n\n## Executive Summary\n\nThe Privacy Labels artifact documents the structured, standardized privacy disclosures required by Apple App Store Privacy Nutrition Labels, Google Play D"
+  },
+  {
+    "name": "privacy-policy",
+    "has_description": true,
+    "preview": "# Name: privacy-policy\n\n## Executive Summary\n\nThe Privacy Policy is a public-facing transparency notice that discloses how an organization collects, uses, shares, stores, and protects personal informa"
+  },
+  {
+    "name": "product-launch-plan",
+    "has_description": true,
+    "preview": "# Name: product-launch-plan\n\n## Executive Summary\n\nThe Product Launch Plan is a comprehensive strategic and tactical blueprint that orchestrates the end-to-end product launch process, from beta progra"
+  },
+  {
+    "name": "product-requirements-document",
+    "has_description": true,
+    "preview": "# Name: product-requirements-document\n\n## Executive Summary\n\nThe Product Requirements Document (PRD) defines what product will be built and why, specifying the problem being solved, target users, succ"
+  },
+  {
+    "name": "product-strategy",
+    "has_description": true,
+    "preview": "# Name: product-strategy\n\n## Executive Summary\n\nThe Product Strategy is a foundational deliverable within the Inception / Strategy phase that defines the product vision, target market, competitive dif"
+  },
+  {
+    "name": "production-hygiene-checklist",
+    "has_description": true,
+    "preview": "# Name: production-hygiene-checklist\n\n## Executive Summary\n\nThe Production Hygiene Checklist is a comprehensive pre-deployment validation artifact that ensures production environments maintain operati"
+  },
+  {
+    "name": "program-increment-plan",
+    "has_description": true,
+    "preview": "# Name: program-increment-plan\n\n## Executive Summary\n\nThe Program Increment Plan is the cornerstone SAFe planning artifact that defines the 8-12 week Program Increment (PI) objectives, feature commitm"
+  },
+  {
+    "name": "promotion-rules",
+    "has_description": true,
+    "preview": "# Name: promotion-rules\n\n## Executive Summary\n\nThe Promotion Rules artifact defines policy-based governance and automated rules for environment promotions, specifying quality gates, approval requireme"
+  },
+  {
+    "name": "promotion-workflows",
+    "has_description": true,
+    "preview": "# Name: promotion-workflows\n\n## Executive Summary\n\nThe Promotion Workflows artifact documents automated environment promotion processes for progressing code, configuration, infrastructure, and data ar"
+  },
+  {
+    "name": "prompt-engineering-policy",
+    "has_description": true,
+    "preview": "# Name: prompt-engineering-policy\n\n## Executive Summary\n\nThe Prompt Engineering Policy is a formal directive that establishes organizational rules, standards, and requirements for prompt engineering. "
+  },
+  {
+    "name": "provenance-attestations",
+    "has_description": true,
+    "preview": "# Name: provenance-attestations\n\n## Executive Summary\n\nThe Provenance Attestations artifact provides cryptographically-signed build provenance records using SLSA (Supply-chain Levels for Software Arti"
+  },
+  {
+    "name": "provenance-chain-documentation",
+    "has_description": true,
+    "preview": "# Name: provenance-chain-documentation\n\n## Executive Summary\n\nProvenance Chain Documentation provides comprehensive tracking and documentation of data lineage, transformation history, and dependency r"
+  },
+  {
+    "name": "pseudo-localization-reports",
+    "has_description": true,
+    "preview": "# Name: pseudo-localization-reports\n\n## Executive Summary\n\nThe Pseudo Localization Reports is a critical deliverable within the General phase, supporting General activities across the initiative lifec"
+  },
+  {
+    "name": "pull-request-summaries",
+    "has_description": true,
+    "preview": "# Name: pull-request-summaries\n\n## Executive Summary\n\nThe Pull Request Summaries artifact provides concise, structured documentation of code changes proposed for integration into the main codebase, fo"
+  },
+  {
+    "name": "purple-team-reports",
+    "has_description": true,
+    "preview": "# Name: purple-team-reports\n\n## Executive Summary\n\nThe Purple Team Reports is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artif"
+  },
+  {
+    "name": "qbr-templates",
+    "has_description": true,
+    "preview": "# Name: qbr-templates\n\n## Executive Summary\n\nThe Qbr Templates is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides"
+  },
+  {
+    "name": "quarterly-access-reviews",
+    "has_description": true,
+    "preview": "# Name: quarterly-access-reviews\n\n## Executive Summary\n\nThe Quarterly Access Reviews artifact documents periodic access recertification campaigns where managers attest to the appropriateness of their "
+  },
+  {
+    "name": "raci-per-workstream",
+    "has_description": true,
+    "preview": "# Name: raci-per-workstream\n\n## Executive Summary\n\nThe RACI per Workstream artifact is a responsibility assignment matrix that clearly defines who is Responsible, Accountable, Consulted, and Informed "
+  },
+  {
+    "name": "raid-log",
+    "has_description": true,
+    "preview": "# Name: raid-log\n\n## Executive Summary\n\nThe RAID Log (Risks, Assumptions, Issues, Decisions) is a critical PMO governance artifact providing centralized tracking of project/program risks, assumptions,"
+  },
+  {
+    "name": "rate-limiting-policy",
+    "has_description": true,
+    "preview": "# Name: rate-limiting-policy\n\n## Executive Summary\n\nThe Rate Limiting Policy is a formal governance directive that establishes organizational standards for API throttling, quota management, and abuse "
+  },
+  {
+    "name": "rbac-abac-matrix",
+    "has_description": true,
+    "preview": "# Name: rbac-abac-matrix\n\n## Executive Summary\n\nThe Rbac Abac Matrix is a structured analytical tool that maps relationships, responsibilities, or characteristics across multiple dimensions within the"
+  },
+  {
+    "name": "rbac-abac-policy",
+    "has_description": true,
+    "preview": "# Name: rbac-abac-policy\n\n## Executive Summary\n\nThe Rbac Abac Policy is a formal directive that establishes organizational rules, standards, and requirements for rbac abac. This governance artifact pr"
+  },
+  {
+    "name": "readme",
+    "has_description": true,
+    "preview": "# Name: readme\n\n## Executive Summary\n\nThe README is the primary entry point for any project, repository, or codebase, serving as the foundational documentation that enables discovery, onboarding, and "
+  },
+  {
+    "name": "records-of-processing-activities",
+    "has_description": true,
+    "preview": "# Name: records-of-processing-activities\n\n## Executive Summary\n\nThe Records of Processing Activities (ROPA), also known as Article 30 Records or Processing Register, is a comprehensive inventory docum"
+  },
+  {
+    "name": "red-team-reports",
+    "has_description": true,
+    "preview": "# Name: red-team-reports\n\n## Executive Summary\n\nThe Red Team Reports is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact pr"
+  },
+  {
+    "name": "red-teaming-reports",
+    "has_description": true,
+    "preview": "# Name: red-teaming-reports\n\n## Executive Summary\n\nThe Red Teaming Reports is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artif"
+  },
+  {
+    "name": "reference-architectures",
+    "has_description": true,
+    "preview": "# Name: reference-architectures\n\n## Executive Summary\n\nReference Architectures are proven, reusable architecture blueprints that document best-practice patterns, component selections, and design decis"
+  },
+  {
+    "name": "regression-test-suite",
+    "has_description": true,
+    "preview": "# Name: regression-test-suite\n\n## Executive Summary\n\nThe Regression Test Suite artifact comprises curated test cases and automated test scripts executed after code changes to validate that existing fu"
+  },
+  {
+    "name": "regulatory-mapping",
+    "has_description": true,
+    "preview": "# Name: regulatory-mapping\n\n## Executive Summary\n\nThe Regulatory Mapping is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifac"
+  },
+  {
+    "name": "release-certification",
+    "has_description": true,
+    "preview": "# Name: release-certification\n\n## Executive Summary\n\nThe Release Certification artifact is a formal attestation document that verifies a software release has met all quality gates, security requiremen"
+  },
+  {
+    "name": "release-notes",
+    "has_description": true,
+    "preview": "# Name: release-notes\n\n## Executive Summary\n\nThe Release Notes artifact is a critical communication deliverable that documents changes, improvements, and breaking modifications introduced in each soft"
+  },
+  {
+    "name": "release-plan",
+    "has_description": true,
+    "preview": "# Name: release-plan\n\n## Executive Summary\n\nThe Release Plan is a critical Agile delivery artifact that defines the release strategy, feature scope, deployment schedule, and go-live criteria for softw"
+  },
+  {
+    "name": "release-risk-assessment",
+    "has_description": true,
+    "preview": "# Name: release-risk-assessment\n\n## Executive Summary\n\nThe Release Risk Assessment artifact is a structured evaluation document that identifies, analyzes, and mitigates potential risks associated with"
+  },
+  {
+    "name": "remediation-tracker",
+    "has_description": true,
+    "preview": "# Name: remediation-tracker\n\n## Executive Summary\n\nThe Remediation Tracker is a critical vulnerability and compliance gap management artifact that provides systematic tracking of security findings, au"
+  },
+  {
+    "name": "renewal-playbooks",
+    "has_description": true,
+    "preview": "# Name: renewal-playbooks\n\n## Executive Summary\n\nThe Renewal Playbooks is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact "
+  },
+  {
+    "name": "reproducibility-checklists",
+    "has_description": true,
+    "preview": "# Name: reproducibility-checklists\n\n## Executive Summary\n\nThe Reproducibility Checklists is a critical deliverable within the General phase, supporting General activities across the initiative lifecyc"
+  },
+  {
+    "name": "requirements-traceability-matrix",
+    "has_description": true,
+    "preview": "# Name: requirements-traceability-matrix\n\n## Executive Summary\n\nThe Requirements Traceability Matrix (RTM) is a comprehensive bidirectional mapping artifact that establishes and maintains traceability"
+  },
+  {
+    "name": "resource-plan",
+    "has_description": true,
+    "preview": "# Name: resource-plan\n\n## Executive Summary\n\nThe Resource Plan is a strategic portfolio and program management artifact that defines team capacity allocation, technology resource provisioning, budget "
+  },
+  {
+    "name": "retention-schedule",
+    "has_description": true,
+    "preview": "# Name: retention-schedule\n\n## Executive Summary\n\nThe Retention Schedule is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifac"
+  },
+  {
+    "name": "reverse-etl-playbooks",
+    "has_description": true,
+    "preview": "# Name: reverse-etl-playbooks\n\n## Executive Summary\n\nThe Reverse Etl Playbooks is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This a"
+  },
+  {
+    "name": "risk-appetite-statement",
+    "has_description": true,
+    "preview": "# Name: risk-appetite-statement\n\n## Executive Summary\n\nThe Risk Appetite Statement is a Board-approved governance document that defines the organization's willingness to accept risk in pursuit of stra"
+  },
+  {
+    "name": "roi-model",
+    "has_description": true,
+    "preview": "# Name: roi-model\n\n## Executive Summary\n\nThe ROI Model is a critical financial analysis deliverable within the Inception / Strategy phase, supporting investment decision-making across the initiative l"
+  },
+  {
+    "name": "roi-tco-calculators",
+    "has_description": true,
+    "preview": "# Name: roi-tco-calculators\n\n## Executive Summary\n\nThe ROI-TCO Calculators are comprehensive financial analysis tools that evaluate the total cost of ownership over a 3-5 year period, supporting techn"
+  },
+  {
+    "name": "role-catalog",
+    "has_description": true,
+    "preview": "# Name: role-catalog\n\n## Executive Summary\n\nThe Role Catalog is a critical governance and audit artifact that provides a chronological record of role catalog throughout the General phase. This structu"
+  },
+  {
+    "name": "rollback-plan",
+    "has_description": true,
+    "preview": "# Name: rollback-plan\n\n## Executive Summary\n\nThe Rollback Plan is a critical operational artifact that defines procedures, decision criteria, and technical mechanisms for safely reverting deployments "
+  },
+  {
+    "name": "root-cause-analyses",
+    "has_description": true,
+    "preview": "# Name: root-cause-analyses\n\n## Executive Summary\n\nRoot Cause Analysis (RCA) is a systematic investigation methodology that identifies the underlying technical, process, and human factors contributing"
+  },
+  {
+    "name": "runbooks",
+    "has_description": true,
+    "preview": "# Name: runbooks\n\n## Executive Summary\n\nRunbooks are step-by-step operational procedures documenting how to perform routine tasks, respond to alerts, troubleshoot common issues, and recover from failu"
+  },
+  {
+    "name": "safety-filter-configurations",
+    "has_description": true,
+    "preview": "# Name: safety-filter-configurations\n\n## Executive Summary\n\nThe Safety Filter Configurations artifact defines content moderation policies, toxicity thresholds, PII detection rules, and jailbreak preve"
+  },
+  {
+    "name": "sales-enablement-kits",
+    "has_description": true,
+    "preview": "# Name: sales-enablement-kits\n\n## Executive Summary\n\nSales Enablement Kits are comprehensive packages of battle-tested content, tools, and resources that equip revenue teams to have better conversatio"
+  },
+  {
+    "name": "sbom-policy",
+    "has_description": true,
+    "preview": "# Name: sbom-policy\n\n## Executive Summary\n\nThe Sbom Policy is a formal directive that establishes organizational rules, standards, and requirements for sbom. This governance artifact provides mandator"
+  },
+  {
+    "name": "sbom-verification-reports",
+    "has_description": true,
+    "preview": "# Name: sbom-verification-reports\n\n## Executive Summary\n\nThe Sbom Verification Reports is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle"
+  },
+  {
+    "name": "scaling-policies",
+    "has_description": true,
+    "preview": "# Name: scaling-policies\n\n## Executive Summary\n\nThe Scaling Policies artifact defines auto-scaling configuration for Kubernetes HPA/VPA, AWS Auto Scaling Groups, Azure VMSS, or GCP Managed Instance Gr"
+  },
+  {
+    "name": "scheduling-slas",
+    "has_description": true,
+    "preview": "# Name: scheduling-slas\n\n## Executive Summary\n\nThe Scheduling Slas is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact prov"
+  },
+  {
+    "name": "schema-evolution-policy",
+    "has_description": true,
+    "preview": "# Name: schema-evolution-policy\n\n## Executive Summary\n\nThe Schema Evolution Policy is a formal directive that establishes organizational rules, standards, and requirements for schema evolution. This g"
+  },
+  {
+    "name": "secret-rotation-schedule",
+    "has_description": true,
+    "preview": "# Name: secret-rotation-schedule\n\n## Executive Summary\n\nThe Secret Rotation Schedule is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. "
+  },
+  {
+    "name": "secrets-management-policy",
+    "has_description": true,
+    "preview": "# Name: secrets-management-policy\n\n## Executive Summary\n\nThe Secrets Management Policy defines mandatory requirements for storing, accessing, rotating, and auditing secrets (API keys, passwords, certi"
+  },
+  {
+    "name": "secure-coding-checklist",
+    "has_description": true,
+    "preview": "# Name: secure-coding-checklist\n\n## Executive Summary\n\nThe Secure Coding Checklist is a critical security deliverable that ensures software development practices adhere to industry-recognized secure c"
+  },
+  {
+    "name": "secure-coding-policy",
+    "has_description": true,
+    "preview": "# Name: secure-coding-policy\n\n## Executive Summary\n\nThe Secure Coding Policy mandates secure software development practices that prevent common vulnerabilities (OWASP Top 10, CWE Top 25) through input"
+  },
+  {
+    "name": "security-architecture-diagram",
+    "has_description": true,
+    "preview": "# Name: security-architecture-diagram\n\n## Executive Summary\n\nThe Security Architecture Diagram is a critical artifact that visualizes security controls, trust boundaries, data protection mechanisms, a"
+  },
+  {
+    "name": "security-detections-catalog",
+    "has_description": true,
+    "preview": "# Name: security-detections-catalog\n\n## Executive Summary\n\nThe Security Detections Catalog is a critical governance and audit artifact that provides a chronological record of security detections catal"
+  },
+  {
+    "name": "security-policy-library",
+    "has_description": true,
+    "preview": "# Name: security-policy-library\n\n## Executive Summary\n\nThe Security Policy Library is a formal directive that establishes organizational rules, standards, and requirements for security library. This g"
+  },
+  {
+    "name": "security-test-results",
+    "has_description": true,
+    "preview": "# Name: security-test-results\n\n## Executive Summary\n\nThe Security Test Results is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This a"
+  },
+  {
+    "name": "semantic-layer-definitions",
+    "has_description": true,
+    "preview": "# Name: semantic-layer-definitions\n\n## Executive Summary\n\nThe Semantic Layer Definitions is a critical deliverable within the General phase, supporting General activities across the initiative lifecyc"
+  },
+  {
+    "name": "sequence-diagrams",
+    "has_description": true,
+    "preview": "# Name: sequence-diagrams\n\n## Executive Summary\n\nSequence Diagrams are dynamic modeling artifacts that visualize time-ordered interactions between components, services, actors, and systems to accompli"
+  },
+  {
+    "name": "service-configuration-files",
+    "has_description": true,
+    "preview": "# Name: service-configuration-files\n\n## Executive Summary\n\nService Configuration Files are the foundational artifacts that define runtime behavior, environment-specific settings, and operational param"
+  },
+  {
+    "name": "service-decomposition",
+    "has_description": true,
+    "preview": "# Name: service-decomposition\n\n## Executive Summary\n\nThe Service Decomposition Strategy is an architectural blueprint that defines how monolithic applications or complex systems are decomposed into mi"
+  },
+  {
+    "name": "service-dependency-graph",
+    "has_description": true,
+    "preview": "# Name: service-dependency-graph\n\n## Executive Summary\n\nThe Service Dependency Graph is a visual and machine-readable representation of all service-to-service relationships, API dependencies, database"
+  },
+  {
+    "name": "service-level-objectives",
+    "has_description": true,
+    "preview": "# Name: service-level-objectives\n\n## Executive Summary\n\nThe Service Level Objectives (SLOs) artifact defines measurable reliability targets for services using Service Level Indicators (SLIs) including"
+  },
+  {
+    "name": "service-mesh-configurations",
+    "has_description": true,
+    "preview": "# Name: service-mesh-configurations\n\n## Executive Summary\n\nService Mesh Configurations define the sophisticated traffic management, security, and observability policies that govern service-to-service "
+  },
+  {
+    "name": "shadow-canary-deployment-scorecards",
+    "has_description": true,
+    "preview": "# Name: shadow-canary-deployment-scorecards\n\n## Executive Summary\n\nThe Shadow Canary Deployment Scorecards is a critical deliverable within the General phase, supporting General activities across the "
+  },
+  {
+    "name": "showback-and-chargeback-reports",
+    "has_description": true,
+    "preview": "# Name: showback-and-chargeback-reports\n\n## Executive Summary\n\nThe Showback and Chargeback Reports are formal financial reports that allocate cloud infrastructure costs back to consuming business unit"
+  },
+  {
+    "name": "sig-questionnaires",
+    "has_description": true,
+    "preview": "# Name: sig-questionnaires\n\n## Executive Summary\n\nThe Sig Questionnaires is a critical deliverable within the Portfolio, Governance, and Delivery Ops phase, supporting Governance & Planning activities"
+  },
+  {
+    "name": "skills-matrix",
+    "has_description": true,
+    "preview": "# Name: skills-matrix\n\n## Executive Summary\n\nThe Skills Matrix is a comprehensive talent assessment and planning tool that maps individual and team competencies across technical skills, domain knowled"
+  },
+  {
+    "name": "sla-slo-schedules",
+    "has_description": true,
+    "preview": "# Name: sla-slo-schedules\n\n## Executive Summary\n\nSLA/SLO Schedules define Service Level Agreements (customer-facing commitments), Service Level Objectives (internal reliability targets), and Service L"
+  },
+  {
+    "name": "soc-2-control-implementation-matrix",
+    "has_description": true,
+    "preview": "# Name: soc-2-control-implementation-matrix\n\n## Executive Summary\n\nThe SOC 2 Control Implementation Matrix is a comprehensive mapping document that cross-references SOC 2 Trust Services Criteria contr"
+  },
+  {
+    "name": "sod-conflict-matrices",
+    "has_description": true,
+    "preview": "# Name: sod-conflict-matrices\n\n## Executive Summary\n\nThe Sod Conflict Matrices is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This a"
+  },
+  {
+    "name": "sod-matrix",
+    "has_description": true,
+    "preview": "# Name: sod-matrix\n\n## Executive Summary\n\nThe Sod Matrix is a structured analytical tool that maps relationships, responsibilities, or characteristics across multiple dimensions within the General con"
+  },
+  {
+    "name": "software-bill-of-materials",
+    "has_description": true,
+    "preview": "# Name: software-bill-of-materials\n\n## Executive Summary\n\nThe Software Bill of Materials (SBOM) is a machine-readable inventory documenting all software components, dependencies, licenses, and metadat"
+  },
+  {
+    "name": "solution-briefs",
+    "has_description": true,
+    "preview": "# Name: solution-briefs\n\n## Executive Summary\n\nSolution Briefs are concise, executive-friendly overviews (typically 1-2 pages) that distill complex products or solutions into scannable summaries of va"
+  },
+  {
+    "name": "source-code-repositories",
+    "has_description": true,
+    "preview": "# Name: source-code-repositories\n\n## Executive Summary\n\nThe Source Code Repositories is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. "
+  },
+  {
+    "name": "sprint-goals",
+    "has_description": true,
+    "preview": "# Name: sprint-goals\n\n## Executive Summary\n\nSprint Goals define the focused objective that a Scrum team commits to achieving during a sprint (typically 1-4 weeks). Grounded in the Scrum Guide (Schwabe"
+  },
+  {
+    "name": "staffing-plan",
+    "has_description": true,
+    "preview": "# Name: staffing-plan\n\n## Executive Summary\n\nThe Staffing Plan is a tactical resource management artifact that defines team composition, role assignments, onboarding schedules, and skill gap mitigatio"
+  },
+  {
+    "name": "stakeholder-map",
+    "has_description": true,
+    "preview": "# Name: stakeholder-map\n\n## Executive Summary\n\nThe Stakeholder Map is a strategic engagement planning artifact that identifies, analyzes, and categorizes all stakeholders relevant to an initiative or "
+  },
+  {
+    "name": "standard-contractual-clauses",
+    "has_description": true,
+    "preview": "# Name: standard-contractual-clauses\n\n## Executive Summary\n\nThe Standard Contractual Clauses (SCCs), also known as Model Clauses or EU Standard Contractual Clauses, are European Commission-approved co"
+  },
+  {
+    "name": "standard-operating-procedures",
+    "has_description": true,
+    "preview": "# Name: standard-operating-procedures\n\n## Executive Summary\n\nStandard Operating Procedures (SOPs) are comprehensive, step-by-step operational runbooks that document routine tasks, system maintenance a"
+  },
+  {
+    "name": "state-diagrams",
+    "has_description": true,
+    "preview": "# Name: state-diagrams\n\n## Executive Summary\n\nThe State Diagrams is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provid"
+  },
+  {
+    "name": "static-analysis-reports",
+    "has_description": true,
+    "preview": "# Name: static-analysis-reports\n\n## Executive Summary\n\nThe Static Analysis Reports is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. Th"
+  },
+  {
+    "name": "status-page-communication-templates",
+    "has_description": true,
+    "preview": "# Name: status-page-communication-templates\n\n## Executive Summary\n\nThe Status Page Communication Templates provide pre-approved, standardized message templates for communicating service incidents, mai"
+  },
+  {
+    "name": "steering-committee-minutes",
+    "has_description": true,
+    "preview": "# Name: steering-committee-minutes\n\n## Executive Summary\n\nSteering Committee Minutes capture high-level governance decisions, portfolio investment approvals, strategic direction, and escalation resolu"
+  },
+  {
+    "name": "storyboards",
+    "has_description": true,
+    "preview": "# Name: storyboards\n\n## Executive Summary\n\nStoryboards are visual narratives that map user journeys through product experiences, illustrating the sequence of interactions, emotional states, pain point"
+  },
+  {
+    "name": "subprocessor-notifications",
+    "has_description": true,
+    "preview": "# Name: subprocessor-notifications\n\n## Executive Summary\n\nThe Subprocessor Notifications artifact provides legally-compliant templates for notifying customers of subprocessor changes, additions, and r"
+  },
+  {
+    "name": "success-plan-templates",
+    "has_description": true,
+    "preview": "# Name: success-plan-templates\n\n## Executive Summary\n\nThe Success Plan Templates is a comprehensive planning artifact that establishes the strategic approach, resource allocation, timeline, and succes"
+  },
+  {
+    "name": "sustainability-reports",
+    "has_description": true,
+    "preview": "# Name: sustainability-reports\n\n## Executive Summary\n\nThe Sustainability Reports artifact documents comprehensive ESG (Environmental, Social, Governance) performance metrics following GRI Standards, S"
+  },
+  {
+    "name": "sync-contracts",
+    "has_description": true,
+    "preview": "# Name: sync-contracts\n\n## Executive Summary\n\nThe Sync Contracts is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provid"
+  },
+  {
+    "name": "synthetic-data-generation-plan",
+    "has_description": true,
+    "preview": "# Name: synthetic-data-generation-plan\n\n## Executive Summary\n\nThe Synthetic Data Generation Plan is a comprehensive planning artifact that establishes the strategic approach, resource allocation, time"
+  },
+  {
+    "name": "system-requirements-specification",
+    "has_description": true,
+    "preview": "# Name: system-requirements-specification\n\n## Executive Summary\n\nThe System Requirements Specification (SyRS) defines comprehensive system-level requirements including capabilities, interfaces, constr"
+  },
+  {
+    "name": "target-state-evolution-map",
+    "has_description": true,
+    "preview": "# Name: target-state-evolution-map\n\n## Executive Summary\n\nThe Target State Evolution Map visualizes the transformation journey from current state to desired future state, depicting the transition path"
+  },
+  {
+    "name": "team-topology-map",
+    "has_description": true,
+    "preview": "# Name: team-topology-map\n\n## Executive Summary\n\nThe Team Topology Map is a strategic organizational design artifact that visualizes team structures, boundaries, and interaction modes based on Team To"
+  },
+  {
+    "name": "technology-standards-catalog",
+    "has_description": true,
+    "preview": "# Name: technology-standards-catalog\n\n## Executive Summary\n\nThe Technology Standards Catalog is a critical governance and audit artifact that provides a chronological record of technology standards ca"
+  },
+  {
+    "name": "telemetry-schema",
+    "has_description": true,
+    "preview": "# Name: telemetry-schema\n\n## Executive Summary\n\nTelemetry Schemas define the structure and semantics of observability data including traces, metrics, and logs collected from distributed systems. These"
+  },
+  {
+    "name": "tenancy-and-isolation-model",
+    "has_description": true,
+    "preview": "# Name: tenancy-and-isolation-model\n\n## Executive Summary\n\nThe Tenancy And Isolation Model is a critical deliverable within the General phase, supporting General activities across the initiative lifec"
+  },
+  {
+    "name": "terms-of-service",
+    "has_description": true,
+    "preview": "# Name: terms-of-service\n\n## Executive Summary\n\nTerms of Service (ToS) are binding legal agreements governing user access to SaaS platforms, web applications, APIs, and digital services. These contrac"
+  },
+  {
+    "name": "test-case-specifications",
+    "has_description": true,
+    "preview": "# Name: test-case-specifications\n\n## Executive Summary\n\nThe Test Case Specifications artifact documents detailed, structured test scenarios with preconditions, test steps, expected results, and accept"
+  },
+  {
+    "name": "test-data-specification",
+    "has_description": true,
+    "preview": "# Name: test-data-specification\n\n## Executive Summary\n\nThe Test Data Specification artifact defines data requirements, sources, generation strategies, and management approaches for test environments a"
+  },
+  {
+    "name": "test-plan",
+    "has_description": true,
+    "preview": "# Name: test-plan\n\n## Executive Summary\n\nThe Test Plan defines the comprehensive testing strategy, scope, approach, resources, and schedule for validating that software meets functional requirements, "
+  },
+  {
+    "name": "test-strategy",
+    "has_description": true,
+    "preview": "# Name: test-strategy\n\n## Executive Summary\n\nThe Test Strategy artifact defines the comprehensive testing approach, methodologies, test levels, test types, tools, metrics, and resource allocation acro"
+  },
+  {
+    "name": "third-party-risk-assessments",
+    "has_description": true,
+    "preview": "# Name: third-party-risk-assessments\n\n## Executive Summary\n\nThird-Party Risk Assessments (TPRM - Third Party Risk Management) are critical vendor due diligence artifacts providing structured evaluatio"
+  },
+  {
+    "name": "threat-model",
+    "has_description": true,
+    "preview": "# Name: threat-model\n\n## Executive Summary\n\nThe Threat Model is a critical security artifact that systematically identifies, analyzes, and prioritizes potential threats to a system, application, or se"
+  },
+  {
+    "name": "time-allocation-worksheets",
+    "has_description": true,
+    "preview": "# Name: time-allocation-worksheets\n\n## Executive Summary\n\nThe Time Allocation Worksheets artifact tracks and analyzes how engineering teams allocate their time across project work, business-as-usual ("
+  },
+  {
+    "name": "toil-reduction-plan",
+    "has_description": true,
+    "preview": "# Name: toil-reduction-plan\n\n## Executive Summary\n\nThe Toil Reduction Plan is a strategic SRE artifact that identifies, quantifies, and systematically eliminates repetitive manual work that provides n"
+  },
+  {
+    "name": "topic-and-queue-catalog",
+    "has_description": true,
+    "preview": "# Name: topic-and-queue-catalog\n\n## Executive Summary\n\nThe Topic And Queue Catalog is a critical governance and audit artifact that provides a chronological record of topic and queue catalog throughou"
+  },
+  {
+    "name": "traceability-matrix",
+    "has_description": true,
+    "preview": "# Name: traceability-matrix\n\n## Executive Summary\n\nThe Traceability Matrix is a structured analytical tool that maps relationships, responsibilities, or characteristics across multiple dimensions with"
+  },
+  {
+    "name": "trademark-guidance",
+    "has_description": true,
+    "preview": "# Name: trademark-guidance\n\n## Executive Summary\n\nTrademark Guidance documents establish rules for using organization and third-party trademarks, logos, service marks, and brand assets in software, do"
+  },
+  {
+    "name": "training-curriculum",
+    "has_description": true,
+    "preview": "# Name: training-curriculum\n\n## Executive Summary\n\nThe Training Curriculum is a comprehensive security awareness and skills development artifact that establishes organization-wide training programs fo"
+  },
+  {
+    "name": "training-data-cards",
+    "has_description": true,
+    "preview": "# Name: training-data-cards\n\n## Executive Summary\n\nThe Training Data Cards artifact documents the provenance, composition, limitations, and ethical considerations of datasets used to train machine lea"
+  },
+  {
+    "name": "triage-rules",
+    "has_description": true,
+    "preview": "# Name: triage-rules\n\n## Executive Summary\n\nThe Triage Rules is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides s"
+  },
+  {
+    "name": "troubleshooting-trees",
+    "has_description": true,
+    "preview": "# Name: troubleshooting-trees\n\n## Executive Summary\n\nThe Troubleshooting Trees artifact provides structured decision tree diagrams and flowcharts that guide IT operations teams, SRE engineers, and sup"
+  },
+  {
+    "name": "trust-center-content-plan",
+    "has_description": true,
+    "preview": "# Name: trust-center-content-plan\n\n## Executive Summary\n\nThe Trust Center Content Plan is a strategic planning artifact that establishes the comprehensive approach for creating, managing, and publishi"
+  },
+  {
+    "name": "trust-center-evidence-summaries",
+    "has_description": true,
+    "preview": "# Name: trust-center-evidence-summaries\n\n## Executive Summary\n\nThe Trust Center Evidence Summaries artifact provides executive-friendly, customer-facing summaries of complex compliance reports and sec"
+  },
+  {
+    "name": "uat-plan",
+    "has_description": true,
+    "preview": "# Name: uat-plan\n\n## Executive Summary\n\nThe UAT Plan is a comprehensive quality assurance artifact that defines user acceptance testing strategies, test scenarios, acceptance criteria, and validation "
+  },
+  {
+    "name": "uat-sign-off-document",
+    "has_description": true,
+    "preview": "# Name: uat-sign-off-document\n\n## Executive Summary\n\nThe UAT Sign-Off Document is a formal acceptance artifact that validates software releases meet business requirements, functional specifications, a"
+  },
+  {
+    "name": "upgrade-guides",
+    "has_description": true,
+    "preview": "# Name: upgrade-guides\n\n## Executive Summary\n\nUpgrade Guides provide comprehensive procedures for migrating from one software version to another, documenting breaking changes, migration paths, rollbac"
+  },
+  {
+    "name": "uptime-methodology",
+    "has_description": true,
+    "preview": "# Name: uptime-methodology\n\n## Executive Summary\n\nThe Uptime Methodology defines standardized approaches for calculating service availability, managing planned maintenance windows, implementing multi-"
+  },
+  {
+    "name": "use-case-diagrams",
+    "has_description": true,
+    "preview": "# Name: use-case-diagrams\n\n## Executive Summary\n\nUse Case Diagrams are UML 2.5 visual models that depict system functionality from an external user perspective, showing actors (users, external systems"
+  },
+  {
+    "name": "use-case-models",
+    "has_description": true,
+    "preview": "# Name: use-case-models\n\n## Executive Summary\n\nUse Case Models provide detailed textual specifications for each use case identified in use case diagrams, documenting preconditions, postconditions, mai"
+  },
+  {
+    "name": "user-journeys",
+    "has_description": true,
+    "preview": "# Name: user-journeys\n\n## Executive Summary\n\nUser Journey Maps are comprehensive visualizations that document end-to-end user experiences across all touchpoints, channels, and interactions with a prod"
+  },
+  {
+    "name": "user-manuals",
+    "has_description": true,
+    "preview": "# Name: user-manuals\n\n## Executive Summary\n\nUser Manuals are comprehensive end-user documentation that empowers users to effectively operate, troubleshoot, and maximize value from software application"
+  },
+  {
+    "name": "user-stories",
+    "has_description": true,
+    "preview": "# Name: user-stories\n\n## Executive Summary\n\nUser Stories are short, simple descriptions of features told from the perspective of end users, following the format \"As a [persona], I want [capability], s"
+  },
+  {
+    "name": "velocity-and-burndown-reports",
+    "has_description": true,
+    "preview": "# Name: velocity-and-burndown-reports\n\n## Executive Summary\n\nThe Velocity And Burndown Reports is a critical deliverable within the Portfolio, Governance, and Delivery Ops phase, supporting Governance"
+  },
+  {
+    "name": "vendor-management-pack",
+    "has_description": true,
+    "preview": "# Name: vendor-management-pack\n\n## Executive Summary\n\nThe Vendor Management Pack is a comprehensive vendor lifecycle governance artifact documenting vendor onboarding, ongoing monitoring, contract man"
+  },
+  {
+    "name": "vendor-scorecards",
+    "has_description": true,
+    "preview": "# Name: vendor-scorecards\n\n## Executive Summary\n\nVendor Scorecards are quantitative performance measurement artifacts tracking vendor service quality, SLA compliance, responsiveness, innovation, risk "
+  },
+  {
+    "name": "version-tags",
+    "has_description": true,
+    "preview": "# Name: version-tags\n\n## Executive Summary\n\nThe Version Tags artifact defines version identification standards for software artifacts, container images, git releases, and deployed services using Seman"
+  },
+  {
+    "name": "vision-statement",
+    "has_description": true,
+    "preview": "# Name: vision-statement\n\n## Executive Summary\n\nThe Vision Statement is a foundational strategic artifact that articulates the organization's aspirational future state, typically spanning 3-5 years. G"
+  },
+  {
+    "name": "vpat-acr-results",
+    "has_description": true,
+    "preview": "# Name: vpat-acr-results\n\n## Executive Summary\n\nThe Vpat Acr Results is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact pr"
+  },
+  {
+    "name": "vulnerability-disclosure-policy",
+    "has_description": true,
+    "preview": "# Name: vulnerability-disclosure-policy\n\n## Executive Summary\n\nThe Vulnerability Disclosure Policy is a formal directive that establishes organizational rules, standards, and requirements for vulnerab"
+  },
+  {
+    "name": "vulnerability-management-plan",
+    "has_description": true,
+    "preview": "# Name: vulnerability-management-plan\n\n## Executive Summary\n\nThe Vulnerability Management Plan establishes a continuous, risk-based process for identifying, assessing, prioritizing, remediating, and t"
+  },
+  {
+    "name": "wireframes",
+    "has_description": true,
+    "preview": "# Name: wireframes\n\n## Executive Summary\n\nWireframes are low-fidelity design artifacts that define the structural foundation and information architecture of digital products through simplified visual "
+  },
+  {
+    "name": "zero-trust-design",
+    "has_description": true,
+    "preview": "# Name: zero-trust-design\n\n## Executive Summary\n\nZero Trust Design documents define security architectures based on the principle \"never trust, always verify,\" eliminating implicit trust and requiring"
+  }
+]
