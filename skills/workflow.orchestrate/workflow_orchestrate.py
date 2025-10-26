@@ -13,7 +13,10 @@ import yaml
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, Any, List, Optional
-import subprocess
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+from betty.skill_executor import execute_skill_in_process
 
 
 # Workflow definitions
@@ -42,20 +45,14 @@ WORKFLOWS = {
 def create_artifact(artifact_type: str, context: str, output_path: str, metadata: Optional[Dict] = None) -> Dict[str, Any]:
     """Create a single artifact using artifact.create skill"""
     try:
-        cmd = [
-            "python3",
-            "skills/artifact.create/artifact_create.py",
-            artifact_type,
-            context,
-            output_path
-        ]
+        args = [artifact_type, context, output_path]
 
         if metadata and metadata.get('author'):
-            cmd.extend(["--author", metadata['author']])
+            args.extend(["--author", metadata['author']])
 
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+        result = execute_skill_in_process("artifact.create", args, timeout=30)
 
-        if result.returncode == 0:
+        if result["returncode"] == 0:
             return {
                 "success": True,
                 "artifact_path": output_path,
@@ -64,7 +61,7 @@ def create_artifact(artifact_type: str, context: str, output_path: str, metadata
         else:
             return {
                 "success": False,
-                "error": result.stderr or result.stdout,
+                "error": result["stderr"] or result["stdout"],
                 "artifact_type": artifact_type
             }
 
