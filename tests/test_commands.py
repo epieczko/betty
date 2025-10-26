@@ -4,9 +4,11 @@ Tests for command.define skill - validates command workflows and registration.
 
 import os
 import json
-import tempfile
-import pytest
 from pathlib import Path
+from typing import Callable
+
+import pytest
+import yaml
 
 # Import the command.define functions
 import sys
@@ -21,6 +23,19 @@ from command_define import (
     CommandValidationError,
     CommandRegistryError
 )
+
+
+@pytest.fixture
+def write_command_manifest(tmp_path) -> Callable[[dict, str], str]:
+    """Write manifest content to a temporary file and ensure it exists."""
+
+    def _writer(content: dict, filename: str = "command-manifest.yaml") -> str:
+        manifest_path = tmp_path / filename
+        manifest_path.write_text(yaml.safe_dump(content))
+        assert manifest_path.exists(), "Expected command manifest fixture to be created"
+        return str(manifest_path)
+
+    return _writer
 from betty.config import (
     COMMANDS_REGISTRY_FILE,
     CommandExecutionType,
@@ -92,47 +107,45 @@ class TestCommandExecutionType:
 class TestCommandManifestLoading:
     """Tests for loading command manifests from YAML files."""
 
-    def test_load_valid_manifest(self):
+    def test_load_valid_manifest(self, write_command_manifest):
         """Test loading a valid command manifest."""
-        # Use the example command manifest
-        manifest_path = "examples/test-command.yaml"
-        if os.path.exists(manifest_path):
-            manifest = load_command_manifest(manifest_path)
-            assert manifest is not None
-            assert manifest["name"] == "/test-command"
-            assert manifest["version"] == "0.1.0"
-            assert "execution" in manifest
+        manifest_content = {
+            "name": "/test-command",
+            "version": "0.1.0",
+            "description": "Fixture command for loading test",
+            "execution": {
+                "type": "skill",
+                "target": "api.validate",
+            },
+        }
+
+        manifest_path = write_command_manifest(manifest_content, "test-command.yaml")
+        manifest = load_command_manifest(manifest_path)
+
+        assert manifest is not None
+        assert manifest["name"] == "/test-command"
+        assert manifest["version"] == "0.1.0"
+        assert "execution" in manifest
 
     def test_load_nonexistent_manifest(self):
         """Test that loading nonexistent file raises error."""
         with pytest.raises(CommandValidationError, match="not found"):
             load_command_manifest("/nonexistent/file.yaml")
 
-    def test_load_invalid_yaml(self):
+    def test_load_invalid_yaml(self, tmp_path):
         """Test that loading invalid YAML raises error."""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as f:
-            f.write("invalid: yaml: content:\n  - missing bracket")
-            temp_path = f.name
+        temp_path = tmp_path / "invalid-command.yaml"
+        temp_path.write_text("invalid: yaml: content:\n  - missing bracket")
+        assert temp_path.exists(), "Expected invalid manifest fixture to exist"
 
-        try:
-            with pytest.raises(CommandValidationError, match="Failed to parse YAML"):
-                load_command_manifest(temp_path)
-        finally:
-            os.unlink(temp_path)
+        with pytest.raises(CommandValidationError, match="Failed to parse YAML"):
+            load_command_manifest(str(temp_path))
 
 
 class TestCommandManifestValidation:
     """Tests for comprehensive command manifest validation."""
 
-    def create_temp_manifest(self, content):
-        """Helper to create temporary manifest file."""
-        import yaml
-        f = tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False)
-        yaml.dump(content, f)
-        f.close()
-        return f.name
-
-    def test_valid_command_manifest(self):
+    def test_valid_command_manifest(self, write_command_manifest):
         """Test validation of a complete valid command manifest."""
         manifest_content = {
             "name": "/test-command",
@@ -146,16 +159,13 @@ class TestCommandManifestValidation:
             "tags": ["test"]
         }
 
-        manifest_path = self.create_temp_manifest(manifest_content)
-        try:
-            result = validate_manifest(manifest_path)
-            assert result["valid"] is True
-            assert result["errors"] == []
-            assert "manifest" in result
-        finally:
-            os.unlink(manifest_path)
+        manifest_path = write_command_manifest(manifest_content, "valid-command.yaml")
+        result = validate_manifest(manifest_path)
+        assert result["valid"] is True
+        assert result["errors"] == []
+        assert "manifest" in result
 
-    def test_missing_required_fields(self):
+    def test_missing_required_fields(self, write_command_manifest):
         """Test that missing required fields are detected."""
         manifest_content = {
             "name": "/test-command",
@@ -163,15 +173,12 @@ class TestCommandManifestValidation:
             # Missing: version, execution
         }
 
-        manifest_path = self.create_temp_manifest(manifest_content)
-        try:
-            result = validate_manifest(manifest_path)
-            assert result["valid"] is False
-            assert "Missing required fields" in result["errors"][0]
-        finally:
-            os.unlink(manifest_path)
+        manifest_path = write_command_manifest(manifest_content, "missing-fields.yaml")
+        result = validate_manifest(manifest_path)
+        assert result["valid"] is False
+        assert any("Missing required fields" in error for error in result["errors"])
 
-    def test_invalid_command_name_format(self):
+    def test_invalid_command_name_format(self, write_command_manifest):
         """Test that invalid name format is detected."""
         manifest_content = {
             "name": "invalid-name",  # Missing leading slash
@@ -183,15 +190,12 @@ class TestCommandManifestValidation:
             }
         }
 
-        manifest_path = self.create_temp_manifest(manifest_content)
-        try:
-            result = validate_manifest(manifest_path)
-            assert result["valid"] is False
-            assert any("Invalid name" in error for error in result["errors"])
-        finally:
-            os.unlink(manifest_path)
+        manifest_path = write_command_manifest(manifest_content, "invalid-name.yaml")
+        result = validate_manifest(manifest_path)
+        assert result["valid"] is False
+        assert any("Invalid name" in error for error in result["errors"])
 
-    def test_invalid_version_format(self):
+    def test_invalid_version_format(self, write_command_manifest):
         """Test that invalid version format is detected."""
         manifest_content = {
             "name": "/test-command",
@@ -203,15 +207,12 @@ class TestCommandManifestValidation:
             }
         }
 
-        manifest_path = self.create_temp_manifest(manifest_content)
-        try:
-            result = validate_manifest(manifest_path)
-            assert result["valid"] is False
-            assert any("Invalid version" in error for error in result["errors"])
-        finally:
-            os.unlink(manifest_path)
+        manifest_path = write_command_manifest(manifest_content, "invalid-version.yaml")
+        result = validate_manifest(manifest_path)
+        assert result["valid"] is False
+        assert any("Invalid version" in error for error in result["errors"])
 
-    def test_invalid_execution_type(self):
+    def test_invalid_execution_type(self, write_command_manifest):
         """Test that invalid execution type is detected."""
         manifest_content = {
             "name": "/test-command",
@@ -223,15 +224,12 @@ class TestCommandManifestValidation:
             }
         }
 
-        manifest_path = self.create_temp_manifest(manifest_content)
-        try:
-            result = validate_manifest(manifest_path)
-            assert result["valid"] is False
-            assert any("Invalid execution.type" in error for error in result["errors"])
-        finally:
-            os.unlink(manifest_path)
+        manifest_path = write_command_manifest(manifest_content, "invalid-execution-type.yaml")
+        result = validate_manifest(manifest_path)
+        assert result["valid"] is False
+        assert any("execution.type" in error for error in result["errors"])
 
-    def test_missing_execution_target(self):
+    def test_missing_execution_target(self, write_command_manifest):
         """Test that missing execution target is detected."""
         manifest_content = {
             "name": "/test-command",
@@ -243,15 +241,12 @@ class TestCommandManifestValidation:
             }
         }
 
-        manifest_path = self.create_temp_manifest(manifest_content)
-        try:
-            result = validate_manifest(manifest_path)
-            assert result["valid"] is False
-            assert any("target is required" in error for error in result["errors"])
-        finally:
-            os.unlink(manifest_path)
+        manifest_path = write_command_manifest(manifest_content, "missing-target.yaml")
+        result = validate_manifest(manifest_path)
+        assert result["valid"] is False
+        assert any("execution.target" in error and "Field required" in error for error in result["errors"])
 
-    def test_invalid_status(self):
+    def test_invalid_status(self, write_command_manifest):
         """Test that invalid status is detected."""
         manifest_content = {
             "name": "/test-command",
@@ -264,15 +259,12 @@ class TestCommandManifestValidation:
             "status": "invalid_status"
         }
 
-        manifest_path = self.create_temp_manifest(manifest_content)
-        try:
-            result = validate_manifest(manifest_path)
-            assert result["valid"] is False
-            assert any("Invalid status" in error for error in result["errors"])
-        finally:
-            os.unlink(manifest_path)
+        manifest_path = write_command_manifest(manifest_content, "invalid-status.yaml")
+        result = validate_manifest(manifest_path)
+        assert result["valid"] is False
+        assert any("Invalid status" in error for error in result["errors"])
 
-    def test_invalid_parameters_format(self):
+    def test_invalid_parameters_format(self, write_command_manifest):
         """Test that invalid parameters format is detected."""
         manifest_content = {
             "name": "/test-command",
@@ -285,15 +277,12 @@ class TestCommandManifestValidation:
             "parameters": "not-an-array"  # Should be array
         }
 
-        manifest_path = self.create_temp_manifest(manifest_content)
-        try:
-            result = validate_manifest(manifest_path)
-            assert result["valid"] is False
-            assert any("parameters must be an array" in error for error in result["errors"])
-        finally:
-            os.unlink(manifest_path)
+        manifest_path = write_command_manifest(manifest_content, "invalid-parameters.yaml")
+        result = validate_manifest(manifest_path)
+        assert result["valid"] is False
+        assert any("parameters" in error and "valid list" in error for error in result["errors"])
 
-    def test_parameters_missing_required_fields(self):
+    def test_parameters_missing_required_fields(self, write_command_manifest):
         """Test that parameters missing required fields are detected."""
         manifest_content = {
             "name": "/test-command",
@@ -310,14 +299,10 @@ class TestCommandManifestValidation:
                 }
             ]
         }
-
-        manifest_path = self.create_temp_manifest(manifest_content)
-        try:
-            result = validate_manifest(manifest_path)
-            assert result["valid"] is False
-            assert any("missing required field: type" in error for error in result["errors"])
-        finally:
-            os.unlink(manifest_path)
+        manifest_path = write_command_manifest(manifest_content, "missing-parameter-type.yaml")
+        result = validate_manifest(manifest_path)
+        assert result["valid"] is False
+        assert any("parameters.0.type" in error and "Field required" in error for error in result["errors"])
 
 
 class TestCommandExecutionTargetValidation:
@@ -433,10 +418,8 @@ class TestCommandRegistry:
 class TestCommandWorkflow:
     """Integration tests for complete command workflow."""
 
-    def test_complete_command_registration_workflow(self):
+    def test_complete_command_registration_workflow(self, write_command_manifest):
         """Test complete workflow: create manifest -> validate -> register."""
-        import yaml
-
         # Create a complete command manifest
         manifest_content = {
             "name": "/test-workflow-command",
@@ -458,41 +441,32 @@ class TestCommandWorkflow:
             "tags": ["test", "workflow"]
         }
 
-        # Save to temp file
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as f:
-            yaml.dump(manifest_content, f)
-            manifest_path = f.name
+        manifest_path = write_command_manifest(manifest_content, "workflow-command.yaml")
 
-        try:
-            # Step 1: Validate manifest
-            validation = validate_manifest(manifest_path)
-            assert validation["valid"] is True
-            assert validation["errors"] == []
+        # Step 1: Validate manifest
+        validation = validate_manifest(manifest_path)
+        assert validation["valid"] is True
+        assert validation["errors"] == []
 
-            # Step 2: Register command
-            result = update_command_registry(validation["manifest"])
-            assert result is True
+        # Step 2: Register command
+        result = update_command_registry(validation["manifest"])
+        assert result is True
 
-            # Step 3: Verify registration
-            registry = load_command_registry()
-            command = next(
-                (cmd for cmd in registry["commands"] if cmd["name"] == "/test-workflow-command"),
-                None
-            )
-            assert command is not None
-            assert command["version"] == "1.0.0"
-            assert command["description"] == "Test complete workflow"
-            assert command["status"] == "active"
-            assert len(command["parameters"]) == 1
-            assert command["parameters"][0]["name"] == "input"
+        # Step 3: Verify registration
+        registry = load_command_registry()
+        command = next(
+            (cmd for cmd in registry["commands"] if cmd["name"] == "/test-workflow-command"),
+            None
+        )
+        assert command is not None
+        assert command["version"] == "1.0.0"
+        assert command["description"] == "Test complete workflow"
+        assert command["status"] == "active"
+        assert len(command["parameters"]) == 1
+        assert command["parameters"][0]["name"] == "input"
 
-        finally:
-            os.unlink(manifest_path)
-
-    def test_invalid_command_workflow(self):
+    def test_invalid_command_workflow(self, write_command_manifest):
         """Test workflow with invalid command manifest."""
-        import yaml
-
         # Create an invalid manifest (missing required fields)
         manifest_content = {
             "name": "/test-invalid",
@@ -500,16 +474,10 @@ class TestCommandWorkflow:
             # Missing: version, execution
         }
 
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as f:
-            yaml.dump(manifest_content, f)
-            manifest_path = f.name
+        manifest_path = write_command_manifest(manifest_content, "invalid-workflow.yaml")
 
-        try:
-            # Validation should fail
-            validation = validate_manifest(manifest_path)
-            assert validation["valid"] is False
-            assert len(validation["errors"]) > 0
-            assert "Missing required fields" in validation["errors"][0]
-
-        finally:
-            os.unlink(manifest_path)
+        # Validation should fail
+        validation = validate_manifest(manifest_path)
+        assert validation["valid"] is False
+        assert len(validation["errors"]) > 0
+        assert "Missing required fields" in validation["errors"][0]
