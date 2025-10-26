@@ -1,5 +1,18 @@
 # Betty Framework Agents
 
+## ⚙️ **Integration Note: Claude Code Plugin System**
+
+**Betty agents are Claude Code plugins.** You do not invoke agents via standalone CLI commands (`betty` or direct Python scripts). Instead:
+
+- **Claude Code serves as the execution environment** for all agent invocation
+- Each agent is registered through its `agent.yaml` manifest
+- Agents become automatically discoverable and executable through Claude Code's natural language interface
+- All routing, validation, and execution is handled by Claude Code via MCP (Model Context Protocol)
+
+**No separate installation step is needed** beyond plugin registration in your Claude Code environment.
+
+---
+
 This directory contains agent manifests for the Betty Framework.
 
 ## What are Agents?
@@ -24,6 +37,27 @@ agents/
 ```
 
 ## Creating an Agent
+
+### Using meta.agent (Recommended)
+
+**Via Claude Code:**
+```
+"Use meta.agent to create a my.agent that does [description],
+with capabilities [list], using skills [skill.one, skill.two],
+and iterative reasoning mode"
+```
+
+**Direct execution (development/testing):**
+```bash
+cat > /tmp/my_agent.md <<'EOF'
+# Name: my.agent
+# Purpose: What your agent does
+# Capabilities: First capability, Second capability
+# Skills: skill.one, skill.two
+# Reasoning: iterative
+EOF
+python agents/meta.agent/meta_agent.py /tmp/my_agent.md
+```
 
 ### Manual Creation
 
@@ -52,16 +86,16 @@ agents/
    ```
 
 3. Validate and register:
+
+   **Via Claude Code:**
+   ```
+   "Use agent.define to validate agents/my.agent/agent.yaml"
+   ```
+
+   **Direct execution (development/testing):**
    ```bash
    python skills/agent.define/agent_define.py agents/my.agent/agent.yaml
    ```
-
-### Using agent.define Skill
-
-```bash
-# Validate an agent manifest
-python skills/agent.define/agent_define.py agents/<agent-name>/agent.yaml
-```
 
 ## Agent Manifest Schema
 

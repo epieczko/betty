@@ -1,5 +1,15 @@
 # artifact.create
 
+## ⚙️ **Integration Note: Claude Code Plugin**
+
+**This skill is a Claude Code plugin.** You do not invoke it via `python skills/artifact.create/artifact_create.py`. Instead:
+
+- **Ask Claude Code** to use the skill: `"Use artifact.create to create a threat-model artifact..."`
+- **Claude Code handles** validation, execution, and output interpretation
+- **Direct Python execution** is only for development/testing outside Claude Code
+
+---
+
 AI-assisted artifact generation from professional templates.
 
 ## Purpose
@@ -13,7 +23,29 @@ The `artifact.create` skill enables rapid, high-quality artifact creation by:
 
 ## Usage
 
-### Command Line
+### Via Claude Code (Recommended)
+
+Simply ask Claude to use the skill:
+
+```
+"Use artifact.create to create a business-case artifact for a new customer portal
+that improves self-service capabilities and reduces support costs by 40%.
+Save it to ./artifacts/customer-portal-business-case.yaml,
+authored by Jane Smith, with Internal classification."
+
+"Use artifact.create to create a threat-model artifact for a payment processing API
+with PCI-DSS compliance requirements. Save to ./artifacts/payment-api-threat-model.yaml,
+authored by Security Team, with Confidential classification."
+
+"Use artifact.create to create a portfolio-roadmap artifact for a digital transformation
+initiative covering cloud migration, API platform, and customer experience improvements
+over 18 months. Save to ./artifacts/digital-transformation-roadmap.yaml,
+authored by Strategy Office."
+```
+
+### Direct Execution (Development/Testing)
+
+When working outside Claude Code or for testing:
 
 ```bash
 python3 skills/artifact.create/artifact_create.py \
@@ -24,10 +56,9 @@ python3 skills/artifact.create/artifact_create.py \
   [--classification Internal]
 ```
 
-### Examples
+#### Examples
 
-#### Create a Business Case
-
+**Create a Business Case:**
 ```bash
 python3 skills/artifact.create/artifact_create.py \
   business-case \
@@ -37,8 +68,7 @@ python3 skills/artifact.create/artifact_create.py \
   --classification Internal
 ```
 
-#### Create a Threat Model
-
+**Create a Threat Model:**
 ```bash
 python3 skills/artifact.create/artifact_create.py \
   threat-model \
@@ -48,8 +78,7 @@ python3 skills/artifact.create/artifact_create.py \
   --classification Confidential
 ```
 
-#### Create a Portfolio Roadmap
-
+**Create a Portfolio Roadmap:**
 ```bash
 python3 skills/artifact.create/artifact_create.py \
   portfolio-roadmap \
