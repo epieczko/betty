@@ -1,75 +1,621 @@
 # Threat Model
 # See also: artifact_descriptions/threat-model.md for complete guidance
 
-# The Threat Model is a critical security artifact that systematically identifies, analyzes, and prioritizes potential threats to a system, application, or service. Using structured methodologies like S
-
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"  # Draft | Review | Approved | Archived
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  # Ownership
+  author: "Security Architect Name"
+  securityReviewer: "AppSec Team Lead"
+  documentOwner: "Product Security Team"
+  classification: "Confidential"
 
-  # Approvals
-  approvers:
-    - name: "Approver Name"
-      role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+  # System Under Analysis
+  systemName: "System or Application Name"
+  systemVersion: "1.0.0"
+  environment: "Production"  # Production | Staging | Development
 
-# PURPOSE
-# The Threat Model systematically identifies security threats, attack vectors, and vulnerabilities in a system by analyzing its architecture, data flows, entry points, and trust boundaries. It enables teams to understand "what can go wrong" from an attacker's perspective and prioritize security contro...
+# Threat Modeling Methodology
+methodology: "STRIDE"  # STRIDE | PASTA | LINDDUN | Attack Trees | Hybrid
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
+# System Overview
+system:
+  description: |
+    Brief description of the system being threat modeled.
+    Include: What it does, who uses it, what data it processes, business criticality.
 
-# BEST PRACTICES:
-# - Methodology Selection: Choose threat modeling methodology based on system type (STRIDE for applications, PASTA for risk-cen
-# - Early Integration: Conduct threat modeling during design phase when architecture changes are less costly
-# - Architecture Decomposition: Create detailed data flow diagrams (DFDs) showing processes, data stores, data flows, and trust boun
-# - Asset Identification: Clearly identify and classify assets (data, systems, credentials) by sensitivity and business critic
-# - Threat Actor Profiling: Define realistic threat actors with specific capabilities, motivations, and resources (e.g., nation-
+  trustBoundaries:
+    - id: "TB-001"
+      name: "Internet to DMZ"
+      description: "External network boundary separating untrusted internet from DMZ"
+      fromTrustLevel: "Untrusted"
+      toTrustLevel: "Low Trust"
 
-content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
-  scope:
-    inScope:
-      - "System architecture decomposition identifying components, data flows, and trust boundaries"
-      - "Threat identification using STRIDE, PASTA, or similar methodologies"
-      - "Attack vector analysis including threat actors, capabilities, and motivations"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
+    - id: "TB-002"
+      name: "DMZ to Internal Network"
+      description: "Separates DMZ from internal corporate network"
+      fromTrustLevel: "Low Trust"
+      toTrustLevel: "Trusted"
 
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
-    
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
+    - id: "TB-003"
+      name: "Application to Database"
+      description: "Application layer to data layer boundary"
+      fromTrustLevel: "Trusted"
+      toTrustLevel: "Highly Trusted"
 
-relatedDocuments:
-  - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+  components:
+    - id: "COMP-001"
+      name: "Web Application Server"
+      type: "Process"  # Process | Data Store | External Entity | Data Flow
+      location: "DMZ"
+      technologies: ["Node.js 18", "Express 4.x"]
+      runsAs: "www-data"
+      trustLevel: "Low Trust"
+      dataProcessed: ["User credentials", "Session tokens", "User PII"]
+      exposedInterfaces: ["HTTPS API on port 443"]
 
+    - id: "COMP-002"
+      name: "PostgreSQL Database"
+      type: "Data Store"
+      location: "Internal Network"
+      technologies: ["PostgreSQL 15"]
+      runsAs: "postgres"
+      trustLevel: "Highly Trusted"
+      dataProcessed: ["User PII", "Financial records", "Authentication credentials"]
+      encryption: "TDE enabled, encrypted at rest"
+
+    - id: "COMP-003"
+      name: "Redis Cache"
+      type: "Data Store"
+      location: "DMZ"
+      technologies: ["Redis 7.x"]
+      dataProcessed: ["Session data", "Cached responses"]
+      encryption: "TLS in transit"
+
+  dataFlows:
+    - id: "DF-001"
+      source: "Internet User"
+      destination: "COMP-001"
+      protocol: "HTTPS"
+      port: 443
+      dataClassification: "Confidential"
+      authentication: "Required"
+      encryption: "TLS 1.3"
+      crossesBoundary: "TB-001"
+
+    - id: "DF-002"
+      source: "COMP-001"
+      destination: "COMP-002"
+      protocol: "PostgreSQL Wire Protocol"
+      port: 5432
+      dataClassification: "Highly Confidential"
+      authentication: "Database credentials"
+      encryption: "TLS"
+      crossesBoundary: "TB-002"
+
+# Assets
+assets:
+  - id: "ASSET-001"
+    name: "User Credentials Database"
+    type: "Data"
+    location: "COMP-002"
+    classification: "Highly Confidential"
+    businessValue: "Critical"
+    owner: "Security Team"
+    sensitivity: "Contains password hashes, MFA secrets"
+
+  - id: "ASSET-002"
+    name: "Payment Processing API Keys"
+    type: "Credentials"
+    location: "COMP-002"
+    classification: "Restricted"
+    businessValue: "Critical"
+    owner: "Finance Team"
+    sensitivity: "Direct financial impact if compromised"
+
+  - id: "ASSET-003"
+    name: "Customer PII"
+    type: "Data"
+    location: "COMP-002"
+    classification: "Confidential"
+    businessValue: "High"
+    owner: "Privacy Team"
+    regulatoryRequirements: ["GDPR", "CCPA"]
+
+# Threat Actors
+threatActors:
+  - id: "TA-001"
+    name: "External Opportunistic Attacker"
+    type: "External"
+    motivation: "Financial gain, credential theft"
+    capabilities: "Medium"  # Low | Medium | High | Advanced Persistent Threat
+    resources: "Limited, automated tools"
+    targetedAssets: ["ASSET-001", "ASSET-003"]
+
+  - id: "TA-002"
+    name: "Malicious Insider"
+    type: "Insider"
+    motivation: "Data theft, sabotage, espionage"
+    capabilities: "High"
+    resources: "Privileged access, system knowledge"
+    targetedAssets: ["ASSET-001", "ASSET-002", "ASSET-003"]
+
+  - id: "TA-003"
+    name: "Nation State Actor"
+    type: "Advanced Persistent Threat"
+    motivation: "Espionage, data exfiltration"
+    capabilities: "Advanced"
+    resources: "Significant, custom exploits, zero-days"
+    targetedAssets: ["ASSET-002", "ASSET-003"]
+
+# Threats (STRIDE Framework)
+# STRIDE: Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege
+threats:
+  - id: "THREAT-001"
+    title: "Credential theft via credential stuffing attack"
+    strideCategory: "Spoofing"
+    description: |
+      Attacker uses stolen credentials from other breaches to attempt
+      authentication against the application, potentially gaining unauthorized
+      access to user accounts.
+
+    affectedAssets: ["ASSET-001", "ASSET-003"]
+    affectedComponents: ["COMP-001"]
+    affectedDataFlows: ["DF-001"]
+    threatActor: "TA-001"
+
+    attackScenario: |
+      1. Attacker obtains credential database from third-party breach
+      2. Performs credential stuffing using automated tools
+      3. Successfully authenticates as legitimate user
+      4. Accesses user PII and account data
+      5. Potentially pivots to other accounts
+
+    # Risk Scoring using DREAD
+    dread:
+      damage: 8              # Potential damage (1-10)
+      reproducibility: 7     # How easy to reproduce
+      exploitability: 6      # Required skill level
+      affectedUsers: 9       # Scale of impact
+      discoverability: 5     # How easy to discover
+      totalScore: 35         # Sum of above
+      averageScore: 7.0      # Total / 5
+      riskRating: "High"     # Low (0-3.3) | Medium (3.4-6.6) | High (6.7-10)
+
+    # Alternative: CVSS v3.1 Scoring
+    cvss:
+      vector: "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N"
+      baseScore: 9.1
+      severity: "Critical"
+      breakdown:
+        attackVector: "Network"
+        attackComplexity: "Low"
+        privilegesRequired: "None"
+        userInteraction: "None"
+        scope: "Unchanged"
+        confidentialityImpact: "High"
+        integrityImpact: "High"
+        availabilityImpact: "None"
+
+    # Mitigations
+    mitigations:
+      - id: "MIT-001"
+        control: "Implement multi-factor authentication (MFA) for all users"
+        type: "Preventive"
+        status: "Planned"
+        owner: "Engineering Team"
+        dueDate: "2025-06-30"
+        cost: "Medium"
+        effort: "High"
+        effectiveness: "High"
+
+      - id: "MIT-002"
+        control: "Implement rate limiting on authentication endpoints"
+        type: "Detective/Preventive"
+        status: "Implemented"
+        owner: "Platform Team"
+        effectiveness: "Medium"
+        details: "Max 5 failed attempts per IP per minute"
+
+      - id: "MIT-003"
+        control: "Monitor for credential stuffing patterns"
+        type: "Detective"
+        status: "Planned"
+        owner: "Security Operations"
+        dueDate: "2025-04-15"
+        effectiveness: "Medium"
+
+    residualRisk: "Medium"  # After all mitigations applied
+    acceptanceStatus: "Requires Treatment"  # Accepted | Requires Treatment | Under Review
+
+    # MITRE ATT&CK Mapping
+    mitreAttack:
+      technique: "T1110.003"
+      techniqueName: "Brute Force: Password Spraying"
+      tactic: "Credential Access"
+      mitigation: "M1036 - Account Use Policies"
+
+  - id: "THREAT-002"
+    title: "Man-in-the-middle attack on API communications"
+    strideCategory: "Tampering"
+    description: |
+      Attacker intercepts and modifies data in transit between client and
+      server, potentially stealing credentials or tampering with transactions.
+
+    affectedAssets: ["ASSET-001", "ASSET-003"]
+    affectedComponents: ["COMP-001"]
+    affectedDataFlows: ["DF-001"]
+    threatActor: "TA-001"
+
+    dread:
+      damage: 7
+      reproducibility: 4
+      exploitability: 5
+      affectedUsers: 8
+      discoverability: 6
+      totalScore: 30
+      averageScore: 6.0
+      riskRating: "Medium"
+
+    mitigations:
+      - id: "MIT-004"
+        control: "Enforce TLS 1.3 for all API communications"
+        type: "Preventive"
+        status: "Implemented"
+        owner: "Platform Team"
+        effectiveness: "High"
+
+      - id: "MIT-005"
+        control: "Implement certificate pinning in mobile applications"
+        type: "Preventive"
+        status: "Planned"
+        owner: "Mobile Team"
+        dueDate: "2025-05-15"
+        effectiveness: "High"
+
+      - id: "MIT-006"
+        control: "Enable HSTS (HTTP Strict Transport Security)"
+        type: "Preventive"
+        status: "Implemented"
+        effectiveness: "Medium"
+
+    residualRisk: "Low"
+    acceptanceStatus: "Accepted"
+
+    mitreAttack:
+      technique: "T1557"
+      techniqueName: "Adversary-in-the-Middle"
+      tactic: "Collection"
+
+  - id: "THREAT-003"
+    title: "Insufficient audit logging allows action repudiation"
+    strideCategory: "Repudiation"
+    description: |
+      Inadequate audit logging allows users to deny performing sensitive
+      actions, hindering forensic investigation and accountability.
+
+    affectedAssets: ["ASSET-001", "ASSET-002", "ASSET-003"]
+    affectedComponents: ["COMP-001", "COMP-002"]
+    threatActor: "TA-002"
+
+    dread:
+      damage: 6
+      reproducibility: 8
+      exploitability: 7
+      affectedUsers: 5
+      discoverability: 4
+      totalScore: 30
+      averageScore: 6.0
+      riskRating: "Medium"
+
+    mitigations:
+      - id: "MIT-007"
+        control: "Implement comprehensive audit logging for all user actions"
+        type: "Detective"
+        status: "In Progress"
+        owner: "Engineering Team"
+        dueDate: "2025-05-30"
+        effectiveness: "High"
+        details: "Log: user ID, action, timestamp, IP, user agent, result"
+
+      - id: "MIT-008"
+        control: "Tamper-proof log storage with integrity verification"
+        type: "Detective"
+        status: "Planned"
+        owner: "Security Team"
+        effectiveness: "High"
+
+    residualRisk: "Low"
+    acceptanceStatus: "Requires Treatment"
+
+    mitreAttack:
+      technique: "T1070.002"
+      techniqueName: "Indicator Removal: Clear Linux or Mac System Logs"
+      tactic: "Defense Evasion"
+
+  - id: "THREAT-004"
+    title: "SQL injection leading to database compromise"
+    strideCategory: "Information Disclosure"
+    description: |
+      Application vulnerable to SQL injection allows attacker to extract
+      sensitive data from database or modify data.
+
+    affectedAssets: ["ASSET-001", "ASSET-002", "ASSET-003"]
+    affectedComponents: ["COMP-001", "COMP-002"]
+    affectedDataFlows: ["DF-002"]
+    threatActor: "TA-001"
+
+    dread:
+      damage: 10
+      reproducibility: 6
+      exploitability: 7
+      affectedUsers: 10
+      discoverability: 6
+      totalScore: 39
+      averageScore: 7.8
+      riskRating: "High"
+
+    cvss:
+      vector: "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+      baseScore: 9.8
+      severity: "Critical"
+
+    mitigations:
+      - id: "MIT-009"
+        control: "Use parameterized queries/prepared statements exclusively"
+        type: "Preventive"
+        status: "Implemented"
+        owner: "Engineering Team"
+        effectiveness: "High"
+
+      - id: "MIT-010"
+        control: "Static Application Security Testing (SAST) in CI/CD"
+        type: "Detective"
+        status: "Implemented"
+        effectiveness: "Medium"
+
+      - id: "MIT-011"
+        control: "Regular penetration testing"
+        type: "Detective"
+        status: "Recurring"
+        owner: "Security Team"
+        frequency: "Quarterly"
+        effectiveness: "High"
+
+    residualRisk: "Low"
+    acceptanceStatus: "Accepted"
+
+    mitreAttack:
+      technique: "T1190"
+      techniqueName: "Exploit Public-Facing Application"
+      tactic: "Initial Access"
+
+  - id: "THREAT-005"
+    title: "DDoS attack overwhelming application resources"
+    strideCategory: "Denial of Service"
+    description: |
+      Distributed denial of service attack floods application with requests,
+      making it unavailable to legitimate users.
+
+    affectedAssets: ["ASSET-001", "ASSET-003"]
+    affectedComponents: ["COMP-001"]
+    affectedDataFlows: ["DF-001"]
+    threatActor: "TA-001"
+
+    dread:
+      damage: 6
+      reproducibility: 8
+      exploitability: 7
+      affectedUsers: 10
+      discoverability: 9
+      totalScore: 40
+      averageScore: 8.0
+      riskRating: "High"
+
+    mitigations:
+      - id: "MIT-012"
+        control: "CDN with DDoS protection (Cloudflare/Akamai)"
+        type: "Preventive"
+        status: "Implemented"
+        effectiveness: "High"
+
+      - id: "MIT-013"
+        control: "Rate limiting at API gateway"
+        type: "Preventive"
+        status: "Implemented"
+        effectiveness: "Medium"
+
+      - id: "MIT-014"
+        control: "Auto-scaling infrastructure"
+        type: "Preventive"
+        status: "Implemented"
+        effectiveness: "Medium"
+
+    residualRisk: "Low"
+    acceptanceStatus: "Accepted"
+
+    mitreAttack:
+      technique: "T1498"
+      techniqueName: "Network Denial of Service"
+      tactic: "Impact"
+
+  - id: "THREAT-006"
+    title: "Privilege escalation via insecure direct object reference"
+    strideCategory: "Elevation of Privilege"
+    description: |
+      Attacker manipulates object references to access resources belonging to
+      other users or gain administrative privileges.
+
+    affectedAssets: ["ASSET-003"]
+    affectedComponents: ["COMP-001"]
+    threatActor: "TA-001"
+
+    dread:
+      damage: 8
+      reproducibility: 5
+      exploitability: 6
+      affectedUsers: 7
+      discoverability: 5
+      totalScore: 31
+      averageScore: 6.2
+      riskRating: "Medium"
+
+    mitigations:
+      - id: "MIT-015"
+        control: "Implement proper authorization checks on all object access"
+        type: "Preventive"
+        status: "In Progress"
+        owner: "Engineering Team"
+        effectiveness: "High"
+
+      - id: "MIT-016"
+        control: "Use indirect references (UUIDs instead of sequential IDs)"
+        type: "Preventive"
+        status: "Planned"
+        effectiveness: "Medium"
+
+    residualRisk: "Medium"
+    acceptanceStatus: "Requires Treatment"
+
+    mitreAttack:
+      technique: "T1068"
+      techniqueName: "Exploitation for Privilege Escalation"
+      tactic: "Privilege Escalation"
+
+# Security Controls Summary
+securityControls:
+  - id: "CTRL-001"
+    name: "Multi-Factor Authentication"
+    category: "Authentication"
+    type: "Preventive"
+    implementation: "Auth0 MFA"
+    status: "Planned"
+    threatsAddressed: ["THREAT-001"]
+
+  - id: "CTRL-002"
+    name: "TLS 1.3 Encryption"
+    category: "Cryptography"
+    type: "Preventive"
+    implementation: "NGINX with TLS 1.3"
+    status: "Implemented"
+    threatsAddressed: ["THREAT-002"]
+
+  - id: "CTRL-003"
+    name: "Audit Logging"
+    category: "Logging & Monitoring"
+    type: "Detective"
+    implementation: "ELK Stack"
+    status: "In Progress"
+    threatsAddressed: ["THREAT-003"]
+
+  - id: "CTRL-004"
+    name: "Parameterized Queries"
+    category: "Secure Coding"
+    type: "Preventive"
+    implementation: "ORM (Sequelize)"
+    status: "Implemented"
+    threatsAddressed: ["THREAT-004"]
+
+# Risk Summary
+riskSummary:
+  totalThreats: 6
+
+  byRating:
+    critical: 0
+    high: 3
+    medium: 3
+    low: 0
+
+  byStatus:
+    requiresTreatment: 3
+    accepted: 2
+    underReview: 1
+
+  topRisks:
+    - id: "THREAT-004"
+      title: "SQL injection"
+      score: 7.8
+      status: "Accepted (mitigated)"
+
+    - id: "THREAT-005"
+      title: "DDoS attack"
+      score: 8.0
+      status: "Accepted (mitigated)"
+
+    - id: "THREAT-001"
+      title: "Credential stuffing"
+      score: 7.0
+      status: "Requires Treatment"
+
+# Recommendations
+recommendations:
+  - priority: "P0"
+    action: "Implement MFA for all user accounts"
+    rationale: "Primary defense against credential theft"
+    owner: "Engineering Team"
+    dueDate: "2025-06-30"
+    relatedThreats: ["THREAT-001"]
+
+  - priority: "P1"
+    action: "Complete audit logging implementation"
+    rationale: "Required for compliance and forensics"
+    owner: "Engineering Team"
+    dueDate: "2025-05-30"
+    relatedThreats: ["THREAT-003"]
+
+  - priority: "P1"
+    action: "Implement proper authorization checks"
+    rationale: "Prevent privilege escalation"
+    owner: "Engineering Team"
+    dueDate: "2025-07-15"
+    relatedThreats: ["THREAT-006"]
+
+# Assumptions & Dependencies
+assumptions:
+  - "Users will not share credentials"
+  - "TLS certificates are properly managed and renewed"
+  - "Infrastructure provider (AWS/Azure/GCP) maintains security of underlying platform"
+  - "Database is not directly accessible from internet"
+
+dependencies:
+  - artifact: "Security Architecture Diagram"
+    type: "architecture"
+    purpose: "Visualizes security controls and boundaries"
+
+  - artifact: "IAM Design"
+    type: "architecture"
+    purpose: "Defines authentication and authorization mechanisms"
+
+  - artifact: "Incident Response Plan"
+    type: "operations"
+    purpose: "Defines response to realized threats"
+
+# Review & Approval
+approvals:
+  - role: "Security Architect"
+    name: ""
+    date: null
+    status: "Pending"
+
+  - role: "Application Security Lead"
+    name: ""
+    date: null
+    status: "Pending"
+
+  - role: "CISO"
+    name: ""
+    date: null
+    status: "Pending"
+
+# Change History
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"
-    author: "Author Name"
-    changes: "Initial version"
+    author: "Security Architect Name"
+    changes: "Initial threat model based on STRIDE methodology"
+    threatsAdded: 6
+    threatsModified: 0
+    threatsRemoved: 0
