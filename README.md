@@ -14,7 +14,7 @@
 
 **Enterprise-grade AI-assisted engineering framework with self-improving meta-agents**
 
-[Quick Start](#-quick-start) • [Documentation](#-documentation) • [Features](#-key-features) • [Meta-Agents](#-meta-agents-self-improving-infrastructure) • [Artifacts](#-artifact-framework) • [Contributing](#-contributing)
+[Quick Start](#-quick-start) • [Documentation Guide](#-documentation-guide) • [Features](#-key-features) • [Meta-Agents](#-meta-agents-self-improving-infrastructure) • [Artifacts](#-artifact-framework) • [Contributing](#-contributing)
 
 </div>
 
@@ -47,7 +47,7 @@ Betty Framework is **RiskExec's AI-native SDLC platform** built on Anthropic's C
 - [Skills Catalog](#-skills-catalog)
 - [Agents Catalog](#-agents-catalog)
 - [Enterprise Features](#-enterprise-features)
-- [Documentation](#-documentation)
+- [Documentation Guide](#-documentation-guide)
 - [Repository Structure](#-repository-structure)
 - [Requirements](#%EF%B8%8F-requirements)
 - [Contributing](#-contributing)
@@ -550,44 +550,56 @@ python3 skills/artifact.review/artifact_review.py \
 
 ---
 
-## 📚 Documentation
+## 🧭 Documentation Guide
 
-### Getting Started
+Use this hub to jump directly to the resources that match your role.
 
-- **[QUICKSTART.md](QUICKSTART.md)** — Betty in 5 minutes with Hello World
-- **[GETTING_STARTED.md](GETTING_STARTED.md)** — Comprehensive tutorial
-- **[INSTALLATION.md](INSTALLATION.md)** — Detailed installation guide
+### New Contributors & Onboarding
 
-### Phase Completion Documentation
+- **[Quickstart](QUICKSTART.md)** — Spin up Betty in minutes with a guided walkthrough.
+- **[Getting Started Tutorial](GETTING_STARTED.md)** — Step-by-step introduction to the framework.
+- **[Installation Guide](INSTALLATION.md)** — Detailed setup across environments.
 
-- **[PHASE1_COMPLETE.md](PHASE1_COMPLETE.md)** — Artifact framework (391 types, 406 templates)
-- **[PHASE2_COMPLETE.md](PHASE2_COMPLETE.md)** — Validation and review capabilities
-- **[PHASE3_COMPLETE.md](PHASE3_COMPLETE.md)** — Specialized agents and workflows
+### System & Enterprise Architects
 
-### Architecture & Design
+- **[Framework Overview](docs/betty-framework-overview.md)** — Betty lifecycle, layers, and bootstrapping.
+- **[Betty Architecture](docs/betty-architecture.md)** — Deep dive into the five-layer reference model.
+- **[Governance Architecture](docs/governance-architecture.md)** — Control planes, audit posture, and decision flows.
+- **[Artifact Framework Integration](docs/ARTIFACT_FRAMEWORK_INTEGRATION.md)** — Mapping enterprise standards into Betty artifacts.
 
-- **[Betty Architecture](docs/betty-architecture.md)** — Five-layer model explained
-- **[Betty Framework Overview](docs/betty-framework-overview.md)** — Lifecycle and bootstrapping
-- **[Skills Framework](docs/skills-framework.md)** — Skill taxonomy and categories
-- **[API-Driven Development](docs/api-driven-development.md)** — Complete API workflow
+### Implementation & Skill Builders
 
-### Infrastructure
+- **[Implementation Guide](IMPLEMENTATION_GUIDE.md)** — Recommended rollout path for Git workflow automation.
+- **[Skills Framework](docs/skills-framework.md)** — Taxonomy, lifecycle, and extension patterns for skills.
+- **[Implementation Playbooks](docs/PHASE_1_IMPLEMENTATION.md)** — Phased delivery guidance with meta-agent checkpoints (see also [Phase 2](docs/PHASE_2_IMPLEMENTATION.md)).
+- **[Agent Implementation Plan](docs/agent-define-implementation-plan.md)** — Blueprint for composing and validating agents.
+- **[API-Driven Development](docs/api-driven-development.md)** — End-to-end workflow example from spec to deployment.
+- **[Complete Implementation Summary](docs/COMPLETE_IMPLEMENTATION_SUMMARY.md)** — Snapshot of delivered capabilities across phases.
 
-- **[Command & Hook Infrastructure](docs/COMMAND_HOOK_INFRASTRUCTURE.md)** — Layer 1 and 5 details
-- **[Multi-LLM Integration](docs/multi-llm-integration-paths.md)** — Multi-model strategies
-- **[Codebase Analysis](docs/CODEBASE_ANALYSIS.md)** — Technical implementation
+### Governance & Compliance Leaders
 
-### Reference
+- **[Traceability](docs/TRACEABILITY.md)** — Linking requirements, skills, and execution evidence.
+- **[Artifact Standards](docs/ARTIFACT_STANDARDS.md)** — Enterprise documentation expectations and templates.
+- **[Artifact Status & Usage](docs/ARTIFACT_STATUS.md)** — Certification levels, lifecycle rules, and consumption guidance.
+- **[Artifact Usage Guide](docs/ARTIFACT_USAGE_GUIDE.md)** — Producer/consumer best practices for portfolio teams.
+- **[Certification Playbook](docs/CERTIFICATION.md)** — Criteria for promoting skills, agents, and artifacts to production.
 
-- **[Glossary](docs/glossary.md)** — Betty terminology and concepts
-- **[Contributing](docs/contributing.md)** — How to contribute
-- **[References](docs/references.md)** — External documentation
+### Marketplace & Operations Teams
 
-### Component Documentation
+- **[Marketplace Ingestion](docs/MARKETPLACE_INGESTION.md)** — Process for publishing bundles into Claude's marketplace.
+- **[Performance Monitoring](docs/PERFORMANCE_MONITORING.md)** — Telemetry, benchmarking, and alerting patterns.
+- **[Claude Router Integration](docs/claude-code-router-integration.md)** — Configuration for multi-tenant routing.
+- **[Multi-LLM Integration Paths](docs/multi-llm-integration-paths.md)** — Strategies for orchestrating Claude with other models.
+- **[Model Recommendations](docs/model-recommendations.md)** — Guidance on model selection by workload.
 
-- **Skills**: Each has `SKILL.md` in its directory
-- **Agents**: Each has `README.md` in its directory
-- **Artifacts**: Descriptions in `/artifact_descriptions/`
+### Reference & Community
+
+- **[Glossary](docs/glossary.md)** — Common language for teams collaborating in Betty.
+- **[Contributing Guide](docs/contributing.md)** — How to propose changes and ship improvements.
+- **[External References](docs/references.md)** — Standards, research, and source inspiration.
+- **[Phase Completion Reports](PHASE1_COMPLETE.md)** — Progress documentation for stakeholders (see also [Phase 2](PHASE2_COMPLETE.md) and [Phase 3](PHASE3_COMPLETE.md)).
+
+Looking for something else? Browse the full [docs directory](docs/) for deep dives, standards, and integration notes.
 
 ---
 

@@ -2,6 +2,8 @@
 
 Complete installation and setup instructions for the Betty Framework.
 
+> 📚 For more role-specific guides, check the [Documentation Guide](README.md#-documentation-guide).
+
 ## Table of Contents
 
 - [System Requirements](#system-requirements)
