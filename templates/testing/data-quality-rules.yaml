@@ -1,73 +1,53 @@
 # Data Quality Rules
 # See also: artifact_descriptions/data-quality-rules.md for complete guidance
 
-# Data Quality Rules are executable specifications that define acceptable data characteristics, constraints, thresholds, and validation logic across the six DAMA data quality dimensions: accuracy, compl
+# Data Quality Rules are executable specifications that define acceptable data characteristics, constraints, thresholds, and validation logic across the six DAMA data quality dimensions: accuracy, compl...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact documents executable data quality rules, validation logic, acceptance thresholds, and testing specifications that are implemented in data pipelines and monitored continuously to ensure data meets defined quality standards across accuracy, completeness, consistency, validity, timeliness...
+# This artifact documents executable data quality rules, validation logic, acceptance thresholds, and testing specifications that are implemented in data pipelines and monitored continuously to ensure data meets defined quality standards across accuracy, completeness, consistency, validity, timeliness
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Quality as Code: Store all quality rules in version control (Git) alongside data transformation code using Great Expe
 # - DAMA Dimension Coverage: Ensure quality rules cover all six DAMA dimensions (accuracy, completeness, consistency, validity, t
 # - Test Pyramid Approach: Layer tests from simple schema checks to complex business rule validations, balancing coverage and e
 # - Critical Path Focus: Prioritize quality rules for business-critical fields, regulatory data elements, and downstream depe
 # - Threshold Calibration: Set realistic pass/fail thresholds based on data profiling and business tolerance for quality issues
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
-      - "DAMA data quality dimension rules (accuracy, completeness, consistency, validity, timeliness, uniqueness)"
-      - "Great Expectations test suites with expectation definitions and validation thresholds"
+    included:
+      - "DAMA data quality dimension rules (accuracy, completeness, consistency, validity"
+      - "Great Expectations test suites with expectation definitions and validation thres"
       - "dbt test specifications (schema tests, data tests, custom singular tests)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

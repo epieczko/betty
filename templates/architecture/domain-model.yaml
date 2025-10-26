@@ -1,0 +1,55 @@
+# Domain Model
+# See also: artifact_descriptions/domain-model.md for complete guidance
+
+# The Domain Model is a critical deliverable for software architecture, defining the core business domain using Domain-Driven Design (DDD) principles and patterns. This artifact captures entities, aggre...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This artifact defines the core domain model using Domain-Driven Design principles, capturing business entities, aggregates, value objects, domain events, and their relationships. It establishes the ubiquitous language and bounded contexts that guide implementation of business logic within hexagonal/
+
+# BEST PRACTICES
+# - Domain-Driven Design Principles: - **Ubiquitous Language**: Collaborate with domain experts to establish shared vocabulary; use exact
+# - Modeling Best Practices: - **Entity Identity**: Use globally unique identifiers (UUID, GUID) for entities crossing system bou
+# - Event Sourcing & CQRS: - **Event Store**: When using event sourcing, design events as immutable facts; never modify histori
+# - Version Control & Documentation: - **Diagram as Code**: Store domain models in version control as PlantUML, Mermaid, or structured te
+# - Validation & Review: - **Domain Expert Review**: Have domain experts validate model accuracy and ubiquitous language corr
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "DDD tactical patterns"
+      - "Domain events and event sourcing patterns"
+      - "Repositories, factories, and domain services"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

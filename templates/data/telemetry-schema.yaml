@@ -1,75 +1,35 @@
 # Telemetry Schema
-# See also: artifact_descriptions/telemetry-schema.md for complete guidance
-
-# Telemetry Schemas define the structure and semantics of observability data including traces, metrics, and logs collected from distributed systems. These schemas ensure consistent telemetry instrumenta
+# See also: artifact_descriptions/telemetry-schema.md
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  format: "OpenTelemetry"
+  created: "2025-10-26"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+traces:
+  span_schema:
+    trace_id: "string (hex)"
+    span_id: "string (hex)"
+    parent_span_id: "string (hex) nullable"
+    name: "string"
+    kind: "INTERNAL | SERVER | CLIENT | PRODUCER | CONSUMER"
+    start_time: "timestamp (nanoseconds)"
+    end_time: "timestamp (nanoseconds)"
+    attributes:
+      service_name: "string"
+      http_method: "string"
+      http_status_code: "integer"
+      db_system: "string"
+    events: "array"
+    status: "OK | ERROR | UNSET"
 
-  # Approvals
-  approvers:
-    - name: "Approver Name"
-      role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
-
-# PURPOSE
-# This artifact defines the structure, semantic conventions, and standards for telemetry data (traces, metrics, logs) collected from distributed systems. It establishes consistent instrumentation patterns, attribute naming, span semantics, metric types, and log fields that enable unified observability...
-
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
-# - Semantic Conventions: - **Follow OTel Standards**: Use OpenTelemetry semantic conventions for consistency
-# - Trace Instrumentation: - **Span Naming**: Use meaningful span names describing operation (HTTP GET /users, db.query users)
-# - Metrics Instrumentation: - **Metric Naming**: Use descriptive names with unit suffixes (http_requests_total, response_time_se
-# - Structured Logging: - **JSON Format**: Use structured JSON logs for machine readability
-# - Context Propagation: - **W3C Trace Context**: Use traceparent/tracestate headers for HTTP
-
-content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
+metrics:
+  - name: "http_server_duration"
+    type: "histogram"
+    unit: "ms"
+    description: "HTTP server request duration"
     
-  scope:
-    inScope:
-      - "OpenTelemetry Trace schema (spans, span attributes, span events, span links)"
-      - "OpenTelemetry Metrics schema (counters, gauges, histograms, summaries)"
-      - "OpenTelemetry Logs schema (log records, severity, attributes)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
-    
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
-  - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
-
-changeHistory:
-  - version: "1.0.0"
-    date: "YYYY-MM-DD"
-    author: "Author Name"
-    changes: "Initial version"
+  - name: "db_query_duration"
+    type: "histogram"
+    unit: "ms"
+    description: "Database query execution time"

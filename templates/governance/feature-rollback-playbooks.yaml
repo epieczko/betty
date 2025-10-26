@@ -1,73 +1,53 @@
 # Feature Rollback Playbooks
 # See also: artifact_descriptions/feature-rollback-playbooks.md for complete guidance
 
-# Feature Rollback Playbooks are prescriptive operational procedures that enable rapid, safe reversal of problematic deployments, feature releases, or configuration changes when issues are detected in p
+# Feature Rollback Playbooks are prescriptive operational procedures that enable rapid, safe reversal of problematic deployments, feature releases, or configuration changes when issues are detected in p...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact provides tested, executable procedures for safely rolling back deployments, feature releases, and configuration changes when production issues are detected. It solves the problem of deployment-related incidents by enabling rapid reversion to known-good states, minimizing customer impac...
+# This artifact provides tested, executable procedures for safely rolling back deployments, feature releases, and configuration changes when production issues are detected. It solves the problem of deployment-related incidents by enabling rapid reversion to known-good states, minimizing customer impac
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Test Rollback First: Always test rollback procedures in staging before relying on them in production
 # - Automate Rollback: Prefer automated rollback triggers (kubectl rollout undo) over manual procedures
 # - Feature Flags First: Use feature flags for instant rollback without redeployment when possible
 # - Database Backward Compatibility: Design migrations to be backward-compatible for safe rollback
 # - Pre-Rollback Checks: Verify backup exists, dependencies are stable, rollback target version is available
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
-      - "Application code rollback procedures (Git revert, container redeployment, rollback to previous version)"
-      - "Database migration rollback scripts (schema changes, data migrations, backward compatibility)"
-      - "Feature flag disabling procedures (LaunchDarkly, Split.io, Unleash, custom toggles)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
+    included:
+      - "Application code rollback procedures (Git revert, container redeployment, rollba"
+      - "Database migration rollback scripts (schema changes, data migrations, backward c"
+      - "Feature flag disabling procedures (LaunchDarkly, Split.io, Unleash, custom toggl"
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

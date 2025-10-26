@@ -16,12 +16,11 @@
 
 ## Executive Summary
 
-<!-- Provide a 2-3 paragraph overview for executive audience -->
-<!-- What is this document about and why does it matter? -->
+The Onboarding Guide is a critical deliverable within the General phase, supporting General activities across the initiative lifecycle. This artifact provides structured, actionable information that enables stakeholders to make informed decisions, maintain alignment with organizational standards, an
 
 ## Purpose
 
-<!-- This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].... -->
+This artifact serves as [define primary purpose based on artifact type - what problem does it solve, what decision does it support, what information does it provide].
 
 ## Scope
 
@@ -33,26 +32,12 @@
 
 ### Out of Scope
 
-- Items explicitly not covered by this artifact
+- Items explicitly not covered
 
-## Target Audience
+## Main Content
 
-### Primary Audience
-
-- [Define primary consumers and how they use this artifact]
-
-### Secondary Audience
-
-- Additional stakeholders who may reference this document
-
-## [Main Section 1]
-
-<!-- Complete this section with artifact-specific content -->
-<!-- Refer to the artifact description for required structure -->
-
-## [Main Section 2]
-
-<!-- Add additional sections as needed -->
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
 ## Best Practices
 
@@ -66,25 +51,21 @@
 
 **Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
 
-## Quality Checklist
+**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
 
-Before finalizing this artifact, verify:
+**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
 
-- [ ] **Completeness**: All required sections present and adequately detailed
-- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
-- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
-- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
-- [ ] **Currency**: Based on current information; outdated content removed or updated
+**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
 
 ## Related Documents
 
-- [Related Artifact]: Description and relationship
+- [Related Artifact]: Relationship description
 
 ## Approvals
 
 | Role | Name | Date | Status |
 |------|------|------|--------|
-| Approver | Name | YYYY-MM-DD | Pending |
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 

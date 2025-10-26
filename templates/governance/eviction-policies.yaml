@@ -1,73 +1,53 @@
 # Eviction Policies
 # See also: artifact_descriptions/eviction-policies.md for complete guidance
 
-# The Eviction Policies artifact defines strategies for removing stale, unused, or low-value data from caches, feature flag systems, and data storage layers. This artifact establishes eviction algorithm
+# The Eviction Policies artifact defines strategies for removing stale, unused, or low-value data from caches, feature flag systems, and data storage layers. This artifact establishes eviction algorithm...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact defines eviction and retention policies that govern the lifecycle of cached data, feature flags, ephemeral data, and stored records. It establishes clear rules for what data to retain, when to evict or archive, and how to automate cleanup to maintain system performance, control costs, ...
+# This artifact defines eviction and retention policies that govern the lifecycle of cached data, feature flags, ephemeral data, and stored records. It establishes clear rules for what data to retain, when to evict or archive, and how to automate cleanup to maintain system performance, control costs, 
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Choose Appropriate Eviction Algorithm: Use LRU for general caching, LFU for stable access patterns, TTL for time-sensitive data
 # - Monitor Cache Hit Rates: Track hit rates before/after eviction changes; aim for >80% hit rate for performance-critical caches
 # - Set Memory Limits: Configure maxmemory for Redis with headroom (80-90% of available memory) to prevent OOM errors
 # - Redis Eviction Selection: Use volatile-lru for caches with explicit TTLs; allkeys-lru when all keys are candidates
 # - TTL Consistency: Set TTLs at write time; avoid infinite TTLs unless data is truly permanent
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
+    included:
       - "Cache eviction policies (LRU, LFU, LRA, TTL, random eviction)"
       - "Redis eviction policies (volatile-lru, allkeys-lru, volatile-ttl, noeviction)"
       - "Memcached eviction algorithms and memory management"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

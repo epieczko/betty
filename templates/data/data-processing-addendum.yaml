@@ -1,73 +1,53 @@
 # Data Processing Addendum
 # See also: artifact_descriptions/data-processing-addendum.md for complete guidance
 
-# The Data Processing Addendum (DPA) is a legally binding contract addendum that governs the processing of personal data between data controllers and data processors, as mandated by GDPR Article 28 and 
+# The Data Processing Addendum (DPA) is a legally binding contract addendum that governs the processing of personal data between data controllers and data processors, as mandated by GDPR Article 28 and ...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact serves as a contractual framework governing the relationship between data controllers and data processors to ensure GDPR Article 28 compliance, establish technical and organizational security measures, define subprocessor management procedures, grant controller audit rights, and specif...
+# This artifact serves as a contractual framework governing the relationship between data controllers and data processors to ensure GDPR Article 28 compliance, establish technical and organizational security measures, define subprocessor management procedures, grant controller audit rights, and specif
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - GDPR Article 28 Compliance: Ensure all mandatory elements are present including processing instructions, confidentiality obligat
 # - Standard Contractual Clauses Integration: When processing involves international data transfers, incorporate appropriate EU SCCs (Module 2 or 
 # - Subprocessor Management: Establish clear procedures for prior authorization (general or specific), notification timelines (ty
 # - Technical and Organizational Measures (TOMs): Specify concrete security controls aligned with GDPR Article 32 such as encryption (AES-256), access
 # - Security Certifications: Reference processor certifications (ISO 27001, SOC 2 Type II, ISO 27701) and independent audit repor
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
-      - "GDPR Article 28 mandatory contract terms (processing instructions, confidentiality, security measures, subprocessor requirements)"
-      - "Technical and organizational measures (TOMs) aligned with GDPR Article 32 security requirements"
-      - "Subprocessor management procedures including prior authorization, notification requirements, and downstream liability"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
+    included:
+      - "GDPR Article 28 mandatory contract terms (processing instructions, confidentiali"
+      - "Technical and organizational measures (TOMs) aligned with GDPR Article 32 securi"
+      - "Subprocessor management procedures including prior authorization, notification r"
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

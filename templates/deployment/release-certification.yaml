@@ -1,73 +1,53 @@
 # Release Certification
 # See also: artifact_descriptions/release-certification.md for complete guidance
 
-# The Release Certification artifact is a formal attestation document that verifies a software release has met all quality gates, security requirements, performance benchmarks, and operational readiness
+# The Release Certification artifact is a formal attestation document that verifies a software release has met all quality gates, security requirements, performance benchmarks, and operational readiness...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# Release certification formally validates that a software release has successfully completed all quality gates, security scans, performance tests, operational readiness checks, and obtained required stakeholder approvals before production deployment. It serves as the go/no-go decision artifact for IT...
+# Release certification formally validates that a software release has successfully completed all quality gates, security scans, performance tests, operational readiness checks, and obtained required stakeholder approvals before production deployment. It serves as the go/no-go decision artifact for IT
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Automated Quality Gates: Integrate certification checklist into CI/CD pipeline with automated pass/fail criteria
 # - Test Evidence Links: Provide direct links to test reports, security scans, performance results, and monitoring dashboards
 # - Objective Pass Criteria: Define measurable success criteria (e.g., 80% code coverage, zero critical vulnerabilities, p95 late
 # - Smoke Test Validation: Execute comprehensive smoke test suite in production-like staging environment before certification
 # - Performance Baseline: Establish and document performance baseline metrics before release for post-deployment comparison
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
-      - "Functional testing completion (unit, integration, end-to-end, regression test results)"
-      - "Security validation (SAST, DAST, SCA, container scanning, penetration test results)"
-      - "Performance benchmarks (load testing, stress testing, capacity validation against SLOs)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
+    included:
+      - "Functional testing completion (unit, integration, end-to-end, regression test re"
+      - "Security validation (SAST, DAST, SCA, container scanning, penetration test resul"
+      - "Performance benchmarks (load testing, stress testing, capacity validation agains"
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

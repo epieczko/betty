@@ -1,73 +1,53 @@
 # Data Residency Plan
 # See also: artifact_descriptions/data-residency-plan.md for complete guidance
 
-# The Data Residency Plan is a strategic compliance framework that defines where personal data and regulated information must be physically stored and processed to satisfy data localization laws, cross-
+# The Data Residency Plan is a strategic compliance framework that defines where personal data and regulated information must be physically stored and processed to satisfy data localization laws, cross-...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact serves as a strategic roadmap defining data storage locations, cross-border transfer mechanisms, cloud infrastructure regions, and technical controls necessary to comply with data localization laws, GDPR Chapter V transfer requirements, and data sovereignty mandates while optimizing sy...
+# This artifact serves as a strategic roadmap defining data storage locations, cross-border transfer mechanisms, cloud infrastructure regions, and technical controls necessary to comply with data localization laws, GDPR Chapter V transfer requirements, and data sovereignty mandates while optimizing sy
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Data Flow Mapping: Document complete data flows from collection through storage, processing, transfer, and deletion usi
 # - Transfer Impact Assessments (TIAs): Conduct Schrems II-compliant TIAs for transfers to countries without adequacy decisions, evaluating 
 # - Cloud Region Strategy: Select cloud provider regions based on regulatory requirements (e.g., AWS eu-central-1 for GDPR, Ali
 # - Geo-Fencing Controls: Implement technical geo-blocking using AWS Organizations SCPs, Azure Policy, GCP Organization Polici
 # - Encryption Everywhere: Deploy encryption in transit (TLS 1.3) and at rest (AES-256) with customer-managed keys (AWS KMS, Az
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
-      - "Data localization law requirements (China PIPL, Russia Federal Law 242-FZ, Indonesia PP 71/2019, Vietnam Decree 13/2023, India Draft Data Protection Bill)"
-      - "GDPR Chapter V international transfer mechanisms (Articles 44-50) including adequacy decisions, SCCs, BCRs, and derogations"
-      - "Cloud provider region selection and configuration (AWS Regions, Azure Geographies, Google Cloud locations, Oracle Cloud regions)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
+    included:
+      - "Data localization law requirements (China PIPL, Russia Federal Law 242-FZ, Indon"
+      - "GDPR Chapter V international transfer mechanisms (Articles 44-50) including adeq"
+      - "Cloud provider region selection and configuration (AWS Regions, Azure Geographie"
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

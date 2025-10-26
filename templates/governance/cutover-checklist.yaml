@@ -1,73 +1,53 @@
 # Cutover Checklist
 # See also: artifact_descriptions/cutover-checklist.md for complete guidance
 
-# Cutover Checklists are comprehensive go-live verification lists that ensure all prerequisites are met before production deployments, major releases, and system cutovers. These checklists are essential
+# Cutover Checklists are comprehensive go-live verification lists that ensure all prerequisites are met before production deployments, major releases, and system cutovers. These checklists are essential...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact provides a comprehensive, actionable checklist of all tasks, validations, approvals, and communication steps required for successful production deployment or system cutover, ensuring nothing is forgotten and all stakeholders are aligned before go-live....
+# This artifact provides a comprehensive, actionable checklist of all tasks, validations, approvals, and communication steps required for successful production deployment or system cutover, ensuring nothing is forgotten and all stakeholders are aligned before go-live.
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Comprehensive Coverage: Include every critical task; missing one item can cause deployment failure
 # - Ordered Execution: Sequence tasks in proper order with clear dependencies and prerequisites
 # - Clear Ownership: Assign each checklist item to specific person/team responsible for execution
 # - Rollback Ready: Define clear rollback criteria and validate rollback procedures before go-live
 # - Smoke Tests Mandatory: Never skip smoke tests; always validate critical functionality post-deployment
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
-      - "Pre-deployment prerequisites (code freeze, testing complete, security scans passed, approvals obtained)"
+    included:
+      - "Pre-deployment prerequisites (code freeze, testing complete, security scans pass"
       - "Deployment strategy (blue-green, canary, rolling deployment, feature flags)"
-      - "Rollback criteria and procedures (performance thresholds, error rate limits, rollback steps)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
+      - "Rollback criteria and procedures (performance thresholds, error rate limits, rol"
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

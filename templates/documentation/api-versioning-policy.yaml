@@ -1,0 +1,55 @@
+# Api Versioning Policy
+# See also: artifact_descriptions/api-versioning-policy.md for complete guidance
+
+# The API Versioning Policy is a formal governance directive that establishes mandatory standards for API evolution, backward compatibility, and deprecation management across all REST, GraphQL, gRPC, an...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This policy establishes mandatory requirements for versioning all organizational APIs, ensuring consistent evolution practices, protecting API consumers from unexpected breaking changes, and enabling controlled deprecation of legacy API versions. It solves the challenge of balancing rapid API innova
+
+# BEST PRACTICES
+# - Choose One Primary Strategy: Standardize on URI versioning (/v1/), header versioning, or content negotiation across the organizat
+# - Semantic Versioning Rigor: Apply SemVer (MAJOR.MINOR.PATCH) consistently - MAJOR for breaking changes, MINOR for backward-compa
+# - Define Breaking Changes Explicitly: Document what constitutes a breaking change (field removal, type changes, required fields, error cod
+# - Minimum Deprecation Window: Enforce minimum 12-month notice for version deprecations with clearly communicated sunset dates
+# - Overlap Period: Support N-1 (current + previous version) concurrently during migration windows
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Versioning strategies"
+      - "Semantic versioning (SemVer) application to APIs"
+      - "Breaking vs. non-breaking change definitions and approval workflows"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

@@ -16,12 +16,11 @@
 
 ## Executive Summary
 
-<!-- Provide a 2-3 paragraph overview for executive audience -->
-<!-- What is this document about and why does it matter? -->
+Incident Reports document the timeline, root cause analysis, impact assessment, and remediation actions for production incidents and outages. These reports are essential for conducting blameless postmortems, improving MTTR, preventing recurrence, and maintaining SRE and ITIL 4 incident management be
 
 ## Purpose
 
-<!-- This artifact documents incident timeline, impact assessment, root cause analysis, and remediation actions following production incidents to enable blameless learning, prevent recurrence, improve MTTR... -->
+This artifact documents incident timeline, impact assessment, root cause analysis, and remediation actions following production incidents to enable blameless learning, prevent recurrence, improve MTTR, and maintain compliance with incident management best practices.
 
 ## Scope
 
@@ -35,28 +34,12 @@
 
 ### Out of Scope
 
-- Items explicitly not covered by this artifact
+- Items explicitly not covered
 
-## Target Audience
+## Main Content
 
-### Primary Audience
-
-- SRE Teams conducting postmortems and implementing reliability improvements
-- Incident Commanders reviewing incident response effectiveness
-- Engineering Teams responsible for remediation action completion
-
-### Secondary Audience
-
-- Additional stakeholders who may reference this document
-
-## [Main Section 1]
-
-<!-- Complete this section with artifact-specific content -->
-<!-- Refer to the artifact description for required structure -->
-
-## [Main Section 2]
-
-<!-- Add additional sections as needed -->
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
 ## Best Practices
 
@@ -70,25 +53,21 @@
 
 **Track to Completion**: Follow up on all action items until completed; remediation prevents recurrence
 
-## Quality Checklist
+**Measure MTTR**: Track MTTD, MTTA, MTTR metrics to identify response improvement opportunities
 
-Before finalizing this artifact, verify:
+**SLO Impact**: Document error budget consumption and SLI degradation during incidents
 
-- [ ] **Completeness**: All required sections present and adequately detailed
-- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
-- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
-- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
-- [ ] **Currency**: Based on current information; outdated content removed or updated
+**Communicate Early**: Notify stakeholders immediately; transparency builds trust during incidents
 
 ## Related Documents
 
-- [Related Artifact]: Description and relationship
+- [Related Artifact]: Relationship description
 
 ## Approvals
 
 | Role | Name | Date | Status |
 |------|------|------|--------|
-| Approver | Name | YYYY-MM-DD | Pending |
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 

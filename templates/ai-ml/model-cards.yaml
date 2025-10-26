@@ -1,0 +1,790 @@
+# Model Card - Structured YAML Format
+# Based on: Google Model Cards (Mitchell et al., 2019), EU AI Act requirements
+
+modelCard:
+  version: "1.0.0"
+  documentDate: "2025-01-15"
+
+  # ============================================================================
+  # MODEL DETAILS
+  # ============================================================================
+  modelDetails:
+    name: "[Model Name]"
+    modelId: "[unique-model-id]"
+    version: "1.0.0"
+    description: "[Brief description of what this model does]"
+
+    modelType:
+      taskType: "[classification | regression | generation | ranking | retrieval]"
+      subType: "[binary_classification | multi_class | sequence_to_sequence | etc]"
+
+    architecture:
+      type: "[XGBoost | RandomForest | Transformer | CNN | LSTM | GPT | BERT]"
+      framework: "[tensorflow | pytorch | scikit-learn | huggingface | jax]"
+      baseModel: "[Model this was fine-tuned from, if applicable]"
+      parameters: "[e.g., 175B, 13B, 7B for LLMs]"
+      modelSize: "[e.g., 350MB, 6.5GB]"
+
+    developers:
+      organization: "[Company/Organization Name]"
+      team: "[Team Name]"
+      contact: "ml-team@example.com"
+      contributors:
+        - name: "[Developer Name]"
+          role: "[Lead ML Engineer]"
+        - name: "[Developer Name]"
+          role: "[Data Scientist]"
+
+    dates:
+      created: "2025-01-15"
+      lastModified: "2025-01-15"
+      deployed: "2025-01-20"
+      nextReview: "2025-04-15"
+
+    license:
+      modelLicense: "[apache-2.0 | mit | cc-by-4.0 | proprietary]"
+      restrictions: "[Any usage restrictions]"
+
+    provenance:
+      parentModel: "[If derived from another model]"
+      trainingJobId: "[mlflow-run-id or experiment-id]"
+      registryUrl: "[https://mlflow.example.com/models/model-name]"
+      artifactsLocation: "[s3://bucket/path/to/model]"
+
+    references:
+      paper: "[Link to paper if applicable]"
+      repository: "[https://github.com/org/repo]"
+      documentation: "[https://docs.example.com/model-name]"
+      demo: "[https://demo.example.com or link to notebook]"
+
+  # ============================================================================
+  # INTENDED USE
+  # ============================================================================
+  intendedUse:
+    primaryUseCase: "[Describe the primary use case]"
+
+    applications:
+      - "[Specific application scenario 1]"
+      - "[Specific application scenario 2]"
+      - "[Specific application scenario 3]"
+
+    targetUsers:
+      - "[Product teams]"
+      - "[Customer success teams]"
+      - "[Data analysts]"
+
+    deploymentContext:
+      environment: "[production | staging | research_only]"
+      inferenceMode: "[batch | realtime | both]"
+      latencyRequirement: "[e.g., <100ms at p99]"
+      throughputRequirement: "[e.g., 1000 QPS]"
+
+    outOfScopeUses:
+      - use: "[Use case 1 that is explicitly out of scope]"
+        reason: "[Why this is not appropriate]"
+      - use: "[High-stakes decisions without human review]"
+        reason: "[Model not validated for autonomous decision-making]"
+      - use: "[Deployment on populations not in training data]"
+        reason: "[Performance not validated on these groups]"
+
+    limitations:
+      - "[Not suitable for regions outside training distribution]"
+      - "[Performance degrades on edge cases X, Y, Z]"
+      - "[Maximum input length: 512 tokens]"
+
+  # ============================================================================
+  # TRAINING DATA
+  # ============================================================================
+  trainingData:
+    dataset:
+      name: "[Dataset Name v1.2]"
+      version: "1.2.0"
+      size:
+        records: 1000000
+        sizeGB: 45.0
+      timePeriod:
+        start: "2023-01-01"
+        end: "2024-12-31"
+      geographicCoverage:
+        - "United States"
+        - "European Union"
+        - "APAC"
+      languages:
+        - "en"
+        - "es"
+        - "fr"
+
+    composition:
+      totalRecords: 1000000
+
+      classDistribution:
+        - class: "Class A"
+          count: 750000
+          percentage: 75.0
+        - class: "Class B"
+          count: 250000
+          percentage: 25.0
+
+      demographicBreakdown:
+        gender:
+          female: 48.0
+          male: 49.0
+          nonBinary: 2.0
+          unknown: 1.0
+        age:
+          "18-25": 25.0
+          "26-40": 45.0
+          "41-60": 25.0
+          "60+": 5.0
+        geography:
+          "North America": 60.0
+          "Europe": 25.0
+          "Asia Pacific": 10.0
+          "Other": 5.0
+
+    dataQuality:
+      missingValues:
+        percentage: 2.5
+        handlingStrategy: "[mean_imputation | forward_fill | drop]"
+      outliers:
+        detectionMethod: "[IQR | Z-score | Isolation Forest]"
+        treatment: "[cap | remove | keep]"
+      knownIssues:
+        - "[Sampling bias toward high-engagement users]"
+        - "[Temporal drift in Q4 2024 data]"
+
+    preprocessing:
+      steps:
+        - step: 1
+          description: "Tokenization using BERT tokenizer"
+          tool: "transformers.BertTokenizer"
+        - step: 2
+          description: "Feature scaling using StandardScaler"
+          parameters:
+            method: "standardization"
+        - step: 3
+          description: "Class balancing using SMOTE"
+          parameters:
+            samplingStrategy: "minority"
+            k_neighbors: 5
+
+      featureEngineering:
+        - "TF-IDF vectorization of text fields"
+        - "Temporal features (day_of_week, hour_of_day)"
+        - "Interaction features between user attributes"
+
+      splits:
+        train:
+          percentage: 70
+          records: 700000
+        validation:
+          percentage: 15
+          records: 150000
+        test:
+          percentage: 15
+          records: 150000
+        strategy: "[random | temporal | stratified]"
+        seed: 42
+
+    governance:
+      dataLineage: "[https://datacatalog.example.com/dataset/xyz]"
+      dataLicense: "[CC-BY-4.0 | proprietary | public_domain]"
+      privacyCompliance:
+        gdpr: true
+        ccpa: true
+        hipaa: false
+      consent: "[obtained | not_required | not_applicable]"
+      piiHandling:
+        - "Email addresses hashed with SHA-256"
+        - "Names removed"
+        - "IP addresses anonymized"
+
+  # ============================================================================
+  # MODEL ARCHITECTURE & TRAINING
+  # ============================================================================
+  modelArchitecture:
+    architectureType: "[gradient_boosted_trees | transformer_encoder | cnn | lstm]"
+
+    components:
+      inputLayer:
+        dimensions: "[e.g., 768 for BERT embeddings]"
+        features: 125
+      hiddenLayers:
+        - layer: 1
+          type: "dense"
+          units: 256
+          activation: "relu"
+          dropout: 0.3
+        - layer: 2
+          type: "dense"
+          units: 128
+          activation: "relu"
+          dropout: 0.2
+      outputLayer:
+        dimensions: "[e.g., 2 for binary classification]"
+        activation: "softmax"
+
+    regularization:
+      l1: 0.0
+      l2: 0.001
+      dropout: 0.3
+      earlyStoppingPatience: 10
+
+  training:
+    hyperparameters:
+      learningRate: 0.0001
+      batchSize: 32
+      epochs: 100
+      optimizer: "adam"
+      lossFunction: "categorical_crossentropy"
+      metrics:
+        - "accuracy"
+        - "f1_score"
+        - "auc"
+
+    infrastructure:
+      hardware:
+        type: "[NVIDIA A100 | V100 | TPU-v4]"
+        count: 4
+        memory: "40GB per GPU"
+      trainingDuration: "12 hours"
+      computationalCost:
+        gpuHours: 48
+        estimatedCO2kg: 15.6
+
+    optimization:
+      hyperparameterTuning:
+        method: "[grid_search | random_search | bayesian_optimization]"
+        trials: 50
+        searchSpace:
+          learningRate: [0.0001, 0.001, 0.01]
+          batchSize: [16, 32, 64]
+          dropout: [0.2, 0.3, 0.4]
+      bestConfigSelection: "validation_f1_score"
+
+    process:
+      trainingJobId: "[mlflow-experiment-id-12345]"
+      randomSeed: 42
+      convergenceMetric: "validation_loss"
+      convergenceThreshold: 0.001
+      checkpointing: true
+      trainingCurves: "[https://tensorboard.example.com/experiment/12345]"
+
+  # ============================================================================
+  # EVALUATION & PERFORMANCE
+  # ============================================================================
+  evaluation:
+    methodology:
+      testSet:
+        size: 150000
+        timePeriod: "2024-11-01 to 2024-12-31"
+        geographicCoverage: "Same as training"
+      primaryMetric: "f1_score"
+      secondaryMetrics:
+        - "precision"
+        - "recall"
+        - "auc_roc"
+        - "accuracy"
+
+    overallPerformance:
+      metrics:
+        - name: "accuracy"
+          value: 0.876
+          confidenceInterval: "±0.012"
+        - name: "precision"
+          value: 0.852
+          confidenceInterval: "±0.015"
+        - name: "recall"
+          value: 0.831
+          confidenceInterval: "±0.018"
+        - name: "f1_score"
+          value: 0.841
+          confidenceInterval: "±0.014"
+        - name: "auc_roc"
+          value: 0.912
+          confidenceInterval: "±0.009"
+        - name: "log_loss"
+          value: 0.342
+          confidenceInterval: "±0.021"
+
+      confusionMatrix:
+        trueNegative: 95000
+        falsePositive: 5000
+        falseNegative: 8500
+        truePositive: 41500
+
+      operatingPoint:
+        decisionThreshold: 0.5
+        precisionAtThreshold: 0.852
+        recallAtThreshold: 0.831
+        falsePositiveRate: 0.05
+
+    disaggregatedPerformance:
+      byDemographic:
+        - group: "overall"
+          accuracy: 0.876
+          precision: 0.852
+          recall: 0.831
+          f1: 0.841
+          sampleSize: 150000
+        - group: "female"
+          accuracy: 0.872
+          precision: 0.848
+          recall: 0.826
+          f1: 0.837
+          sampleSize: 72000
+        - group: "male"
+          accuracy: 0.880
+          precision: 0.856
+          recall: 0.836
+          f1: 0.846
+          sampleSize: 73500
+        - group: "age_18_25"
+          accuracy: 0.865
+          precision: 0.841
+          recall: 0.819
+          f1: 0.830
+          sampleSize: 37500
+        - group: "age_26_40"
+          accuracy: 0.881
+          precision: 0.857
+          recall: 0.838
+          f1: 0.847
+          sampleSize: 67500
+        - group: "age_40_plus"
+          accuracy: 0.873
+          precision: 0.849
+          recall: 0.827
+          f1: 0.838
+          sampleSize: 45000
+
+      byDataSlice:
+        - slice: "high_value_users"
+          metric: "f1"
+          value: 0.859
+          deltaFromBaseline: +0.018
+        - slice: "low_engagement_users"
+          metric: "f1"
+          value: 0.812
+          deltaFromBaseline: -0.029
+        - slice: "recent_signups"
+          metric: "f1"
+          value: 0.834
+          deltaFromBaseline: -0.007
+
+    baselineComparison:
+      - model: "Current Model v1.0"
+        accuracy: 0.876
+        f1: 0.841
+        latencyMs: 45
+        notes: "Production candidate"
+      - model: "Previous Version v0.9"
+        accuracy: 0.851
+        f1: 0.818
+        latencyMs: 42
+        notes: "Current production"
+      - model: "Simple Baseline"
+        accuracy: 0.750
+        f1: 0.600
+        latencyMs: 5
+        notes: "Majority class predictor"
+      - model: "Business Rule"
+        accuracy: 0.798
+        f1: 0.735
+        latencyMs: 10
+        notes: "Existing heuristic"
+
+  # ============================================================================
+  # FAIRNESS & BIAS ANALYSIS
+  # ============================================================================
+  fairnessAnalysis:
+    objectives:
+      protectedAttributes:
+        - "gender"
+        - "age"
+        - "geography"
+        - "race_ethnicity"
+      fairnessCriteria:
+        - "demographic_parity"
+        - "equalized_odds"
+        - "equal_opportunity"
+      fairnessThreshold: 0.05
+
+    metrics:
+      demographicParity:
+        description: "Positive prediction rate equality across groups"
+        formula: "|P(Ŷ=1|A=a) - P(Ŷ=1|A=b)| < 0.05"
+        results:
+          - group: "female"
+            positiveRate: 0.334
+            differenceFromAverage: -0.008
+          - group: "male"
+            positiveRate: 0.348
+            differenceFromAverage: +0.006
+          - group: "non_binary"
+            positiveRate: 0.336
+            differenceFromAverage: -0.006
+        parityDifference: 0.014
+        status: "PASS"
+
+      equalizedOdds:
+        description: "TPR and FPR equality across groups"
+        results:
+          - group: "female"
+            truePositiveRate: 0.826
+            falsePositiveRate: 0.052
+          - group: "male"
+            truePositiveRate: 0.836
+            falsePositiveRate: 0.048
+        maxTPRDifference: 0.010
+        maxFPRDifference: 0.004
+        status: "PASS"
+
+      equalOpportunity:
+        description: "True positive rate parity"
+        maxTPRDifference: 0.010
+        threshold: 0.05
+        status: "PASS"
+
+    biasTestingResults:
+      overallAssessment: "PASS"
+
+      knownBiases:
+        - description: "Slightly higher precision for age 26-40 group"
+          severity: "low"
+          mitigationApplied: "Threshold calibration per age group"
+        - description: "Lower recall for users in APAC region"
+          severity: "medium"
+          mitigationApplied: "Additional training data collection planned"
+
+      mitigationStrategies:
+        - strategy: "Reweighted training samples to balance demographic groups"
+          effectiveness: "Reduced parity difference from 0.08 to 0.014"
+        - strategy: "Post-processing threshold calibration"
+          effectiveness: "Equalized TPR across gender groups"
+        - strategy: "Fairness-aware hyperparameter tuning"
+          effectiveness: "Improved worst-group accuracy by 3%"
+
+      residualBias:
+        description: "Minor performance gap for APAC users remains"
+        monitoringPlan: "Weekly fairness metrics dashboard, quarterly audit"
+        remediationPlan: "Collect 50K additional APAC samples for retraining"
+
+  # ============================================================================
+  # EXPLAINABILITY & INTERPRETABILITY
+  # ============================================================================
+  explainability:
+    modelType: "[inherently_interpretable | requires_explanation]"
+
+    intrinsicInterpretability:
+      applicable: false
+      reason: "Deep neural network - requires post-hoc explanations"
+
+    explanationMethods:
+      global:
+        - method: "SHAP TreeExplainer"
+          tool: "shap"
+          topFeatures:
+            - feature: "user_engagement_score"
+              importance: 0.342
+              description: "Historical engagement metric"
+            - feature: "account_age_days"
+              importance: 0.187
+              description: "Days since account creation"
+            - feature: "purchase_frequency"
+              importance: 0.156
+              description: "Average purchases per month"
+            - feature: "session_duration_avg"
+              importance: 0.089
+              description: "Average session length in minutes"
+            - feature: "device_type_mobile"
+              importance: 0.061
+              description: "Primary device is mobile"
+
+      local:
+        - method: "SHAP values"
+          tool: "shap"
+          exampleUrl: "[https://notebook.example.com/shap-examples]"
+        - method: "LIME"
+          tool: "lime"
+          exampleUrl: "[https://notebook.example.com/lime-examples]"
+
+    featureImportance:
+      method: "SHAP feature importance"
+      visualizations:
+        summaryPlot: "[https://mlflow.example.com/artifacts/shap_summary.png]"
+        dependencePlots: "[https://mlflow.example.com/artifacts/shap_dependence/]"
+
+    behaviorAnalysis:
+      typicalPredictions:
+        - "High engagement + long account age → 95% confidence positive"
+        - "New account + low engagement → 80% confidence negative"
+      edgeCases:
+        - "Sudden spike in activity after long dormancy → uncertain"
+        - "High engagement but very new account → requires review"
+      counterfactualExamples:
+        - "Increasing engagement_score from 0.3 to 0.7 flips prediction"
+        - "account_age crossing 90 days threshold increases probability by 15%"
+
+  # ============================================================================
+  # LIMITATIONS & RISKS
+  # ============================================================================
+  limitations:
+    dataLimitations:
+      - limitation: "Training data from 2023-2024 may not reflect 2025+ patterns"
+        severity: "medium"
+        mitigation: "Quarterly retraining planned"
+      - limitation: "Under-represented: users age 60+, APAC region"
+        severity: "high"
+        mitigation: "Targeted data collection in progress"
+      - limitation: "Geographic bias toward North American users (60%)"
+        severity: "medium"
+        mitigation: "Model not recommended for APAC-only deployments"
+
+    modelLimitations:
+      - limitation: "Performance degrades on users with <30 days history"
+        severity: "medium"
+        mitigation: "Use rule-based fallback for new users"
+      - limitation: "High uncertainty for edge cases (confidence <0.6)"
+        severity: "low"
+        mitigation: "Route to human review when confidence <0.6"
+      - limitation: "Not tested on B2B customers (only B2C)"
+        severity: "high"
+        mitigation: "Do not deploy for B2B use cases"
+
+    technicalLimitations:
+      - limitation: "Requires minimum 4GB RAM for inference"
+        severity: "low"
+      - limitation: "Maximum batch size: 1000 records"
+        severity: "low"
+      - limitation: "p99 latency: 45ms (may not meet <10ms requirements)"
+        severity: "medium"
+        mitigation: "Model optimization or quantization needed for low-latency"
+
+  failureModes:
+    knownFailures:
+      - scenario: "Out-of-distribution inputs (e.g., bot traffic)"
+        description: "Model produces high-confidence incorrect predictions"
+        frequency: "occasional"
+        mitigation: "Bot detection pre-filter, OOD detection layer"
+      - scenario: "Sudden behavioral change (e.g., account compromise)"
+        description: "Model continues predicting based on historical pattern"
+        frequency: "rare"
+        mitigation: "Anomaly detection for sudden behavior shifts"
+
+    oodDetection:
+      method: "Confidence thresholding + Mahalanobis distance"
+      threshold: 0.6
+      fallbackStrategy: "Route to human review"
+
+  risks:
+    potentialHarms:
+      - risk: "False negatives impact user experience"
+        likelihood: "medium"
+        severity: "low"
+        mitigation: "Weekly performance monitoring, gradual rollout"
+      - risk: "Bias against under-represented groups"
+        likelihood: "low"
+        severity: "high"
+        mitigation: "Fairness monitoring, quarterly bias audits"
+      - risk: "Privacy - potential memorization of PII"
+        likelihood: "low"
+        severity: "high"
+        mitigation: "PII removal in preprocessing, differential privacy"
+
+    misuseRisks:
+      - risk: "Model used for discriminatory decision-making"
+        mitigation: "Usage logging, access controls, fairness audits"
+      - risk: "Model applied to out-of-scope populations"
+        mitigation: "Clear documentation, enforcement via API checks"
+
+    environmentalImpact:
+      trainingCarbonFootprintKg: 15.6
+      inferenceCarbonPerMillion: 0.8
+      carbonOffsetPlan: "Company carbon offset program"
+
+  # ============================================================================
+  # RECOMMENDATIONS & USAGE GUIDELINES
+  # ============================================================================
+  recommendations:
+    deployment:
+      appropriateUse:
+        - "Use for low-to-medium stakes user segmentation"
+        - "Combine with business rules for edge cases"
+        - "Monitor weekly for performance degradation"
+
+      requiredSafeguards:
+        - "Human review for predictions with confidence <0.6"
+        - "Fairness monitoring dashboard (weekly review)"
+        - "A/B test before full production rollout"
+
+      monitoring:
+        performanceMetrics:
+          - metric: "accuracy"
+            frequency: "daily"
+            alertThreshold: "<0.85"
+          - metric: "f1_score"
+            frequency: "daily"
+            alertThreshold: "<0.82"
+          - metric: "latency_p99"
+            frequency: "hourly"
+            alertThreshold: ">100ms"
+
+        fairnessMetrics:
+          - metric: "demographic_parity_difference"
+            frequency: "weekly"
+            alertThreshold: ">0.08"
+          - metric: "equalized_odds_difference"
+            frequency: "weekly"
+            alertThreshold: ">0.08"
+
+        dataDrift:
+          - metric: "feature_distribution_drift"
+            method: "KL divergence"
+            frequency: "daily"
+            alertThreshold: ">0.1"
+
+        feedbackLoop:
+          userFeedback: "Collect on all human-reviewed predictions"
+          labelingPipeline: "Route mispredictions to labeling queue"
+
+    retraining:
+      frequency: "quarterly"
+      triggers:
+        - "Performance drops below 0.82 F1"
+        - "Fairness metrics exceed 0.08 threshold"
+        - "Significant feature drift detected (KL divergence >0.15)"
+        - "New data representing 20% of training set size"
+      versionDeprecation: "v0.9 deprecated 30 days after v1.0 deployment"
+
+    humanInTheLoop:
+      - scenario: "Confidence <0.6"
+        action: "Require human review"
+      - scenario: "High-value user segment"
+        action: "Human spot-check 10% of predictions"
+      - scenario: "Appeals/challenges"
+        action: "Full human review with explanation"
+
+  # ============================================================================
+  # ETHICAL CONSIDERATIONS
+  # ============================================================================
+  ethics:
+    review:
+      conducted: true
+      reviewDate: "2025-01-10"
+      reviewedBy: "Responsible AI Review Board"
+      outcome: "approved_with_conditions"
+      conditions:
+        - "Implement weekly fairness monitoring"
+        - "Provide explanations for all automated decisions"
+
+    transparency:
+      userNotification: "Users informed via privacy policy and in-app messaging"
+      rightToExplanation: "SHAP-based explanations available on request via API"
+      appealProcess: "Users can appeal via support ticket, human review within 48h"
+      accountability: "Model owner: ML Engineering Team, Decision owner: Product Team"
+
+    societalImpact:
+      positiveImpacts:
+        - "Improved personalization and user experience"
+        - "More efficient resource allocation"
+      negativeImpacts:
+        - "Potential for filter bubble effects"
+        - "Risk of reinforcing existing biases"
+      mitigationStrategies:
+        - "Regular fairness audits"
+        - "Diverse training data collection"
+        - "Transparent model documentation"
+
+  # ============================================================================
+  # MODEL GOVERNANCE
+  # ============================================================================
+  governance:
+    approvals:
+      modelRiskRating: "medium"
+      approvals:
+        - approver: "Jane Smith"
+          role: "ML Lead"
+          date: "2025-01-12"
+          approval: "approved"
+        - approver: "John Doe"
+          role: "Product Manager"
+          date: "2025-01-13"
+          approval: "approved"
+        - approver: "Alice Johnson"
+          role: "Responsible AI Lead"
+          date: "2025-01-14"
+          approval: "approved_with_conditions"
+      modelValidation: "[https://docs.example.com/validation/model-v1.0]"
+      securityReview:
+        completed: true
+        date: "2025-01-11"
+      legalReview:
+        completed: true
+        date: "2025-01-12"
+
+    compliance:
+      applicableRegulations:
+        - regulation: "GDPR"
+          articles: ["Article 22 - Automated decision-making"]
+          compliant: true
+        - regulation: "CCPA"
+          sections: ["Right to know", "Right to deletion"]
+          compliant: true
+        - regulation: "EU AI Act"
+          riskLevel: "limited_risk"
+          compliant: true
+      complianceStatus: "compliant"
+
+    auditTrail:
+      modelLineage: "[https://mlflow.example.com/lineage/model-v1.0]"
+      approvalHistory: "[https://docs.example.com/approvals/model-v1.0]"
+      changeLog: "[https://docs.example.com/changelog/model-v1.0]"
+      accessLogs: "[https://audit.example.com/access/model-v1.0]"
+
+  # ============================================================================
+  # CONTACT & SUPPORT
+  # ============================================================================
+  contact:
+    primaryContacts:
+      - role: "Model Owner"
+        name: "Jane Smith"
+        email: "jane.smith@example.com"
+      - role: "Technical Lead"
+        name: "Bob Johnson"
+        email: "bob.johnson@example.com"
+      - role: "Responsible AI Contact"
+        name: "Alice Williams"
+        email: "alice.williams@example.com"
+
+    support:
+      issues: "ml-support@example.com"
+      slack: "#ml-models"
+      bugReports: "https://github.com/org/repo/issues"
+      featureRequests: "Submit via Jira ML board"
+
+    resources:
+      documentation: "https://docs.example.com/models/model-name"
+      apiDocs: "https://api.example.com/docs/v1/predictions"
+      exampleNotebooks: "https://github.com/org/repo/tree/main/examples"
+      modelRegistry: "https://mlflow.example.com/models/model-name"
+
+  # ============================================================================
+  # METADATA & CHANGELOG
+  # ============================================================================
+  metadata:
+    templateVersion: "2.0"
+    basedOn: "Google Model Cards (Mitchell et al., 2019), EU AI Act requirements"
+    lastUpdated: "2025-01-15"
+
+  changelog:
+    - version: "1.0.0"
+      date: "2025-01-15"
+      author: "Jane Smith"
+      changes: "Initial model card for production release"
+      approver: "Alice Williams"
+    - version: "1.1.0"
+      date: "2025-02-01"
+      author: "Bob Johnson"
+      changes: "Updated fairness metrics after quarterly audit"
+      approver: "Alice Williams"

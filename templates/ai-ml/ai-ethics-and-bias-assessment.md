@@ -16,12 +16,11 @@
 
 ## Executive Summary
 
-<!-- Provide a 2-3 paragraph overview for executive audience -->
-<!-- What is this document about and why does it matter? -->
+The AI Ethics and Bias Assessment is a critical deliverable for evaluating machine learning models and AI systems for fairness, equity, and ethical risks. This artifact provides structured analysis of protected attributes, demographic parity, disparate impact, and equalized odds across model predict
 
 ## Purpose
 
-<!-- This artifact documents comprehensive bias and fairness analysis of ML models to identify, measure, and mitigate algorithmic discrimination across protected attributes (race, gender, age, disability).... -->
+This artifact documents comprehensive bias and fairness analysis of ML models to identify, measure, and mitigate algorithmic discrimination across protected attributes (race, gender, age, disability). It supports go/no-go decisions for model deployment, regulatory compliance documentation, and ongoing fairness monitoring.
 
 ## Scope
 
@@ -35,28 +34,12 @@
 
 ### Out of Scope
 
-- Items explicitly not covered by this artifact
+- Items explicitly not covered
 
-## Target Audience
+## Main Content
 
-### Primary Audience
-
-- ML Engineers: Implement bias mitigation techniques and fairness constraints
-- Data Scientists: Analyze fairness metrics and interpret bias test results
-- AI Governance Teams: Review for ethical AI compliance and responsible AI standards
-
-### Secondary Audience
-
-- Additional stakeholders who may reference this document
-
-## [Main Section 1]
-
-<!-- Complete this section with artifact-specific content -->
-<!-- Refer to the artifact description for required structure -->
-
-## [Main Section 2]
-
-<!-- Add additional sections as needed -->
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
 ## Best Practices
 
@@ -70,25 +53,21 @@
 
 **Temporal Stability**: Test fairness across time periods and data cohorts; monitor for fairness drift in production
 
-## Quality Checklist
+**Proxy Variable Detection**: Use correlation analysis and SHAP values to identify features that encode protected attributes indirectly
 
-Before finalizing this artifact, verify:
+**Confusion Matrix by Group**: Always report TPR, FPR, FNR, TNR by protected class; visualize disparities with heatmaps
 
-- [ ] **Completeness**: All required sections present and adequately detailed
-- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
-- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
-- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
-- [ ] **Currency**: Based on current information; outdated content removed or updated
+**80% Rule Testing**: Apply EEOC four-fifths rule to selection rates; document when adverse impact thresholds are exceeded
 
 ## Related Documents
 
-- [Related Artifact]: Description and relationship
+- [Related Artifact]: Relationship description
 
 ## Approvals
 
 | Role | Name | Date | Status |
 |------|------|------|--------|
-| Approver | Name | YYYY-MM-DD | Pending |
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 

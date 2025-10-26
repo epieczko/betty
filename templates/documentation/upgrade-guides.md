@@ -16,12 +16,11 @@
 
 ## Executive Summary
 
-<!-- Provide a 2-3 paragraph overview for executive audience -->
-<!-- What is this document about and why does it matter? -->
+Upgrade Guides provide comprehensive procedures for migrating from one software version to another, documenting breaking changes, migration paths, rollback procedures, and compatibility considerations. Following change management best practices and the Diátaxis Framework's how-to format, upgrade doc
 
 ## Purpose
 
-<!-- Upgrade Guides enable safe, successful version migrations by providing comprehensive procedures that minimize downtime, prevent data loss, and ensure compatibility. They solve the problem of risky, un... -->
+Upgrade Guides enable safe, successful version migrations by providing comprehensive procedures that minimize downtime, prevent data loss, and ensure compatibility. They solve the problem of risky, undocumented upgrades by providing tested migration paths, rollback procedures, breaking change documentation, and validation steps that reduce upgrade-related incidents and accelerate adoption of new v
 
 ## Scope
 
@@ -35,28 +34,12 @@
 
 ### Out of Scope
 
-- Items explicitly not covered by this artifact
+- Items explicitly not covered
 
-## Target Audience
+## Main Content
 
-### Primary Audience
-
-- System Administrators planning and executing upgrades
-- DevOps Engineers automating upgrade processes
-- Site Reliability Engineers (SREs) ensuring uptime during upgrades
-
-### Secondary Audience
-
-- Additional stakeholders who may reference this document
-
-## [Main Section 1]
-
-<!-- Complete this section with artifact-specific content -->
-<!-- Refer to the artifact description for required structure -->
-
-## [Main Section 2]
-
-<!-- Add additional sections as needed -->
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
 ## Best Practices
 
@@ -70,25 +53,21 @@
 
 **Database Migration Excellence**: Provide schema migration scripts with version control, test migrations against production-sized datasets, include forward and backward migration scripts, document expected migration duration, provide progress monitoring commands, handle long-running migrations gracefully, include data validation queries, and provide rollback for each migration step
 
-## Quality Checklist
+**Zero-Downtime Strategies**: Document blue-green deployment procedures, provide rolling update sequences for clusters, include load balancer configuration changes, document database migration with backward compatibility, provide feature flag strategies for gradual rollout, include canary deployment monitoring, and define rollback triggers during phased rollout
 
-Before finalizing this artifact, verify:
+**Automated Testing Integration**: Provide pre-upgrade compatibility test scripts, include automated smoke tests for post-upgrade validation, document expected test results and success criteria, automate regression testing for critical functionality, include performance benchmark comparisons, provide health check automation, and integrate with CI/CD pipelines
 
-- [ ] **Completeness**: All required sections present and adequately detailed
-- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
-- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
-- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
-- [ ] **Currency**: Based on current information; outdated content removed or updated
+**Clear Step-by-Step Procedures**: Number all upgrade steps sequentially, begin each step with action verb (Backup, Stop, Upgrade, Verify), include expected output after each command, provide verification commands between major steps, estimate time for each section, highlight points of no return, include progress indicators for long-running operations, and document safe stopping points
 
 ## Related Documents
 
-- [Related Artifact]: Description and relationship
+- [Related Artifact]: Relationship description
 
 ## Approvals
 
 | Role | Name | Date | Status |
 |------|------|------|--------|
-| Approver | Name | YYYY-MM-DD | Pending |
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 

@@ -1,75 +1,40 @@
 # Data Product Specification
 # See also: artifact_descriptions/data-product-specification.md for complete guidance
 
-# A Data Product Specification is a comprehensive design document that defines a data product as a self-contained, discoverable, addressable, trustworthy, and interoperable data asset with clear ownersh
-
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  product_name: "Customer Analytics Data Product"
+  owner: "Data Product Owner"
+  created: "2025-10-26"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
-  approvers:
-    - name: "Approver Name"
-      role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
-
-# PURPOSE
-# This artifact defines the complete specification for a data product including product vision, target consumers, use cases, functional requirements, data schema, quality SLOs, access interfaces, operational ownership, and lifecycle management—enabling teams to build, deploy, and maintain data product...
-
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
-# - Data Product Canvas: Use the Data Product Canvas framework to structure product vision, value proposition, and consumer n
-# - Consumer-First Design: Start with consumer use cases and work backward to define data schema and transformations
-# - Quantum Architecture: Apply Data Product Quantum model ensuring code, data, metadata, and infrastructure are packaged toge
-# - API-First Interfaces: Design RESTful APIs or GraphQL endpoints as primary consumption layer using OpenAPI/GraphQL schema s
-# - Semantic Layer: Implement business logic and metrics in a semantic layer (dbt metrics, Looker LookML, Cube.js) rathe
-
-content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
-  scope:
-    inScope:
-      - "Product vision and value proposition using Data Product Canvas framework"
-      - "Target consumer personas and prioritized use cases with acceptance criteria"
-      - "Data Product Quantum components (code, data, metadata, infrastructure)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
-    
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
-  - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
-
-changeHistory:
-  - version: "1.0.0"
-    date: "YYYY-MM-DD"
-    author: "Author Name"
-    changes: "Initial version"
+product:
+  name: "Customer Analytics Data Product"
+  description: "Customer behavioral data for analytics, ML, and business intelligence"
+  
+  domain: "Customer Analytics"
+  subdomain: "Behavioral Analytics"
+  
+  consumers:
+    - team: "Data Science Team"
+      use_case: "Churn prediction models"
+      criticality: "High"
+    - team: "BI Team"
+      use_case: "Executive dashboards"
+      criticality: "High"
+  
+  datasets:
+    - name: "customer_events"
+      location: "analytics.production.customer_events"
+      type: "table"
+      format: "Snowflake table"
+      sla:
+        freshness: "< 15 minutes"
+        availability: "99.9%"
+        completeness: "> 99%"
+  
+  data_contract:
+    schema_version: "2.1.0"
+    compatibility_mode: "BACKWARD"
+    change_approval_required: true
+  
+  quality_slo: "99.5%"

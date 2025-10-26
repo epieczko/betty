@@ -1,0 +1,55 @@
+# Deprecation Policy
+# See also: artifact_descriptions/deprecation-policy.md for complete guidance
+
+# A Deprecation Policy defines the structured process for phasing out software features, APIs, libraries, and services while minimizing disruption to users and downstream systems. This policy establishe...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This policy establishes mandatory procedures for deprecating software components (APIs, features, libraries, services, infrastructure), defining timeline requirements, communication protocols, migration support obligations, and sunset execution criteria. It ensures deprecated items follow Semantic V
+
+# BEST PRACTICES
+# - Tiered Timeline Model: Use 6-month minimum for internal APIs, 12-month for public APIs, 24+ months for critical infrastruct
+# - SemVer Compliance: Increment MAJOR version for breaking changes; use MINOR for deprecation warnings with continued supp
+# - Sunset HTTP Header: Implement RFC 8594 Sunset header returning deprecation date in HTTP responses for automated detectio
+# - Multi-Phase Rollout: (1) Deprecation announcement, (2) Warning phase with logs, (3) Error phase, (4) Removal phase
+# - Usage Telemetry: Instrument deprecated endpoints/features to track adoption of replacements before final sunset
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Public API deprecation"
+      - "SDK/library deprecation"
+      - "Feature deprecation"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

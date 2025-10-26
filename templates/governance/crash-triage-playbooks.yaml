@@ -1,73 +1,53 @@
 # Crash Triage Playbooks
 # See also: artifact_descriptions/crash-triage-playbooks.md for complete guidance
 
-# The Crash Triage Playbooks artifact provides standardized, repeatable procedures for rapidly diagnosing, categorizing, and responding to application crashes and system failures. These playbooks enable
+# The Crash Triage Playbooks artifact provides standardized, repeatable procedures for rapidly diagnosing, categorizing, and responding to application crashes and system failures. These playbooks enable...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact serves as the definitive procedural guide for triaging application crashes and system failures with a security-first mindset, ensuring rapid classification, appropriate escalation, evidence preservation, and coordinated response while distinguishing between benign software defects and ...
+# This artifact serves as the definitive procedural guide for triaging application crashes and system failures with a security-first mindset, ensuring rapid classification, appropriate escalation, evidence preservation, and coordinated response while distinguishing between benign software defects and 
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Automated Detection Integration: Deploy crash detection across all monitoring platforms (APM, SIEM, logging aggregators) with automat
 # - Security-First Mindset: Always evaluate crashes for security implications before treating as pure operational issues
 # - Evidence Preservation: Immediately secure crash artifacts, memory dumps, and logs before any remediation activities
 # - Standardized Classification: Use consistent severity and security risk classification across all crash types and systems
 # - MITRE ATT&CK Mapping: Map crash characteristics to MITRE ATT&CK techniques to identify potential attack patterns
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
+    included:
       - "Crash detection and initial classification procedures"
       - "Security-focused triage decision trees and criteria"
       - "Memory dump collection and analysis procedures"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

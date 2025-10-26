@@ -1,0 +1,463 @@
+# Alert Catalog
+# Centralized inventory of all monitoring alerts with metadata, thresholds, and runbook references
+# Following SRE best practices for actionable alerting and alert fatigue prevention
+
+metadata:
+  version: "1.0.0"
+  lastUpdated: "2025-10-26"
+  owner: "SRE Team"
+  reviewCycle: "Quarterly"
+  classification: "Internal"
+  platform: "Prometheus + AlertManager"
+  notificationChannels:
+    - PagerDuty
+    - Slack
+    - Email
+
+# Alert Effectiveness Metrics
+alertMetrics:
+  targetSignalToNoiseRatio: 0.95  # 95% true positives
+  maxAlertsPerWeek: 50
+  maxPagesPerNight: 2
+  mttrTarget: "15 minutes"  # Mean time to resolve
+
+# Alerts organized by severity and service
+alerts:
+  # ============================================================================
+  # CRITICAL / P1 ALERTS - Page on-call immediately
+  # ============================================================================
+
+  - alertName: "PaymentAPIHighErrorRate"
+    severity: "critical"
+    service: "payment-api"
+    owner: "Payments Team"
+    slackChannel: "#payments-alerts"
+    pagerdutyService: "payment-api-oncall"
+
+    description: |
+      Payment API error rate exceeds 1% over 5 minutes, indicating systemic
+      failures affecting revenue and customer transactions.
+
+    triggerCondition: |
+      (sum(rate(http_requests_total{service="payment-api",status=~"5.."}[5m]))
+       /
+       sum(rate(http_requests_total{service="payment-api"}[5m]))) > 0.01
+
+    thresholds:
+      warning: 0.005  # 0.5%
+      critical: 0.01  # 1%
+
+    duration: "5m"  # Alert after condition true for 5 minutes
+
+    businessImpact: "Direct revenue loss, customer trust impact, PCI compliance risk"
+
+    runbook: "https://runbooks.company.com/payment-api/high-error-rate"
+
+    dashboards:
+      - "https://grafana.company.com/d/payment-api-overview"
+      - "https://grafana.company.com/d/payment-api-errors"
+
+    relatedSLO:
+      sloName: "Payment API Availability"
+      sloTarget: 99.99%
+      errorBudgetImpact: "High - consumes error budget rapidly"
+
+    escalation:
+      immediateNotify: ["@payments-oncall"]
+      after15min: ["@payments-lead", "@engineering-director"]
+      after30min: ["@cto", "@ceo"]
+
+    falsePositiveRate: 0.02  # 2% false positive rate (good)
+    lastReviewed: "2025-09-15"
+    changeHistory:
+      - date: "2025-09-15"
+        change: "Adjusted threshold from 2% to 1% based on actual performance"
+      - date: "2025-06-01"
+        change: "Initial alert creation"
+
+  - alertName: "DatabaseConnectionPoolExhausted"
+    severity: "critical"
+    service: "postgres-primary"
+    owner: "Database Team"
+    slackChannel: "#database-alerts"
+    pagerdutyService: "database-oncall"
+
+    description: |
+      PostgreSQL connection pool is at 95% capacity. Service degradation
+      imminent. New connections will be rejected, causing 5xx errors.
+
+    triggerCondition: |
+      (pg_stat_database_numbackends / pg_settings_max_connections) > 0.95
+
+    thresholds:
+      warning: 0.80  # 80% pool utilization
+      critical: 0.95  # 95% pool utilization
+
+    duration: "2m"
+
+    businessImpact: "All services unavailable, complete outage imminent"
+
+    runbook: "https://runbooks.company.com/database/connection-pool-exhausted"
+
+    dashboards:
+      - "https://grafana.company.com/d/postgres-connections"
+
+    relatedSLO:
+      sloName: "Database Availability"
+      sloTarget: 99.99%
+      errorBudgetImpact: "Critical - will exhaust monthly error budget"
+
+    immediateActions:
+      - "Check for connection leaks in application logs"
+      - "Identify long-running transactions: SELECT * FROM pg_stat_activity WHERE state != 'idle' ORDER BY query_start;"
+      - "Consider killing idle connections if safe"
+      - "Scale up connection pool limit if no leaks found"
+
+    escalation:
+      immediateNotify: ["@database-oncall"]
+      after10min: ["@database-lead", "@sre-lead"]
+      after20min: ["@cto"]
+
+    falsePositiveRate: 0.01  # Very low - high confidence alert
+    lastReviewed: "2025-10-01"
+
+  - alertName: "KubernetesPodCrashLooping"
+    severity: "critical"
+    service: "kubernetes"
+    owner: "Platform Team"
+    slackChannel: "#platform-alerts"
+    pagerdutyService: "platform-oncall"
+
+    description: |
+      Pod is crash looping (restarted >5 times in 10 minutes). Indicates
+      critical application or configuration issue.
+
+    triggerCondition: |
+      rate(kube_pod_container_status_restarts_total[10m]) > 0.5
+
+    thresholds:
+      warning: 0.3  # 3 restarts in 10 min
+      critical: 0.5  # 5 restarts in 10 min
+
+    duration: "5m"
+
+    businessImpact: "Service degradation or unavailability depending on affected pod"
+
+    runbook: "https://runbooks.company.com/kubernetes/crashloop-backoff"
+
+    dashboards:
+      - "https://grafana.company.com/d/kubernetes-pods"
+
+    immediateActions:
+      - "kubectl describe pod <pod-name> -n <namespace>"
+      - "kubectl logs <pod-name> -n <namespace> --previous"
+      - "Check recent deployments: kubectl rollout history deployment/<name>"
+      - "Rollback if caused by recent deployment"
+
+    escalation:
+      immediateNotify: ["@platform-oncall"]
+      after15min: ["@platform-lead"]
+
+    falsePositiveRate: 0.05
+    lastReviewed: "2025-09-20"
+
+  # ============================================================================
+  # HIGH / P2 ALERTS - Page during business hours, ticket off-hours
+  # ============================================================================
+
+  - alertName: "APILatencyP99High"
+    severity: "high"
+    service: "api-gateway"
+    owner: "API Team"
+    slackChannel: "#api-alerts"
+    pagerdutyService: "api-oncall"
+
+    description: |
+      API Gateway P99 latency exceeds 1 second. User experience degraded.
+      May indicate downstream service issues or resource saturation.
+
+    triggerCondition: |
+      histogram_quantile(0.99,
+        sum(rate(http_request_duration_seconds_bucket{service="api-gateway"}[5m])) by (le)
+      ) > 1.0
+
+    thresholds:
+      warning: 0.5  # 500ms P99
+      critical: 1.0  # 1 second P99
+
+    duration: "10m"
+
+    businessImpact: "Degraded user experience, potential customer churn"
+
+    runbook: "https://runbooks.company.com/api/high-latency"
+
+    dashboards:
+      - "https://grafana.company.com/d/api-latency"
+      - "https://grafana.company.com/d/api-gateway-red-metrics"
+
+    relatedSLO:
+      sloName: "API Latency P99"
+      sloTarget: "P99 < 500ms"
+      errorBudgetImpact: "Medium - gradual error budget consumption"
+
+    diagnosticQueries:
+      - name: "Top slowest endpoints"
+        query: |
+          topk(10,
+            histogram_quantile(0.99,
+              sum(rate(http_request_duration_seconds_bucket{service="api-gateway"}[5m])) by (le, endpoint)
+            )
+          )
+      - name: "Downstream service latency"
+        query: |
+          sum(rate(downstream_request_duration_seconds_sum[5m])) by (service)
+          /
+          sum(rate(downstream_request_duration_seconds_count[5m])) by (service)
+
+    escalation:
+      immediateNotify: ["@api-oncall"]
+      after30min: ["@api-lead"]
+
+    falsePositiveRate: 0.10
+    lastReviewed: "2025-09-30"
+
+  - alertName: "DiskSpaceRunningLow"
+    severity: "high"
+    service: "infrastructure"
+    owner: "SRE Team"
+    slackChannel: "#sre-alerts"
+    pagerdutyService: "sre-oncall"
+
+    description: |
+      Disk space exceeds 85% on production instance. Risk of running out
+      of disk space leading to application failures and data loss.
+
+    triggerCondition: |
+      (node_filesystem_avail_bytes{mountpoint="/"}
+       /
+       node_filesystem_size_bytes{mountpoint="/"}) < 0.15
+
+    thresholds:
+      warning: 0.20  # 20% free (80% used)
+      critical: 0.15  # 15% free (85% used)
+
+    duration: "5m"
+
+    businessImpact: "Potential service disruption if disk fills completely"
+
+    runbook: "https://runbooks.company.com/infrastructure/disk-space"
+
+    dashboards:
+      - "https://grafana.company.com/d/node-exporter"
+
+    immediateActions:
+      - "Check largest directories: du -sh /* | sort -h"
+      - "Clean up old logs in /var/log"
+      - "Remove old Docker images: docker system prune -a"
+      - "Expand disk volume if persistent growth"
+
+    escalation:
+      immediateNotify: ["@sre-oncall"]
+      after1hour: ["@sre-lead"]
+
+    falsePositiveRate: 0.03
+    lastReviewed: "2025-10-15"
+
+  # ============================================================================
+  # MEDIUM / P3 ALERTS - Create ticket, no immediate page
+  # ============================================================================
+
+  - alertName: "CacheHitRateLow"
+    severity: "medium"
+    service: "redis-cache"
+    owner: "Platform Team"
+    slackChannel: "#platform-alerts"
+    ticketQueue: "PLATFORM"
+
+    description: |
+      Redis cache hit rate below 80%. May indicate cache warming issues,
+      increased database load, or misconfigured TTLs.
+
+    triggerCondition: |
+      (rate(redis_keyspace_hits_total[5m])
+       /
+       (rate(redis_keyspace_hits_total[5m]) + rate(redis_keyspace_misses_total[5m]))) < 0.80
+
+    thresholds:
+      warning: 0.85  # 85% hit rate
+      alert: 0.80  # 80% hit rate
+
+    duration: "15m"
+
+    businessImpact: "Increased database load, slower response times"
+
+    runbook: "https://runbooks.company.com/cache/low-hit-rate"
+
+    dashboards:
+      - "https://grafana.company.com/d/redis-overview"
+
+    notification:
+      channels: ["#platform-alerts"]
+      createTicket: true
+      pageOnCall: false
+
+    falsePositiveRate: 0.15
+    lastReviewed: "2025-08-20"
+
+  - alertName: "SSLCertificateExpiringSoon"
+    severity: "medium"
+    service: "infrastructure"
+    owner: "SRE Team"
+    slackChannel: "#sre-alerts"
+    ticketQueue: "SRE"
+
+    description: |
+      SSL certificate expires in less than 30 days. Requires renewal to
+      prevent service outage.
+
+    triggerCondition: |
+      (probe_ssl_earliest_cert_expiry - time()) / 86400 < 30
+
+    thresholds:
+      warning: 60  # 60 days
+      alert: 30  # 30 days
+      critical: 7  # 7 days
+
+    duration: "1h"
+
+    businessImpact: "Service outage if certificate expires"
+
+    runbook: "https://runbooks.company.com/ssl/certificate-renewal"
+
+    notification:
+      channels: ["#sre-alerts"]
+      createTicket: true
+      pageOnCall: false
+
+    falsePositiveRate: 0.01
+    lastReviewed: "2025-09-01"
+
+  # ============================================================================
+  # SLO BURN RATE ALERTS
+  # ============================================================================
+
+  - alertName: "ErrorBudgetFastBurn"
+    severity: "critical"
+    service: "all-services"
+    owner: "SRE Team"
+    slackChannel: "#slo-alerts"
+    pagerdutyService: "sre-oncall"
+
+    description: |
+      Error budget is being consumed at 14.4x normal rate. At this rate,
+      entire monthly error budget will be exhausted in 2 days.
+
+    triggerCondition: |
+      # 1 hour burn rate > 14.4x AND 5 minute burn rate > 14.4x
+      (
+        (1 - sum(rate(http_requests_total{status=~"2..|4.."}[1h]))
+         / sum(rate(http_requests_total[1h]))) > 14.4 * (1 - 0.999)
+      )
+      and
+      (
+        (1 - sum(rate(http_requests_total{status=~"2..|4.."}[5m]))
+         / sum(rate(http_requests_total[5m]))) > 14.4 * (1 - 0.999)
+      )
+
+    duration: "2m"
+
+    businessImpact: "SLO violation imminent, error budget exhaustion in 2 days"
+
+    runbook: "https://runbooks.company.com/slo/fast-burn"
+
+    dashboards:
+      - "https://grafana.company.com/d/slo-error-budget"
+
+    relatedSLO:
+      sloName: "Service Availability"
+      sloTarget: 99.9%
+      burnRate: "14.4x"
+
+    escalation:
+      immediateNotify: ["@sre-oncall", "@service-owner"]
+      after10min: ["@engineering-director"]
+
+    lastReviewed: "2025-10-01"
+
+  - alertName: "ErrorBudgetSlowBurn"
+    severity: "high"
+    service: "all-services"
+    owner: "SRE Team"
+    slackChannel: "#slo-alerts"
+    ticketQueue: "SRE"
+
+    description: |
+      Error budget is being consumed at 6x normal rate. At this rate,
+      entire monthly error budget will be exhausted in 5 days.
+
+    triggerCondition: |
+      # 6 hour burn rate > 6x AND 30 minute burn rate > 6x
+      (
+        (1 - sum(rate(http_requests_total{status=~"2..|4.."}[6h]))
+         / sum(rate(http_requests_total[6h]))) > 6 * (1 - 0.999)
+      )
+      and
+      (
+        (1 - sum(rate(http_requests_total{status=~"2..|4.."}[30m]))
+         / sum(rate(http_requests_total[30m]))) > 6 * (1 - 0.999)
+      )
+
+    duration: "15m"
+
+    businessImpact: "Error budget will be exhausted soon, SLO at risk"
+
+    runbook: "https://runbooks.company.com/slo/slow-burn"
+
+    relatedSLO:
+      sloName: "Service Availability"
+      sloTarget: 99.9%
+      burnRate: "6x"
+
+    escalation:
+      immediateNotify: ["@sre-oncall", "@service-owner"]
+      after1hour: ["@sre-lead"]
+
+    lastReviewed: "2025-10-01"
+
+# Alert Governance
+alertGovernance:
+  newAlertApproval:
+    required: true
+    approvers: ["SRE Lead", "Observability Lead"]
+    criteria:
+      - "Alert is actionable (clear remediation steps)"
+      - "Alert has runbook link"
+      - "False positive rate < 20%"
+      - "Severity justified by business impact"
+
+  reviewCadence: "Quarterly"
+
+  deprecationPolicy:
+    unusedAlertThreshold: "90 days no fires"
+    noisyAlertThreshold: "False positive rate > 30%"
+    deprecationNotice: "30 days before removal"
+
+  metrics:
+    trackMetrics:
+      - "Alert fire count"
+      - "Mean time to acknowledge (MTTA)"
+      - "Mean time to resolve (MTTR)"
+      - "False positive rate"
+      - "Alerts per on-call shift"
+
+    qualityTargets:
+      falsePositiveRate: "< 10%"
+      mttr: "< 15 minutes for P1"
+      maxAlertsPerShift: "< 5 pages"
+
+# Change Log
+changeHistory:
+  - version: "1.0.0"
+    date: "2025-10-26"
+    author: "SRE Team"
+    changes: "Initial alert catalog with SLO burn rate alerts and SRE best practices"

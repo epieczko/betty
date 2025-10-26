@@ -1,73 +1,53 @@
 # Demo Scripts
 # See also: artifact_descriptions/demo-scripts.md for complete guidance
 
-# Demo Scripts provide the choreographed narrative and click-through sequence for product demonstrations, transforming raw product features into compelling stories that resonate with specific buyer pers
+# Demo Scripts provide the choreographed narrative and click-through sequence for product demonstrations, transforming raw product features into compelling stories that resonate with specific buyer pers...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact enables consistent, high-impact product demonstrations that map directly to prospect pain points and buying criteria, accelerating deal velocity and win rates by ensuring every demo tells the right story to the right audience. It solves the "spray and pray" demo problem where sales tea...
+# This artifact enables consistent, high-impact product demonstrations that map directly to prospect pain points and buying criteria, accelerating deal velocity and win rates by ensuring every demo tells the right story to the right audience. It solves the "spray and pray" demo problem where sales tea
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Discovery Before Demo: Never demo blind; run discovery to understand pain points, success criteria, technical requirements,
 # - Lead with Value Not Features: Start with business outcome ("reduce manual processing time 70%"), not product capability ("we have 
 # - Show Don't Tell: Demonstrate the value, don't just talk about it; "Here's how you'd save 10 hours per week" with actu
 # - Use Realistic Data: Demo with data that mirrors prospect's environment—their industry, use case, scale; generic "Acme Co
 # - The 10-Minute Rule: Hook them in first 10 minutes with biggest "wow" moment; lose them early and you've lost them foreve
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
+    included:
       - "Demo narrative structure and storyline (problem → solution → value)"
       - "Persona-specific demo flows (economic buyer, technical buyer, end user)"
       - "Pre-demo discovery question framework"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

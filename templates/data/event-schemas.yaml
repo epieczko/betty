@@ -1,75 +1,65 @@
 # Event Schemas
 # See also: artifact_descriptions/event-schemas.md for complete guidance
 
-# Event Schemas define the structure, format, and contracts for event messages in event-driven architectures. These schemas ensure consistent event production and consumption across distributed systems,
-
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "2025-10-26"
+  schema_format: "Avro"
+  schema_registry: "Confluent Schema Registry"
+  compatibility_mode: "BACKWARD"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
-  approvers:
-    - name: "Approver Name"
-      role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
-
-# PURPOSE
-# This artifact defines event message schemas for event-driven systems, specifying event structure, data types, required/optional fields, metadata, and versioning strategies. It establishes contracts between event producers and consumers, enabling schema validation, evolution management, and type-safe...
-
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
-# - Schema Evolution Strategy: - **Backward Compatibility**: Always add new fields as optional; never remove or rename existing fie
-# - Event Schema Design: - **CloudEvents Compliance**: Follow CloudEvents spec for metadata (id, source, type, time, datacont
-# - CloudEvents Metadata: - **Unique ID**: Use UUID v4 for event id; ensures global uniqueness
-# - Schema Format Selection: - **Avro**: Best for Kafka, schema evolution, code generation; compact binary format
-# - Schema Registry Usage: - **Register Before Producing**: Always register schema in registry before producing events
-
-content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
+# Event Schema: OrderPlaced
+orderPlaced:
+  namespace: "com.example.orders.events"
+  name: "OrderPlaced"
+  version: "1.0.0"
+  description: "Published when customer completes order checkout"
+  
+  avro_schema: |
+    {
+      "type": "record",
+      "name": "OrderPlaced",
+      "namespace": "com.example.orders.events",
+      "doc": "Order placement event",
+      "fields": [
+        {"name": "event_id", "type": "string", "doc": "Unique event ID (UUID)"},
+        {"name": "order_id", "type": "string", "doc": "Order identifier"},
+        {"name": "customer_id", "type": "string", "doc": "Customer identifier"},
+        {"name": "order_total", "type": {"type": "bytes", "logicalType": "decimal", "precision": 10, "scale": 2}},
+        {"name": "currency", "type": "string", "default": "USD"},
+        {"name": "items", "type": {"type": "array", "items": {
+          "type": "record",
+          "name": "OrderItem",
+          "fields": [
+            {"name": "product_id", "type": "string"},
+            {"name": "quantity", "type": "int"},
+            {"name": "price", "type": {"type": "bytes", "logicalType": "decimal", "precision": 10, "scale": 2}}
+          ]
+        }}},
+        {"name": "timestamp", "type": {"type": "long", "logicalType": "timestamp-millis"}},
+        {"name": "correlation_id", "type": ["null", "string"], "default": null}
+      ]
+    }
+  
+  protobuf_schema: |
+    syntax = "proto3";
+    package com.example.orders.events;
     
-  scope:
-    inScope:
-      - "Event payload structure and data types"
-      - "Event metadata (event type, timestamp, correlation ID, causation ID)"
-      - "CloudEvents specification compliance (type, source, subject, id, time)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
+    import "google/protobuf/timestamp.proto";
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
-  - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
-
-changeHistory:
-  - version: "1.0.0"
-    date: "YYYY-MM-DD"
-    author: "Author Name"
-    changes: "Initial version"
+    message OrderPlaced {
+      string event_id = 1;
+      string order_id = 2;
+      string customer_id = 3;
+      double order_total = 4;
+      string currency = 5;
+      repeated OrderItem items = 6;
+      google.protobuf.Timestamp timestamp = 7;
+      optional string correlation_id = 8;
+    }
+    
+    message OrderItem {
+      string product_id = 1;
+      int32 quantity = 2;
+      double price = 3;
+    }

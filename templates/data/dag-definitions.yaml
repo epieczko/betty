@@ -1,0 +1,55 @@
+# Dag Definitions
+# See also: artifact_descriptions/dag-definitions.md for complete guidance
+
+# The DAG Definitions artifact is a critical deliverable for data engineering and workflow orchestration teams, documenting Directed Acyclic Graph (DAG) configurations for Apache Airflow, Prefect, Dagst...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This artifact documents Apache Airflow DAG configurations (or equivalent orchestration platform definitions) including task specifications, dependency graphs, scheduling parameters, execution settings, and operational metadata. It enables Data Engineers to define repeatable, maintainable workflow or
+
+# BEST PRACTICES
+# - DAG Design Patterns: Use idempotent tasks, implement task retries with exponential backoff, leverage task groups for logi
+# - Naming Conventions: Use descriptive DAG IDs with environment prefixes (prod_, dev_), follow snake_case for task IDs, tag
+# - Version Control: Store DAG files in Git with feature branch workflows, implement CI/CD for DAG deployment, use pre-co
+# - Testing Strategy: Implement unit tests for custom operators, validate DAG structure with dag.test(), use staging envir
+# - Scheduling Best Practices: Set appropriate start_date (not dynamic), disable catchup for most DAGs, use timezone-aware datetime
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "DAG configuration"
+      - "Task definitions"
+      - "Task dependencies"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

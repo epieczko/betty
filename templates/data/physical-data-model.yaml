@@ -1,75 +1,531 @@
 # Physical Data Model
-# See also: artifact_descriptions/physical-data-model.md for complete guidance
+# Platform-specific implementation-ready database design with DDL, indexes, and optimization
 
-# A Physical Data Model is a platform-specific, implementation-ready database design that translates logical data models into actual database objects with DDL (Data Definition Language) scripts, indexes
-
+---
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "2.0.0"
+  created: "2024-01-15"
+  lastModified: "2024-01-15"
+  status: "Production"
+  author: "Database Engineering Team"
+  documentOwner: "Database Architect"
+  classification: "Internal"
+  targetPlatform: "PostgreSQL 15, Snowflake"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
+  performanceTargets:
+    queryLatency_p95: "< 100ms"
+    batchLoadThroughput: "> 10000 rows/sec"
+    concurrentUsers: 500
 
-  # Approvals
   approvers:
-    - name: "Approver Name"
-      role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+    - name: "David Kim"
+      role: "Principal Database Architect"
+      date: "2024-01-15"
+    - name: "Maria Rodriguez"
+      role: "DBA Team Lead"
+      date: "2024-01-15"
 
-# PURPOSE
-# This artifact provides executable DDL scripts, index definitions, partitioning specifications, storage configurations, and performance optimization strategies for implementing databases on specific platforms (Oracle, PostgreSQL, Snowflake, BigQuery, MongoDB, etc.) aligned with performance, scalabili...
+modelOverview:
+  purpose: |
+    PostgreSQL and Snowflake physical implementations of e-commerce order management system.
+    Includes DDL scripts, indexing strategy, partitioning, denormalization decisions,
+    and platform-specific optimizations for production workloads.
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
+  workloadCharacteristics:
+    readWriteRatio: "70% read, 30% write"
+    peakTransactionsPerSecond: 1000
+    averageRowCount:
+      customers: 5000000
+      orders: 50000000
+      order_line_items: 200000000
+    dataGrowthRate: "~1M orders/month"
 
-# BEST PRACTICES:
-# - Workload-Driven Design: Analyze query patterns, read/write ratios, and access patterns before finalizing indexes and partiti
-# - Platform-Native Features: Leverage platform-specific optimizations (Snowflake micro-partitions, BigQuery partitioned tables, P
-# - Index Strategy: Create covering indexes for critical queries, avoid over-indexing writes-heavy tables, use filtered/
-# - Partitioning by Access Pattern: Partition by date for time-series data, by geography for regional queries, by customer segment for m
-# - Denormalization with Purpose: Denormalize only when proven performance benefits outweigh maintenance complexity; document rational
+# ============================================================================
+# EXAMPLE 1: PostgreSQL Implementation (OLTP)
+# Normalized transactional database with indexing and constraints
+# ============================================================================
 
-content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
-  scope:
-    inScope:
-      - "Complete DDL (CREATE TABLE, CREATE INDEX, ALTER TABLE) scripts for target database platform"
-      - "Physical data type mappings (VARCHAR2, NVARCHAR, TEXT, JSONB, DECIMAL, TIMESTAMP WITH TIME ZONE)"
-      - "Index design (B-tree, bitmap, hash, full-text, spatial, covering indexes, included columns)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
+postgresqlImplementation:
+  version: "PostgreSQL 15.x"
+  connectionString: "postgresql://prod-db.internal:5432/ecommerce"
 
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
-    
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
+  schemas:
+    - schemaName: "ecommerce"
+      description: "Core transactional schema"
 
-relatedDocuments:
-  - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+  tables:
+    - tableName: "customers"
+      description: "Customer master table with ~5M rows"
+      estimatedRows: 5000000
+      storageSize: "800 MB"
+
+      ddl: |
+        CREATE TABLE ecommerce.customers (
+            customer_id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+            email_address      VARCHAR(255) NOT NULL UNIQUE,
+            first_name         VARCHAR(100) NOT NULL,
+            last_name          VARCHAR(100) NOT NULL,
+            customer_type      VARCHAR(20) NOT NULL CHECK (customer_type IN ('Individual', 'Business')),
+            account_status     VARCHAR(20) NOT NULL DEFAULT 'Active'
+                                 CHECK (account_status IN ('Active', 'Suspended', 'Closed')),
+            loyalty_tier       VARCHAR(20) CHECK (loyalty_tier IN ('Bronze', 'Silver', 'Gold', 'Platinum')),
+            created_date       TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_date       TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+            -- Computed column for full name search
+            full_name_search   TSVECTOR GENERATED ALWAYS AS (
+                                 to_tsvector('english', first_name || ' ' || last_name)
+                               ) STORED
+        );
+
+        -- Comment table for documentation
+        COMMENT ON TABLE ecommerce.customers IS 'Customer master records';
+        COMMENT ON COLUMN ecommerce.customers.customer_id IS 'Unique identifier (UUID v4)';
+        COMMENT ON COLUMN ecommerce.customers.email_address IS 'Primary email for customer communications';
+
+      indexes:
+        - indexName: "idx_customers_email"
+          type: "B-tree (Unique)"
+          columns: ["email_address"]
+          purpose: "Email lookup for login and verification"
+          ddl: "CREATE UNIQUE INDEX idx_customers_email ON ecommerce.customers (email_address);"
+
+        - indexName: "idx_customers_loyalty"
+          type: "B-tree"
+          columns: ["loyalty_tier", "account_status"]
+          purpose: "Filter active customers by loyalty tier for marketing campaigns"
+          ddl: "CREATE INDEX idx_customers_loyalty ON ecommerce.customers (loyalty_tier, account_status) WHERE account_status = 'Active';"
+
+        - indexName: "idx_customers_fulltext"
+          type: "GIN (Full-text)"
+          columns: ["full_name_search"]
+          purpose: "Full-text search on customer names"
+          ddl: "CREATE INDEX idx_customers_fulltext ON ecommerce.customers USING GIN (full_name_search);"
+
+        - indexName: "idx_customers_created"
+          type: "BRIN (Block Range Index)"
+          columns: ["created_date"]
+          purpose: "Efficient range queries on creation date (time-series data)"
+          ddl: "CREATE INDEX idx_customers_created ON ecommerce.customers USING BRIN (created_date);"
+
+    - tableName: "orders"
+      description: "Sales orders table partitioned by order_date"
+      estimatedRows: 50000000
+      storageSize: "12 GB"
+      partitioning:
+        type: "Range Partitioning"
+        column: "order_date"
+        strategy: "Monthly partitions for 24 months rolling window"
+
+      ddl: |
+        CREATE TABLE ecommerce.orders (
+            order_id           VARCHAR(36) PRIMARY KEY,
+            customer_id        UUID NOT NULL REFERENCES ecommerce.customers(customer_id),
+            order_date         TIMESTAMPTZ NOT NULL,
+            order_status       VARCHAR(20) NOT NULL DEFAULT 'Pending'
+                                 CHECK (order_status IN ('Pending', 'Confirmed', 'Shipped', 'Delivered', 'Cancelled')),
+            subtotal_amount    DECIMAL(10,2) NOT NULL CHECK (subtotal_amount >= 0),
+            tax_amount         DECIMAL(10,2) NOT NULL CHECK (tax_amount >= 0),
+            shipping_amount    DECIMAL(10,2) NOT NULL CHECK (shipping_amount >= 0),
+            total_amount       DECIMAL(10,2) GENERATED ALWAYS AS (subtotal_amount + tax_amount + shipping_amount) STORED,
+            shipping_address_id UUID NOT NULL,
+            updated_date       TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+            -- Foreign key with deferred checking for batch loads
+            CONSTRAINT fk_orders_customer FOREIGN KEY (customer_id)
+              REFERENCES ecommerce.customers(customer_id) DEFERRABLE INITIALLY DEFERRED
+        ) PARTITION BY RANGE (order_date);
+
+        -- Create partitions for 2024 (example for Jan-Mar)
+        CREATE TABLE ecommerce.orders_2024_01 PARTITION OF ecommerce.orders
+          FOR VALUES FROM ('2024-01-01') TO ('2024-02-01');
+
+        CREATE TABLE ecommerce.orders_2024_02 PARTITION OF ecommerce.orders
+          FOR VALUES FROM ('2024-02-01') TO ('2024-03-01');
+
+        CREATE TABLE ecommerce.orders_2024_03 PARTITION OF ecommerce.orders
+          FOR VALUES FROM ('2024-03-01') TO ('2024-04-01');
+
+        -- Partition management procedure (create new partition monthly)
+        CREATE OR REPLACE FUNCTION create_monthly_partition()
+        RETURNS void AS $$
+        DECLARE
+            partition_date DATE := DATE_TRUNC('month', CURRENT_DATE + INTERVAL '1 month');
+            partition_name TEXT := 'orders_' || TO_CHAR(partition_date, 'YYYY_MM');
+        BEGIN
+            EXECUTE format(
+                'CREATE TABLE IF NOT EXISTS ecommerce.%I PARTITION OF ecommerce.orders FOR VALUES FROM (%L) TO (%L)',
+                partition_name,
+                partition_date,
+                partition_date + INTERVAL '1 month'
+            );
+        END;
+        $$ LANGUAGE plpgsql;
+
+      indexes:
+        - indexName: "idx_orders_customer"
+          type: "B-tree"
+          columns: ["customer_id", "order_date DESC"]
+          purpose: "Customer order history queries"
+          ddl: "CREATE INDEX idx_orders_customer ON ecommerce.orders (customer_id, order_date DESC);"
+
+        - indexName: "idx_orders_status_date"
+          type: "B-tree"
+          columns: ["order_status", "order_date"]
+          purpose: "Operations dashboard filtering by status"
+          ddl: "CREATE INDEX idx_orders_status_date ON ecommerce.orders (order_status, order_date) WHERE order_status != 'Delivered';"
+
+    - tableName: "order_line_items"
+      description: "Order line items with denormalized product name for performance"
+      estimatedRows: 200000000
+      storageSize: "35 GB"
+      denormalization:
+        reason: "Avoid JOIN to products table for 90% of queries"
+        denormalizedColumns: ["product_name", "unit_price"]
+
+      ddl: |
+        CREATE TABLE ecommerce.order_line_items (
+            order_id           VARCHAR(36) NOT NULL,
+            line_item_number   INTEGER NOT NULL,
+            product_id         VARCHAR(20) NOT NULL,
+            -- Denormalized columns from products table
+            product_name       VARCHAR(255) NOT NULL,  -- Frozen at order time
+            quantity           INTEGER NOT NULL CHECK (quantity > 0),
+            unit_price         DECIMAL(10,2) NOT NULL CHECK (unit_price > 0),
+            discount_percentage DECIMAL(5,2) CHECK (discount_percentage BETWEEN 0 AND 100),
+            line_total         DECIMAL(10,2) GENERATED ALWAYS AS
+                                 (quantity * unit_price * (1 - COALESCE(discount_percentage, 0)/100)) STORED,
+
+            PRIMARY KEY (order_id, line_item_number),
+            CONSTRAINT fk_line_items_order FOREIGN KEY (order_id)
+              REFERENCES ecommerce.orders(order_id) ON DELETE CASCADE
+        );
+
+        -- Columnstore index for analytics queries (PostgreSQL 15+)
+        CREATE INDEX idx_order_line_items_analytics ON ecommerce.order_line_items
+          USING btree (product_id, order_id)
+          INCLUDE (quantity, line_total);
+
+      compression:
+        method: "TOAST (automatic for TEXT/VARCHAR > 2KB)"
+        compressedColumns: ["product_name"]
+
+  denormalizationDecisions:
+    - decision: "Denormalize product_name into order_line_items"
+      rationale: "Avoids JOIN for order history queries; product name frozen at order time for historical accuracy"
+      tradeoff: "20% storage increase, but 60% faster query performance"
+
+    - decision: "Use GENERATED columns for total_amount, line_total"
+      rationale: "Ensures calculation consistency, eliminates application-level bugs"
+      tradeoff: "Minimal storage overhead with STORED option"
+
+  performanceOptimizations:
+    - optimization: "Partitioning orders by month"
+      benefit: "Partition pruning reduces query scan by 95% for date-filtered queries"
+
+    - optimization: "BRIN index on created_date"
+      benefit: "90% smaller than B-tree for time-series data, minimal maintenance overhead"
+
+    - optimization: "Partial indexes on active records"
+      benefit: "50% smaller index size by excluding completed/cancelled orders"
+
+  maintenanceStrategy:
+    vacuumSchedule: "Autovacuum enabled; manual VACUUM ANALYZE weekly on large tables"
+    statisticsUpdate: "pg_cron job runs ANALYZE nightly on orders and line_items"
+    partitionManagement: "Automated monthly partition creation; drop partitions > 24 months"
+
+# ============================================================================
+# EXAMPLE 2: Snowflake Implementation (Data Warehouse)
+# Star schema with clustering, materialized views, and time travel
+# ============================================================================
+
+snowflakeImplementation:
+  version: "Snowflake Enterprise Edition"
+  account: "acme-corp.us-east-1"
+  database: "ANALYTICS_DW"
+  warehouse: "COMPUTE_WH (MEDIUM)"
+
+  schemas:
+    - schemaName: "SALES"
+      description: "Sales data mart with star schema"
+
+  tables:
+    - tableName: "FACT_SALES"
+      description: "Sales fact table with 500M+ rows"
+      estimatedRows: 500000000
+      storageSize: "120 GB (compressed)"
+      clusteringStrategy:
+        enabled: true
+        clusteringKeys: ["ORDER_DATE_KEY", "CUSTOMER_KEY"]
+        rationale: "Co-locate data by date and customer for common query patterns"
+
+      ddl: |
+        CREATE OR REPLACE TABLE ANALYTICS_DW.SALES.FACT_SALES (
+            -- Surrogate key
+            SALES_KEY            NUMBER(18,0) IDENTITY(1,1),
+
+            -- Dimension foreign keys
+            ORDER_DATE_KEY       NUMBER(8,0) NOT NULL,
+            CUSTOMER_KEY         NUMBER(10,0) NOT NULL,
+            PRODUCT_KEY          NUMBER(10,0) NOT NULL,
+            STORE_KEY            NUMBER(6,0) NOT NULL,
+
+            -- Degenerate dimensions
+            ORDER_NUMBER         VARCHAR(36) NOT NULL,
+            LINE_ITEM_NUMBER     NUMBER(3,0) NOT NULL,
+
+            -- Measures (additive)
+            QUANTITY_SOLD        NUMBER(6,0) NOT NULL,
+            GROSS_SALES_AMOUNT   NUMBER(18,2) NOT NULL,
+            DISCOUNT_AMOUNT      NUMBER(18,2) DEFAULT 0,
+            NET_SALES_AMOUNT     NUMBER(18,2) NOT NULL,
+            COST_AMOUNT          NUMBER(18,2) NOT NULL,
+            PROFIT_AMOUNT        NUMBER(18,2) GENERATED ALWAYS AS (NET_SALES_AMOUNT - COST_AMOUNT),
+
+            -- Metadata
+            ETL_LOAD_DATE        TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
+            ETL_SOURCE_SYSTEM    VARCHAR(50),
+
+            -- Primary key (not enforced in Snowflake, for documentation)
+            PRIMARY KEY (SALES_KEY),
+
+            -- Foreign keys (not enforced, for BI tool metadata)
+            FOREIGN KEY (ORDER_DATE_KEY) REFERENCES ANALYTICS_DW.SALES.DIM_DATE(DATE_KEY),
+            FOREIGN KEY (CUSTOMER_KEY) REFERENCES ANALYTICS_DW.SALES.DIM_CUSTOMER(CUSTOMER_KEY),
+            FOREIGN KEY (PRODUCT_KEY) REFERENCES ANALYTICS_DW.SALES.DIM_PRODUCT(PRODUCT_KEY),
+            FOREIGN KEY (STORE_KEY) REFERENCES ANALYTICS_DW.SALES.DIM_STORE(STORE_KEY)
+        )
+        CLUSTER BY (ORDER_DATE_KEY, CUSTOMER_KEY)
+        COMMENT = 'Sales fact table - grain: one row per order line item';
+
+        -- Add table-level comments
+        ALTER TABLE ANALYTICS_DW.SALES.FACT_SALES SET COMMENT =
+          '{
+            "grain": "order_line_item",
+            "load_frequency": "daily",
+            "data_owner": "analytics_engineering",
+            "pii": false
+          }';
+
+      searchOptimization:
+        enabled: true
+        columns: ["ORDER_NUMBER"]
+        ddl: "ALTER TABLE ANALYTICS_DW.SALES.FACT_SALES ADD SEARCH OPTIMIZATION ON EQUALITY(ORDER_NUMBER);"
+
+    - tableName: "DIM_CUSTOMER"
+      description: "Customer dimension with SCD Type 2"
+      scdType: 2
+      estimatedRows: 6000000
+
+      ddl: |
+        CREATE OR REPLACE TABLE ANALYTICS_DW.SALES.DIM_CUSTOMER (
+            -- Surrogate key
+            CUSTOMER_KEY         NUMBER(10,0) IDENTITY(1,1) PRIMARY KEY,
+
+            -- Natural key
+            CUSTOMER_ID          VARCHAR(36) NOT NULL,
+
+            -- Attributes
+            CUSTOMER_NAME        VARCHAR(255) NOT NULL,
+            EMAIL_ADDRESS        VARCHAR(255),
+            CUSTOMER_TYPE        VARCHAR(20) NOT NULL,
+            LOYALTY_TIER         VARCHAR(20),
+            CUSTOMER_SEGMENT     VARCHAR(30),
+
+            -- Geographic attributes
+            CITY                 VARCHAR(100),
+            STATE                VARCHAR(50),
+            COUNTRY              VARCHAR(2),
+            REGION               VARCHAR(50),
+
+            -- SCD Type 2 tracking columns
+            EFFECTIVE_DATE       DATE NOT NULL,
+            EXPIRATION_DATE      DATE,
+            IS_CURRENT           BOOLEAN NOT NULL DEFAULT TRUE,
+
+            -- Metadata
+            ETL_LOAD_DATE        TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
+
+            -- Ensure only one current record per customer
+            UNIQUE (CUSTOMER_ID, IS_CURRENT)
+        )
+        CLUSTER BY (CUSTOMER_ID, IS_CURRENT)
+        COMMENT = 'Customer dimension with Type 2 slowly changing dimension tracking';
+
+        -- Create view for current customers only
+        CREATE OR REPLACE VIEW ANALYTICS_DW.SALES.DIM_CUSTOMER_CURRENT AS
+        SELECT * FROM ANALYTICS_DW.SALES.DIM_CUSTOMER
+        WHERE IS_CURRENT = TRUE;
+
+    - tableName: "DIM_DATE"
+      description: "Date dimension (conformed across all data marts)"
+      estimatedRows: 10950  -- 30 years
+      conformedDimension: true
+
+      ddl: |
+        CREATE OR REPLACE TABLE ANALYTICS_DW.SALES.DIM_DATE (
+            DATE_KEY             NUMBER(8,0) PRIMARY KEY,
+            FULL_DATE            DATE NOT NULL UNIQUE,
+
+            -- Day attributes
+            DAY_OF_WEEK          NUMBER(1,0),
+            DAY_NAME             VARCHAR(10),
+            DAY_OF_MONTH         NUMBER(2,0),
+            DAY_OF_YEAR          NUMBER(3,0),
+
+            -- Week attributes
+            WEEK_OF_YEAR         NUMBER(2,0),
+            WEEK_BEGIN_DATE      DATE,
+
+            -- Month attributes
+            MONTH_NUMBER         NUMBER(2,0),
+            MONTH_NAME           VARCHAR(10),
+            MONTH_ABBR           VARCHAR(3),
+            YEAR_MONTH           NUMBER(6,0),  -- YYYYMM
+
+            -- Quarter attributes
+            QUARTER_NUMBER       NUMBER(1,0),
+            QUARTER_NAME         VARCHAR(2),  -- Q1, Q2, Q3, Q4
+            YEAR_QUARTER         NUMBER(6,0), -- YYYYQ
+
+            -- Year attributes
+            YEAR                 NUMBER(4,0),
+
+            -- Fiscal period (assuming fiscal year starts April 1)
+            FISCAL_MONTH         NUMBER(2,0),
+            FISCAL_QUARTER       NUMBER(1,0),
+            FISCAL_YEAR          NUMBER(4,0),
+
+            -- Flags
+            IS_WEEKEND           BOOLEAN,
+            IS_HOLIDAY           BOOLEAN,
+            IS_WEEKDAY           BOOLEAN,
+            IS_CURRENT_DAY       BOOLEAN,
+
+            -- Holiday name (if applicable)
+            HOLIDAY_NAME         VARCHAR(50)
+        )
+        COMMENT = 'Conformed date dimension';
+
+  materializedViews:
+    - viewName: "MV_DAILY_SALES_SUMMARY"
+      description: "Pre-aggregated daily sales by product and customer segment"
+      refreshSchedule: "CRON '0 2 * * *' UTC"  -- 2 AM daily
+
+      ddl: |
+        CREATE OR REPLACE MATERIALIZED VIEW ANALYTICS_DW.SALES.MV_DAILY_SALES_SUMMARY AS
+        SELECT
+            f.ORDER_DATE_KEY,
+            d.FULL_DATE AS ORDER_DATE,
+            p.CATEGORY_NAME,
+            p.SUBCATEGORY_NAME,
+            c.CUSTOMER_SEGMENT,
+            c.LOYALTY_TIER,
+            COUNT(DISTINCT f.ORDER_NUMBER) AS ORDER_COUNT,
+            SUM(f.QUANTITY_SOLD) AS TOTAL_QUANTITY,
+            SUM(f.GROSS_SALES_AMOUNT) AS TOTAL_GROSS_SALES,
+            SUM(f.DISCOUNT_AMOUNT) AS TOTAL_DISCOUNTS,
+            SUM(f.NET_SALES_AMOUNT) AS TOTAL_NET_SALES,
+            SUM(f.PROFIT_AMOUNT) AS TOTAL_PROFIT,
+            AVG(f.NET_SALES_AMOUNT) AS AVG_ORDER_VALUE
+        FROM ANALYTICS_DW.SALES.FACT_SALES f
+        INNER JOIN ANALYTICS_DW.SALES.DIM_DATE d ON f.ORDER_DATE_KEY = d.DATE_KEY
+        INNER JOIN ANALYTICS_DW.SALES.DIM_PRODUCT p ON f.PRODUCT_KEY = p.PRODUCT_KEY
+        INNER JOIN ANALYTICS_DW.SALES.DIM_CUSTOMER c ON f.CUSTOMER_KEY = c.CUSTOMER_KEY
+        WHERE c.IS_CURRENT = TRUE
+        GROUP BY 1, 2, 3, 4, 5, 6;
+
+  timeTravel:
+    retentionDays: 7
+    config: |
+      -- Enable 7-day time travel on fact tables
+      ALTER TABLE ANALYTICS_DW.SALES.FACT_SALES SET DATA_RETENTION_TIME_IN_DAYS = 7;
+
+      -- Query example: access data from 2 days ago
+      -- SELECT * FROM ANALYTICS_DW.SALES.FACT_SALES AT (OFFSET => -172800);
+
+  resourceMonitoring:
+    warehouseSizing:
+      - warehouse: "COMPUTE_WH"
+        size: "MEDIUM"
+        autoSuspend: 60  # seconds
+        autoResume: true
+        maxClusters: 3
+        scalingPolicy: "STANDARD"
+
+  securityImplementation:
+    rowLevelSecurity:
+      - table: "FACT_SALES"
+        policy: "RLS_SALES_BY_REGION"
+        ddl: |
+          CREATE OR REPLACE ROW ACCESS POLICY RLS_SALES_BY_REGION AS (REGION VARCHAR)
+          RETURNS BOOLEAN ->
+            'ANALYST' = CURRENT_ROLE()
+            OR REGION = CURRENT_USER_REGION();
+
+          ALTER TABLE ANALYTICS_DW.SALES.FACT_SALES
+            ADD ROW ACCESS POLICY RLS_SALES_BY_REGION ON (STORE.REGION);
+
+    columnMasking:
+      - column: "DIM_CUSTOMER.EMAIL_ADDRESS"
+        maskingPolicy: "EMAIL_MASK"
+        ddl: |
+          CREATE OR REPLACE MASKING POLICY EMAIL_MASK AS (VAL STRING) RETURNS STRING ->
+            CASE
+              WHEN CURRENT_ROLE() IN ('DATA_ENGINEER', 'DBA') THEN VAL
+              ELSE REGEXP_REPLACE(VAL, '(.{3}).*@', '\\1***@')
+            END;
+
+          ALTER TABLE ANALYTICS_DW.SALES.DIM_CUSTOMER
+            MODIFY COLUMN EMAIL_ADDRESS SET MASKING POLICY EMAIL_MASK;
+
+migrationStrategy:
+  databaseMigrationTool: "Flyway Enterprise"
+  versionControl:
+    repository: "git@github.com:company/database-migrations.git"
+    structure: |
+      /migrations
+        /postgresql
+          V1__create_customers_table.sql
+          V2__create_orders_table.sql
+          V3__add_partitioning.sql
+        /snowflake
+          V1__create_dim_date.sql
+          V2__create_fact_sales.sql
+          V3__create_materialized_views.sql
+
+  deploymentProcess:
+    - step: 1
+      action: "Run DDL in dev environment"
+      validation: "Integration tests pass"
+    - step: 2
+      action: "Deploy to staging with production data subset"
+      validation: "Performance benchmarks meet SLAs"
+    - step: 3
+      action: "Blue-green deployment to production"
+      rollbackPlan: "Flyway undo scripts + restore from snapshot"
+
+backupAndRecovery:
+  postgresql:
+    method: "pg_basebackup + WAL archiving"
+    frequency: "Full backup daily, WAL continuous"
+    retentionPeriod: "30 days"
+    rto: "< 1 hour"
+    rpo: "< 5 minutes"
+
+  snowflake:
+    method: "Automatic continuous data protection"
+    failSafe: "7 days (after time travel window)"
+    zerocopycloning: "CREATE CLONE for quick restore"
 
 changeHistory:
-  - version: "1.0.0"
-    date: "YYYY-MM-DD"
-    author: "Author Name"
-    changes: "Initial version"
+  - version: "2.0.0"
+    date: "2024-01-15"
+    author: "Database Engineering Team"
+    changes: |
+      Complete rewrite with production-ready examples:
+      - Added PostgreSQL DDL with partitioning, BRIN indexes, generated columns
+      - Added Snowflake star schema with clustering, materialized views
+      - Added SCD Type 2 implementation
+      - Added row-level security and column masking
+      - Added migration and deployment strategy

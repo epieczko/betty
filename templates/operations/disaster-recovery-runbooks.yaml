@@ -1,73 +1,53 @@
 # Disaster Recovery Runbooks
 # See also: artifact_descriptions/disaster-recovery-runbooks.md for complete guidance
 
-# Disaster Recovery (DR) Runbooks are step-by-step operational procedures for restoring critical systems and data following catastrophic failures, natural disasters, or major outages. These runbooks are
+# Disaster Recovery (DR) Runbooks are step-by-step operational procedures for restoring critical systems and data following catastrophic failures, natural disasters, or major outages. These runbooks are...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact documents detailed, executable disaster recovery procedures including failover steps, recovery validation, rollback procedures, and escalation paths to restore critical systems within defined RTO/RPO targets following catastrophic failures or disasters....
+# This artifact documents detailed, executable disaster recovery procedures including failover steps, recovery validation, rollback procedures, and escalation paths to restore critical systems within defined RTO/RPO targets following catastrophic failures or disasters.
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Test Regularly: Conduct full DR tests at least quarterly; validate all runbook steps actually work
 # - Automate Everything: Automate failover procedures wherever possible; manual steps introduce delays and errors
 # - Document RTO/RPO: Clearly define and communicate RTO/RPO for each service tier; measure adherence
 # - Immutable Backups: Use immutable backups to protect against ransomware and accidental deletion
 # - 3-2-1-1-0 Rule: Follow 3 copies, 2 media types, 1 offsite, 1 offline/immutable, 0 errors in backups
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
-      - "Disaster scenarios and trigger criteria (region outage, data center failure, ransomware)"
+    included:
+      - "Disaster scenarios and trigger criteria (region outage, data center failure, ran"
       - "RTO/RPO targets per service tier (Tier 0"
       - "Failover automation scripts (Terraform, Ansible, AWS Lambda, Azure Functions)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

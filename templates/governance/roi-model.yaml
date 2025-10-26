@@ -1,0 +1,18 @@
+# Roi Model
+# See also: artifact_descriptions/roi-model.md for complete guidance
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  author: "Author Name"
+  owner: "Team/Department"
+  status: "Draft"  # Draft | Review | Approved | Archived
+  classification: "Internal"  # Public | Internal | Confidential | Restricted
+
+
+description: |
+  [Provide comprehensive description]
+
+# Artifact-specific content sections
+# Refer to artifact description for detailed structure requirements

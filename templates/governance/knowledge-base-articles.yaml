@@ -1,73 +1,53 @@
 # Knowledge Base Articles
 # See also: artifact_descriptions/knowledge-base-articles.md for complete guidance
 
-# Knowledge Base Articles provide self-service support documentation addressing common questions, troubleshooting procedures, error resolutions, and how-to guides that enable users and support teams to 
+# Knowledge Base Articles provide self-service support documentation addressing common questions, troubleshooting procedures, error resolutions, and how-to guides that enable users and support teams to ...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# Knowledge Base Articles serve as the first line of self-service support, reducing support ticket volume, decreasing time-to-resolution, and empowering users to solve problems independently. They solve the problem of repetitive support questions by providing searchable, well-organized answers to comm...
+# Knowledge Base Articles serve as the first line of self-service support, reducing support ticket volume, decreasing time-to-resolution, and empowering users to solve problems independently. They solve the problem of repetitive support questions by providing searchable, well-organized answers to comm
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - User-First Writing: Write for users' goals and context (what they're trying to accomplish), use action-oriented titles (
 # - Search-Optimized Structure: Front-load important keywords in titles and first paragraph, use descriptive headings (H2, H3) that 
 # - Template-Based Authoring: Create and enforce article templates for consistency (troubleshooting template, how-to template, FAQ
 # - Visual Enhancement: Include annotated screenshots showing exact UI locations and actions, create GIF animations for mult
 # - Metadata Richness: Tag articles with comprehensive metadata (category, product, version, topic, difficulty level, user 
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
-      - "Troubleshooting guides (step-by-step problem resolution, diagnostic procedures, common errors and fixes)"
-      - "How-to articles (task completion guides, feature usage instructions, configuration procedures)"
+    included:
+      - "Troubleshooting guides (step-by-step problem resolution, diagnostic procedures, "
+      - "How-to articles (task completion guides, feature usage instructions, configurati"
       - "Frequently Asked Questions (FAQs) organized by category and product area"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

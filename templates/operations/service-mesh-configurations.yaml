@@ -1,0 +1,55 @@
+# Service Mesh Configurations
+# See also: artifact_descriptions/service-mesh-configurations.md for complete guidance
+
+# Service Mesh Configurations define the sophisticated traffic management, security, and observability policies that govern service-to-service communication within distributed microservices architecture...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This artifact defines service mesh traffic management rules, security policies, and observability configurations that control communication between microservices. It enables platform teams to implement sophisticated networking patterns, enforce security boundaries, and instrument distributed systems
+
+# BEST PRACTICES
+# - Enable mTLS by Default: Enforce mutual TLS for all service-to-service communication with STRICT mode
+# - Progressive Rollout: Use canary deployments with automated analysis before full production rollout
+# - GitOps Management: Store all service mesh configurations in Git and deploy via ArgoCD/Flux with automated validation
+# - Namespace Isolation: Apply service mesh policies at namespace boundaries to enforce tenant isolation
+# - Least Privilege Authorization: Use AuthorizationPolicy to enforce fine-grained access control based on service identity
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Istio configurations (VirtualService, DestinationRule, Gateway, ServiceEntry, Pe"
+      - "Linkerd configurations (ServiceProfile, TrafficSplit, Server, ServerAuthorizatio"
+      - "Consul Connect intentions, service defaults, and service routers"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

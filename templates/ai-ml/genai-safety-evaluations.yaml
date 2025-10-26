@@ -1,73 +1,53 @@
 # Genai Safety Evaluations
 # See also: artifact_descriptions/genai-safety-evaluations.md for complete guidance
 
-# The GenAI Safety Evaluations assess large language models (LLMs) and generative AI systems for safety vulnerabilities including prompt injection, jailbreaking, hallucinations, toxic content generation
+# The GenAI Safety Evaluations assess large language models (LLMs) and generative AI systems for safety vulnerabilities including prompt injection, jailbreaking, hallucinations, toxic content generation...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact provides comprehensive safety evaluation of LLMs and GenAI systems to identify vulnerabilities, measure safety metrics, test adversarial robustness, and validate safety controls. It supports risk-based deployment decisions and defines safety monitoring requirements for production LLMs....
+# This artifact provides comprehensive safety evaluation of LLMs and GenAI systems to identify vulnerabilities, measure safety metrics, test adversarial robustness, and validate safety controls. It supports risk-based deployment decisions and defines safety monitoring requirements for production LLMs.
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Red Team Before Deployment: Conduct structured red teaming with adversarial mindset before production deployment
 # - OWASP LLM Top 10 Coverage: Test for all OWASP LLM Top 10 vulnerabilities systematically
 # - Automated Safety Testing: Integrate safety tests (hallucination, toxicity, injection) into CI/CD pipelines
 # - Diverse Attack Vectors: Test multiple jailbreaking techniques (DAN, persona, encoding, multi-turn manipulation)
 # - Quantitative Metrics: Measure hallucination rate, toxicity scores, injection success rate, not just qualitative assessment
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
+    included:
       - "Prompt injection attacks"
       - "Jailbreaking techniques"
       - "Hallucination measurement"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

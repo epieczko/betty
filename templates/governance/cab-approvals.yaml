@@ -1,73 +1,53 @@
 # Cab Approvals
 # See also: artifact_descriptions/cab-approvals.md for complete guidance
 
-# The CAB (Change Advisory Board) Approvals artifact documents formal change authorization decisions following ITIL 4 Change Enablement practices. The CAB evaluates change requests, assesses deployment 
+# The CAB (Change Advisory Board) Approvals artifact documents formal change authorization decisions following ITIL 4 Change Enablement practices. The CAB evaluates change requests, assesses deployment ...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# CAB approvals document formal authorization decisions for production changes following ITIL 4 Change Enablement. The CAB evaluates change requests, reviews risk assessments and certification evidence, votes on approval/rejection, assigns change windows, and establishes rollback authorization criteri...
+# CAB approvals document formal authorization decisions for production changes following ITIL 4 Change Enablement. The CAB evaluates change requests, reviews risk assessments and certification evidence, votes on approval/rejection, assigns change windows, and establishes rollback authorization criteri
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Risk-Based Classification: Use ITIL 4 change types (standard, normal, emergency) based on risk assessment scores
 # - Pre-Submission Package: Require complete change request package (risk assessment, certification, runbook) before CAB review
 # - Quorum Requirements: Define minimum CAB member attendance for valid voting (e.g., 75% of voting members present)
 # - Timely Submission: Establish change request submission deadlines before CAB meetings (e.g., 3 business days advance not
 # - Evidence-Based Decisions: Base approval decisions on objective criteria (test results, risk scores) not subjective opinions
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
+    included:
       - "ITIL 4 Change Enablement classification (standard, normal, emergency changes)"
       - "CAB meeting minutes with attendance, agenda, and discussion summary"
-      - "Change request details (change ID, requestor, description, business justification)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
+      - "Change request details (change ID, requestor, description, business justificatio"
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

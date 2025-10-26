@@ -1,73 +1,53 @@
 # Consent Receipts
 # See also: artifact_descriptions/consent-receipts.md for complete guidance
 
-# The Consent Receipts artifact documents the machine-readable and human-readable records of user consent transactions, providing verifiable proof that consent was obtained in compliance with GDPR Artic
+# The Consent Receipts artifact documents the machine-readable and human-readable records of user consent transactions, providing verifiable proof that consent was obtained in compliance with GDPR Artic...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# Provides machine-readable and human-readable records of user consent transactions with cryptographic proof, enabling organizations to demonstrate GDPR Article 7(1) burden of proof compliance, respond to DSAR requests within 30-day SLA, and defend against privacy litigation with tamper-evident audit ...
+# Provides machine-readable and human-readable records of user consent transactions with cryptographic proof, enabling organizations to demonstrate GDPR Article 7(1) burden of proof compliance, respond to DSAR requests within 30-day SLA, and defend against privacy litigation with tamper-evident audit 
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Kantara v1.1 Compliance: Implement full Consent Receipt Specification v1.1 schema including jurisdiction, piiPrincipalId, ser
 # - Cryptographic Integrity: Generate SHA-256 hash of consent transaction payload with RSA-2048 or ECDSA P-256 digital signatures
 # - Blockchain Anchoring: Submit consent receipt hashes to immutable ledger (Hyperledger Fabric, Ethereum) for third-party ver
 # - 30-Day DSAR SLA: Automate GDPR Article 15 responses by generating consent history exports within 7-10 days (vs 30-day
 # - CMP Synchronization: Bi-directional sync between consent receipts and CMP platforms (OneTrust, TrustArc) every 15 minutes
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
+    included:
       - "Kantara Initiative Consent Receipt Specification v1.1 format implementation"
       - "SHA-256 cryptographic hashing and digital signatures (RSA/ECDSA)"
       - "Blockchain-based immutable ledger integration (Hyperledger, Ethereum)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

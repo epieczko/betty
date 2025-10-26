@@ -16,12 +16,11 @@
 
 ## Executive Summary
 
-<!-- Provide a 2-3 paragraph overview for executive audience -->
-<!-- What is this document about and why does it matter? -->
+Microcopy Guides are the essential reference for interface copy—the small but mighty words that guide users through products: button labels, error messages, empty states, form field instructions, tooltips, success confirmations, and all the tiny text that makes digital experiences usable or frustrat
 
 ## Purpose
 
-<!-- This artifact provides specific, actionable guidance for every interface copy moment, ensuring consistency in voice, clarity in instruction, and empathy in error handling across the entire product exp... -->
+This artifact provides specific, actionable guidance for every interface copy moment, ensuring consistency in voice, clarity in instruction, and empathy in error handling across the entire product experience. It solves the copy inconsistency problem where different designers use different button labels for the same action or engineers write technical error messages that confuse users, supporting r
 
 ## Scope
 
@@ -35,28 +34,12 @@
 
 ### Out of Scope
 
-- Items explicitly not covered by this artifact
+- Items explicitly not covered
 
-## Target Audience
+## Main Content
 
-### Primary Audience
-
-- UX Writers crafting interface copy
-- Product Designers incorporating copy into design mockups
-- Frontend Engineers implementing UI text
-
-### Secondary Audience
-
-- Additional stakeholders who may reference this document
-
-## [Main Section 1]
-
-<!-- Complete this section with artifact-specific content -->
-<!-- Refer to the artifact description for required structure -->
-
-## [Main Section 2]
-
-<!-- Add additional sections as needed -->
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
 ## Best Practices
 
@@ -70,25 +53,21 @@
 
 **Empty States Tell Stories**: Transform "No items" into opportunity—explain why it's empty, what value filling it provides, and offer clear action: "No saved searches yet. Save your favorite searches for quick access."
 
-## Quality Checklist
+**Conversational but Concise**: Write like you speak to a friend who's in a hurry; cut "please," "in order to," "you can"; test: would you say this out loud?
 
-Before finalizing this artifact, verify:
+**Consistent Terminology**: Pick one term and stick with it—don't alternate between "delete/remove," "save/store," "settings/preferences"; build a terminology glossary
 
-- [ ] **Completeness**: All required sections present and adequately detailed
-- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
-- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
-- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
-- [ ] **Currency**: Based on current information; outdated content removed or updated
+**Tone Modulation**: Adjust tone to moment—onboarding is welcoming, errors are empathetic, confirmations are reassuring, destructive actions are serious
 
 ## Related Documents
 
-- [Related Artifact]: Description and relationship
+- [Related Artifact]: Relationship description
 
 ## Approvals
 
 | Role | Name | Date | Status |
 |------|------|------|--------|
-| Approver | Name | YYYY-MM-DD | Pending |
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 

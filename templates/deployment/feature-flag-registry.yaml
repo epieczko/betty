@@ -1,0 +1,721 @@
+# Feature Flag Registry
+# Comprehensive inventory and governance system for managing feature flags across environments
+
+metadata:
+  version: "2.1.0"
+  created: "2023-06-15"
+  lastModified: "2024-01-15"
+  status: "Active"
+  platform: "LaunchDarkly"  # or Unleash, Split.io, ConfigCat, Flagsmith
+  documentOwner: "Platform Engineering Team"
+  classification: "Internal"
+  approvers:
+    - name: "Marcus Chen"
+      role: "Staff Engineer - Feature Flags"
+      date: "2024-01-15"
+    - name: "Sarah Johnson"
+      role: "Engineering Manager"
+      date: "2024-01-15"
+
+# =============================================================================
+# GOVERNANCE POLICIES
+# =============================================================================
+
+governancePolicies:
+  namingConventions:
+    pattern: "{team}-{feature}-{type}"
+    examples:
+      - "payments-stripe-migration-release"
+      - "growth-new-onboarding-experiment"
+      - "platform-circuit-breaker-killswitch"
+      - "mobile-dark-mode-ops"
+
+    teamPrefixes:
+      - "payments"
+      - "growth"
+      - "platform"
+      - "mobile"
+      - "search"
+      - "notifications"
+
+    types:
+      release: "Gradual feature rollout"
+      experiment: "A/B test or multivariate test"
+      killswitch: "Emergency off switch for critical features"
+      ops: "Operational toggle for infrastructure"
+      permission: "User/organization permission control"
+
+  lifecycleManagement:
+    stages:
+      - name: "development"
+        description: "Testing in development environments"
+        defaultState: "off"
+        approval: "not_required"
+
+      - name: "staging"
+        description: "QA validation and integration testing"
+        defaultState: "off"
+        approval: "team_lead"
+
+      - name: "production"
+        description: "Live rollout to customers"
+        defaultState: "off"
+        approval: "engineering_manager"
+
+    expirationPolicy:
+      releaseFlags: 90  # days
+      experimentFlags: 60  # days
+      killswitchFlags: 365  # days (long-lived)
+      opsFlags: 180  # days
+
+    cleanupPolicy:
+      alertBeforeExpiration: [30, 14, 7]  # days before
+      autoArchiveAfter: 120  # days at 100% rollout
+      requiredQuarterlyReview: true
+
+  technicalDebtTracking:
+    staleFlagThresholds:
+      daysAt100Percent: 90
+      daysUnchanged: 180
+
+    cleanupTargets:
+      flagsToRemovePerQuarter: 20
+      maxActiveFlags: 250
+      maxStaleFlagsPercentage: 10
+
+# =============================================================================
+# ACTIVE FEATURE FLAGS
+# =============================================================================
+
+featureFlags:
+  # ---------------------------------------------------------------------------
+  # RELEASE FLAGS - Gradual rollouts of new features
+  # ---------------------------------------------------------------------------
+
+  - flagKey: "payments-stripe-payment-intents-release"
+    name: "Stripe Payment Intents Migration"
+    description: "Migrate from legacy Charges API to Payment Intents API with 3D Secure 2.0 support"
+    type: "release"
+    status: "active"
+    owner: "Sarah Chen"
+    team: "payments"
+    createdDate: "2023-12-01"
+    expirationDate: "2024-03-31"
+
+    environments:
+      development:
+        enabled: true
+        rolloutPercentage: 100
+        lastModified: "2024-01-05"
+
+      staging:
+        enabled: true
+        rolloutPercentage: 100
+        lastModified: "2024-01-10"
+
+      production:
+        enabled: true
+        rolloutStrategy: "canary"
+        rolloutPercentage: 25
+        lastModified: "2024-01-22"
+
+        targetingRules:
+          - name: "Internal employees"
+            description: "Enable for all company employees"
+            clauses:
+              - attribute: "email"
+                operator: "endsWith"
+                values: ["@company.com"]
+            rollout:
+              percentage: 100
+              variation: "true"
+
+          - name: "Beta merchants"
+            description: "Merchants opted into beta program"
+            clauses:
+              - attribute: "merchantTier"
+                operator: "in"
+                values: ["beta", "early-adopter"]
+            rollout:
+              percentage: 100
+              variation: "true"
+
+          - name: "Geographic canary - US West"
+            description: "25% of US West Coast traffic"
+            clauses:
+              - attribute: "country"
+                operator: "equals"
+                values: ["US"]
+              - attribute: "region"
+                operator: "in"
+                values: ["us-west-1", "us-west-2"]
+            rollout:
+              percentage: 25
+              variation: "true"
+
+    variations:
+      true:
+        value: true
+        description: "Use new Payment Intents API"
+      false:
+        value: false
+        description: "Use legacy Charges API"
+
+    defaultVariation: "false"
+    offVariation: "false"
+
+    prerequisites: []
+
+    tags: ["payments", "stripe", "pci-compliance", "critical"]
+
+    rolloutSchedule:
+      - date: "2024-01-22"
+        action: "Enable for internal employees"
+        percentage: 0.1
+      - date: "2024-01-23"
+        action: "Canary rollout 1%"
+        percentage: 1
+      - date: "2024-01-24"
+        action: "Expand to 5%"
+        percentage: 5
+      - date: "2024-01-26"
+        action: "Expand to 25%"
+        percentage: 25
+      - date: "2024-01-29"
+        action: "Expand to 50%"
+        percentage: 50
+      - date: "2024-02-02"
+        action: "Full rollout 100%"
+        percentage: 100
+
+    rollbackPlan:
+      automated: true
+      triggers:
+        - metric: "payment_success_rate"
+          threshold: 98.5
+          operator: "lessThan"
+          action: "disable"
+        - metric: "payment_error_rate"
+          threshold: 2.0
+          operator: "greaterThan"
+          action: "disable"
+
+      manualProcedure: "Set flag to false via LaunchDarkly dashboard or CLI"
+      estimatedRollbackTime: "< 2 minutes"
+
+    monitoring:
+      dashboard: "https://datadog.com/dashboards/payments-migration"
+      alerts:
+        - "payment-success-rate-alert"
+        - "stripe-api-error-rate"
+      metrics:
+        - "payment_success_rate_by_api"
+        - "payment_processing_latency_p95"
+        - "stripe_api_response_time"
+
+    compliance:
+      pciCompliant: true
+      securityReviewed: true
+      reviewer: "Rachel Thompson"
+      reviewDate: "2024-01-09"
+
+    removalCriteria: "Flag can be removed after 30 days at 100% with zero incidents"
+
+  # ---------------------------------------------------------------------------
+
+  - flagKey: "growth-new-user-onboarding-experiment"
+    name: "New User Onboarding Flow Experiment"
+    description: "A/B test of new interactive onboarding vs. current video-based onboarding"
+    type: "experiment"
+    status: "active"
+    owner: "Jennifer Wu"
+    team: "growth"
+    createdDate: "2024-01-05"
+    expirationDate: "2024-03-05"
+
+    environments:
+      production:
+        enabled: true
+        rolloutStrategy: "experiment"
+        rolloutPercentage: 20
+
+        targetingRules:
+          - name: "New users only"
+            description: "Users created in the last 7 days"
+            clauses:
+              - attribute: "accountAge"
+                operator: "lessThanOrEqual"
+                values: [7]
+              - attribute: "hasCompletedOnboarding"
+                operator: "equals"
+                values: [false]
+            rollout:
+              percentage: 20
+              bucketBy: "userId"
+              variations:
+                - weight: 50000  # 50% = control
+                  variation: "control"
+                - weight: 25000  # 25% = variant-a (interactive)
+                  variation: "variant-a"
+                - weight: 25000  # 25% = variant-b (guided-tour)
+                  variation: "variant-b"
+
+    variations:
+      control:
+        value: "video-onboarding"
+        description: "Current video-based onboarding flow"
+      variant-a:
+        value: "interactive-onboarding"
+        description: "New interactive checklist onboarding"
+      variant-b:
+        value: "guided-tour-onboarding"
+        description: "Product tour with tooltips"
+
+    defaultVariation: "control"
+
+    experimentConfig:
+      hypothesis: "Interactive onboarding will increase activation rate from 45% to 60%"
+      primaryMetric: "activation_rate"
+      secondaryMetrics: ["time_to_first_action", "feature_discovery_count"]
+      minimumSampleSize: 1000  # per variation
+      statisticalSignificance: 0.95
+      expectedDuration: 30  # days
+      startDate: "2024-01-15"
+      endDate: "2024-02-15"
+
+    tags: ["growth", "onboarding", "experiment", "activation"]
+
+    monitoring:
+      analyticsEvents:
+        - "onboarding_started"
+        - "onboarding_step_completed"
+        - "onboarding_finished"
+        - "user_activated"
+      dashboard: "https://amplitude.com/experiments/onboarding-test"
+
+  # ---------------------------------------------------------------------------
+
+  - flagKey: "platform-payment-service-circuit-breaker-killswitch"
+    name: "Payment Service Circuit Breaker"
+    description: "Emergency kill switch to disable payment processing during critical incidents"
+    type: "killswitch"
+    status: "active"
+    owner: "David Kim"
+    team: "platform"
+    createdDate: "2023-08-01"
+    expirationDate: "2025-08-01"  # Long-lived operational flag
+
+    environments:
+      production:
+        enabled: false  # Normally disabled
+        rolloutPercentage: 0
+
+        targetingRules: []  # No targeting - affects all traffic when enabled
+
+    variations:
+      enabled:
+        value: true
+        description: "Circuit breaker OPEN - Block all payment requests"
+      disabled:
+        value: false
+        description: "Circuit breaker CLOSED - Allow payment requests"
+
+    defaultVariation: "disabled"
+
+    killswitchConfig:
+      purpose: "Emergency shutdown of payment processing"
+      triggeredBy: "SRE on-call or Incident Commander"
+      useCases:
+        - "Stripe API complete outage"
+        - "Payment database corruption detected"
+        - "PCI compliance breach requiring immediate shutdown"
+        - "Massive fraud attack in progress"
+
+      activationProcedure: |
+        1. Incident Commander declares payment system shutdown
+        2. SRE enables flag via LaunchDarkly (immediate effect)
+        3. Post in #incident-response: "Payment circuit breaker ACTIVATED"
+        4. Monitor error rates and user impact
+        5. Incident postmortem required within 24h
+
+      deactivationCriteria:
+        - "Root cause identified and mitigated"
+        - "Stripe API status page shows operational"
+        - "Database integrity verified"
+        - "Security team approves re-enabling"
+
+    monitoring:
+      alerts:
+        - name: "circuit-breaker-activated"
+          severity: "critical"
+          channels: ["pagerduty", "slack-incidents"]
+
+      impactMetrics:
+        - "blocked_payment_requests_count"
+        - "customer_error_messages_displayed"
+
+    tags: ["killswitch", "payments", "critical", "incident-response"]
+
+    lastActivated: "2023-11-22"
+    lastActivationReason: "Stripe API outage (3hr)"
+    lastActivationDuration: "180 minutes"
+
+  # ---------------------------------------------------------------------------
+
+  - flagKey: "mobile-dark-mode-ops"
+    name: "Mobile App Dark Mode"
+    description: "Enable dark mode UI theme in mobile applications"
+    type: "ops"
+    status: "active"
+    owner: "Alex Martinez"
+    team: "mobile"
+    createdDate: "2023-10-15"
+    expirationDate: "2024-07-15"
+
+    environments:
+      production:
+        enabled: true
+        rolloutPercentage: 100
+
+        targetingRules:
+          - name: "iOS users"
+            description: "Enable for iOS 13+ users"
+            clauses:
+              - attribute: "platform"
+                operator: "equals"
+                values: ["ios"]
+              - attribute: "osVersion"
+                operator: "greaterThanOrEqual"
+                values: ["13.0"]
+            rollout:
+              percentage: 100
+              variation: "enabled"
+
+          - name: "Android users"
+            description: "Enable for Android 10+ users"
+            clauses:
+              - attribute: "platform"
+                operator: "equals"
+                values: ["android"]
+              - attribute: "osVersion"
+                operator: "greaterThanOrEqual"
+                values: ["10"]
+            rollout:
+              percentage: 100
+              variation: "enabled"
+
+    variations:
+      enabled:
+        value: true
+        description: "Dark mode available in settings"
+      disabled:
+        value: false
+        description: "Light mode only"
+
+    defaultVariation: "disabled"
+
+    tags: ["mobile", "ui", "theme", "accessibility"]
+
+    removalCriteria: "Remove flag after dark mode is standard in all supported OS versions"
+
+  # ---------------------------------------------------------------------------
+
+  - flagKey: "platform-rate-limiting-v2-release"
+    name: "API Rate Limiting v2"
+    description: "New token bucket algorithm with burst capacity for API rate limiting"
+    type: "release"
+    status: "active"
+    owner: "Marcus Chen"
+    team: "platform"
+    createdDate: "2024-01-10"
+    expirationDate: "2024-04-10"
+
+    environments:
+      production:
+        enabled: true
+        rolloutPercentage: 50
+
+        targetingRules:
+          - name: "Enterprise customers"
+            description: "Enable for enterprise tier with higher burst limits"
+            clauses:
+              - attribute: "customerTier"
+                operator: "equals"
+                values: ["enterprise"]
+            rollout:
+              percentage: 100
+              variation: "v2-enterprise"
+
+          - name: "Standard customers canary"
+            description: "50% canary for standard tier"
+            clauses:
+              - attribute: "customerTier"
+                operator: "equals"
+                values: ["standard"]
+            rollout:
+              percentage: 50
+              bucketBy: "organizationId"
+              variation: "v2-standard"
+
+    variations:
+      v1-legacy:
+        value:
+          algorithm: "fixed-window"
+          rateLimit: 1000
+          window: "1h"
+        description: "Legacy fixed-window rate limiting"
+
+      v2-standard:
+        value:
+          algorithm: "token-bucket"
+          rateLimit: 1000
+          burst: 100
+          refillRate: "1000/hour"
+        description: "Token bucket with burst for standard tier"
+
+      v2-enterprise:
+        value:
+          algorithm: "token-bucket"
+          rateLimit: 10000
+          burst: 1000
+          refillRate: "10000/hour"
+        description: "Token bucket with higher limits for enterprise"
+
+    defaultVariation: "v1-legacy"
+
+    tags: ["platform", "rate-limiting", "api", "performance"]
+
+    monitoring:
+      metrics:
+        - "api_requests_throttled"
+        - "rate_limit_bucket_utilization"
+        - "burst_capacity_usage"
+
+# =============================================================================
+# ARCHIVED FLAGS (Recently Removed)
+# =============================================================================
+
+archivedFlags:
+  - flagKey: "growth-checkout-redesign-release"
+    name: "Checkout Page Redesign"
+    archivedDate: "2023-12-15"
+    archivedBy: "Jennifer Wu"
+    reason: "Fully rolled out to 100% for 90+ days, code cleanup completed"
+    finalState:
+      production: 100
+      codeRemoved: true
+      removalPR: "https://github.com/company/repo/pull/5432"
+
+    archivalMetrics:
+      daysActive: 120
+      maxRollout: 100
+      incidentsTriggered: 0
+      codePathsRemoved: 42
+
+  - flagKey: "payments-paypal-integration-experiment"
+    name: "PayPal Payment Option Experiment"
+    archivedDate: "2023-11-30"
+    archivedBy: "Sarah Chen"
+    reason: "Experiment concluded - variant-a winner, integrated as default"
+    experimentResults:
+      winner: "variant-a"
+      conversionLift: "+12.5%"
+      statisticalSignificance: 0.99
+      sampleSize: 15420
+
+    archivalMetrics:
+      daysActive: 45
+      codeRemoved: true
+      removalPR: "https://github.com/company/repo/pull/5201"
+
+# =============================================================================
+# SCHEDULED FLAGS (Future Activations)
+# =============================================================================
+
+scheduledFlags:
+  - flagKey: "notifications-push-notification-v3-release"
+    name: "Push Notifications v3"
+    scheduledActivation: "2024-02-01"
+    owner: "Olivia Carter"
+    team: "notifications"
+    description: "New FCM v1 API with enhanced targeting and rich media support"
+    initialRollout: 1  # Start at 1%
+
+  - flagKey: "search-semantic-search-experiment"
+    name: "Semantic Search Experiment"
+    scheduledActivation: "2024-02-15"
+    owner: "Tom Anderson"
+    team: "search"
+    description: "A/B test of vector embeddings vs. traditional keyword search"
+    experimentDuration: 60  # days
+
+# =============================================================================
+# FLAG DEPENDENCIES & PREREQUISITES
+# =============================================================================
+
+flagDependencies:
+  - parentFlag: "payments-stripe-payment-intents-release"
+    dependentFlags:
+      - "payments-3ds-authentication-release"
+      - "payments-webhook-v2-migration"
+    relationship: "Parent must be enabled before dependents"
+
+  - parentFlag: "platform-rate-limiting-v2-release"
+    dependentFlags:
+      - "platform-burst-alerting-ops"
+    relationship: "Dependent adds monitoring for parent feature"
+
+# =============================================================================
+# METRICS & REPORTING
+# =============================================================================
+
+metricsAndReporting:
+  activeFlagCount: 47
+  archivedFlagCount: 23
+  scheduledFlagCount: 5
+  staleFlagCount: 8  # Flags at 100% for >90 days
+
+  flagsByType:
+    release: 28
+    experiment: 12
+    killswitch: 4
+    ops: 3
+
+  flagsByTeam:
+    payments: 12
+    growth: 9
+    platform: 15
+    mobile: 6
+    search: 3
+    notifications: 2
+
+  technicalDebtScore:
+    totalFlags: 47
+    staleFlagsPercentage: 17  # 8/47
+    averageFlagAge: 145  # days
+    flagsOverMaxAge: 8
+    healthScore: 72  # out of 100
+    trend: "improving"  # Removed 23 flags last quarter
+
+  cleanupGoals:
+    Q1_2024:
+      flagsToRemove: 12
+      flagsToRefactor: 5
+      flagsToDocument: 8
+      progress:
+        removed: 3
+        refactored: 1
+        documented: 4
+
+# =============================================================================
+# INTEGRATION CONFIGURATION
+# =============================================================================
+
+integrations:
+  launchDarkly:
+    projectKey: "production-app"
+    apiEndpoint: "https://app.launchdarkly.com"
+    sdkKeys:
+      server: "sdk-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+      clientSide: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      mobile: "mob-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+
+    webhooks:
+      - name: "Flag change notifications"
+        url: "https://api.company.com/webhooks/launchdarkly"
+        events: ["flag-updated", "flag-deleted"]
+        destination: "slack-feature-flags"
+
+  monitoring:
+    datadog:
+      enabled: true
+      dashboardId: "abc-123-def-456"
+      customMetrics:
+        - "launchdarkly.flag.evaluation.count"
+        - "launchdarkly.flag.evaluation.latency"
+        - "launchdarkly.flag.change.event"
+
+    amplitude:
+      enabled: true
+      experimentTracking: true
+      cohortSync: true
+
+# =============================================================================
+# ACCESS CONTROL & PERMISSIONS
+# =============================================================================
+
+accessControl:
+  roles:
+    - role: "admin"
+      permissions: ["create", "update", "delete", "archive", "approve"]
+      members: ["marcus.chen@company.com", "sarah.johnson@company.com"]
+
+    - role: "developer"
+      permissions: ["create", "update", "view"]
+      restrictions: ["requires_approval_for_production"]
+      members: ["engineering-team@company.com"]
+
+    - role: "viewer"
+      permissions: ["view"]
+      members: ["product-team@company.com", "analytics-team@company.com"]
+
+  approvalWorkflows:
+    productionChanges:
+      required: true
+      approvers: ["engineering-manager", "staff-engineer"]
+      minimumApprovals: 1
+
+    killswitchActivation:
+      required: false  # Emergency - activate immediately
+      postActivationReview: true
+      reviewers: ["incident-commander", "engineering-manager"]
+
+# =============================================================================
+# RELATED ARTIFACTS
+# =============================================================================
+
+relatedArtifacts:
+  - type: "deployment-plan"
+    path: "deployment/deployment-plan.md"
+    relationship: "references"
+    description: "Deployment plans reference feature flag rollout schedules"
+
+  - type: "release-risk-assessment"
+    path: "deployment/release-risk-assessment.md"
+    relationship: "supports"
+    description: "Risk assessments include feature flag rollback strategies"
+
+  - type: "rollback-plan"
+    path: "deployment/rollback-plan.md"
+    relationship: "implements"
+    description: "Rollback procedures leverage feature flags for instant reversion"
+
+  - type: "incident-runbook"
+    path: "operations/runbooks/feature-flag-emergency.yaml"
+    relationship: "depends-on"
+    description: "Runbook for feature flag emergencies and kill switch activation"
+
+# =============================================================================
+# CHANGE HISTORY
+# =============================================================================
+
+changeHistory:
+  - version: "2.1.0"
+    date: "2024-01-15"
+    author: "Marcus Chen"
+    changes: "Added 3 new payment flags, archived 2 completed experiments, updated governance policies"
+
+  - version: "2.0.0"
+    date: "2023-12-01"
+    author: "Marcus Chen"
+    changes: "Migrated from Unleash to LaunchDarkly, restructured flag taxonomy"
+
+  - version: "1.5.0"
+    date: "2023-09-15"
+    author: "Jennifer Wu"
+    changes: "Added experiment tracking integration with Amplitude"
+
+  - version: "1.0.0"
+    date: "2023-06-15"
+    author: "Sarah Johnson"
+    changes: "Initial feature flag registry with 25 active flags"

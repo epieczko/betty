@@ -16,12 +16,11 @@
 
 ## Executive Summary
 
-<!-- Provide a 2-3 paragraph overview for executive audience -->
-<!-- What is this document about and why does it matter? -->
+The Post-Mortem Report is a comprehensive incident review document that captures what happened, why it happened, how it was resolved, and what actions will prevent recurrence. Following the blameless postmortem culture pioneered by Google SRE and Etsy, this artifact transforms production incidents i
 
 ## Purpose
 
-<!-- This artifact documents production incidents through comprehensive, blameless analysis including detailed timelines, root causes, impact metrics, and actionable remediation plans. It transforms failur... -->
+This artifact documents production incidents through comprehensive, blameless analysis including detailed timelines, root causes, impact metrics, and actionable remediation plans. It transforms failure into organizational learning by systematically capturing what went wrong, why it went wrong, and how to prevent recurrence, while fostering a culture of psychological safety and continuous improveme
 
 ## Scope
 
@@ -35,28 +34,12 @@
 
 ### Out of Scope
 
-- Items explicitly not covered by this artifact
+- Items explicitly not covered
 
-## Target Audience
+## Main Content
 
-### Primary Audience
-
-- SRE Teams conducting and learning from post-mortem analysis
-- Incident Commanders documenting incident response and coordination
-- Engineering Teams implementing remediation actions
-
-### Secondary Audience
-
-- Additional stakeholders who may reference this document
-
-## [Main Section 1]
-
-<!-- Complete this section with artifact-specific content -->
-<!-- Refer to the artifact description for required structure -->
-
-## [Main Section 2]
-
-<!-- Add additional sections as needed -->
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
 ## Best Practices
 
@@ -70,25 +53,21 @@
 
 **Honest Assessment**: Document both successes and failures; "what went well" is as important as "what went poorly"
 
-## Quality Checklist
+**Root Cause Focus**: Apply 5 Whys or Fishbone; don't stop at symptoms; identify fundamental causes
 
-Before finalizing this artifact, verify:
+**Actionable Items**: Every action item must have owner, deadline, and success criteria (SMART)
 
-- [ ] **Completeness**: All required sections present and adequately detailed
-- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
-- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
-- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
-- [ ] **Currency**: Based on current information; outdated content removed or updated
+**Categorize Actions**: Separate immediate fixes (done), short-term (30 days), long-term (90+ days)
 
 ## Related Documents
 
-- [Related Artifact]: Description and relationship
+- [Related Artifact]: Relationship description
 
 ## Approvals
 
 | Role | Name | Date | Status |
 |------|------|------|--------|
-| Approver | Name | YYYY-MM-DD | Pending |
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 

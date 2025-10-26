@@ -1,73 +1,53 @@
 # Localization Plan
 # See also: artifact_descriptions/localization-plan.md for complete guidance
 
-# The Localization Plan establishes the comprehensive strategy, market prioritization, resource allocation, and execution roadmap for translating and culturally adapting software products across 20-150+
+# The Localization Plan establishes the comprehensive strategy, market prioritization, resource allocation, and execution roadmap for translating and culturally adapting software products across 20-150+...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact serves as the strategic roadmap for product and content localization, defining market prioritization, resource allocation, translation methodologies, quality standards, and launch criteria for expanding to 20-150+ global locales. It solves the challenge of coordinating cross-functional...
+# This artifact serves as the strategic roadmap for product and content localization, defining market prioritization, resource allocation, translation methodologies, quality standards, and launch criteria for expanding to 20-150+ global locales. It solves the challenge of coordinating cross-functional
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Market Opportunity Analysis: Prioritize locales using TAM analysis, GDP per capita, internet penetration, payment infrastructure,
 # - Locale Tier Methodology: Define clear tier criteria (Tier 1: 100% product+content, Tier 2: 60-80% product only, Tier 3: Engli
 # - Phased Rollout Strategy: Launch locales incrementally (5-10 per quarter) enabling learning, iteration, and resource optimizat
 # - Translation Memory Leverage: Maximize TM match rates (70-90%) through consistent terminology, phraseology, and string structure r
 # - Machine Translation Strategy: Leverage MT for low-priority content (help docs, FAQs) with professional post-editing reducing costs
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
-      - "Locale prioritization methodology including market TAM analysis, revenue potential, competitive landscape, and regulatory requirements"
+    included:
+      - "Locale prioritization methodology including market TAM analysis, revenue potenti"
       - "Locale tier definitions (Tier 1"
-      - "Translation methodology strategy defining human translation, machine translation post-editing, and hybrid approaches by content type"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
+      - "Translation methodology strategy defining human translation, machine translation"
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

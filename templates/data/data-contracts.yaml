@@ -5,631 +5,380 @@ metadata:
   version: "1.0.0"
   created: "YYYY-MM-DD"
   lastModified: "YYYY-MM-DD"
-  status: "Active"  # Draft | Review | Active | Deprecated
+  status: "Draft"  # Draft | Review | Active | Deprecated
 
   # Contract Ownership
-  dataProductName: "Customer Events Data Product"
   dataProductOwner: "Data Product Owner Name"
+  dataProductName: "Customer Analytics Data Product"
   team: "Analytics Engineering Team"
-  contact: "data-team@example.com"
 
-  # Upstream Source
+  # Technical Ownership
   upstream:
-    system: "Customer Analytics Platform"
-    team: "Platform Team"
-    contact: "platform-team@example.com"
-
-  # Downstream Consumers
-  downstreamConsumers:
-    - system: "BI Dashboards"
-      team: "Business Intelligence Team"
-      contact: "bi-team@example.com"
-      criticality: "High"
-
-    - system: "ML Feature Store"
-      team: "Data Science Team"
-      contact: "ds-team@example.com"
-      criticality: "Medium"
-
-# Dataset Identification
-dataset:
-  name: "customer_events"
-  fullyQualifiedName: "analytics.production.customer_events"
-  description: |
-    Customer interaction events capturing user behavior across web and mobile platforms.
-    Includes page views, button clicks, purchases, and other user actions for analytics.
-
-  type: "table"  # table | view | stream | file | api
-  platform: "Snowflake"  # Snowflake | BigQuery | Redshift | Databricks | Delta Lake
-  location: "s3://analytics-data/production/customer_events/"
-  format: "parquet"  # parquet | avro | json | csv | orc
-
-# Service Level Agreement (SLA)
-sla:
-  # Data Freshness
-  freshness:
-    maxStaleness: "15 minutes"
-    description: "Events appear in warehouse within 15 minutes of occurrence"
-    freshnessCheckColumn: "event_timestamp"
-    updateSchedule: "Continuous (streaming)"
-    alertThreshold: "30 minutes"
-    measurement: "MAX(CURRENT_TIMESTAMP - event_timestamp)"
-
-  # Availability
-  availability:
-    uptime: "99.9%"  # 99.9% = ~43 minutes downtime/month
-    calculation: "Monthly"
-    maintenanceWindows:
-      - day: "Sunday"
-        startTime: "02:00 UTC"
-        duration: "2 hours"
-        frequency: "First Sunday of month"
-
-  # Data Completeness
-  completeness:
-    expectedRowsPerDay: 1000000
-    tolerance: 0.05  # ±5% variance acceptable
-    minimumRows: 950000
-    maximumRows: 1050000
-    checkSchedule: "0 1 * * *"  # Daily at 1 AM UTC
-    alertOnBreach: true
-
-  # Latency
-  latency:
-    p50: "5 seconds"
-    p95: "15 seconds"
-    p99: "30 seconds"
-    description: "Time from event occurrence to availability in warehouse"
-
-  # Response Time
-  queryPerformance:
-    simpleQuery: "< 5 seconds"
-    complexAggregation: "< 30 seconds"
-    fullTableScan: "< 2 minutes"
-
-# Schema Definition
-schema:
-  # Schema Format
-  schemaFormat: "avro"  # avro | protobuf | json-schema | parquet
-  compatibilityMode: "BACKWARD"  # BACKWARD | FORWARD | FULL | NONE
-  schemaRegistry: "Confluent Schema Registry"
-  schemaVersion: "1.0.0"
-
-  # Fields
-  fields:
-    - name: "event_id"
-      type: "string"
-      nullable: false
-      primaryKey: true
-      description: "Unique identifier for the event (UUID v4 format)"
-      example: "550e8400-e29b-41d4-a716-446655440000"
-      businessGlossary: "Unique event identifier"
-      semanticType: "identifier"
-      constraints:
-        - type: "regex"
-          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
-        - type: "uniqueness"
-          threshold: 1.0  # 100% unique
-
-    - name: "customer_id"
-      type: "string"
-      nullable: false
-      description: "Customer identifier from CRM system"
-      example: "CUST-12345"
-      businessGlossary: "Unique customer identifier"
-      semanticType: "identifier"
-      pii: true
-      classification: "Confidential"
-      foreignKey:
-        table: "customers"
-        column: "customer_id"
-        relationship: "many-to-one"
-      constraints:
-        - type: "not_null"
-        - type: "length"
-          min: 1
-          max: 50
-        - type: "referential_integrity"
-          referencedTable: "customers"
-
-    - name: "event_type"
-      type: "string"
-      nullable: false
-      description: "Category of user interaction"
-      example: "page_view"
-      businessGlossary: "Type of customer interaction event"
-      semanticType: "category"
-      constraints:
-        - type: "enum"
-          values:
-            - "page_view"
-            - "button_click"
-            - "form_submit"
-            - "purchase"
-            - "signup"
-            - "login"
-            - "logout"
-            - "add_to_cart"
-            - "remove_from_cart"
-          allowOther: false
-
-    - name: "event_timestamp"
-      type: "timestamp"
-      nullable: false
-      description: "When the event occurred (UTC timezone)"
-      example: "2025-10-26T14:30:00Z"
-      businessGlossary: "Event occurrence time"
-      semanticType: "timestamp"
-      timezone: "UTC"
-      format: "ISO 8601"
-      constraints:
-        - type: "not_null"
-        - type: "not_future"
-        - type: "within_range"
-          minDaysAgo: 90
-          maxDaysAgo: 0
-
-    - name: "event_properties"
-      type: "json"
-      nullable: true
-      description: "Event-specific properties as JSON object"
-      example: '{"page_url": "/products/123", "referrer": "https://google.com"}'
-      businessGlossary: "Additional event metadata"
-      semanticType: "structured_data"
-      schemaValidation:
-        type: "json_schema"
-        schema: |
-          {
-            "type": "object",
-            "properties": {
-              "page_url": {"type": "string"},
-              "referrer": {"type": "string"},
-              "product_id": {"type": "string"}
-            }
-          }
-
-    - name: "session_id"
-      type: "string"
-      nullable: true
-      description: "User session identifier"
-      example: "sess_9f8e7d6c5b4a"
-      semanticType: "identifier"
-      constraints:
-        - type: "length"
-          max: 100
-
-    - name: "user_agent"
-      type: "string"
-      nullable: true
-      description: "Browser user agent string"
-      example: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-      semanticType: "text"
-      constraints:
-        - type: "length"
-          max: 500
-
-    - name: "ip_address"
-      type: "string"
-      nullable: true
-      description: "Client IP address (last octet anonymized for privacy)"
-      example: "192.168.1.0"
-      pii: true
-      classification: "Confidential"
-      anonymization: "Last octet masked"
-      semanticType: "network_address"
-      constraints:
-        - type: "regex"
-          pattern: "^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$"
-
-    - name: "device_type"
-      type: "string"
-      nullable: true
-      description: "Type of device (derived from user agent)"
-      example: "desktop"
-      semanticType: "category"
-      derivedFrom: "user_agent"
-      constraints:
-        - type: "enum"
-          values: ["desktop", "mobile", "tablet", "unknown"]
-
-    - name: "country_code"
-      type: "string"
-      nullable: true
-      description: "ISO 3166-1 alpha-2 country code"
-      example: "US"
-      semanticType: "location"
-      derivedFrom: "ip_address"
-      constraints:
-        - type: "regex"
-          pattern: "^[A-Z]{2}$"
-
-    - name: "created_at"
-      type: "timestamp"
-      nullable: false
-      description: "When record was created in data warehouse"
-      systemGenerated: true
-      semanticType: "system_timestamp"
-      default: "CURRENT_TIMESTAMP"
-
-    - name: "updated_at"
-      type: "timestamp"
-      nullable: false
-      description: "When record was last updated"
-      systemGenerated: true
-      semanticType: "system_timestamp"
-      default: "CURRENT_TIMESTAMP"
-      onUpdate: "CURRENT_TIMESTAMP"
-
-    - name: "_partition_date"
-      type: "date"
-      nullable: false
-      description: "Partition key (event date in UTC)"
-      partitionKey: true
-      systemGenerated: true
-      derivedFrom: "event_timestamp"
-      format: "YYYY-MM-DD"
-
-  # Partitioning Strategy
-  partitioning:
-    enabled: true
-    strategy: "date"
-    field: "_partition_date"
-    granularity: "day"
-    retention: "730 days"  # 2 years
-    pruning: "Automatic after retention period"
-
-  # Clustering/Sorting (for query optimization)
-  clustering:
-    enabled: true
-    fields: ["customer_id", "event_type", "event_timestamp"]
-    orderBy: ["event_timestamp DESC"]
-
-  # Indexes
-  indexes:
-    - name: "idx_customer_id"
-      fields: ["customer_id"]
-      type: "btree"
-
-    - name: "idx_event_timestamp"
-      fields: ["event_timestamp"]
-      type: "btree"
-
-# Data Quality Rules
-qualityRules:
-  - id: "DQ-001"
-    name: "event_id_uniqueness"
-    type: "uniqueness"
-    field: "event_id"
-    threshold: 1.0  # 100% unique
-    severity: "critical"
-    action: "Block ingestion if failed"
-    description: "Event IDs must be globally unique"
-
-  - id: "DQ-002"
-    name: "customer_id_completeness"
-    type: "completeness"
-    field: "customer_id"
-    threshold: 0.99  # 99% non-null
-    severity: "critical"
-    action: "Alert if threshold breached"
-    description: "Customer ID should be present for 99% of events"
-
-  - id: "DQ-003"
-    name: "event_type_validity"
-    type: "validity"
-    field: "event_type"
-    validValues: ["page_view", "button_click", "form_submit", "purchase", "signup", "login", "logout", "add_to_cart", "remove_from_cart"]
-    threshold: 1.0  # 100% valid
-    severity: "high"
-    action: "Quarantine invalid records"
-
-  - id: "DQ-004"
-    name: "timestamp_freshness"
-    type: "timeliness"
-    field: "event_timestamp"
-    maxAge: "24 hours"
-    severity: "medium"
-    description: "Event timestamps should not be older than 24 hours"
-
-  - id: "DQ-005"
-    name: "row_count_consistency"
-    type: "volume"
-    minRows: 950000
-    maxRows: 1050000
-    period: "daily"
-    severity: "high"
-    description: "Daily row count should be within ±5% of expected 1M"
-
-  - id: "DQ-006"
-    name: "referential_integrity_customers"
-    type: "referential_integrity"
-    field: "customer_id"
-    referencedTable: "customers"
-    referencedColumn: "customer_id"
-    threshold: 0.95  # 95% of customer_ids should exist in customers table
-    severity: "medium"
-
-  - id: "DQ-007"
-    name: "ip_address_format"
-    type: "format"
-    field: "ip_address"
-    pattern: "^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$"
-    threshold: 1.0
-    severity: "low"
-    allowNull: true
-
-# Data Lineage
-lineage:
-  upstream:
-    - source: "kafka://events-cluster/customer-events-topic"
-      type: "streaming"
-      updateFrequency: "Real-time"
-      transformations:
-        - name: "schema_validation"
-          description: "Validate against Avro schema"
-        - name: "pii_anonymization"
-          description: "Anonymize IP address last octet"
-        - name: "timezone_conversion"
-          description: "Convert all timestamps to UTC"
-        - name: "device_detection"
-          description: "Parse user_agent to derive device_type"
-        - name: "geo_enrichment"
-          description: "Derive country_code from ip_address"
-
-    - source: "postgres://crm-db/public/customers"
-      type: "batch"
-      updateFrequency: "Daily"
-      purpose: "Customer ID validation"
-      joinCondition: "customer_events.customer_id = customers.id"
+    system: "CRM System"
+    owner: "CRM Team"
+    contact: "crm-team@example.com"
 
   downstream:
-    - destination: "analytics.marts.customer_behavior"
-      type: "materialized_view"
-      updateFrequency: "Hourly"
-      transformations:
-        - name: "event_aggregation"
-          description: "Aggregate events by customer and day"
-        - name: "session_calculation"
-          description: "Calculate session metrics"
+    - system: "Analytics Dashboard"
+      owner: "BI Team"
+      contact: "bi-team@example.com"
+    - system: "ML Training Pipeline"
+      owner: "Data Science Team"
+      contact: "ds-team@example.com"
 
-    - destination: "ml.features.customer_features"
-      type: "feature_store"
-      updateFrequency: "Daily"
-      transformations:
-        - name: "feature_engineering"
-          description: "Calculate behavioral features for ML models"
+# Contract Definition
+contract:
+  # Dataset Identifier
+  dataset:
+    name: "customer_events"
+    fullyQualifiedName: "analytics.production.customer_events"
+    type: "table"  # table | view | stream | file | api
+    platform: "Snowflake"  # Snowflake | BigQuery | Redshift | Databricks | S3
 
-    - destination: "reports.dashboards.customer_analytics"
-      type: "bi_dashboard"
-      updateFrequency: "Real-time"
-      tool: "Looker"
+  # Service Level Agreement (SLA)
+  sla:
+    # Data Freshness
+    freshness:
+      maxStaleness: "15 minutes"
+      freshnessCheck: "event_timestamp"
+      schedule: "*/15 * * * *"  # Every 15 minutes
+      alertThreshold: "30 minutes"
 
-# Privacy & Compliance
-privacy:
-  containsPII: true
-  piiFields:
-    - field: "customer_id"
-      type: "identifier"
-      handling: "Encrypted in transit, access-controlled"
+    # Availability
+    availability:
+      uptime: "99.9%"
+      maintenanceWindows:
+        - day: "Sunday"
+          startTime: "02:00 UTC"
+          duration: "2 hours"
 
-    - field: "ip_address"
-      type: "network_identifier"
-      handling: "Last octet anonymized, retained for 90 days then fully anonymized"
+    # Completeness
+    completeness:
+      expectedRowsPerDay: 1000000
+      tolerance: 0.05  # 5% variance acceptable
+      checkSchedule: "0 1 * * *"  # Daily at 1 AM
 
-  dataClassification: "Confidential"
+    # Latency
+    latency:
+      p50: "5 seconds"
+      p95: "15 seconds"
+      p99: "30 seconds"
 
-  regulations:
-    - name: "GDPR"
-      applicability: "EU customers"
-      requirements:
-        - "Right to erasure: customer_id must support deletion"
-        - "Data minimization: Anonymize IP after 90 days"
-        - "Purpose limitation: Only use for analytics, not advertising"
+  # Schema Definition
+  schema:
+    format: "avro"  # avro | parquet | json | protobuf
+    compatibility: "BACKWARD"  # BACKWARD | FORWARD | FULL | NONE
 
-    - name: "CCPA"
-      applicability: "California residents"
-      requirements:
-        - "Right to deletion"
-        - "Right to opt-out of sale"
-        - "Disclosure of data collection purposes"
+    fields:
+      - name: "event_id"
+        type: "string"
+        required: true
+        primaryKey: true
+        description: "Unique identifier for the event (UUID v4)"
+        example: "550e8400-e29b-41d4-a716-446655440000"
+        constraints:
+          - type: "regex"
+            pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
 
-  dataRetention:
-    period: "730 days"  # 2 years
-    method: "Hard delete"
-    partialRetention:
-      - field: "ip_address"
-        period: "90 days"
-        afterAction: "Fully anonymize (replace with 0.0.0.0)"
-    deletionSchedule: "Monthly automated job"
+      - name: "customer_id"
+        type: "string"
+        required: true
+        foreignKey:
+          table: "customers"
+          column: "customer_id"
+        description: "Customer identifier"
+        pii: true
+        classification: "Confidential"
+        constraints:
+          - type: "not_null"
+          - type: "length"
+            min: 1
+            max: 50
 
-# Access Control
-access:
-  readAccess:
-    - role: "analytics_engineer"
-      scope: "all_fields"
-      purpose: "Data pipeline development"
-      approvalRequired: false
+      - name: "event_type"
+        type: "string"
+        required: true
+        description: "Type of customer event"
+        example: "page_view"
+        constraints:
+          - type: "enum"
+            values:
+              - "page_view"
+              - "button_click"
+              - "purchase"
+              - "signup"
+              - "login"
 
-    - role: "data_scientist"
-      scope: "all_fields"
-      purpose: "ML model development"
-      approvalRequired: true
-      approver: "Data Governance Team"
+      - name: "event_timestamp"
+        type: "timestamp"
+        required: true
+        description: "When the event occurred (UTC)"
+        example: "2025-01-15T10:30:00Z"
+        constraints:
+          - type: "not_null"
+          - type: "not_future"
 
-    - role: "bi_analyst"
-      scope: "non_pii_fields"
-      excludedFields: ["ip_address", "customer_id"]
-      purpose: "Business intelligence reporting"
-      approvalRequired: false
+      - name: "event_properties"
+        type: "json"
+        required: false
+        description: "Event-specific properties as JSON object"
+        example: '{"page": "/products", "referrer": "google"}'
 
-    - role: "business_user"
-      scope: "aggregated_only"
-      directAccessAllowed: false
-      purpose: "Dashboard viewing only"
+      - name: "user_agent"
+        type: "string"
+        required: false
+        description: "Browser user agent string"
+        constraints:
+          - type: "length"
+            max: 500
 
-  writeAccess:
-    - role: "etl_service_account"
-      operations: ["INSERT"]
-      scope: "all_fields"
+      - name: "ip_address"
+        type: "string"
+        required: false
+        description: "Client IP address (anonymized)"
+        pii: true
+        classification: "Confidential"
+        constraints:
+          - type: "regex"
+            pattern: "^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$"
 
-  maskingRules:
-    - field: "customer_id"
-      role: "bi_analyst"
-      maskingType: "hash"
+      - name: "session_id"
+        type: "string"
+        required: false
+        description: "Session identifier"
 
-    - field: "ip_address"
-      role: "data_scientist"
-      maskingType: "partial"  # Show first 3 octets only
+      - name: "created_at"
+        type: "timestamp"
+        required: true
+        description: "When record was created in data warehouse"
+        systemGenerated: true
 
-# Monitoring & SLI
+      - name: "updated_at"
+        type: "timestamp"
+        required: true
+        description: "When record was last updated"
+        systemGenerated: true
+
+      - name: "_partition_date"
+        type: "date"
+        required: true
+        description: "Partition key (event date)"
+        partitionKey: true
+        systemGenerated: true
+
+    # Partitioning Strategy
+    partitioning:
+      type: "date"
+      field: "_partition_date"
+      granularity: "day"
+      retention: "2 years"
+
+    # Clustering/Sorting
+    clustering:
+      fields: ["customer_id", "event_type", "event_timestamp"]
+
+  # Data Quality Rules
+  qualityRules:
+    - name: "event_id_uniqueness"
+      type: "uniqueness"
+      field: "event_id"
+      threshold: 1.0  # 100% unique
+      severity: "critical"
+
+    - name: "customer_id_not_null"
+      type: "completeness"
+      field: "customer_id"
+      threshold: 0.99  # 99% complete
+      severity: "critical"
+
+    - name: "event_type_valid_values"
+      type: "validity"
+      field: "event_type"
+      validValues: ["page_view", "button_click", "purchase", "signup", "login"]
+      threshold: 1.0
+      severity: "high"
+
+    - name: "timestamp_freshness"
+      type: "timeliness"
+      field: "event_timestamp"
+      maxAge: "24 hours"
+      severity: "medium"
+
+    - name: "row_count_consistency"
+      type: "volume"
+      minRows: 950000  # 95% of expected 1M
+      maxRows: 1050000  # 105% of expected 1M
+      period: "daily"
+      severity: "high"
+
+  # Data Lineage
+  lineage:
+    upstream:
+      - source: "kafka://events-cluster/customer-events"
+        type: "streaming"
+        transformations:
+          - "Schema validation"
+          - "PII anonymization"
+          - "Timestamp conversion to UTC"
+
+      - source: "postgres://crm-db/customers"
+        type: "batch"
+        joinCondition: "customer_events.customer_id = customers.id"
+        transformations:
+          - "Customer ID enrichment"
+
+    downstream:
+      - destination: "analytics.marts.customer_behavior"
+        type: "materialized_view"
+        transformations:
+          - "Event aggregation by customer"
+          - "Session calculation"
+
+      - destination: "ml.features.customer_features"
+        type: "feature_store"
+        transformations:
+          - "Feature engineering pipeline"
+
+  # Data Classification & Privacy
+  privacy:
+    containsPII: true
+    piiFields: ["customer_id", "ip_address"]
+    dataClassification: "Confidential"
+
+    regulations:
+      - name: "GDPR"
+        applicability: "EU customers"
+        requirements:
+          - "Right to erasure (customer_id must be deletable)"
+          - "Data minimization (anonymize IP after 90 days)"
+
+      - name: "CCPA"
+        applicability: "California customers"
+        requirements:
+          - "Right to deletion"
+          - "Do not sell customer data"
+
+    retention:
+      period: "2 years"
+      deletionMethod: "Hard delete"
+      exceptions: []
+
+  # Access Control
+  access:
+    readAccess:
+      - role: "analytics_engineer"
+        scope: "all_fields"
+
+      - role: "data_scientist"
+        scope: "all_fields"
+        purpose: "ML model training"
+
+      - role: "bi_analyst"
+        scope: "non_pii_fields"
+        excludedFields: ["ip_address", "customer_id"]
+
+    writeAccess:
+      - role: "etl_service_account"
+        operations: ["INSERT", "UPDATE"]
+
+    approvalRequired: true
+    approver: "Data Governance Team"
+
+# Service Level Indicators (SLI)
 sli:
   - metric: "data_freshness"
     measurement: "MAX(CURRENT_TIMESTAMP - event_timestamp)"
     target: "< 15 minutes"
-    critical_threshold: "> 30 minutes"
     query: |
-      SELECT MAX(CURRENT_TIMESTAMP - event_timestamp) AS staleness_minutes
+      SELECT MAX(CURRENT_TIMESTAMP - event_timestamp) AS staleness
       FROM analytics.production.customer_events
       WHERE _partition_date = CURRENT_DATE
 
   - metric: "completeness"
     measurement: "COUNT(*) / expected_count"
     target: "> 95%"
-    critical_threshold: "< 90%"
     query: |
-      SELECT
-        COUNT(*) AS actual_rows,
-        1000000 AS expected_rows,
-        (COUNT(*) / 1000000.0) * 100 AS completeness_pct
+      SELECT COUNT(*) AS actual_rows,
+             1000000 AS expected_rows,
+             COUNT(*) / 1000000.0 AS completeness_ratio
       FROM analytics.production.customer_events
       WHERE _partition_date = CURRENT_DATE
 
-  - metric: "quality_score"
-    measurement: "passed_rules / total_rules"
-    target: "> 98%"
-    critical_threshold: "< 95%"
-    query: |
-      SELECT
-        SUM(CASE WHEN rule_passed THEN 1 ELSE 0 END) / COUNT(*) * 100 AS quality_score
-      FROM data_quality.rule_results
-      WHERE table_name = 'customer_events'
-        AND run_date = CURRENT_DATE
-
-# Alerts & Notifications
+# Alerts & Monitoring
 monitoring:
   alerts:
-    - name: "freshness_sla_breach"
+    - name: "data_freshness_sla_breach"
       condition: "staleness > 30 minutes"
       severity: "critical"
       notification:
         - channel: "pagerduty"
           team: "data-platform-oncall"
         - channel: "slack"
-          channel: "#data-alerts-critical"
+          channel: "#data-alerts"
 
-    - name: "completeness_below_threshold"
-      condition: "daily_row_count < 950000 OR daily_row_count > 1050000"
+    - name: "quality_rule_failure"
+      condition: "any quality rule fails"
       severity: "high"
       notification:
         - channel: "slack"
           channel: "#data-quality"
+
+    - name: "volume_anomaly"
+      condition: "row_count outside expected range"
+      severity: "medium"
+      notification:
         - channel: "email"
           recipients: ["data-team@example.com"]
 
-    - name: "quality_rule_failure"
-      condition: "any critical quality rule fails"
-      severity: "high"
-      notification:
-        - channel: "slack"
-          channel: "#data-quality"
-
-    - name: "schema_drift_detected"
-      condition: "schema change not matching contract"
-      severity: "critical"
-      notification:
-        - channel: "pagerduty"
-          team: "data-platform-oncall"
-      action: "Block pipeline execution"
-
   dashboard:
-    url: "https://monitoring.example.com/dashboards/customer-events-contract"
+    url: "https://monitoring.example.com/dashboards/customer-events"
     metrics:
-      - "Row count trend (last 30 days)"
-      - "Freshness SLI (last 24 hours)"
-      - "Quality rules pass rate"
-      - "Query performance (p50, p95, p99)"
-      - "Schema evolution history"
+      - "Row count trend"
+      - "Freshness over time"
+      - "Quality rule pass rate"
+      - "Query performance"
 
 # Testing & Validation
 testing:
-  preDeployment:
-    - test: "schema_compatibility_check"
-      description: "Verify schema changes are backward compatible"
-      tool: "Confluent Schema Registry compatibility check"
-      blocking: true
+  unitTests:
+    - name: "schema_validation"
+      description: "Validate all rows conform to schema"
+      frequency: "every pipeline run"
 
-    - test: "quality_rules_validation"
-      description: "Run all quality rules on sample data"
-      tool: "Great Expectations"
-      blocking: true
+    - name: "quality_rules_check"
+      description: "Run all quality rules"
+      frequency: "every pipeline run"
 
-    - test: "performance_regression"
-      description: "Ensure query performance hasn't degraded"
-      tool: "dbt test"
-      blocking: false
+  integrationTests:
+    - name: "end_to_end_latency"
+      description: "Measure source to warehouse latency"
+      frequency: "hourly"
 
-  continuous:
-    - test: "freshness_check"
-      frequency: "Every 15 minutes"
-      tool: "dbt freshness"
+    - name: "downstream_compatibility"
+      description: "Ensure downstream systems can consume data"
+      frequency: "on schema change"
 
-    - test: "quality_rules_execution"
-      frequency: "Every pipeline run"
-      tool: "Great Expectations"
-
-    - test: "row_count_anomaly_detection"
-      frequency: "Hourly"
-      tool: "Monte Carlo / Anomalo"
-
-# Schema Evolution
+# Contract Evolution
 evolution:
-  versioningStrategy: "Semantic Versioning"
   compatibilityMode: "BACKWARD"
 
   allowedChanges:
-    - "Add optional field (MINOR version bump)"
-    - "Add new enum value (MINOR version bump)"
-    - "Expand field size/precision (MINOR version bump)"
-    - "Relax constraint (e.g., make field nullable - MINOR version bump)"
+    - "Add optional field"
+    - "Remove deprecated field (after 6 months notice)"
+    - "Expand enum values"
 
   prohibitedChanges:
-    - "Remove field (MAJOR version bump required)"
-    - "Change field type (MAJOR version bump required)"
-    - "Rename field (MAJOR version bump required)"
-    - "Remove enum value (MAJOR version bump required)"
-    - "Tighten constraint (MAJOR version bump required)"
+    - "Remove required field"
+    - "Change field type"
+    - "Rename field"
+    - "Remove enum value"
 
   deprecationPolicy:
-    noticePeriod: "90 days"
+    noticePerio: "6 months"
     communicationChannels:
       - "Email to downstream consumers"
       - "Data catalog annotation"
-      - "Slack #data-contracts channel"
-      - "Monthly data governance meeting"
-
-    deprecationProcess:
-      - step: 1
-        action: "Announce deprecation"
-        timeline: "T-90 days"
-      - step: 2
-        action: "Add deprecation warnings in data catalog"
-        timeline: "T-90 days"
-      - step: 3
-        action: "Confirm consumers have migrated"
-        timeline: "T-30 days"
-      - step: 4
-        action: "Remove deprecated field/contract"
-        timeline: "T-0"
+      - "Slack announcement"
 
 # Documentation
 documentation:
@@ -637,74 +386,33 @@ documentation:
     - term: "customer_id"
       definition: "Unique identifier for a customer in the CRM system"
       businessOwner: "Product Team"
-      technicalOwner: "Data Platform Team"
 
     - term: "event_type"
-      definition: "Category of user interaction tracked for behavioral analytics"
+      definition: "Category of user interaction tracked for analytics"
       businessOwner: "Analytics Team"
 
-    - term: "session_id"
-      definition: "Identifier grouping related user events within a time window"
-      businessOwner: "Product Team"
-
   usageExamples:
-    - title: "Get events for specific customer (last 7 days)"
-      language: "sql"
-      code: |
+    - title: "Get events for specific customer"
+      query: |
         SELECT *
         FROM analytics.production.customer_events
         WHERE customer_id = 'CUST-12345'
-          AND _partition_date >= CURRENT_DATE - INTERVAL '7 days'
-        ORDER BY event_timestamp DESC
+          AND _partition_date >= CURRENT_DATE - 7
 
-    - title: "Count events by type (today)"
-      language: "sql"
-      code: |
-        SELECT
-          event_type,
-          COUNT(*) AS event_count,
-          COUNT(DISTINCT customer_id) AS unique_customers
+    - title: "Count events by type"
+      query: |
+        SELECT event_type, COUNT(*) AS event_count
         FROM analytics.production.customer_events
         WHERE _partition_date = CURRENT_DATE
         GROUP BY event_type
-        ORDER BY event_count DESC
-
-    - title: "Calculate conversion funnel"
-      language: "sql"
-      code: |
-        WITH funnel AS (
-          SELECT
-            customer_id,
-            MAX(CASE WHEN event_type = 'page_view' THEN 1 ELSE 0 END) AS viewed,
-            MAX(CASE WHEN event_type = 'add_to_cart' THEN 1 ELSE 0 END) AS added_to_cart,
-            MAX(CASE WHEN event_type = 'purchase' THEN 1 ELSE 0 END) AS purchased
-          FROM analytics.production.customer_events
-          WHERE _partition_date >= CURRENT_DATE - INTERVAL '30 days'
-          GROUP BY customer_id
-        )
-        SELECT
-          SUM(viewed) AS total_views,
-          SUM(added_to_cart) AS total_add_to_cart,
-          SUM(purchased) AS total_purchases,
-          (SUM(added_to_cart) * 100.0 / NULLIF(SUM(viewed), 0)) AS cart_conversion_rate,
-          (SUM(purchased) * 100.0 / NULLIF(SUM(added_to_cart), 0)) AS purchase_conversion_rate
-        FROM funnel
-
-  relatedContracts:
-    - contract: "customers_data_contract"
-      relationship: "Referenced for customer_id validation"
-
-    - contract: "sessions_data_contract"
-      relationship: "Downstream consumer"
 
 # Change History
 changeHistory:
   - version: "1.0.0"
-    date: "2025-10-26"
+    date: "YYYY-MM-DD"
     author: "Data Product Owner"
     changes: "Initial data contract"
     breaking: false
-    migrations: []
 
 # Approvals
 approvals:
@@ -719,11 +427,6 @@ approvals:
     status: "Pending"
 
   - role: "Downstream Consumer Representative"
-    name: ""
-    date: null
-    status: "Pending"
-
-  - role: "Privacy Officer"
     name: ""
     date: null
     status: "Pending"

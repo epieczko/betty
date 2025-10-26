@@ -1,73 +1,53 @@
 # Provenance Attestations
 # See also: artifact_descriptions/provenance-attestations.md for complete guidance
 
-# The Provenance Attestations artifact provides cryptographically-signed build provenance records using SLSA (Supply-chain Levels for Software Artifacts), in-toto, and Sigstore frameworks to establish t
+# The Provenance Attestations artifact provides cryptographically-signed build provenance records using SLSA (Supply-chain Levels for Software Artifacts), in-toto, and Sigstore frameworks to establish t...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact serves as the implementation guide for generating, signing, and verifying cryptographic provenance attestations using SLSA, in-toto, and Sigstore. It documents how to instrument CI/CD pipelines to automatically generate SLSA provenance, sign artifacts with Sigstore (Cosign), and verify...
+# This artifact serves as the implementation guide for generating, signing, and verifying cryptographic provenance attestations using SLSA, in-toto, and Sigstore. It documents how to instrument CI/CD pipelines to automatically generate SLSA provenance, sign artifacts with Sigstore (Cosign), and verify
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - SLSA Level 2 Minimum: Achieve SLSA Level 2 (hosted build, signed provenance) as baseline for all production artifacts
 # - Keyless Signing: Use Sigstore Fulcio keyless signing to avoid long-lived private key management burden
 # - Automated Provenance: Generate SLSA provenance automatically in CI/CD; never manually create provenance
 # - Builder Identity: Use OIDC identity from GitHub Actions, GitLab CI as signer identity (no service accounts with keys)
 # - Transparency Logging: Record all signatures in Rekor transparency log for public accountability
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
-      - "SLSA (Supply-chain Levels for Software Artifacts) provenance generation for builds (SLSA Levels 1-4)"
+    included:
+      - "SLSA (Supply-chain Levels for Software Artifacts) provenance generation for buil"
       - "in-toto attestations documenting build steps and artifact transformations"
-      - "Sigstore signing (Cosign for container images, Rekor transparency log, Fulcio keyless signing)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
+      - "Sigstore signing (Cosign for container images, Rekor transparency log, Fulcio ke"
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

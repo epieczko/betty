@@ -1,73 +1,53 @@
 # Subprocessor Notifications
 # See also: artifact_descriptions/subprocessor-notifications.md for complete guidance
 
-# The Subprocessor Notifications artifact provides legally-compliant templates for notifying customers of subprocessor changes, additions, and removals as required by GDPR Article 28, CCPA service provi
+# The Subprocessor Notifications artifact provides legally-compliant templates for notifying customers of subprocessor changes, additions, and removals as required by GDPR Article 28, CCPA service provi...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact serves as the template library for notifying customers of changes to the subprocessor list, ensuring compliance with GDPR Article 28(2), DPA contractual requirements, and CCPA service provider notification obligations. Templates define what information to communicate (subprocessor name...
+# This artifact serves as the template library for notifying customers of changes to the subprocessor list, ensuring compliance with GDPR Article 28(2), DPA contractual requirements, and CCPA service provider notification obligations. Templates define what information to communicate (subprocessor name
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - 30-Day Advance Notice: Provide 30 days notice before new subprocessor begins processing customer data (GDPR Article 28 and 
 # - Complete Vetting First: Complete security assessment and DPA execution before notifying customers (demonstrate due diligence
 # - Specific Data Access Scope: Clearly state what customer data the subprocessor will access (PII, usage data, metadata, no data ac
 # - Subprocessor Location: Specify data processing location and applicable data transfer mechanisms (SCCs for non-EU)
 # - Compliance Status: Include subprocessor's SOC 2, ISO 27001, or other compliance certifications in notification
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
-      - "New subprocessor addition notifications (30-day advance notice per GDPR Article 28 and DPA terms)"
+    included:
+      - "New subprocessor addition notifications (30-day advance notice per GDPR Article "
       - "Subprocessor removal notifications (immediate notice upon vendor offboarding)"
       - "Subprocessor replacement notifications (vendor substitution scenarios)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

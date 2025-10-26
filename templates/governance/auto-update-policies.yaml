@@ -1,73 +1,53 @@
 # Auto Update Policies
 # See also: artifact_descriptions/auto-update-policies.md for complete guidance
 
-# The Auto Update Policies artifact defines governance rules for automated dependency, package, and system updates across infrastructure and application stacks. This policy establishes risk-based approv
+# The Auto Update Policies artifact defines governance rules for automated dependency, package, and system updates across infrastructure and application stacks. This policy establishes risk-based approv...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# Defines automated update policies for dependencies, packages, OS patches, and infrastructure components, specifying which updates can auto-merge, which require human approval, and testing requirements for each category to balance security patching velocity with system stability....
+# Defines automated update policies for dependencies, packages, OS patches, and infrastructure components, specifying which updates can auto-merge, which require human approval, and testing requirements for each category to balance security patching velocity with system stability.
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Semantic Versioning Auto-Merge: Auto-merge patch versions (1.2.3 → 1.2.4) for dependencies with passing tests; require manual review
 # - Security CVE SLA Enforcement: Critical vulnerabilities (CVSS 9.0+) patched within 24 hours; High (7.0-8.9) within 7 days; Medium (
 # - Dependabot Grouped PRs: Configure Dependabot to group related dependencies (e.g., all React packages) into single PRs to red
 # - Renovate Automerge Conditions: Set Renovate to auto-merge only if CI passes, age of package >3 days (avoiding 0-day releases), and 
 # - Blue-Green Deployment for OS Patches: Deploy patches to green fleet (new instances/containers) while keeping blue fleet running; cutover t
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
-      - "Dependabot/Renovate Bot configuration for application dependencies (npm, pip, Maven, Go modules)"
-      - "OS patch management policies for EC2, containers, and VMs using AWS SSM, Ansible, or Chef"
+    included:
+      - "Dependabot/Renovate Bot configuration for application dependencies (npm, pip, Ma"
+      - "OS patch management policies for EC2, containers, and VMs using AWS SSM, Ansible"
       - "Kubernetes cluster auto-upgrades (EKS, GKE, AKS control plane and node pools)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

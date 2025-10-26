@@ -1,0 +1,55 @@
+# Cmp Configurations
+# See also: artifact_descriptions/cmp-configurations.md for complete guidance
+
+# The CMP Configurations artifact documents the technical and operational settings for Consent Management Platforms (CMPs) such as OneTrust, TrustArc, Cookiebot, Osano, and Usercentrics. This artifact e...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This artifact documents the complete configuration specification for Consent Management Platform (CMP) deployments, ensuring privacy-compliant consent collection across all digital touchpoints. It serves as the authoritative reference for CMP technical settings, banner designs, purpose definitions, 
+
+# BEST PRACTICES
+# - Consent Banner Optimization: Design banners for minimal friction while maintaining compliance - avoid dark patterns, use clear la
+# - A/B Testing for Consent Rates: Systematically test banner copy, button colors, positioning (bottom vs top), and interaction models 
+# - Purpose Granularity: Configure specific, granular purposes rather than bundled consent - allow users to accept analytics 
+# - Geo-Targeting Accuracy: Implement IP geolocation with 99%+ accuracy using MaxMind GeoIP2 or IP2Location to serve jurisdictio
+# - IAB TCF 2.2 Compliance: Register as CMP with IAB, implement TC String v2.0 correctly, sync with Global Vendor List weekly, v
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "CMP platform configurations for OneTrust, TrustArc, Cookiebot, Osano, Usercentri"
+      - "Consent banner design specifications including layout, copy, button styling, and"
+      - "IAB TCF 2.2 Global Vendor List (GVL) integration and vendor purpose mappings (Pu"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

@@ -1,73 +1,53 @@
 # Locale Files
 # See also: artifact_descriptions/locale-files.md for complete guidance
 
-# The Locale Files artifact documents the translation resources, language-specific content, and cultural adaptations required for internationalization (i18n) and localization (l10n) of digital products 
+# The Locale Files artifact documents the translation resources, language-specific content, and cultural adaptations required for internationalization (i18n) and localization (l10n) of digital products ...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact serves as the authoritative documentation of locale file structure, format specifications, translation workflows, and quality assurance procedures enabling internationalization and localization of software products across 20-150+ global markets. It solves the challenge of managing tran...
+# This artifact serves as the authoritative documentation of locale file structure, format specifications, translation workflows, and quality assurance procedures enabling internationalization and localization of software products across 20-150+ global markets. It solves the challenge of managing tran
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - String Key Naming: Use hierarchical dot-notation (e.g., `settings.profile.email.label`) enabling logical organization, 
 # - Context Documentation: Provide screenshots, character limits, placeholder descriptions, and usage context in developer comm
 # - ICU MessageFormat: Leverage ICU syntax for pluralization, gender, and select variants preventing grammatically incorrec
 # - Translation Memory Leverage: Maximize TM match rates (70-90% matches) through consistent terminology, phraseology, and string str
 # - Pseudo-Localization Testing: Run pseudo-localization builds testing UI text expansion (+30% for German), character encoding, and 
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
-      - "Locale file format specifications including JSON, XLIFF 2.1, Gettext PO/POT, iOS .strings/.stringsdict, Android strings.xml, React Intl, Vue I18n"
-      - "Translation string organization and naming conventions ensuring consistent key structure across locales (e.g., `homepage.hero.title`, `errors.validation.email`)"
-      - "ICU MessageFormat syntax for pluralization rules (zero, one, two, few, many, other), gender-based variants, and select/selectordinal expressions"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
+    included:
+      - "Locale file format specifications including JSON, XLIFF 2.1, Gettext PO/POT, iOS"
+      - "Translation string organization and naming conventions ensuring consistent key s"
+      - "ICU MessageFormat syntax for pluralization rules (zero, one, two, few, many, oth"
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

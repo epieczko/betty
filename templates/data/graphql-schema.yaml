@@ -1,75 +1,36 @@
-# Graphql Schema
-# See also: artifact_descriptions/graphql-schema.md for complete guidance
+# GraphQL Schema
+# See also: artifact_descriptions/graphql-schema.md
 
-# The GraphQL Schema is the foundational contract for GraphQL APIs, defining types, queries, mutations, subscriptions, and their relationships using the GraphQL Schema Definition Language (SDL). This st
+schema_version: "1.0.0"
+created: "2025-10-26"
 
-metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
-
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
-  approvers:
-    - name: "Approver Name"
-      role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
-
-# PURPOSE
-# This artifact defines the GraphQL type system and API contract using Schema Definition Language (SDL). It specifies object types, queries, mutations, subscriptions, input types, interfaces, unions, enums, and custom scalars that enable clients to request exactly the data they need through a strongly...
-
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
-# - Schema Design Principles: - **Nullable by Default**: Make fields nullable unless absolutely required; enables schema evolution
-# - Type System Best Practices: - **Use Interfaces**: Extract common fields into interfaces for polymorphic queries
-# - Query Design: - **Granular Queries**: Provide specific queries instead of one generic query with many filters
-# - Mutation Design: - **Single Purpose**: Each mutation should do one thing; avoid generic update mutations
-# - Subscription Design: - **Event-Based**: Model subscriptions as events (orderUpdated, not getOrder)
-
-content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
-  scope:
-    inScope:
-      - "GraphQL Schema Definition Language (SDL) definitions"
-      - "Object types, fields, and relationships"
-      - "Query operations (read-only data fetching)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
-    
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
-  - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
-
-changeHistory:
-  - version: "1.0.0"
-    date: "YYYY-MM-DD"
-    author: "Author Name"
-    changes: "Initial version"
+schema: |
+  type Query {
+    customer(id: ID!): Customer
+    customerEvents(customerId: ID!, limit: Int = 100): [Event!]!
+  }
+  
+  type Customer {
+    id: ID!
+    email: String!
+    createdAt: DateTime!
+    events(limit: Int = 100): [Event!]!
+  }
+  
+  type Event {
+    id: ID!
+    customerId: ID!
+    eventType: EventType!
+    timestamp: DateTime!
+    properties: JSON
+  }
+  
+  enum EventType {
+    PAGE_VIEW
+    BUTTON_CLICK
+    PURCHASE
+    SIGNUP
+  }
+  
+  scalar DateTime
+  scalar JSON

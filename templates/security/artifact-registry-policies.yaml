@@ -1,0 +1,55 @@
+# Artifact Registry Policies
+# See also: artifact_descriptions/artifact-registry-policies.md for complete guidance
+
+# The Artifact Registry Policies defines governance rules for managing container images, application packages, and build artifacts across JFrog Artifactory, Sonatype Nexus, GitHub Packages, and cloud-na...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This artifact establishes mandatory governance policies for all artifact registries used in the software delivery lifecycle. It defines retention rules, access controls, vulnerability scanning requirements, artifact promotion workflows, and naming conventions that ensure secure, traceable, and cost-
+
+# BEST PRACTICES
+# - Immutable Artifact Tags: Never overwrite existing artifact versions; use immutable tags (SHA256 digests) for production deplo
+# - Retention by Recency: Keep last 10 versions per artifact OR last 90 days, whichever retains more; automatically prune olde
+# - Vulnerability Scanning Gates: Block deployment of artifacts with Critical or High severity CVEs; scan all artifacts on push and da
+# - Semantic Versioning: Enforce SemVer 2.0 (MAJOR.MINOR.PATCH) for all artifacts; use pre-release identifiers (1.2.3-rc.1, 1
+# - Environment-Specific Repositories: Separate registries or repositories for Dev, Staging, and Production; artifacts promoted through env
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Container image registries (Docker Hub, Quay.io, ECR, GCR, ACR, Harbor, distribu"
+      - "Binary artifact repositories (JFrog Artifactory, Sonatype Nexus, Azure Artifacts"
+      - "Package management registries (npm registry, PyPI, Maven Central, NuGet Gallery,"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

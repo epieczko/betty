@@ -1,73 +1,53 @@
 # Defect Log
 # See also: artifact_descriptions/defect-log.md for complete guidance
 
-# Defect Logs provide systematic tracking of software bugs, issues, and technical debt throughout the development lifecycle. These logs are essential for prioritizing bug fixes, measuring quality trends
+# Defect Logs provide systematic tracking of software bugs, issues, and technical debt throughout the development lifecycle. These logs are essential for prioritizing bug fixes, measuring quality trends...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact provides centralized tracking of software defects including severity classification, workflow status, assignment, resolution timeline, and quality metrics to enable prioritized bug fixing, process improvement, and quality trend analysis....
+# This artifact provides centralized tracking of software defects including severity classification, workflow status, assignment, resolution timeline, and quality metrics to enable prioritized bug fixing, process improvement, and quality trend analysis.
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Clear Descriptions: Write defect descriptions with reproduction steps, expected vs actual behavior, and impact
 # - Appropriate Severity: Classify severity objectively based on impact, not emotion or urgency
 # - Reproducible Steps: Include detailed steps to reproduce; non-reproducible bugs are hard to fix
 # - Evidence Attached: Attach screenshots, logs, videos, stack traces to aid debugging
 # - Daily Triage: Triage new defects daily to ensure timely classification and assignment
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
-      - "Defect identification and description (bug reports, reproduction steps, expected vs actual behavior)"
-      - "Severity classification (Critical, High, Medium, Low based on impact and urgency)"
+    included:
+      - "Defect identification and description (bug reports, reproduction steps, expected"
+      - "Severity classification (Critical, High, Medium, Low based on impact and urgency"
       - "Priority assignment (P0/P1/P2/P3 for fix ordering)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

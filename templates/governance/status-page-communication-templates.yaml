@@ -1,73 +1,53 @@
 # Status Page Communication Templates
 # See also: artifact_descriptions/status-page-communication-templates.md for complete guidance
 
-# The Status Page Communication Templates provide pre-approved, standardized message templates for communicating service incidents, maintenance windows, degradations, and resolutions through status page
+# The Status Page Communication Templates provide pre-approved, standardized message templates for communicating service incidents, maintenance windows, degradations, and resolutions through status page...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact serves as the template library for all customer-facing service status communications, ensuring consistent messaging during incidents, maintenance windows, and service degradations. Templates define what to communicate, when, and with what level of technical detail across incident sever...
+# This artifact serves as the template library for all customer-facing service status communications, ensuring consistent messaging during incidents, maintenance windows, and service degradations. Templates define what to communicate, when, and with what level of technical detail across incident sever
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - 15-Minute Rule: Post initial "Investigating" status update within 15 minutes of SEV-0/SEV-1 incident detection, even
 # - No Premature ETAs: Avoid estimating resolution time during "Investigating" phase; only provide ETAs once root cause is 
 # - Plain Language: Communicate in customer-friendly language, avoiding internal jargon (bad: "RDS failover timeout," go
 # - Impact-First Communication: Lead with customer impact ("Some customers may experience errors") before technical details
 # - Update Frequency: SEV-0 updates every 30 min, SEV-1 every 60 min, SEV-2 every 2 hours minimum
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
-      - "Incident communication templates (investigating, identified, monitoring, resolved, postmortem phases)"
-      - "Severity-based templates (SEV-0 complete outage, SEV-1 major degradation, SEV-2 minor impact, SEV-3 cosmetic)"
-      - "Maintenance window notifications (scheduled maintenance, emergency maintenance, maintenance completed)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
+    included:
+      - "Incident communication templates (investigating, identified, monitoring, resolve"
+      - "Severity-based templates (SEV-0 complete outage, SEV-1 major degradation, SEV-2 "
+      - "Maintenance window notifications (scheduled maintenance, emergency maintenance, "
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

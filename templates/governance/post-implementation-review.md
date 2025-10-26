@@ -16,12 +16,11 @@
 
 ## Executive Summary
 
-<!-- Provide a 2-3 paragraph overview for executive audience -->
-<!-- What is this document about and why does it matter? -->
+The Post-Implementation Review (PIR) is a comprehensive retrospective artifact that evaluates initiative outcomes against original objectives, capturing lessons learned, benefits realization, and improvement opportunities. Drawing from Agile retrospective methodologies (Scrum Guide, SAFe, Liberating
 
 ## Purpose
 
-<!-- The Post-Implementation Review evaluates initiative success against original objectives, captures lessons learned, assesses benefits realization, and identifies improvements for future initiatives. It... -->
+The Post-Implementation Review evaluates initiative success against original objectives, captures lessons learned, assesses benefits realization, and identifies improvements for future initiatives. It answers: Did we achieve what we set out to do? What was the actual ROI vs. projected? What worked well? What should we improve? What knowledge should we preserve? The review enables continuous improv
 
 ## Scope
 
@@ -35,28 +34,12 @@
 
 ### Out of Scope
 
-- Items explicitly not covered by this artifact
+- Items explicitly not covered
 
-## Target Audience
+## Main Content
 
-### Primary Audience
-
-- **Executive Leadership**: Assesses investment outcomes and validates decision quality
-- **Program Managers**: Learns from experience to improve future program execution
-- **Portfolio Management**: Evaluates investment effectiveness and estimation accuracy
-
-### Secondary Audience
-
-- Additional stakeholders who may reference this document
-
-## [Main Section 1]
-
-<!-- Complete this section with artifact-specific content -->
-<!-- Refer to the artifact description for required structure -->
-
-## [Main Section 2]
-
-<!-- Add additional sections as needed -->
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
 ## Best Practices
 
@@ -70,25 +53,21 @@
 
 **Metadata Completion**: Fully complete all metadata fields to enable search, classification, and lifecycle management
 
-## Quality Checklist
+**Stakeholder Validation**: Review draft with key stakeholders before finalizing to ensure alignment and buy-in
 
-Before finalizing this artifact, verify:
+**Plain Language**: Write in clear, concise language appropriate for the intended audience; avoid unnecessary jargon
 
-- [ ] **Completeness**: All required sections present and adequately detailed
-- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
-- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
-- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
-- [ ] **Currency**: Based on current information; outdated content removed or updated
+**Visual Communication**: Include diagrams, charts, and tables to communicate complex information more effectively
 
 ## Related Documents
 
-- [Related Artifact]: Description and relationship
+- [Related Artifact]: Relationship description
 
 ## Approvals
 
 | Role | Name | Date | Status |
 |------|------|------|--------|
-| Approver | Name | YYYY-MM-DD | Pending |
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 

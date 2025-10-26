@@ -16,12 +16,11 @@
 
 ## Executive Summary
 
-<!-- Provide a 2-3 paragraph overview for executive audience -->
-<!-- What is this document about and why does it matter? -->
+The Golden Path Guide, also known as "Paved Roads" or "Blessed Paths," is a platform engineering artifact that defines opinionated, pre-approved technology choices and self-service workflows for common development scenarios. These guides reduce cognitive load on development teams by providing curate
 
 ## Purpose
 
-<!-- This artifact serves as the definitive reference for approved technology patterns, self-service platform capabilities, and blessed implementation paths that development teams should follow. It elimina... -->
+This artifact serves as the definitive reference for approved technology patterns, self-service platform capabilities, and blessed implementation paths that development teams should follow. It eliminates decision paralysis, reduces time-to-first-commit, ensures architectural consistency, and provides pre-integrated observability, security, and operational tooling through opinionated templates and 
 
 ## Scope
 
@@ -35,28 +34,12 @@
 
 ### Out of Scope
 
-- Items explicitly not covered by this artifact
+- Items explicitly not covered
 
-## Target Audience
+## Main Content
 
-### Primary Audience
-
-- Software Engineers creating new services and applications
-- Platform Engineering teams maintaining golden path templates
-- Developer Experience (DevEx) teams improving self-service capabilities
-
-### Secondary Audience
-
-- Additional stakeholders who may reference this document
-
-## [Main Section 1]
-
-<!-- Complete this section with artifact-specific content -->
-<!-- Refer to the artifact description for required structure -->
-
-## [Main Section 2]
-
-<!-- Add additional sections as needed -->
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
 ## Best Practices
 
@@ -70,25 +53,21 @@
 
 **Developer Feedback Loops**: Survey developers quarterly on template usability and pain points; iterate based on real usage data
 
-## Quality Checklist
+**Template Versioning**: Version templates like software with semantic versioning and clear upgrade paths for existing services
 
-Before finalizing this artifact, verify:
+**Documentation Embedded**: Include comprehensive README, architecture diagrams, and onboarding guides within generated projects
 
-- [ ] **Completeness**: All required sections present and adequately detailed
-- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
-- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
-- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
-- [ ] **Currency**: Based on current information; outdated content removed or updated
+**Progressive Disclosure**: Start with simplest working example; provide links to advanced patterns for complex requirements
 
 ## Related Documents
 
-- [Related Artifact]: Description and relationship
+- [Related Artifact]: Relationship description
 
 ## Approvals
 
 | Role | Name | Date | Status |
 |------|------|------|--------|
-| Approver | Name | YYYY-MM-DD | Pending |
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 

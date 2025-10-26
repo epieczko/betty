@@ -1,73 +1,53 @@
 # Solution Briefs
 # See also: artifact_descriptions/solution-briefs.md for complete guidance
 
-# Solution Briefs are concise, executive-friendly overviews (typically 1-2 pages) that distill complex products or solutions into scannable summaries of value propositions, key capabilities, use cases, 
+# Solution Briefs are concise, executive-friendly overviews (typically 1-2 pages) that distill complex products or solutions into scannable summaries of value propositions, key capabilities, use cases, ...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact enables quick, credible communication of product value and technical fit to time-constrained buyers across the evaluation process—from initial awareness through technical validation. It solves the "too much/too little" information problem where detailed docs overwhelm while marketing f...
+# This artifact enables quick, credible communication of product value and technical fit to time-constrained buyers across the evaluation process—from initial awareness through technical validation. It solves the "too much/too little" information problem where detailed docs overwhelm while marketing f
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - One-Page Executive Summary: First page must stand alone—busy execs often read only page 1; include value prop, key benefits, pro
 # - Lead with Value Not Features: Start with business outcome or pain point solved, not product description; "Reduce security incident
 # - Scannable Layout: Bullets over paragraphs, bold key phrases, visual hierarchy, white space; readers scan for relevance
 # - Quantify Everything: Vague claims ("improve efficiency") lose to specific outcomes ("reduce manual processing from 8 hour
 # - Use Case Specificity: Generic use cases bore; specific scenarios resonate; "for healthcare providers managing 500+ beds" >
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
+    included:
       - "Solution overview and value proposition (the "what" and "why")"
       - "Key capabilities and features organized by category"
       - "Primary use cases and application scenarios"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

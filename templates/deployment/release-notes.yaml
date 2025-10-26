@@ -1,73 +1,53 @@
 # Release Notes
 # See also: artifact_descriptions/release-notes.md for complete guidance
 
-# The Release Notes artifact is a critical communication deliverable that documents changes, improvements, and breaking modifications introduced in each software release version. Following Semantic Vers
+# The Release Notes artifact is a critical communication deliverable that documents changes, improvements, and breaking modifications introduced in each software release version. Following Semantic Vers...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# Release notes communicate what changed in each software version using Keep a Changelog format, enabling stakeholders to understand new features, bug fixes, breaking changes, deprecations, security patches, and required migration actions. They follow Semantic Versioning 2.0.0 conventions and support ...
+# Release notes communicate what changed in each software version using Keep a Changelog format, enabling stakeholders to understand new features, bug fixes, breaking changes, deprecations, security patches, and required migration actions. They follow Semantic Versioning 2.0.0 conventions and support 
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Semantic Versioning Compliance: Strictly follow SemVer 2.0.0 - MAJOR for breaking changes, MINOR for backward-compatible features, P
 # - Keep a Changelog Format: Use standardized sections (Added, Changed, Deprecated, Removed, Fixed, Security) for consistency
 # - Breaking Change Prominence: Clearly highlight breaking changes at the top with BREAKING CHANGE: prefix and migration guides
 # - Conventional Commits Alignment: Generate release notes from Conventional Commits (feat:, fix:, chore:, docs:, refactor:, perf:, test
 # - Automation: Use semantic-release, conventional-changelog, or release-please for automated generation from git hi
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
+    included:
       - "Version identification following SemVer 2.0.0 (MAJOR.MINOR.PATCH, e.g., 2.3.1)"
       - "Release date and Git tag/commit references"
-      - "Added features (MINOR version bumps), bug fixes (PATCH bumps), breaking changes (MAJOR bumps)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
+      - "Added features (MINOR version bumps), bug fixes (PATCH bumps), breaking changes "
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

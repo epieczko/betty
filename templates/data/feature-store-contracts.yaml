@@ -1,0 +1,60 @@
+# Feature Store Contracts
+# See also: artifact_descriptions/feature-store-contracts.md for complete guidance
+
+metadata:
+  version: "1.0.0"
+  feature_store: "Tecton"
+  created: "2025-10-26"
+  owner: "ML Platform Team"
+
+# Feature View: Customer Engagement Features
+customer_engagement_features:
+  name: "customer_engagement_features"
+  description: "Customer behavioral engagement metrics for churn prediction"
+  
+  entities:
+    - name: "customer_id"
+      type: "string"
+      description: "Unique customer identifier"
+  
+  features:
+    - name: "events_7d_count"
+      type: "int64"
+      description: "Total events in last 7 days"
+      freshness_sla: "< 5 minutes"
+      computation_window: "7 days"
+      
+    - name: "purchase_30d_count"
+      type: "int64"
+      description: "Purchase count in last 30 days"
+      freshness_sla: "< 5 minutes"
+      
+    - name: "avg_session_duration_14d"
+      type: "float64"
+      description: "Average session duration (seconds) in last 14 days"
+      freshness_sla: "< 15 minutes"
+      
+    - name: "days_since_last_purchase"
+      type: "int64"
+      description: "Days since customer's last purchase"
+      freshness_sla: "< 1 hour"
+  
+  online_serving:
+    enabled: true
+    store: "Redis"
+    latency_sla:
+      p50: "< 5ms"
+      p95: "< 10ms"
+      p99: "< 20ms"
+    ttl: "7 days"
+  
+  offline_serving:
+    enabled: true
+    store: "Snowflake"
+    retention: "1 year"
+    point_in_time_correct: true
+  
+  data_sources:
+    - source: "analytics.production.customer_events"
+      type: "batch"
+      refresh_interval: "1 hour"

@@ -1,0 +1,55 @@
+# Use Case Models
+# See also: artifact_descriptions/use-case-models.md for complete guidance
+
+# Use Case Models provide detailed textual specifications for each use case identified in use case diagrams, documenting preconditions, postconditions, main success scenarios (happy paths), alternative ...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This artifact serves as the detailed textual specification for each use case, documenting step-by-step interactions between actors and the system including preconditions, main success scenario, alternative flows, exception handling, postconditions, business rules, and non-functional requirements. Th
+
+# BEST PRACTICES
+# - Structured Templates: Use standard templates (brief, casual, fully-dressed) appropriate to use case complexity and project
+# - Numbered Steps: Number each step in main and alternative flows for precise referencing (e.g., 3a, 3b for alternative
+# - Actor-System Dialogue: Write steps as interaction pairs (Actor action → System response)
+# - Goal-Level Consistency: Match detail level to goal level (user-goal level most common for functional requirements)
+# - Preconditions: Specify clear, testable preconditions; avoid vague statements like "user is logged in" (specify auth
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Use case name and unique identifier"
+      - "Primary and secondary actors"
+      - "Stakeholders and interests"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

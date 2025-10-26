@@ -1,0 +1,55 @@
+# Cookie Policy Inventory
+# See also: artifact_descriptions/cookie-policy-inventory.md for complete guidance
+
+# The Cookie Policy Inventory catalogs all cookies and tracking technologies deployed across web and mobile properties, providing IAB TCF 2.2 categorization (Strictly Necessary, Preferences, Statistics,...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# Catalogs all cookies and tracking technologies with IAB TCF 2.2 categorization and consent requirements, enabling ePrivacy Directive compliance, GDPR Article 30 processing records, CCPA disclosures, and 70-90% consent opt-in rates through transparent cookie classification.
+
+# BEST PRACTICES
+# - Automated Scanning: Deploy OneTrust Cookie Compliance Scanner, Cookiebot Scanner, or TrustArc Cookie Consent to automati
+# - IAB TCF 2.2 Classification: Map all cookies to IAB purposes (P1-P10), special purposes (SP1-SP2), features (F1-F11) for standard
+# - Four-Category Model: Classify cookies as Strictly Necessary (no consent), Preferences, Statistics, or Marketing (consent 
+# - Vendor Accountability: Maintain Data Processing Agreements (DPAs) for 100% of third-party cookie vendors with GDPR Article 
+# - Global Vendor List (GVL) Mapping: Reference IAB GVL vendor IDs (1000+ vendors) for standardized consent string generation and TCF comp
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "First-party cookies set by organization's domains across all web properties"
+      - "Third-party cookies from vendors (Google, Facebook, Adobe, Salesforce, HubSpot)"
+      - "IAB TCF 2.2 classification (10 purposes, 10 special purposes, 11 features, 2 spe"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

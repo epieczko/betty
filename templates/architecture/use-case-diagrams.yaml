@@ -1,73 +1,53 @@
 # Use Case Diagrams
 # See also: artifact_descriptions/use-case-diagrams.md for complete guidance
 
-# Use Case Diagrams are UML 2.5 visual models that depict system functionality from an external user perspective, showing actors (users, external systems), use cases (system capabilities), system bounda
+# Use Case Diagrams are UML 2.5 visual models that depict system functionality from an external user perspective, showing actors (users, external systems), use cases (system capabilities), system bounda...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact serves as a visual representation of system functionality showing actors, use cases, system boundary, and relationships using standardized UML 2.5 notation. It supports requirements elicitation by providing a high-level view of what the system does, who uses it, and how use cases relat...
+# This artifact serves as a visual representation of system functionality showing actors, use cases, system boundary, and relationships using standardized UML 2.5 notation. It supports requirements elicitation by providing a high-level view of what the system does, who uses it, and how use cases relat
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - UML 2.5 Compliance: Follow standard UML notation (stick figures for actors, ovals for use cases, rectangles for system b
 # - User-Goal Orientation: Name use cases as user goals (verb-noun format like "Process Payment" not "Payment Processing")
 # - Appropriate Granularity: Keep diagrams at appropriate abstraction level; avoid overly detailed or overly abstract use cases
 # - Actor Identification: Identify all primary actors (initiate use cases), secondary actors (support), and external systems
 # - System Boundary: Clearly delineate system boundary; place use cases inside, actors outside the boundary
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
+    included:
       - "Actors (primary users, secondary users, external systems, time triggers)"
       - "Use cases representing system capabilities and user goals"
       - "System boundary showing internal vs. external scope"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

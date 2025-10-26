@@ -1,73 +1,53 @@
 # Attribution Files
 # See also: artifact_descriptions/attribution-files.md for complete guidance
 
-# Attribution Files (NOTICE, LICENSE, THIRD-PARTY-NOTICES) are legal documents bundled with software distributions that acknowledge open-source components, copyright holders, and license obligations. Th
+# Attribution Files (NOTICE, LICENSE, THIRD-PARTY-NOTICES) are legal documents bundled with software distributions that acknowledge open-source components, copyright holders, and license obligations. Th...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact documents all copyright notices, license texts, and attribution statements for third-party open-source components included in software distributions. It ensures compliance with license attribution clauses (Apache 2.0 Section 4, MIT/BSD copyright preservation, GPL copyright notices) by ...
+# This artifact documents all copyright notices, license texts, and attribution statements for third-party open-source components included in software distributions. It ensures compliance with license attribution clauses (Apache 2.0 Section 4, MIT/BSD copyright preservation, GPL copyright notices) by 
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Automated Generation: Generate attribution files automatically from SBOM/license scans using FOSSA, Black Duck, or languag
 # - CI/CD Integration: Regenerate attribution files on every build to ensure accuracy as dependencies change
 # - Root Directory Placement: Place LICENSE, NOTICE, THIRD-PARTY-NOTICES in repository root for discoverability and compliance
 # - Verbatim License Text: Include full license text verbatim; some licenses (Apache 2.0) explicitly require unmodified license
 # - Copyright Holder Accuracy: Extract copyright holders from source file headers, not package metadata (which may be incomplete)
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
+    included:
       - "LICENSE file"
       - "NOTICE file"
       - "THIRD-PARTY-NOTICES / CREDITS file"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

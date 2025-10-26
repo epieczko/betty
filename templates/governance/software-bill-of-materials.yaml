@@ -1,73 +1,53 @@
 # Software Bill Of Materials
 # See also: artifact_descriptions/software-bill-of-materials.md for complete guidance
 
-# The Software Bill of Materials (SBOM) is a machine-readable inventory documenting all software components, dependencies, licenses, and metadata within an application or system. Mandated by Executive O
+# The Software Bill of Materials (SBOM) is a machine-readable inventory documenting all software components, dependencies, licenses, and metadata within an application or system. Mandated by Executive O...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact serves as the authoritative, machine-readable inventory of all software components (libraries, frameworks, dependencies, packages) comprising a software product. It enables rapid vulnerability identification, license compliance verification, and supply chain risk assessment by document...
+# This artifact serves as the authoritative, machine-readable inventory of all software components (libraries, frameworks, dependencies, packages) comprising a software product. It enables rapid vulnerability identification, license compliance verification, and supply chain risk assessment by document
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Automated Generation: Generate SBOMs automatically in CI/CD pipelines using Syft, CycloneDX plugins, or SPDX tools on ever
 # - NTIA Minimum Elements: Ensure all SBOMs include required fields: supplier, component name, version, unique identifiers, dep
 # - Multi-Format Support: Generate both SPDX 2.3 (for government/standards) and CycloneDX 1.4+ (for security tooling) formats
 # - Cryptographic Signing: Sign SBOMs with Sigstore/Cosign and publish signatures to Rekor transparency log for attestation
 # - SBOM-per-Artifact: Generate separate SBOMs for each release artifact, container image, and firmware build
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
-      - "Component inventory with Package URLs (PURLs) and Common Platform Enumeration (CPE) identifiers"
-      - "Dependency graph mapping (direct dependencies, transitive dependencies, dependency depth)"
+    included:
+      - "Component inventory with Package URLs (PURLs) and Common Platform Enumeration (C"
+      - "Dependency graph mapping (direct dependencies, transitive dependencies, dependen"
       - "NTIA minimum elements"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

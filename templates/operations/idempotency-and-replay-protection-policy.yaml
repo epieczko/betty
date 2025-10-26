@@ -1,0 +1,55 @@
+# Idempotency And Replay Protection Policy
+# See also: artifact_descriptions/idempotency-and-replay-protection-policy.md for complete guidance
+
+# The Idempotency And Replay Protection Policy defines strategies and implementation patterns for ensuring operations are executed exactly once, even in the presence of retries, network failures, or dup...
+
+metadata:
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
+
+  approvers:
+    - name: "Approver Name"
+      role: "Approver Role"
+      date: null
+
+# PURPOSE
+# This artifact establishes policies and implementation patterns that ensure operations are idempotent (producing the same result when executed multiple times) and protected from replay attacks. It prevents duplicate processing, data corruption, and financial losses that occur when operations are unin
+
+# BEST PRACTICES
+# - Always Require Idempotency Keys: Require Idempotency-Key header for all mutating operations (POST, PATCH, non-idempotent PUT)
+# - Client-Generated Keys: Prefer client-generated UUIDs for idempotency keys to survive client crashes
+# - UUID V4 Standard: Use UUID v4 for idempotency keys to ensure global uniqueness
+# - 24-Hour Window: Store idempotency keys for 24 hours to handle delayed retries
+# - Store Original Response: Cache the full response for idempotent replay, not just success/failure
+
+# Main content - customize based on artifact type
+content:
+  summary: |
+    Provide overview and context for this artifact.
+  
+  scope:
+    included:
+      - "Idempotency key patterns (Idempotency-Key header, request fingerprinting)"
+      - "Client-generated vs. server-generated idempotency keys"
+      - "Idempotency key storage, lifecycle, and expiration (typically 24 hours)"
+    
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
+  - type: "Related Artifact Type"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
+
+# Change history
+changeHistory:
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    author: "Author Name"
+    changes: "Initial version"

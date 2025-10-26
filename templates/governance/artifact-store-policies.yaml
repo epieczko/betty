@@ -1,73 +1,53 @@
 # Artifact Store Policies
 # See also: artifact_descriptions/artifact-store-policies.md for complete guidance
 
-# The Artifact Store Policies defines governance for centralized storage of build outputs, dependencies, and deployable packages across the software delivery lifecycle. This policy establishes rules for
+# The Artifact Store Policies defines governance for centralized storage of build outputs, dependencies, and deployable packages across the software delivery lifecycle. This policy establishes rules for...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact establishes mandatory policies for artifact storage infrastructure that supports reproducible builds, dependency management, and secure software supply chains. It defines repository types (release vs snapshot, public vs private), retention rules, caching strategies for external depende...
+# This artifact establishes mandatory policies for artifact storage infrastructure that supports reproducible builds, dependency management, and secure software supply chains. It defines repository types (release vs snapshot, public vs private), retention rules, caching strategies for external depende
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Repository Separation: Separate release and snapshot repositories; releases are immutable, snapshots allow overwrites for d
 # - Proxy External Dependencies: Cache Maven Central, npm registry, PyPI in internal proxy repositories; reduces external dependency 
 # - Checksum Verification: Validate SHA-256 checksums for all downloaded artifacts; reject artifacts with mismatched checksums 
 # - Retention by Stability: Keep release artifacts indefinitely or per compliance requirements (7 years); auto-delete snapshots 
 # - License Compliance Scanning: Scan all artifacts for license conflicts using FOSSA, Black Duck, or Snyk; block artifacts with non-
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
-      - "Universal binary repositories (JFrog Artifactory Universal, Sonatype Nexus Repository Manager)"
-      - "Package-type-specific repositories (Maven, npm, Docker, PyPI, NuGet, Helm, Go modules, Conan)"
-      - "Cloud-native artifact storage (AWS CodeArtifact, Google Artifact Registry, Azure Artifacts, GitHub Packages)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
+    included:
+      - "Universal binary repositories (JFrog Artifactory Universal, Sonatype Nexus Repos"
+      - "Package-type-specific repositories (Maven, npm, Docker, PyPI, NuGet, Helm, Go mo"
+      - "Cloud-native artifact storage (AWS CodeArtifact, Google Artifact Registry, Azure"
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

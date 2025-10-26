@@ -1,73 +1,53 @@
 # Helm Charts
 # See also: artifact_descriptions/helm-charts.md for complete guidance
 
-# The Helm Charts artifact defines Kubernetes application packaging and deployment specifications using Helm, the de facto package manager for Kubernetes that enables templated, versioned, and reproduci
+# The Helm Charts artifact defines Kubernetes application packaging and deployment specifications using Helm, the de facto package manager for Kubernetes that enables templated, versioned, and reproduci...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact defines Helm chart specifications to package, version, and deploy Kubernetes applications in a consistent, repeatable manner across development, staging, and production environments while enabling parameterized configuration, dependency management, release rollback capabilities, and in...
+# This artifact defines Helm chart specifications to package, version, and deploy Kubernetes applications in a consistent, repeatable manner across development, staging, and production environments while enabling parameterized configuration, dependency management, release rollback capabilities, and in
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Version Control: Store Helm charts in Git with semantic versioning (MAJOR.MINOR.PATCH), increment chart version on ev
 # - Chart Structure: Follow standard Helm chart layout (Chart.yaml, values.yaml, templates/, charts/, crds/, README.md)
 # - Semantic Versioning: Use SemVer 2.0 for chart versions, track appVersion separately for application image versions
 # - values.yaml Design: Provide sensible defaults in values.yaml, document all values with comments, group related values lo
 # - Template Functions: Use Helm template functions (default, required, toYaml, include) for flexible, DRY chart design
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
+    included:
       - "Helm chart structure (Chart.yaml, values.yaml, templates/, charts/, crds/)"
-      - "Chart metadata and versioning (apiVersion, name, version, appVersion, dependencies)"
-      - "Templated Kubernetes resources (Deployments, StatefulSets, DaemonSets, Jobs, CronJobs)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
+      - "Chart metadata and versioning (apiVersion, name, version, appVersion, dependenci"
+      - "Templated Kubernetes resources (Deployments, StatefulSets, DaemonSets, Jobs, Cro"
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

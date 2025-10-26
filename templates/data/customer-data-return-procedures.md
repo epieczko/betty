@@ -16,12 +16,11 @@
 
 ## Executive Summary
 
-<!-- Provide a 2-3 paragraph overview for executive audience -->
-<!-- What is this document about and why does it matter? -->
+The Customer Data Return Procedures document defines the technical and operational processes for returning or destroying customer data upon contract termination, service migration, or regulatory request, ensuring GDPR Article 17 (Right to Erasure), CCPA deletion compliance, and contractual data retu
 
 ## Purpose
 
-<!-- Defines technical processes and operational procedures for secure customer data return, migration, and destruction upon contract termination, ensuring 30-90 day SLA compliance, GDPR Article 17/28 obli... -->
+Defines technical processes and operational procedures for secure customer data return, migration, and destruction upon contract termination, ensuring 30-90 day SLA compliance, GDPR Article 17/28 obligations, and cryptographic verification of complete data removal across production, backup, and DR systems.
 
 ## Scope
 
@@ -35,28 +34,12 @@
 
 ### Out of Scope
 
-- Items explicitly not covered by this artifact
+- Items explicitly not covered
 
-## Target Audience
+## Main Content
 
-### Primary Audience
-
-- Data Protection Officers (DPOs) coordinating GDPR Article 17/28 compliance
-- Cloud Operations Teams executing data deletion across AWS/Azure/GCP
-- Legal Counsel managing litigation holds and contractual obligations
-
-### Secondary Audience
-
-- Additional stakeholders who may reference this document
-
-## [Main Section 1]
-
-<!-- Complete this section with artifact-specific content -->
-<!-- Refer to the artifact description for required structure -->
-
-## [Main Section 2]
-
-<!-- Add additional sections as needed -->
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
 ## Best Practices
 
@@ -70,25 +53,21 @@
 
 **Encrypted Transit**: Use TLS 1.3 for SFTP, HTTPS for API exports, and AWS S3 SSE-C/GCS CSEK for customer-managed encryption keys
 
-## Quality Checklist
+**Format Standardization**: Provide data in industry-standard formats (CSV, JSON, Parquet, Avro) with schema documentation for easy import to new systems
 
-Before finalizing this artifact, verify:
+**Incremental Deletion Logging**: Generate detailed audit logs showing data deletion across each system, timestamp, executor, and verification status
 
-- [ ] **Completeness**: All required sections present and adequately detailed
-- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
-- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
-- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
-- [ ] **Currency**: Based on current information; outdated content removed or updated
+**NIST SP 800-88 Compliance**: Follow NIST media sanitization guidelines for Clear (logical overwrite), Purge (cryptographic erase), or Destroy (physical destruction)
 
 ## Related Documents
 
-- [Related Artifact]: Description and relationship
+- [Related Artifact]: Relationship description
 
 ## Approvals
 
 | Role | Name | Date | Status |
 |------|------|------|--------|
-| Approver | Name | YYYY-MM-DD | Pending |
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 

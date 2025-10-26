@@ -1,0 +1,814 @@
+# Acceptable Use Policy (AUP)
+# Defines organizational rules and requirements for appropriate use of information systems,
+# networks, applications, and data. Aligns with NIST SP 800-53, ISO 27001, SOC 2, and CIS Controls.
+
+metadata:
+  policyId: "POL-SEC-AUP-001"
+  version: "2.1.0"
+  documentOwner: "Chief Information Security Officer"
+  classification: "Internal"
+  effectiveDate: "2025-01-15"
+  lastReviewDate: "2024-12-10"
+  nextReviewDate: "2025-12-10"
+  approvalDate: "2025-01-10"
+  approvers:
+    - name: "Sarah Chen"
+      role: "Chief Information Security Officer"
+      approvalDate: "2025-01-10"
+    - name: "Michael Torres"
+      role: "Chief Legal Officer"
+      approvalDate: "2025-01-09"
+    - name: "Jennifer Martinez"
+      role: "Chief Human Resources Officer"
+      approvalDate: "2025-01-08"
+  complianceFrameworks:
+    - "NIST SP 800-53 Rev 5 (AC-20, PS-6, PS-8, SI-4)"
+    - "ISO/IEC 27001:2022 (A.6.4, A.8.1.3, A.11.2.6)"
+    - "SOC 2 Type II (CC6.1, CC6.7, CC7.2)"
+    - "PCI DSS v4.0 (Requirement 12.3)"
+    - "HIPAA Security Rule 164.308(a)(3)"
+    - "GDPR Article 32, Article 88"
+    - "CIS Controls v8 (5.4, 6.1, 6.2, 13.6)"
+
+policyStatement:
+  purpose: |
+    This Acceptable Use Policy establishes mandatory requirements for appropriate use of all
+    organizational technology resources, defines prohibited activities, specifies monitoring
+    and enforcement mechanisms, and establishes accountability framework for user behavior.
+
+    This policy protects organizational assets, ensures compliance with legal and regulatory
+    requirements, mitigates cybersecurity risks, and establishes clear expectations for all
+    users accessing company systems and data.
+
+  scope:
+    coveredSystems:
+      - "Corporate laptops, desktops, and workstations"
+      - "Mobile devices (smartphones, tablets) - corporate and BYOD"
+      - "Email systems (Microsoft 365, Google Workspace)"
+      - "Collaboration platforms (Slack, Microsoft Teams, Zoom, WebEx)"
+      - "Approved SaaS applications and cloud services"
+      - "VPN and remote access systems"
+      - "Corporate Wi-Fi and wired networks"
+      - "Voice systems (VoIP, desk phones, softphones)"
+      - "Printers, scanners, and multifunction devices"
+      - "Removable media (USB drives, external hard drives)"
+
+    coveredUsers:
+      - "All full-time employees"
+      - "Part-time employees and temporary workers"
+      - "Contractors and consultants"
+      - "Third-party vendors with system access"
+      - "Interns and co-op students"
+      - "Board members and advisors with system access"
+
+    applicability: |
+      This policy applies to all users who access organizational information systems,
+      networks, applications, or data, regardless of location, device ownership, or
+      employment status. Compliance is mandatory and non-negotiable.
+
+acceptableUseGuidelines:
+  emailUsage:
+    permittedUse:
+      - description: "Business communications with colleagues, customers, and partners"
+        restrictions: []
+      - description: "Limited personal use during breaks or outside work hours"
+        restrictions:
+          - "Maximum 30 minutes per day for personal email"
+          - "Must not interfere with job responsibilities"
+          - "Subject to monitoring per privacy notice"
+
+    prohibitedActivities:
+      - "Forwarding confidential company information to personal email accounts"
+      - "Sending sensitive data without encryption (use secure email gateway)"
+      - "Subscribing to non-business mailing lists or newsletters using company email"
+      - "Engaging in harassment, discrimination, or hostile communication"
+      - "Impersonating other individuals or sending anonymous messages"
+      - "Mass distribution of non-business content (chain letters, jokes, political content)"
+      - "Clicking suspicious links or opening attachments from unknown senders"
+
+    technicalControls:
+      - control: "Email Data Loss Prevention (DLP)"
+        tool: "Microsoft Purview DLP / Proofpoint"
+        enforcement: "Block emails containing credit card numbers, SSNs, confidential tags"
+      - control: "Advanced Threat Protection"
+        tool: "Microsoft Defender / Proofpoint TAP"
+        enforcement: "Sandbox suspicious attachments; block malicious URLs"
+      - control: "Email Encryption"
+        tool: "S/MIME or Microsoft 365 Message Encryption"
+        enforcement: "Mandatory for emails containing PII, PHI, or confidential data"
+
+  internetUsage:
+    permittedUse:
+      - "Research directly related to job functions"
+      - "Professional development and industry news"
+      - "Vendor and partner websites for business purposes"
+      - "Reasonable personal use during breaks (news, weather, personal banking)"
+
+    prohibitedCategories:
+      - category: "Adult Content"
+        rationale: "Hostile work environment, legal liability, security risk"
+        action: "Block via web proxy; log violation; immediate disciplinary action"
+      - category: "Illegal Activities"
+        rationale: "Criminal liability, reputational damage"
+        action: "Block; immediate investigation; potential law enforcement referral"
+        examples: ["Illegal downloads", "Hacking tools", "Dark web access"]
+      - category: "Gambling and Gaming"
+        rationale: "Productivity loss, potential addiction issues"
+        action: "Block during work hours; warning for first offense"
+      - category: "Hate Speech and Extremism"
+        rationale: "Hostile work environment, legal liability"
+        action: "Block; immediate HR investigation; potential termination"
+      - category: "Streaming Media (Non-Business)"
+        rationale: "Bandwidth consumption, productivity impact"
+        action: "Throttle bandwidth; block during peak hours"
+        examples: ["Netflix", "YouTube (non-business)", "Twitch", "Spotify"]
+
+    allowedPersonalUse:
+      dailyLimit: "30 minutes"
+      restrictions:
+        - "Only during break times or outside core business hours (9am-5pm)"
+        - "Must not consume excessive bandwidth"
+        - "Subject to all security controls and monitoring"
+        - "No expectation of privacy"
+
+    technicalControls:
+      - control: "Web Filtering / Secure Web Gateway"
+        tool: "Zscaler / Cisco Umbrella / Palo Alto Prisma Access"
+        categories:
+          blocked: ["Adult Content", "Gambling", "Illegal Activities", "Hate Speech", "Malware", "Phishing"]
+          monitored: ["Social Media", "Streaming Media", "File Sharing", "Webmail"]
+          allowed: ["Business", "News", "Education", "Government", "Financial Services"]
+      - control: "SSL/TLS Inspection"
+        tool: "Zscaler / Palo Alto"
+        enforcement: "Decrypt and inspect encrypted traffic for malware and data exfiltration"
+      - control: "Cloud Access Security Broker (CASB)"
+        tool: "Microsoft Defender for Cloud Apps / Netskope"
+        enforcement: "Discover shadow IT; enforce app controls; prevent data uploads to unsanctioned services"
+
+  softwareAndApplications:
+    approvedSoftwareCatalog:
+      location: "https://portal.company.com/it/approved-software"
+      updateFrequency: "Monthly"
+      requestProcess: "Submit software request via IT Service Portal with business justification"
+
+    softwareInstallationPolicy:
+      standardUsers:
+        allowed: "Only software from approved catalog"
+        restrictions:
+          - "No local administrator rights on workstations"
+          - "Software installation via IT Self-Service portal or auto-deployment"
+          - "Unauthorized software automatically removed by endpoint management tools"
+
+      administrators:
+        allowed: "Elevated privileges for approved administrative tasks"
+        requirements:
+          - "Separate privileged account (admin-username) per Least Privilege principle"
+          - "Multi-factor authentication required for privileged access"
+          - "All privileged actions logged and audited"
+
+    prohibitedSoftware:
+      - category: "Unlicensed / Pirated Software"
+        rationale: "Legal liability, license compliance, security risk"
+        examples: ["Cracked software", "Keygens", "Torrent clients for piracy"]
+      - category: "Peer-to-Peer (P2P) File Sharing"
+        rationale: "Copyright infringement risk, malware vector"
+        examples: ["BitTorrent", "uTorrent", "LimeWire"]
+      - category: "Remote Access Tools (Unapproved)"
+        rationale: "Security bypass, data exfiltration risk"
+        examples: ["TeamViewer (personal)", "AnyDesk (unapproved)", "Chrome Remote Desktop"]
+      - category: "Password Crackers / Hacking Tools"
+        rationale: "Malicious intent indicators (exception: authorized security team)"
+        examples: ["John the Ripper", "Aircrack-ng", "Metasploit (unauthorized)"]
+      - category: "Personal Cloud Storage (Unapproved)"
+        rationale: "Data loss, shadow IT, compliance violations"
+        examples: ["Personal Dropbox", "Personal Google Drive", "WeTransfer"]
+
+    openSourceSoftware:
+      policy: "Permitted with approval and security review"
+      requirements:
+        - "Submit request to IT Security with SBOM (Software Bill of Materials)"
+        - "Security scan for known vulnerabilities (CVE database check)"
+        - "License compatibility review (avoid GPL conflicts for proprietary software)"
+        - "Maintain inventory of all OSS components for vulnerability tracking"
+
+    technicalControls:
+      - control: "Application Allowlisting"
+        tool: "Microsoft AppLocker / Carbon Black App Control"
+        enforcement: "Block execution of unauthorized applications"
+      - control: "Endpoint Detection and Response (EDR)"
+        tool: "CrowdStrike Falcon / Microsoft Defender for Endpoint"
+        enforcement: "Detect and block malicious software; alert on suspicious installations"
+      - control: "Software Asset Management"
+        tool: "ServiceNow SAM / Flexera"
+        enforcement: "Track installed software; identify unlicensed or prohibited apps"
+
+  mobileDeviceUsage:
+    corporateOwnedDevices:
+      issuancePolicy: "Issued to employees requiring mobile access for business purposes"
+      acceptableUse:
+        - "Business email, calendar, and contacts"
+        - "Approved mobile applications (Slack, Teams, Salesforce Mobile, etc.)"
+        - "Work-related phone calls and text messages"
+        - "Reasonable personal use (personal calls, texts, apps during personal time)"
+
+      securityRequirements:
+        - "Mobile Device Management (MDM) enrollment mandatory"
+        - "Strong passcode (minimum 8 characters, alphanumeric + symbols)"
+        - "Biometric authentication enabled (Face ID, Touch ID, fingerprint)"
+        - "Automatic screen lock after 2 minutes of inactivity"
+        - "Full device encryption enabled"
+        - "Automatic OS and app updates enabled"
+        - "Remote wipe capability enabled for lost/stolen devices"
+        - "Prohibition on jailbreaking (iOS) or rooting (Android) devices"
+
+      prohibitedActivities:
+        - "Installing apps from untrusted sources (sideloading)"
+        - "Connecting to unsecured public Wi-Fi without VPN"
+        - "Storing confidential company data in personal apps (notes, photos)"
+        - "Jailbreaking (iOS) or rooting (Android) devices"
+
+    byodPolicy:
+      enabled: true
+      enrollmentRequired: "Mandatory MDM enrollment to access corporate email/apps"
+      supportedPlatforms:
+        - platform: "iOS"
+          minimumVersion: "16.0"
+          containerization: "Microsoft Intune MAM (Mobile Application Management)"
+        - platform: "Android"
+          minimumVersion: "12.0"
+          containerization: "Samsung Knox / Microsoft Intune MAM"
+
+      userPrivacyProtections:
+        - "IT can only manage work profile/container, not personal apps/data"
+        - "Personal photos, texts, and apps not accessible to IT"
+        - "Remote wipe applies only to work profile, not entire device (selective wipe)"
+        - "Location tracking only when using corporate apps (not 24/7 tracking)"
+
+      corporateDataAccess:
+        - "Corporate email and calendar (work profile only)"
+        - "Approved mobile apps (Slack, Teams, OneDrive, etc.)"
+        - "Secure file access via containerized apps"
+
+      userResponsibilities:
+        - "Report lost/stolen device immediately to IT Security (within 24 hours)"
+        - "Maintain OS and app updates"
+        - "Use strong passcode and biometric authentication"
+        - "Do not share device passcode or biometric enrollment"
+        - "Remove corporate data when leaving company (automatic upon termination)"
+
+    internationalRoaming:
+      policy: "Allowed for business travel with manager approval"
+      dataRoamingLimits: "Maximum $200/month; manager approval required for overage"
+      securityRequirements:
+        - "Enable VPN when accessing corporate resources internationally"
+        - "Disable automatic Wi-Fi connection; use cellular data for sensitive activities"
+        - "Be aware of country-specific surveillance risks (e.g., China, Russia)"
+
+    technicalControls:
+      - control: "Mobile Device Management (MDM)"
+        tool: "Microsoft Intune / Jamf Pro / VMware Workspace ONE"
+        capabilities:
+          - "Enforce security policies (passcode, encryption, etc.)"
+          - "Deploy and manage corporate apps"
+          - "Remote wipe lost/stolen devices"
+          - "Compliance reporting (devices out of compliance blocked)"
+      - control: "Mobile Threat Defense (MTD)"
+        tool: "Lookout / Zimperium / CrowdStrike Falcon Mobile"
+        capabilities:
+          - "Detect jailbroken/rooted devices"
+          - "Identify malicious apps"
+          - "Detect network threats (man-in-the-middle attacks)"
+          - "Block access from compromised devices"
+
+  remoteAccessAndTelework:
+    vpnRequirements:
+      mandatory: true
+      circumstances:
+        - "All remote access to corporate networks and applications"
+        - "Use of public Wi-Fi (coffee shops, airports, hotels)"
+        - "International travel"
+
+      vpnClient: "Palo Alto GlobalProtect / Cisco AnyConnect / Zscaler Private Access"
+
+      authenticationRequirements:
+        - "Multi-factor authentication (MFA) required for VPN access"
+        - "Supported MFA methods: Duo Push, hardware token (YubiKey), Microsoft Authenticator"
+        - "VPN access requires device compliance check (up-to-date OS, antivirus, encryption)"
+
+    remoteWorkSecurityRequirements:
+      - "Use corporate-issued laptop or approved BYOD with security controls"
+      - "Secure home Wi-Fi with WPA3 or WPA2 encryption (not WEP or open networks)"
+      - "Physical security: lock screens when away; secure devices in home office"
+      - "Privacy: ensure confidential calls/meetings not overheard by family/roommates"
+      - "No use of public computers (library, hotel business center) for corporate access"
+
+    prohibitedRemoteAccessMethods:
+      - method: "Personal VPN services"
+        rationale: "Bypasses corporate security controls and monitoring"
+        examples: ["NordVPN", "ExpressVPN when accessing corporate resources"]
+      - method: "Remote desktop from unmanaged devices"
+        rationale: "Uncontrolled device may be compromised"
+      - method: "Public Wi-Fi without VPN"
+        rationale: "Man-in-the-middle attack risk, data interception"
+
+  socialMediaAndExternalCommunications:
+    personalSocialMedia:
+      policy: "Permitted with restrictions during personal time"
+      prohibitions:
+        - "Posting confidential company information (financials, roadmaps, customer data)"
+        - "Representing company officially without authorization from Communications team"
+        - "Disclosing details of security incidents or vulnerabilities"
+        - "Posting disparaging content about company, colleagues, or customers"
+
+      guidelines:
+        - "Include disclaimer: 'Opinions are my own and do not represent my employer'"
+        - "Think before posting; assume all content is public and permanent"
+        - "Report suspicious social engineering attempts (fake recruiter contacts, phishing)"
+
+    companySocialMediaAccounts:
+      authorization: "Only Marketing/Communications teams authorized to post on official channels"
+      requirements:
+        - "Separate corporate social media accounts (not personal accounts)"
+        - "Multi-factor authentication required"
+        - "All posts reviewed by Communications Manager before publishing"
+        - "Social media policy training required annually"
+
+    externalCommunications:
+      prohibitedActivities:
+        - "Unauthorized media interviews or press statements"
+        - "Speaking at conferences/events representing company without approval"
+        - "Disclosing customer information without customer consent"
+        - "Sharing pre-release product information under NDA"
+
+  dataHandlingRequirements:
+    downloadAndStorageRestrictions:
+      - dataType: "Customer Personal Information (PII)"
+        allowedLocations: ["Corporate file servers", "Approved cloud storage (OneDrive/SharePoint)"]
+        prohibitedLocations: ["Personal devices", "Personal cloud storage", "Unencrypted USB drives"]
+        encryptionRequired: true
+
+      - dataType: "Protected Health Information (PHI)"
+        allowedLocations: ["HIPAA-compliant designated systems only"]
+        prohibitedLocations: ["Email", "Unapproved applications", "Personal devices"]
+        encryptionRequired: true
+
+      - dataType: "Payment Card Information (PCI)"
+        allowedLocations: ["PCI DSS compliant systems only; tokenization preferred"]
+        prohibitedLocations: ["Email", "Spreadsheets", "Local hard drives"]
+        encryptionRequired: true
+
+      - dataType: "Confidential Business Information"
+        allowedLocations: ["Corporate systems with proper access controls"]
+        prohibitedLocations: ["Personal email", "Unapproved cloud storage", "Unencrypted devices"]
+        encryptionRequired: true
+
+    secureFileTransfer:
+      approvedMethods:
+        - method: "Microsoft OneDrive/SharePoint with link sharing"
+          encryption: "TLS 1.2+ in transit; AES-256 at rest"
+          restrictions: "Expiring links; password protection for external sharing"
+
+        - method: "Secure File Transfer Protocol (SFTP)"
+          encryption: "SSH encryption"
+          useCase: "Large file transfers to partners/customers"
+
+        - method: "Encrypted email"
+          encryption: "S/MIME or Microsoft 365 Message Encryption"
+          useCase: "Sensitive attachments to external parties"
+
+      prohibitedMethods:
+        - "Personal Dropbox, Google Drive, WeTransfer"
+        - "Unencrypted email for sensitive data"
+        - "FTP (File Transfer Protocol) without encryption"
+        - "USB drives without encryption (BitLocker or approved tool required)"
+
+    usbAndRemovableMedia:
+      policy: "Restricted; approved devices only"
+      requirements:
+        - "USB drives must be encrypted (BitLocker To Go, VeraCrypt, or corporate-issued)"
+        - "Register all USB drives with IT Security"
+        - "Scan all external media for malware before use"
+        - "Do not use found USB drives (common social engineering tactic)"
+
+      technicalControls:
+        - "USB write-blocking on endpoints except approved encrypted drives"
+        - "DLP monitoring of data copied to USB devices"
+
+shadowItAndCloudServiceControls:
+  policy: |
+    Use of unapproved cloud services and applications (Shadow IT) creates security,
+    compliance, and data loss risks. All cloud services must be vetted and approved
+    by IT Security before use.
+
+  approvedCloudServices:
+    - serviceName: "Microsoft 365"
+      approvedUse: "Email, OneDrive, SharePoint, Teams"
+      dataClassification: "Up to Confidential"
+
+    - serviceName: "Salesforce"
+      approvedUse: "CRM, customer data management"
+      dataClassification: "Up to Confidential (customer PII approved)"
+
+    - serviceName: "Slack Enterprise Grid"
+      approvedUse: "Internal communications, file sharing"
+      dataClassification: "Up to Internal (no Confidential in Slack)"
+
+    - serviceName: "Zoom"
+      approvedUse: "Video conferencing"
+      dataClassification: "Up to Confidential (with encryption enabled)"
+
+    - serviceName: "DocuSign"
+      approvedUse: "Electronic signatures"
+      dataClassification: "Up to Confidential"
+
+  prohibitedServices:
+    - service: "Personal cloud storage"
+      examples: ["Personal Dropbox", "Personal Google Drive", "Box (unapproved)", "WeTransfer"]
+      rationale: "Data loss risk, no corporate control, compliance violations"
+
+    - service: "Consumer file sharing"
+      examples: ["SendAnywhere", "FileZilla (FTP)", "Megaupload"]
+      rationale: "Unencrypted transfer, no audit trail, malware risk"
+
+    - service: "Unapproved collaboration tools"
+      examples: ["Personal Slack", "Discord", "WhatsApp for business"]
+      rationale: "Data residency concerns, no eDiscovery capability, Shadow IT"
+
+    - service: "Consumer AI tools with corporate data"
+      examples: ["ChatGPT (free version)", "Claude.ai (personal)", "Gemini with company data"]
+      rationale: "Training on corporate data, intellectual property leakage, no data protection agreements"
+
+  cloudServiceRequestProcess:
+    steps:
+      - step: 1
+        action: "Submit request via IT Service Portal with business justification"
+      - step: 2
+        action: "IT Security conducts vendor security assessment (SIG questionnaire)"
+      - step: 3
+        action: "Legal reviews terms of service and data processing agreement"
+      - step: 4
+        action: "Privacy reviews for GDPR/CCPA compliance if PII processed"
+      - step: 5
+        action: "Approval by CISO and CIO; provisioning by IT"
+
+  technicalControls:
+    - control: "Cloud Access Security Broker (CASB)"
+      tool: "Microsoft Defender for Cloud Apps / Netskope"
+      capabilities:
+        - "Shadow IT discovery (identify all cloud apps in use)"
+        - "Sanctioned app enforcement (block data uploads to unapproved services)"
+        - "Data Loss Prevention for cloud apps"
+        - "Threat protection (detect anomalous behavior in cloud apps)"
+
+    - control: "DNS filtering"
+      tool: "Cisco Umbrella / Cloudflare Gateway"
+      enforcement: "Block DNS queries to unapproved cloud services"
+
+monitoringAndEnforcement:
+  monitoringScope:
+    statement: |
+      Users have NO expectation of privacy when using corporate systems. All activities
+      may be monitored, logged, and audited to ensure compliance with this policy and to
+      protect organizational assets.
+
+    monitoredActivities:
+      - "Email content and metadata (sender, recipient, subject, attachments)"
+      - "Internet browsing history and web traffic"
+      - "Application usage and file access"
+      - "Data transfers (uploads, downloads, email attachments, USB writes)"
+      - "Login times, locations, and failed authentication attempts"
+      - "VPN connections and remote access sessions"
+      - "Endpoint security events (malware detection, policy violations)"
+      - "Cloud application usage (via CASB)"
+      - "Print jobs and document printing"
+      - "Screen activity for privileged users (optional, with notice)"
+
+  monitoringTools:
+    - tool: "Data Loss Prevention (DLP)"
+      vendor: "Microsoft Purview / Symantec DLP / Forcepoint"
+      purpose: "Prevent unauthorized data exfiltration"
+      actions:
+        - "Block emails containing sensitive data patterns (SSN, credit cards)"
+        - "Quarantine files uploaded to unapproved cloud storage"
+        - "Alert security team on policy violations"
+
+    - tool: "Endpoint Detection and Response (EDR)"
+      vendor: "CrowdStrike Falcon / Microsoft Defender for Endpoint"
+      purpose: "Detect and respond to endpoint threats"
+      actions:
+        - "Alert on suspicious processes (hacking tools, unauthorized software)"
+        - "Automatically quarantine malware"
+        - "Behavioral analysis for insider threats"
+
+    - tool: "Security Information and Event Management (SIEM)"
+      vendor: "Splunk / Microsoft Sentinel / IBM QRadar"
+      purpose: "Aggregate logs and detect security incidents"
+      actions:
+        - "Correlate events across systems"
+        - "Alert on anomalous behavior (e.g., data download spikes)"
+        - "Provide audit trail for investigations"
+
+    - tool: "User and Entity Behavior Analytics (UEBA)"
+      vendor: "Exabeam / Microsoft Defender for Identity"
+      purpose: "Detect insider threats and compromised accounts"
+      actions:
+        - "Baseline normal user behavior"
+        - "Alert on anomalies (unusual login times, locations, data access)"
+        - "Risk-score users based on behavior"
+
+  investigationProcedures:
+    triggers:
+      - "DLP policy violation alerts"
+      - "UEBA anomaly detection (e.g., unusual data downloads)"
+      - "Manager or HR complaint regarding employee behavior"
+      - "Security incident (malware infection, phishing click)"
+      - "Termination for cause (forensic evidence gathering)"
+
+    investigationProcess:
+      - step: 1
+        action: "IT Security notified of policy violation or suspicious activity"
+      - step: 2
+        action: "Initial triage: review logs, alerts, and available evidence"
+      - step: 3
+        action: "If substantive violation suspected, escalate to CISO and HR"
+      - step: 4
+        action: "Conduct detailed investigation (email review, file access logs, interviews)"
+      - step: 5
+        action: "Preserve evidence per legal hold procedures if litigation anticipated"
+      - step: 6
+        action: "Document findings in investigation report"
+      - step: 7
+        action: "HR determines disciplinary action per violation severity"
+
+    privacyProtections:
+      - "Investigations limited to business purposes (not fishing expeditions)"
+      - "Access to investigation data restricted to authorized personnel (CISO, HR, Legal)"
+      - "Comply with jurisdictional requirements (e.g., EU Works Council consultation)"
+      - "Document business justification for each investigation"
+
+violationsAndConsequences:
+  policyViolationCategories:
+    - severity: "Low"
+      description: "Minor policy infractions with minimal risk"
+      examples:
+        - "Excessive personal internet use (over 30 min/day limit)"
+        - "Installing unapproved software (non-security risk)"
+        - "Visiting blocked website category accidentally"
+      consequence: "Verbal warning; mandatory policy re-training"
+
+    - severity: "Medium"
+      description: "Moderate policy violations creating security or compliance risk"
+      examples:
+        - "Forwarding confidential email to personal account"
+        - "Using unapproved cloud storage (Dropbox) for work files"
+        - "Failure to report lost corporate mobile device within 24 hours"
+        - "Installing unapproved remote access software"
+      consequence: "Written warning; mandatory security training; 30-day probation"
+
+    - severity: "High"
+      description: "Serious violations creating significant security or legal risk"
+      examples:
+        - "Downloading customer database to personal device"
+        - "Sharing login credentials with another person"
+        - "Disabling endpoint security software (antivirus, EDR)"
+        - "Jailbreaking corporate iPhone or rooting Android device"
+        - "Accessing systems without authorization (beyond job responsibilities)"
+      consequence: "Suspension without pay; performance improvement plan; potential termination"
+
+    - severity: "Critical"
+      description: "Egregious violations with criminal or severe legal implications"
+      examples:
+        - "Intentional data theft or exfiltration"
+        - "Installing malware or hacking tools for malicious purposes"
+        - "Harassment or illegal activities via corporate systems"
+        - "Selling corporate data or credentials"
+        - "Intentionally sabotaging systems or data"
+      consequence: "Immediate termination for cause; law enforcement referral; legal action"
+
+  progressiveDiscipline:
+    framework: |
+      Violations will generally follow progressive discipline approach, except for
+      egregious violations warranting immediate termination.
+
+    steps:
+      - offense: "First offense (Low/Medium severity)"
+        action: "Verbal warning; policy re-training; documented in employee file"
+
+      - offense: "Second offense (Low/Medium severity)"
+        action: "Written warning; manager notification; 30-day performance monitoring"
+
+      - offense: "Third offense (Low/Medium severity)"
+        action: "Final written warning; suspension without pay (3-5 days); performance improvement plan"
+
+      - offense: "Fourth offense OR any High/Critical severity"
+        action: "Termination for cause"
+
+    exceptions:
+      - "Critical severity violations: immediate termination without progressive steps"
+      - "Illegal activity: immediate termination and law enforcement referral"
+      - "Manager discretion for extenuating circumstances (documented in writing)"
+
+  employmentConsequences:
+    terminationForCause:
+      - "Ineligible for rehire"
+      - "No severance pay"
+      - "Potential forfeiture of unvested equity (per equity plan terms)"
+      - "Loss of accrued PTO (per state law and company policy)"
+
+    legalAction:
+      - "Civil lawsuit for damages (data breach costs, reputational harm)"
+      - "Criminal prosecution for illegal activities (CFAA violations, data theft)"
+      - "Injunctive relief (restraining order, non-compete enforcement)"
+
+userAcknowledgmentRequirements:
+  acknowledgmentProcess:
+    frequency: "Annually and upon policy updates"
+    method: "Electronic signature via HR system (Workday, BambooHR)"
+
+    requirementsForSystemAccess:
+      - "New employees must acknowledge before receiving system access (Day 1)"
+      - "Annual re-acknowledgment required by January 31st each year"
+      - "Policy update acknowledgment required within 30 days of notification"
+      - "System access blocked for users who fail to acknowledge by deadline"
+
+    acknowledgmentStatement: |
+      I acknowledge that I have read, understood, and agree to comply with the
+      Acceptable Use Policy. I understand that:
+
+      1. Use of corporate systems constitutes consent to monitoring.
+      2. I have no expectation of privacy when using corporate systems.
+      3. Violation of this policy may result in disciplinary action up to and
+         including termination and legal action.
+      4. I am responsible for reporting suspected policy violations.
+      5. I will immediately report lost/stolen devices or security incidents.
+
+  trainingRequirements:
+    - training: "Security Awareness Training"
+      frequency: "Annually"
+      platform: "KnowBe4 / SANS Security Awareness"
+      topics: ["Phishing", "Password security", "Data handling", "Acceptable use"]
+
+    - training: "Acceptable Use Policy Review"
+      frequency: "Upon hire and annually"
+      duration: "30 minutes"
+      deliveryMethod: "Self-paced e-learning module"
+
+exceptionsAndWaivers:
+  exceptionRequestProcess:
+    steps:
+      - step: 1
+        action: "Submit exception request via IT Service Portal"
+        requiredInfo: ["Business justification", "Requested exception", "Duration", "Compensating controls"]
+
+      - step: 2
+        action: "IT Security risk assessment"
+        deliverable: "Risk analysis documenting residual risk"
+
+      - step: 3
+        action: "CISO approval (for exceptions >90 days, CISO + CIO approval required)"
+
+      - step: 4
+        action: "Document approved exception in exception register with review date"
+
+  exceptionManagement:
+    - "All exceptions documented in central exception register"
+    - "Exceptions granted for limited time (typically 90 days; renewal required)"
+    - "Compensating controls required to mitigate risk"
+    - "Exceptions reviewed quarterly; revoked if no longer necessary"
+
+  commonExceptionScenarios:
+    - scenario: "Executive travel to restricted countries (China, Russia)"
+      compensatingControls:
+        - "Temporary travel laptop (wiped before and after trip)"
+        - "Limited corporate data access via web browser only"
+        - "VPN required for any corporate access"
+        - "Device forensics upon return"
+
+    - scenario: "Software developers requiring admin rights"
+      compensatingControls:
+        - "Separate admin account (not day-to-day account)"
+        - "MFA for privileged access"
+        - "Enhanced EDR monitoring"
+        - "Quarterly access reviews"
+
+    - scenario: "Customer-facing kiosks or demo systems"
+      compensatingControls:
+        - "Network segmentation (isolated VLAN)"
+        - "Read-only access to corporate data"
+        - "Daily reimaging or reset"
+
+relatedPoliciesAndDocuments:
+  - policyName: "Information Security Policy"
+    relationship: "Parent policy; AUP is implementing policy"
+
+  - policyName: "Data Classification Policy"
+    relationship: "Defines data sensitivity levels referenced in AUP"
+
+  - policyName: "Incident Response Plan"
+    relationship: "Procedures for responding to AUP violations"
+
+  - policyName: "Access Control Policy"
+    relationship: "Defines access provisioning/deprovisioning procedures"
+
+  - policyName: "Cryptographic Standards"
+    relationship: "Specifies encryption requirements for data handling"
+
+  - policyName: "Employee Privacy Notice"
+    relationship: "Informs employees of monitoring practices"
+
+  - policyName: "Social Media Policy"
+    relationship: "Detailed guidance on social media usage"
+
+  - policyName: "BYOD Policy"
+    relationship: "Detailed requirements for personal device usage"
+
+policyMaintenanceAndReview:
+  reviewCycle:
+    frequency: "Annual"
+    nextReviewDate: "2025-12-10"
+    reviewers:
+      - "Chief Information Security Officer"
+      - "Chief Legal Officer"
+      - "Chief Human Resources Officer"
+      - "IT Security Team"
+      - "Employee Privacy Committee (if applicable for EU)"
+
+  updateTriggers:
+    - "New technology adoption (e.g., generative AI tools, new cloud services)"
+    - "Regulatory changes (GDPR, CCPA updates)"
+    - "Security incidents revealing policy gaps"
+    - "Organizational changes (mergers, acquisitions)"
+    - "Annual review findings"
+
+  changeManagement:
+    - "Policy updates reviewed by Legal and HR before approval"
+    - "Material changes require re-acknowledgment by all users within 30 days"
+    - "Version history maintained in policy document"
+    - "Communication plan for policy updates (email, intranet, manager briefings)"
+
+complianceAndAudit:
+  complianceMonitoring:
+    metrics:
+      - metric: "User acknowledgment rate"
+        target: "100% of active users within 30 days of hire or policy update"
+        reportingFrequency: "Monthly"
+
+      - metric: "Policy violation rate"
+        target: "<1% of user population per quarter"
+        reportingFrequency: "Quarterly"
+
+      - metric: "Shadow IT discovery"
+        target: "Zero critical/high-risk unapproved cloud services"
+        reportingFrequency: "Monthly via CASB"
+
+      - metric: "DLP policy effectiveness"
+        target: ">95% of sensitive data exfiltration attempts blocked"
+        reportingFrequency: "Monthly"
+
+  auditRequirements:
+    - "Internal Audit reviews AUP compliance annually"
+    - "SOC 2 Type II auditors review policy and violation logs"
+    - "External auditors may request policy violation reports and disciplinary records"
+    - "Maintain audit trail: policy versions, acknowledgments, violations, disciplinary actions"
+
+changeLog:
+  - version: "2.1.0"
+    date: "2025-01-15"
+    author: "Sarah Chen, CISO"
+    changes:
+      - "Added generative AI tool usage guidance (ChatGPT, Claude, etc.)"
+      - "Updated CASB references to include Microsoft Defender for Cloud Apps"
+      - "Enhanced BYOD privacy protections per updated state privacy laws"
+      - "Added iOS/Android minimum version requirements"
+    approver: "CISO, CLO, CHRO"
+
+  - version: "2.0.0"
+    date: "2024-01-10"
+    author: "Michael Torres, Previous CISO"
+    changes:
+      - "Major rewrite to align with ISO 27001:2022 and NIST SP 800-53 Rev 5"
+      - "Added CASB and shadow IT controls"
+      - "Enhanced mobile device security requirements (MTD, containerization)"
+      - "Added progressive discipline framework"
+    approver: "CISO, CLO, CHRO"
+
+  - version: "1.5.0"
+    date: "2023-03-01"
+    author: "IT Security Team"
+    changes:
+      - "Added BYOD policy section"
+      - "Updated encryption requirements for data in transit and at rest"
+      - "Enhanced monitoring transparency and privacy protections"
+    approver: "CISO, CLO"
+
+# Example User Acknowledgment Record (tracked in HRIS)
+#
+# acknowledgments:
+#   - userId: "emp-12345"
+#     employeeName: "John Smith"
+#     email: "john.smith@company.com"
+#     acknowledgmentDate: "2025-01-20T09:15:00Z"
+#     policyVersion: "2.1.0"
+#     ipAddress: "192.168.1.100"
+#     userAgent: "Mozilla/5.0..."
+#     digitalSignature: "Signed electronically via Workday"

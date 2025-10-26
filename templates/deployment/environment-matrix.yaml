@@ -1,0 +1,697 @@
+# Environment Matrix
+# Comprehensive configuration framework defining infrastructure and operational parameters across all deployment environments
+
+metadata:
+  version: "3.2.0"
+  created: "2023-05-01"
+  lastModified: "2024-01-15"
+  status: "Active"
+  documentOwner: "Platform Engineering Team"
+  classification: "Internal"
+  approvers:
+    - name: "David Kim"
+      role: "Principal Platform Engineer"
+      date: "2024-01-15"
+    - name: "Rachel Thompson"
+      role: "Infrastructure Manager"
+      date: "2024-01-15"
+
+# =============================================================================
+# ENVIRONMENT DEFINITIONS
+# =============================================================================
+
+environments:
+  # ---------------------------------------------------------------------------
+  # DEVELOPMENT ENVIRONMENT
+  # ---------------------------------------------------------------------------
+  development:
+    name: "Development"
+    purpose: "Feature development and unit testing"
+    tier: "non-production"
+    sla: "none"
+    dataClassification: "test-data-only"
+
+    infrastructure:
+      cloud:
+        provider: "AWS"
+        region: "us-east-1"
+        accountId: "123456789012"
+        vpcId: "vpc-dev-abc123"
+
+      kubernetes:
+        clusterName: "dev-eks-cluster"
+        clusterVersion: "1.28"
+        nodeGroups:
+          - name: "general-purpose"
+            instanceType: "t3.medium"
+            minNodes: 2
+            maxNodes: 5
+            desiredNodes: 2
+            diskSize: 50  # GB
+            labels:
+              workload: "general"
+
+      compute:
+        defaultResourceRequests:
+          cpu: "100m"
+          memory: "128Mi"
+        defaultResourceLimits:
+          cpu: "500m"
+          memory: "512Mi"
+
+    application:
+      deployment:
+        strategy: "RollingUpdate"
+        maxUnavailable: 1
+        maxSurge: 1
+        replicas: 1
+
+      ingress:
+        domain: "dev.api.company.com"
+        tlsEnabled: true
+        certificate: "arn:aws:acm:us-east-1:123456789012:certificate/dev-cert"
+        ingressClass: "nginx"
+
+      services:
+        apiService:
+          url: "https://dev.api.company.com"
+          port: 443
+          healthCheckPath: "/health"
+          replicas: 1
+
+        webAppService:
+          url: "https://dev.app.company.com"
+          port: 443
+          replicas: 1
+
+    databases:
+      postgres:
+        instanceClass: "db.t3.micro"
+        engine: "postgres"
+        engineVersion: "15.4"
+        storage: 20  # GB
+        storageType: "gp2"
+        multiAZ: false
+        backupRetention: 1  # days
+        endpoint: "dev-postgres.abc123.us-east-1.rds.amazonaws.com"
+        port: 5432
+        databases:
+          - name: "app_dev"
+            schema: "public"
+
+    caching:
+      redis:
+        nodeType: "cache.t3.micro"
+        engine: "redis"
+        engineVersion: "7.0"
+        numCacheNodes: 1
+        endpoint: "dev-redis.abc123.0001.use1.cache.amazonaws.com"
+        port: 6379
+
+    messaging:
+      kafka:
+        enabled: false  # Use managed service in higher envs
+      sqs:
+        enabled: true
+        queues:
+          - name: "dev-payment-queue"
+            url: "https://sqs.us-east-1.amazonaws.com/123456789012/dev-payment-queue"
+
+    storage:
+      s3:
+        buckets:
+          - name: "company-dev-uploads"
+            region: "us-east-1"
+            versioning: false
+            encryption: "AES256"
+
+    monitoring:
+      datadog:
+        enabled: true
+        env: "development"
+        apiKey: "from-secrets"
+
+      logging:
+        level: "DEBUG"
+        retention: 7  # days
+        destination: "cloudwatch"
+
+    security:
+      networkPolicy: "permissive"
+      podSecurityPolicy: "restricted"
+      secretsManager: "aws-secrets-manager"
+      encryption:
+        atRest: true
+        inTransit: true
+
+    cicd:
+      deploymentFrequency: "On every commit to develop branch"
+      approvalRequired: false
+      autoRollback: true
+
+    cost:
+      monthlyBudget: 500  # USD
+      costCenter: "engineering"
+      tags:
+        Environment: "development"
+        ManagedBy: "terraform"
+        Team: "platform"
+
+  # ---------------------------------------------------------------------------
+  # STAGING ENVIRONMENT
+  # ---------------------------------------------------------------------------
+  staging:
+    name: "Staging"
+    purpose: "Pre-production testing and QA validation"
+    tier: "non-production"
+    sla: "95%"
+    dataClassification: "anonymized-production-data"
+
+    infrastructure:
+      cloud:
+        provider: "AWS"
+        region: "us-east-1"
+        accountId: "123456789012"
+        vpcId: "vpc-staging-def456"
+
+      kubernetes:
+        clusterName: "staging-eks-cluster"
+        clusterVersion: "1.28"
+        nodeGroups:
+          - name: "general-purpose"
+            instanceType: "t3.large"
+            minNodes: 3
+            maxNodes: 10
+            desiredNodes: 3
+            diskSize: 100  # GB
+
+          - name: "high-memory"
+            instanceType: "r5.large"
+            minNodes: 1
+            maxNodes: 3
+            desiredNodes: 1
+            diskSize: 100
+            labels:
+              workload: "data-processing"
+
+      compute:
+        defaultResourceRequests:
+          cpu: "250m"
+          memory: "256Mi"
+        defaultResourceLimits:
+          cpu: "1000m"
+          memory: "1Gi"
+
+    application:
+      deployment:
+        strategy: "RollingUpdate"
+        maxUnavailable: 0
+        maxSurge: 1
+        replicas: 2
+
+      ingress:
+        domain: "staging.api.company.com"
+        tlsEnabled: true
+        certificate: "arn:aws:acm:us-east-1:123456789012:certificate/staging-cert"
+        ingressClass: "nginx"
+        rateLimiting:
+          enabled: true
+          requestsPerSecond: 100
+
+      services:
+        apiService:
+          url: "https://staging.api.company.com"
+          port: 443
+          healthCheckPath: "/health"
+          replicas: 2
+
+        webAppService:
+          url: "https://staging.app.company.com"
+          port: 443
+          replicas: 2
+
+    databases:
+      postgres:
+        instanceClass: "db.t3.medium"
+        engine: "postgres"
+        engineVersion: "15.4"
+        storage: 100  # GB
+        storageType: "gp3"
+        iops: 3000
+        multiAZ: true
+        backupRetention: 7  # days
+        endpoint: "staging-postgres.def456.us-east-1.rds.amazonaws.com"
+        port: 5432
+        databases:
+          - name: "app_staging"
+            schema: "public"
+        readReplicas: 1
+
+    caching:
+      redis:
+        nodeType: "cache.t3.small"
+        engine: "redis"
+        engineVersion: "7.0"
+        numCacheNodes: 2
+        replicationGroupId: "staging-redis-cluster"
+        automaticFailover: true
+        endpoint: "staging-redis.abc123.clustercfg.use1.cache.amazonaws.com"
+        port: 6379
+
+    messaging:
+      kafka:
+        enabled: true
+        brokers:
+          - "staging-kafka-1.company.internal:9092"
+          - "staging-kafka-2.company.internal:9092"
+        topics:
+          - name: "payments.events"
+            partitions: 3
+            replicationFactor: 2
+
+      sqs:
+        enabled: true
+        queues:
+          - name: "staging-payment-queue"
+            url: "https://sqs.us-east-1.amazonaws.com/123456789012/staging-payment-queue"
+            visibilityTimeout: 30
+            messageRetention: 345600  # 4 days
+
+    storage:
+      s3:
+        buckets:
+          - name: "company-staging-uploads"
+            region: "us-east-1"
+            versioning: true
+            encryption: "aws:kms"
+            lifecycleRules:
+              - id: "delete-old-objects"
+                prefix: "temp/"
+                expirationDays: 30
+
+    monitoring:
+      datadog:
+        enabled: true
+        env: "staging"
+        apm: true
+        profiling: true
+
+      logging:
+        level: "INFO"
+        retention: 30  # days
+        destination: "cloudwatch"
+
+      alerts:
+        - name: "High Error Rate"
+          condition: "error_rate > 5%"
+          channels: ["slack-staging-alerts"]
+
+    security:
+      networkPolicy: "strict"
+      podSecurityPolicy: "restricted"
+      secretsManager: "aws-secrets-manager"
+      waf:
+        enabled: true
+        ruleSet: "OWASP-Top-10"
+      encryption:
+        atRest: true
+        inTransit: true
+        keyRotation: 90  # days
+
+    cicd:
+      deploymentFrequency: "On merge to main branch"
+      approvalRequired: true
+      approvers: ["platform-team"]
+      autoRollback: true
+      deploymentWindow: "24/7"
+
+    cost:
+      monthlyBudget: 3000  # USD
+      costCenter: "engineering"
+      tags:
+        Environment: "staging"
+        ManagedBy: "terraform"
+        Team: "platform"
+        CostCenter: "engineering"
+
+  # ---------------------------------------------------------------------------
+  # PRODUCTION ENVIRONMENT
+  # ---------------------------------------------------------------------------
+  production:
+    name: "Production"
+    purpose: "Live customer-facing services"
+    tier: "production"
+    sla: "99.9%"
+    dataClassification: "production-pii-pci"
+
+    infrastructure:
+      cloud:
+        provider: "AWS"
+        regions:
+          primary: "us-east-1"
+          secondary: "us-west-2"  # DR region
+        accountId: "987654321098"
+        vpcId: "vpc-prod-ghi789"
+
+      kubernetes:
+        clusterName: "prod-eks-cluster"
+        clusterVersion: "1.28"
+        nodeGroups:
+          - name: "general-purpose"
+            instanceType: "m5.2xlarge"
+            minNodes: 10
+            maxNodes: 50
+            desiredNodes: 15
+            diskSize: 200  # GB
+            labels:
+              workload: "general"
+
+          - name: "high-memory"
+            instanceType: "r5.2xlarge"
+            minNodes: 3
+            maxNodes: 20
+            desiredNodes: 5
+            diskSize: 200
+            labels:
+              workload: "data-processing"
+
+          - name: "gpu-workloads"
+            instanceType: "p3.2xlarge"
+            minNodes: 0
+            maxNodes: 5
+            desiredNodes: 0
+            diskSize: 300
+            labels:
+              workload: "ml-inference"
+            taints:
+              - key: "nvidia.com/gpu"
+                value: "true"
+                effect: "NoSchedule"
+
+      compute:
+        defaultResourceRequests:
+          cpu: "500m"
+          memory: "512Mi"
+        defaultResourceLimits:
+          cpu: "2000m"
+          memory: "2Gi"
+
+    application:
+      deployment:
+        strategy: "RollingUpdate"
+        maxUnavailable: 0
+        maxSurge: 2
+        replicas: 10
+
+      ingress:
+        domain: "api.company.com"
+        tlsEnabled: true
+        certificate: "arn:aws:acm:us-east-1:987654321098:certificate/prod-cert"
+        ingressClass: "nginx"
+        cdn:
+          enabled: true
+          provider: "CloudFront"
+          distributionId: "E1234567890ABC"
+        rateLimiting:
+          enabled: true
+          requestsPerSecond: 10000
+          burstSize: 20000
+        waf:
+          enabled: true
+          webAclId: "arn:aws:wafv2:us-east-1:987654321098:global/webacl/prod-waf/abc-123"
+
+      services:
+        apiService:
+          url: "https://api.company.com"
+          port: 443
+          healthCheckPath: "/health"
+          replicas: 10
+          autoscaling:
+            enabled: true
+            minReplicas: 10
+            maxReplicas: 100
+            targetCPU: 70
+            targetMemory: 80
+
+        webAppService:
+          url: "https://app.company.com"
+          port: 443
+          replicas: 15
+          autoscaling:
+            enabled: true
+            minReplicas: 15
+            maxReplicas: 200
+            targetCPU: 75
+
+        paymentService:
+          url: "https://payments.company.com"
+          port: 443
+          replicas: 20
+          autoscaling:
+            enabled: true
+            minReplicas: 20
+            maxReplicas: 100
+            targetCPU: 60
+
+    databases:
+      postgres:
+        instanceClass: "db.r5.4xlarge"
+        engine: "postgres"
+        engineVersion: "15.4"
+        storage: 1000  # GB
+        storageType: "io1"
+        iops: 10000
+        multiAZ: true
+        backupRetention: 30  # days
+        endpoint: "prod-postgres.ghi789.us-east-1.rds.amazonaws.com"
+        port: 5432
+        databases:
+          - name: "app_production"
+            schema: "public"
+        readReplicas: 3
+        performanceInsights: true
+        enhancedMonitoring: true
+
+    caching:
+      redis:
+        nodeType: "cache.r5.xlarge"
+        engine: "redis"
+        engineVersion: "7.0"
+        numCacheNodes: 6
+        replicationGroupId: "prod-redis-cluster"
+        automaticFailover: true
+        multiAZ: true
+        endpoint: "prod-redis.ghi789.clustercfg.use1.cache.amazonaws.com"
+        port: 6379
+        transitEncryption: true
+        atRestEncryption: true
+
+    messaging:
+      kafka:
+        enabled: true
+        managed: true
+        provider: "AWS MSK"
+        clusterArn: "arn:aws:kafka:us-east-1:987654321098:cluster/prod-kafka/abc-123"
+        brokers:
+          - "b-1.prod-kafka.abc123.kafka.us-east-1.amazonaws.com:9092"
+          - "b-2.prod-kafka.abc123.kafka.us-east-1.amazonaws.com:9092"
+          - "b-3.prod-kafka.abc123.kafka.us-east-1.amazonaws.com:9092"
+        topics:
+          - name: "payments.events"
+            partitions: 12
+            replicationFactor: 3
+            retentionHours: 168  # 7 days
+
+      sqs:
+        enabled: true
+        queues:
+          - name: "prod-payment-queue"
+            url: "https://sqs.us-east-1.amazonaws.com/987654321098/prod-payment-queue"
+            visibilityTimeout: 30
+            messageRetention: 1209600  # 14 days
+            deadLetterQueue: "prod-payment-dlq"
+
+    storage:
+      s3:
+        buckets:
+          - name: "company-prod-uploads"
+            region: "us-east-1"
+            versioning: true
+            encryption: "aws:kms"
+            kmsKeyId: "arn:aws:kms:us-east-1:987654321098:key/abc-123"
+            lifecycleRules:
+              - id: "archive-old-objects"
+                prefix: "archive/"
+                transitionDays: 90
+                storageClass: "GLACIER"
+            replication:
+              enabled: true
+              destinationBucket: "company-prod-uploads-dr"
+              destinationRegion: "us-west-2"
+
+    monitoring:
+      datadog:
+        enabled: true
+        env: "production"
+        apm: true
+        profiling: true
+        logs: true
+        traces: true
+
+      logging:
+        level: "WARN"
+        retention: 90  # days
+        destination: "cloudwatch"
+        structured: true
+
+      alerts:
+        - name: "Critical Error Rate"
+          condition: "error_rate > 1%"
+          channels: ["pagerduty", "slack-incidents"]
+          severity: "critical"
+
+        - name: "High Latency"
+          condition: "p95_latency > 500ms"
+          channels: ["pagerduty", "slack-sre"]
+          severity: "high"
+
+        - name: "Low Success Rate"
+          condition: "success_rate < 99.5%"
+          channels: ["pagerduty"]
+          severity: "critical"
+
+      dashboards:
+        - name: "API Performance"
+          url: "https://app.datadoghq.com/dashboard/abc-123"
+        - name: "Database Performance"
+          url: "https://app.datadoghq.com/dashboard/def-456"
+
+    security:
+      networkPolicy: "zero-trust"
+      podSecurityPolicy: "highly-restricted"
+      secretsManager: "aws-secrets-manager"
+      encryption:
+        atRest: true
+        inTransit: true
+        keyRotation: 30  # days
+      waf:
+        enabled: true
+        ruleSet: "OWASP-Top-10 + Custom Rules"
+        rateLimiting: true
+        geoBlocking:
+          enabled: true
+          blockedCountries: ["CN", "RU", "KP"]
+      ddosProtection:
+        enabled: true
+        provider: "AWS Shield Advanced"
+      compliance:
+        - "PCI-DSS 3.2.1"
+        - "SOC 2 Type II"
+        - "GDPR"
+        - "HIPAA"
+
+    cicd:
+      deploymentFrequency: "On-demand with approvals"
+      approvalRequired: true
+      approvers: ["platform-team", "security-team", "cto"]
+      minimumApprovals: 2
+      autoRollback: true
+      deploymentWindow: "Weekdays 10:00-16:00 UTC (business hours)"
+      changeAdvisoryBoard: true
+
+    disasterRecovery:
+      enabled: true
+      rpo: "1 hour"  # Recovery Point Objective
+      rto: "4 hours"  # Recovery Time Objective
+      backupRegion: "us-west-2"
+      failoverProcedure: "runbooks/dr-failover.md"
+
+    cost:
+      monthlyBudget: 50000  # USD
+      costCenter: "product"
+      tags:
+        Environment: "production"
+        ManagedBy: "terraform"
+        Team: "platform"
+        CostCenter: "product"
+        Compliance: "pci-dss"
+
+# =============================================================================
+# ENVIRONMENT PROMOTION RULES
+# =============================================================================
+
+promotionRules:
+  developmentToStaging:
+    trigger: "Merge to main branch"
+    requiredChecks:
+      - "All tests pass"
+      - "Code coverage > 80%"
+      - "Security scan clean"
+    approvalRequired: false
+    automatedPromotion: true
+
+  stagingToProduction:
+    trigger: "Manual promotion via CI/CD"
+    requiredChecks:
+      - "All staging tests pass"
+      - "Load testing completed"
+      - "Security review approved"
+      - "Change Advisory Board approval"
+    approvalRequired: true
+    approvers: ["platform-team", "security-team"]
+    minimumApprovals: 2
+    blackoutPeriods:
+      - "Black Friday: Nov 24-27"
+      - "Cyber Monday: Nov 27-30"
+      - "Holiday Freeze: Dec 20 - Jan 2"
+
+# =============================================================================
+# CONFIGURATION DRIFT DETECTION
+# =============================================================================
+
+driftDetection:
+  enabled: true
+  schedule: "Daily at 02:00 UTC"
+  tools:
+    - "terraform plan -detailed-exitcode"
+    - "kustomize diff"
+  notifications:
+    channels: ["slack-platform"]
+    severity: "warning"
+
+# =============================================================================
+# RELATED ARTIFACTS
+# =============================================================================
+
+relatedArtifacts:
+  - type: "deployment-plan"
+    path: "deployment/deployment-plan.md"
+    relationship: "references"
+
+  - type: "infrastructure-as-code"
+    path: "terraform/environments/"
+    relationship: "implements"
+
+  - type: "kubernetes-manifests"
+    path: "k8s/overlays/"
+    relationship: "configures"
+
+# =============================================================================
+# CHANGE HISTORY
+# =============================================================================
+
+changeHistory:
+  - version: "3.2.0"
+    date: "2024-01-15"
+    author: "David Kim"
+    changes: "Added GPU node group to production, updated Kafka configurations"
+
+  - version: "3.1.0"
+    date: "2023-11-20"
+    author: "Rachel Thompson"
+    changes: "Increased production database IOPS, added read replicas"
+
+  - version: "3.0.0"
+    date: "2023-09-01"
+    author: "Platform Team"
+    changes: "Complete environment matrix overhaul with standardized structure"

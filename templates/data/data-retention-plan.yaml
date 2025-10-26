@@ -1,73 +1,53 @@
 # Data Retention Plan
 # See also: artifact_descriptions/data-retention-plan.md for complete guidance
 
-# The Data Retention Plan is a comprehensive governance framework that defines retention periods, deletion schedules, archival procedures, and legal hold processes for personal data and regulated inform
+# The Data Retention Plan is a comprehensive governance framework that defines retention periods, deletion schedules, archival procedures, and legal hold processes for personal data and regulated inform...
 
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "1.0.0"
+  created: "YYYY-MM-DD"
+  lastModified: "YYYY-MM-DD"
+  status: "Draft"
+  author: "Author Name"
+  documentOwner: "Owner Name/Role"
+  classification: "Internal"
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
     - name: "Approver Name"
       role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+      date: null
 
 # PURPOSE
-# This artifact serves as the authoritative policy defining data retention periods by category, automated deletion triggers, legal hold procedures, archival workflows, and secure disposal methods to ensure GDPR Article 5(1)(e) storage limitation compliance, support GDPR Article 17 erasure rights, sati...
+# This artifact serves as the authoritative policy defining data retention periods by category, automated deletion triggers, legal hold procedures, archival workflows, and secure disposal methods to ensure GDPR Article 5(1)(e) storage limitation compliance, support GDPR Article 17 erasure rights, sati
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
+# BEST PRACTICES
 # - Purpose-Based Retention: Define retention periods based on documented processing purpose per GDPR Article 5(1)(e) with clear 
 # - Retention Schedule Matrix: Create comprehensive retention matrix specifying data categories, retention periods, deletion trigge
 # - Automated Deletion Workflows: Implement automated retention using database TTL (Time-to-Live), S3 Lifecycle policies, Azure Blob l
 # - GDPR Article 17 Compliance: Establish 30-day deletion timeline for verified erasure requests with audit trail of deletion confir
 # - Legal Hold Integration: Implement legal hold flag mechanisms preventing automated deletion when litigation, regulatory exami
 
+# Main content - customize based on artifact type
 content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
+  summary: |
+    Provide overview and context for this artifact.
+  
   scope:
-    inScope:
-      - "Retention schedules by data category (customer data, employee records, financial data, marketing data, system logs, metadata)"
-      - "GDPR Article 5(1)(e) storage limitation principle implementation with documented retention justification"
-      - "GDPR Article 17 right to erasure deletion workflows and 30-day response timeline procedures"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
-
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
+    included:
+      - "Retention schedules by data category (customer data, employee records, financial"
+      - "GDPR Article 5(1)(e) storage limitation principle implementation with documented"
+      - "GDPR Article 17 right to erasure deletion workflows and 30-day response timeline"
     
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
-
-relatedDocuments:
+    excluded:
+      - "Items explicitly out of scope"
+  
+# Related artifacts
+relatedArtifacts:
   - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+    path: "path/to/artifact"
+    relationship: "depends-on | references | implements"
 
+# Change history
 changeHistory:
   - version: "1.0.0"
     date: "YYYY-MM-DD"

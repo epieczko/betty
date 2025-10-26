@@ -16,12 +16,11 @@
 
 ## Executive Summary
 
-<!-- Provide a 2-3 paragraph overview for executive audience -->
-<!-- What is this document about and why does it matter? -->
+The Bias and Fairness Reports provide recurring, standardized documentation of fairness metrics, demographic performance disparities, and bias mitigation efforts across ML models in production. These reports enable continuous monitoring of algorithmic fairness, detection of fairness drift, and docum
 
 ## Purpose
 
-<!-- This artifact provides recurring, time-series documentation of fairness metrics for ML models in production, enabling trend analysis, fairness drift detection, and compliance monitoring. It supports e... -->
+This artifact provides recurring, time-series documentation of fairness metrics for ML models in production, enabling trend analysis, fairness drift detection, and compliance monitoring. It supports evidence-based decision-making for model retraining, bias mitigation, and regulatory reporting.
 
 ## Scope
 
@@ -35,28 +34,12 @@
 
 ### Out of Scope
 
-- Items explicitly not covered by this artifact
+- Items explicitly not covered
 
-## Target Audience
+## Main Content
 
-### Primary Audience
-
-- ML Engineers: Monitor production fairness metrics, trigger retraining, implement bias mitigation
-- Data Scientists: Analyze fairness trends, investigate root causes, recommend mitigation strategies
-- AI Governance Teams: Oversee portfolio fairness, enforce fairness thresholds, coordinate remediation
-
-### Secondary Audience
-
-- Additional stakeholders who may reference this document
-
-## [Main Section 1]
-
-<!-- Complete this section with artifact-specific content -->
-<!-- Refer to the artifact description for required structure -->
-
-## [Main Section 2]
-
-<!-- Add additional sections as needed -->
+<!-- Provide detailed content specific to this artifact type -->
+<!-- Refer to the artifact description for required sections -->
 
 ## Best Practices
 
@@ -70,25 +53,21 @@
 
 **Temporal Baselines**: Compare current metrics to historical baselines; identify trends and drift patterns
 
-## Quality Checklist
+**Threshold Alerts**: Configure automated alerts when fairness metrics exceed organizational thresholds
 
-Before finalizing this artifact, verify:
+**Multiple Metric Reporting**: Report multiple fairness metrics (demographic parity, equalized odds, calibration) as they can conflict
 
-- [ ] **Completeness**: All required sections present and adequately detailed
-- [ ] **Accuracy**: Information verified and validated by appropriate subject matter experts
-- [ ] **Clarity**: Written in clear, unambiguous language appropriate for intended audience
-- [ ] **Consistency**: Aligns with organizational standards, templates, and related artifacts
-- [ ] **Currency**: Based on current information; outdated content removed or updated
+**Confusion Matrix Required**: Always include full confusion matrix by demographic group with sample sizes
 
 ## Related Documents
 
-- [Related Artifact]: Description and relationship
+- [Related Artifact]: Relationship description
 
 ## Approvals
 
 | Role | Name | Date | Status |
 |------|------|------|--------|
-| Approver | Name | YYYY-MM-DD | Pending |
+| Approver | | YYYY-MM-DD | Pending |
 
 ---
 

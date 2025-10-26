@@ -1,0 +1,327 @@
+# Metric Catalog
+# Centralized registry of all observability metrics with Prometheus/OpenTelemetry standards
+# Enforces naming conventions, manages cardinality, and prevents metric sprawl
+
+metadata:
+  version: "1.0.0"
+  lastUpdated: "2025-10-26"
+  owner: "Observability Team"
+  reviewCycle: "Quarterly"
+  classification: "Internal"
+  platforms:
+    - "Prometheus"
+    - "OpenTelemetry"
+    - "Datadog"
+
+# Metric Naming Standards
+namingConventions:
+  prometheus:
+    format: "snake_case"
+    baseUnits: "Use seconds, bytes, ratios (0-1) - never milliseconds or megabytes"
+    suffixes:
+      counters: "_total"
+      timers: "_seconds or _milliseconds"
+      sizes: "_bytes"
+      ratios: "_ratio"
+    examples:
+      - "http_requests_total"
+      - "http_request_duration_seconds"
+      - "process_resident_memory_bytes"
+      - "cache_hit_ratio"
+
+  openTelemetry:
+    format: "dot.notation"
+    semanticConventions: "Follow OTEL semantic conventions"
+    examples:
+      - "http.server.duration"
+      - "http.server.request.size"
+      - "db.client.connections.usage"
+      - "rpc.server.duration"
+
+# Cardinality Management
+cardinalityLimits:
+  maxLabelsPerMetric: 10
+  maxLabelValueCardinality: 1000
+  prohibitedLabels:
+    - "user_id (unbounded)"
+    - "request_id (unbounded)"
+    - "ip_address (high cardinality)"
+    - "timestamp (infinite cardinality)"
+    - "email (PII + unbounded)"
+
+  recommendedLabels:
+    - "service"
+    - "environment (prod, staging, dev)"
+    - "region (us-east-1, eu-west-1)"
+    - "method (GET, POST, PUT, DELETE)"
+    - "status_code (200, 404, 500)"
+    - "endpoint (/api/users, /api/orders)"
+
+# Metric Registry
+
+## Application Metrics (RED)
+
+metrics:
+  - metricName: "http_requests_total"
+    type: "counter"
+    description: "Total HTTP requests received by service"
+    unit: "requests"
+    labels:
+      - name: "service"
+        description: "Service name"
+        cardinality: "low (~10)"
+      - name: "method"
+        description: "HTTP method"
+        values: ["GET", "POST", "PUT", "DELETE", "PATCH"]
+      - name: "endpoint"
+        description: "API endpoint path"
+        cardinality: "medium (~50)"
+      - name: "status_code"
+        description: "HTTP status code"
+        cardinality: "low (~20)"
+
+    promqlExample: |
+      # Request rate per service
+      rate(http_requests_total[5m])
+
+      # Error rate (5xx errors)
+      sum(rate(http_requests_total{status_code=~"5.."}[5m]))
+      /
+      sum(rate(http_requests_total[5m]))
+
+    usedIn:
+      - "Service availability SLO"
+      - "RED metrics dashboard"
+      - "Error rate alerts"
+
+    owner: "Platform Team"
+    instrumentation: "Prometheus client library - custom middleware"
+
+  - metricName: "http_request_duration_seconds"
+    type: "histogram"
+    description: "HTTP request latency in seconds"
+    unit: "seconds"
+    buckets: [0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1.0, 5.0, 10.0]
+    labels:
+      - name: "service"
+      - name: "method"
+      - name: "endpoint"
+      - name: "status_code"
+
+    promqlExample: |
+      # P99 latency
+      histogram_quantile(0.99,
+        sum(rate(http_request_duration_seconds_bucket[5m])) by (le, service)
+      )
+
+      # P95 latency by endpoint
+      histogram_quantile(0.95,
+        sum(rate(http_request_duration_seconds_bucket[5m])) by (le, endpoint)
+      )
+
+    usedIn:
+      - "Latency SLO (P99 < 500ms)"
+      - "RED metrics dashboard"
+      - "Latency degradation alerts"
+
+    owner: "Platform Team"
+
+  - metricName: "payment_transactions_total"
+    type: "counter"
+    description: "Total payment transactions processed"
+    unit: "transactions"
+    labels:
+      - name: "status"
+        values: ["success", "failed", "declined", "timeout"]
+      - name: "payment_method"
+        values: ["credit_card", "debit_card", "paypal", "stripe"]
+      - name: "currency"
+        cardinality: "low (~10)"
+
+    promqlExample: |
+      # Payment success rate
+      sum(rate(payment_transactions_total{status="success"}[5m]))
+      /
+      sum(rate(payment_transactions_total[5m]))
+
+      # Payment volume by method
+      sum(rate(payment_transactions_total[1h])) by (payment_method)
+
+    usedIn:
+      - "Payment success rate SLO"
+      - "Revenue dashboard"
+      - "Payment failure alerts"
+
+    owner: "Payments Team"
+    businessCritical: true
+
+## Infrastructure Metrics (USE)
+
+  - metricName: "node_cpu_seconds_total"
+    type: "counter"
+    description: "CPU time consumed by mode (user, system, idle)"
+    unit: "seconds"
+    labels:
+      - name: "mode"
+        values: ["user", "system", "idle", "iowait"]
+      - name: "cpu"
+        description: "CPU core number"
+
+    source: "Prometheus node_exporter"
+    usedIn:
+      - "CPU utilization dashboard"
+      - "CPU saturation alerts"
+
+    promqlExample: |
+      # CPU utilization percentage
+      100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+
+  - metricName: "node_memory_MemAvailable_bytes"
+    type: "gauge"
+    description: "Available memory in bytes"
+    unit: "bytes"
+    source: "Prometheus node_exporter"
+
+    promqlExample: |
+      # Memory utilization percentage
+      (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100
+
+  - metricName: "kube_pod_container_resource_requests"
+    type: "gauge"
+    description: "Kubernetes pod resource requests (CPU, memory)"
+    unit: "various"
+    labels:
+      - name: "resource"
+        values: ["cpu", "memory"]
+      - name: "namespace"
+      - name: "pod"
+      - name: "container"
+
+    source: "kube-state-metrics"
+    usedIn:
+      - "Kubernetes resource utilization dashboard"
+      - "Resource quota alerts"
+
+## Database Metrics
+
+  - metricName: "pg_stat_database_numbackends"
+    type: "gauge"
+    description: "Number of active PostgreSQL connections"
+    unit: "connections"
+    labels:
+      - name: "datname"
+        description: "Database name"
+
+    source: "postgres_exporter"
+
+    promqlExample: |
+      # Connection pool utilization
+      pg_stat_database_numbackends / pg_settings_max_connections
+
+  - metricName: "pg_stat_database_tup_returned"
+    type: "counter"
+    description: "Number of rows returned by queries"
+    unit: "rows"
+    source: "postgres_exporter"
+
+## Cache Metrics
+
+  - metricName: "redis_keyspace_hits_total"
+    type: "counter"
+    description: "Number of successful cache hits"
+    unit: "hits"
+    source: "redis_exporter"
+
+    promqlExample: |
+      # Cache hit rate
+      rate(redis_keyspace_hits_total[5m])
+      /
+      (rate(redis_keyspace_hits_total[5m]) + rate(redis_keyspace_misses_total[5m]))
+
+  - metricName: "redis_memory_used_bytes"
+    type: "gauge"
+    description: "Redis memory usage in bytes"
+    unit: "bytes"
+    source: "redis_exporter"
+
+## Business Metrics
+
+  - metricName: "orders_created_total"
+    type: "counter"
+    description: "Total orders created"
+    unit: "orders"
+    labels:
+      - name: "status"
+        values: ["pending", "confirmed", "cancelled"]
+      - name: "source"
+        values: ["web", "mobile", "api"]
+
+    owner: "Commerce Team"
+    businessCritical: true
+
+  - metricName: "user_signups_total"
+    type: "counter"
+    description: "Total user sign-ups"
+    unit: "users"
+    labels:
+      - name: "source"
+        values: ["organic", "paid", "referral"]
+      - name: "plan"
+        values: ["free", "pro", "enterprise"]
+
+    owner: "Growth Team"
+    businessCritical: true
+
+# Recording Rules (Pre-computed expensive queries)
+recordingRules:
+  - recordName: "job:http_requests:rate5m"
+    expr: "sum(rate(http_requests_total[5m])) by (job)"
+    description: "Request rate aggregated by job over 5 minutes"
+
+  - recordName: "job:http_request_duration_seconds:p99"
+    expr: |
+      histogram_quantile(0.99,
+        sum(rate(http_request_duration_seconds_bucket[5m])) by (job, le)
+      )
+    description: "P99 latency aggregated by job"
+
+# Metric Lifecycle
+metricLifecycle:
+  proposal:
+    required: true
+    approvers: ["Observability Team Lead"]
+    template: "Submit metric proposal with name, type, labels, cardinality estimate, use case"
+
+  approval:
+    criteria:
+      - "Follows Prometheus naming conventions"
+      - "Estimated cardinality < limits"
+      - "Clear use case (dashboard, alert, or SLO)"
+      - "No duplicate metrics exist"
+      - "Owner and instrumentation plan defined"
+
+  deprecation:
+    process:
+      - "Mark metric as deprecated in catalog"
+      - "30-day notice to consumers"
+      - "Remove from new instrumentation"
+      - "Delete after 90 days with no active usage"
+
+# Cost Tracking
+costManagement:
+  activeTimeSeriesTarget: "< 1 million"
+  costPerTimeSeries: "$0.10/month (Datadog estimate)"
+  cardinalityBudgetPerTeam: "50,000 time series"
+
+  costOptimization:
+    - "Use recording rules for expensive aggregations"
+    - "Drop high-cardinality labels with relabeling"
+    - "Set appropriate retention (30d for most metrics, 90d for SLI)"
+    - "Use metric filtering to drop unused metrics"
+
+# Change History
+changeHistory:
+  - version: "1.0.0"
+    date: "2025-10-26"
+    author: "Observability Team"
+    changes: "Initial metric catalog with Prometheus and OTEL standards"

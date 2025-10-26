@@ -1,75 +1,804 @@
 # Logical Data Model
-# See also: artifact_descriptions/logical-data-model.md for complete guidance
+# Business-oriented data structure specification independent of technology
 
-# A Logical Data Model is a technology-independent, business-oriented representation of data structures that captures entities, attributes, relationships, and business rules without concern for physical
-
+---
 metadata:
-  # Document Control
-  version: "1.0.0"  # Semantic versioning (MAJOR.MINOR.PATCH)
-  created: "YYYY-MM-DD"  # Date this artifact was created
-  lastModified: "YYYY-MM-DD"  # Date of most recent update
-  status: "Draft"  # Draft | Review | Approved | Published | Deprecated
+  version: "2.0.0"
+  created: "2024-01-15"
+  lastModified: "2024-01-15"
+  status: "Production"
+  author: "Data Architecture Team"
+  documentOwner: "Chief Data Architect"
+  classification: "Internal"
+  modelingNotation: "Crow's Foot ERD"
+  normalizationLevel: "3NF"  # 3NF, BCNF, Star Schema, Data Vault 2.0
 
-  # Ownership & Accountability
-  author: "Author Name"  # Primary author of this artifact
-  documentOwner: "Owner Role/Name"  # Person/role responsible for maintenance
-  classification: "Internal"  # Public | Internal | Confidential | Restricted
-
-  # Approvals
   approvers:
-    - name: "Approver Name"
-      role: "Approver Role"
-      approvalDate: null  # Date of approval (YYYY-MM-DD)
+    - name: "Sarah Chen"
+      role: "Chief Data Architect"
+      date: "2024-01-15"
+    - name: "Michael Torres"
+      role: "Data Governance Lead"
+      date: "2024-01-15"
 
-# PURPOSE
-# This artifact provides a platform-independent, business-oriented data structure specification defining entities, attributes, relationships, business rules, and constraints using normalized forms, dimensional models, or Data Vault architectures to serve as the blueprint for physical database implemen...
+modelOverview:
+  purpose: |
+    Technology-independent logical data model for e-commerce order management system.
+    Defines entities, relationships, and business rules using Third Normal Form (3NF)
+    for transactional consistency and referential integrity.
 
-# MAIN CONTENT
-# Complete the sections below based on your specific artifact needs
-
-# BEST PRACTICES:
-# - Business Language First: Use business terminology for entity and attribute names, avoiding technical jargon or abbreviations
-# - Normalization for OLTP: Apply Third Normal Form (3NF) or Boyce-Codd Normal Form (BCNF) for transactional operational systems
-# - Dimensional for Analytics: Use star schema or snowflake schema for data warehouses and analytical data marts
-# - Data Vault for EDW: Consider Data Vault 2.0 (hubs, links, satellites) for enterprise data warehouses requiring historiza
-# - Consistent Notation: Standardize on one ERD notation (Crow's Foot, IE, UML) across the enterprise for consistency
-
-content:
-  overview: |
-    # Provide a high-level overview of this artifact
-    # What is this document about?
-    # Why does it exist?
-    
   scope:
-    inScope:
-      - "Entity definitions with business names, descriptions, and purposes (Customer, Order, Product, Transaction)"
-      - "Attribute specifications with business names, data types (at logical level"
-      - "Relationship definitions with cardinality (one-to-one, one-to-many, many-to-many) and participation constraints (mandatory, optional)"
-      # Add additional in-scope items
-    outOfScope:
-      - "Item explicitly out of scope"
-      # Add additional out-of-scope items
+    included:
+      - Customer and account management entities
+      - Product catalog and inventory structures
+      - Order processing and fulfillment entities
+      - Payment and billing relationships
+    excluded:
+      - Physical implementation (indexes, partitions)
+      - ETL transformation logic
+      - Performance optimization strategies
 
-  details: |
-    # Provide detailed information specific to this artifact type
-    # Include all necessary technical details
-    # Reference the artifact description for required sections
-    
-# QUALITY CHECKLIST
-# Before finalizing, verify:
-# ✓ Completeness: All required sections present and adequately detailed
-# ✓ Accuracy: Information verified and validated by appropriate subject matter experts
-# ✓ Clarity: Written in clear, unambiguous language appropriate for intended audience
-# ✓ Consistency: Aligns with organizational standards, templates, and related artifacts
-# ✓ Currency: Based on current information; outdated content removed or updated
+  subjectAreas:
+    - name: "Customer Management"
+      description: "Customer profiles, addresses, and communication preferences"
+    - name: "Product Catalog"
+      description: "Product hierarchy, pricing, and inventory"
+    - name: "Order Processing"
+      description: "Orders, line items, fulfillment, and returns"
+    - name: "Payment Processing"
+      description: "Payment methods, transactions, and billing"
 
-relatedDocuments:
-  - type: "Related Artifact Type"
-    path: "path/to/related/artifact"
-    relationship: "depends-on | references | supersedes | implements"
+# ============================================================================
+# EXAMPLE 1: NORMALIZED TRANSACTIONAL MODEL (3NF for OLTP)
+# E-Commerce Order Management System
+# ============================================================================
+
+entities:
+  # CUSTOMER SUBJECT AREA
+  - entityName: "Customer"
+    businessName: "Customer"
+    description: "Individual or organization that purchases products"
+    businessPurpose: "Track customer information for order processing and marketing"
+    primaryKey:
+      keyType: "Natural Key"
+      attributes: ["customer_id"]
+
+    attributes:
+      - name: "customer_id"
+        businessName: "Customer Identifier"
+        dataType: "String"
+        length: 36
+        nullable: false
+        description: "Unique identifier for customer (UUID format)"
+        exampleValues: ["a7f3c912-4e89-4d3b-9f12-6c8d4e9a1b2c"]
+
+      - name: "email_address"
+        businessName: "Email Address"
+        dataType: "String"
+        length: 255
+        nullable: false
+        unique: true
+        description: "Primary email for customer communications"
+        businessRules: ["Must be valid email format per RFC 5322"]
+        exampleValues: ["sarah.chen@example.com"]
+
+      - name: "first_name"
+        businessName: "First Name"
+        dataType: "String"
+        length: 100
+        nullable: false
+        description: "Customer's first name"
+        exampleValues: ["Sarah"]
+
+      - name: "last_name"
+        businessName: "Last Name"
+        dataType: "String"
+        length: 100
+        nullable: false
+        description: "Customer's last name"
+        exampleValues: ["Chen"]
+
+      - name: "customer_type"
+        businessName: "Customer Type"
+        dataType: "String"
+        length: 20
+        nullable: false
+        validValues: ["Individual", "Business"]
+        defaultValue: "Individual"
+
+      - name: "account_status"
+        businessName: "Account Status"
+        dataType: "String"
+        length: 20
+        nullable: false
+        validValues: ["Active", "Suspended", "Closed"]
+        defaultValue: "Active"
+
+      - name: "created_date"
+        businessName: "Account Created Date"
+        dataType: "Timestamp"
+        nullable: false
+        description: "Date and time when customer account was created"
+
+      - name: "loyalty_tier"
+        businessName: "Loyalty Program Tier"
+        dataType: "String"
+        length: 20
+        nullable: true
+        validValues: ["Bronze", "Silver", "Gold", "Platinum"]
+        description: "Customer loyalty program tier based on purchase history"
+
+  - entityName: "CustomerAddress"
+    businessName: "Customer Address"
+    description: "Physical addresses associated with customers"
+    businessPurpose: "Support shipping, billing, and communication with customers"
+    primaryKey:
+      keyType: "Surrogate Key"
+      attributes: ["address_id"]
+    uniqueKeys:
+      - attributes: ["customer_id", "address_type"]
+        description: "One billing and one shipping address per customer"
+
+    attributes:
+      - name: "address_id"
+        businessName: "Address Identifier"
+        dataType: "String"
+        length: 36
+        nullable: false
+        description: "Unique identifier for address"
+
+      - name: "customer_id"
+        businessName: "Customer Identifier"
+        dataType: "String"
+        length: 36
+        nullable: false
+        foreignKey:
+          referencedEntity: "Customer"
+          referencedAttribute: "customer_id"
+          onDelete: "CASCADE"
+          onUpdate: "CASCADE"
+
+      - name: "address_type"
+        businessName: "Address Type"
+        dataType: "String"
+        length: 20
+        nullable: false
+        validValues: ["Billing", "Shipping"]
+
+      - name: "street_line_1"
+        businessName: "Street Address Line 1"
+        dataType: "String"
+        length: 255
+        nullable: false
+        exampleValues: ["123 Market Street, Suite 500"]
+
+      - name: "street_line_2"
+        businessName: "Street Address Line 2"
+        dataType: "String"
+        length: 255
+        nullable: true
+        exampleValues: ["Building A"]
+
+      - name: "city"
+        businessName: "City"
+        dataType: "String"
+        length: 100
+        nullable: false
+        exampleValues: ["San Francisco"]
+
+      - name: "state_province"
+        businessName: "State or Province"
+        dataType: "String"
+        length: 50
+        nullable: false
+        exampleValues: ["California", "CA"]
+
+      - name: "postal_code"
+        businessName: "Postal Code"
+        dataType: "String"
+        length: 20
+        nullable: false
+        exampleValues: ["94105"]
+
+      - name: "country_code"
+        businessName: "Country Code"
+        dataType: "String"
+        length: 2
+        nullable: false
+        description: "ISO 3166-1 alpha-2 country code"
+        exampleValues: ["US", "CA", "GB"]
+
+  # PRODUCT SUBJECT AREA
+  - entityName: "Product"
+    businessName: "Product"
+    description: "Items available for purchase"
+    businessPurpose: "Catalog of products offered for sale"
+    primaryKey:
+      keyType: "Natural Key"
+      attributes: ["product_id"]
+
+    attributes:
+      - name: "product_id"
+        businessName: "Product Identifier"
+        dataType: "String"
+        length: 20
+        nullable: false
+        description: "SKU (Stock Keeping Unit)"
+        exampleValues: ["PRD-LAPTOP-001", "PRD-MOUSE-042"]
+
+      - name: "product_name"
+        businessName: "Product Name"
+        dataType: "String"
+        length: 255
+        nullable: false
+        exampleValues: ["Professional Laptop 15-inch"]
+
+      - name: "product_description"
+        businessName: "Product Description"
+        dataType: "Text"
+        nullable: true
+        description: "Detailed product description for marketing"
+
+      - name: "category_id"
+        businessName: "Category Identifier"
+        dataType: "String"
+        length: 20
+        nullable: false
+        foreignKey:
+          referencedEntity: "ProductCategory"
+          referencedAttribute: "category_id"
+
+      - name: "unit_price"
+        businessName: "Unit Price"
+        dataType: "Decimal"
+        precision: 10
+        scale: 2
+        nullable: false
+        description: "Price per unit in USD"
+        businessRules: ["Must be greater than 0"]
+        exampleValues: [1299.99, 49.99]
+
+      - name: "cost_price"
+        businessName: "Cost Price"
+        dataType: "Decimal"
+        precision: 10
+        scale: 2
+        nullable: false
+        description: "Cost to acquire product (for margin calculation)"
+        classification: "Confidential"
+
+      - name: "is_active"
+        businessName: "Active Status"
+        dataType: "Boolean"
+        nullable: false
+        defaultValue: true
+        description: "Whether product is available for sale"
+
+  # ORDER SUBJECT AREA
+  - entityName: "Order"
+    businessName: "Sales Order"
+    description: "Customer purchase order"
+    businessPurpose: "Track customer orders from placement through fulfillment"
+    primaryKey:
+      keyType: "Natural Key"
+      attributes: ["order_id"]
+
+    attributes:
+      - name: "order_id"
+        businessName: "Order Identifier"
+        dataType: "String"
+        length: 36
+        nullable: false
+        description: "Unique order number"
+        exampleValues: ["ORD-2024-000123456"]
+
+      - name: "customer_id"
+        businessName: "Customer Identifier"
+        dataType: "String"
+        length: 36
+        nullable: false
+        foreignKey:
+          referencedEntity: "Customer"
+          referencedAttribute: "customer_id"
+
+      - name: "order_date"
+        businessName: "Order Date"
+        dataType: "Timestamp"
+        nullable: false
+        description: "Date and time order was placed"
+
+      - name: "order_status"
+        businessName: "Order Status"
+        dataType: "String"
+        length: 20
+        nullable: false
+        validValues: ["Pending", "Confirmed", "Shipped", "Delivered", "Cancelled"]
+        defaultValue: "Pending"
+
+      - name: "subtotal_amount"
+        businessName: "Subtotal Amount"
+        dataType: "Decimal"
+        precision: 10
+        scale: 2
+        nullable: false
+        description: "Sum of all line items before tax"
+        derivationRule: "SUM(OrderLineItem.line_total) WHERE order_id = this.order_id"
+
+      - name: "tax_amount"
+        businessName: "Tax Amount"
+        dataType: "Decimal"
+        precision: 10
+        scale: 2
+        nullable: false
+        description: "Sales tax amount"
+
+      - name: "shipping_amount"
+        businessName: "Shipping Amount"
+        dataType: "Decimal"
+        precision: 10
+        scale: 2
+        nullable: false
+
+      - name: "total_amount"
+        businessName: "Total Amount"
+        dataType: "Decimal"
+        precision: 10
+        scale: 2
+        nullable: false
+        derivationRule: "subtotal_amount + tax_amount + shipping_amount"
+
+      - name: "shipping_address_id"
+        businessName: "Shipping Address"
+        dataType: "String"
+        length: 36
+        nullable: false
+        foreignKey:
+          referencedEntity: "CustomerAddress"
+          referencedAttribute: "address_id"
+
+  - entityName: "OrderLineItem"
+    businessName: "Order Line Item"
+    description: "Individual products within an order"
+    businessPurpose: "Detail each product and quantity ordered"
+    primaryKey:
+      keyType: "Composite Key"
+      attributes: ["order_id", "line_item_number"]
+
+    attributes:
+      - name: "order_id"
+        businessName: "Order Identifier"
+        dataType: "String"
+        length: 36
+        nullable: false
+        foreignKey:
+          referencedEntity: "Order"
+          referencedAttribute: "order_id"
+          onDelete: "CASCADE"
+
+      - name: "line_item_number"
+        businessName: "Line Item Number"
+        dataType: "Integer"
+        nullable: false
+        description: "Sequential number within order (1, 2, 3...)"
+
+      - name: "product_id"
+        businessName: "Product Identifier"
+        dataType: "String"
+        length: 20
+        nullable: false
+        foreignKey:
+          referencedEntity: "Product"
+          referencedAttribute: "product_id"
+
+      - name: "quantity"
+        businessName: "Quantity"
+        dataType: "Integer"
+        nullable: false
+        businessRules: ["Must be greater than 0"]
+
+      - name: "unit_price"
+        businessName: "Unit Price"
+        dataType: "Decimal"
+        precision: 10
+        scale: 2
+        nullable: false
+        description: "Price per unit at time of order (frozen price)"
+
+      - name: "discount_percentage"
+        businessName: "Discount Percentage"
+        dataType: "Decimal"
+        precision: 5
+        scale: 2
+        nullable: true
+        description: "Discount applied to this line item (0.00 to 100.00)"
+
+      - name: "line_total"
+        businessName: "Line Total"
+        dataType: "Decimal"
+        precision: 10
+        scale: 2
+        nullable: false
+        derivationRule: "quantity * unit_price * (1 - discount_percentage/100)"
+
+# ============================================================================
+# EXAMPLE 2: DIMENSIONAL MODEL (Star Schema for Analytics)
+# Sales Data Warehouse
+# ============================================================================
+
+dimensionalModel:
+  modelType: "Star Schema"
+  grainDescription: "One row per order line item per day"
+
+  factTables:
+    - tableName: "FactSales"
+      businessName: "Sales Facts"
+      description: "Daily sales transactions at line item grain"
+      grain: "One row per order line item"
+
+      measures:
+        - name: "quantity_sold"
+          businessName: "Quantity Sold"
+          dataType: "Integer"
+          aggregationType: "SUM"
+          description: "Number of units sold"
+
+        - name: "gross_sales_amount"
+          businessName: "Gross Sales Amount"
+          dataType: "Decimal"
+          precision: 18
+          scale: 2
+          aggregationType: "SUM"
+          description: "Sales amount before discounts"
+
+        - name: "discount_amount"
+          businessName: "Discount Amount"
+          dataType: "Decimal"
+          precision: 18
+          scale: 2
+          aggregationType: "SUM"
+
+        - name: "net_sales_amount"
+          businessName: "Net Sales Amount"
+          dataType: "Decimal"
+          precision: 18
+          scale: 2
+          aggregationType: "SUM"
+          description: "Sales amount after discounts"
+
+        - name: "cost_amount"
+          businessName: "Cost of Goods Sold"
+          dataType: "Decimal"
+          precision: 18
+          scale: 2
+          aggregationType: "SUM"
+
+        - name: "profit_amount"
+          businessName: "Profit Amount"
+          dataType: "Decimal"
+          precision: 18
+          scale: 2
+          aggregationType: "SUM"
+          derivationRule: "net_sales_amount - cost_amount"
+
+      dimensions:
+        - name: "order_date_key"
+          businessName: "Order Date"
+          dataType: "Integer"
+          foreignKey:
+            referencedTable: "DimDate"
+            referencedColumn: "date_key"
+
+        - name: "customer_key"
+          businessName: "Customer"
+          dataType: "Integer"
+          foreignKey:
+            referencedTable: "DimCustomer"
+            referencedColumn: "customer_key"
+
+        - name: "product_key"
+          businessName: "Product"
+          dataType: "Integer"
+          foreignKey:
+            referencedTable: "DimProduct"
+            referencedColumn: "product_key"
+
+        - name: "store_key"
+          businessName: "Store"
+          dataType: "Integer"
+          foreignKey:
+            referencedTable: "DimStore"
+            referencedColumn: "store_key"
+
+      degenerateDimensions:
+        - name: "order_number"
+          businessName: "Order Number"
+          dataType: "String"
+          description: "Order identifier stored in fact table"
+
+  dimensions:
+    - tableName: "DimDate"
+      businessName: "Date Dimension"
+      type: "Conformed Dimension"
+      scdType: "Type 0 (Static)"
+      description: "Calendar date dimension shared across all fact tables"
+
+      primaryKey:
+        attributes: ["date_key"]
+
+      attributes:
+        - name: "date_key"
+          businessName: "Date Key"
+          dataType: "Integer"
+          format: "YYYYMMDD"
+          exampleValues: [20240115, 20240116]
+
+        - name: "full_date"
+          businessName: "Full Date"
+          dataType: "Date"
+          exampleValues: ["2024-01-15"]
+
+        - name: "day_of_week"
+          businessName: "Day of Week"
+          dataType: "String"
+          exampleValues: ["Monday", "Tuesday"]
+
+        - name: "day_of_month"
+          businessName: "Day of Month"
+          dataType: "Integer"
+          exampleValues: [1, 15, 31]
+
+        - name: "month_number"
+          businessName: "Month Number"
+          dataType: "Integer"
+          exampleValues: [1, 12]
+
+        - name: "month_name"
+          businessName: "Month Name"
+          dataType: "String"
+          exampleValues: ["January", "December"]
+
+        - name: "quarter_number"
+          businessName: "Quarter Number"
+          dataType: "Integer"
+          exampleValues: [1, 2, 3, 4]
+
+        - name: "year"
+          businessName: "Year"
+          dataType: "Integer"
+          exampleValues: [2024]
+
+        - name: "is_weekend"
+          businessName: "Is Weekend"
+          dataType: "Boolean"
+
+        - name: "is_holiday"
+          businessName: "Is Holiday"
+          dataType: "Boolean"
+
+    - tableName: "DimCustomer"
+      businessName: "Customer Dimension"
+      type: "Type 2 SCD"
+      description: "Customer attributes with full history tracking"
+
+      primaryKey:
+        attributes: ["customer_key"]
+
+      naturalKey:
+        attributes: ["customer_id"]
+
+      attributes:
+        - name: "customer_key"
+          businessName: "Customer Surrogate Key"
+          dataType: "Integer"
+          description: "Auto-incrementing surrogate key"
+
+        - name: "customer_id"
+          businessName: "Customer Business Key"
+          dataType: "String"
+          description: "Natural key from source system"
+
+        - name: "customer_name"
+          businessName: "Customer Name"
+          dataType: "String"
+          exampleValues: ["Sarah Chen", "Acme Corporation"]
+
+        - name: "customer_type"
+          businessName: "Customer Type"
+          dataType: "String"
+          validValues: ["Individual", "Business"]
+
+        - name: "loyalty_tier"
+          businessName: "Loyalty Tier"
+          dataType: "String"
+          validValues: ["Bronze", "Silver", "Gold", "Platinum"]
+          description: "Slowly changing attribute tracked with Type 2"
+
+        - name: "customer_segment"
+          businessName: "Customer Segment"
+          dataType: "String"
+          validValues: ["High Value", "Medium Value", "Low Value"]
+          description: "Slowly changing attribute tracked with Type 2"
+
+        - name: "city"
+          businessName: "City"
+          dataType: "String"
+
+        - name: "state"
+          businessName: "State"
+          dataType: "String"
+
+        - name: "country"
+          businessName: "Country"
+          dataType: "String"
+
+        - name: "effective_date"
+          businessName: "Effective Date"
+          dataType: "Date"
+          description: "When this version became active (SCD Type 2)"
+
+        - name: "expiration_date"
+          businessName: "Expiration Date"
+          dataType: "Date"
+          description: "When this version expired (SCD Type 2, NULL for current)"
+
+        - name: "is_current"
+          businessName: "Is Current"
+          dataType: "Boolean"
+          description: "Flag indicating current version (SCD Type 2)"
+
+    - tableName: "DimProduct"
+      businessName: "Product Dimension"
+      type: "Type 1 SCD"
+      description: "Product attributes with overwrite on change"
+
+      hierarchy:
+        - level: "Department"
+          attribute: "department_name"
+        - level: "Category"
+          attribute: "category_name"
+        - level: "Subcategory"
+          attribute: "subcategory_name"
+        - level: "Product"
+          attribute: "product_name"
+
+      attributes:
+        - name: "product_key"
+          businessName: "Product Surrogate Key"
+          dataType: "Integer"
+
+        - name: "product_id"
+          businessName: "Product ID (SKU)"
+          dataType: "String"
+          exampleValues: ["PRD-LAPTOP-001"]
+
+        - name: "product_name"
+          businessName: "Product Name"
+          dataType: "String"
+          exampleValues: ["Professional Laptop 15-inch"]
+
+        - name: "brand"
+          businessName: "Brand"
+          dataType: "String"
+          exampleValues: ["TechPro", "EliteGear"]
+
+        - name: "subcategory_name"
+          businessName: "Subcategory"
+          dataType: "String"
+          exampleValues: ["Laptops", "Tablets"]
+
+        - name: "category_name"
+          businessName: "Category"
+          dataType: "String"
+          exampleValues: ["Computers", "Electronics"]
+
+        - name: "department_name"
+          businessName: "Department"
+          dataType: "String"
+          exampleValues: ["Technology", "Home Goods"]
+
+relationships:
+  - relationshipName: "Customer_Places_Order"
+    fromEntity: "Customer"
+    toEntity: "Order"
+    cardinality: "1:M"
+    participation:
+      from: "Optional (customer may have zero orders)"
+      to: "Mandatory (order must have one customer)"
+    businessRule: "A customer can place many orders, but each order belongs to exactly one customer"
+
+  - relationshipName: "Order_Contains_LineItems"
+    fromEntity: "Order"
+    toEntity: "OrderLineItem"
+    cardinality: "1:M"
+    participation:
+      from: "Mandatory (order must have at least one line item)"
+      to: "Mandatory (line item must belong to one order)"
+    businessRule: "Each order contains one or more line items"
+
+  - relationshipName: "Product_OrderedIn_LineItems"
+    fromEntity: "Product"
+    toEntity: "OrderLineItem"
+    cardinality: "1:M"
+    participation:
+      from: "Optional (product may not be ordered yet)"
+      to: "Mandatory (line item must reference one product)"
+    businessRule: "A product can appear in many line items across different orders"
+
+businessRules:
+  - ruleId: "BR-001"
+    ruleName: "Order Minimum Value"
+    description: "All orders must have a total amount of at least $10.00"
+    affectedEntities: ["Order"]
+    validationLogic: "Order.total_amount >= 10.00"
+
+  - ruleId: "BR-002"
+    ruleName: "Product Price Constraint"
+    description: "Product unit price must be greater than cost price"
+    affectedEntities: ["Product"]
+    validationLogic: "Product.unit_price > Product.cost_price"
+
+  - ruleId: "BR-003"
+    ruleName: "Line Item Quantity"
+    description: "Line item quantity must be positive integer"
+    affectedEntities: ["OrderLineItem"]
+    validationLogic: "OrderLineItem.quantity > 0"
+
+  - ruleId: "BR-004"
+    ruleName: "SCD Type 2 Temporal Consistency"
+    description: "Only one version of customer record can be current at any time"
+    affectedEntities: ["DimCustomer"]
+    validationLogic: "COUNT(*) WHERE customer_id = X AND is_current = TRUE must equal 1"
+
+dataQualityRules:
+  - entityName: "Customer"
+    rules:
+      - attributeName: "email_address"
+        rule: "Must be unique across all customers"
+        validationQuery: "SELECT COUNT(DISTINCT customer_id) = COUNT(*) FROM Customer"
+
+  - entityName: "Order"
+    rules:
+      - attributeName: "total_amount"
+        rule: "Must equal subtotal + tax + shipping"
+        validationQuery: "SELECT * FROM Order WHERE total_amount != (subtotal_amount + tax_amount + shipping_amount)"
+
+integrationNotes:
+  logicalToPhysical:
+    - "Logical String types map to VARCHAR, NVARCHAR, or TEXT depending on platform"
+    - "Decimal types map to DECIMAL, NUMERIC, or NUMBER with appropriate precision"
+    - "Timestamp maps to TIMESTAMP, DATETIME2, or TIMESTAMPTZ depending on platform and timezone requirements"
+
+  dataMeshAlignment:
+    - "Each subject area can be implemented as a separate data product"
+    - "Customer domain owns Customer and CustomerAddress entities"
+    - "Product domain owns Product and ProductCategory entities"
+    - "Order domain owns Order and OrderLineItem entities"
+
+tooling:
+  modelingTools:
+    - "ER/Studio Data Architect"
+    - "PowerDesigner (SAP)"
+    - "ERwin Data Modeler"
+    - "Lucidchart (for collaborative diagrams)"
+    - "draw.io (open-source ERD tool)"
+
+  versionControl:
+    repository: "git@github.com:company/data-models.git"
+    filePath: "/logical-models/ecommerce-v2.dmm"
 
 changeHistory:
+  - version: "2.0.0"
+    date: "2024-01-15"
+    author: "Data Architecture Team"
+    changes: |
+      Complete rewrite with industry-standard examples:
+      - Added 3NF normalized e-commerce model
+      - Added star schema dimensional model
+      - Added SCD Type 2 implementation for DimCustomer
+      - Added comprehensive business rules
+      - Added data quality validations
+
   - version: "1.0.0"
-    date: "YYYY-MM-DD"
-    author: "Author Name"
-    changes: "Initial version"
+    date: "2023-06-01"
+    author: "Previous Team"
+    changes: "Initial version with basic structure"

@@ -1,0 +1,1069 @@
+# RBAC/ABAC Authorization Matrix
+# Role-Based and Attribute-Based Access Control matrix defining permissions across resources
+# Aligned with Zero Trust principles, NIST RBAC model, and principle of least privilege
+
+metadata:
+  version: "3.2.0"
+  created: "2024-01-10"
+  lastModified: "2024-10-26"
+  status: "Active"
+  owner: "Identity and Access Management Team"
+  classification: "Confidential"
+
+  policy_info:
+    last_review_date: "2024-10-15"
+    next_review_date: "2024-11-15"
+    total_roles: 28
+    total_resources: 45
+    access_model: "Hybrid RBAC + ABAC"
+
+  approvers:
+    - name: "Michael Zhang"
+      role: "CISO"
+      date: "2024-10-20"
+    - name: "Patricia Williams"
+      role: "IAM Director"
+      date: "2024-10-18"
+
+# ==================================================
+# ROLE-BASED ACCESS CONTROL (RBAC) DEFINITIONS
+# ==================================================
+
+roles:
+  # ===================
+  # Administrative Roles
+  # ===================
+  - role_id: "ROLE-ADMIN-001"
+    role_name: "System Administrator"
+    role_type: "Administrative"
+    description: "Full administrative access to infrastructure and systems"
+
+    permissions:
+      compute:
+        ec2_instances: ["create", "read", "update", "delete", "start", "stop", "terminate"]
+        virtual_machines: ["full_access"]
+        containers: ["full_access"]
+
+      storage:
+        s3_buckets: ["create", "read", "update", "delete", "list"]
+        databases: ["create", "read", "update", "delete", "backup", "restore"]
+        file_shares: ["full_access"]
+
+      network:
+        vpcs: ["create", "read", "update", "delete"]
+        security_groups: ["create", "read", "update", "delete"]
+        load_balancers: ["create", "read", "update", "delete"]
+        firewalls: ["configure", "read", "update"]
+
+      identity:
+        users: ["create", "read", "update", "disable"]
+        groups: ["create", "read", "update", "delete"]
+        service_accounts: ["create", "read", "update", "rotate_keys"]
+
+      monitoring:
+        logs: ["read", "export", "delete"]
+        metrics: ["read", "create_dashboards"]
+        alerts: ["create", "read", "update", "delete"]
+
+    constraints:
+      require_mfa: true
+      require_session_recording: true
+      require_approval_for: ["delete_production_resources", "user_creation"]
+      max_session_duration: "4 hours"
+      allowed_ip_ranges: ["10.0.0.0/8", "VPN"]
+      time_based_access: "Business hours only for production changes"
+
+  - role_id: "ROLE-ADMIN-002"
+    role_name: "Security Administrator"
+    role_type: "Administrative"
+    description: "Security-focused administrative access"
+
+    permissions:
+      security_tools:
+        siem: ["full_access"]
+        ids_ips: ["configure", "read", "update"]
+        dlp: ["configure", "read", "update"]
+        edr: ["read", "investigate", "remediate"]
+
+      identity:
+        users: ["read", "disable", "force_password_reset"]
+        groups: ["read", "update_membership"]
+        roles: ["read", "audit"]
+        service_accounts: ["read", "rotate_credentials"]
+
+      compliance:
+        audit_logs: ["read", "export", "retain"]
+        security_policies: ["create", "read", "update", "delete"]
+        compliance_reports: ["generate", "read", "export"]
+
+      network:
+        security_groups: ["read", "update"]
+        firewall_rules: ["create", "read", "update", "delete"]
+        waf_rules: ["create", "read", "update", "delete"]
+
+    constraints:
+      require_mfa: true
+      require_justification: true
+      audit_all_actions: true
+      max_session_duration: "8 hours"
+
+  - role_id: "ROLE-ADMIN-003"
+    role_name: "Database Administrator"
+    role_type: "Administrative"
+    description: "Database management and administration"
+
+    permissions:
+      databases:
+        production: ["read", "update", "backup", "restore", "performance_tuning"]
+        staging: ["full_access"]
+        development: ["full_access"]
+
+      data_operations:
+        query_execution: ["allowed"]
+        schema_changes: ["create", "update", "requires_approval"]
+        user_management: ["create", "read", "update", "grant_permissions"]
+        backup_restore: ["full_access"]
+
+      monitoring:
+        db_metrics: ["read", "export"]
+        slow_query_logs: ["read", "analyze"]
+        connection_pools: ["read", "configure"]
+
+    constraints:
+      require_mfa: true
+      prevent_direct_pii_access: true
+      mask_sensitive_columns: true
+      schema_changes_require_approval: true
+      production_access_hours: "24/7 with on-call rotation"
+
+  # ===================
+  # Developer Roles
+  # ===================
+  - role_id: "ROLE-DEV-001"
+    role_name: "Senior Developer"
+    role_type: "Engineering"
+    description: "Senior engineering role with elevated development access"
+
+    permissions:
+      code_repositories:
+        read: ["all_repositories"]
+        write: ["team_repositories"]
+        merge: ["requires_review"]
+        create_branch: ["allowed"]
+        delete_branch: ["feature_branches_only"]
+
+      ci_cd:
+        view_pipelines: ["all"]
+        trigger_builds: ["non_production"]
+        deploy: ["development", "staging"]
+        rollback: ["development", "staging"]
+
+      cloud_resources:
+        ec2_instances: ["read", "start", "stop"]
+        s3_buckets: ["read", "write_non_production"]
+        databases: ["read", "write_non_production"]
+        lambda_functions: ["create", "read", "update", "delete_non_production"]
+
+      monitoring:
+        logs: ["read"]
+        metrics: ["read", "create_dashboards"]
+        traces: ["read"]
+
+    constraints:
+      require_mfa: true
+      no_production_database_write: true
+      code_review_required: "2 approvers"
+      max_session_duration: "12 hours"
+
+  - role_id: "ROLE-DEV-002"
+    role_name: "Junior Developer"
+    role_type: "Engineering"
+    description: "Entry-level developer with restricted access"
+
+    permissions:
+      code_repositories:
+        read: ["team_repositories"]
+        write: ["assigned_repositories"]
+        merge: ["requires_senior_review"]
+        create_branch: ["feature_branches_only"]
+
+      ci_cd:
+        view_pipelines: ["team_pipelines"]
+        trigger_builds: ["development_only"]
+
+      cloud_resources:
+        ec2_instances: ["read"]
+        s3_buckets: ["read_non_production"]
+        databases: ["read_development_only"]
+
+      monitoring:
+        logs: ["read_team_services"]
+
+    constraints:
+      require_mfa: true
+      require_mentor_approval: ["production_deployments", "infrastructure_changes"]
+      max_session_duration: "8 hours"
+
+  - role_id: "ROLE-DEV-003"
+    role_name: "DevOps Engineer"
+    role_type: "Engineering"
+    description: "Infrastructure and deployment automation specialist"
+
+    permissions:
+      infrastructure:
+        terraform: ["read", "plan", "apply"]
+        kubernetes: ["full_access_non_prod", "read_production"]
+        docker: ["build", "push", "pull"]
+
+      ci_cd:
+        pipelines: ["create", "read", "update", "delete"]
+        deploy: ["all_environments"]
+        rollback: ["all_environments"]
+
+      cloud_resources:
+        compute: ["create", "read", "update", "delete_non_production"]
+        storage: ["create", "read", "update"]
+        networking: ["read", "update"]
+
+      monitoring:
+        all_metrics: ["read", "export"]
+        dashboards: ["create", "read", "update", "delete"]
+        alerts: ["create", "read", "update"]
+
+    constraints:
+      require_mfa: true
+      production_changes_require_approval: true
+      infrastructure_as_code_only: true
+      peer_review_required: true
+
+  # ===================
+  # Data Roles
+  # ===================
+  - role_id: "ROLE-DATA-001"
+    role_name: "Data Scientist"
+    role_type: "Analytics"
+    description: "Data analysis and machine learning development"
+
+    permissions:
+      data_access:
+        data_lake: ["read"]
+        data_warehouse: ["read", "create_views"]
+        ml_platforms: ["full_access"]
+
+      compute:
+        jupyter_notebooks: ["create", "read", "update", "delete"]
+        ml_training_clusters: ["create", "read", "delete"]
+        gpu_instances: ["request", "budget_limited"]
+
+      storage:
+        personal_workspace: ["full_access"]
+        shared_datasets: ["read"]
+        model_registry: ["read", "write", "version"]
+
+    constraints:
+      pii_data_masked: true
+      data_export_restrictions: "Anonymized only"
+      cost_limits: "$500/month compute budget"
+      require_data_classification_training: true
+
+  - role_id: "ROLE-DATA-002"
+    role_name: "Data Engineer"
+    role_type: "Engineering"
+    description: "Data pipeline and infrastructure engineering"
+
+    permissions:
+      data_pipelines:
+        airflow: ["create", "read", "update", "delete", "trigger"]
+        spark_jobs: ["create", "read", "update", "delete", "run"]
+        etl_tools: ["full_access"]
+
+      data_storage:
+        data_lake: ["read", "write", "organize"]
+        data_warehouse: ["schema_design", "table_creation", "optimization"]
+        streaming: ["create_topics", "read", "write"]
+
+      infrastructure:
+        emr_clusters: ["create", "read", "terminate"]
+        databricks: ["workspace_admin"]
+
+    constraints:
+      require_mfa: true
+      production_changes_require_review: true
+      data_quality_checks_required: true
+
+  # ===================
+  # Security Roles
+  # ===================
+  - role_id: "ROLE-SEC-001"
+    role_name: "Security Analyst"
+    role_type: "Security"
+    description: "Security monitoring and incident response"
+
+    permissions:
+      security_tools:
+        siem: ["read", "investigate", "create_cases"]
+        edr: ["read", "investigate", "isolate_endpoint"]
+        vulnerability_scanner: ["read", "run_scans"]
+        threat_intelligence: ["read", "search_iocs"]
+
+      incident_response:
+        alert_triage: ["allowed"]
+        case_management: ["create", "read", "update"]
+        forensics: ["collect_evidence", "analyze"]
+
+      network:
+        packet_capture: ["read", "analyze"]
+        firewall_logs: ["read"]
+        ids_ips_logs: ["read"]
+
+    constraints:
+      require_mfa: true
+      require_security_clearance: true
+      all_actions_logged: true
+      max_session_duration: "12 hours"
+
+  - role_id: "ROLE-SEC-002"
+    role_name: "Security Engineer"
+    role_type: "Security"
+    description: "Security architecture and tooling"
+
+    permissions:
+      security_tools:
+        siem: ["configure", "read", "update"]
+        vulnerability_management: ["full_access"]
+        security_scanning: ["configure", "run", "analyze"]
+        penetration_testing: ["authorized"]
+
+      infrastructure_security:
+        encryption: ["configure", "key_management"]
+        secrets_management: ["configure", "audit"]
+        certificate_management: ["issue", "revoke", "renew"]
+
+      policy:
+        security_policies: ["create", "read", "update"]
+        compliance_frameworks: ["implement", "audit"]
+
+    constraints:
+      require_mfa: true
+      peer_review_required: "Security changes"
+      change_management_required: true
+
+  # ===================
+  # Business Roles
+  # ===================
+  - role_id: "ROLE-BIZ-001"
+    role_name: "Business Analyst"
+    role_type: "Business"
+    description: "Business intelligence and reporting"
+
+    permissions:
+      analytics:
+        bi_tools: ["read", "create_reports", "share_dashboards"]
+        data_warehouse: ["read_curated_data"]
+        reporting_database: ["read"]
+
+      applications:
+        crm: ["read", "update_assigned_records"]
+        project_management: ["read", "update"]
+
+    constraints:
+      pii_access_masked: true
+      export_restrictions: "Aggregated data only"
+      require_data_handling_training: true
+
+  - role_id: "ROLE-BIZ-002"
+    role_name: "Product Manager"
+    role_type: "Business"
+    description: "Product strategy and feature management"
+
+    permissions:
+      product_tools:
+        roadmap_tools: ["full_access"]
+        analytics_dashboards: ["read", "create"]
+        user_feedback: ["read", "respond"]
+
+      development:
+        code_repositories: ["read"]
+        feature_flags: ["read", "toggle_non_production"]
+        deployment_pipelines: ["read", "view_status"]
+
+      data:
+        product_metrics: ["read", "export"]
+        user_analytics: ["read"]
+        a_b_test_results: ["read", "create_experiments"]
+
+    constraints:
+      require_mfa: true
+      no_direct_production_access: true
+      anonymized_user_data_only: true
+
+  # ===================
+  # Compliance & Audit Roles
+  # ===================
+  - role_id: "ROLE-COMP-001"
+    role_name: "Compliance Auditor"
+    role_type: "Compliance"
+    description: "Internal and external compliance auditing"
+
+    permissions:
+      audit:
+        audit_logs: ["read", "export", "analyze"]
+        access_reviews: ["conduct", "report"]
+        compliance_reports: ["read", "export"]
+        policy_documents: ["read"]
+
+      security:
+        vulnerability_reports: ["read"]
+        risk_register: ["read"]
+        incident_reports: ["read"]
+
+      user_access:
+        user_directory: ["read"]
+        role_assignments: ["read", "review"]
+        permission_matrices: ["read"]
+
+    constraints:
+      require_mfa: true
+      read_only_access: true
+      export_audit_trail: true
+      require_compliance_certification: true
+
+  # ===================
+  # Support Roles
+  # ===================
+  - role_id: "ROLE-SUP-001"
+    role_name: "IT Support Tier 1"
+    role_type: "Support"
+    description: "First-line technical support"
+
+    permissions:
+      user_support:
+        password_reset: ["allowed"]
+        account_unlock: ["allowed"]
+        group_membership: ["read"]
+        ticket_system: ["create", "read", "update"]
+
+      systems:
+        monitoring_dashboards: ["read"]
+        application_status: ["read"]
+
+    constraints:
+      require_mfa: true
+      privileged_actions_require_approval: true
+      session_recording: true
+
+  - role_id: "ROLE-SUP-002"
+    role_name: "IT Support Tier 2"
+    role_type: "Support"
+    description: "Advanced technical support"
+
+    permissions:
+      user_support:
+        password_reset: ["allowed"]
+        account_unlock: ["allowed"]
+        group_membership: ["read", "update"]
+        software_installation: ["remote_assistance"]
+
+      systems:
+        application_logs: ["read"]
+        server_access: ["read", "troubleshoot"]
+        database_queries: ["read_only"]
+
+    constraints:
+      require_mfa: true
+      just_in_time_access: true
+      approval_required_for_production: true
+
+# ==================================================
+# ATTRIBUTE-BASED ACCESS CONTROL (ABAC) POLICIES
+# ==================================================
+
+abac_policies:
+  - policy_id: "ABAC-001"
+    policy_name: "Data Classification-Based Access"
+    description: "Access to data based on classification level and user clearance"
+
+    rules:
+      - rule_id: "ABAC-001-R1"
+        condition: |
+          user.security_clearance == "confidential" AND
+          resource.classification == "public"
+        effect: "allow"
+        actions: ["read"]
+
+      - rule_id: "ABAC-001-R2"
+        condition: |
+          user.security_clearance == "secret" AND
+          resource.classification IN ["public", "internal", "confidential"]
+        effect: "allow"
+        actions: ["read", "write"]
+
+      - rule_id: "ABAC-001-R3"
+        condition: |
+          user.security_clearance == "top_secret" AND
+          resource.classification IN ["public", "internal", "confidential", "secret"]
+        effect: "allow"
+        actions: ["read", "write", "delete"]
+
+  - policy_id: "ABAC-002"
+    policy_name: "Time-Based Access Control"
+    description: "Restrict access to production during business hours only"
+
+    rules:
+      - rule_id: "ABAC-002-R1"
+        condition: |
+          resource.environment == "production" AND
+          request.time.hour BETWEEN 6 AND 22 AND
+          request.time.day IN ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+        effect: "allow"
+        actions: ["read", "write"]
+
+      - rule_id: "ABAC-002-R2"
+        condition: |
+          resource.environment == "production" AND
+          user.on_call_status == "active"
+        effect: "allow"
+        actions: ["read", "write"]
+        note: "On-call engineers have 24/7 access"
+
+  - policy_id: "ABAC-003"
+    policy_name: "Location-Based Access"
+    description: "Restrict access based on geographic location and network"
+
+    rules:
+      - rule_id: "ABAC-003-R1"
+        condition: |
+          user.location.country IN ["US", "CA", "UK", "DE"] AND
+          (request.network == "corporate_vpn" OR request.network == "office")
+        effect: "allow"
+        actions: ["all"]
+
+      - rule_id: "ABAC-003-R2"
+        condition: |
+          user.location.country NOT IN ["US", "CA", "UK", "DE"] AND
+          resource.contains_pii == true
+        effect: "deny"
+        actions: ["all"]
+        note: "GDPR and data residency compliance"
+
+  - policy_id: "ABAC-004"
+    policy_name: "Dynamic Data Masking"
+    description: "Mask PII based on user role and purpose"
+
+    rules:
+      - rule_id: "ABAC-004-R1"
+        condition: |
+          resource.data_type == "pii" AND
+          user.role NOT IN ["compliance_auditor", "legal", "customer_support_manager"]
+        effect: "allow_with_masking"
+        masking_rules:
+          email: "hash"
+          ssn: "mask_except_last_4"
+          phone: "mask_except_last_4"
+          credit_card: "mask_all_except_last_4"
+
+      - rule_id: "ABAC-004-R2"
+        condition: |
+          resource.data_type == "financial" AND
+          user.department == "finance" AND
+          request.purpose == "audit"
+        effect: "allow"
+        actions: ["read"]
+        require_justification: true
+
+  - policy_id: "ABAC-005"
+    policy_name: "Separation of Duties"
+    description: "Enforce separation of duties for critical operations"
+
+    rules:
+      - rule_id: "ABAC-005-R1"
+        condition: |
+          resource.action == "approve_payment" AND
+          resource.created_by == user.id
+        effect: "deny"
+        note: "Users cannot approve their own payment requests"
+
+      - rule_id: "ABAC-005-R2"
+        condition: |
+          resource.action == "deploy_production" AND
+          user.id IN resource.code_authors
+        effect: "require_additional_approval"
+        note: "Code authors cannot deploy their own code without peer approval"
+
+  - policy_id: "ABAC-006"
+    policy_name: "Risk-Based Adaptive Access"
+    description: "Adjust access based on risk score"
+
+    rules:
+      - rule_id: "ABAC-006-R1"
+        condition: |
+          user.risk_score < 30 AND
+          request.risk_score < 30
+        effect: "allow"
+        additional_controls: "none"
+
+      - rule_id: "ABAC-006-R2"
+        condition: |
+          user.risk_score BETWEEN 30 AND 70 OR
+          request.risk_score BETWEEN 30 AND 70
+        effect: "allow"
+        additional_controls: "require_step_up_authentication"
+
+      - rule_id: "ABAC-006-R3"
+        condition: |
+          user.risk_score > 70 OR
+          request.risk_score > 70
+        effect: "deny"
+        additional_controls: "trigger_security_review"
+
+# ==================================================
+# PERMISSION MATRIX (Resource x Role)
+# ==================================================
+
+permission_matrix:
+  # Key: R = Read, W = Write, D = Delete, E = Execute, A = Admin, - = No Access
+
+  compute_resources:
+    ec2_production:
+      system_administrator: "RWDEA"
+      devops_engineer: "RWE"
+      senior_developer: "RE"
+      junior_developer: "R"
+      security_analyst: "R"
+      business_analyst: "-"
+
+    ec2_staging:
+      system_administrator: "RWDEA"
+      devops_engineer: "RWDEA"
+      senior_developer: "RWDE"
+      junior_developer: "RE"
+
+    kubernetes_production:
+      system_administrator: "RWDEA"
+      devops_engineer: "RWE"
+      senior_developer: "R"
+
+    kubernetes_nonprod:
+      devops_engineer: "RWDEA"
+      senior_developer: "RWDE"
+      junior_developer: "RWE"
+
+  data_resources:
+    production_database:
+      database_administrator: "RWDEA"
+      system_administrator: "RA"
+      senior_developer: "R"
+      data_engineer: "R"
+      data_scientist: "R"
+      junior_developer: "-"
+      business_analyst: "-"
+
+    staging_database:
+      database_administrator: "RWDEA"
+      data_engineer: "RWDE"
+      senior_developer: "RWD"
+      junior_developer: "RW"
+
+    data_warehouse:
+      database_administrator: "RWDEA"
+      data_engineer: "RWDE"
+      data_scientist: "RW"
+      business_analyst: "R"
+
+    data_lake:
+      data_engineer: "RWDEA"
+      data_scientist: "RW"
+      database_administrator: "RA"
+
+  security_resources:
+    siem_platform:
+      security_administrator: "RWDEA"
+      security_engineer: "RWDE"
+      security_analyst: "RWE"
+      compliance_auditor: "R"
+      system_administrator: "R"
+
+    vulnerability_scanner:
+      security_administrator: "RWDEA"
+      security_engineer: "RWDE"
+      security_analyst: "RE"
+      devops_engineer: "R"
+
+    secret_vault:
+      security_administrator: "RWDEA"
+      security_engineer: "RWDE"
+      devops_engineer: "RWE"
+      senior_developer: "RE"
+      junior_developer: "R"
+
+  identity_resources:
+    user_accounts:
+      system_administrator: "RWDE"
+      security_administrator: "RWD"
+      it_support_tier2: "RW"
+      it_support_tier1: "R"
+      compliance_auditor: "R"
+
+    service_accounts:
+      system_administrator: "RWDEA"
+      devops_engineer: "RWDE"
+      senior_developer: "RWE"
+
+    api_keys:
+      system_administrator: "RWDEA"
+      devops_engineer: "RWDE"
+      senior_developer: "RWE"
+      junior_developer: "RE"
+
+  application_resources:
+    production_deployment:
+      devops_engineer: "E"
+      senior_developer: "E_with_approval"
+      junior_developer: "-"
+
+    staging_deployment:
+      devops_engineer: "E"
+      senior_developer: "E"
+      junior_developer: "E_with_approval"
+
+    feature_flags:
+      product_manager: "RW_nonprod"
+      devops_engineer: "RWDE"
+      senior_developer: "RWE"
+
+  monitoring_resources:
+    logs_production:
+      system_administrator: "RWE"
+      devops_engineer: "RE"
+      security_analyst: "RE"
+      senior_developer: "R"
+
+    metrics_dashboards:
+      system_administrator: "RWDE"
+      devops_engineer: "RWDE"
+      senior_developer: "RWE"
+      product_manager: "RW"
+      business_analyst: "R"
+
+  compliance_resources:
+    audit_logs:
+      compliance_auditor: "RE"
+      security_administrator: "RWE"
+      system_administrator: "R"
+
+    compliance_reports:
+      compliance_auditor: "RWE"
+      security_administrator: "R"
+      ciso: "R"
+
+# ==================================================
+# ACCESS REQUEST AND APPROVAL WORKFLOWS
+# ==================================================
+
+access_request_workflows:
+  - resource_type: "production_database"
+    approval_chain:
+      - approver_role: "Database Administrator"
+        required: true
+      - approver_role: "Security Administrator"
+        required: true
+        condition: "access_duration > 7 days"
+      - approver_role: "CISO"
+        required: true
+        condition: "access_level == 'write' OR access_level == 'delete'"
+
+    sla:
+      standard_request: "2 business days"
+      urgent_request: "4 hours"
+
+    requirements:
+      - "Business justification required"
+      - "Manager approval required"
+      - "MFA enrollment verified"
+      - "Security training completed within last 90 days"
+
+  - resource_type: "production_compute"
+    approval_chain:
+      - approver_role: "DevOps Team Lead"
+        required: true
+      - approver_role: "System Administrator"
+        required: true
+        condition: "access_level includes 'delete'"
+
+    max_duration: "30 days"
+    auto_revoke: true
+
+  - resource_type: "pii_data"
+    approval_chain:
+      - approver_role: "Data Protection Officer"
+        required: true
+      - approver_role: "Legal"
+        required: true
+      - approver_role: "CISO"
+        required: true
+
+    requirements:
+      - "Data processing agreement signed"
+      - "Privacy impact assessment completed"
+      - "Data handling training completed"
+      - "Background check verified"
+
+# ==================================================
+# JUST-IN-TIME (JIT) ACCESS
+# ==================================================
+
+jit_access_policies:
+  - resource_type: "production_systems"
+    enabled: true
+
+    eligibility:
+      - "User has base role of DevOps Engineer or System Administrator"
+      - "User completed production access training"
+      - "User not on PIP or disciplinary action"
+
+    activation_triggers:
+      - "On-call rotation"
+      - "Incident response"
+      - "Emergency change"
+      - "Approved maintenance window"
+
+    duration:
+      default: "4 hours"
+      max: "12 hours"
+      extension_allowed: true
+      extension_requires_approval: true
+
+    deactivation:
+      automatic: true
+      notify_user: "15 minutes before expiration"
+
+  - resource_type: "customer_data"
+    enabled: true
+
+    activation_requires:
+      - "Support ticket reference"
+      - "Customer consent verification"
+      - "Manager approval"
+
+    duration:
+      default: "1 hour"
+      max: "4 hours"
+      extension_allowed: false
+
+    monitoring:
+      session_recording: true
+      real_time_monitoring: true
+      alert_on_suspicious_activity: true
+
+# ==================================================
+# PRIVILEGED ACCESS MANAGEMENT (PAM)
+# ==================================================
+
+privileged_access:
+  password_vault:
+    provider: "CyberArk"
+    integration: "LDAP + SAML"
+
+  shared_accounts:
+    - account_type: "root"
+      check_out_required: true
+      approval_required: true
+      session_recording: true
+      password_rotation: "After each use"
+      max_session_duration: "2 hours"
+
+    - account_type: "database_admin"
+      check_out_required: true
+      approval_required: "For production only"
+      password_rotation: "Daily"
+
+    - account_type: "service_account"
+      programmatic_access_only: true
+      credential_rotation: "90 days"
+      usage_monitoring: true
+
+  session_management:
+    recording_enabled: true
+    recording_retention: "7 years"
+    real_time_monitoring: true
+    suspicious_command_blocking: true
+
+    blocked_commands:
+      - "rm -rf /"
+      - "DROP DATABASE"
+      - "DELETE FROM * WHERE"
+
+# ==================================================
+# ACCESS REVIEWS AND CERTIFICATIONS
+# ==================================================
+
+access_reviews:
+  review_frequency: "Quarterly"
+
+  review_scope:
+    - "All privileged access"
+    - "Production system access"
+    - "PII data access"
+    - "Financial system access"
+
+  review_process:
+    - step: 1
+      action: "System generates access report"
+      assignee: "IAM System"
+
+    - step: 2
+      action: "Manager reviews direct reports' access"
+      sla: "5 business days"
+      assignee: "People Managers"
+
+    - step: 3
+      action: "Resource owners review access to their systems"
+      sla: "5 business days"
+      assignee: "System Owners"
+
+    - step: 4
+      action: "Security team reviews high-risk access"
+      sla: "3 business days"
+      assignee: "Security Team"
+
+    - step: 5
+      action: "Revoke uncertified access"
+      automatic: true
+      grace_period: "7 days after review deadline"
+
+  metrics:
+    target_completion_rate: "100%"
+    target_completion_time: "15 business days"
+    current_compliance: "98%"
+
+# ==================================================
+# EMERGENCY ACCESS (BREAK GLASS)
+# ==================================================
+
+break_glass_procedures:
+  accounts:
+    - account_id: "emergency-admin-001"
+      description: "Emergency system administrator access"
+      access_level: "Full administrative"
+
+      activation_process:
+        - "Two-person rule: Two authorized individuals required"
+        - "Physical safe access required"
+        - "Credentials retrieved from sealed envelope"
+        - "Security team notified immediately"
+        - "CISO approval within 1 hour"
+
+      authorized_users:
+        - "CISO"
+        - "VP of Engineering"
+        - "On-call Security Lead"
+
+      monitoring:
+        alert_immediately: true
+        session_recording: true
+        executive_notification: true
+
+      post_use:
+        - "Password must be changed immediately after use"
+        - "Full audit of actions taken"
+        - "Incident report required within 24 hours"
+        - "Root cause analysis of why emergency access was needed"
+
+# ==================================================
+# COMPLIANCE MAPPING
+# ==================================================
+
+compliance_alignment:
+  nist_800_53:
+    - control: "AC-2"
+      description: "Account Management"
+      implementation: "Role definitions, approval workflows, access reviews"
+
+    - control: "AC-3"
+      description: "Access Enforcement"
+      implementation: "RBAC/ABAC policies, permission matrix"
+
+    - control: "AC-5"
+      description: "Separation of Duties"
+      implementation: "ABAC policy ABAC-005, approval workflows"
+
+    - control: "AC-6"
+      description: "Least Privilege"
+      implementation: "Role-based permissions, JIT access"
+
+  pci_dss:
+    - requirement: "7.1"
+      description: "Limit access to system components and cardholder data"
+      implementation: "Role-based access control, permission matrix"
+
+    - requirement: "7.2"
+      description: "Establish an access control system"
+      implementation: "RBAC/ABAC policies, access request workflows"
+
+  sox:
+    - control: "SOX-AC-01"
+      description: "Access to financial systems segregated"
+      implementation: "Separation of duties policies, approval workflows"
+
+    - control: "SOX-AC-02"
+      description: "Quarterly access reviews"
+      implementation: "Access review process"
+
+  gdpr:
+    - article: "Article 32"
+      description: "Security of processing"
+      implementation: "ABAC policies for PII, dynamic data masking"
+
+    - article: "Article 5"
+      description: "Data minimization"
+      implementation: "Role-based data access, purpose-based access control"
+
+# ==================================================
+# INTEGRATION WITH IDENTITY PROVIDERS
+# ==================================================
+
+identity_integration:
+  primary_idp:
+    provider: "Okta"
+    protocol: "SAML 2.0 / OIDC"
+    sync_frequency: "Real-time"
+    group_sync: true
+    role_mapping: true
+
+  secondary_idp:
+    provider: "Azure AD"
+    protocol: "SAML 2.0"
+    use_case: "Microsoft 365 integration"
+
+  service_account_provider:
+    provider: "HashiCorp Vault"
+    credential_types: ["API Keys", "Certificates", "Passwords"]
+    rotation_policy: "Automated 90-day rotation"
+
+# Change History
+change_history:
+  - version: "3.2.0"
+    date: "2024-10-26"
+    author: "Patricia Williams - IAM Director"
+    changes: |
+      - Added ABAC policies for risk-based adaptive access
+      - Enhanced JIT access policies for customer data
+      - Updated permission matrix for new cloud resources
+      - Added break glass procedures
+    approver: "Michael Zhang - CISO"
+
+  - version: "3.0.0"
+    date: "2024-07-01"
+    author: "James Cooper - Security Architect"
+    changes: |
+      - Major revision: Added ABAC policies alongside RBAC
+      - Implemented dynamic data masking rules
+      - Added location and time-based access controls
+      - Enhanced compliance mappings
+    approver: "Michael Zhang - CISO"
+
+  - version: "2.0.0"
+    date: "2024-01-10"
+    author: "Patricia Williams - IAM Director"
+    changes: "Initial comprehensive RBAC matrix with 25 roles and 40 resources"
+    approver: "Previous CISO"
