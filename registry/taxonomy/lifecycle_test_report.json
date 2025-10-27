@@ -1,0 +1,185 @@
+{
+  "test_time": "2025-10-27T02:13:23.048378",
+  "total_domains": 5,
+  "total_stages": 4,
+  "workflows": [
+    {
+      "domain": "api",
+      "artifact": "api-spec",
+      "stages": {
+        "create": {
+          "skill": "api.define",
+          "status": "active",
+          "success": true,
+          "issues": []
+        },
+        "validate": {
+          "skill": "api.validate",
+          "status": "active",
+          "success": true,
+          "issues": []
+        },
+        "review": {
+          "skill": "artifact.review",
+          "status": "active",
+          "success": true,
+          "issues": []
+        },
+        "publish": {
+          "skill": "docs.sync.readme",
+          "status": "active",
+          "success": true,
+          "issues": [
+            "No inputs defined"
+          ]
+        }
+      },
+      "success": true,
+      "issues": [],
+      "completion_rate": 100.0
+    },
+    {
+      "domain": "data",
+      "artifact": "data-schema",
+      "stages": {
+        "create": {
+          "skill": "artifact.create",
+          "status": "active",
+          "success": true,
+          "issues": []
+        },
+        "validate": {
+          "skill": "artifact.validate",
+          "status": "active",
+          "success": true,
+          "issues": []
+        },
+        "review": {
+          "skill": "artifact.review",
+          "status": "active",
+          "success": true,
+          "issues": []
+        },
+        "publish": {
+          "skill": "registry.update",
+          "status": "active",
+          "success": true,
+          "issues": []
+        }
+      },
+      "success": true,
+      "issues": [],
+      "completion_rate": 100.0
+    },
+    {
+      "domain": "docs",
+      "artifact": "documentation",
+      "stages": {
+        "create": {
+          "skill": "generate.docs",
+          "status": "active",
+          "success": true,
+          "issues": []
+        },
+        "validate": {
+          "skill": "docs.validate.skilldocs",
+          "status": "active",
+          "success": true,
+          "issues": []
+        },
+        "review": {
+          "skill": "docs.lint.links",
+          "status": "active",
+          "success": true,
+          "issues": []
+        },
+        "publish": {
+          "skill": "docs.sync.readme",
+          "status": "active",
+          "success": true,
+          "issues": [
+            "No inputs defined"
+          ]
+        }
+      },
+      "success": true,
+      "issues": [],
+      "completion_rate": 100.0
+    },
+    {
+      "domain": "architecture",
+      "artifact": "epic",
+      "stages": {
+        "create": {
+          "skill": "epic.write",
+          "status": "active",
+          "success": true,
+          "issues": []
+        },
+        "validate": {
+          "skill": "artifact.validate",
+          "status": "active",
+          "success": true,
+          "issues": []
+        },
+        "review": {
+          "skill": "artifact.review",
+          "status": "active",
+          "success": true,
+          "issues": []
+        },
+        "publish": {
+          "skill": "registry.update",
+          "status": "active",
+          "success": true,
+          "issues": []
+        }
+      },
+      "success": true,
+      "issues": [],
+      "completion_rate": 100.0
+    },
+    {
+      "domain": "operations",
+      "artifact": "workflow",
+      "stages": {
+        "create": {
+          "skill": "workflow.compose",
+          "status": "active",
+          "success": true,
+          "issues": []
+        },
+        "validate": {
+          "skill": "workflow.validate",
+          "status": "active",
+          "success": true,
+          "issues": []
+        },
+        "review": {
+          "skill": "artifact.review",
+          "status": "active",
+          "success": true,
+          "issues": []
+        },
+        "publish": {
+          "skill": "plugin.publish",
+          "status": "active",
+          "success": true,
+          "issues": []
+        }
+      },
+      "success": true,
+      "issues": [],
+      "completion_rate": 100.0
+    }
+  ],
+  "summary": {
+    "successful_workflows": 5,
+    "partial_workflows": 0,
+    "failed_workflows": 0,
+    "total_stages_tested": 20,
+    "available_stages": 20,
+    "missing_stages": 0,
+    "average_completion_rate": 100.0
+  }
+}

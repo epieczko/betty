@@ -1,0 +1,210 @@
+{
+  "name": "Betty Framework Taxonomy",
+  "version": "1.0.0",
+  "generated_at": "2025-10-26T23:00:00Z",
+  "description": "Comprehensive catalog and taxonomy of all Betty Framework components",
+  "documentation": "README.md",
+
+  "statistics": {
+    "total_components": 82,
+    "skills": 49,
+    "agents": 20,
+    "hooks": 3,
+    "commands": 10,
+    "artifact_types": 409,
+    "domains": 10,
+    "relationships": {
+      "skills_to_agents": 54,
+      "artifact_producers": 75,
+      "artifact_consumers": 52,
+      "hooks_to_commands": 3
+    }
+  },
+
+  "domains": [
+    "architecture",
+    "api",
+    "data",
+    "security",
+    "testing",
+    "deployment",
+    "governance",
+    "docs",
+    "operations",
+    "ai"
+  ],
+
+  "functional_roles": [
+    "create",
+    "validate",
+    "review",
+    "analyze",
+    "orchestrate",
+    "govern",
+    "observe"
+  ],
+
+  "catalogs": {
+    "component_registry": {
+      "file": "component_registry.json",
+      "description": "Master registry of all components",
+      "count": 82
+    },
+    "skills_catalog": {
+      "file": "skills_catalog.json",
+      "description": "All skill manifests",
+      "count": 49
+    },
+    "agents_catalog": {
+      "file": "agents_catalog.json",
+      "description": "All agent manifests (including 6 generated orchestrators)",
+      "count": 20
+    },
+    "hooks_catalog": {
+      "file": "hooks_catalog.json",
+      "description": "All Claude Code hooks",
+      "count": 3
+    },
+    "commands_catalog": {
+      "file": "commands_catalog.json",
+      "description": "All slash commands",
+      "count": 10
+    },
+    "artifact_types_catalog": {
+      "file": "artifact_types_catalog.json",
+      "description": "All artifact type definitions",
+      "count": 409
+    }
+  },
+
+  "analysis": {
+    "relationships": {
+      "file": "relationships.json",
+      "description": "Component dependencies and connections"
+    },
+    "category_matrix": {
+      "file": "category_matrix.json",
+      "description": "Components grouped by domain"
+    },
+    "gaps": {
+      "file": "gaps.json",
+      "description": "Identified gaps and missing components"
+    }
+  },
+
+  "reports": {
+    "hook_simulation": {
+      "file": "hook_simulation_report.json",
+      "description": "Hook execution simulation results",
+      "total_simulations": 6,
+      "success_rate": "100%"
+    },
+    "lifecycle_test": {
+      "file": "lifecycle_test_report.json",
+      "description": "End-to-end workflow validation",
+      "domains_tested": 5,
+      "success_rate": "100%"
+    },
+    "generated_components": {
+      "file": "generated_components_report.json",
+      "description": "Auto-generated component scaffolds",
+      "total_generated": 6
+    }
+  },
+
+  "documentation": {
+    "catalog": {
+      "file": "catalog.md",
+      "description": "Browsable catalog grouped by domain and role"
+    },
+    "taxonomy": {
+      "file": "taxonomy.md",
+      "description": "Taxonomy specification and naming standards"
+    },
+    "relationships": {
+      "file": "relationships.md",
+      "description": "Component relationships with Mermaid diagrams"
+    },
+    "taxonomy_diagram": {
+      "file": "taxonomy-diagram.md",
+      "description": "Standalone comprehensive taxonomy diagrams"
+    },
+    "gaps": {
+      "file": "gaps.md",
+      "description": "Gap analysis report"
+    },
+    "implementation_blueprint": {
+      "file": "implementation_blueprint.md",
+      "description": "Prioritized roadmap for missing components"
+    },
+    "hook_simulation": {
+      "file": "hook_simulation_report.md",
+      "description": "Hook simulation markdown report"
+    },
+    "lifecycle_test": {
+      "file": "lifecycle_test_report.md",
+      "description": "Lifecycle test markdown report"
+    }
+  },
+
+  "scripts": {
+    "catalog_generator": {
+      "file": "../scripts/generate_catalog.py",
+      "description": "Main catalog generation script"
+    },
+    "component_generator": {
+      "file": "../scripts/generate_missing_components.py",
+      "description": "Auto-generate missing components"
+    },
+    "hook_simulator": {
+      "file": "../scripts/simulate_hooks.py",
+      "description": "Simulate hook execution"
+    },
+    "lifecycle_tester": {
+      "file": "../scripts/test_lifecycle_workflow.py",
+      "description": "Test end-to-end workflows"
+    },
+    "diagram_generator": {
+      "file": "../scripts/generate_taxonomy_diagram.py",
+      "description": "Generate taxonomy diagrams"
+    }
+  },
+
+  "key_findings": {
+    "strengths": [
+      "100% lifecycle coverage across 5 tested domains",
+      "54 skill-agent relationships mapped",
+      "All hooks functioning correctly (6/6 simulations passed)",
+      "Comprehensive artifact type catalog (409 types)"
+    ],
+    "gaps": [
+      "6 domains missing orchestrator agents (auto-generated)",
+      "3 hooks with naming convention violations",
+      "Sample artifact types missing dedicated producers/consumers"
+    ],
+    "generated_components": [
+      "api.orchestrator",
+      "data.orchestrator",
+      "security.orchestrator",
+      "testing.orchestrator",
+      "operations.orchestrator",
+      "ai.orchestrator"
+    ]
+  },
+
+  "usage": {
+    "regenerate_catalog": "python3 ../scripts/generate_catalog.py",
+    "generate_components": "python3 ../scripts/generate_missing_components.py",
+    "simulate_hooks": "python3 ../scripts/simulate_hooks.py",
+    "test_workflows": "python3 ../scripts/test_lifecycle_workflow.py",
+    "update_diagrams": "python3 ../scripts/generate_taxonomy_diagram.py"
+  },
+
+  "metadata": {
+    "authors": ["Betty Framework Team", "Claude Code"],
+    "license": "MIT",
+    "repository": "https://github.com/epieczko/betty",
+    "last_updated": "2025-10-26",
+    "taxonomy_version": "1.0.0"
+  }
+}

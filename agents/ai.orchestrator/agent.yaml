@@ -1,0 +1,55 @@
+name: ai.orchestrator
+version: 0.1.0
+description: Orchestrates AI/ML workflows including model training, evaluation, and
+  deployment
+capabilities:
+- Coordinate meta-agent creation and composition
+- Manage skill and agent generation workflows
+- Orchestrate AI-powered automation
+- Handle agent compatibility and optimization
+- Coordinate marketplace publishing
+skills_available:
+- agent.compose
+- agent.define
+- agent.run
+- generate.docs
+- generate.marketplace
+- meta.compatibility
+reasoning_mode: iterative
+tags:
+- ai
+- orchestration
+- meta
+- automation
+workflow_pattern: '1. Analyze incoming request and requirements
+
+  2. Identify relevant ai skills and workflows
+
+  3. Compose multi-step execution plan
+
+  4. Execute skills in coordinated sequence
+
+  5. Validate intermediate results
+
+  6. Handle errors and retry as needed
+
+  7. Return comprehensive results'
+example_task: "Input: \"Complete ai workflow from start to finish\"\n\nAgent will:\n\
+  1. Break down the task into stages\n2. Select appropriate skills for each stage\n\
+  3. Execute create \u2192 validate \u2192 review \u2192 publish lifecycle\n4. Monitor\
+  \ progress and handle failures\n5. Generate comprehensive reports"
+error_handling:
+  timeout_seconds: 300
+  retry_strategy: exponential_backoff
+  max_retries: 3
+output:
+  success:
+  - Ai workflow results
+  - Execution logs and metrics
+  - Validation reports
+  - Generated artifacts
+  failure:
+  - Error details and stack traces
+  - Partial results (if available)
+  - Remediation suggestions
+status: generated
