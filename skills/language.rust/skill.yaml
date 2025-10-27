@@ -1,0 +1,28 @@
+name: language.rust
+version: 0.1.0
+description: Fluency in Rust programming language, encompassing ownership system,
+  borrowing and lifetimes, zero-cost abstractions, memory safety without garbage collection,
+  trait system, pattern matching, error handling with Result and Option, macro system,
+  and fearless concurrency. Mastery of advanced concepts including lifetime elision,
+  smart pointers, interior mutability, unsafe code blocks, and procedural macros.
+  Understanding of compiler guarantees, zero-copy operations, and systems programming
+  patterns.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/rust
+  handler: language_rust.py
+  runtime: python
+  description: Fluency in Rust programming language, encompassing ownership system,
+    borrowing and lifetimes, zero-c
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

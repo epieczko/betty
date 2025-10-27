@@ -1,0 +1,27 @@
+name: language.java
+version: 0.1.0
+description: Fluency in Java programming language, encompassing object-oriented design,
+  strong static typing, JVM architecture, garbage collection, memory model, concurrency
+  utilities, reflection, generics with type erasure, lambdas, streams API, and module
+  system. Mastery of design patterns, SOLID principles, exception handling, serialization,
+  annotations, and enterprise patterns. Understanding of bytecode, JIT compilation,
+  classloading, and performance optimization.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/java
+  handler: language_java.py
+  runtime: python
+  description: Fluency in Java programming language, encompassing object-oriented
+    design, strong static typing, JVM
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

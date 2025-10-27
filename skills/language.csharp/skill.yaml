@@ -1,0 +1,27 @@
+name: language.csharp
+version: 0.1.0
+description: Fluency in C# programming language, encompassing object-oriented design,
+  LINQ, async/await, delegates, events, properties, indexers, extension methods, pattern
+  matching, records, nullable reference types, and expression trees. Mastery of .NET
+  runtime, garbage collection, value vs reference types, generics with constraints,
+  reflection, attributes, and asynchronous programming patterns. Understanding of
+  compilation to IL, JIT compilation, and CLR fundamentals.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/csharp
+  handler: language_csharp.py
+  runtime: python
+  description: Fluency in C# programming language, encompassing object-oriented design,
+    LINQ, async/await, delegate
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

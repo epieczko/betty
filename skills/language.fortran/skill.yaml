@@ -1,0 +1,27 @@
+name: language.fortran
+version: 0.1.0
+description: Fluency in Fortran programming language, encompassing array operations,
+  numerical computing, column-major layout, modules, derived types, procedure pointers,
+  coarrays for parallel programming, and intrinsic functions. Mastery of modern Fortran
+  features including object-oriented programming, interoperability with C, and high-performance
+  computing patterns. Understanding of Fortran's evolution, fixed vs free format,
+  and scientific computing optimization.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/fortran
+  handler: language_fortran.py
+  runtime: python
+  description: Fluency in Fortran programming language, encompassing array operations,
+    numerical computing, column-
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

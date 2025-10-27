@@ -1,0 +1,27 @@
+name: language.scala
+version: 0.1.0
+description: Fluency in Scala programming language, encompassing object-oriented and
+  functional programming fusion, static typing with type inference, traits, case classes,
+  pattern matching, for-comprehensions, implicits, higher-kinded types, and futures.
+  Mastery of the collections library, type classes, variance annotations, existential
+  types, and functional programming patterns. Understanding of JVM integration, compiler
+  phases, and functional programming libraries like Cats and ZIO.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/scala
+  handler: language_scala.py
+  runtime: python
+  description: Fluency in Scala programming language, encompassing object-oriented
+    and functional programming fusio
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

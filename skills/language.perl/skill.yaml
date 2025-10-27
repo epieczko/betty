@@ -1,0 +1,27 @@
+name: language.perl
+version: 0.1.0
+description: Fluency in Perl programming language, encompassing regular expressions,
+  context sensitivity, references, typeglobs, symbol tables, modules, object-oriented
+  Perl with Moose/Moo, sigils, list processing, and "there's more than one way to
+  do it" philosophy. Mastery of CPAN ecosystem, text processing, one-liners, autovivification,
+  and Perl idioms. Understanding of the Perl interpreter, package system, and pragmatic
+  programming approach.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/perl
+  handler: language_perl.py
+  runtime: python
+  description: Fluency in Perl programming language, encompassing regular expressions,
+    context sensitivity, referen
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

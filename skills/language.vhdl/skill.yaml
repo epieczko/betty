@@ -1,0 +1,27 @@
+name: language.vhdl
+version: 0.1.0
+description: Fluency in VHDL hardware description language, encompassing entity-architecture
+  design, concurrent and sequential statements, signal vs variable semantics, process
+  sensitivity lists, state machines, testbenches, and synthesis vs simulation. Mastery
+  of timing models, generics, component instantiation, and FPGA/ASIC design patterns.
+  Understanding of hardware parallelism, delta cycles, and register-transfer level
+  design.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/vhdl
+  handler: language_vhdl.py
+  runtime: python
+  description: Fluency in VHDL hardware description language, encompassing entity-architecture
+    design, concurrent a
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

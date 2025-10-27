@@ -1,0 +1,27 @@
+name: language.assembly
+version: 0.1.0
+description: Fluency in Assembly programming language, encompassing CPU architecture,
+  registers, memory addressing modes, instruction sets, stack operations, calling
+  conventions, and low-level optimization. Mastery of different assembly syntaxes
+  (Intel, AT&T), system calls, interrupts, bit manipulation, and hardware interaction.
+  Understanding of instruction encoding, pipelining, caches, and writing performance-critical
+  code at the lowest abstraction level.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/assembly
+  handler: language_assembly.py
+  runtime: python
+  description: Fluency in Assembly programming language, encompassing CPU architecture,
+    registers, memory addressin
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

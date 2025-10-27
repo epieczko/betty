@@ -1,0 +1,26 @@
+name: language.qsharp
+version: 0.1.0
+description: Fluency in Q# programming language for quantum computing, encompassing
+  qubits, quantum operations, superposition, entanglement, quantum gates, measurements,
+  oracles, and quantum algorithms. Mastery of quantum control flow, adjoint and controlled
+  functors, quantum data types, and quantum algorithm patterns. Understanding of quantum
+  mechanics principles, quantum circuit design, and integration with classical computing.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/qsharp
+  handler: language_qsharp.py
+  runtime: python
+  description: Fluency in Q# programming language for quantum computing, encompassing
+    qubits, quantum operations, s
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

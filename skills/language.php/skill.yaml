@@ -1,0 +1,27 @@
+name: language.php
+version: 0.1.0
+description: Fluency in PHP programming language, encompassing object-oriented programming,
+  namespaces, traits, type declarations, generators, anonymous functions, closures,
+  error handling, autoloading, and modern PHP features. Mastery of PSR standards,
+  Composer dependency management, reflection, attributes, and asynchronous programming
+  patterns. Understanding of PHP's execution model, request lifecycle, and integration
+  with web servers.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/php
+  handler: language_php.py
+  runtime: python
+  description: Fluency in PHP programming language, encompassing object-oriented programming,
+    namespaces, traits, t
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

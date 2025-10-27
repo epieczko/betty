@@ -1,0 +1,27 @@
+name: language.haskell
+version: 0.1.0
+description: Fluency in Haskell programming language, encompassing pure functional
+  programming, lazy evaluation, strong static typing, type inference, higher-order
+  functions, monads, functors, applicatives, algebraic data types, type classes, and
+  parametric polymorphism. Mastery of monad transformers, lens libraries, parser combinators,
+  and equational reasoning. Understanding of category theory concepts, laziness implications,
+  and type-level programming.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/haskell
+  handler: language_haskell.py
+  runtime: python
+  description: 'Fluency in Haskell programming language, encompassing pure functional
+    programming, lazy evaluation, '
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

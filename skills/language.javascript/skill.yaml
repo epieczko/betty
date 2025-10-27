@@ -1,0 +1,27 @@
+name: language.javascript
+version: 0.1.0
+description: Fluency in JavaScript programming language, encompassing prototypal inheritance,
+  event-driven architecture, asynchronous programming with promises and async/await,
+  closures, hoisting, scope chains, the event loop, and execution contexts. Mastery
+  of ES6+ features including arrow functions, destructuring, spread operators, modules,
+  classes, symbols, iterators, generators, and proxy objects. Understanding of this
+  binding, prototype chain, and functional programming patterns.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/javascript
+  handler: language_javascript.py
+  runtime: python
+  description: Fluency in JavaScript programming language, encompassing prototypal
+    inheritance, event-driven archit
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

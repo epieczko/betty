@@ -1,0 +1,26 @@
+name: language.lua
+version: 0.1.0
+description: Fluency in Lua programming language, encompassing tables as the universal
+  data structure, first-class functions, closures, coroutines, metatables, metamethods,
+  lexical scoping, and embeddability. Mastery of Lua's minimalist design, pattern
+  matching, the module system, and C API for integration. Understanding of Lua's implementation,
+  lightweight nature, and use as an embedded scripting language.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/lua
+  handler: language_lua.py
+  runtime: python
+  description: Fluency in Lua programming language, encompassing tables as the universal
+    data structure, first-clas
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

@@ -1,0 +1,27 @@
+name: language.kotlin
+version: 0.1.0
+description: Fluency in Kotlin programming language, encompassing null safety, extension
+  functions, data classes, sealed classes, coroutines, smart casts, delegation, reified
+  generics, and operator overloading. Mastery of functional programming features including
+  higher-order functions, lambdas with receivers, scope functions, collection operations,
+  and sequences. Understanding of interoperability with Java, DSL construction, and
+  coroutine contexts.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/kotlin
+  handler: language_kotlin.py
+  runtime: python
+  description: Fluency in Kotlin programming language, encompassing null safety, extension
+    functions, data classes,
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

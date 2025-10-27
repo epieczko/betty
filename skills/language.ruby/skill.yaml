@@ -1,0 +1,27 @@
+name: language.ruby
+version: 0.1.0
+description: Fluency in Ruby programming language, encompassing object-oriented design
+  with open classes, mixins, blocks and yields, metaprogramming, duck typing, symbols,
+  modules, eigenclasses, method_missing, and the principle of least surprise. Mastery
+  of Ruby's enumerable methods, procs vs lambdas, refinements, DSL creation, and Rails
+  conventions. Understanding of Ruby's method lookup chain, singleton methods, and
+  dynamic method definition.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/ruby
+  handler: language_ruby.py
+  runtime: python
+  description: Fluency in Ruby programming language, encompassing object-oriented
+    design with open classes, mixins,
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

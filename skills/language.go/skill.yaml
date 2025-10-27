@@ -1,0 +1,27 @@
+name: language.go
+version: 0.1.0
+description: Fluency in Go programming language, encompassing goroutines, channels,
+  select statements, interface composition, structural typing, defer/panic/recover,
+  reflection, and composition over inheritance. Mastery of concurrency patterns including
+  worker pools, pipelines, fan-out/fan-in, context propagation, and cancellation.
+  Understanding of garbage collection, scheduler, memory layout, and idiomatic Go
+  patterns including error handling and package design.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/go
+  handler: language_go.py
+  runtime: python
+  description: 'Fluency in Go programming language, encompassing goroutines, channels,
+    select statements, interface '
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

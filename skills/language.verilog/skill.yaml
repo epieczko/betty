@@ -1,0 +1,27 @@
+name: language.verilog
+version: 0.1.0
+description: Fluency in Verilog hardware description language, encompassing module
+  design, always blocks, blocking vs non-blocking assignments, reg vs wire, continuous
+  assignments, behavioral and structural modeling, and timing control. Mastery of
+  SystemVerilog extensions including interfaces, classes, assertions, and advanced
+  verification constructs. Understanding of synthesis, simulation, race conditions,
+  and digital design patterns.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/verilog
+  handler: language_verilog.py
+  runtime: python
+  description: Fluency in Verilog hardware description language, encompassing module
+    design, always blocks, blockin
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

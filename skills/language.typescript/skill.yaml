@@ -1,0 +1,27 @@
+name: language.typescript
+version: 0.1.0
+description: Fluency in TypeScript programming language, encompassing static type
+  system, structural typing, type inference, generics, union and intersection types,
+  type guards, conditional types, mapped types, and type narrowing. Mastery of advanced
+  type features including utility types, template literal types, discriminated unions,
+  type predicates, and declaration merging. Understanding of compiler options, module
+  resolution, and integration with JavaScript ecosystems.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/typescript
+  handler: language_typescript.py
+  runtime: python
+  description: Fluency in TypeScript programming language, encompassing static type
+    system, structural typing, type
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

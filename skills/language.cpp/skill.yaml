@@ -1,0 +1,27 @@
+name: language.cpp
+version: 0.1.0
+description: Fluency in C++ programming language, encompassing object-oriented and
+  generic programming, RAII, move semantics, perfect forwarding, template metaprogramming,
+  smart pointers, standard library containers and algorithms, and modern C++ features.
+  Mastery of memory management, undefined behavior, the rule of three/five/zero, constexpr,
+  concepts, ranges, and compile-time computation. Understanding of compilation model,
+  linking, ABI compatibility, and zero-overhead principle.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/cpp
+  handler: language_cpp.py
+  runtime: python
+  description: Fluency in C++ programming language, encompassing object-oriented and
+    generic programming, RAII, mov
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

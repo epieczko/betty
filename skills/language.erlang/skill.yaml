@@ -1,0 +1,27 @@
+name: language.erlang
+version: 0.1.0
+description: Fluency in Erlang programming language, encompassing concurrent programming
+  with lightweight processes, message passing, pattern matching, functional programming,
+  immutability, fault tolerance, hot code swapping, and OTP framework. Mastery of
+  supervisors, gen_server, gen_fsm, gen_event, distribution, and building highly available
+  systems. Understanding of BEAM VM, scheduler, process isolation, and "let it crash"
+  error handling philosophy.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/erlang
+  handler: language_erlang.py
+  runtime: python
+  description: Fluency in Erlang programming language, encompassing concurrent programming
+    with lightweight process
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

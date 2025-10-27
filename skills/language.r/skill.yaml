@@ -1,0 +1,27 @@
+name: language.r
+version: 0.1.0
+description: Fluency in R programming language, encompassing vectorized operations,
+  data frames, statistical computing, functional programming with apply family, formula
+  syntax, S3/S4/R6 object systems, non-standard evaluation, and the tidyverse ecosystem.
+  Mastery of data manipulation with dplyr, visualization with ggplot2, statistical
+  modeling, reproducible research, and R's unique evaluation model. Understanding
+  of environments, lazy evaluation, and metaprogramming with tidy evaluation.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/r
+  handler: language_r.py
+  runtime: python
+  description: Fluency in R programming language, encompassing vectorized operations,
+    data frames, statistical comp
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

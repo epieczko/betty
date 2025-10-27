@@ -1,0 +1,27 @@
+name: language.move
+version: 0.1.0
+description: Fluency in Move programming language for blockchain smart contracts,
+  encompassing resource-oriented programming, linear types, modules, structs with
+  abilities, generics, references, and formal verification support. Mastery of resource
+  safety guarantees, no-copy/no-drop semantics, account-based storage model, and secure
+  digital asset management. Understanding of the Move VM, bytecode verification, and
+  building safe blockchain applications.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/move
+  handler: language_move.py
+  runtime: python
+  description: 'Fluency in Move programming language for blockchain smart contracts,
+    encompassing resource-oriented '
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

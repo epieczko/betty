@@ -1,0 +1,27 @@
+name: language.dart
+version: 0.1.0
+description: Fluency in Dart programming language, encompassing object-oriented programming,
+  sound null safety, async/await, streams, isolates, mixins, extension methods, and
+  strong typing with type inference. Mastery of Dart's collection literals, cascade
+  notation, factory constructors, generics, and the Flutter framework integration.
+  Understanding of ahead-of-time and just-in-time compilation, and building cross-platform
+  applications.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/dart
+  handler: language_dart.py
+  runtime: python
+  description: Fluency in Dart programming language, encompassing object-oriented
+    programming, sound null safety, a
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis

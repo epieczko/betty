@@ -1,0 +1,27 @@
+name: language.julia
+version: 0.1.0
+description: Fluency in Julia programming language, encompassing multiple dispatch,
+  type system with parametric types, just-in-time compilation, metaprogramming with
+  macros, performance-oriented design, optional typing, and scientific computing patterns.
+  Mastery of broadcasting, vectorization, parallel computing, array programming, and
+  composability. Understanding of type stability, specialization, and achieving C-like
+  performance with high-level syntax.
+inputs:
+- code_file
+- validation_type
+outputs:
+- language_metadata.json
+- validation_report.json
+status: active
+permissions:
+- filesystem:read
+entrypoints:
+- command: /language/julia
+  handler: language_julia.py
+  runtime: python
+  description: Fluency in Julia programming language, encompassing multiple dispatch,
+    type system with parametric t
+artifact_metadata:
+  produces:
+  - type: language-metadata
+  - type: code-analysis
