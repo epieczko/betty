@@ -1,0 +1,52 @@
+name: testing.orchestrator
+version: 0.1.0
+description: Orchestrates testing workflows across unit, integration, and end-to-end
+  tests
+capabilities:
+- Coordinate test planning and design
+- Manage test execution and reporting
+- Orchestrate quality assurance workflows
+- Handle test data generation and management
+- Coordinate continuous testing pipelines
+skills_available:
+- test.example
+- workflow.validate
+- api.test
+reasoning_mode: iterative
+tags:
+- testing
+- orchestration
+- qa
+- quality
+workflow_pattern: '1. Analyze incoming request and requirements
+
+  2. Identify relevant testing skills and workflows
+
+  3. Compose multi-step execution plan
+
+  4. Execute skills in coordinated sequence
+
+  5. Validate intermediate results
+
+  6. Handle errors and retry as needed
+
+  7. Return comprehensive results'
+example_task: "Input: \"Complete testing workflow from start to finish\"\n\nAgent\
+  \ will:\n1. Break down the task into stages\n2. Select appropriate skills for each\
+  \ stage\n3. Execute create \u2192 validate \u2192 review \u2192 publish lifecycle\n\
+  4. Monitor progress and handle failures\n5. Generate comprehensive reports"
+error_handling:
+  timeout_seconds: 300
+  retry_strategy: exponential_backoff
+  max_retries: 3
+output:
+  success:
+  - Testing workflow results
+  - Execution logs and metrics
+  - Validation reports
+  - Generated artifacts
+  failure:
+  - Error details and stack traces
+  - Partial results (if available)
+  - Remediation suggestions
+status: generated

@@ -1,0 +1,130 @@
+{
+  "simulation_time": "2025-10-27T02:12:23.909560",
+  "total_hooks": 3,
+  "total_events": 4,
+  "results": [
+    {
+      "hook_name": "performance-monitor-pre",
+      "event_type": "before-tool-call",
+      "triggered": true,
+      "would_execute": true,
+      "command": "echo \"$(date +%s.%N),$(ps -o %cpu= -p $$),$(ps -o rss= -p $$),$CLAUDE_TOOL_NAME,start\" >> ~/.claude/performance.csv",
+      "reason": "Would execute successfully",
+      "dependencies": [
+        "Env var: $CLAUDE_TOOL_NAME",
+        "File write: ~/.claude/performance.csv"
+      ],
+      "potential_issues": []
+    },
+    {
+      "hook_name": "performance-monitor-post",
+      "event_type": "after-tool-call",
+      "triggered": true,
+      "would_execute": true,
+      "command": "echo \"$(date +%s.%N),$(ps -o %cpu= -p $$),$(ps -o rss= -p $$),$CLAUDE_TOOL_NAME,end\" >> ~/.claude/performance.csv; if [[ $(wc -l < ~/.claude/performance.csv) -gt 1000 ]]; then tail -n 500 ~/.claude/performance.csv > ~/.claude/performance.csv.tmp && mv ~/.claude/performance.csv.tmp ~/.claude/performance.csv; fi",
+      "reason": "Would execute successfully",
+      "dependencies": [
+        "Env var: $CLAUDE_TOOL_NAME",
+        "File write: ~/.claude/performance.csv"
+      ],
+      "potential_issues": [
+        "Destructive file operation"
+      ]
+    },
+    {
+      "hook_name": "auto-stage-edited-files",
+      "event_type": "after-tool-call",
+      "triggered": true,
+      "would_execute": true,
+      "command": "if [[ -n \"$CLAUDE_TOOL_FILE_PATH\" ]] && git rev-parse --git-dir >/dev/null 2>&1; then git add \"$CLAUDE_TOOL_FILE_PATH\" 2>/dev/null || true; fi",
+      "reason": "Would execute successfully",
+      "dependencies": [
+        "Env var: $CLAUDE_TOOL_FILE_PATH",
+        "Env var: $CLAUDE_TOOL_FILE_PATH",
+        "Git repository",
+        "File write: /dev/null"
+      ],
+      "potential_issues": []
+    },
+    {
+      "hook_name": "performance-monitor-pre",
+      "event_type": "before-tool-call",
+      "triggered": true,
+      "would_execute": true,
+      "command": "echo \"$(date +%s.%N),$(ps -o %cpu= -p $$),$(ps -o rss= -p $$),$CLAUDE_TOOL_NAME,start\" >> ~/.claude/performance.csv",
+      "reason": "Would execute successfully",
+      "dependencies": [
+        "Env var: $CLAUDE_TOOL_NAME",
+        "File write: ~/.claude/performance.csv"
+      ],
+      "potential_issues": []
+    },
+    {
+      "hook_name": "performance-monitor-post",
+      "event_type": "after-tool-call",
+      "triggered": true,
+      "would_execute": true,
+      "command": "echo \"$(date +%s.%N),$(ps -o %cpu= -p $$),$(ps -o rss= -p $$),$CLAUDE_TOOL_NAME,end\" >> ~/.claude/performance.csv; if [[ $(wc -l < ~/.claude/performance.csv) -gt 1000 ]]; then tail -n 500 ~/.claude/performance.csv > ~/.claude/performance.csv.tmp && mv ~/.claude/performance.csv.tmp ~/.claude/performance.csv; fi",
+      "reason": "Would execute successfully",
+      "dependencies": [
+        "Env var: $CLAUDE_TOOL_NAME",
+        "File write: ~/.claude/performance.csv"
+      ],
+      "potential_issues": [
+        "Destructive file operation"
+      ]
+    },
+    {
+      "hook_name": "auto-stage-edited-files",
+      "event_type": "after-tool-call",
+      "triggered": true,
+      "would_execute": true,
+      "command": "if [[ -n \"$CLAUDE_TOOL_FILE_PATH\" ]] && git rev-parse --git-dir >/dev/null 2>&1; then git add \"$CLAUDE_TOOL_FILE_PATH\" 2>/dev/null || true; fi",
+      "reason": "Would execute successfully",
+      "dependencies": [
+        "Env var: $CLAUDE_TOOL_FILE_PATH",
+        "Env var: $CLAUDE_TOOL_FILE_PATH",
+        "Git repository",
+        "File write: /dev/null"
+      ],
+      "potential_issues": []
+    }
+  ],
+  "summary": {
+    "total_triggers": 6,
+    "successful_executions": 6,
+    "failed_conditions": 0,
+    "disabled_hooks": 0,
+    "total_dependencies": 16,
+    "potential_issues": 2
+  },
+  "hooks_overview": [
+    {
+      "name": "performance-monitor-pre",
+      "event": "before-tool-call",
+      "enabled": true,
+      "has_condition": false,
+      "has_tool_filter": false,
+      "timeout": 5000,
+      "command_length": 115
+    },
+    {
+      "name": "performance-monitor-post",
+      "event": "after-tool-call",
+      "enabled": true,
+      "has_condition": false,
+      "has_tool_filter": false,
+      "timeout": 0,
+      "command_length": 311
+    },
+    {
+      "name": "auto-stage-edited-files",
+      "event": "after-tool-call",
+      "enabled": true,
+      "has_condition": false,
+      "has_tool_filter": true,
+      "timeout": 5000,
+      "command_length": 142
+    }
+  ]
+}

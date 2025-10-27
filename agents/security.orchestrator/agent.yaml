@@ -1,0 +1,53 @@
+name: security.orchestrator
+version: 0.1.0
+description: Orchestrates security workflows including audits, compliance checks,
+  and vulnerability management
+capabilities:
+- Coordinate security audits and assessments
+- Manage compliance validation workflows
+- Orchestrate vulnerability scanning and remediation
+- Handle security documentation generation
+- Coordinate access control and policy enforcement
+skills_available:
+- policy.enforce
+- artifact.validate
+- artifact.review
+- audit.log
+reasoning_mode: iterative
+tags:
+- security
+- orchestration
+- compliance
+- audit
+workflow_pattern: '1. Analyze incoming request and requirements
+
+  2. Identify relevant security skills and workflows
+
+  3. Compose multi-step execution plan
+
+  4. Execute skills in coordinated sequence
+
+  5. Validate intermediate results
+
+  6. Handle errors and retry as needed
+
+  7. Return comprehensive results'
+example_task: "Input: \"Complete security workflow from start to finish\"\n\nAgent\
+  \ will:\n1. Break down the task into stages\n2. Select appropriate skills for each\
+  \ stage\n3. Execute create \u2192 validate \u2192 review \u2192 publish lifecycle\n\
+  4. Monitor progress and handle failures\n5. Generate comprehensive reports"
+error_handling:
+  timeout_seconds: 300
+  retry_strategy: exponential_backoff
+  max_retries: 3
+output:
+  success:
+  - Security workflow results
+  - Execution logs and metrics
+  - Validation reports
+  - Generated artifacts
+  failure:
+  - Error details and stack traces
+  - Partial results (if available)
+  - Remediation suggestions
+status: generated

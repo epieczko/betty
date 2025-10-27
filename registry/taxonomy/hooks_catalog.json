@@ -1,0 +1,35 @@
+[
+  {
+    "type": "hook",
+    "name": "performance-monitor-pre",
+    "event": "before-tool-call",
+    "condition": "",
+    "target_command": "echo \"$(date +%s.%N),$(ps -o %cpu= -p $$),$(ps -o rss= -p $$),$CLAUDE_TOOL_NAME,start\" >> ~/.claude/performance.csv",
+    "description": "Monitor system performance - track CPU, memory usage at tool start",
+    "tags": [],
+    "enabled": true,
+    "path": "/home/user/betty/.claude/hooks.yaml"
+  },
+  {
+    "type": "hook",
+    "name": "performance-monitor-post",
+    "event": "after-tool-call",
+    "condition": "",
+    "target_command": "echo \"$(date +%s.%N),$(ps -o %cpu= -p $$),$(ps -o rss= -p $$),$CLAUDE_TOOL_NAME,end\" >> ~/.claude/performance.csv; if [[ $(wc -l < ~/.claude/performance.csv) -gt 1000 ]]; then tail -n 500 ~/.claude/performance.csv > ~/.claude/performance.csv.tmp && mv ~/.claude/performance.csv.tmp ~/.claude/performance.csv; fi",
+    "description": "Monitor system performance - track CPU, memory usage at tool end and rotate logs",
+    "tags": [],
+    "enabled": true,
+    "path": "/home/user/betty/.claude/hooks.yaml"
+  },
+  {
+    "type": "hook",
+    "name": "auto-stage-edited-files",
+    "event": "after-tool-call",
+    "condition": "",
+    "target_command": "if [[ -n \"$CLAUDE_TOOL_FILE_PATH\" ]] && git rev-parse --git-dir >/dev/null 2>&1; then git add \"$CLAUDE_TOOL_FILE_PATH\" 2>/dev/null || true; fi",
+    "description": "Automatically stage modified files with git add after editing. Helps maintain a clean git workflow by staging changes as they're made.",
+    "tags": [],
+    "enabled": true,
+    "path": "/home/user/betty/.claude/hooks.yaml"
+  }
+]

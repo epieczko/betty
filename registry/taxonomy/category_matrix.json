@@ -1,0 +1,171 @@
+{
+  "architecture": {
+    "skills": [
+      "artifact.validate",
+      "hook.register",
+      "hook.define",
+      "hook.simulate",
+      "epic.decompose",
+      "artifact.create",
+      "story.write",
+      "artifact.scaffold",
+      "skill.create",
+      "artifact.review",
+      "skill.define",
+      "command.define",
+      "epic.write",
+      "artifact.define"
+    ],
+    "agents": [],
+    "hooks": [],
+    "commands": [],
+    "missing": []
+  },
+  "docs": {
+    "skills": [
+      "docs.lint.links",
+      "docs.sync.readme",
+      "docs.sync.pluginmanifest",
+      "docs.validate.skilldocs",
+      "docs.expand.glossary"
+    ],
+    "agents": [],
+    "hooks": [],
+    "commands": [],
+    "missing": []
+  },
+  "testing": {
+    "skills": [
+      "test.example"
+    ],
+    "agents": [
+      "test.engineer"
+    ],
+    "hooks": [],
+    "commands": [],
+    "missing": []
+  },
+  "operations": {
+    "skills": [
+      "code.format",
+      "workflow.validate",
+      "git.createpr",
+      "file.compare",
+      "telemetry.capture",
+      "build.optimize",
+      "workflow.compose",
+      "workflow.orchestrate",
+      "git.cleanupbranches"
+    ],
+    "agents": [
+      "strategy.architect",
+      "governance.manager",
+      "file.processor",
+      "code.reviewer",
+      "deployment.engineer"
+    ],
+    "hooks": [
+      "performance-monitor-pre",
+      "performance-monitor-post",
+      "auto-stage-edited-files"
+    ],
+    "commands": [
+      "/branch-cleanup",
+      "/create-worktrees",
+      "/update-branch-name",
+      "/create-pr",
+      "/optimize-build",
+      "/commit",
+      "/api-generate",
+      "/api-compatibility",
+      "/api-validate",
+      "/api-design"
+    ],
+    "missing": []
+  },
+  "ai": {
+    "skills": [
+      "agent.compose",
+      "generate.docs",
+      "agent.define",
+      "agent.run",
+      "generate.marketplace",
+      "meta.compatibility"
+    ],
+    "agents": [
+      "meta.skill",
+      "meta.agent",
+      "meta.hook",
+      "meta.command",
+      "meta.artifact",
+      "meta.create",
+      "meta.compatibility",
+      "meta.suggest"
+    ],
+    "hooks": [],
+    "commands": [],
+    "missing": []
+  },
+  "api": {
+    "skills": [
+      "api.define",
+      "api.compatibility",
+      "api.validate",
+      "api.test",
+      "api.generatemodels"
+    ],
+    "agents": [
+      "api.analyzer",
+      "api.architect",
+      "api.designer"
+    ],
+    "hooks": [],
+    "commands": [],
+    "missing": []
+  },
+  "governance": {
+    "skills": [
+      "audit.log",
+      "registry.update",
+      "registry.query",
+      "policy.enforce",
+      "registry.diff"
+    ],
+    "agents": [],
+    "hooks": [],
+    "commands": [],
+    "missing": []
+  },
+  "data": {
+    "skills": [
+      "data.transform"
+    ],
+    "agents": [
+      "data.validator",
+      "data.architect"
+    ],
+    "hooks": [],
+    "commands": [],
+    "missing": []
+  },
+  "deployment": {
+    "skills": [
+      "plugin.sync",
+      "plugin.build",
+      "plugin.publish"
+    ],
+    "agents": [],
+    "hooks": [],
+    "commands": [],
+    "missing": []
+  },
+  "security": {
+    "skills": [],
+    "agents": [
+      "security.architect"
+    ],
+    "hooks": [],
+    "commands": [],
+    "missing": []
+  }
+}

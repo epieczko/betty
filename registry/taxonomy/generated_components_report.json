@@ -1,0 +1,42 @@
+{
+  "generated_at": "2025-10-26",
+  "total_generated": 6,
+  "agents": [
+    {
+      "domain": "api",
+      "name": "api.orchestrator",
+      "path": "/home/user/betty/agents/api.orchestrator",
+      "status": "generated"
+    },
+    {
+      "domain": "data",
+      "name": "data.orchestrator",
+      "path": "/home/user/betty/agents/data.orchestrator",
+      "status": "generated"
+    },
+    {
+      "domain": "security",
+      "name": "security.orchestrator",
+      "path": "/home/user/betty/agents/security.orchestrator",
+      "status": "generated"
+    },
+    {
+      "domain": "testing",
+      "name": "testing.orchestrator",
+      "path": "/home/user/betty/agents/testing.orchestrator",
+      "status": "generated"
+    },
+    {
+      "domain": "operations",
+      "name": "operations.orchestrator",
+      "path": "/home/user/betty/agents/operations.orchestrator",
+      "status": "generated"
+    },
+    {
+      "domain": "ai",
+      "name": "ai.orchestrator",
+      "path": "/home/user/betty/agents/ai.orchestrator",
+      "status": "generated"
+    }
+  ]
+}

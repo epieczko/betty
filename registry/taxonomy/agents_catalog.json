@@ -1,0 +1,314 @@
+[
+  {
+    "type": "agent",
+    "name": "meta.skill",
+    "role": "analyze",
+    "description": "Creates complete, functional skills from natural language descriptions.\n\nThis meta-agent transforms skill descriptions into production-ready skills with:\n- Complete skill.yaml definition\n- Python implementation stub with proper structure\n- Test template with example tests\n- README documentation\n- Registry registration\n\nEnsures skills follow Betty Framework conventions and are ready for use in agents.\n",
+    "skills_used": [],
+    "skills_available": [
+      "skill.create",
+      "skill.define",
+      "artifact.define"
+    ],
+    "tags": [],
+    "path": "/home/user/betty/agents/meta.skill/agent.yaml",
+    "domain": "ai"
+  },
+  {
+    "type": "agent",
+    "name": "security.architect",
+    "role": "create",
+    "description": "Create comprehensive security architecture and assessment artifacts including threat models, security architecture diagrams, penetration testing reports, vulnerability management plans, and incident response plans. Applies security frameworks (STRIDE, NIST, ISO 27001, OWASP) and creates artifacts ready for security review and compliance audit.",
+    "skills_used": [],
+    "skills_available": [
+      "artifact.create",
+      "artifact.validate",
+      "artifact.review"
+    ],
+    "tags": [],
+    "path": "/home/user/betty/agents/security.architect/agent.yaml",
+    "domain": "security"
+  },
+  {
+    "type": "agent",
+    "name": "meta.agent",
+    "role": "analyze",
+    "description": "Meta-agent that creates other agents by composing skills based on natural\nlanguage descriptions. Transforms natural language descriptions into complete,\nfunctional agents.\n\nmeta.agent analyzes agent requirements, recommends compatible skills using artifact\nmetadata, generates complete agent definitions, and produces documentation.\n",
+    "skills_used": [],
+    "skills_available": [
+      "agent.compose",
+      "artifact.define",
+      "registry.update"
+    ],
+    "tags": [],
+    "path": "/home/user/betty/agents/meta.agent/agent.yaml",
+    "domain": "ai"
+  },
+  {
+    "type": "agent",
+    "name": "data.validator",
+    "role": "analyze",
+    "description": "Validates data files against schemas, business rules, and data quality standards. Ensures data integrity, completeness, and compliance.",
+    "skills_used": [],
+    "skills_available": [
+      "workflow.validate",
+      "api.validate"
+    ],
+    "tags": [],
+    "path": "/home/user/betty/agents/data.validator/agent.yaml",
+    "domain": "data"
+  },
+  {
+    "type": "agent",
+    "name": "meta.hook",
+    "role": "analyze",
+    "description": "Hook creator meta-agent that generates Claude Code hooks from descriptions",
+    "skills_used": [],
+    "skills_available": [
+      "hook.define",
+      "hook.register",
+      "hook.simulate"
+    ],
+    "tags": [],
+    "path": "/home/user/betty/agents/meta.hook/agent.yaml",
+    "domain": "ai"
+  },
+  {
+    "type": "agent",
+    "name": "strategy.architect",
+    "role": "create",
+    "description": "Create comprehensive business strategy and planning artifacts including business cases, portfolio roadmaps, market analyses, competitive assessments, and strategic planning documents. Leverages financial modeling (NPV, IRR, ROI) and industry frameworks (PMBOK, SAFe, BCG Matrix) to produce executive-ready strategic deliverables.",
+    "skills_used": [],
+    "skills_available": [
+      "artifact.create",
+      "artifact.validate",
+      "artifact.review"
+    ],
+    "tags": [],
+    "path": "/home/user/betty/agents/strategy.architect/agent.yaml",
+    "domain": "operations"
+  },
+  {
+    "type": "agent",
+    "name": "governance.manager",
+    "role": "govern",
+    "description": "Create comprehensive program and project governance artifacts including project charters, RAID logs (Risks, Assumptions, Issues, Decisions), decision logs, governance frameworks, compliance matrices, and steering committee artifacts. Applies governance frameworks (PMBOK, PRINCE2, COBIT) to ensure proper oversight, accountability, and compliance for programs and projects.",
+    "skills_used": [],
+    "skills_available": [
+      "artifact.create",
+      "artifact.validate",
+      "artifact.review"
+    ],
+    "tags": [],
+    "path": "/home/user/betty/agents/governance.manager/agent.yaml",
+    "domain": "operations"
+  },
+  {
+    "type": "agent",
+    "name": "file.processor",
+    "role": "analyze",
+    "description": "Processes files through various transformations including format conversion, compression, encryption, and batch operations.",
+    "skills_used": [],
+    "skills_available": [
+      "file.compare",
+      "workflow.orchestrate",
+      "build.optimize"
+    ],
+    "tags": [],
+    "path": "/home/user/betty/agents/file.processor/agent.yaml",
+    "domain": "operations"
+  },
+  {
+    "type": "agent",
+    "name": "meta.command",
+    "role": "analyze",
+    "description": "Creates complete command manifests from natural language descriptions.\n\nThis meta-agent transforms command descriptions into production-ready command\nmanifests that can be registered in the Betty Framework Command Registry.\n\nCommand manifests can delegate to:\n- Agents: For intelligent, context-aware operations\n- Skills: For direct, atomic operations\n- Workflows: For orchestrated multi-step processes\n\nThe meta.command agent generates properly structured YAML manifests with:\n- Command name and metadata\n- Parameter definitions with types and validation\n- Execution configuration (agent/skill/workflow)\n- Documentation and examples\n\nAfter creation, commands can be registered using the command.define skill.\n",
+    "skills_used": [],
+    "skills_available": [
+      "command.define",
+      "artifact.define"
+    ],
+    "tags": [],
+    "path": "/home/user/betty/agents/meta.command/agent.yaml",
+    "domain": "ai"
+  },
+  {
+    "type": "agent",
+    "name": "api.analyzer",
+    "role": "analyze",
+    "description": "Analyze API specifications for backward compatibility and breaking changes",
+    "skills_used": [],
+    "skills_available": [
+      "api.compatibility",
+      "api.validate"
+    ],
+    "tags": [
+      "api",
+      "analysis",
+      "compatibility",
+      "versioning",
+      "oneshot"
+    ],
+    "path": "/home/user/betty/agents/api.analyzer/agent.yaml",
+    "domain": "api"
+  },
+  {
+    "type": "agent",
+    "name": "meta.artifact",
+    "role": "analyze",
+    "description": "The artifact standards authority - THE single source of truth for all\nartifact type definitions in Betty Framework.\n\nThis meta-agent manages the complete lifecycle of artifact types:\n- Defines new artifact types with JSON schemas\n- Updates ARTIFACT_STANDARDS.md documentation\n- Registers types in the artifact registry\n- Validates artifact compatibility across the system\n- Ensures consistency and prevents conflicts\n\nAll artifact types MUST be registered through meta.artifact before use.\nNo ad-hoc artifact definitions are permitted.\n",
+    "skills_used": [],
+    "skills_available": [
+      "artifact.define",
+      "registry.update",
+      "registry.query"
+    ],
+    "tags": [],
+    "path": "/home/user/betty/agents/meta.artifact/agent.yaml",
+    "domain": "ai"
+  },
+  {
+    "type": "agent",
+    "name": "code.reviewer",
+    "role": "review",
+    "description": "Analyzes code changes and provides comprehensive feedback on code quality, security vulnerabilities, performance issues, and adherence to best practices.",
+    "skills_used": [],
+    "skills_available": [
+      "code.format",
+      "test.workflow.integration",
+      "policy.enforce"
+    ],
+    "tags": [],
+    "path": "/home/user/betty/agents/code.reviewer/agent.yaml",
+    "domain": "operations"
+  },
+  {
+    "type": "agent",
+    "name": "deployment.engineer",
+    "role": "analyze",
+    "description": "Create comprehensive deployment and release artifacts including deployment plans, CI/CD pipelines, release checklists, rollback procedures, runbooks, and infrastructure-as-code configurations. Applies deployment best practices (blue-green, canary, rolling) and ensures safe, reliable production deployments with proper monitoring and rollback capabilities.",
+    "skills_used": [],
+    "skills_available": [
+      "artifact.create",
+      "artifact.validate",
+      "artifact.review"
+    ],
+    "tags": [],
+    "path": "/home/user/betty/agents/deployment.engineer/agent.yaml",
+    "domain": "operations"
+  },
+  {
+    "type": "agent",
+    "name": "meta.create",
+    "role": "create",
+    "description": "Orchestrator meta-agent that intelligently creates skills, commands, and agents.\n\nCapabilities:\n- Detects component type from description\n- Checks inventory for duplicates\n- Analyzes complexity and determines creation pattern\n- Creates skills, commands, and agents in proper order\n- Validates compatibility using meta.compatibility\n- Identifies gaps and provides recommendations\n- Supports auto-filling missing dependencies\n\nThis is the primary entry point for creating Betty components from natural\nlanguage descriptions.\n",
+    "skills_used": [],
+    "skills_available": [
+      "registry.query",
+      "agent.compose"
+    ],
+    "tags": [
+      "meta",
+      "orchestration",
+      "creation",
+      "automation"
+    ],
+    "path": "/home/user/betty/agents/meta.create/agent.yaml",
+    "domain": "ai"
+  },
+  {
+    "type": "agent",
+    "name": "api.architect",
+    "role": "create",
+    "description": "An agent that designs comprehensive REST APIs and validates them against best practices. Takes API requirements as input and produces validated OpenAPI specifications with generated data models ready for implementation.",
+    "skills_used": [],
+    "skills_available": [
+      "workflow.validate",
+      "api.validate",
+      "api.define"
+    ],
+    "tags": [],
+    "path": "/home/user/betty/agents/api.architect/agent.yaml",
+    "domain": "api"
+  },
+  {
+    "type": "agent",
+    "name": "test.engineer",
+    "role": "validate",
+    "description": "Create comprehensive testing artifacts including test plans, test cases, test results, test automation strategies, and quality assurance reports. Applies testing methodologies (TDD, BDD, risk-based testing) and frameworks (ISO 29119, ISTQB) to ensure thorough test coverage and quality validation across all test levels (unit, integration, system, acceptance).",
+    "skills_used": [],
+    "skills_available": [
+      "artifact.create",
+      "artifact.validate",
+      "artifact.review"
+    ],
+    "tags": [],
+    "path": "/home/user/betty/agents/test.engineer/agent.yaml",
+    "domain": "testing"
+  },
+  {
+    "type": "agent",
+    "name": "api.designer",
+    "role": "analyze",
+    "description": "Design RESTful APIs following enterprise guidelines with iterative refinement",
+    "skills_used": [],
+    "skills_available": [
+      "api.define",
+      "api.validate",
+      "api.generatemodels",
+      "api.compatibility"
+    ],
+    "tags": [
+      "api",
+      "design",
+      "openapi",
+      "zalando",
+      "iterative"
+    ],
+    "path": "/home/user/betty/agents/api.designer/agent.yaml",
+    "domain": "api"
+  },
+  {
+    "type": "agent",
+    "name": "data.architect",
+    "role": "create",
+    "description": "Create comprehensive data architecture and governance artifacts including data models, schema definitions, data flow diagrams, data dictionaries, data governance policies, and data quality frameworks. Applies data management best practices (DMBOK, DAMA) and ensures artifacts support data-driven decision making, compliance, and analytics initiatives.",
+    "skills_used": [],
+    "skills_available": [
+      "artifact.create",
+      "artifact.validate",
+      "artifact.review"
+    ],
+    "tags": [],
+    "path": "/home/user/betty/agents/data.architect/agent.yaml",
+    "domain": "data"
+  },
+  {
+    "type": "agent",
+    "name": "meta.compatibility",
+    "role": "analyze",
+    "description": "Analyzes agent and skill compatibility to discover multi-agent workflows.\n\nThis meta-agent helps Claude discover which agents can work together by\nanalyzing artifact flows - what agents produce and what others consume.\n\nEnables intelligent orchestration by suggesting compatible agent combinations\nand detecting potential pipeline gaps.\n",
+    "skills_used": [],
+    "skills_available": [
+      "agent.compose",
+      "artifact.define"
+    ],
+    "tags": [],
+    "path": "/home/user/betty/agents/meta.compatibility/agent.yaml",
+    "domain": "ai"
+  },
+  {
+    "type": "agent",
+    "name": "meta.suggest",
+    "role": "analyze",
+    "description": "Context-aware next-step recommender that helps Claude decide what to do next\nafter an agent completes.\n\nAnalyzes current context, produced artifacts, and project state to suggest\ncompatible agents and workflows. Works with meta.compatibility to provide\nintelligent orchestration recommendations.\n",
+    "skills_used": [],
+    "skills_available": [
+      "meta.compatibility",
+      "artifact.define"
+    ],
+    "tags": [],
+    "path": "/home/user/betty/agents/meta.suggest/agent.yaml",
+    "domain": "ai"
+  }
+]

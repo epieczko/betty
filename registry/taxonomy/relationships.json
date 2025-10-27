@@ -1,0 +1,801 @@
+{
+  "skills_to_agents": [
+    {
+      "skill": "skill.create",
+      "agent": "meta.skill"
+    },
+    {
+      "skill": "skill.define",
+      "agent": "meta.skill"
+    },
+    {
+      "skill": "artifact.define",
+      "agent": "meta.skill"
+    },
+    {
+      "skill": "artifact.create",
+      "agent": "security.architect"
+    },
+    {
+      "skill": "artifact.validate",
+      "agent": "security.architect"
+    },
+    {
+      "skill": "artifact.review",
+      "agent": "security.architect"
+    },
+    {
+      "skill": "agent.compose",
+      "agent": "meta.agent"
+    },
+    {
+      "skill": "artifact.define",
+      "agent": "meta.agent"
+    },
+    {
+      "skill": "registry.update",
+      "agent": "meta.agent"
+    },
+    {
+      "skill": "workflow.validate",
+      "agent": "data.validator"
+    },
+    {
+      "skill": "api.validate",
+      "agent": "data.validator"
+    },
+    {
+      "skill": "hook.define",
+      "agent": "meta.hook"
+    },
+    {
+      "skill": "hook.register",
+      "agent": "meta.hook"
+    },
+    {
+      "skill": "hook.simulate",
+      "agent": "meta.hook"
+    },
+    {
+      "skill": "artifact.create",
+      "agent": "strategy.architect"
+    },
+    {
+      "skill": "artifact.validate",
+      "agent": "strategy.architect"
+    },
+    {
+      "skill": "artifact.review",
+      "agent": "strategy.architect"
+    },
+    {
+      "skill": "artifact.create",
+      "agent": "governance.manager"
+    },
+    {
+      "skill": "artifact.validate",
+      "agent": "governance.manager"
+    },
+    {
+      "skill": "artifact.review",
+      "agent": "governance.manager"
+    },
+    {
+      "skill": "file.compare",
+      "agent": "file.processor"
+    },
+    {
+      "skill": "workflow.orchestrate",
+      "agent": "file.processor"
+    },
+    {
+      "skill": "build.optimize",
+      "agent": "file.processor"
+    },
+    {
+      "skill": "command.define",
+      "agent": "meta.command"
+    },
+    {
+      "skill": "artifact.define",
+      "agent": "meta.command"
+    },
+    {
+      "skill": "api.compatibility",
+      "agent": "api.analyzer"
+    },
+    {
+      "skill": "api.validate",
+      "agent": "api.analyzer"
+    },
+    {
+      "skill": "artifact.define",
+      "agent": "meta.artifact"
+    },
+    {
+      "skill": "registry.update",
+      "agent": "meta.artifact"
+    },
+    {
+      "skill": "registry.query",
+      "agent": "meta.artifact"
+    },
+    {
+      "skill": "code.format",
+      "agent": "code.reviewer"
+    },
+    {
+      "skill": "policy.enforce",
+      "agent": "code.reviewer"
+    },
+    {
+      "skill": "artifact.create",
+      "agent": "deployment.engineer"
+    },
+    {
+      "skill": "artifact.validate",
+      "agent": "deployment.engineer"
+    },
+    {
+      "skill": "artifact.review",
+      "agent": "deployment.engineer"
+    },
+    {
+      "skill": "registry.query",
+      "agent": "meta.create"
+    },
+    {
+      "skill": "agent.compose",
+      "agent": "meta.create"
+    },
+    {
+      "skill": "workflow.validate",
+      "agent": "api.architect"
+    },
+    {
+      "skill": "api.validate",
+      "agent": "api.architect"
+    },
+    {
+      "skill": "api.define",
+      "agent": "api.architect"
+    },
+    {
+      "skill": "artifact.create",
+      "agent": "test.engineer"
+    },
+    {
+      "skill": "artifact.validate",
+      "agent": "test.engineer"
+    },
+    {
+      "skill": "artifact.review",
+      "agent": "test.engineer"
+    },
+    {
+      "skill": "api.define",
+      "agent": "api.designer"
+    },
+    {
+      "skill": "api.validate",
+      "agent": "api.designer"
+    },
+    {
+      "skill": "api.generatemodels",
+      "agent": "api.designer"
+    },
+    {
+      "skill": "api.compatibility",
+      "agent": "api.designer"
+    },
+    {
+      "skill": "artifact.create",
+      "agent": "data.architect"
+    },
+    {
+      "skill": "artifact.validate",
+      "agent": "data.architect"
+    },
+    {
+      "skill": "artifact.review",
+      "agent": "data.architect"
+    },
+    {
+      "skill": "agent.compose",
+      "agent": "meta.compatibility"
+    },
+    {
+      "skill": "artifact.define",
+      "agent": "meta.compatibility"
+    },
+    {
+      "skill": "meta.compatibility",
+      "agent": "meta.suggest"
+    },
+    {
+      "skill": "artifact.define",
+      "agent": "meta.suggest"
+    }
+  ],
+  "agents_to_hooks": [],
+  "hooks_to_commands": [
+    {
+      "hook": "performance-monitor-pre",
+      "command": "/performance"
+    },
+    {
+      "hook": "performance-monitor-post",
+      "command": "/performance"
+    },
+    {
+      "hook": "auto-stage-edited-files",
+      "command": "/dev"
+    }
+  ],
+  "skills_to_artifacts": [],
+  "artifact_producers": {
+    "object": [
+      "artifact.validate",
+      "docs.lint.links",
+      "docs.lint.links",
+      "agent.compose",
+      "agent.compose",
+      "agent.compose",
+      "api.define",
+      "hook.register",
+      "api.compatibility",
+      "hook.define",
+      "hook.simulate",
+      "agent.define",
+      "docs.validate.skilldocs",
+      "artifact.create",
+      "agent.run",
+      "registry.query",
+      "registry.query",
+      "policy.enforce",
+      "artifact.scaffold",
+      "registry.diff",
+      "docs.expand.glossary",
+      "docs.expand.glossary",
+      "docs.expand.glossary",
+      "plugin.build",
+      "artifact.review",
+      "api.validate",
+      "plugin.publish",
+      "plugin.publish",
+      "plugin.publish",
+      "telemetry.capture",
+      "command.define",
+      "artifact.define",
+      "artifact.define",
+      "meta.compatibility"
+    ],
+    "boolean": [
+      "artifact.validate",
+      "api.compatibility",
+      "agent.define",
+      "docs.validate.skilldocs",
+      "policy.enforce",
+      "api.validate"
+    ],
+    "number": [
+      "artifact.validate",
+      "artifact.review",
+      "api.generatemodels",
+      "meta.compatibility"
+    ],
+    "validation-report": [
+      "artifact.validate"
+    ],
+    "array": [
+      "docs.lint.links",
+      "agent.compose",
+      "api.compatibility",
+      "api.compatibility",
+      "docs.validate.skilldocs",
+      "docs.validate.skilldocs",
+      "registry.query",
+      "policy.enforce",
+      "docs.expand.glossary",
+      "api.generatemodels"
+    ],
+    "output_result (string) - Processed result": [
+      "test.example"
+    ],
+    "test.result": [
+      "test.example"
+    ],
+    "application/json": [
+      "code.format"
+    ],
+    "text/plain": [
+      "code.format"
+    ],
+    "formatting-report": [
+      "code.format"
+    ],
+    "agent-skill-recommendation": [
+      "agent.compose"
+    ],
+    "string": [
+      "api.define",
+      "hook.define",
+      "generate.docs",
+      "generate.docs",
+      "generate.docs",
+      "artifact.create",
+      "artifact.create",
+      "artifact.scaffold",
+      "artifact.scaffold",
+      "artifact.scaffold",
+      "artifact.scaffold",
+      "artifact.scaffold",
+      "artifact.review",
+      "api.validate",
+      "telemetry.capture",
+      "api.generatemodels",
+      "artifact.define",
+      "meta.compatibility"
+    ],
+    "README.md": [
+      "docs.sync.readme"
+    ],
+    "sync_report.json": [
+      "docs.sync.readme"
+    ],
+    "audit_log_entry.json": [
+      "audit.log"
+    ],
+    "transformed_file": [
+      "data.transform"
+    ],
+    "transformation_report.json": [
+      "data.transform"
+    ],
+    "transformed-data": [
+      "data.transform"
+    ],
+    "transformation-report": [
+      "data.transform"
+    ],
+    "validation_result.json": [
+      "workflow.validate",
+      "skill.define"
+    ],
+    "plugin.yaml": [
+      "plugin.sync"
+    ],
+    "generation_report.json": [
+      "plugin.sync"
+    ],
+    "registry_update_result.json": [
+      "registry.update"
+    ],
+    "plugin.preview.yaml": [
+      "docs.sync.pluginmanifest"
+    ],
+    "plugin_manifest_diff.md": [
+      "docs.sync.pluginmanifest"
+    ],
+    "stories.json: Structured JSON list of story summaries with persona, goal, benefit, and acceptance criteria": [
+      "epic.decompose"
+    ],
+    "user-stories-list": [
+      "epic.decompose"
+    ],
+    "*": [
+      "artifact.create"
+    ],
+    "story_<n>.md: Markdown file per story with persona, goal, benefit, acceptance criteria, and metadata": [
+      "story.write"
+    ],
+    "stories_index.md: Summary index of all created stories": [
+      "story.write"
+    ],
+    "user-story": [
+      "story.write"
+    ],
+    "integer": [
+      "artifact.scaffold"
+    ],
+    "artifact-definition": [
+      "artifact.scaffold"
+    ],
+    "artifact-registry": [
+      "artifact.scaffold"
+    ],
+    "diff_report.json": [
+      "file.compare"
+    ],
+    "diff-report": [
+      "file.compare"
+    ],
+    "file": [
+      "plugin.build"
+    ],
+    "skill_directory": [
+      "skill.create"
+    ],
+    "manifest_path": [
+      "skill.create"
+    ],
+    "registration_record.json": [
+      "skill.create"
+    ],
+    "review-report": [
+      "artifact.review"
+    ],
+    "updated_registry.json": [
+      "skill.define"
+    ],
+    "marketplace/skills.json": [
+      "generate.marketplace"
+    ],
+    "marketplace/agents.json": [
+      "generate.marketplace"
+    ],
+    "marketplace/commands.json": [
+      "generate.marketplace"
+    ],
+    "marketplace/hooks.json": [
+      "generate.marketplace"
+    ],
+    ".claude-plugin/marketplace.json": [
+      "generate.marketplace"
+    ],
+    "test_results.json": [
+      "api.test"
+    ],
+    "test_report.html": [
+      "api.test"
+    ],
+    "test-result": [
+      "api.test"
+    ],
+    "test-report": [
+      "api.test"
+    ],
+    "workflow_history.json": [
+      "workflow.compose"
+    ],
+    "workflow-execution-report: Complete workflow execution report with all generated artifacts": [
+      "workflow.orchestrate"
+    ],
+    "artifact-manifest: Manifest of all created artifacts with paths and validation status": [
+      "workflow.orchestrate"
+    ],
+    "All artifacts specified by the workflow type (e.g., business-case, project-charter, etc.)": [
+      "workflow.orchestrate"
+    ],
+    "None (initiates workflows from user context)": [
+      "workflow.orchestrate"
+    ],
+    "workflow-execution-report": [
+      "workflow.orchestrate"
+    ],
+    "artifact-manifest": [
+      "workflow.orchestrate"
+    ],
+    "Plus all artifacts specified by the chosen workflow type": [
+      "workflow.orchestrate"
+    ],
+    "filesystem:read": [
+      "workflow.orchestrate"
+    ],
+    "filesystem:write": [
+      "workflow.orchestrate"
+    ],
+    "artifact.create skill (to create individual artifacts)": [
+      "workflow.orchestrate"
+    ],
+    "artifact.validate skill (to validate created artifacts)": [
+      "workflow.orchestrate"
+    ],
+    "Template files in templates/ directory": [
+      "workflow.orchestrate"
+    ],
+    "Call artifact.create with appropriate type and context": [
+      "workflow.orchestrate"
+    ],
+    "Call artifact.validate to check quality": [
+      "workflow.orchestrate"
+    ],
+    "Track created artifacts and validation results": [
+      "workflow.orchestrate"
+    ],
+    "Handle missing dependencies gracefully": [
+      "workflow.orchestrate"
+    ],
+    "Continue workflow even if individual artifacts fail": [
+      "workflow.orchestrate"
+    ],
+    "Report all failures in execution report": [
+      "workflow.orchestrate"
+    ],
+    "Return overall success based on whether any artifacts were created": [
+      "workflow.orchestrate"
+    ],
+    "epic.md: Markdown file with structured Epic fields (title, summary, background, acceptance criteria, stakeholders, next steps)": [
+      "epic.write"
+    ],
+    "agile-epic": [
+      "epic.write"
+    ],
+    "artifact-metadata-definition": [
+      "artifact.define"
+    ],
+    "compatibility-report": [
+      "meta.compatibility"
+    ]
+  },
+  "artifact_consumers": {
+    "string": [
+      "artifact.validate",
+      "artifact.validate",
+      "artifact.validate",
+      "docs.lint.links",
+      "docs.lint.links",
+      "docs.lint.links",
+      "code.format",
+      "code.format",
+      "code.format",
+      "agent.compose",
+      "agent.compose",
+      "api.define",
+      "api.define",
+      "api.define",
+      "api.define",
+      "api.define",
+      "hook.register",
+      "api.compatibility",
+      "api.compatibility",
+      "hook.define",
+      "hook.define",
+      "hook.define",
+      "hook.define",
+      "hook.simulate",
+      "generate.docs",
+      "generate.docs",
+      "agent.define",
+      "docs.validate.skilldocs",
+      "artifact.create",
+      "artifact.create",
+      "artifact.create",
+      "agent.run",
+      "agent.run",
+      "registry.query",
+      "registry.query",
+      "registry.query",
+      "registry.query",
+      "registry.query",
+      "registry.query",
+      "registry.query",
+      "registry.query",
+      "policy.enforce",
+      "artifact.scaffold",
+      "artifact.scaffold",
+      "artifact.scaffold",
+      "artifact.scaffold",
+      "registry.diff",
+      "docs.expand.glossary",
+      "docs.expand.glossary",
+      "plugin.build",
+      "plugin.build",
+      "plugin.build",
+      "artifact.review",
+      "artifact.review",
+      "artifact.review",
+      "api.validate",
+      "api.validate",
+      "plugin.publish",
+      "plugin.publish",
+      "plugin.publish",
+      "plugin.publish",
+      "plugin.publish",
+      "telemetry.capture",
+      "telemetry.capture",
+      "telemetry.capture",
+      "telemetry.capture",
+      "command.define",
+      "api.generatemodels",
+      "api.generatemodels",
+      "api.generatemodels",
+      "api.generatemodels",
+      "artifact.define",
+      "artifact.define",
+      "meta.compatibility",
+      "meta.compatibility",
+      "meta.compatibility"
+    ],
+    "boolean": [
+      "artifact.validate",
+      "docs.lint.links",
+      "docs.lint.links",
+      "code.format",
+      "code.format",
+      "agent.compose",
+      "api.compatibility",
+      "hook.define",
+      "hook.simulate",
+      "hook.simulate",
+      "generate.docs",
+      "generate.docs",
+      "docs.validate.skilldocs",
+      "docs.validate.skilldocs",
+      "docs.validate.skilldocs",
+      "agent.run",
+      "registry.query",
+      "policy.enforce",
+      "policy.enforce",
+      "artifact.scaffold",
+      "docs.expand.glossary",
+      "docs.expand.glossary",
+      "api.validate",
+      "meta.compatibility"
+    ],
+    "*": [
+      "artifact.validate",
+      "artifact.review"
+    ],
+    "integer": [
+      "docs.lint.links",
+      "registry.query"
+    ],
+    "input_data (string) - Test input data": [
+      "test.example"
+    ],
+    "test.input": [
+      "test.example"
+    ],
+    "array": [
+      "agent.compose",
+      "registry.query",
+      "artifact.scaffold",
+      "artifact.review",
+      "artifact.define",
+      "artifact.define"
+    ],
+    "registry-data": [
+      "agent.compose"
+    ],
+    "skill_name": [
+      "audit.log",
+      "skill.create"
+    ],
+    "status": [
+      "audit.log"
+    ],
+    "duration_ms": [
+      "audit.log"
+    ],
+    "errors (optional)": [
+      "audit.log"
+    ],
+    "metadata (optional)": [
+      "audit.log"
+    ],
+    "number": [
+      "hook.define",
+      "telemetry.capture"
+    ],
+    "input_file_path": [
+      "data.transform"
+    ],
+    "source_format": [
+      "data.transform"
+    ],
+    "target_format": [
+      "data.transform"
+    ],
+    "schema_path (optional)": [
+      "data.transform"
+    ],
+    "workflow_path": [
+      "workflow.validate",
+      "workflow.compose"
+    ],
+    "manifest_path": [
+      "registry.update",
+      "skill.define"
+    ],
+    "auto_version": [
+      "registry.update"
+    ],
+    "epic_file (string, required): Path to the epic.md file to decompose": [
+      "epic.decompose"
+    ],
+    "max_stories (integer, optional): Maximum number of stories to generate (default: 5)": [
+      "epic.decompose"
+    ],
+    "output_path (string, optional): Where to save the stories.json file (default: ./stories.json)": [
+      "epic.decompose"
+    ],
+    "agile-epic": [
+      "epic.decompose"
+    ],
+    "object": [
+      "artifact.create",
+      "telemetry.capture",
+      "telemetry.capture"
+    ],
+    "artifact-type-description": [
+      "artifact.create",
+      "artifact.review"
+    ],
+    "stories_file (string, required): Path to the stories.json file from epic.decompose": [
+      "story.write"
+    ],
+    "epic_reference (string, optional): Reference to the source Epic for traceability": [
+      "story.write"
+    ],
+    "output_dir (string, optional): Directory to save story files (default: ./stories/)": [
+      "story.write"
+    ],
+    "user-stories-list": [
+      "story.write"
+    ],
+    "artifact-metadata": [
+      "artifact.scaffold"
+    ],
+    "file_path_1": [
+      "file.compare"
+    ],
+    "file_path_2": [
+      "file.compare"
+    ],
+    "output_format (optional)": [
+      "file.compare"
+    ],
+    "description": [
+      "skill.create"
+    ],
+    "inputs": [
+      "skill.create"
+    ],
+    "outputs": [
+      "skill.create"
+    ],
+    "api_spec_path": [
+      "api.test"
+    ],
+    "base_url": [
+      "api.test"
+    ],
+    "test_scenarios_path (optional)": [
+      "api.test"
+    ],
+    "auth_config_path (optional)": [
+      "api.test"
+    ],
+    "workflow_type (string, required): Type of workflow to execute (project-initiation, security-review, data-design, test-planning, deployment-planning, full-sdlc)": [
+      "workflow.orchestrate"
+    ],
+    "description (string, required): Initiative or project description for context": [
+      "workflow.orchestrate"
+    ],
+    "output_directory (string, required): Directory where all workflow artifacts will be created": [
+      "workflow.orchestrate"
+    ],
+    "author (string, optional): Author name for generated artifacts (default: \"Workflow Orchestrator\")": [
+      "workflow.orchestrate"
+    ],
+    "classification (string, optional): Classification level (Public, Internal, Confidential, Restricted, default: Internal)": [
+      "workflow.orchestrate"
+    ],
+    "initiative_name (string, required): The overarching initiative or product goal": [
+      "epic.write"
+    ],
+    "context (string, required): Relevant background, rationale, and success criteria": [
+      "epic.write"
+    ],
+    "stakeholders (array of strings, required): Who cares about this and why": [
+      "epic.write"
+    ],
+    "output_path (string, optional): Where to save the epic.md file (default: ./epic.md)": [
+      "epic.write"
+    ],
+    "skill-metadata": [
+      "meta.compatibility"
+    ]
+  }
+}

@@ -1,0 +1,190 @@
+{
+  "missing_producers": [
+    {
+      "artifact": "acceptable-use-policy",
+      "description": "Acceptable Use Policy for Public-Facing and Legal. Part of L"
+    },
+    {
+      "artifact": "acceptance-criteria",
+      "description": "Acceptance criteria for Requirements and Analysis. Part of R"
+    },
+    {
+      "artifact": "access-recertification-plan",
+      "description": "Access recertification plan for Architecture. Part of Securi"
+    },
+    {
+      "artifact": "access-review-logs",
+      "description": "Access review logs for Security, Privacy, Audit, and Complia"
+    },
+    {
+      "artifact": "accessibility-audits",
+      "description": "Accessibility audits for Design. Part of Design & UX documen"
+    },
+    {
+      "artifact": "accessibility-requirements",
+      "description": "Accessibility requirements for Requirements and Analysis. Pa"
+    },
+    {
+      "artifact": "admin-guides",
+      "description": "Admin guides for Documentation, Support, and Training. Part "
+    },
+    {
+      "artifact": "adr-index",
+      "description": "ADR index for Portfolio, Governance, and Delivery Ops. Part "
+    },
+    {
+      "artifact": "adversary-emulation-documents",
+      "description": "Adversary emulation documents for Architecture. Part of Secu"
+    },
+    {
+      "artifact": "agent-definition",
+      "description": "Complete agent configuration with skills and metadata for AI"
+    },
+    {
+      "artifact": "agent-description",
+      "description": "Natural language description of agent purpose and requiremen"
+    },
+    {
+      "artifact": "agent-documentation",
+      "description": "Human-readable agent documentation for AI/ML and Model Ops. "
+    },
+    {
+      "artifact": "ai-ethics-and-bias-assessment",
+      "description": "AI ethics and bias assessment for AI/ML and Model Ops. Part "
+    },
+    {
+      "artifact": "ai-use-case-inventory",
+      "description": "AI use-case inventory for AI/ML and Model Ops. Part of Model"
+    },
+    {
+      "artifact": "alert-catalogs",
+      "description": "Alert catalogs for Operations, SRE, and Maintenance. Part of"
+    },
+    {
+      "artifact": "analytics-model-documentation",
+      "description": "Analytics model documentation for Data Engineering and Analy"
+    },
+    {
+      "artifact": "api-catalogs",
+      "description": "API catalogs for Documentation, Support, and Training. Part "
+    },
+    {
+      "artifact": "api-models",
+      "description": "Generated API data models for Implementation and Development"
+    },
+    {
+      "artifact": "api-versioning-policy",
+      "description": "API versioning policy for Architecture. Part of Application "
+    }
+  ],
+  "missing_consumers": [
+    {
+      "artifact": "acceptable-use-policy",
+      "description": "Acceptable Use Policy for Public-Facing and Legal. Part of L"
+    },
+    {
+      "artifact": "acceptance-criteria",
+      "description": "Acceptance criteria for Requirements and Analysis. Part of R"
+    },
+    {
+      "artifact": "access-recertification-plan",
+      "description": "Access recertification plan for Architecture. Part of Securi"
+    },
+    {
+      "artifact": "access-review-logs",
+      "description": "Access review logs for Security, Privacy, Audit, and Complia"
+    },
+    {
+      "artifact": "accessibility-audits",
+      "description": "Accessibility audits for Design. Part of Design & UX documen"
+    },
+    {
+      "artifact": "accessibility-requirements",
+      "description": "Accessibility requirements for Requirements and Analysis. Pa"
+    },
+    {
+      "artifact": "admin-guides",
+      "description": "Admin guides for Documentation, Support, and Training. Part "
+    },
+    {
+      "artifact": "adr-index",
+      "description": "ADR index for Portfolio, Governance, and Delivery Ops. Part "
+    },
+    {
+      "artifact": "adversary-emulation-documents",
+      "description": "Adversary emulation documents for Architecture. Part of Secu"
+    },
+    {
+      "artifact": "agent-definition",
+      "description": "Complete agent configuration with skills and metadata for AI"
+    },
+    {
+      "artifact": "agent-description",
+      "description": "Natural language description of agent purpose and requiremen"
+    },
+    {
+      "artifact": "agent-documentation",
+      "description": "Human-readable agent documentation for AI/ML and Model Ops. "
+    },
+    {
+      "artifact": "ai-ethics-and-bias-assessment",
+      "description": "AI ethics and bias assessment for AI/ML and Model Ops. Part "
+    },
+    {
+      "artifact": "ai-use-case-inventory",
+      "description": "AI use-case inventory for AI/ML and Model Ops. Part of Model"
+    },
+    {
+      "artifact": "alert-catalogs",
+      "description": "Alert catalogs for Operations, SRE, and Maintenance. Part of"
+    },
+    {
+      "artifact": "analytics-model-documentation",
+      "description": "Analytics model documentation for Data Engineering and Analy"
+    },
+    {
+      "artifact": "api-catalogs",
+      "description": "API catalogs for Documentation, Support, and Training. Part "
+    },
+    {
+      "artifact": "api-models",
+      "description": "Generated API data models for Implementation and Development"
+    },
+    {
+      "artifact": "api-versioning-policy",
+      "description": "API versioning policy for Architecture. Part of Application "
+    }
+  ],
+  "missing_orchestrators": [
+    {
+      "domain": "api",
+      "reason": "No orchestrator agent found"
+    },
+    {
+      "domain": "data",
+      "reason": "No orchestrator agent found"
+    },
+    {
+      "domain": "security",
+      "reason": "No orchestrator agent found"
+    },
+    {
+      "domain": "testing",
+      "reason": "No orchestrator agent found"
+    },
+    {
+      "domain": "operations",
+      "reason": "No orchestrator agent found"
+    },
+    {
+      "domain": "ai",
+      "reason": "No orchestrator agent found"
+    }
+  ],
+  "naming_violations": [
+    "Hook 'performance-monitor-pre' should follow on_/pre_/post_ naming",
+    "Hook 'performance-monitor-post' should follow on_/pre_/post_ naming",
+    "Hook 'auto-stage-edited-files' should follow on_/pre_/post_ naming"
+  ],
+  "underutilized_artifacts": []
+}
