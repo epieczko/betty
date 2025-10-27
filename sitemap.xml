@@ -2,130 +2,146 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://epieczko.github.io/betty/ARTIFACT_FRAMEWORK_INTEGRATION/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/ARTIFACT_PRODUCER_CONSUMER_MAP/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/ARTIFACT_STANDARDS/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/ARTIFACT_STATUS/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/ARTIFACT_USAGE_GUIDE/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/CERTIFICATION/</loc>
-         <lastmod>2025-10-26</lastmod>
-    </url>
-    <url>
-         <loc>https://epieczko.github.io/betty/CODEBASE_ANALYSIS/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/COMMAND_HOOK_INFRASTRUCTURE/</loc>
-         <lastmod>2025-10-26</lastmod>
-    </url>
-    <url>
-         <loc>https://epieczko.github.io/betty/COMPLETE_IMPLEMENTATION_SUMMARY/</loc>
-         <lastmod>2025-10-26</lastmod>
-    </url>
-    <url>
-         <loc>https://epieczko.github.io/betty/GIT_WORKFLOW_ANALYSIS/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/MARKETPLACE_INGESTION/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/META_AGENTS/</loc>
-         <lastmod>2025-10-26</lastmod>
-    </url>
-    <url>
-         <loc>https://epieczko.github.io/betty/META_AGENT_IMPROVEMENTS/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/PERFORMANCE_MONITORING/</loc>
-         <lastmod>2025-10-26</lastmod>
-    </url>
-    <url>
-         <loc>https://epieczko.github.io/betty/PHASE_1_IMPLEMENTATION/</loc>
-         <lastmod>2025-10-26</lastmod>
-    </url>
-    <url>
-         <loc>https://epieczko.github.io/betty/PHASE_2_IMPLEMENTATION/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/SKILL_COMMAND_DECISION_TREE/</loc>
-         <lastmod>2025-10-26</lastmod>
-    </url>
-    <url>
-         <loc>https://epieczko.github.io/betty/TEMPLATE_REWRITE_SUMMARY/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/TRACEABILITY/</loc>
-         <lastmod>2025-10-26</lastmod>
-    </url>
-    <url>
-         <loc>https://epieczko.github.io/betty/agent-define-implementation-plan/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/agent-schema-reference/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/api-driven-development/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/betty-architecture/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/betty-framework-overview/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/claude-code-router-integration/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/contributing/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/glossary/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/governance-architecture/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/model-recommendations/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/multi-llm-integration-paths/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/references/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
     </url>
     <url>
          <loc>https://epieczko.github.io/betty/skills-framework/</loc>
-         <lastmod>2025-10-26</lastmod>
+         <lastmod>2025-10-27</lastmod>
+    </url>
+    <url>
+         <loc>https://epieczko.github.io/betty/historical/</loc>
+         <lastmod>2025-10-27</lastmod>
+    </url>
+    <url>
+         <loc>https://epieczko.github.io/betty/historical/CLAUDE_PLUGIN_INTEGRATION_REPORT/</loc>
+         <lastmod>2025-10-27</lastmod>
+    </url>
+    <url>
+         <loc>https://epieczko.github.io/betty/historical/COMPLETE_IMPLEMENTATION_SUMMARY/</loc>
+         <lastmod>2025-10-27</lastmod>
+    </url>
+    <url>
+         <loc>https://epieczko.github.io/betty/historical/GIT_WORKFLOW_ANALYSIS/</loc>
+         <lastmod>2025-10-27</lastmod>
+    </url>
+    <url>
+         <loc>https://epieczko.github.io/betty/historical/META_AGENT_IMPROVEMENTS/</loc>
+         <lastmod>2025-10-27</lastmod>
+    </url>
+    <url>
+         <loc>https://epieczko.github.io/betty/historical/PHASE_1_IMPLEMENTATION/</loc>
+         <lastmod>2025-10-27</lastmod>
+    </url>
+    <url>
+         <loc>https://epieczko.github.io/betty/historical/PHASE_2_IMPLEMENTATION/</loc>
+         <lastmod>2025-10-27</lastmod>
+    </url>
+    <url>
+         <loc>https://epieczko.github.io/betty/historical/TEMPLATE_REWRITE_SUMMARY/</loc>
+         <lastmod>2025-10-27</lastmod>
+    </url>
+    <url>
+         <loc>https://epieczko.github.io/betty/historical/agent-define-implementation-plan/</loc>
+         <lastmod>2025-10-27</lastmod>
+    </url>
+    <url>
+         <loc>https://epieczko.github.io/betty/technical-reports/</loc>
+         <lastmod>2025-10-27</lastmod>
+    </url>
+    <url>
+         <loc>https://epieczko.github.io/betty/technical-reports/ARTIFACT_REGISTRY_REFACTORING/</loc>
+         <lastmod>2025-10-27</lastmod>
+    </url>
+    <url>
+         <loc>https://epieczko.github.io/betty/technical-reports/CODEBASE_ANALYSIS/</loc>
+         <lastmod>2025-10-27</lastmod>
     </url>
 </urlset>

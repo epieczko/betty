@@ -12,7 +12,7 @@
         <meta name="author" content="RiskExec">
       
       
-        <link rel="canonical" href="https://epieczko.github.io/betty/PHASE_1_IMPLEMENTATION/">
+        <link rel="canonical" href="https://epieczko.github.io/betty/technical-reports/">
       
       
       
@@ -22,7 +22,7 @@
     
     
       
-        <title>Phase 1 Implementation: Git Workflow Commands - Betty Framework</title>
+        <title>Technical Reports - Betty Framework</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#phase-1-implementation-git-workflow-commands" class="md-skip">
+        <a href="#technical-reports" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Phase 1 Implementation: Git Workflow Commands
+              Technical Reports
             
           </span>
         </div>
@@ -1244,37 +1244,46 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#purpose" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview
+      Purpose
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#commands-implemented" class="md-nav__link">
+  <a href="#reports" class="md-nav__link">
     <span class="md-ellipsis">
-      Commands Implemented
+      Reports
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Commands Implemented">
+    <nav class="md-nav" aria-label="Reports">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-create-worktrees" class="md-nav__link">
+  <a href="#refactoring-reports" class="md-nav__link">
     <span class="md-ellipsis">
-      1. /create-worktrees
+      Refactoring Reports
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-update-branch-name" class="md-nav__link">
+  <a href="#integration-audits" class="md-nav__link">
     <span class="md-ellipsis">
-      2. /update-branch-name
+      Integration Audits
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#codebase-analyses" class="md-nav__link">
+    <span class="md-ellipsis">
+      Codebase Analyses
     </span>
   </a>
   
@@ -1286,210 +1295,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#implementation-details" class="md-nav__link">
+  <a href="#archive-date" class="md-nav__link">
     <span class="md-ellipsis">
-      Implementation Details
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Implementation Details">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#file-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      File Structure
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#why-command_only-pattern" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why COMMAND_ONLY Pattern?
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#comparison-with-other-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      Comparison with Other Patterns
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-claude-code-commands-work" class="md-nav__link">
-    <span class="md-ellipsis">
-      How Claude Code Commands Work
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="How Claude Code Commands Work">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#claude-code-commands-claudecommandsmd" class="md-nav__link">
-    <span class="md-ellipsis">
-      Claude Code Commands (.claude/commands/*.md)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#betty-command-manifests-commandsyaml" class="md-nav__link">
-    <span class="md-ellipsis">
-      Betty Command Manifests (commands/*.yaml)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#testing" class="md-nav__link">
-    <span class="md-ellipsis">
-      Testing
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Testing">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#test-create-worktrees" class="md-nav__link">
-    <span class="md-ellipsis">
-      Test /create-worktrees
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#test-update-branch-name" class="md-nav__link">
-    <span class="md-ellipsis">
-      Test /update-branch-name
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#whats-next-phase-2" class="md-nav__link">
-    <span class="md-ellipsis">
-      What's Next: Phase 2
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="What&#39;s Next: Phase 2">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-branch-cleanup-skill_and_command" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. /branch-cleanup (SKILL_AND_COMMAND)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-commit-hybrid" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. /commit (HYBRID)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#lessons-learned" class="md-nav__link">
-    <span class="md-ellipsis">
-      Lessons Learned
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lessons Learned">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-know-your-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Know Your Patterns
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-start-simple" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Start Simple
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-claude-code-commands-vs-betty-manifests" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Claude Code Commands vs Betty Manifests
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-the-meta-agent-system" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. The Meta-Agent System
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Summary
+      Archive Date
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#using-these-reports" class="md-nav__link">
     <span class="md-ellipsis">
-      References
+      Using These Reports
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Documentation
     </span>
   </a>
   
@@ -1514,277 +1340,53 @@
   
 
 
-<h1 id="phase-1-implementation-git-workflow-commands">Phase 1 Implementation: Git Workflow Commands<a class="headerlink" href="#phase-1-implementation-git-workflow-commands" title="Permanent link">&para;</a></h1>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Phase 1 implements the two simplest git-workflow commands using the <strong>COMMAND_ONLY</strong> pattern. These commands contain inline instructions and do not require separate skills.</p>
-<h2 id="commands-implemented">Commands Implemented<a class="headerlink" href="#commands-implemented" title="Permanent link">&para;</a></h2>
-<h3 id="1-create-worktrees">1. /create-worktrees<a class="headerlink" href="#1-create-worktrees" title="Permanent link">&para;</a></h3>
-<p><strong>Location:</strong> <code>.claude/commands/create-worktrees.md</code></p>
-<p><strong>Purpose:</strong> Create and manage git worktrees for parallel development on multiple branches</p>
-<p><strong>Features:</strong>
-- ✅ Creates new worktree with new branch
-- ✅ Supports custom base branch (default: main)
-- ✅ Optional GitHub issue linking
-- ✅ Custom directory path support
-- ✅ Lists all worktrees after creation</p>
-<p><strong>Usage:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Create worktree for feature branch</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/create-worktrees<span class="w"> </span>feature/new-feature
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Create worktree from develop branch</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>/create-worktrees<span class="w"> </span>feature/api-update<span class="w"> </span>--base-branch<span class="w"> </span>develop
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Create worktree linked to issue</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>/create-worktrees<span class="w"> </span>fix/bug-123<span class="w"> </span>--issue<span class="w"> </span><span class="m">123</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># Create worktree with custom directory</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>/create-worktrees<span class="w"> </span>feature/test<span class="w"> </span>--directory<span class="w"> </span>../test-workspace
-</code></pre></div></p>
-<p><strong>Decision Rationale:</strong>
-- <strong>Steps:</strong> 5 (below 10 threshold)
-- <strong>Autonomy:</strong> Low (straightforward git commands)
-- <strong>Reusability:</strong> Low (user-facing only)
-- <strong>Pattern:</strong> COMMAND_ONLY ✓</p>
-<hr />
-<h3 id="2-update-branch-name">2. /update-branch-name<a class="headerlink" href="#2-update-branch-name" title="Permanent link">&para;</a></h3>
-<p><strong>Location:</strong> <code>.claude/commands/update-branch-name.md</code></p>
-<p><strong>Purpose:</strong> Rename a git branch both locally and on the remote repository</p>
-<p><strong>Features:</strong>
-- ✅ Renames branch locally and remotely
-- ✅ Validates new name doesn't exist
-- ✅ Updates upstream tracking automatically
-- ✅ Optional local-only rename (--skip-remote)
-- ✅ Works on current branch or specified branch</p>
-<p><strong>Usage:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Rename current branch</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/update-branch-name<span class="w"> </span>feature/new-name
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Rename specific branch</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>/update-branch-name<span class="w"> </span>feature/better-name<span class="w"> </span>--old-name<span class="w"> </span>feature/old-name
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Rename only locally (don&#39;t update remote)</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>/update-branch-name<span class="w"> </span>feature/local-only<span class="w"> </span>--skip-remote
-</code></pre></div></p>
-<p><strong>Decision Rationale:</strong>
-- <strong>Steps:</strong> 4-5 (below 10 threshold)
-- <strong>Autonomy:</strong> Low (straightforward git operations)
-- <strong>Reusability:</strong> Low (typically one-off user operation)
-- <strong>Pattern:</strong> COMMAND_ONLY ✓</p>
-<hr />
-<h2 id="implementation-details">Implementation Details<a class="headerlink" href="#implementation-details" title="Permanent link">&para;</a></h2>
-<h3 id="file-structure">File Structure<a class="headerlink" href="#file-structure" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>betty/
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>├── .claude/
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>│   └── commands/
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│       ├── create-worktrees.md      # ← Claude Code command (user-facing)
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│       └── update-branch-name.md    # ← Claude Code command (user-facing)
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>└── examples/
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    └── git-workflow/
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        ├── create-worktrees-command.md      # ← Example/documentation
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        └── update-branch-name-command.md    # ← Example/documentation
-</code></pre></div>
-<h3 id="why-command_only-pattern">Why COMMAND_ONLY Pattern?<a class="headerlink" href="#why-command_only-pattern" title="Permanent link">&para;</a></h3>
-<p>According to the decision tree in <code>/docs/SKILL_COMMAND_DECISION_TREE.md</code>:</p>
-<p><strong>Pattern 1: Command Only (Inline Instructions)</strong></p>
-<p>✅ <strong>When to use:</strong>
-- Simple orchestration (1-3 bash commands) ← <strong>Both commands fit</strong>
-- Task doesn't need to be reusable outside the command ← <strong>Both are user-facing only</strong>
-- No complex logic or autonomous decision-making ← <strong>Both are straightforward</strong>
-- Fast, straightforward execution ← <strong>Both are quick operations</strong></p>
-<p><strong>Characteristics:</strong>
-- ✅ Simple and direct
-- ✅ Easy to understand and modify
-- ✅ No additional skill creation overhead
-- ❌ Logic not reusable elsewhere (acceptable for these use cases)
-- ❌ Can become unwieldy if task grows (we'll refactor if needed)</p>
-<h3 id="comparison-with-other-patterns">Comparison with Other Patterns<a class="headerlink" href="#comparison-with-other-patterns" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th>COMMAND_ONLY (Phase 1)</th>
-<th>SKILL_AND_COMMAND (Phase 3)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Example</strong></td>
-<td>create-worktrees</td>
-<td>create-pr</td>
-</tr>
-<tr>
-<td><strong>Steps</strong></td>
-<td>4-5</td>
-<td>10-12</td>
-</tr>
-<tr>
-<td><strong>Complexity</strong></td>
-<td>Low</td>
-<td>High</td>
-</tr>
-<tr>
-<td><strong>File Count</strong></td>
-<td>1 (.md)</td>
-<td>5+ (skill.yaml, .py, test, SKILL.md, command.yaml)</td>
-</tr>
-<tr>
-<td><strong>Setup Time</strong></td>
-<td>Minutes</td>
-<td>Hours</td>
-</tr>
-<tr>
-<td><strong>Reusability</strong></td>
-<td>User-only</td>
-<td>Agents, workflows, CI/CD</td>
-</tr>
-<tr>
-<td><strong>Autonomy</strong></td>
-<td>None</td>
-<td>High (auto-generates content)</td>
-</tr>
-</tbody>
-</table>
-<p>For Phase 1, COMMAND_ONLY is the right choice because:
-1. <strong>Quick to implement</strong> - Just write markdown instructions
-2. <strong>Easy to test</strong> - Use the command directly in Claude Code
-3. <strong>Simple to maintain</strong> - Edit one markdown file
-4. <strong>No overhead</strong> - No skill creation, no registry updates, no tests</p>
-<hr />
-<h2 id="how-claude-code-commands-work">How Claude Code Commands Work<a class="headerlink" href="#how-claude-code-commands-work" title="Permanent link">&para;</a></h2>
-<p>Claude Code commands (<code>.claude/commands/*.md</code>) are different from Betty command manifests:</p>
-<h3 id="claude-code-commands-claudecommandsmd">Claude Code Commands (.claude/commands/*.md)<a class="headerlink" href="#claude-code-commands-claudecommandsmd" title="Permanent link">&para;</a></h3>
+<h1 id="technical-reports">Technical Reports<a class="headerlink" href="#technical-reports" title="Permanent link">&para;</a></h1>
+<p>This directory contains <strong>point-in-time technical reports and audit documents</strong> that capture specific technical investigations, refactorings, or system audits.</p>
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>These reports document:
+- Technical investigations and analyses
+- System refactorings and migrations
+- Integration audits
+- Performance analyses
+- Security assessments</p>
+<h2 id="reports">Reports<a class="headerlink" href="#reports" title="Permanent link">&para;</a></h2>
+<h3 id="refactoring-reports">Refactoring Reports<a class="headerlink" href="#refactoring-reports" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Format:</strong> Markdown with instructions for Claude</li>
-<li><strong>Execution:</strong> Claude reads and follows instructions inline</li>
-<li><strong>Registration:</strong> Automatic (Claude scans .claude/commands/)</li>
-<li><strong>Usage:</strong> <code>/command-name</code> in Claude Code</li>
-<li><strong>Best for:</strong> Simple, user-facing operations</li>
+<li><strong>ARTIFACT_REGISTRY_REFACTORING.md</strong> - Artifact registry refactoring from Python dict to JSON (Oct 26, 2025)</li>
+<li>Migration from hardcoded KNOWN_ARTIFACT_TYPES dictionary to data-driven JSON</li>
+<li>409 artifact types extracted to registry/artifact_types.json</li>
+<li>Comprehensive audit and validation system</li>
 </ul>
-<h3 id="betty-command-manifests-commandsyaml">Betty Command Manifests (commands/*.yaml)<a class="headerlink" href="#betty-command-manifests-commandsyaml" title="Permanent link">&para;</a></h3>
+<h3 id="integration-audits">Integration Audits<a class="headerlink" href="#integration-audits" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Format:</strong> YAML with execution type and target</li>
-<li><strong>Execution:</strong> Delegates to skill, agent, or workflow</li>
-<li><strong>Registration:</strong> Must be registered in registry/commands.json</li>
-<li><strong>Usage:</strong> Via Betty framework or Claude Code</li>
-<li><strong>Best for:</strong> Complex operations that need reusability</li>
+<li><strong>CLAUDE_PLUGIN_INTEGRATION_REPORT.md</strong> - Claude Code plugin integration audit (Oct 26, 2025)</li>
+<li>70 plugins audited (50 skills, 20 agents)</li>
+<li>95% overall integration score achieved</li>
+<li>Registry consistency validation</li>
 </ul>
-<p><strong>For Phase 1, we use Claude Code commands</strong> because they're simple and user-facing only.</p>
-<hr />
-<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
-<h3 id="test-create-worktrees">Test /create-worktrees<a class="headerlink" href="#test-create-worktrees" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># In Claude Code, run:</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/create-worktrees<span class="w"> </span>test-feature
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Expected output:</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># - Fetches from origin</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># - Creates ../worktrees/test-feature</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># - Creates branch &#39;test-feature&#39; from main</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1"># - Shows success message with path</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1"># - Lists all worktrees</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="c1"># Verify:</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>git<span class="w"> </span>worktree<span class="w"> </span>list
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="c1"># Should show the new worktree</span>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="c1"># Cleanup:</span>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>git<span class="w"> </span>worktree<span class="w"> </span>remove<span class="w"> </span>../worktrees/test-feature
-</code></pre></div>
-<h3 id="test-update-branch-name">Test /update-branch-name<a class="headerlink" href="#test-update-branch-name" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Create a test branch first:</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>old-branch-name
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>old-branch-name
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># In Claude Code, run:</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>/update-branch-name<span class="w"> </span>new-branch-name
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1"># Expected output:</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1"># - Renames branch locally</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="c1"># - Pushes new branch to remote</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1"># - Deletes old branch from remote</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="c1"># - Updates upstream tracking</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="c1"># - Shows success summary</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="c1"># Verify:</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>git<span class="w"> </span>branch
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="c1"># Should show &#39;new-branch-name&#39; as current branch</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
-<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>git<span class="w"> </span>branch<span class="w"> </span>-r
-<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="c1"># Should show &#39;origin/new-branch-name&#39;</span>
-<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="c1"># Should NOT show &#39;origin/old-branch-name&#39;</span>
-</code></pre></div>
-<hr />
-<h2 id="whats-next-phase-2">What's Next: Phase 2<a class="headerlink" href="#whats-next-phase-2" title="Permanent link">&para;</a></h2>
-<p>After Phase 1, we move to Phase 2 which includes:</p>
-<h3 id="1-branch-cleanup-skill_and_command">1. /branch-cleanup (SKILL_AND_COMMAND)<a class="headerlink" href="#1-branch-cleanup-skill_and_command" title="Permanent link">&para;</a></h3>
+<h3 id="codebase-analyses">Codebase Analyses<a class="headerlink" href="#codebase-analyses" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Complexity:</strong> Medium (6-8 steps)</li>
-<li><strong>Pattern:</strong> Skill + Command</li>
-<li><strong>Requires:</strong></li>
-<li>Create <code>git.cleanup-branches</code> skill</li>
-<li>Create <code>/branch-cleanup</code> command that delegates</li>
+<li><strong>CODEBASE_ANALYSIS.md</strong> - Comprehensive codebase structure analysis</li>
+<li>Five-layer architecture documentation</li>
+<li>Directory structure and organization</li>
+<li>Current implementation status</li>
 </ul>
-<h3 id="2-commit-hybrid">2. /commit (HYBRID)<a class="headerlink" href="#2-commit-hybrid" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Complexity:</strong> Medium (4-6 steps)</li>
-<li><strong>Pattern:</strong> Hybrid (orchestrates existing skills)</li>
-<li><strong>Requires:</strong></li>
-<li>Create <code>git.validate-commit-message</code> skill (optional)</li>
-<li>Create <code>/commit</code> command that orchestrates</li>
-</ul>
-<p><strong>Phase 2 will take 2-3 days</strong> because we need to:
-- Use meta.skill to create skill scaffolding
-- Implement skill logic
-- Create tests
-- Use meta.command to create command wrappers
-- Register everything in registries</p>
-<hr />
-<h2 id="lessons-learned">Lessons Learned<a class="headerlink" href="#lessons-learned" title="Permanent link">&para;</a></h2>
-<h3 id="1-know-your-patterns">1. Know Your Patterns<a class="headerlink" href="#1-know-your-patterns" title="Permanent link">&para;</a></h3>
-<p>The decision tree helps determine the right pattern:
-- <strong>1-3 steps, low complexity</strong> → COMMAND_ONLY ✓ (Phase 1)
-- <strong>4-9 steps, medium complexity</strong> → Evaluate case by case (Phase 2)
-- <strong>10+ steps, high complexity</strong> → SKILL_AND_COMMAND (Phase 3+)</p>
-<h3 id="2-start-simple">2. Start Simple<a class="headerlink" href="#2-start-simple" title="Permanent link">&para;</a></h3>
-<p>Phase 1 is intentionally simple:
-- No skill creation overhead
-- No registry management
-- No tests (Claude follows instructions)
-- Fast iteration</p>
-<p>This builds momentum for more complex phases.</p>
-<h3 id="3-claude-code-commands-vs-betty-manifests">3. Claude Code Commands vs Betty Manifests<a class="headerlink" href="#3-claude-code-commands-vs-betty-manifests" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Claude Code commands</strong> = User-facing, inline instructions</li>
-<li><strong>Betty command manifests</strong> = Registered, delegates to skills/agents</li>
-</ul>
-<p>Both are valuable, but for different purposes.</p>
-<h3 id="4-the-meta-agent-system">4. The Meta-Agent System<a class="headerlink" href="#4-the-meta-agent-system" title="Permanent link">&para;</a></h3>
-<p>While we didn't use meta.command for Phase 1 (COMMAND_ONLY doesn't need it), we'll use it heavily in Phase 2+:
-- <strong>Phase 2:</strong> meta.skill + meta.command
-- <strong>Phase 3:</strong> meta.skill + meta.command
-- <strong>Phase 4:</strong> meta.skill + meta.command + meta.agent</p>
-<p>The meta-agent system shines when creating complex skills and agents.</p>
-<hr />
-<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
-<p>✅ <strong>Phase 1 Complete!</strong></p>
-<p><strong>Implemented:</strong>
-- <code>/create-worktrees</code> - Create git worktrees for parallel development
-- <code>/update-branch-name</code> - Rename branches locally and remotely</p>
-<p><strong>Pattern Used:</strong> COMMAND_ONLY (inline instructions)</p>
-<p><strong>Time Taken:</strong> ~1 hour</p>
-<p><strong>Files Created:</strong>
-- <code>.claude/commands/create-worktrees.md</code>
-- <code>.claude/commands/update-branch-name.md</code>
-- <code>examples/git-workflow/create-worktrees-command.md</code> (documentation)
-- <code>examples/git-workflow/update-branch-name-command.md</code> (documentation)</p>
-<p><strong>Ready for:</strong> Phase 2 implementation (branch-cleanup + commit)</p>
-<hr />
-<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="/docs/GIT_WORKFLOW_ANALYSIS.md">Git Workflow Analysis</a> - Complete analysis of all 9 commands</li>
-<li><a href="/IMPLEMENTATION_GUIDE.md">Implementation Guide</a> - Quick reference</li>
-<li><a href="/docs/SKILL_COMMAND_DECISION_TREE.md">Decision Tree</a> - Pattern selection framework</li>
-<li><a href="/docs/META_AGENTS.md">Meta Agents</a> - Meta-agent system overview</li>
-</ul>
+<h2 id="archive-date">Archive Date<a class="headerlink" href="#archive-date" title="Permanent link">&para;</a></h2>
+<p>Documents archived: <strong>October 27, 2025</strong></p>
+<h2 id="using-these-reports">Using These Reports<a class="headerlink" href="#using-these-reports" title="Permanent link">&para;</a></h2>
+<p>These reports are valuable for:
+- Understanding specific technical decisions
+- Learning about past refactorings
+- Reference for similar future migrations
+- Audit trail for technical changes
+- Architecture evolution history</p>
+<p><strong>Note:</strong> These reports reflect the state of the system at the time they were written. Always check current code and documentation for the latest state.</p>
+<h2 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h2>
+<p>For current technical documentation, see:
+- <a href="../betty-architecture/">docs/betty-architecture.md</a> - Current architecture
+- <a href="../governance-architecture/">docs/governance-architecture.md</a> - Governance model
+- <a href="../skills-framework/">docs/skills-framework.md</a> - Skills taxonomy
+- <a href="../../registry/README.md">registry/README.md</a> - Registry documentation</p>
 
 
 
@@ -1807,7 +1409,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 25, 2025 20:02:23 UTC">October 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 27, 2025 03:56:39 UTC">October 27, 2025</span>
   </span>
 
     
@@ -1817,7 +1419,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 25, 2025 20:02:23 UTC">October 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 27, 2025 03:56:39 UTC">October 27, 2025</span>
   </span>
 
     
