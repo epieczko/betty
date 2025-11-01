@@ -1,9 +1,9 @@
 {
   "marketplace_version": "1.0.0",
-  "generated_at": "2025-10-27T02:20:16.073731+00:00",
+  "generated_at": "2025-11-01T16:52:27.874609+00:00",
   "description": "Betty Framework Certified Skills Marketplace",
-  "total_skills": 36,
-  "certified_count": 36,
+  "total_skills": 37,
+  "certified_count": 37,
   "draft_count": 0,
   "catalog": [
     {
@@ -2212,6 +2212,127 @@
       ],
       "outputs": [
         "registry_update_result.json"
+      ]
+    },
+    {
+      "name": "risk.review",
+      "version": "1.0.0",
+      "description": "Perform a policy compliance and risk assessment on a given artifact. Analyzes artifacts for security risks, policy compliance, regulatory alignment, and generates comprehensive risk assessment reports with remediation recommendations.",
+      "status": "certified",
+      "tags": [
+        "compliance",
+        "audit",
+        "security",
+        "risk-assessment",
+        "governance",
+        "tier1"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/risk.review",
+      "dependencies": [
+        "artifact.define",
+        "artifact.validate"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/risk/review",
+          "handler": "risk_review.py",
+          "runtime": "python",
+          "description": "Performs comprehensive policy compliance and risk assessment on artifacts. Evaluates security posture, compliance alignment, privacy considerations, and operational risks. Generates actionable audit reports with prioritized remediation guidance.",
+          "parameters": [
+            {
+              "name": "artifact_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to artifact file for assessment"
+            },
+            {
+              "name": "artifact_type",
+              "type": "string",
+              "required": false,
+              "description": "Artifact type (auto-detected if not provided)"
+            },
+            {
+              "name": "policy_frameworks",
+              "type": "array",
+              "required": false,
+              "description": "Target policy frameworks for compliance assessment"
+            },
+            {
+              "name": "risk_threshold",
+              "type": "string",
+              "required": false,
+              "default": "medium",
+              "description": "Risk threshold (low, medium, high, critical)"
+            },
+            {
+              "name": "assessment_scope",
+              "type": "array",
+              "required": false,
+              "description": "Assessment focus areas"
+            }
+          ],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "artifact_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the artifact file to assess"
+        },
+        {
+          "name": "artifact_type",
+          "type": "string",
+          "required": false,
+          "description": "Type of artifact (auto-detected if not provided)"
+        },
+        {
+          "name": "policy_frameworks",
+          "type": "array",
+          "required": false,
+          "description": "Policy frameworks to assess against (e.g., SOC2, ISO27001, GDPR, HIPAA)"
+        },
+        {
+          "name": "risk_threshold",
+          "type": "string",
+          "required": false,
+          "default": "medium",
+          "description": "Risk threshold level (low, medium, high, critical)"
+        },
+        {
+          "name": "assessment_scope",
+          "type": "array",
+          "required": false,
+          "description": "Specific assessment areas (security, privacy, compliance, operational)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "risk_assessment",
+          "type": "object",
+          "description": "Comprehensive risk assessment with findings and risk ratings"
+        },
+        {
+          "name": "compliance_status",
+          "type": "object",
+          "description": "Policy compliance status by framework with gap analysis"
+        },
+        {
+          "name": "risk_score",
+          "type": "number",
+          "description": "Overall risk score from 0-100 (higher = more risk)"
+        },
+        {
+          "name": "audit_report",
+          "type": "object",
+          "description": "Detailed audit report with findings, recommendations, and remediation plan"
+        }
       ]
     },
     {

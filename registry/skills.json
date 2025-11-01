@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-25T20:53:58.801205+00:00",
+  "generated_at": "2025-11-01T16:52:15.989021+00:00",
   "skills": [
     {
       "name": "test.hello",
@@ -2705,6 +2705,148 @@
       "status": "draft",
       "entrypoints": [],
       "updated_at": "2025-10-26T00:00:00+00:00"
+    },
+    {
+      "name": "risk.review",
+      "version": "1.0.0",
+      "description": "Perform a policy compliance and risk assessment on a given artifact. Analyzes artifacts for security risks, policy compliance, regulatory alignment, and generates comprehensive risk assessment reports with remediation recommendations.",
+      "inputs": [
+        {
+          "name": "artifact_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to the artifact file to assess"
+        },
+        {
+          "name": "artifact_type",
+          "type": "string",
+          "required": false,
+          "description": "Type of artifact (auto-detected if not provided)"
+        },
+        {
+          "name": "policy_frameworks",
+          "type": "array",
+          "required": false,
+          "description": "Policy frameworks to assess against (e.g., SOC2, ISO27001, GDPR, HIPAA)"
+        },
+        {
+          "name": "risk_threshold",
+          "type": "string",
+          "required": false,
+          "default": "medium",
+          "description": "Risk threshold level (low, medium, high, critical)"
+        },
+        {
+          "name": "assessment_scope",
+          "type": "array",
+          "required": false,
+          "description": "Specific assessment areas (security, privacy, compliance, operational)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "risk_assessment",
+          "type": "object",
+          "description": "Comprehensive risk assessment with findings and risk ratings"
+        },
+        {
+          "name": "compliance_status",
+          "type": "object",
+          "description": "Policy compliance status by framework with gap analysis"
+        },
+        {
+          "name": "risk_score",
+          "type": "number",
+          "description": "Overall risk score from 0-100 (higher = more risk)"
+        },
+        {
+          "name": "audit_report",
+          "type": "object",
+          "description": "Detailed audit report with findings, recommendations, and remediation plan"
+        }
+      ],
+      "dependencies": [
+        "artifact.define",
+        "artifact.validate"
+      ],
+      "entrypoints": [
+        {
+          "command": "/skill/risk/review",
+          "handler": "risk_review.py",
+          "runtime": "python",
+          "description": "Performs comprehensive policy compliance and risk assessment on artifacts. Evaluates security posture, compliance alignment, privacy considerations, and operational risks. Generates actionable audit reports with prioritized remediation guidance.",
+          "parameters": [
+            {
+              "name": "artifact_path",
+              "type": "string",
+              "required": true,
+              "description": "Path to artifact file for assessment"
+            },
+            {
+              "name": "artifact_type",
+              "type": "string",
+              "required": false,
+              "description": "Artifact type (auto-detected if not provided)"
+            },
+            {
+              "name": "policy_frameworks",
+              "type": "array",
+              "required": false,
+              "description": "Target policy frameworks for compliance assessment"
+            },
+            {
+              "name": "risk_threshold",
+              "type": "string",
+              "required": false,
+              "default": "medium",
+              "description": "Risk threshold (low, medium, high, critical)"
+            },
+            {
+              "name": "assessment_scope",
+              "type": "array",
+              "required": false,
+              "description": "Assessment focus areas"
+            }
+          ],
+          "permissions": [
+            "filesystem:read",
+            "filesystem:write"
+          ]
+        }
+      ],
+      "status": "active",
+      "tags": [
+        "compliance",
+        "audit",
+        "security",
+        "risk-assessment",
+        "governance",
+        "tier1"
+      ],
+      "artifact_metadata": {
+        "produces": [
+          {
+            "type": "risk-assessment",
+            "description": "Comprehensive risk assessment with security and compliance findings",
+            "file_pattern": "*-risk-assessment.yaml",
+            "content_type": "application/yaml"
+          },
+          {
+            "type": "audit.report",
+            "description": "Detailed audit report with remediation recommendations",
+            "file_pattern": "*-audit-report.yaml",
+            "content_type": "application/yaml"
+          }
+        ],
+        "consumes": [
+          {
+            "type": "*",
+            "description": "Assesses any artifact type for policy compliance and risk",
+            "file_pattern": "**/*.{yaml,yml,md,json,py,js,ts}"
+          }
+        ]
+      },
+      "updated_at": "2025-11-01T16:52:15.988828+00:00"
     }
   ]
 }
