@@ -1,0 +1,34 @@
+metadata:
+  name: payment-processing-system
+  version: 2.1.0
+  classification: Confidential
+  artifactType: architecture-design
+  approvers:
+    - security-team@example.com
+
+content:
+  description: Payment processing system architecture
+
+  security_controls:
+    - Authentication via OAuth 2.0
+    - Data encrypted in transit using TLS 1.3
+    - Access control with RBAC
+
+  data_handling:
+    - Process cardholder data for payments
+    - Encryption at rest using AES-256
+    - Firewall protection enabled
+    - Customer data shared with payment processors
+
+  compliance_considerations:
+    - PCI-DSS scope identified
+    - Annual penetration testing planned
+
+  known_issues:
+    - No incident response procedures in place
+    - Missing change management process
+    - No backup procedures
+    - No disaster recovery testing
+    - No business continuity plan
+    - No data anonymization for non-production
+    - Third party data sharing without DPA

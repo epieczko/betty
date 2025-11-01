@@ -1,0 +1,47 @@
+metadata:
+  name: gdpr-data-processing-policy
+  version: 1.2.0
+  classification: Internal
+  artifactType: policy-document
+
+content:
+  description: GDPR-compliant data processing policy
+
+  framework: GDPR (General Data Protection Regulation)
+
+  lawful_basis:
+    - Explicit consent from data subjects
+    - Legitimate interest assessment completed
+
+  data_subject_rights:
+    - Right to access (Article 15)
+    - Right to rectification (Article 16)
+    - Right to erasure (Article 17)
+    - Right to data portability (Article 20)
+    - Right to object (Article 21)
+
+  privacy_by_design:
+    - Data minimization principles applied
+    - Privacy impact assessment completed
+    - Default privacy settings (privacy by default)
+    - Pseudonymization and anonymization techniques
+
+  data_protection_measures:
+    - Personal data encrypted at rest and in transit
+    - Access controls and authentication
+    - Regular security audits
+
+  third_party_processing:
+    - Data processing agreements (DPA) in place
+    - Processor compliance verification
+    - Sub-processor approval process
+
+  breach_notification:
+    - 72-hour breach notification procedure
+    - Data protection officer (DPO) designated
+    - Incident response plan for data breaches
+
+  records_and_documentation:
+    - Records of processing activities maintained
+    - Privacy policy published and accessible
+    - Consent records maintained

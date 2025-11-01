@@ -1,0 +1,7 @@
+# Invalid YAML for testing error handling
+metadata:
+  name: broken-artifact
+
+content: [
+  this is not valid yaml syntax: {{{
+  unclosed brackets and braces

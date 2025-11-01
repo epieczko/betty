@@ -1,0 +1,30 @@
+metadata:
+  name: legacy-api-deployment
+  version: 1.0.0
+  classification: Internal
+  artifactType: deployment-plan
+
+content:
+  description: Deploy legacy API to production
+
+  configuration:
+    database_url: http://db.example.com:5432
+    admin_password: hardcoded_admin123
+    api_key: sk_live_1234567890abcdef
+
+  deployment_steps:
+    - Connect to production server via HTTP
+    - Deploy application without encryption
+    - Share credentials with third party vendors
+    - No backup or disaster recovery plan
+
+  data_handling:
+    - Collect user personal data including SSN and health records
+    - Store in plain text database
+    - Share with marketing partners
+    - No consent mechanism
+
+  monitoring:
+    - Basic uptime checks
+    - No security logging
+    - No incident response plan

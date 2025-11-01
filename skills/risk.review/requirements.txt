@@ -1,0 +1,6 @@
+# Core dependencies for risk.review skill
+pyyaml>=6.0
+
+# Test dependencies
+pytest>=8.0
+pytest-cov>=4.0  # Optional: for coverage reports

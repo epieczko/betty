@@ -1,0 +1,66 @@
+metadata:
+  name: secure-healthcare-platform
+  version: 3.0.0
+  classification: Restricted
+  artifactType: security-policy
+  approvers:
+    - ciso@example.com
+    - compliance-officer@example.com
+  relatedDocuments:
+    - incident-response-plan.yaml
+    - disaster-recovery-plan.yaml
+
+content:
+  description: Comprehensive security policy for healthcare data platform
+
+  security_framework:
+    - HIPAA Security Rule compliance
+    - NIST Cybersecurity Framework alignment
+    - ISO 27001 certified controls
+    - SOC 2 Type II audited
+
+  authentication_and_authorization:
+    - Multi-factor authentication required
+    - Role-based access control (RBAC)
+    - Least privilege access enforcement
+    - Regular access reviews (quarterly)
+
+  data_protection:
+    - PHI encrypted at rest (AES-256)
+    - Data encrypted in transit (TLS 1.3)
+    - No hardcoded credentials - using vault
+    - Secure credential management via HashiCorp Vault
+
+  privacy_controls:
+    - GDPR privacy by design principles
+    - Explicit patient consent required
+    - Data subject rights management
+    - Data anonymization for analytics
+    - Privacy policy and data processing agreements in place
+
+  operational_resilience:
+    - Comprehensive incident response plan
+    - 24/7 security monitoring and alerting
+    - Regular backup and disaster recovery testing
+    - Business continuity plan with RTO/RPO defined
+    - Formal change management process
+
+  vulnerability_management:
+    - Regular security assessments and penetration testing
+    - Automated vulnerability scanning
+    - Patch management with defined SLAs
+    - CVE tracking and remediation
+
+  audit_and_compliance:
+    - Comprehensive audit logging
+    - SIEM integration for security events
+    - Regular compliance audits
+    - Third-party security assessments
+
+changeHistory:
+  - version: 3.0.0
+    date: 2025-10-01
+    changes: Enhanced privacy controls for GDPR compliance
+  - version: 2.0.0
+    date: 2025-06-01
+    changes: Added HIPAA security controls

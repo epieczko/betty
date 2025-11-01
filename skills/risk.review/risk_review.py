@@ -99,15 +99,24 @@ def assess_security_risks(content: str, data: Dict[str, Any]) -> Dict[str, Any]:
     coverage_score = (len(security_coverage) / len(security_patterns)) * 100
 
     # Check for security anti-patterns
-    if re.search(r'\bhardcoded\s+(password|secret|key)\b', content, re.IGNORECASE):
-        risks.append({
-            'category': 'security',
-            'severity': 'critical',
-            'finding': 'Hardcoded credentials detected',
-            'impact': 'Unauthorized access, credential exposure',
-            'remediation': 'Use secure credential management (e.g., vault, environment variables)'
-        })
-        risk_level += 30
+    # Detect hardcoded credentials patterns in config files
+    credential_patterns = [
+        r'(password|passwd|pwd|secret|api[_-]?key|private[_-]?key|token)\s*[:=]\s*["\']?[\w\-]+["\']?',
+        r'\bhardcoded\s+(password|secret|key|credential)\b',
+        r'(admin|root|default)[_-]?(password|passwd|pwd)\s*[:=]'
+    ]
+
+    for pattern in credential_patterns:
+        if re.search(pattern, content, re.IGNORECASE):
+            risks.append({
+                'category': 'security',
+                'severity': 'critical',
+                'finding': 'Hardcoded credentials detected',
+                'impact': 'Unauthorized access, credential exposure',
+                'remediation': 'Use secure credential management (e.g., vault, environment variables)'
+            })
+            risk_level += 35
+            break  # Only report once
 
     if re.search(r'\bhttp://\b', content, re.IGNORECASE):
         risks.append({
@@ -213,16 +222,30 @@ def assess_privacy_risks(content: str, data: Dict[str, Any]) -> Dict[str, Any]:
     compliant_items = []
     risk_level = 0
 
-    # Check for privacy keywords
+    # Check for privacy keywords (excluding negative contexts)
     privacy_keywords = ['personal data', 'PII', 'PHI', 'privacy', 'consent', 'data subject', 'anonymization']
     privacy_mentions = sum(1 for kw in privacy_keywords if kw.lower() in content.lower())
 
     if privacy_mentions > 0:
         compliant_items.append("Addresses privacy considerations")
 
+    # Helper function to check for negation
+    def has_positive_mention(pattern: str, content: str) -> bool:
+        """Check if pattern exists without negation"""
+        matches = re.finditer(pattern, content, re.IGNORECASE)
+        for match in matches:
+            # Check for negation words before the match
+            start = max(0, match.start() - 20)
+            context = content[start:match.start()].lower()
+            negation_words = ['no ', 'not ', 'without ', 'lack ', 'missing ', 'absent ']
+            if any(neg in context for neg in negation_words):
+                continue  # This mention is negated
+            return True
+        return False
+
     # Check for privacy risks
     if re.search(r'\b(personal|sensitive)\s+data\b', content, re.IGNORECASE):
-        if not re.search(r'\b(consent|authorization)\b', content, re.IGNORECASE):
+        if not has_positive_mention(r'\b(consent|authorization)\b', content):
             risks.append({
                 'category': 'privacy',
                 'severity': 'high',
@@ -230,9 +253,9 @@ def assess_privacy_risks(content: str, data: Dict[str, Any]) -> Dict[str, Any]:
                 'impact': 'GDPR/privacy regulation violations, legal liability',
                 'remediation': 'Implement consent management and data subject rights'
             })
-            risk_level += 25
+            risk_level += 30
 
-        if not re.search(r'\b(anonymization|pseudonymization|de-identification)\b', content, re.IGNORECASE):
+        if not has_positive_mention(r'\b(anonymization|pseudonymization|de-identification)\b', content):
             risks.append({
                 'category': 'privacy',
                 'severity': 'medium',
@@ -240,10 +263,10 @@ def assess_privacy_risks(content: str, data: Dict[str, Any]) -> Dict[str, Any]:
                 'impact': 'Privacy exposure, regulatory compliance gaps',
                 'remediation': 'Implement data anonymization/pseudonymization techniques'
             })
-            risk_level += 15
+            risk_level += 20
 
     if re.search(r'\b(share|sharing|third[_\s]?party)\b', content, re.IGNORECASE):
-        if not re.search(r'\b(privacy policy|data processing agreement|DPA)\b', content, re.IGNORECASE):
+        if not has_positive_mention(r'\b(privacy policy|data processing agreement|DPA)\b', content):
             risks.append({
                 'category': 'privacy',
                 'severity': 'high',
@@ -251,7 +274,7 @@ def assess_privacy_risks(content: str, data: Dict[str, Any]) -> Dict[str, Any]:
                 'impact': 'Privacy violations, regulatory non-compliance',
                 'remediation': 'Establish data processing agreements with third parties'
             })
-            risk_level += 20
+            risk_level += 25
 
     return {
         'risk_level': min(risk_level, 100),
@@ -267,8 +290,22 @@ def assess_operational_risks(content: str, data: Dict[str, Any]) -> Dict[str, An
     compliant_items = []
     risk_level = 0
 
+    # Helper function to check for negation
+    def has_positive_mention(pattern: str, content: str) -> bool:
+        """Check if pattern exists without negation"""
+        matches = re.finditer(pattern, content, re.IGNORECASE)
+        for match in matches:
+            # Check for negation words before the match
+            start = max(0, match.start() - 20)
+            context = content[start:match.start()].lower()
+            negation_words = ['no ', 'not ', 'without ', 'lack ', 'missing ', 'absent ']
+            if any(neg in context for neg in negation_words):
+                continue  # This mention is negated
+            return True
+        return False
+
     # Check for operational controls
-    if re.search(r'\b(backup|disaster recovery|business continuity)\b', content, re.IGNORECASE):
+    if has_positive_mention(r'\b(backup|disaster recovery|business continuity)\b', content):
         compliant_items.append("Business continuity planning addressed")
     else:
         risks.append({
@@ -278,9 +315,9 @@ def assess_operational_risks(content: str, data: Dict[str, Any]) -> Dict[str, An
             'impact': 'Service disruption, data loss in case of incidents',
             'remediation': 'Develop and test business continuity and disaster recovery plans'
         })
-        risk_level += 15
+        risk_level += 20
 
-    if re.search(r'\b(incident response|incident management)\b', content, re.IGNORECASE):
+    if has_positive_mention(r'\b(incident response|incident management)\b', content):
         compliant_items.append("Incident response procedures defined")
     else:
         risks.append({
@@ -290,9 +327,9 @@ def assess_operational_risks(content: str, data: Dict[str, Any]) -> Dict[str, An
             'impact': 'Delayed response to security incidents, increased damage',
             'remediation': 'Establish incident response procedures and playbooks'
         })
-        risk_level += 20
+        risk_level += 25
 
-    if re.search(r'\b(change management|change control)\b', content, re.IGNORECASE):
+    if has_positive_mention(r'\b(change management|change control)\b', content):
         compliant_items.append("Change management processes in place")
     else:
         risks.append({
@@ -302,9 +339,9 @@ def assess_operational_risks(content: str, data: Dict[str, Any]) -> Dict[str, An
             'impact': 'Uncontrolled changes, potential service disruptions',
             'remediation': 'Implement formal change management procedures'
         })
-        risk_level += 10
+        risk_level += 15
 
-    if re.search(r'\b(SLA|service level|uptime)\b', content, re.IGNORECASE):
+    if has_positive_mention(r'\b(SLA|service level|uptime)\b', content):
         compliant_items.append("Service level commitments defined")
 
     return {
