@@ -1,0 +1,96 @@
+name: config.validate.router
+version: 0.1.0
+description: Validates Claude Code Router configuration inputs for correctness, completeness, and schema compliance
+status: active
+
+inputs:
+  - name: llm_backends
+    type: array
+    required: true
+    description: List of backend provider configurations
+    schema:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: Provider name (e.g., openrouter, ollama, claude)
+          api_base_url:
+            type: string
+            description: Base URL for the provider API
+          api_key:
+            type: string
+            description: API key (optional for local providers)
+          models:
+            type: array
+            items:
+              type: string
+            description: List of model identifiers
+        required:
+          - name
+          - api_base_url
+          - models
+
+  - name: routing_rules
+    type: object
+    required: true
+    description: Dictionary mapping Claude routing contexts to provider/model pairs
+    schema:
+      type: object
+      properties:
+        default:
+          type: object
+        think:
+          type: object
+        background:
+          type: object
+        longContext:
+          type: object
+      additionalProperties: true
+
+outputs:
+  - name: validation_result
+    type: object
+    description: Validation result with status and errors
+    schema:
+      type: object
+      properties:
+        valid:
+          type: boolean
+        errors:
+          type: array
+          items:
+            type: string
+        warnings:
+          type: array
+          items:
+            type: string
+
+artifact_metadata:
+  consumes:
+    - type: router-config-input
+      description: Raw router configuration input before validation
+      content_type: application/json
+      schema: schemas/router-config-input.json
+
+  produces:
+    - type: validation-report
+      description: Validation report with errors and warnings
+      file_pattern: "*-validation-report.json"
+      content_type: application/json
+      schema: schemas/validation-report.json
+
+entrypoints:
+  - command: /skill/config/validate/router
+    handler: validate_router.py
+    runtime: python
+
+permissions:
+  - filesystem:read
+
+tags:
+  - validation
+  - config
+  - router
+  - llm

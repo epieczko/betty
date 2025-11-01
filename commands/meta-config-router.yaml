@@ -1,0 +1,81 @@
+name: meta-config-router
+version: 0.1.0
+description: "Configure Claude Code Router for multi-model LLM support (OpenAI, Claude, Ollama, etc.)"
+status: active
+
+execution:
+  type: agent
+  target: meta.config.router
+  context:
+    mode: oneshot
+
+parameters:
+  - name: routing_config_path
+    type: string
+    required: true
+    description: "Path to YAML or JSON input file containing router configuration"
+
+  - name: apply_config
+    type: boolean
+    required: false
+    default: false
+    description: "Write configuration to ~/.claude-code-router/config.json (default: false)"
+
+  - name: output_mode
+    type: string
+    required: false
+    default: "preview"
+    enum:
+      - preview
+      - file
+      - both
+    description: "Output mode: preview (show only), file (write only), or both (default: preview)"
+
+permissions:
+  - filesystem:read
+  - filesystem:write
+
+tags:
+  - llm
+  - router
+  - configuration
+  - meta
+  - infra
+  - openrouter
+  - claude
+  - ollama
+  - multi-model
+
+artifact_metadata:
+  consumes:
+    - type: router-config-input
+      description: Router configuration input file (YAML or JSON)
+      file_pattern: "*-router-input.{json,yaml,yml}"
+      content_type: application/yaml
+
+  produces:
+    - type: llm-router-config
+      description: Complete Claude Code Router configuration
+      file_pattern: "config.json"
+      content_type: application/json
+
+    - type: audit-log-entry
+      description: Audit trail entry for configuration events
+      file_pattern: "audit_log.json"
+      content_type: application/json
+
+examples:
+  - name: Preview configuration (no file write)
+    command: /meta-config-router --routing_config_path=examples/router-config.yaml
+
+  - name: Apply configuration to disk
+    command: /meta-config-router --routing_config_path=examples/router-config.yaml --apply_config
+
+  - name: Both preview and write
+    command: /meta-config-router --routing_config_path=examples/router-config.yaml --apply_config --output_mode=both
+
+notes:
+  - "API keys can use environment variable substitution (e.g., ${OPENROUTER_API_KEY})"
+  - "Local providers (localhost/127.0.0.1) don't require API keys"
+  - "All configuration changes are audited for traceability"
+  - "Preview mode allows verification before applying changes"

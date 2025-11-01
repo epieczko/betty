@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-25T20:32:03.945554+00:00",
+  "generated_at": "2025-11-01T16:58:49.267594+00:00",
   "commands": [
     {
       "name": "/test-command",
@@ -84,6 +84,48 @@
         "test",
         "workflow"
       ]
+    },
+    {
+      "name": "/meta-config-router",
+      "version": "0.1.0",
+      "description": "Configure Claude Code Router for multi-model LLM support (OpenAI, Claude, Ollama, etc.)",
+      "execution": {
+        "type": "agent",
+        "target": "meta.config.router",
+        "context": {
+          "mode": "oneshot"
+        }
+      },
+      "parameters": [
+        {
+          "name": "routing_config_path",
+          "type": "string",
+          "required": true,
+          "description": "Path to YAML or JSON input file containing router configuration"
+        },
+        {
+          "name": "apply_config",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Write configuration to ~/.claude-code-router/config.json"
+        },
+        {
+          "name": "output_mode",
+          "type": "string",
+          "required": false,
+          "default": "preview",
+          "description": "Output mode: preview, file, or both"
+        }
+      ],
+      "status": "active",
+      "tags": [
+        "llm",
+        "router",
+        "configuration",
+        "meta"
+      ],
+      "updated_at": "2025-11-01T16:58:49.267561+00:00"
     }
   ]
 }
