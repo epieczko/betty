@@ -24,3 +24,15 @@ hooks:
   enabled: true
   tool_filter: Edit|Write
   timeout: 5000
+- name: validate-skill-manifests
+  event: after-tool-call
+  command: |
+    if [[ "$CLAUDE_TOOL_FILE_PATH" =~ skill\.yaml$ ]] || [[ "$CLAUDE_TOOL_FILE_PATH" =~ agent\.yaml$ ]]; then
+      cd /home/user/betty && \
+      PYTHONPATH=/home/user/betty:$PYTHONPATH python3 skills/policy.enforce/policy_enforce.py \
+        "$CLAUDE_TOOL_FILE_PATH" --profile default 2>&1 | grep -E "(success|violation)" || true
+    fi
+  description: Automatically validate skill.yaml and agent.yaml files against default policy profile after edits
+  enabled: false
+  tool_filter: Edit|Write
+  timeout: 10000

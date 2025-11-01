@@ -1,0 +1,84 @@
+name: notify.human
+version: 0.1.0
+description: >
+  Notifies humans of important events via console output, logging, or
+  configured notification channels. For production use, can be extended
+  to send emails, Slack messages, or other alerts.
+
+inputs:
+  - name: summary
+    type: string
+    required: true
+    description: Brief summary of the notification
+
+  - name: severity
+    type: string
+    required: false
+    default: "info"
+    description: Severity level (info, warning, high, critical)
+
+  - name: channel
+    type: string
+    required: false
+    default: "console"
+    description: Notification channel (console, email, slack, etc.)
+
+  - name: suggested_action
+    type: string
+    required: false
+    description: Suggested action for the human to take
+
+  - name: metadata
+    type: object
+    required: false
+    description: Additional metadata about the notification
+
+outputs:
+  - name: notification_id
+    type: string
+    description: Unique identifier for the notification
+
+  - name: delivery_status
+    type: string
+    description: Status of notification delivery
+
+dependencies: []
+
+status: active
+
+entrypoints:
+  - command: /notify/human
+    handler: notify_human.py
+    runtime: python
+    description: Send notification to human operator
+    parameters:
+      - name: summary
+        type: string
+        required: true
+        description: Notification summary
+
+      - name: --severity
+        type: string
+        required: false
+        default: "info"
+        description: Severity level
+
+      - name: --channel
+        type: string
+        required: false
+        default: "console"
+        description: Notification channel
+
+      - name: --action
+        type: string
+        required: false
+        description: Suggested action
+
+    permissions:
+      - filesystem:write
+
+tags:
+  - notification
+  - alerting
+  - human-in-loop
+  - monitoring

@@ -1,0 +1,24 @@
+policy:
+  name: e2e-test
+  version: 2.0.0
+  description: e2e-test policy profile
+  type: validation
+  scope:
+  - artifact
+  rules:
+  - description: Version required
+    field: version
+    required: true
+    action: block
+    severity: error
+    message: Version required
+  - description: Description required
+    field: description
+    required: true
+    action: warn
+    severity: warning
+    message: Description required
+  enforcement: blocking
+  tags:
+  - e2e
+  - test

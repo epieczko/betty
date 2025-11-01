@@ -1,0 +1,23 @@
+policy:
+  name: meta-test
+  version: 1.0.0
+  description: Testing the meta-agent workflow.
+  type: validation
+  scope:
+  - artifact
+  rules:
+  - description: Require name field
+    field: name
+    required: true
+    action: block
+    severity: error
+    message: Require name field
+  - description: No placeholder values
+    pattern: (CHANGEME|PLACEHOLDER|TODO)
+    action: warn
+    severity: warning
+    message: No placeholder values
+  enforcement: blocking
+  tags:
+  - test
+  - meta-agent

@@ -779,7 +779,11 @@
     "metadata": {
       "created_by": "meta.agent",
       "trigger_event": "artifact.generated",
-      "actions": ["policy.enforce", "audit.log", "notify.human"],
+      "actions": [
+        "policy.enforce",
+        "audit.log",
+        "notify.human"
+      ],
       "enforcement": "blocking"
     }
   },
@@ -794,8 +798,13 @@
       "created_by": "meta.agent",
       "reasoning_mode": "oneshot",
       "skills_count": 4,
-      "artifact_types_consumed": ["policy-specification"],
-      "artifact_types_produced": ["policy-profile", "policy-documentation"]
+      "artifact_types_consumed": [
+        "policy-specification"
+      ],
+      "artifact_types_produced": [
+        "policy-profile",
+        "policy-documentation"
+      ]
     }
   },
   {
@@ -837,10 +846,58 @@
       "created_by": "meta.policy.profile",
       "policy_type": "security",
       "rule_count": 5,
-      "scope": ["artifact", "agent", "skill"],
+      "scope": [
+        "artifact",
+        "agent",
+        "skill"
+      ],
       "enforcement": "blocking",
-      "environments": ["local", "staging", "prod"],
+      "environments": [
+        "local",
+        "staging",
+        "prod"
+      ],
       "profile_hash": "sha256:example"
     }
+  },
+  {
+    "timestamp": "2025-11-01T17:34:31.200793+00:00",
+    "skill": "--skill",
+    "status": "meta.policy.profile",
+    "errors": [
+      "success"
+    ]
+  },
+  {
+    "timestamp": "2025-11-01T17:35:25.592623+00:00",
+    "skill": "--skill",
+    "status": "meta.policy.profile",
+    "errors": [
+      "success"
+    ]
+  },
+  {
+    "timestamp": "2025-11-01T17:35:26.088287+00:00",
+    "skill": "--skill",
+    "status": "meta.policy.profile",
+    "errors": [
+      "success"
+    ]
+  },
+  {
+    "timestamp": "2025-11-01T17:35:41.456525+00:00",
+    "skill": "--skill",
+    "status": "meta.policy.profile",
+    "errors": [
+      "success"
+    ]
+  },
+  {
+    "timestamp": "2025-11-01T17:35:41.881790+00:00",
+    "skill": "--skill",
+    "status": "meta.policy.profile",
+    "errors": [
+      "success"
+    ]
   }
 ]

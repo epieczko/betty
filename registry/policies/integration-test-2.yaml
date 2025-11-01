@@ -1,0 +1,14 @@
+policy:
+  name: integration-test-2
+  version: 1.0.0
+  description: integration-test-2 policy profile
+  type: validation
+  scope:
+  - artifact
+  rules:
+  - description: Test rule
+    field: test_field
+    action: block
+    severity: error
+    message: Test rule
+  enforcement: blocking
