@@ -19,31 +19,48 @@ class RouterConfigGenerator:
         self,
         llm_backends: List[Dict[str, Any]],
         routing_rules: Dict[str, Any],
-        metadata: Dict[str, Any] = None
+        config_options: Dict[str, Any] = None
     ) -> Dict[str, Any]:
         """
-        Generate router configuration
+        Generate router configuration matching Claude Code Router schema
 
         Args:
             llm_backends: List of backend provider configs
             routing_rules: Dictionary of routing context mappings
-            metadata: Optional metadata for audit/tracking
+            config_options: Optional config settings (LOG, API_TIMEOUT_MS, etc.)
 
         Returns:
-            Complete router configuration
+            Complete router configuration in Claude Code Router format
         """
+        options = config_options or {}
+
         config = {
-            "version": self.CONFIG_VERSION,
-            "generated_at": datetime.utcnow().isoformat() + "Z",
-            "backends": self._format_backends(llm_backends),
-            "routing": self._format_routing(routing_rules),
-            "metadata": self._build_metadata(metadata or {})
+            "Providers": self._format_providers(llm_backends),
+            "Router": self._format_router(routing_rules)
         }
+
+        # Add optional configuration fields if provided
+        if "LOG" in options:
+            config["LOG"] = options["LOG"]
+        if "LOG_LEVEL" in options:
+            config["LOG_LEVEL"] = options["LOG_LEVEL"]
+        if "API_TIMEOUT_MS" in options:
+            config["API_TIMEOUT_MS"] = options["API_TIMEOUT_MS"]
+        if "NON_INTERACTIVE_MODE" in options:
+            config["NON_INTERACTIVE_MODE"] = options["NON_INTERACTIVE_MODE"]
+        if "APIKEY" in options:
+            config["APIKEY"] = options["APIKEY"]
+        if "PROXY_URL" in options:
+            config["PROXY_URL"] = options["PROXY_URL"]
+        if "CUSTOM_ROUTER_PATH" in options:
+            config["CUSTOM_ROUTER_PATH"] = options["CUSTOM_ROUTER_PATH"]
+        if "HOST" in options:
+            config["HOST"] = options["HOST"]
 
         return config
 
-    def _format_backends(self, backends: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """Format backend configurations"""
+    def _format_providers(self, backends: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Format provider configurations for Claude Code Router"""
         formatted = []
         for backend in backends:
             entry = {
@@ -56,42 +73,35 @@ class RouterConfigGenerator:
             if backend.get("api_key"):
                 entry["api_key"] = backend["api_key"]
 
+            # Include transformer if specified
+            if backend.get("transformer"):
+                entry["transformer"] = backend["transformer"]
+
             # Include any additional provider-specific settings
             for key, value in backend.items():
-                if key not in ["name", "api_base_url", "models", "api_key"]:
+                if key not in ["name", "api_base_url", "models", "api_key", "transformer"]:
                     entry[key] = value
 
             formatted.append(entry)
 
         return formatted
 
-    def _format_routing(self, routing_rules: Dict[str, Any]) -> Dict[str, Any]:
-        """Format routing rules"""
+    def _format_router(self, routing_rules: Dict[str, Any]) -> Dict[str, str]:
+        """
+        Format routing rules for Claude Code Router
+
+        Converts from object format to "provider,model" string format:
+        Input:  {"provider": "openrouter", "model": "claude-3.5-sonnet"}
+        Output: "openrouter,claude-3.5-sonnet"
+        """
         formatted = {}
         for context, rule in routing_rules.items():
-            formatted[context] = {
-                "provider": rule["provider"],
-                "model": rule["model"]
-            }
-
-            # Include any additional routing settings
-            for key, value in rule.items():
-                if key not in ["provider", "model"]:
-                    formatted[context][key] = value
+            provider = rule["provider"]
+            model = rule["model"]
+            # Claude Code Router expects "provider,model" string format
+            formatted[context] = f"{provider},{model}"
 
         return formatted
-
-    def _build_metadata(self, metadata: Dict[str, Any]) -> Dict[str, Any]:
-        """Build metadata section"""
-        meta = {
-            "generated_by": "meta.config.router",
-            "schema_version": self.CONFIG_VERSION
-        }
-
-        # Merge provided metadata
-        meta.update(metadata)
-
-        return meta
 
 
 def main():
@@ -109,7 +119,7 @@ def main():
         config = generator.generate(
             llm_backends=input_data.get("llm_backends", []),
             routing_rules=input_data.get("routing_rules", {}),
-            metadata=input_data.get("metadata", {})
+            config_options=input_data.get("config_options", {})
         )
 
         print(json.dumps(config, indent=2))

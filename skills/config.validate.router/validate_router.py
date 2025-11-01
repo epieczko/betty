@@ -10,9 +10,10 @@ from typing import Dict, List, Any
 
 
 class RouterConfigValidator:
-    """Validates router configuration for Claude Code"""
+    """Validates router configuration for Claude Code Router"""
 
-    VALID_ROUTING_CONTEXTS = {"default", "think", "background", "longContext"}
+    # Claude Code Router supports these routing contexts
+    VALID_ROUTING_CONTEXTS = {"default", "think", "background", "longContext", "webSearch", "image"}
     REQUIRED_PROVIDER_FIELDS = {"name", "api_base_url", "models"}
     REQUIRED_ROUTING_FIELDS = {"provider", "model"}
 

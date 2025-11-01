@@ -53,7 +53,8 @@ class MetaConfigRouter:
         # Extract inputs
         llm_backends = config_input.get("llm_backends", [])
         routing_rules = config_input.get("routing_rules", {})
-        metadata = config_input.get("metadata", {})
+        config_options = config_input.get("config_options", {})
+        metadata = config_input.get("metadata", {})  # For audit logging only
 
         # Step 1: Validate inputs
         print("🔍 Validating router configuration...")
@@ -82,7 +83,7 @@ class MetaConfigRouter:
         router_config = self._generate_config(
             llm_backends,
             routing_rules,
-            metadata
+            config_options
         )
         print("✅ Configuration generated")
         print()
@@ -178,19 +179,15 @@ class MetaConfigRouter:
         self,
         llm_backends: List[Dict[str, Any]],
         routing_rules: Dict[str, Any],
-        metadata: Dict[str, Any]
+        config_options: Dict[str, Any]
     ) -> Dict[str, Any]:
         """Generate router configuration using config.generate.router skill"""
         generator_script = self.skills_root / "config.generate.router" / "generate_router.py"
 
-        # Add environment fingerprint to metadata
-        metadata["environment"] = self._detect_environment()
-        metadata["audit_id"] = str(uuid.uuid4())
-
         input_json = json.dumps({
             "llm_backends": llm_backends,
             "routing_rules": routing_rules,
-            "metadata": metadata
+            "config_options": config_options
         })
 
         try:
