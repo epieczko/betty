@@ -1,0 +1,9 @@
+policy:
+  name: test-refactored
+  version: 0.1.0
+  description: test-refactored policy profile
+  type: security
+  scope:
+  - artifact
+  rules: []
+  enforcement: blocking

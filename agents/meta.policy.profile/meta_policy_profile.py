@@ -9,93 +9,32 @@ Orchestrates the policy profile creation workflow:
 4. Create audit log (audit.log)
 """
 
-import os
 import sys
 import json
-import subprocess
-from typing import Dict, Any, Optional
+import yaml
+from typing import Dict, Any, Optional, List
 from pathlib import Path
 
 # Betty imports
 from betty.config import BASE_DIR
 from betty.logging_utils import setup_logger
 
+# Skill imports - direct module imports (no subprocess!)
+from betty.skills.policy.define import define_policy, PolicyDefinitionError
+from betty.skills.policy.validate import validate_policy, PolicyValidationError
+from betty.skills.audit.log import create_audit_entry, append_audit_entry
+
 logger = setup_logger(__name__)
 
 # Paths
-POLICY_DEFINE = Path(BASE_DIR) / "skills" / "policy.define" / "policy_define.py"
-POLICY_VALIDATE = Path(BASE_DIR) / "skills" / "policy.validate" / "policy_validate.py"
-AUDIT_LOG = Path(BASE_DIR) / "skills" / "audit.log" / "audit_log.py"
 POLICIES_DIR = Path(BASE_DIR) / "registry" / "policies"
-
-
-def run_skill(script_path: Path, args: list) -> Dict[str, Any]:
-    """
-    Run a skill script and return parsed JSON output.
-
-    Args:
-        script_path: Path to Python script
-        args: Command line arguments
-
-    Returns:
-        Dict with skill output
-
-    Raises:
-        Exception: If skill execution fails
-    """
-    env = os.environ.copy()
-    env['PYTHONPATH'] = f"{BASE_DIR}:{env.get('PYTHONPATH', '')}"
-
-    cmd = ['python3', str(script_path)] + args
-
-    logger.info(f"Running: {' '.join(cmd)}")
-
-    result = subprocess.run(
-        cmd,
-        capture_output=True,
-        text=True,
-        env=env
-    )
-
-    # Try to parse JSON output (may have log lines before JSON)
-    try:
-        # Try to find JSON in output
-        stdout_lines = result.stdout.strip().split('\n')
-
-        # Look for JSON starting with {
-        json_start = None
-        for i, line in enumerate(stdout_lines):
-            if line.strip().startswith('{'):
-                json_start = i
-                break
-
-        if json_start is not None:
-            json_text = '\n'.join(stdout_lines[json_start:])
-            output = json.loads(json_text)
-        else:
-            raise json.JSONDecodeError("No JSON found", result.stdout, 0)
-
-    except json.JSONDecodeError:
-        logger.warning(f"Non-JSON output: {result.stdout}")
-        output = {"raw_output": result.stdout, "stderr": result.stderr}
-
-    if isinstance(output, dict):
-        output['exit_code'] = result.returncode
-    else:
-        output = {"data": output, "exit_code": result.returncode}
-
-    if result.returncode != 0:
-        logger.error(f"Skill failed with code {result.returncode}")
-        logger.error(f"Stderr: {result.stderr}")
-
-    return output
 
 
 def generate_policy_profile(
     profile_name: str,
     policy_spec: str,
     policy_type: str = "validation",
-    scope: list = None,
+    scope: List[str] = None,
     enforcement: str = "blocking",
     output_mode: str = "both"
 ) -> Dict[str, Any]:
@@ -119,43 +58,51 @@ def generate_policy_profile(
         "success": False
     }
 
+    if scope is None:
+        scope = ["artifact"]
+
     try:
         # Step 1: Define policy (Markdown → YAML)
         logger.info(f"Step 1: Defining policy '{profile_name}'")
 
         output_path = POLICIES_DIR / f"{profile_name}.yaml"
 
-        # Write spec to temp file
-        spec_file = Path(f"/tmp/policy_spec_{profile_name}.md")
-        with open(spec_file, 'w') as f:
-            f.write(policy_spec)
+        # Call policy.define directly (no subprocess!)
+        define_result = define_policy(
+            policy_spec=policy_spec,
+            profile_name=profile_name,
+            policy_type=policy_type,
+            scope=scope,
+            enforcement=enforcement
+        )
 
-        # Run policy.define
-        scope_args = scope if scope else ["artifact"]
-        define_args = [
-            str(spec_file),
-            profile_name,
-            '--type', policy_type,
-            '--scope'] + scope_args + [
-            '--enforcement', enforcement,
-            '--output', str(output_path)
-        ]
-
-        define_result = run_skill(POLICY_DEFINE, define_args)
         results['steps']['policy.define'] = define_result
 
-        if define_result.get('exit_code') != 0 or not define_result.get('success'):
+        if not define_result.get('success'):
             results['error'] = "Failed to define policy"
             results['message'] = define_result.get('message', 'Unknown error')
             return results
 
+        # Write policy YAML to file
+        POLICIES_DIR.mkdir(parents=True, exist_ok=True)
+        policy_yaml_string = define_result.get('policy_yaml_string') or define_result.get('policy_yaml')
+        with open(output_path, 'w') as f:
+            f.write(policy_yaml_string)
+
+        logger.info(f"Wrote policy to {output_path}")
+
         # Step 2: Validate policy
         logger.info(f"Step 2: Validating policy '{profile_name}'")
 
-        validate_result = run_skill(POLICY_VALIDATE, [str(output_path)])
+        # Use the policy dict directly if available, otherwise load from file
+        policy_dict = define_result.get('policy_yaml')
+        if isinstance(policy_dict, str):
+            policy_dict = yaml.safe_load(policy_dict)
+
+        validate_result = validate_policy(policy_dict, strict=False)
         results['steps']['policy.validate'] = validate_result
 
-        if validate_result.get('exit_code') != 0 or not validate_result.get('valid'):
+        if not validate_result.get('valid'):
             results['error'] = "Policy validation failed"
             results['message'] = validate_result.get('message', 'Validation failed')
             results['validation_errors'] = validate_result.get('errors', [])
@@ -164,18 +111,19 @@ def generate_policy_profile(
         # Step 3: Audit log
         logger.info(f"Step 3: Creating audit log entry")
 
-        audit_args = [
-            '--skill', 'meta.policy.profile',
-            '--status', 'success',
-            '--metadata', json.dumps({
+        # Create and append audit entry directly (no subprocess!)
+        audit_entry = create_audit_entry(
+            skill_name='meta.policy.profile',
+            status='success',
+            metadata={
                 "profile_name": profile_name,
                 "policy_type": policy_type,
                 "rule_count": define_result.get('rule_count', 0),
                 "output_path": str(output_path)
-            })
-        ]
+            }
+        )
 
-        audit_result = run_skill(AUDIT_LOG, audit_args)
+        audit_result = append_audit_entry(audit_entry)
         results['steps']['audit.log'] = audit_result
 
         # Build final result
@@ -183,18 +131,21 @@ def generate_policy_profile(
         results['policy_profile_file'] = str(output_path)
         results['rule_count'] = define_result.get('rule_count', 0)
         results['validation_result'] = 'pass'
-        results['trace_id'] = audit_result.get('entry_id', 'unknown')
+        results['trace_id'] = audit_result.get('audit_entry', {}).get('timestamp', 'unknown')
         results['message'] = f"Successfully created policy profile '{profile_name}' with {results['rule_count']} rules"
-
-        # Clean up temp file
-        spec_file.unlink(missing_ok=True)
 
         return results
 
+    except (PolicyDefinitionError, PolicyValidationError) as e:
+        logger.error(f"Policy error: {e}")
+        results['success'] = False
+        results['error'] = type(e).__name__
+        results['message'] = str(e)
+        return results
     except Exception as e:
         logger.error(f"Error generating policy profile: {e}")
         results['success'] = False
-        results['error'] = str(e)
+        results['error'] = type(e).__name__
         results['message'] = f"Failed to generate policy profile: {e}"
         return results
 
