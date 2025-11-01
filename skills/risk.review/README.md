@@ -16,8 +16,9 @@ This skill leverages Claude for context-aware risk analysis that:
 
 ## Features
 
+### Core Assessment
 - **🤖 AI-Powered Semantic Analysis**: Context-aware risk detection using Claude API
-- **⚡ Three Assessment Modes**: Smart (AI+fast), AI (pure), Fast (regex-only)
+- **⚡ Four Assessment Modes**: Smart (AI+fast), AI (pure), Fast (regex-only), Hybrid (AI vs regex comparison)
 - **💰 Cost Optimization**: Automatic caching and smart pre-checks
 - **Multi-Framework Compliance Assessment**: Evaluate against SOC2, ISO27001, GDPR, HIPAA, PCI-DSS, and NIST frameworks
 - **Comprehensive Risk Analysis**: Security, privacy, operational, and compliance risk assessment
@@ -25,6 +26,13 @@ This skill leverages Claude for context-aware risk analysis that:
 - **Audit Report Generation**: Detailed findings with impact analysis and remediation guidance
 - **Automated Gap Analysis**: Identify compliance gaps across policy frameworks
 - **Prioritized Remediation Plans**: Actionable recommendations sorted by severity and priority
+
+### Advanced Features
+- **🔄 Hybrid Comparison Mode**: Run both AI and regex engines side-by-side to compare findings
+- **📊 Metrics & Telemetry**: Track usage, costs, performance, and error rates for continuous improvement
+- **👤 Human Review Workflow**: Automatically flag low-confidence findings for manual review by security professionals
+- **✅ Confidence Scoring**: AI provides confidence scores (0.0-1.0) for each finding
+- **🎯 Smart Prioritization**: Low-confidence critical findings get escalated for immediate review
 
 ## Usage
 
@@ -36,13 +44,26 @@ This skill leverages Claude for context-aware risk analysis that:
 
 ### Options
 
+**Assessment Options:**
 - `--artifact-type`: Type of artifact (auto-detected if not provided)
 - `--policy-frameworks`: Frameworks to assess against (SOC2, ISO27001, GDPR, HIPAA, PCI-DSS, NIST)
 - `--risk-threshold`: Risk threshold level (low, medium, high, critical) - default: medium
-- `--mode`: Assessment mode (`smart`, `ai`, `fast`) - default: smart
+- `--mode`: Assessment mode (`smart`, `ai`, `fast`, `hybrid`) - default: smart
+  - `smart`: AI with fast pre-checks (recommended)
+  - `ai`: Pure AI semantic analysis
+  - `fast`: Regex patterns only (free, for CI/CD)
+  - `hybrid`: Run both AI and regex, compare results
+
+**Performance Options:**
 - `--no-cache`: Disable caching for AI assessments
 - `--quiet`: Suppress progress output
 - `--output`: Save assessment report to file
+
+**Advanced Features:**
+- `--show-metrics`: Display session metrics summary at end
+- `--show-historical-metrics`: Show historical metrics (all-time statistics)
+- `--show-review-queue`: Display pending human review queue
+- `--disable-human-review`: Disable automatic flagging for human review
 
 ### Examples
 
@@ -56,11 +77,20 @@ This skill leverages Claude for context-aware risk analysis that:
 # Fast mode for CI/CD pipelines
 /skill/risk/review artifacts/config.yaml --mode=fast
 
+# Hybrid mode - compare AI vs regex findings
+/skill/risk/review artifacts/security-policy.yaml --mode=hybrid
+
 # Assess against specific frameworks
 /skill/risk/review artifacts/security-policy.yaml --policy-frameworks SOC2 HIPAA GDPR
 
 # Save detailed report
 /skill/risk/review artifacts/architecture.yaml --output reports/risk-assessment.yaml --mode=ai
+
+# Show metrics after assessment
+/skill/risk/review artifacts/config.yaml --show-metrics
+
+# View pending human review queue
+/skill/risk/review --show-review-queue
 
 # Disable caching for fresh assessment
 /skill/risk/review artifacts/data-processing.yaml --no-cache
