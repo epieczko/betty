@@ -431,7 +431,25 @@ def main():
     audit = result['audit_report']
     risk_assessment = result['risk_assessment']
 
-    print(f"\n{'='*80}")
+    # Display disclaimer for AI modes
+    if args.mode in ['smart', 'ai']:
+        print(f"\n{'╔'+'═'*78+'╗'}")
+        print(f"║ {' '*76} ║")
+        print(f"║  {'⚠️  AI-ASSISTED RISK ASSESSMENT DISCLAIMER':^74}  ║")
+        print(f"║ {' '*76} ║")
+        print(f"║  {'This tool provides AUTOMATED GUIDANCE ONLY':^74}  ║")
+        print(f"║ {' '*76} ║")
+        print(f"║  • Not a compliance certification or legal opinion{' '*22} ║")
+        print(f"║  • May produce false positives or miss risks{' '*28} ║")
+        print(f"║  • Requires review by qualified security professionals{' '*18} ║")
+        print(f"║  • Do not rely solely on this for production decisions{' '*18} ║")
+        print(f"║ {' '*76} ║")
+        print(f"║  Legal/regulatory compliance requires expert human judgment{' '*14} ║")
+        print(f"║  Use as a screening tool, not a replacement for audits{' '*18} ║")
+        print(f"║ {' '*76} ║")
+        print(f"{'╚'+'═'*78+'╝'}\n")
+
+    print(f"{'='*80}")
     print(f"RISK ASSESSMENT & COMPLIANCE AUDIT REPORT")
     print(f"{'='*80}")
     print(f"Artifact:        {audit['artifact_path']}")
@@ -472,7 +490,17 @@ def main():
         print(f"CRITICAL & HIGH SEVERITY FINDINGS:")
         for finding in critical_high[:5]:  # Top 5
             severity_marker = "🔴" if finding['severity'] == 'critical' else "🟠"
-            print(f"\n  {severity_marker} {finding['severity'].upper()}: {finding['finding']}")
+            confidence_str = ""
+            if 'confidence' in finding and args.mode in ['smart', 'ai']:
+                confidence = finding['confidence']
+                if confidence < 0.7:
+                    confidence_str = f" [⚠️  Confidence: {confidence:.0%}]"
+                elif confidence >= 0.9:
+                    confidence_str = f" [✓ Confidence: {confidence:.0%}]"
+                else:
+                    confidence_str = f" [Confidence: {confidence:.0%}]"
+
+            print(f"\n  {severity_marker} {finding['severity'].upper()}: {finding['finding']}{confidence_str}")
             print(f"     Category: {finding.get('category', 'unknown')}")
             if finding.get('evidence'):
                 evidence = finding['evidence'][:100] + ('...' if len(finding['evidence']) > 100 else '')

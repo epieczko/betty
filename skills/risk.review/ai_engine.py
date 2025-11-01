@@ -189,7 +189,8 @@ OUTPUT FORMAT (strict JSON):
       "finding": "<specific issue found>",
       "evidence": "<quote from artifact showing the issue>",
       "impact": "<business/technical impact>",
-      "remediation": "<specific, actionable remediation step>"
+      "remediation": "<specific, actionable remediation step>",
+      "confidence": <0.0-1.0, how certain you are about this finding>
     }}
   ],
   "compliance_status": {{
@@ -237,7 +238,7 @@ IMPORTANT:
         return prompt
 
     def _call_claude_api(self, prompt: str, verbose: bool = True) -> str:
-        """Call Claude API for risk assessment"""
+        """Call Claude API for risk assessment with retry logic"""
         try:
             import anthropic
         except ImportError:
@@ -249,43 +250,125 @@ IMPORTANT:
 
         client = anthropic.Anthropic(api_key=api_key)
 
-        try:
-            response = client.messages.create(
-                model=self.model,
-                max_tokens=4096,
-                temperature=self.temperature,
-                messages=[{
-                    "role": "user",
-                    "content": prompt
-                }]
-            )
+        # Retry logic for transient failures
+        max_retries = 3
+        retry_delay = 2  # seconds
 
-            return response.content[0].text
+        for attempt in range(max_retries):
+            try:
+                response = client.messages.create(
+                    model=self.model,
+                    max_tokens=4096,
+                    temperature=self.temperature,
+                    messages=[{
+                        "role": "user",
+                        "content": prompt
+                    }]
+                )
 
-        except Exception as e:
-            if verbose:
-                print(f"❌ API call failed: {e}")
-            raise
+                # Track actual usage for cost transparency
+                if verbose and hasattr(response, 'usage'):
+                    input_tokens = response.usage.input_tokens
+                    output_tokens = response.usage.output_tokens
+                    actual_cost = (input_tokens * COST_PER_INPUT_TOKEN) + (output_tokens * COST_PER_OUTPUT_TOKEN)
+                    print(f"   📊 Tokens: {input_tokens} in + {output_tokens} out = {input_tokens + output_tokens} total")
+                    print(f"   💰 Actual cost: ${actual_cost:.4f}")
+
+                return response.content[0].text
+
+            except anthropic.RateLimitError as e:
+                if attempt < max_retries - 1:
+                    if verbose:
+                        print(f"⚠️  Rate limit hit, retrying in {retry_delay}s... (attempt {attempt + 1}/{max_retries})")
+                    time.sleep(retry_delay)
+                    retry_delay *= 2  # Exponential backoff
+                else:
+                    raise RuntimeError(f"Rate limit exceeded after {max_retries} attempts: {e}")
+
+            except anthropic.APIConnectionError as e:
+                if attempt < max_retries - 1:
+                    if verbose:
+                        print(f"⚠️  Connection error, retrying in {retry_delay}s... (attempt {attempt + 1}/{max_retries})")
+                    time.sleep(retry_delay)
+                    retry_delay *= 2
+                else:
+                    raise RuntimeError(f"API connection failed after {max_retries} attempts: {e}")
+
+            except anthropic.APIError as e:
+                # Don't retry on auth errors or bad requests
+                if e.status_code in [401, 403]:
+                    raise RuntimeError(f"API authentication failed: {e}")
+                elif e.status_code == 400:
+                    raise RuntimeError(f"Invalid API request: {e}")
+                elif attempt < max_retries - 1:
+                    if verbose:
+                        print(f"⚠️  API error, retrying in {retry_delay}s... (attempt {attempt + 1}/{max_retries})")
+                    time.sleep(retry_delay)
+                    retry_delay *= 2
+                else:
+                    raise RuntimeError(f"API error after {max_retries} attempts: {e}")
+
+            except Exception as e:
+                if verbose:
+                    print(f"❌ Unexpected error: {e}")
+                raise RuntimeError(f"Unexpected API error: {e}")
 
     def _parse_response(self, response: str, frameworks: List[str]) -> Dict[str, Any]:
-        """Parse and validate AI response"""
+        """Parse and validate AI response with robust error handling"""
         try:
             # Extract JSON from response (handle markdown code blocks)
             response = response.strip()
-            if response.startswith('```'):
-                # Remove markdown code block
-                lines = response.split('\n')
-                response = '\n'.join(lines[1:-1])
-                if response.startswith('json'):
-                    response = response[4:]
 
-            result = json.loads(response)
+            # Handle markdown code blocks
+            if '```json' in response:
+                # Extract content between ```json and ```
+                start = response.find('```json') + 7
+                end = response.find('```', start)
+                response = response[start:end].strip()
+            elif '```' in response:
+                # Extract first code block
+                start = response.find('```') + 3
+                # Skip language identifier if present
+                newline = response.find('\n', start)
+                if newline != -1:
+                    start = newline + 1
+                end = response.find('```', start)
+                response = response[start:end].strip()
+
+            # Try parsing JSON
+            try:
+                result = json.loads(response)
+            except json.JSONDecodeError as e:
+                # Attempt to fix common JSON issues
+                print(f"⚠️  Initial JSON parse failed, attempting repair...")
+
+                # Remove trailing commas
+                response = response.replace(',]', ']').replace(',}', '}')
+
+                # Try again
+                try:
+                    result = json.loads(response)
+                    print(f"   ✓ JSON repaired successfully")
+                except json.JSONDecodeError:
+                    # Give up and raise informative error
+                    print(f"   ❌ JSON repair failed")
+                    print(f"   Response preview: {response[:500]}")
+                    raise ValueError(f"Failed to parse AI response as JSON: {e}")
 
             # Validate required fields
             required_fields = ['risk_score', 'risk_rating', 'findings']
-            for field in required_fields:
-                if field not in result:
-                    raise ValueError(f"Missing required field: {field}")
+            missing_fields = [f for f in required_fields if f not in result]
+
+            if missing_fields:
+                print(f"⚠️  Missing fields in AI response: {missing_fields}")
+                # Provide defaults for missing fields
+                if 'risk_score' not in result:
+                    result['risk_score'] = 50  # Default to medium
+                if 'risk_rating' not in result:
+                    result['risk_rating'] = 'MEDIUM'
+                if 'findings' not in result:
+                    result['findings'] = []
+                print(f"   ✓ Using default values for missing fields")
 
             # Organize findings by category
             security_risks = [f for f in result['findings'] if f['category'] == 'security']
