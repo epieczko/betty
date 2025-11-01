@@ -1,0 +1,131 @@
+policy:
+  name: betty-core
+  version: 0.1.0
+  description: Core Betty Framework validation policies for skills and agents
+  type: validation
+  scope:
+    - skill
+    - agent
+  enforcement: blocking
+
+  # Core validation rules that were previously hardcoded in policy.enforce
+  rules:
+    # Naming convention rules
+    - id: naming_convention_no_spaces
+      field: name
+      type: field_check
+      check: forbidden_pattern
+      pattern: '\s'
+      message: "Name contains spaces. Names must not contain spaces."
+      severity: error
+      action: block
+
+    - id: naming_convention_lowercase
+      field: name
+      type: field_check
+      check: pattern
+      pattern: '^[a-z][a-z0-9.]*[a-z0-9]$'
+      message: "Invalid name format. Names must start with a lowercase letter, contain only lowercase letters, numbers, and dots for namespacing, and end with a letter or number."
+      severity: error
+      action: block
+
+    # Version validation (semantic versioning)
+    - id: semantic_versioning
+      field: version
+      type: field_check
+      check: pattern
+      pattern: '^\d+\.\d+\.\d+(-[a-zA-Z0-9.-]+)?(\+[a-zA-Z0-9.-]+)?$'
+      message: "Version must follow semantic versioning format (e.g., 1.0.0, 1.0.0-beta, 1.0.0+build)"
+      severity: error
+      action: block
+
+    # Required fields
+    - id: name_required
+      field: name
+      type: field_check
+      check: required
+      message: "Name field is required"
+      severity: error
+      action: block
+
+    - id: version_required
+      field: version
+      type: field_check
+      check: required
+      message: "Version field is required"
+      severity: error
+      action: block
+
+    - id: status_required
+      field: status
+      type: field_check
+      check: required
+      message: "Status field is required"
+      severity: error
+      action: block
+
+    # Status validation
+    - id: allowed_status_values
+      field: status
+      type: field_check
+      check: allowed_values
+      allowed_values:
+        - draft
+        - active
+        - deprecated
+        - archived
+      message: "Invalid status. Must be one of: active, archived, deprecated, draft"
+      severity: error
+      action: block
+
+    # Permission validation for skills
+    - id: skill_allowed_permissions
+      field: entrypoints.*.permissions.*
+      scope: skill
+      type: field_check
+      check: allowed_values
+      allowed_values:
+        - filesystem
+        - filesystem:read
+        - filesystem:write
+        - network
+        - network:read
+        - network:write
+        - read
+        - write
+      message: "Invalid permission. Only filesystem, network, read, write are allowed (with optional :read or :write scope)"
+      severity: error
+      action: block
+
+    # Permission validation for agents
+    - id: agent_allowed_permissions
+      field: permissions.*
+      scope: agent
+      type: field_check
+      check: allowed_values
+      allowed_values:
+        - filesystem
+        - filesystem:read
+        - filesystem:write
+        - network
+        - network:read
+        - network:write
+        - read
+        - write
+      message: "Invalid permission. Only filesystem, network, read, write are allowed (with optional :read or :write scope)"
+      severity: error
+      action: block
+
+  # Configuration for hardcoded constants (for backwards compatibility)
+  config:
+    allowed_permissions:
+      - filesystem
+      - network
+      - read
+      - write
+    allowed_statuses:
+      - draft
+      - active
+      - deprecated
+      - archived
+    valid_name_pattern: '^[a-z][a-z0-9.]*[a-z0-9]$'

@@ -26,13 +26,66 @@ from betty.logging_utils import setup_logger
 
 logger = setup_logger(__name__)
 
-# Policy definitions
-ALLOWED_PERMISSIONS = {"filesystem", "network", "read", "write"}
-ALLOWED_STATUSES = {"draft", "active", "deprecated", "archived"}
-VALID_NAME_PATTERN = r"^[a-z][a-z0-9.]*[a-z0-9]$"  # lowercase, dots allowed, no spaces
-
 # Policy profiles directory
 POLICIES_DIR = Path(BASE_DIR) / "registry" / "policies"
+
+# Default policy constants (fallback if betty-core.yaml not found)
+_DEFAULT_ALLOWED_PERMISSIONS = {"filesystem", "network", "read", "write"}
+_DEFAULT_ALLOWED_STATUSES = {"draft", "active", "deprecated", "archived"}
+_DEFAULT_VALID_NAME_PATTERN = r"^[a-z][a-z0-9.]*[a-z0-9]$"
+
+# Loaded policy constants (cached)
+_POLICY_CONFIG = None
+
+
+def _load_policy_config() -> Dict[str, Any]:
+    """
+    Load policy configuration from betty-core.yaml.
+
+    Returns cached config if already loaded.
+    Falls back to defaults if betty-core.yaml not found.
+    """
+    global _POLICY_CONFIG
+
+    if _POLICY_CONFIG is not None:
+        return _POLICY_CONFIG
+
+    betty_core_path = POLICIES_DIR / "betty-core.yaml"
+
+    if betty_core_path.exists():
+        try:
+            with open(betty_core_path, 'r') as f:
+                betty_core = yaml.safe_load(f)
+
+            config = betty_core.get('policy', {}).get('config', {})
+            _POLICY_CONFIG = {
+                'allowed_permissions': set(config.get('allowed_permissions', _DEFAULT_ALLOWED_PERMISSIONS)),
+                'allowed_statuses': set(config.get('allowed_statuses', _DEFAULT_ALLOWED_STATUSES)),
+                'valid_name_pattern': config.get('valid_name_pattern', _DEFAULT_VALID_NAME_PATTERN)
+            }
+            logger.info(f"Loaded policy config from {betty_core_path}")
+        except Exception as e:
+            logger.warning(f"Failed to load betty-core.yaml: {e}, using defaults")
+            _POLICY_CONFIG = {
+                'allowed_permissions': _DEFAULT_ALLOWED_PERMISSIONS,
+                'allowed_statuses': _DEFAULT_ALLOWED_STATUSES,
+                'valid_name_pattern': _DEFAULT_VALID_NAME_PATTERN
+            }
+    else:
+        logger.info(f"betty-core.yaml not found, using default policy config")
+        _POLICY_CONFIG = {
+            'allowed_permissions': _DEFAULT_ALLOWED_PERMISSIONS,
+            'allowed_statuses': _DEFAULT_ALLOWED_STATUSES,
+            'valid_name_pattern': _DEFAULT_VALID_NAME_PATTERN
+        }
+
+    return _POLICY_CONFIG
+
+
+# Accessors for policy constants (load from config on first access)
+ALLOWED_PERMISSIONS = _DEFAULT_ALLOWED_PERMISSIONS  # Will be replaced after first load
+ALLOWED_STATUSES = _DEFAULT_ALLOWED_STATUSES  # Will be replaced after first load
+VALID_NAME_PATTERN = _DEFAULT_VALID_NAME_PATTERN  # Will be replaced after first load
 
 
 class PolicyViolation:
@@ -113,7 +166,9 @@ def validate_name_format(name: str) -> Optional[PolicyViolation]:
         )
 
     # Check format: lowercase, dots allowed, must start with letter
-    if not re.match(VALID_NAME_PATTERN, name):
+    config = _load_policy_config()
+    pattern = config['valid_name_pattern']
+    if not re.match(pattern, name):
         return PolicyViolation(
             field="name",
             rule="naming_convention",
@@ -158,6 +213,8 @@ def validate_permissions(manifest: Dict[str, Any], manifest_type: str) -> List[P
         List of PolicyViolations for invalid permissions
     """
     violations = []
+    config = _load_policy_config()
+    allowed_permissions = config['allowed_permissions']
 
     # For skills, check entrypoints permissions
     if manifest_type == "skill":
@@ -168,12 +225,12 @@ def validate_permissions(manifest: Dict[str, Any], manifest_type: str) -> List[P
                 # Handle both simple permissions and scoped permissions (e.g., "filesystem:read")
                 base_perm = perm.split(':')[0] if ':' in perm else perm
 
-                if base_perm not in ALLOWED_PERMISSIONS:
+                if base_perm not in allowed_permissions:
                     violations.append(PolicyViolation(
                         field=f"entrypoints[{idx}].permissions",
                         rule="allowed_permissions",
                         message=f"Invalid permission: '{perm}'. "
-                               f"Only {', '.join(sorted(ALLOWED_PERMISSIONS))} are allowed."
+                               f"Only {', '.join(sorted(allowed_permissions))} are allowed."
                     ))
 
     # For agents, permissions might be in a different location
@@ -183,12 +240,12 @@ def validate_permissions(manifest: Dict[str, Any], manifest_type: str) -> List[P
         for perm in permissions:
             base_perm = perm.split(':')[0] if ':' in perm else perm
 
-            if base_perm not in ALLOWED_PERMISSIONS:
+            if base_perm not in allowed_permissions:
                 violations.append(PolicyViolation(
                     field="permissions",
                     rule="allowed_permissions",
                     message=f"Invalid permission: '{perm}'. "
-                           f"Only {', '.join(sorted(ALLOWED_PERMISSIONS))} are allowed."
+                           f"Only {', '.join(sorted(allowed_permissions))} are allowed."
                 ))
 
     return violations
@@ -204,6 +261,9 @@ def validate_status(status: str) -> Optional[PolicyViolation]:
     Returns:
         PolicyViolation if invalid, None if valid
     """
+    config = _load_policy_config()
+    allowed_statuses = config['allowed_statuses']
+
     if not status:
         return PolicyViolation(
             field="status",
@@ -211,12 +271,12 @@ def validate_status(status: str) -> Optional[PolicyViolation]:
             message="Status field is required"
         )
 
-    if status not in ALLOWED_STATUSES:
+    if status not in allowed_statuses:
         return PolicyViolation(
             field="status",
             rule="allowed_status",
             message=f"Invalid status: '{status}'. "
-                   f"Must be one of: {', '.join(sorted(ALLOWED_STATUSES))}"
+                   f"Must be one of: {', '.join(sorted(allowed_statuses))}"
         )
 
     return None
