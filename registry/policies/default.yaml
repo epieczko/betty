@@ -1,0 +1,57 @@
+policy:
+  name: default
+  version: 0.1.0
+  description: Default policy profile for artifact validation and compliance
+  type: security
+  scope: [artifact, agent, skill]
+
+  rules:
+    - field: content
+      pattern: "logger\\.debug\\(\\$\\{secret\\}\\)"
+      message: "Disallow secrets in debug logs - security violation"
+      severity: error
+      action: block
+
+    - field: openapi.info.title
+      message: "OpenAPI specifications must include a title field"
+      severity: warning
+      action: warn
+
+    - field: imports
+      pattern: "import crypto(?!graphy)"
+      message: "Insecure crypto library detected - use cryptography instead"
+      severity: error
+      action: block
+      forbidden_values: ["crypto"]
+
+    - field: version
+      pattern: "^\\d+\\.\\d+\\.\\d+$"
+      message: "Version must follow semantic versioning (e.g., 1.0.0)"
+      severity: warning
+      action: warn
+
+    - field: permissions
+      forbidden_values: ["filesystem.delete", "secrets.write"]
+      message: "Dangerous permissions require security review"
+      severity: warning
+      action: warn
+
+  enforcement: blocking
+
+  environments:
+    - local
+    - staging
+    - prod
+
+  metadata:
+    created_by: meta.policy.profile
+    created_at: "2025-11-01"
+    status: active
+
+  tags:
+    - policy
+    - compliance
+    - security
+    - profile
+    - meta
+    - default

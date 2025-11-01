@@ -1678,6 +1678,200 @@
       "updated_at": "2025-10-25T17:17:26.555109+00:00"
     },
     {
+      "name": "policy.define",
+      "version": "0.1.0",
+      "description": "Define and structure policy rules from natural language descriptions or Markdown specifications. Converts human-readable policy requirements into structured YAML format compatible with policy.enforce.\n",
+      "inputs": [
+        {
+          "name": "policy_spec",
+          "type": "string",
+          "required": true,
+          "description": "Markdown or natural language policy specification"
+        },
+        {
+          "name": "profile_name",
+          "type": "string",
+          "required": true,
+          "description": "Name of the policy profile to create"
+        },
+        {
+          "name": "policy_type",
+          "type": "string",
+          "required": false,
+          "default": "validation",
+          "description": "Type of policy being defined"
+        },
+        {
+          "name": "scope",
+          "type": "array",
+          "required": false,
+          "default": ["artifact"],
+          "description": "Scopes where policy applies"
+        },
+        {
+          "name": "enforcement",
+          "type": "string",
+          "required": false,
+          "default": "blocking",
+          "description": "Default enforcement level for the policy"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "policy_yaml",
+          "type": "object",
+          "description": "Structured policy definition in YAML format"
+        },
+        {
+          "name": "rule_count",
+          "type": "integer",
+          "description": "Number of rules extracted from specification"
+        },
+        {
+          "name": "validation_errors",
+          "type": "array",
+          "description": "List of any parsing or validation errors encountered"
+        }
+      ],
+      "dependencies": [
+        "context.schema"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/policy/define",
+          "handler": "policy_define.py",
+          "runtime": "python",
+          "description": "Parse policy specification and generate structured YAML policy definition\n",
+          "parameters": [
+            {
+              "name": "policy_spec",
+              "type": "string",
+              "required": true,
+              "description": "Policy specification in Markdown format"
+            },
+            {
+              "name": "profile_name",
+              "type": "string",
+              "required": true,
+              "description": "Name of the policy profile"
+            },
+            {
+              "name": "--type",
+              "type": "string",
+              "required": false,
+              "default": "validation",
+              "description": "Policy type (validation, security, compliance)"
+            },
+            {
+              "name": "--scope",
+              "type": "array",
+              "required": false,
+              "default": ["artifact"],
+              "description": "Policy scope"
+            }
+          ],
+          "permissions": [
+            "filesystem:read"
+          ]
+        }
+      ],
+      "tags": [
+        "policy",
+        "governance",
+        "validation",
+        "parsing",
+        "yaml"
+      ],
+      "updated_at": "2025-11-01T00:00:00.000000+00:00"
+    },
+    {
+      "name": "policy.validate",
+      "version": "0.1.0",
+      "description": "Validate policy profile definitions for correctness, completeness, and adherence to policy schema requirements. Ensures policy rules are well-formed before registration in the policy registry.\n",
+      "inputs": [
+        {
+          "name": "policy_path",
+          "type": "string",
+          "required": false,
+          "description": "Path to policy YAML file to validate"
+        },
+        {
+          "name": "policy_content",
+          "type": "object",
+          "required": false,
+          "description": "Policy definition as object (alternative to file path)"
+        },
+        {
+          "name": "strict",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Enable strict validation mode"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "valid",
+          "type": "boolean",
+          "description": "Whether the policy is valid"
+        },
+        {
+          "name": "validation_report",
+          "type": "object",
+          "description": "Detailed validation results"
+        },
+        {
+          "name": "errors",
+          "type": "array",
+          "description": "List of validation errors (if any)"
+        },
+        {
+          "name": "warnings",
+          "type": "array",
+          "description": "List of validation warnings (if any)"
+        }
+      ],
+      "dependencies": [
+        "context.schema"
+      ],
+      "status": "active",
+      "entrypoints": [
+        {
+          "command": "/policy/validate",
+          "handler": "policy_validate.py",
+          "runtime": "python",
+          "description": "Validate policy profile definition against schema and best practices\n",
+          "parameters": [
+            {
+              "name": "policy_path",
+              "type": "string",
+              "required": false,
+              "description": "Path to policy YAML file"
+            },
+            {
+              "name": "--strict",
+              "type": "boolean",
+              "required": false,
+              "default": false,
+              "description": "Enable strict validation mode"
+            }
+          ],
+          "permissions": [
+            "filesystem:read"
+          ]
+        }
+      ],
+      "tags": [
+        "policy",
+        "validation",
+        "schema",
+        "governance",
+        "quality"
+      ],
+      "updated_at": "2025-11-01T00:00:00.000000+00:00"
+    },
+    {
       "name": "registry.diff",
       "version": "0.2.0",
       "description": "Compare current and previous versions of skills/agents and report differences. Detects changes, determines required actions, and provides suggestions for version management and breaking change prevention. Enhanced with changed_fields array and breaking flag for easier consumption.\n",

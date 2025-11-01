@@ -67,6 +67,52 @@
         "workflow",
         "openapi"
       ]
+    },
+    {
+      "name": "artifact.policy.validate",
+      "version": "0.1.0",
+      "description": "Automatically validate every AI-generated artifact against a named policy profile using policy.enforce",
+      "event": "artifact.generated",
+      "trigger": {
+        "event": "artifact.generated",
+        "conditions": {
+          "artifact_type": "any",
+          "policy_profile": "default"
+        }
+      },
+      "actions": [
+        {
+          "name": "enforce_policy",
+          "skill": "policy.enforce"
+        },
+        {
+          "name": "log_audit",
+          "skill": "audit.log"
+        },
+        {
+          "name": "handle_failure",
+          "condition": "policy.enforce.result == 'fail'"
+        }
+      ],
+      "permissions": {
+        "filesystem": {
+          "read": true
+        },
+        "network": false,
+        "secrets": false
+      },
+      "blocking": true,
+      "timeout": 60000,
+      "on_failure": "notify_and_stop",
+      "status": "active",
+      "tags": [
+        "policy",
+        "compliance",
+        "validation",
+        "artifact",
+        "security",
+        "governance"
+      ]
     }
   ]
 }

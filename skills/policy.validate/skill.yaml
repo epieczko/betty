@@ -1,0 +1,73 @@
+name: policy.validate
+version: 0.1.0
+description: >
+  Validate policy profile definitions for correctness, completeness, and adherence
+  to policy schema requirements. Ensures policy rules are well-formed before
+  registration in the policy registry.
+
+inputs:
+  - name: policy_path
+    type: string
+    required: false
+    description: Path to policy YAML file to validate
+
+  - name: policy_content
+    type: object
+    required: false
+    description: Policy definition as object (alternative to file path)
+
+  - name: strict
+    type: boolean
+    required: false
+    default: false
+    description: Enable strict validation mode
+
+outputs:
+  - name: valid
+    type: boolean
+    description: Whether the policy is valid
+
+  - name: validation_report
+    type: object
+    description: Detailed validation results
+
+  - name: errors
+    type: array
+    description: List of validation errors (if any)
+
+  - name: warnings
+    type: array
+    description: List of validation warnings (if any)
+
+dependencies:
+  - context.schema
+
+entrypoints:
+  - command: /policy/validate
+    handler: policy_validate.py
+    runtime: python
+    description: >
+      Validate policy profile definition against schema and best practices
+    parameters:
+      - name: policy_path
+        type: string
+        required: false
+        description: Path to policy YAML file
+
+      - name: --strict
+        type: boolean
+        required: false
+        default: false
+        description: Enable strict validation mode
+
+    permissions:
+      - filesystem:read
+
+status: active
+
+tags:
+  - policy
+  - validation
+  - schema
+  - governance
+  - quality

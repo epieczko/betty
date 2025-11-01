@@ -1,0 +1,67 @@
+name: artifact.policy.validate
+version: 0.1.0
+description: >
+  Automatically validate every AI-generated artifact against a named policy profile
+  using policy.enforce. This hook ensures compliance scanning is applied post-generation
+  before merge, deployment, or downstream reuse.
+
+trigger:
+  event: artifact.generated
+  conditions:
+    artifact_type: any
+    policy_profile: "default"
+
+actions:
+  - name: enforce_policy
+    skill: policy.enforce
+    input:
+      artifact_path: "{{ artifact.path }}"
+      policy_profile: "{{ policy_profile }}"
+
+  - name: log_audit
+    skill: audit.log
+    input:
+      event_type: "policy_validation"
+      artifact_id: "{{ artifact.id }}"
+      result: "{{ policy.enforce.result }}"
+      approver: "N/A"
+
+  - name: handle_failure
+    condition: "{{ policy.enforce.result == 'fail' }}"
+    actions:
+      - skill: notify.human
+        input:
+          summary: "Policy violation detected in artifact {{ artifact.id }}"
+          severity: "high"
+          channel: "compliance@riskexec.com"
+          suggested_action: "Review and revise artifact manually"
+      - stop_execution: true
+
+permissions:
+  filesystem:
+    read: true
+  network: false
+  secrets: false
+
+outputs:
+  - name: policy_status
+    type: string
+    description: Overall policy validation status (pass/fail)
+
+  - name: violation_report
+    type: object
+    description: Detailed report of any policy violations found
+
+  - name: audit_trace_id
+    type: string
+    description: Unique identifier for audit trail lookup
+
+status: active
+
+tags:
+  - policy
+  - compliance
+  - validation
+  - artifact
+  - security
+  - governance

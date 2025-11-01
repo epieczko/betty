@@ -1,0 +1,94 @@
+name: policy.define
+version: 0.1.0
+description: >
+  Define and structure policy rules from natural language descriptions or Markdown
+  specifications. Converts human-readable policy requirements into structured YAML
+  format compatible with policy.enforce.
+
+inputs:
+  - name: policy_spec
+    type: string
+    required: true
+    description: Markdown or natural language policy specification
+
+  - name: profile_name
+    type: string
+    required: true
+    description: Name of the policy profile to create
+
+  - name: policy_type
+    type: string
+    required: false
+    default: "validation"
+    enum: ["validation", "security", "compliance"]
+    description: Type of policy being defined
+
+  - name: scope
+    type: array
+    required: false
+    default: ["artifact"]
+    description: Scopes where policy applies (artifact, agent, skill, workflow)
+
+  - name: enforcement
+    type: string
+    required: false
+    default: "blocking"
+    enum: ["blocking", "warning", "info"]
+    description: Default enforcement level for the policy
+
+outputs:
+  - name: policy_yaml
+    type: object
+    description: Structured policy definition in YAML format
+
+  - name: rule_count
+    type: integer
+    description: Number of rules extracted from specification
+
+  - name: validation_errors
+    type: array
+    description: List of any parsing or validation errors encountered
+
+dependencies:
+  - context.schema
+
+entrypoints:
+  - command: /policy/define
+    handler: policy_define.py
+    runtime: python
+    description: >
+      Parse policy specification and generate structured YAML policy definition
+    parameters:
+      - name: policy_spec
+        type: string
+        required: true
+        description: Policy specification in Markdown format
+
+      - name: profile_name
+        type: string
+        required: true
+        description: Name of the policy profile
+
+      - name: --type
+        type: string
+        required: false
+        default: "validation"
+        description: Policy type (validation, security, compliance)
+
+      - name: --scope
+        type: array
+        required: false
+        default: ["artifact"]
+        description: Policy scope
+
+    permissions:
+      - filesystem:read
+
+status: active
+
+tags:
+  - policy
+  - governance
+  - validation
+  - parsing
+  - yaml

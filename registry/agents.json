@@ -288,6 +288,35 @@
       "dependencies": []
     },
     {
+      "name": "meta.policy.profile",
+      "version": "0.1.0",
+      "description": "Generate and register reusable policy profiles from Markdown descriptions. These profiles define rules to be enforced during artifact validation.",
+      "reasoning_mode": "oneshot",
+      "skills_available": [
+        "policy.define",
+        "policy.validate",
+        "fs.write",
+        "audit.log"
+      ],
+      "capabilities": [
+        "Parse Markdown policy specifications into structured rules",
+        "Convert policy rules to YAML format compatible with policy.enforce",
+        "Validate policy profiles for completeness and correctness",
+        "Register policy profiles in the registry",
+        "Generate audit trails for policy profile creation"
+      ],
+      "status": "active",
+      "tags": [
+        "meta",
+        "policy",
+        "compliance",
+        "governance",
+        "validation",
+        "security"
+      ],
+      "dependencies": []
+    },
+    {
       "name": "meta.suggest",
       "version": "0.1.0",
       "description": "Context-aware next-step recommender that helps Claude decide what to do next\nafter an agent completes.\n\nAnalyzes current context, produced artifacts, and project state to suggest\ncompatible agents and workflows. Works with meta.compatibility to provide\nintelligent orchestration recommendations.\n",
