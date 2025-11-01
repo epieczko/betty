@@ -31,6 +31,9 @@ ALLOWED_PERMISSIONS = {"filesystem", "network", "read", "write"}
 ALLOWED_STATUSES = {"draft", "active", "deprecated", "archived"}
 VALID_NAME_PATTERN = r"^[a-z][a-z0-9.]*[a-z0-9]$"  # lowercase, dots allowed, no spaces
 
+# Policy profiles directory
+POLICIES_DIR = Path(BASE_DIR) / "registry" / "policies"
+
 
 class PolicyViolation:
     """Represents a single policy violation."""
@@ -343,12 +346,236 @@ def find_all_manifests() -> List[Tuple[str, str]]:
     return manifests
 
 
-def validate_batch(strict: bool = False) -> Dict[str, Any]:
+def load_policy_profile(profile_name: str) -> Dict[str, Any]:
+    """
+    Load a policy profile from registry/policies/ directory.
+
+    Args:
+        profile_name: Name of the policy profile (without .yaml extension)
+
+    Returns:
+        Policy profile dictionary
+
+    Raises:
+        Exception: If profile cannot be loaded
+    """
+    profile_path = POLICIES_DIR / f"{profile_name}.yaml"
+
+    if not profile_path.exists():
+        raise Exception(f"Policy profile not found: {profile_path}")
+
+    try:
+        with open(profile_path) as f:
+            data = yaml.safe_load(f)
+
+        # Handle both wrapped (policy: {...}) and unwrapped formats
+        if 'policy' in data:
+            return data['policy']
+        else:
+            return data
+
+    except yaml.YAMLError as e:
+        raise Exception(f"Failed to parse policy profile: {e}")
+
+
+def apply_pattern_rule(manifest: Dict[str, Any], rule: Dict[str, Any], manifest_content: str) -> Optional[PolicyViolation]:
+    """
+    Apply a pattern-based rule to manifest content.
+
+    Args:
+        manifest: Manifest dictionary
+        rule: Rule definition
+        manifest_content: Raw manifest content as string
+
+    Returns:
+        PolicyViolation if pattern matches, None otherwise
+    """
+    pattern = rule.get('pattern')
+    if not pattern:
+        return None
+
+    try:
+        if re.search(pattern, manifest_content, re.MULTILINE):
+            message = rule.get('message', rule.get('description', 'Pattern match detected'))
+            severity = rule.get('severity', 'error')
+
+            return PolicyViolation(
+                field='content',
+                rule=f"pattern: {pattern}",
+                message=message,
+                severity=severity
+            )
+    except re.error as e:
+        logger.warning(f"Invalid regex pattern '{pattern}': {e}")
+
+    return None
+
+
+def apply_field_rule(manifest: Dict[str, Any], rule: Dict[str, Any]) -> Optional[PolicyViolation]:
+    """
+    Apply a field-based rule to manifest.
+
+    Args:
+        manifest: Manifest dictionary
+        rule: Rule definition
+
+    Returns:
+        PolicyViolation if rule fails, None otherwise
+    """
+    field = rule.get('field')
+    if not field:
+        return None
+
+    message = rule.get('message', rule.get('description', f'Field {field} validation failed'))
+    severity = rule.get('severity', 'error')
+
+    # Handle nested fields (e.g., "info.title")
+    field_parts = field.split('.')
+    value = manifest
+    for part in field_parts:
+        if isinstance(value, dict):
+            value = value.get(part)
+        else:
+            value = None
+            break
+
+    # Check if field is required
+    if rule.get('required') and not value:
+        return PolicyViolation(
+            field=field,
+            rule='required',
+            message=message,
+            severity=severity
+        )
+
+    # Check allowed values
+    if 'allowed_values' in rule and value:
+        if value not in rule['allowed_values']:
+            return PolicyViolation(
+                field=field,
+                rule='allowed_values',
+                message=f"{message}. Must be one of: {', '.join(map(str, rule['allowed_values']))}",
+                severity=severity
+            )
+
+    # Check forbidden values
+    if 'forbidden_values' in rule and value:
+        if value in rule['forbidden_values']:
+            return PolicyViolation(
+                field=field,
+                rule='forbidden_values',
+                message=f"{message}. Forbidden value: {value}",
+                severity=severity
+            )
+
+    # Check pattern on field value
+    if 'pattern' in rule and value:
+        try:
+            if not re.match(rule['pattern'], str(value)):
+                return PolicyViolation(
+                    field=field,
+                    rule='pattern',
+                    message=message,
+                    severity=severity
+                )
+        except re.error as e:
+            logger.warning(f"Invalid regex pattern in field rule: {e}")
+
+    return None
+
+
+def validate_against_profile(path: str, profile: Dict[str, Any], manifest_type: str = None) -> Dict[str, Any]:
+    """
+    Validate a manifest against a policy profile.
+
+    Args:
+        path: Path to manifest file
+        profile: Policy profile dictionary
+        manifest_type: "skill" or "agent" (auto-detected if None)
+
+    Returns:
+        Dictionary with validation results
+    """
+    violations = []
+
+    try:
+        # Validate path
+        validate_path(path, must_exist=True)
+
+        # Load manifest
+        manifest = load_manifest(path)
+
+        # Load raw content for pattern matching
+        with open(path) as f:
+            manifest_content = f.read()
+
+        # Auto-detect manifest type if not specified
+        if manifest_type is None:
+            if "skill.yaml" in path or path.endswith(".yaml") and "skills/" in path:
+                manifest_type = "skill"
+            elif "agent.yaml" in path or path.endswith(".yaml") and "agents/" in path:
+                manifest_type = "agent"
+            else:
+                # Try to detect from content
+                if "entrypoints" in manifest or "inputs" in manifest:
+                    manifest_type = "skill"
+                elif "capabilities" in manifest or "reasoning_mode" in manifest:
+                    manifest_type = "agent"
+                else:
+                    manifest_type = "unknown"
+
+        # Apply each rule from the profile
+        rules = profile.get('rules', [])
+        for idx, rule in enumerate(rules, 1):
+            # Apply pattern-based rules
+            if 'pattern' in rule and 'field' not in rule:
+                violation = apply_pattern_rule(manifest, rule, manifest_content)
+                if violation:
+                    violations.append(violation)
+
+            # Apply field-based rules
+            elif 'field' in rule:
+                violation = apply_field_rule(manifest, rule)
+                if violation:
+                    violations.append(violation)
+
+        # Build result
+        success = len(violations) == 0
+
+        result = {
+            "success": success,
+            "path": path,
+            "manifest_type": manifest_type,
+            "profile": profile.get('name', 'unknown'),
+            "violations": [v.to_dict() for v in violations],
+            "violation_count": len(violations)
+        }
+
+        if success:
+            result["message"] = f"All policy checks passed (profile: {profile.get('name')})"
+        else:
+            result["message"] = f"Found {len(violations)} policy violation(s) (profile: {profile.get('name')})"
+
+        return result
+
+    except Exception as e:
+        logger.error(f"Error validating manifest {path}: {e}")
+        return {
+            "success": False,
+            "path": path,
+            "error": str(e),
+            "violations": [],
+            "violation_count": 0
+        }
+
+
+def validate_batch(strict: bool = False, profile: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """
     Validate all manifests in batch mode.
 
     Args:
         strict: If True, treat warnings as errors
+        profile: Optional policy profile to validate against
 
     Returns:
         Dictionary with batch validation results
@@ -372,7 +599,13 @@ def validate_batch(strict: bool = False) -> Dict[str, Any]:
 
     for path, manifest_type in manifests:
         logger.info(f"Validating {manifest_type}: {path}")
-        result = validate_manifest_policies(path, manifest_type)
+
+        # Use profile validation if provided, otherwise use default
+        if profile:
+            result = validate_against_profile(path, profile, manifest_type)
+        else:
+            result = validate_manifest_policies(path, manifest_type)
+
         results.append(result)
 
         if result.get("success"):
@@ -382,9 +615,11 @@ def validate_batch(strict: bool = False) -> Dict[str, Any]:
 
     overall_success = failed == 0
 
+    mode_desc = f"batch (profile: {profile.get('name')})" if profile else "batch"
+
     return {
         "success": overall_success,
-        "mode": "batch",
+        "mode": mode_desc,
         "message": f"Validated {len(manifests)} manifest(s): {passed} passed, {failed} failed",
         "total_manifests": len(manifests),
         "passed": passed,
@@ -415,18 +650,33 @@ def main():
         action="store_true",
         help="Treat warnings as errors"
     )
+    parser.add_argument(
+        "--profile",
+        help="Name of policy profile to use (from registry/policies/)"
+    )
 
     args = parser.parse_args()
 
     try:
+        # Load policy profile if specified
+        profile = None
+        if args.profile:
+            logger.info(f"Loading policy profile: {args.profile}")
+            profile = load_policy_profile(args.profile)
+            logger.info(f"Loaded profile '{profile.get('name')}' with {len(profile.get('rules', []))} rules")
+
         # Batch mode
         if args.batch or not args.manifest_path:
             logger.info("Running in batch mode")
-            result = validate_batch(strict=args.strict)
+            result = validate_batch(strict=args.strict, profile=profile)
         else:
             # Single file mode
             logger.info(f"Validating single manifest: {args.manifest_path}")
-            result = validate_manifest_policies(args.manifest_path)
+
+            if profile:
+                result = validate_against_profile(args.manifest_path, profile)
+            else:
+                result = validate_manifest_policies(args.manifest_path)
 
         # Output JSON result
         print(json.dumps(result, indent=2))

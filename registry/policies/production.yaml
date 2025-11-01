@@ -1,0 +1,36 @@
+policy:
+  name: production
+  version: 2.0.0
+  description: Production-ready policy with strict requirements.
+  type: validation
+  scope:
+  - artifact
+  rules:
+  - description: Require semantic versioning
+    pattern: ^\d+\.\d+\.\d+$
+    field: version
+    action: block
+    severity: error
+    message: Require semantic versioning
+  - description: No test status in production
+    field: status
+    action: block
+    severity: error
+    forbidden_values:
+    - test
+    - experimental
+    message: No test status in production
+  - description: Description is mandatory
+    field: description
+    required: true
+    action: warn
+    severity: warning
+    message: Description is mandatory
+  enforcement: blocking
+  environments:
+  - prod
+  metadata:
+    status: active
+  tags:
+  - production
+  - strict

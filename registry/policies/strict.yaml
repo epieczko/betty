@@ -1,0 +1,51 @@
+policy:
+  name: strict
+  version: 1.0.0
+  description: A strict policy profile for production environments with enhanced security
+    checks.
+  type: security
+  scope:
+  - artifact
+  rules:
+  - description: No hardcoded secrets
+    pattern: (password|api_key|secret|token)\s*=\s*["'][^"']+["']
+    action: block
+    severity: error
+    message: No hardcoded secrets
+  - description: Require version field
+    field: version
+    required: true
+    action: warn
+    severity: warning
+    message: Require version field
+  - description: Disallow deprecated imports
+    pattern: import\s+(old_library|deprecated_module)
+    action: block
+    severity: error
+    message: Disallow deprecated imports
+  - description: Require description field
+    field: description
+    required: true
+    action: warn
+    severity: warning
+    message: Require description field
+  - description: Enforce status values
+    field: status
+    action: block
+    severity: error
+    allowed_values:
+    - draft
+    - active
+    - deprecated
+    - archived
+    message: Enforce status values
+  enforcement: blocking
+  environments:
+  - prod
+  - staging
+  metadata:
+    status: active
+  tags:
+  - security
+  - strict
+  - production
