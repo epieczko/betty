@@ -1,9 +1,9 @@
 {
   "marketplace_version": "1.0.0",
-  "generated_at": "2025-10-27T02:20:16.073731+00:00",
+  "generated_at": "2025-11-01T17:25:48.347466+00:00",
   "description": "Betty Framework Certified Skills Marketplace",
-  "total_skills": 36,
-  "certified_count": 36,
+  "total_skills": 38,
+  "certified_count": 38,
   "draft_count": 0,
   "catalog": [
     {
@@ -833,6 +833,106 @@
               "details": "object"
             }
           }
+        }
+      ]
+    },
+    {
+      "name": "config.generate.router",
+      "version": "0.1.0",
+      "description": "Generates valid Claude Code Router configuration JSON from validated inputs",
+      "status": "certified",
+      "tags": [
+        "config",
+        "generation",
+        "router",
+        "llm"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/config.generate.router",
+      "dependencies": [],
+      "entrypoints": [
+        {
+          "command": "/skill/config/generate/router",
+          "handler": "generate_router.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "llm_backends",
+          "type": "array",
+          "required": true,
+          "description": "List of validated backend provider configurations"
+        },
+        {
+          "name": "routing_rules",
+          "type": "object",
+          "required": true,
+          "description": "Validated routing context mappings"
+        },
+        {
+          "name": "metadata",
+          "type": "object",
+          "required": false,
+          "description": "Optional metadata (audit_id, environment, etc.)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "router_config",
+          "type": "object",
+          "description": "Complete router configuration ready for file output"
+        }
+      ]
+    },
+    {
+      "name": "config.validate.router",
+      "version": "0.1.0",
+      "description": "Validates Claude Code Router configuration inputs for correctness, completeness, and schema compliance",
+      "status": "certified",
+      "tags": [
+        "validation",
+        "config",
+        "router",
+        "llm"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/config.validate.router",
+      "dependencies": [],
+      "entrypoints": [
+        {
+          "command": "/skill/config/validate/router",
+          "handler": "validate_router.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "llm_backends",
+          "type": "array",
+          "required": true,
+          "description": "List of backend provider configurations"
+        },
+        {
+          "name": "routing_rules",
+          "type": "object",
+          "required": true,
+          "description": "Dictionary mapping Claude routing contexts to provider/model pairs"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_result",
+          "type": "object",
+          "description": "Validation result with status and errors"
         }
       ]
     },
