@@ -943,5 +943,27 @@
       "rule_count": 2,
       "output_path": "/home/user/betty/registry/policies/e2e-test.yaml"
     }
+  },
+  {
+    "timestamp": "2025-11-01T18:00:07.223084+00:00",
+    "skill": "meta.policy.profile",
+    "status": "success",
+    "metadata": {
+      "profile_name": "integration-test-2",
+      "policy_type": "validation",
+      "rule_count": 1,
+      "output_path": "/home/user/betty/registry/policies/integration-test-2.yaml"
+    }
+  },
+  {
+    "timestamp": "2025-11-01T18:00:07.427471+00:00",
+    "skill": "meta.policy.profile",
+    "status": "success",
+    "metadata": {
+      "profile_name": "e2e-test",
+      "policy_type": "validation",
+      "rule_count": 2,
+      "output_path": "/home/user/betty/registry/policies/e2e-test.yaml"
+    }
   }
 ]

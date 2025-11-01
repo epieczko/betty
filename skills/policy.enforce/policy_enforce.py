@@ -23,6 +23,7 @@ from pathlib import Path
 from betty.config import BASE_DIR, SKILLS_DIR, AGENTS_DIR
 from betty.validation import validate_path, validate_version, ValidationError
 from betty.logging_utils import setup_logger
+from betty.errors import PolicyEnforcementError, PolicyConfigError
 
 logger = setup_logger(__name__)
 
@@ -44,6 +45,12 @@ def _load_policy_config() -> Dict[str, Any]:
 
     Returns cached config if already loaded.
     Falls back to defaults if betty-core.yaml not found.
+
+    Returns:
+        Dict with allowed_permissions, allowed_statuses, valid_name_pattern
+
+    Raises:
+        PolicyConfigError: If config exists but is invalid
     """
     global _POLICY_CONFIG
 
@@ -57,20 +64,34 @@ def _load_policy_config() -> Dict[str, Any]:
             with open(betty_core_path, 'r') as f:
                 betty_core = yaml.safe_load(f)
 
-            config = betty_core.get('policy', {}).get('config', {})
+            if not isinstance(betty_core, dict):
+                raise PolicyConfigError(
+                    f"Invalid betty-core.yaml: root must be a dictionary",
+                    details={"path": str(betty_core_path)}
+                )
+
+            policy = betty_core.get('policy', {})
+            config = policy.get('config', {})
+
             _POLICY_CONFIG = {
                 'allowed_permissions': set(config.get('allowed_permissions', _DEFAULT_ALLOWED_PERMISSIONS)),
                 'allowed_statuses': set(config.get('allowed_statuses', _DEFAULT_ALLOWED_STATUSES)),
                 'valid_name_pattern': config.get('valid_name_pattern', _DEFAULT_VALID_NAME_PATTERN)
             }
             logger.info(f"Loaded policy config from {betty_core_path}")
+
+        except yaml.YAMLError as e:
+            raise PolicyConfigError(
+                f"Failed to parse betty-core.yaml: {e}",
+                details={"path": str(betty_core_path), "yaml_error": str(e)}
+            )
+        except PolicyConfigError:
+            raise  # Re-raise PolicyConfigError
         except Exception as e:
-            logger.warning(f"Failed to load betty-core.yaml: {e}, using defaults")
-            _POLICY_CONFIG = {
-                'allowed_permissions': _DEFAULT_ALLOWED_PERMISSIONS,
-                'allowed_statuses': _DEFAULT_ALLOWED_STATUSES,
-                'valid_name_pattern': _DEFAULT_VALID_NAME_PATTERN
-            }
+            raise PolicyConfigError(
+                f"Failed to load betty-core.yaml: {e}",
+                details={"path": str(betty_core_path), "error": str(e)}
+            )
     else:
         logger.info(f"betty-core.yaml not found, using default policy config")
         _POLICY_CONFIG = {
@@ -117,16 +138,29 @@ def load_manifest(path: str) -> Dict[str, Any]:
         Parsed manifest dictionary
 
     Raises:
-        Exception: If manifest cannot be loaded or parsed
+        PolicyEnforcementError: If manifest cannot be loaded or parsed
     """
     try:
         with open(path) as f:
             manifest = yaml.safe_load(f)
+        if not isinstance(manifest, dict):
+            raise PolicyEnforcementError(
+                f"Invalid manifest: root must be a dictionary",
+                details={"path": path}
+            )
         return manifest
     except FileNotFoundError:
-        raise Exception(f"Manifest file not found: {path}")
+        raise PolicyEnforcementError(
+            f"Manifest file not found: {path}",
+            details={"path": path}
+        )
     except yaml.YAMLError as e:
-        raise Exception(f"Failed to parse YAML: {e}")
+        raise PolicyEnforcementError(
+            f"Failed to parse YAML: {e}",
+            details={"path": path, "yaml_error": str(e)}
+        )
+    except PolicyEnforcementError:
+        raise  # Re-raise PolicyEnforcementError
 
 
 def validate_name_format(name: str) -> Optional[PolicyViolation]:
@@ -417,16 +451,25 @@ def load_policy_profile(profile_name: str) -> Dict[str, Any]:
         Policy profile dictionary
 
     Raises:
-        Exception: If profile cannot be loaded
+        PolicyEnforcementError: If profile cannot be loaded
     """
     profile_path = POLICIES_DIR / f"{profile_name}.yaml"
 
     if not profile_path.exists():
-        raise Exception(f"Policy profile not found: {profile_path}")
+        raise PolicyEnforcementError(
+            f"Policy profile not found: {profile_name}",
+            details={"profile_name": profile_name, "path": str(profile_path)}
+        )
 
     try:
         with open(profile_path) as f:
             data = yaml.safe_load(f)
+
+        if not isinstance(data, dict):
+            raise PolicyEnforcementError(
+                f"Invalid policy profile: root must be a dictionary",
+                details={"profile_name": profile_name, "path": str(profile_path)}
+            )
 
         # Handle both wrapped (policy: {...}) and unwrapped formats
         if 'policy' in data:
@@ -435,7 +478,12 @@ def load_policy_profile(profile_name: str) -> Dict[str, Any]:
             return data
 
     except yaml.YAMLError as e:
-        raise Exception(f"Failed to parse policy profile: {e}")
+        raise PolicyEnforcementError(
+            f"Failed to parse policy profile: {e}",
+            details={"profile_name": profile_name, "path": str(profile_path), "yaml_error": str(e)}
+        )
+    except PolicyEnforcementError:
+        raise  # Re-raise PolicyEnforcementError
 
 
 def apply_pattern_rule(manifest: Dict[str, Any], rule: Dict[str, Any], manifest_content: str) -> Optional[PolicyViolation]:

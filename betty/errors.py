@@ -75,6 +75,26 @@ class AgentRegistryError(BettyError):
     pass
 
 
+class PolicyDefinitionError(BettyError):
+    """Raised when policy definition parsing fails."""
+    pass
+
+
+class PolicyValidationError(BettyError):
+    """Raised when policy validation fails."""
+    pass
+
+
+class PolicyEnforcementError(BettyError):
+    """Raised when policy enforcement fails."""
+    pass
+
+
+class PolicyConfigError(BettyError):
+    """Raised when policy configuration is invalid."""
+    pass
+
+
 def format_error_response(error: Exception, include_traceback: bool = False) -> Dict[str, Any]:
     """
     Format an exception into a standardized error response.
