@@ -139,15 +139,15 @@ class RiskReviewer:
             raise
 
         finally:
-            # Record metrics
-            if self.metrics and result:
+            # Record metrics (always, even on failure)
+            if self.metrics:
                 duration = time.time() - start_time
                 self.metrics.record_assessment(
                     mode=self.mode,
                     duration=duration,
-                    risk_score=result.get('risk_score', 0),
-                    findings_count=len(result.get('findings', [])),
-                    cost=result.get('assessment_cost', 0.0),
+                    risk_score=result.get('risk_score', 0) if result else 0,
+                    findings_count=len(result.get('findings', [])) if result else 0,
+                    cost=result.get('assessment_cost', 0.0) if result else 0.0,
                     cache_hit=cache_hit,
                     error=error_msg
                 )
@@ -397,24 +397,116 @@ class RiskReviewer:
         return normalized
 
     def _check_critical_patterns(self, content: str) -> Dict[str, Any]:
-        """Fast check for critical security patterns"""
+        """Fast check for critical security patterns (expanded from 2 to 12 checks)"""
         findings = []
+        content_lower = content.lower()
 
-        # Hardcoded credentials patterns
-        credential_patterns = [
-            (r'(password|passwd|pwd|secret|api[_-]?key|private[_-]?key|token)\s*[:=]\s*["\']?[\w\-]{8,}["\']?', 'Hardcoded credentials detected'),
-            (r'(admin|root|default)[_-]?(password|passwd|pwd)\s*[:=]', 'Default/admin credentials'),
+        # Pattern definitions: (pattern, issue, impact, remediation, category)
+        critical_patterns = [
+            # Credential issues
+            (r'(password|passwd|pwd|secret|api[_-]?key|private[_-]?key|token)\s*[:=]\s*["\']?[\w\-]{8,}["\']?',
+             'Hardcoded credentials detected',
+             'Unauthorized access, credential exposure',
+             'Use secure credential management (vault, environment variables)',
+             'security'),
+
+            (r'(admin|root|default)[_-]?(password|passwd|pwd)\s*[:=]',
+             'Default/admin credentials',
+             'Account compromise via default credentials',
+             'Remove default credentials, enforce password changes',
+             'security'),
+
+            # Encryption issues
+            (r'\b(http://|unencrypted|no[_\s-]?encryption|plain[_\s-]?text[_\s-]?transmission)',
+             'Unencrypted data transmission detected',
+             'Data interception, man-in-the-middle attacks',
+             'Implement TLS/HTTPS for all data transmission',
+             'security'),
+
+            # SQL injection vectors
+            (r'(execute|query|sql).*\+.*\b(input|user|request|param)',
+             'Potential SQL injection vulnerability',
+             'Database compromise, data breach',
+             'Use parameterized queries and input validation',
+             'security'),
+
+            # Command injection vectors
+            (r'(exec|system|shell|command).*\+.*(input|user|request)',
+             'Potential command injection vulnerability',
+             'Remote code execution, system compromise',
+             'Avoid dynamic command construction, use safe APIs',
+             'security'),
+
+            # Missing authentication
+            (r'\b(no[_\s-]?auth|without[_\s-]?auth|unauthenticated|public[_\s-]?access)\b',
+             'Missing authentication controls',
+             'Unauthorized access to sensitive resources',
+             'Implement authentication for all sensitive endpoints',
+             'security'),
+
+            # Disabled security features
+            (r'\b(disable[ds]?|turn[_\s-]?off)[_\s-]?(ssl|tls|https|certificate[_\s-]?validation|auth)',
+             'Security feature explicitly disabled',
+             'Bypass of critical security controls',
+             'Enable and enforce security features',
+             'security'),
+
+            # Debug/test code in production
+            (r'\b(debug[_\s-]?mode|test[_\s-]?mode|development[_\s-]?mode)\s*[:=]\s*(true|enabled|on|1)',
+             'Debug/test mode enabled',
+             'Information disclosure, security bypass',
+             'Disable debug modes in production',
+             'operational'),
+
+            # Missing audit logging
+            (r'\b(no[_\s-]?log|without[_\s-]?logging|logging[_\s-]?disabled)\b',
+             'Missing audit logging',
+             'Inability to detect or investigate security incidents',
+             'Implement comprehensive audit logging',
+             'security'),
+
+            # Weak cryptographic algorithms
+            (r'\b(md5|sha1|des|rc4|ssl[_\s-]?v[23])\b(?!.*deprecated)',
+             'Weak cryptographic algorithm in use',
+             'Cryptographic attacks, data exposure',
+             'Use strong algorithms (SHA-256+, AES-256, TLS 1.2+)',
+             'security'),
+
+            # Missing access controls
+            (r'\b(world[_\s-]?readable|public[_\s-]?bucket|permissions.*777|chmod.*777)\b',
+             'Overly permissive access controls',
+             'Unauthorized data access',
+             'Implement least-privilege access controls',
+             'security'),
+
+            # Missing backup/recovery
+            (r'\b(no[_\s-]?backup|without[_\s-]?backup|backup.*not[_\s-]?configured)\b',
+             'Missing backup or recovery procedures',
+             'Data loss, business continuity failure',
+             'Implement regular backups and test recovery',
+             'operational'),
         ]
 
-        for pattern, issue in credential_patterns:
-            if re.search(pattern, content, re.IGNORECASE):
+        for pattern, issue, impact, remediation, category in critical_patterns:
+            match = re.search(pattern, content, re.IGNORECASE)
+            if match:
+                # Check for negation words before the match to reduce false positives
+                start_pos = max(0, match.start() - 50)
+                context_before = content[start_pos:match.start()].lower()
+
+                # Skip if negated (e.g., "ensure no password", "must not use http")
+                negation_words = ['ensure no', 'must not', 'shall not', 'do not', 'never use',
+                                'avoid', 'prevent', 'prohibit', 'forbidden', 'not allow']
+                if any(neg in context_before for neg in negation_words):
+                    continue
+
                 findings.append({
-                    'category': 'security',
+                    'category': category,
                     'severity': 'critical',
                     'finding': issue,
-                    'evidence': re.search(pattern, content, re.IGNORECASE).group(0)[:100],
-                    'impact': 'Unauthorized access, credential exposure',
-                    'remediation': 'Use secure credential management (vault, environment variables)'
+                    'evidence': match.group(0)[:100],
+                    'impact': impact,
+                    'remediation': remediation
                 })
 
         return {
@@ -579,6 +671,17 @@ def main():
         action='store_true',
         help='Disable automatic flagging for human review'
     )
+    parser.add_argument(
+        '--max-cost',
+        type=float,
+        default=0.10,
+        help='Maximum cost per assessment in USD (default: $0.10)'
+    )
+    parser.add_argument(
+        '--skip-cost-check',
+        action='store_true',
+        help='Skip cost check and confirmation'
+    )
 
     args = parser.parse_args()
 
@@ -586,6 +689,41 @@ def main():
     if args.show_review_queue:
         get_review_queue().print_pending_reviews()
         return 0
+
+    # Cost check for AI modes
+    if args.mode in ['smart', 'ai', 'hybrid'] and not args.skip_cost_check:
+        from ai_engine import estimate_cost
+
+        try:
+            artifact_content = Path(args.artifact_path).read_text()
+            estimated_cost = estimate_cost(artifact_content)
+
+            # Double for hybrid mode (runs both engines)
+            if args.mode == 'hybrid':
+                estimated_cost *= 2
+
+            if estimated_cost > args.max_cost:
+                print(f"\n{'⚠️ ' * 20}")
+                print(f"WARNING: Estimated cost ${estimated_cost:.4f} exceeds max budget ${args.max_cost:.2f}")
+                print(f"")
+                print(f"This assessment will cost approximately ${estimated_cost:.4f}")
+                print(f"Your configured maximum is ${args.max_cost:.2f}")
+                print(f"")
+                print(f"Options:")
+                print(f"  1. Use --mode=fast (free, pattern matching only)")
+                print(f"  2. Increase budget with --max-cost={estimated_cost:.2f}")
+                print(f"  3. Skip this check with --skip-cost-check")
+                print(f"{'⚠️ ' * 20}\n")
+                return 1
+
+            elif estimated_cost > 0.05 and not args.quiet:
+                print(f"\n💰 Cost Estimate: ${estimated_cost:.4f}")
+                print(f"   {'(Within budget: $'+str(args.max_cost)+')':}")
+                print()
+
+        except FileNotFoundError:
+            print(f"Error: Artifact file not found: {args.artifact_path}")
+            return 1
 
     # Perform assessment
     result = review_risk(
