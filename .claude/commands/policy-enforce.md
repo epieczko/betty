@@ -6,21 +6,23 @@ Enforce policy rules on manifest files (single file or all manifests).
 
 1. **Determine scope**:
    - Single manifest: User provides path
-   - All manifests: User requests via `--all` flag or "all manifests"
+   - All manifests: User says "all" or requests batch mode
    - Profile: Optional, defaults to betty-core validation
 
 2. **Run enforcement**:
 
    **For single manifest:**
-   - Execute: `./bin/betty-policy enforce <manifest-path> [--profile <name>]`
+   - Execute: `python skills/policy.enforce/policy_enforce.py <manifest-path> [--profile <name>]`
+   - Without --profile: Uses default betty-core validation
+   - With --profile: Uses specified profile from registry/policies/
 
-   **For all manifests:**
-   - Execute: `./bin/betty-policy enforce --all [--profile <name>]`
-   - This checks all skills/*/skill.yaml and agents/*/agent.yaml
+   **For all manifests (batch mode):**
+   - Execute: `python skills/policy.enforce/policy_enforce.py --batch [--profile <name>]`
+   - Checks all skills/*/skill.yaml and agents/*/agent.yaml
 
 3. **Parse and display results**:
 
-   **Summary format:**
+   **For batch mode, show summary:**
    ```
    Policy Enforcement Results
    ━━━━━━━━━━━━━━━━━━━━━━━━
@@ -33,6 +35,7 @@ Enforce policy rules on manifest files (single file or all manifests).
    - Show manifest path
    - List violations with clear messages
    - Group by severity (errors first, then warnings)
+   - Use 🔴 for errors, ⚠️ for warnings
 
 4. **Provide actionable guidance**:
    - If all passed: "✓ All manifests comply with policy!"
@@ -44,15 +47,15 @@ Enforce policy rules on manifest files (single file or all manifests).
 
 5. **Suggest next steps**:
    - "Fix violations in: <file-paths>"
-   - "Re-run enforcement: `/policy-enforce`"
-   - "View specific profile: `/policy-show <profile>`"
-   - "Create stricter profile: `/policy-create`"
+   - "Re-run: `/policy-enforce`"
+   - "View profile: `/policy-show <profile>`"
+   - "Create custom profile: `/policy-create`"
 
 ## Arguments:
 
-- **Optional:** Manifest path (if not provided, assumes --all)
-- **Optional:** --profile <name> (defaults to betty-core)
-- **Optional:** --all flag (check all manifests)
+- **Optional:** Manifest path (if omitted, user must specify "all" or batch)
+- **Optional:** --profile <name> (defaults to betty-core validation)
+- **Optional:** --batch or "all manifests" (check everything)
 
 ## Success Criteria:
 

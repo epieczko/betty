@@ -5,28 +5,33 @@ Test a policy profile against a specific manifest file.
 ## What to do:
 
 1. **Validate inputs**:
-   - Confirm profile exists: `./bin/betty-policy list` and check
+   - Confirm profile exists: `ls registry/policies/<profile>.yaml`
    - Verify manifest file exists
    - Identify manifest type (skill.yaml or agent.yaml)
 
-2. **Run the test**:
-   - Execute: `./bin/betty-policy test <profile> <manifest-path>`
-   - The tool outputs human-friendly format by default
+2. **Run policy enforcement with profile**:
+   - Execute: `python skills/policy.enforce/policy_enforce.py <manifest-path> --profile <profile-name>`
+   - This validates the manifest against the specified profile
+   - Output is JSON format
 
-3. **Show results clearly**:
-   - **If passed**:
-     - ✓ Show success message
-     - Display number of rules checked
-     - Congratulate user
+3. **Parse and display results**:
+   - **If success: true**:
+     ```
+     ✓ Policy '<profile>' validation passed
+       Manifest: <path>
+       Rules checked: <count>
+     ```
 
-   - **If failed**:
-     - ✗ Show violation count
-     - For each violation:
-       - Field that failed
-       - Rule violated
-       - Clear message explaining the issue
-       - Severity (error/warning)
-     - Use emojis: 🔴 for errors, ⚠️ for warnings
+   - **If success: false**:
+     ```
+     ✗ Policy '<profile>' validation failed
+       Manifest: <path>
+       Violations: <count>
+
+       🔴 <field>: <message>
+       ⚠️  <field>: <message>
+     ```
+     - Use 🔴 for errors, ⚠️ for warnings
 
 4. **Provide actionable feedback**:
    - Explain what needs to be fixed
@@ -35,8 +40,8 @@ Test a policy profile against a specific manifest file.
 
 5. **Suggest next steps**:
    - If passed: "Ready to commit? Use `/commit`"
-   - If failed: "Fix the violations and run `/policy-test <profile> <manifest>` again"
-   - For custom profiles: "Adjust the profile rules if needed: `/policy-show <profile>`"
+   - If failed: "Fix the violations and test again"
+   - For custom profiles: "Adjust profile: `/policy-show <profile>`"
 
 ## Arguments:
 

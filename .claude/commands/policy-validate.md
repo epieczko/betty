@@ -5,17 +5,17 @@ Validate a policy profile YAML file for correctness.
 ## What to do:
 
 1. **Run validation**:
-   - Execute: `./bin/betty-policy validate <policy-file-path> [--strict]`
-   - Use --strict flag for production profiles
+   - Execute: `python skills/policy.validate/policy_validate.py <policy-file-path> [--strict]`
+   - Use --strict flag for production profiles (treats warnings as errors)
+   - Output is JSON format
 
 2. **Parse validation results**:
-   - Check if valid: true/false
-   - Extract errors and warnings
-   - Note rule count and structure
+   - Check: valid (true/false)
+   - Extract: errors[], warnings[], rule_count, message
 
 3. **Display results clearly**:
 
-   **If valid:**
+   **If valid: true**:
    ```
    ✓ Policy YAML is valid
 
@@ -23,9 +23,10 @@ Validate a policy profile YAML file for correctness.
    Type: <type>
    Rules: <count>
    Scope: <scopes>
+   Enforcement: <level>
    ```
 
-   **If invalid:**
+   **If valid: false**:
    ```
    ✗ Policy YAML validation failed
 
@@ -53,8 +54,8 @@ Validate a policy profile YAML file for correctness.
    - Offer to fix automatically if appropriate
 
 6. **Next steps**:
-   - If valid: "Profile ready! Use `/policy-show <name>` to preview"
-   - If invalid: "Fix the errors and run `/policy-validate` again"
+   - If valid: "Profile ready! View it: `/policy-show <name>`"
+   - If invalid: "Fix errors and run `/policy-validate <file>` again"
 
 ## Arguments:
 

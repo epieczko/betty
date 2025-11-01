@@ -21,22 +21,26 @@ Create a new policy profile from a Markdown specification.
    - Help them define appropriate rules for their use case
 
 2. **Create/validate the spec file**:
-   - If user provides content, write it to a temp file
+   - If user provides content, write it to a temp file (e.g., `/tmp/policy-spec.md`)
    - If user provides a path, verify it exists
 
-3. **Run the create command**:
-   - Execute: `./bin/betty-policy create <name> <spec-file> [--type security|validation|compliance] [--enforcement blocking|warning|info]`
-   - Default type: validation
-   - Default enforcement: blocking
+3. **Run the meta-agent**:
+   - Execute: `python agents/meta.policy.profile/meta_policy_profile.py <profile-name> <spec-file> [--type validation|security|compliance] [--enforcement blocking|warning|info]`
+   - Defaults: --type validation, --enforcement blocking
+   - The agent will:
+     - Parse Markdown → YAML (via policy.define)
+     - Validate the generated policy (via policy.validate)
+     - Save to registry/policies/<name>.yaml
+     - Create audit log entry
 
 4. **Show results**:
    - Display the generated profile location
    - Show number of rules parsed
    - Display any validation errors or warnings
-   - Show the profile YAML preview
+   - Show profile YAML preview
 
 5. **Verify success**:
-   - Run: `./bin/betty-policy show <name>` to confirm
+   - Show the created profile: `/policy-show <name>`
    - Suggest testing: `/policy-test <name> <manifest-path>`
 
 ## Arguments:

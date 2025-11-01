@@ -4,29 +4,34 @@ Show detailed information about a specific policy profile.
 
 ## What to do:
 
-1. **Run the show command**:
-   - Execute: `./bin/betty-policy show <profile-name>`
-   - Parse the JSON output
+1. **Load the policy profile**:
+   - Read: `registry/policies/<profile-name>.yaml`
+   - Parse the YAML structure
 
-2. **Display profile details**:
-   - Name, version, type, scope
+2. **Display profile details clearly**:
+   - Header: Name, version, type, scope
    - Description
    - Enforcement level
-   - List all rules with:
-     - Rule ID
-     - Field being validated
-     - Check type (pattern, allowed_values, etc.)
-     - Message
-     - Severity and action
+   - **Rules section**: For each rule:
+     ```
+     Rule: <id or name>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     Field:    <field>
+     Check:    <check type>
+     Pattern:  <pattern if applicable>
+     Values:   <allowed/forbidden values if applicable>
+     Message:  <message>
+     Severity: <severity> | Action: <action>
+     ```
 
 3. **Provide context**:
-   - Explain what the profile is for
-   - Show which scopes it applies to
-   - Highlight any strict/blocking rules
+   - Explain what the profile validates
+   - Highlight strict/blocking rules vs warnings
+   - Show which manifest types it applies to (scope)
 
 4. **Suggest next steps**:
    - "Test this profile: `/policy-test <profile> <manifest-path>`"
-   - "Enforce on all manifests: `/policy-enforce --profile <profile>`"
+   - "Enforce on all manifests: `/policy-enforce --all --profile <profile>`"
 
 ## Arguments:
 
