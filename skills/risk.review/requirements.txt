@@ -1,6 +1,10 @@
 # Core dependencies for risk.review skill
 pyyaml>=6.0
 
+# AI engine
+anthropic>=0.39.0  # Claude API for AI-native risk assessment
+
 # Test dependencies
 pytest>=8.0
 pytest-cov>=4.0  # Optional: for coverage reports
+pytest-mock>=3.12.0  # For mocking AI responses in tests

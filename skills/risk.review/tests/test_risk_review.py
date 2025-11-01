@@ -8,11 +8,13 @@ Tests security, privacy, operational, and compliance risk assessments.
 import sys
 import pytest
 from pathlib import Path
+from unittest.mock import Mock, patch
 
 # Add parent directory to path to import risk_review module
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from risk_review import (
+from risk_review import review_risk
+from regex_engine import (
     load_artifact,
     assess_security_risks,
     assess_privacy_risks,
@@ -21,7 +23,6 @@ from risk_review import (
     calculate_overall_risk_score,
     determine_risk_rating,
     generate_remediation_plan,
-    review_risk,
     POLICY_FRAMEWORKS
 )
 
@@ -460,7 +461,9 @@ class TestIntegrationWorkflow:
         result = review_risk(
             artifact_path=artifact_path,
             policy_frameworks=["SOC2", "GDPR"],
-            risk_threshold="high"
+            risk_threshold="high",
+            mode="fast",  # Use regex engine for tests
+            verbose=False
         )
 
         assert result["success"] is True
@@ -477,7 +480,9 @@ class TestIntegrationWorkflow:
         result = review_risk(
             artifact_path=artifact_path,
             policy_frameworks=["HIPAA", "ISO27001", "SOC2"],
-            risk_threshold="medium"
+            risk_threshold="medium",
+            mode="fast",  # Use regex engine for tests
+            verbose=False
         )
 
         assert result["success"] is True
@@ -493,7 +498,9 @@ class TestIntegrationWorkflow:
         result = review_risk(
             artifact_path=artifact_path,
             policy_frameworks=["PCI-DSS"],
-            risk_threshold="medium"
+            risk_threshold="medium",
+            mode="fast",  # Use regex engine for tests
+            verbose=False
         )
 
         assert result["success"] is True
@@ -504,7 +511,7 @@ class TestIntegrationWorkflow:
         """Test error handling for non-existent file"""
         artifact_path = str(FIXTURES_DIR / "does-not-exist.yaml")
 
-        result = review_risk(artifact_path=artifact_path)
+        result = review_risk(artifact_path=artifact_path, mode="fast", verbose=False)
 
         assert result["success"] is False
         assert "error" in result
@@ -515,7 +522,7 @@ class TestIntegrationWorkflow:
         """Test default frameworks when none specified"""
         artifact_path = str(FIXTURES_DIR / "medium-risk-artifact.yaml")
 
-        result = review_risk(artifact_path=artifact_path)
+        result = review_risk(artifact_path=artifact_path, mode="fast", verbose=False)
 
         assert result["success"] is True
         # Should use default frameworks
@@ -526,7 +533,7 @@ class TestIntegrationWorkflow:
         """Test audit report has required structure"""
         artifact_path = str(FIXTURES_DIR / "low-risk-artifact.yaml")
 
-        result = review_risk(artifact_path=artifact_path)
+        result = review_risk(artifact_path=artifact_path, mode="fast", verbose=False)
 
         audit_report = result["audit_report"]
         required_fields = [
@@ -543,7 +550,7 @@ class TestIntegrationWorkflow:
         """Test risk assessment has required structure"""
         artifact_path = str(FIXTURES_DIR / "medium-risk-artifact.yaml")
 
-        result = review_risk(artifact_path=artifact_path)
+        result = review_risk(artifact_path=artifact_path, mode="fast", verbose=False)
 
         risk_assessment = result["risk_assessment"]
         assert "risk_score" in risk_assessment

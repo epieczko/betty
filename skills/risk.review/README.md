@@ -2,10 +2,23 @@
 
 ## Overview
 
-The `risk.review` skill performs comprehensive policy compliance and risk assessment on Betty Framework artifacts. It analyzes artifacts for security risks, policy compliance, regulatory alignment, and generates detailed audit reports with prioritized remediation recommendations.
+The `risk.review` skill performs comprehensive policy compliance and risk assessment on Betty Framework artifacts using **AI-native semantic analysis**. It analyzes artifacts for security risks, policy compliance, regulatory alignment, and generates detailed audit reports with prioritized remediation recommendations.
+
+### 🆕 AI-Native Assessment
+
+This skill leverages Claude for context-aware risk analysis that:
+- Distinguishes implemented controls vs future plans ("will implement" ≠ "is implemented")
+- Detects implicit risks (e.g., "public S3 bucket" → data exposure)
+- Provides evidence-based findings with specific quotes from artifacts
+- Understands semantic context that pattern matching cannot
+
+**📖 See [AI Modes Documentation](README_AI_MODES.md) for complete details**
 
 ## Features
 
+- **🤖 AI-Powered Semantic Analysis**: Context-aware risk detection using Claude API
+- **⚡ Three Assessment Modes**: Smart (AI+fast), AI (pure), Fast (regex-only)
+- **💰 Cost Optimization**: Automatic caching and smart pre-checks
 - **Multi-Framework Compliance Assessment**: Evaluate against SOC2, ISO27001, GDPR, HIPAA, PCI-DSS, and NIST frameworks
 - **Comprehensive Risk Analysis**: Security, privacy, operational, and compliance risk assessment
 - **Risk Scoring**: Quantitative risk scoring (0-100) with severity ratings
@@ -26,22 +39,31 @@ The `risk.review` skill performs comprehensive policy compliance and risk assess
 - `--artifact-type`: Type of artifact (auto-detected if not provided)
 - `--policy-frameworks`: Frameworks to assess against (SOC2, ISO27001, GDPR, HIPAA, PCI-DSS, NIST)
 - `--risk-threshold`: Risk threshold level (low, medium, high, critical) - default: medium
+- `--mode`: Assessment mode (`smart`, `ai`, `fast`) - default: smart
+- `--no-cache`: Disable caching for AI assessments
+- `--quiet`: Suppress progress output
 - `--output`: Save assessment report to file
 
 ### Examples
 
 ```bash
-# Basic risk assessment
+# Basic risk assessment (AI smart mode)
 /skill/risk/review artifacts/deployment-plan.yaml
+
+# Pure AI mode for maximum accuracy
+/skill/risk/review artifacts/security-policy.yaml --mode=ai
+
+# Fast mode for CI/CD pipelines
+/skill/risk/review artifacts/config.yaml --mode=fast
 
 # Assess against specific frameworks
 /skill/risk/review artifacts/security-policy.yaml --policy-frameworks SOC2 HIPAA GDPR
 
 # Save detailed report
-/skill/risk/review artifacts/architecture.yaml --output reports/risk-assessment.yaml
+/skill/risk/review artifacts/architecture.yaml --output reports/risk-assessment.yaml --mode=ai
 
-# High-risk threshold assessment
-/skill/risk/review artifacts/data-processing.yaml --risk-threshold high
+# Disable caching for fresh assessment
+/skill/risk/review artifacts/data-processing.yaml --no-cache
 ```
 
 ## Inputs
