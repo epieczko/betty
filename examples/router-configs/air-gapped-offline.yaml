@@ -1,0 +1,51 @@
+# Air-Gapped / Offline: Local Models Only
+# No external API calls - all models run locally via Ollama
+
+llm_backends:
+  - name: ollama
+    api_base_url: http://localhost:11434/v1/chat/completions
+    api_key: ollama
+    models:
+      - qwen2.5-coder:latest
+      - llama3.1:70b
+      - codellama:34b
+      - deepseek-coder:33b
+      - mixtral:8x7b
+
+routing_rules:
+  # Default: Qwen2.5 Coder for general coding tasks
+  default:
+    provider: ollama
+    model: qwen2.5-coder:latest
+
+  # Background: Same model (no cost concerns)
+  background:
+    provider: ollama
+    model: qwen2.5-coder:latest
+
+  # Think: Larger model for complex reasoning
+  think:
+    provider: ollama
+    model: llama3.1:70b
+
+  # Long context: Mixtral for large context windows
+  longContext:
+    provider: ollama
+    model: mixtral:8x7b
+
+  # Web search: Not available in air-gapped mode, use best available
+  webSearch:
+    provider: ollama
+    model: llama3.1:70b
+
+config_options:
+  LOG: true
+  LOG_LEVEL: debug
+  API_TIMEOUT_MS: 900000  # Longer timeout for local inference
+  NON_INTERACTIVE_MODE: false
+
+metadata:
+  environment: air-gapped
+  purpose: Fully offline operation with local models only
+  security_level: high
+  created_by: meta.config.router

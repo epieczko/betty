@@ -1,0 +1,58 @@
+# Cost-Optimized: Minimize API Costs
+# Uses cheaper models for most tasks, premium only when needed
+
+llm_backends:
+  - name: openrouter
+    api_base_url: https://openrouter.ai/api/v1/chat/completions
+    api_key: $OPENROUTER_API_KEY
+    models:
+      - anthropic/claude-3-haiku  # Cheapest Claude model
+      - anthropic/claude-3.5-sonnet  # Premium for critical tasks
+      - google/gemini-2.5-flash  # Fast and cheap
+    transformer:
+      use:
+        - openrouter
+
+  - name: ollama
+    api_base_url: http://localhost:11434/v1/chat/completions
+    api_key: ollama
+    models:
+      - qwen2.5-coder:latest
+      - llama3.1:8b  # Smaller model for simple tasks
+
+routing_rules:
+  # Default: Use cheapest Claude model
+  default:
+    provider: openrouter
+    model: anthropic/claude-3-haiku
+
+  # Background: Free local model
+  background:
+    provider: ollama
+    model: llama3.1:8b
+
+  # Think: Premium model only when needed
+  think:
+    provider: openrouter
+    model: anthropic/claude-3.5-sonnet
+
+  # Long context: Gemini Flash (cheap with high context)
+  longContext:
+    provider: openrouter
+    model: google/gemini-2.5-flash
+
+  # Web search: Gemini Flash
+  webSearch:
+    provider: openrouter
+    model: google/gemini-2.5-flash
+
+config_options:
+  LOG: true
+  LOG_LEVEL: warn  # Less verbose logging
+  API_TIMEOUT_MS: 300000  # Shorter timeout to fail fast
+  NON_INTERACTIVE_MODE: false
+
+metadata:
+  environment: cost-optimized
+  purpose: Minimize API costs while maintaining functionality
+  created_by: meta.config.router

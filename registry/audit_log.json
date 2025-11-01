@@ -768,5 +768,98 @@
       "total_steps": 2,
       "failed_steps": 1
     }
+  },
+  {
+    "audit_id": "db44c252-b7eb-4c3a-85d3-e30c2f3745c8",
+    "timestamp": "2025-11-01T17:14:46.590250Z",
+    "agent": "meta.config.router",
+    "version": "0.1.0",
+    "action": "router_config_generated",
+    "write_status": "skipped",
+    "input_hash": "0d6975ea637d5d84",
+    "environment": "local",
+    "initiator": "unknown",
+    "metadata": {
+      "environment": "air-gapped",
+      "purpose": "Fully offline operation with local models only",
+      "security_level": "high",
+      "created_by": "meta.config.router"
+    }
+  },
+  {
+    "audit_id": "3818a24d-22b1-4a0b-ad5e-37d7b895b5ce",
+    "timestamp": "2025-11-01T17:14:46.835886Z",
+    "agent": "meta.config.router",
+    "version": "0.1.0",
+    "action": "router_config_generated",
+    "write_status": "skipped",
+    "input_hash": "712e88c111cec172",
+    "environment": "local",
+    "initiator": "unknown",
+    "metadata": {
+      "environment": "local-dev",
+      "purpose": "Development environment with local fallbacks",
+      "created_by": "meta.config.router"
+    }
+  },
+  {
+    "audit_id": "5688683f-5dd4-4d62-a35b-f06243c263d1",
+    "timestamp": "2025-11-01T17:14:47.077646Z",
+    "agent": "meta.config.router",
+    "version": "0.1.0",
+    "action": "router_config_generated",
+    "write_status": "skipped",
+    "input_hash": "7d059fc7bd742e52",
+    "environment": "local",
+    "initiator": "unknown",
+    "metadata": {
+      "environment": "cost-optimized",
+      "purpose": "Minimize API costs while maintaining functionality",
+      "created_by": "meta.config.router"
+    }
+  },
+  {
+    "audit_id": "64fb9c63-8e84-4287-829d-ae051aa11306",
+    "timestamp": "2025-11-01T17:14:47.319808Z",
+    "agent": "meta.config.router",
+    "version": "0.1.0",
+    "action": "router_config_generated",
+    "write_status": "skipped",
+    "input_hash": "4f2ed08ae8652932",
+    "environment": "local",
+    "initiator": "unknown",
+    "metadata": {
+      "environment": "ci-cd",
+      "purpose": "Automated testing and deployment pipelines",
+      "created_by": "meta.config.router"
+    }
+  },
+  {
+    "audit_id": "51aee000-9612-4e45-93ca-055bc0849c9e",
+    "timestamp": "2025-11-01T17:14:47.561927Z",
+    "agent": "meta.config.router",
+    "version": "0.1.0",
+    "action": "router_config_generated",
+    "write_status": "skipped",
+    "input_hash": "726a30a2b53cec4d",
+    "environment": "local",
+    "initiator": "unknown",
+    "metadata": {
+      "environment": "production",
+      "purpose": "Multi-cloud production deployment with redundancy",
+      "created_by": "meta.config.router"
+    }
+  },
+  {
+    "audit_id": "22d3eb11-0c0b-4213-b064-f8036ff40176",
+    "timestamp": "2025-11-01T17:14:47.798501Z",
+    "agent": "meta.config.router",
+    "version": "0.1.0",
+    "action": "router_config_generated",
+    "write_status": "skipped",
+    "input_hash": "ebe562ad80239d7b",
+    "environment": "local",
+    "initiator": "unknown",
+    "metadata": {}
   }
 ]

@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0.0",
-  "generated_at": "2025-10-26T19:34:41.234431+00:00",
+  "generated_at": "2025-11-01T16:58:49.266602+00:00",
   "agents": [
     {
       "name": "api.designer",
@@ -399,6 +399,37 @@
       "status": "draft",
       "tags": [],
       "dependencies": []
+    },
+    {
+      "name": "meta.config.router",
+      "version": "0.1.0",
+      "description": "Configure Claude Code Router for Betty to support multi-model LLM routing across environments",
+      "status": "active",
+      "reasoning_mode": "oneshot",
+      "capabilities": [
+        "Generate multi-model LLM router configurations",
+        "Validate router configuration inputs for correctness",
+        "Apply configurations to filesystem with audit trails",
+        "Support multiple output modes (preview, file, both)",
+        "Work across local, cloud, and CI environments"
+      ],
+      "skills_available": [
+        "config.validate.router",
+        "config.generate.router",
+        "audit.log"
+      ],
+      "permissions": [
+        "filesystem:read",
+        "filesystem:write"
+      ],
+      "tags": [
+        "llm",
+        "router",
+        "configuration",
+        "meta",
+        "infra"
+      ],
+      "updated_at": "2025-11-01T16:58:49.266564+00:00"
     }
   ]
 }

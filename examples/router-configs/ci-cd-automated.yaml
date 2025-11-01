@@ -1,0 +1,50 @@
+# CI/CD: Automated Testing and Deployment
+# Optimized for CI/CD pipelines with fast, reliable models
+
+llm_backends:
+  - name: openrouter
+    api_base_url: https://openrouter.ai/api/v1/chat/completions
+    api_key: $OPENROUTER_API_KEY
+    models:
+      - anthropic/claude-3.5-sonnet
+      - anthropic/claude-3-haiku  # Fast for quick CI tasks
+    transformer:
+      use:
+        - openrouter
+
+routing_rules:
+  # Default: Fast model for CI speed
+  default:
+    provider: openrouter
+    model: anthropic/claude-3-haiku
+
+  # Background: Same fast model
+  background:
+    provider: openrouter
+    model: anthropic/claude-3-haiku
+
+  # Think: Premium model for code review
+  think:
+    provider: openrouter
+    model: anthropic/claude-3.5-sonnet
+
+  # Long context: Not typically needed in CI
+  longContext:
+    provider: openrouter
+    model: anthropic/claude-3.5-sonnet
+
+  # Web search: Not typically needed in CI
+  webSearch:
+    provider: openrouter
+    model: anthropic/claude-3-haiku
+
+config_options:
+  LOG: true
+  LOG_LEVEL: info
+  API_TIMEOUT_MS: 180000  # 3 minute timeout for CI
+  NON_INTERACTIVE_MODE: true  # CI environment
+
+metadata:
+  environment: ci-cd
+  purpose: Automated testing and deployment pipelines
+  created_by: meta.config.router

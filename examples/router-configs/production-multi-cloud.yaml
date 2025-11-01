@@ -1,0 +1,70 @@
+# Production: Multi-Cloud with Redundancy
+# Uses multiple providers for reliability and load balancing
+
+llm_backends:
+  - name: anthropic
+    api_base_url: https://api.anthropic.com/v1/chat/completions
+    api_key: $ANTHROPIC_API_KEY
+    models:
+      - claude-3.5-sonnet
+      - claude-3.7-sonnet:thinking
+    transformer:
+      use:
+        - anthropic
+
+  - name: openai
+    api_base_url: https://api.openai.com/v1/chat/completions
+    api_key: $OPENAI_API_KEY
+    models:
+      - gpt-4
+      - gpt-4-turbo
+    transformer:
+      use:
+        - maxtoken
+
+  - name: google
+    api_base_url: https://generativelanguage.googleapis.com/v1beta/models/
+    api_key: $GOOGLE_API_KEY
+    models:
+      - gemini-2.5-flash
+      - gemini-2.5-pro
+    transformer:
+      use:
+        - gemini
+
+routing_rules:
+  # Primary: Anthropic Claude for best quality
+  default:
+    provider: anthropic
+    model: claude-3.5-sonnet
+
+  # Background: OpenAI GPT-4 for parallel processing
+  background:
+    provider: openai
+    model: gpt-4
+
+  # Thinking: Claude with extended thinking
+  think:
+    provider: anthropic
+    model: claude-3.7-sonnet:thinking
+
+  # Long context: Google Gemini for large documents
+  longContext:
+    provider: google
+    model: gemini-2.5-pro
+
+  # Web search: Google Gemini with web access
+  webSearch:
+    provider: google
+    model: gemini-2.5-pro
+
+config_options:
+  LOG: true
+  LOG_LEVEL: info
+  API_TIMEOUT_MS: 600000
+  NON_INTERACTIVE_MODE: false
+
+metadata:
+  environment: production
+  purpose: Multi-cloud production deployment with redundancy
+  created_by: meta.config.router

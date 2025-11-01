@@ -1,0 +1,60 @@
+# Local Development: OpenRouter + Ollama
+# Optimized for development with local fallbacks and cost-effective routing
+
+llm_backends:
+  - name: openrouter
+    api_base_url: https://openrouter.ai/api/v1/chat/completions
+    api_key: $OPENROUTER_API_KEY  # Set in environment
+    models:
+      - anthropic/claude-3.5-sonnet
+      - anthropic/claude-3.7-sonnet:thinking
+      - google/gemini-2.5-pro-preview
+      - openai/gpt-4
+    transformer:
+      use:
+        - openrouter
+
+  - name: ollama
+    api_base_url: http://localhost:11434/v1/chat/completions
+    api_key: ollama  # Not actually used, but required by schema
+    models:
+      - qwen2.5-coder:latest
+      - llama3.1:70b
+      - codellama:34b
+
+routing_rules:
+  # Primary model for general tasks
+  default:
+    provider: openrouter
+    model: anthropic/claude-3.5-sonnet
+
+  # Use local model for background tasks to save costs
+  background:
+    provider: ollama
+    model: qwen2.5-coder:latest
+
+  # Extended thinking for complex reasoning
+  think:
+    provider: openrouter
+    model: anthropic/claude-3.7-sonnet:thinking
+
+  # Large context handling
+  longContext:
+    provider: openrouter
+    model: google/gemini-2.5-pro-preview
+
+  # Web search capability
+  webSearch:
+    provider: openrouter
+    model: google/gemini-2.5-pro-preview
+
+config_options:
+  LOG: true
+  LOG_LEVEL: debug
+  API_TIMEOUT_MS: 600000
+  NON_INTERACTIVE_MODE: false
+
+metadata:
+  environment: local-dev
+  purpose: Development environment with local fallbacks
+  created_by: meta.config.router
