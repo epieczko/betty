@@ -1,0 +1,31 @@
+policy:
+  name: production-ready-v2
+  version: 0.1.0
+  description: Ensures skills and agents meet production deployment requirements.
+  type: validation
+  scope:
+  - artifact
+  rules:
+  - description: Status must be active
+    field: status
+    action: block
+    severity: error
+    message: Status must be active
+  - description: Version must be semantic
+    pattern: ^\d+\.\d+\.\d+$
+    field: version
+    action: block
+    severity: error
+    message: Version must be semantic
+  - description: Description required
+    field: description
+    action: block
+    severity: error
+    message: Description required
+  - description: Name must be production-ready format
+    pattern: ^[a-z][a-z0-9.]*[a-z0-9]$
+    field: name
+    action: block
+    severity: error
+    message: Name must be production-ready format
+  enforcement: blocking

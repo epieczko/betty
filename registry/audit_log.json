@@ -965,5 +965,27 @@
       "rule_count": 2,
       "output_path": "/home/user/betty/registry/policies/e2e-test.yaml"
     }
+  },
+  {
+    "timestamp": "2025-11-02T00:14:27.752199+00:00",
+    "skill": "meta.policy.profile",
+    "status": "success",
+    "metadata": {
+      "profile_name": "no-secrets",
+      "policy_type": "security",
+      "rule_count": 5,
+      "output_path": "/home/user/betty/registry/policies/no-secrets.yaml"
+    }
+  },
+  {
+    "timestamp": "2025-11-02T00:15:32.368031+00:00",
+    "skill": "meta.policy.profile",
+    "status": "success",
+    "metadata": {
+      "profile_name": "production-ready-v2",
+      "policy_type": "validation",
+      "rule_count": 4,
+      "output_path": "/home/user/betty/registry/policies/production-ready-v2.yaml"
+    }
   }
 ]
