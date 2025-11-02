@@ -1,9 +1,9 @@
 {
   "marketplace_version": "1.0.0",
-  "generated_at": "2025-11-01T17:25:48.347466+00:00",
+  "generated_at": "2025-11-02T19:18:44.383378+00:00",
   "description": "Betty Framework Certified Skills Marketplace",
-  "total_skills": 38,
-  "certified_count": 38,
+  "total_skills": 40,
+  "certified_count": 40,
   "draft_count": 0,
   "catalog": [
     {
@@ -712,6 +712,92 @@
           "name": "validation_result",
           "type": "object",
           "description": "Validation results for the artifact metadata"
+        }
+      ]
+    },
+    {
+      "name": "artifact.validate.types",
+      "version": "0.1.0",
+      "description": "Validate that artifact types exist in the Betty Framework registry and return complete metadata for each type. Provides fuzzy matching and suggestions for invalid types using singular/plural detection and Levenshtein distance.\n",
+      "status": "certified",
+      "tags": [
+        "artifacts",
+        "validation",
+        "registry",
+        "metadata",
+        "quality"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/artifact.validate.types",
+      "dependencies": [
+        "pyyaml",
+        "jsonschema"
+      ],
+      "entrypoints": [
+        {
+          "command": "/artifact/validate/types",
+          "handler": "artifact_validate_types.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "artifact_types",
+          "type": "array",
+          "required": true,
+          "description": "List of artifact type names to validate (e.g., [\"threat-model\", \"architecture-overview\"])"
+        },
+        {
+          "name": "check_schemas",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether to verify schema files exist on filesystem"
+        },
+        {
+          "name": "suggest_alternatives",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether to suggest similar types for invalid ones"
+        },
+        {
+          "name": "max_suggestions",
+          "type": "number",
+          "required": false,
+          "default": 3,
+          "description": "Maximum number of suggestions per invalid type"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_results",
+          "type": "object",
+          "description": "Validation results for each artifact type with complete metadata"
+        },
+        {
+          "name": "all_valid",
+          "type": "boolean",
+          "description": "Whether all artifact types are valid"
+        },
+        {
+          "name": "invalid_types",
+          "type": "array",
+          "description": "List of artifact types that don't exist in registry"
+        },
+        {
+          "name": "suggestions",
+          "type": "object",
+          "description": "Suggested alternatives for each invalid type (type name \u2192 suggestions)"
+        },
+        {
+          "name": "warnings",
+          "type": "array",
+          "description": "List of warnings (e.g., schema file missing)"
         }
       ]
     },
@@ -2312,6 +2398,113 @@
       ],
       "outputs": [
         "registry_update_result.json"
+      ]
+    },
+    {
+      "name": "registry.validate",
+      "version": "0.1.0",
+      "description": "Validates Betty Framework registry files (skills.json, agents.json, artifact_types.json) for schema compliance, consistency, and completeness. Provides dry-run mode to test changes before committing. Checks JSON syntax, Pydantic model compliance, artifact type references, duplicate detection, file path existence, and circular dependencies.\n",
+      "status": "certified",
+      "tags": [
+        "registry",
+        "validation",
+        "quality",
+        "ci-cd",
+        "testing",
+        "infrastructure"
+      ],
+      "maintainer": "Community",
+      "usage_examples": [],
+      "documentation_url": "https://betty-framework.dev/docs/skills/registry.validate",
+      "dependencies": [
+        "pydantic",
+        "jsonschema",
+        "pyyaml"
+      ],
+      "entrypoints": [
+        {
+          "command": "/registry/validate",
+          "handler": "registry_validate.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "name": "registry_files",
+          "type": "array",
+          "required": true,
+          "description": "List of registry file paths to validate (e.g., [\"registry/skills.json\", \"registry/agents.json\"])"
+        },
+        {
+          "name": "check_file_paths",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether to verify referenced files exist on filesystem"
+        },
+        {
+          "name": "check_artifacts",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether to validate artifact type references against artifact_types.json"
+        },
+        {
+          "name": "check_dependencies",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether to check for circular dependencies between skills/agents"
+        },
+        {
+          "name": "strict_mode",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Whether to treat warnings as errors (fail on warnings)"
+        },
+        {
+          "name": "output_format",
+          "type": "string",
+          "required": false,
+          "default": "detailed",
+          "description": "Output format - \"json\", \"summary\", or \"detailed\""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "valid",
+          "type": "boolean",
+          "description": "Whether all registry files passed validation"
+        },
+        {
+          "name": "validation_results",
+          "type": "object",
+          "description": "Detailed validation results for each registry file"
+        },
+        {
+          "name": "errors",
+          "type": "array",
+          "description": "List of errors found across all registries"
+        },
+        {
+          "name": "warnings",
+          "type": "array",
+          "description": "List of warnings found across all registries"
+        },
+        {
+          "name": "suggestions",
+          "type": "array",
+          "description": "List of improvement suggestions"
+        },
+        {
+          "name": "stats",
+          "type": "object",
+          "description": "Statistics about registries (counts, validation time, etc.)"
+        }
       ]
     },
     {
