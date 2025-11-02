@@ -93,15 +93,15 @@ artifact_metadata:
       file_pattern: "*.architecture-overview.md"
       content_type: text/markdown
 
-    - type: data-flow-diagram
+    - type: data-flow-diagrams
       description: Data flows to identify threat vectors (optional)
-      file_pattern: "*.data-flow-diagram.drawio"
-      content_type: application/xml
+      file_pattern: "*.data-flow-diagrams.*"
+      content_type: ""
 
-    - type: data-model
+    - type: logical-data-model
       description: Data structures and sensitive data to protect (optional)
-      file_pattern: "*.data-model.yaml"
-      content_type: application/yaml
+      file_pattern: "*.logical-data-model.*"
+      content_type: ""
 
 entrypoints:
   - command: /skill/threat/model/generate

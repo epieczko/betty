@@ -2623,9 +2623,9 @@
     {
       "name": "threat-model",
       "description": "Threat model (STRIDE, attack trees) for Architecture. Part of Security Architecture documentation and deliverables.",
-      "file_pattern": "*.threat-model.md",
-      "content_type": "text/markdown",
-      "schema": ""
+      "file_pattern": "*.threat-model.yaml",
+      "content_type": "application/yaml",
+      "schema": "schemas/artifacts/threat-model-schema.json"
     },
     {
       "name": "time-allocation-worksheets",

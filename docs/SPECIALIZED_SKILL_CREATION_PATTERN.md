@@ -156,7 +156,9 @@ skills/threat.model.generate/
 
 ### Step 3: Enhance `skill.yaml` with Complete Metadata
 
-The auto-generated `skill.yaml` is minimal. Enhance it with full metadata from your skill description:
+The auto-generated `skill.yaml` is minimal. Enhance it with full metadata from your skill description.
+
+**CRITICAL**: Verify all artifact types in `artifact_metadata` match the artifact registry!
 
 **What to Add**:
 
@@ -228,6 +230,88 @@ dependencies:
 ```
 
 **Reference**: See `/home/user/betty/skills/threat.model.generate/skill.yaml` for complete example
+
+---
+
+### Step 3.5: Verify Artifact Mapping **CRITICAL STEP** ⚠️
+
+Before proceeding, **verify all artifact types** referenced in your skill exist in the artifact registry:
+
+```bash
+# Run artifact mapping verification
+cat <<'EOF' | python3
+import yaml, json
+
+# Load skill and registry
+with open('skills/{skill-name}/skill.yaml') as f:
+    skill = yaml.safe_load(f)
+with open('registry/artifact_types.json') as f:
+    registry = json.load(f)
+
+artifacts_by_name = {a['name']: a for a in registry['artifact_types']}
+
+# Check produces
+for artifact in skill.get('artifact_metadata', {}).get('produces', []):
+    if artifact['type'] not in artifacts_by_name:
+        print(f"❌ PRODUCES: {artifact['type']} NOT IN REGISTRY")
+    else:
+        reg = artifacts_by_name[artifact['type']]
+        if artifact.get('file_pattern') != reg.get('file_pattern'):
+            print(f"⚠️  {artifact['type']} file_pattern mismatch")
+        if artifact.get('content_type') != reg.get('content_type'):
+            print(f"⚠️  {artifact['type']} content_type mismatch")
+
+# Check consumes
+for artifact in skill.get('artifact_metadata', {}).get('consumes', []):
+    if artifact['type'] not in artifacts_by_name:
+        print(f"❌ CONSUMES: {artifact['type']} NOT IN REGISTRY")
+
+print("✅ Verification complete")
+EOF
+```
+
+**Common Issues**:
+
+1. **Artifact type doesn't exist**: Search registry for similar names
+   ```bash
+   jq '.artifact_types[] | select(.name | contains("threat")) | .name' registry/artifact_types.json
+   ```
+
+2. **Singular vs Plural naming**: Registry might use plural form
+   - ❌ `data-flow-diagram`
+   - ✅ `data-flow-diagrams`
+
+3. **Generic vs Specific types**: Registry might have specific variants
+   - ❌ `data-model`
+   - ✅ `logical-data-model`, `physical-data-model`, `enterprise-data-model`
+
+4. **File pattern mismatch**: Skill pattern must match registry
+   - Registry: `*.threat-model.yaml`
+   - Skill: `*.threat-model.yaml` ✅
+
+5. **Schema mismatch**: If schema exists, reference it correctly
+   - Registry: `schemas/artifacts/threat-model-schema.json`
+   - Skill: `schemas/artifacts/threat-model-schema.json` ✅
+
+**If Artifact Type Doesn't Exist**:
+
+You have two options:
+
+A. **Use a different registered type** that fits your needs
+B. **Create a new artifact type** (requires updating `registry/artifact_types.json` and creating schema)
+
+**Example: Fixing threat.model.generate**
+
+We found:
+- ❌ `data-flow-diagram` (doesn't exist)
+- ✅ `data-flow-diagrams` (exists in registry)
+
+Fixed by updating skill.yaml:
+```yaml
+consumes:
+  - type: data-flow-diagrams  # Changed from data-flow-diagram
+    file_pattern: "*.data-flow-diagrams.*"  # Match registry
+```
 
 ---
 
