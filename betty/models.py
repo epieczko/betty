@@ -21,14 +21,53 @@ from betty.enums import (
 # Skill Models
 # ============================================================================
 
+class SkillInput(BaseModel):
+    """Schema for skill input parameter (detailed format)."""
+
+    name: str = Field(..., description="Parameter name")
+    type: str = Field(..., description="Parameter type (string, array, object, boolean, number, etc.)")
+    required: bool = Field(default=False, description="Whether parameter is required")
+    description: str = Field(..., description="Parameter description")
+    default: Optional[Any] = Field(None, description="Default value if not required")
+
+    model_config = {
+        "extra": "allow",  # Allow additional fields like enum, pattern, etc.
+    }
+
+
+class SkillOutput(BaseModel):
+    """Schema for skill output (detailed format)."""
+
+    name: str = Field(..., description="Output name")
+    type: str = Field(..., description="Output type (string, object, array, number, boolean, etc.)")
+    description: str = Field(..., description="Output description")
+
+    model_config = {
+        "extra": "allow",  # Allow additional fields
+    }
+
+
 class SkillManifest(BaseModel):
-    """Schema for skill manifest files."""
+    """Schema for skill manifest files.
+
+    Supports both legacy simple format (List[str]) and current detailed format
+    (List[SkillInput]/List[SkillOutput]) for inputs and outputs.
+    """
 
     name: str = Field(..., description="Skill name in namespace.action format")
     version: str = Field(..., description="Semantic version (e.g., 1.0.0)")
     description: str = Field(..., description="Brief description of the skill")
-    inputs: List[str] = Field(..., description="List of required inputs")
-    outputs: List[str] = Field(..., description="List of outputs produced")
+
+    # Support both simple strings (legacy) and detailed objects (current)
+    inputs: Union[List[str], List[SkillInput]] = Field(
+        ...,
+        description="List of input parameters (simple names or detailed specs)"
+    )
+    outputs: Union[List[str], List[SkillOutput]] = Field(
+        ...,
+        description="List of outputs (simple names or detailed specs)"
+    )
+
     status: str = Field(default="draft", description="Skill status (draft, beta, stable)")
 
     # Optional fields that may appear in manifests
@@ -39,7 +78,10 @@ class SkillManifest(BaseModel):
     version_bump_reason: Optional[str] = Field(None, description="Reason for version change")
     capabilities: Optional[List[str]] = Field(None, description="Skill capabilities")
     skills_available: Optional[List[str]] = Field(None, description="Available skills")
-    entrypoints: Optional[Dict[str, Any]] = Field(None, description="Skill entrypoints")
+    entrypoints: Optional[Union[Dict[str, Any], List[Dict[str, Any]]]] = Field(
+        None,
+        description="Skill entrypoints (dict for legacy, list for current)"
+    )
 
     model_config = {
         "extra": "allow",  # Allow additional fields for extensibility
@@ -349,6 +391,8 @@ __all__ = [
     "HookEvent",
     # Skill models
     "SkillManifest",
+    "SkillInput",
+    "SkillOutput",
     # Agent models
     "AgentManifest",
     # Command models
