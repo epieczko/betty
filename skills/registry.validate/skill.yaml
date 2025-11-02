@@ -1,0 +1,104 @@
+name: registry.validate
+version: 0.1.0
+description: >
+  Validates Betty Framework registry files (skills.json, agents.json,
+  artifact_types.json) for schema compliance, consistency, and completeness.
+  Provides dry-run mode to test changes before committing. Checks JSON syntax,
+  Pydantic model compliance, artifact type references, duplicate detection,
+  file path existence, and circular dependencies.
+
+inputs:
+  - name: registry_files
+    type: array
+    required: true
+    description: List of registry file paths to validate (e.g., ["registry/skills.json", "registry/agents.json"])
+
+  - name: check_file_paths
+    type: boolean
+    required: false
+    default: true
+    description: Whether to verify referenced files exist on filesystem
+
+  - name: check_artifacts
+    type: boolean
+    required: false
+    default: true
+    description: Whether to validate artifact type references against artifact_types.json
+
+  - name: check_dependencies
+    type: boolean
+    required: false
+    default: true
+    description: Whether to check for circular dependencies between skills/agents
+
+  - name: strict_mode
+    type: boolean
+    required: false
+    default: false
+    description: Whether to treat warnings as errors (fail on warnings)
+
+  - name: output_format
+    type: string
+    required: false
+    default: detailed
+    description: Output format - "json", "summary", or "detailed"
+
+outputs:
+  - name: valid
+    type: boolean
+    description: Whether all registry files passed validation
+
+  - name: validation_results
+    type: object
+    description: Detailed validation results for each registry file
+
+  - name: errors
+    type: array
+    description: List of errors found across all registries
+
+  - name: warnings
+    type: array
+    description: List of warnings found across all registries
+
+  - name: suggestions
+    type: array
+    description: List of improvement suggestions
+
+  - name: stats
+    type: object
+    description: Statistics about registries (counts, validation time, etc.)
+
+artifact_metadata:
+  produces:
+    - type: validation-report
+      file_pattern: "*.validation.json"
+      content_type: application/json
+      schema: schemas/validation-report.json
+      description: Registry validation results with errors, warnings, and suggestions
+
+  consumes: []
+
+entrypoints:
+  - command: /registry/validate
+    handler: registry_validate.py
+    runtime: python
+    permissions:
+      - filesystem:read
+
+status: active
+
+tags:
+  - registry
+  - validation
+  - quality
+  - ci-cd
+  - testing
+  - infrastructure
+
+dependencies:
+  - pydantic
+  - jsonschema
+  - pyyaml
+
+permissions:
+  - filesystem:read

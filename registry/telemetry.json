@@ -3853,5 +3853,88 @@
       "skills_before": 42,
       "skills_after": 43
     }
+  },
+  {
+    "timestamp": "2025-11-02T14:03:17.587083+00:00",
+    "execution_id": "2815de5f-3f94-4d4f-aa38-93a0ce1335b5",
+    "skill": "registry.update",
+    "inputs": {
+      "manifest_path": "skills/threat.model.generate/skill.yaml",
+      "skill_name": "threat.model.generate"
+    },
+    "status": "success",
+    "duration_ms": 17,
+    "caller": "cli",
+    "registry_path": "/home/user/betty/registry/skills.json",
+    "total_skills": 53,
+    "policy_enforced": true,
+    "diff": {
+      "operation": "update",
+      "skill_name": "threat.model.generate",
+      "skills_before": 53,
+      "skills_after": 53
+    }
+  },
+  {
+    "timestamp": "2025-11-02T14:05:13.714798+00:00",
+    "execution_id": "db6d024b-dd3a-481a-908d-91da743c7f95",
+    "skill": "agent.run",
+    "inputs": {
+      "agent": "meta.skill",
+      "task_context": "Create the test.validation skill based on the skill description in skill_descriptions/test.validation.md"
+    },
+    "status": "success",
+    "duration_ms": 8,
+    "agent": "meta.skill",
+    "caller": "cli",
+    "reasoning_mode": "iterative",
+    "skills_planned": 3,
+    "skills_executed": 3
+  },
+  {
+    "timestamp": "2025-11-02T14:05:13.757305+00:00",
+    "execution_id": "7730cd16-7c3d-4bf7-821b-d30304fb7def",
+    "skill": "agent.run",
+    "inputs": {
+      "cli_args": [
+        "agents/meta.skill/agent.yaml",
+        "Create the test.validation skill based on the skill description in skill_descriptions/test.validation.md"
+      ]
+    },
+    "status": "success",
+    "duration_ms": 50,
+    "caller": "cli",
+    "exit_code": 0
+  },
+  {
+    "timestamp": "2025-11-02T14:13:08.973848+00:00",
+    "execution_id": "49c0e44a-8543-40d8-991e-8727f4d59332",
+    "skill": "agent.run",
+    "inputs": {
+      "agent": "meta.skill",
+      "task_context": "Create the artifact.validate.types skill based on skill_descriptions/artifact.validate.types.md. This skill validates artifact type names against registry/artifact_types.json and provides fuzzy matching suggestions for invalid types."
+    },
+    "status": "success",
+    "duration_ms": 8,
+    "agent": "meta.skill",
+    "caller": "cli",
+    "reasoning_mode": "iterative",
+    "skills_planned": 3,
+    "skills_executed": 3
+  },
+  {
+    "timestamp": "2025-11-02T14:13:09.006949+00:00",
+    "execution_id": "36bf9bca-e0d1-44ba-abf2-c5d8159c170e",
+    "skill": "agent.run",
+    "inputs": {
+      "cli_args": [
+        "agents/meta.skill/agent.yaml",
+        "Create the artifact.validate.types skill based on skill_descriptions/artifact.validate.types.md. This skill validates artifact type names against registry/artifact_types.json and provides fuzzy matching suggestions for invalid types."
+      ]
+    },
+    "status": "success",
+    "duration_ms": 41,
+    "caller": "cli",
+    "exit_code": 0
   }
 ]

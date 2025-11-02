@@ -1,0 +1,152 @@
+name: threat.model.generate
+version: 0.1.0
+description: >
+  Generate STRIDE-based threat models with intelligent threat analysis, CVSS risk scoring,
+  and mitigation recommendations using Microsoft threat modeling methodology. Provides
+  specialized security expertise beyond simple template filling.
+
+inputs:
+  - name: system_description
+    type: string
+    required: true
+    description: Detailed description of system architecture, components, and functionality
+
+  - name: data_flows
+    type: object
+    required: false
+    description: Data flows between components (auto-detected if not provided)
+
+  - name: trust_boundaries
+    type: array
+    required: false
+    description: Trust boundaries in the system (auto-detected if not provided)
+
+  - name: assets
+    type: array
+    required: false
+    description: Critical assets to protect (auto-detected if not provided)
+
+  - name: frameworks
+    type: array
+    required: false
+    default: ["STRIDE"]
+    description: Threat modeling frameworks to apply (STRIDE, PASTA, LINDDUN)
+
+  - name: risk_tolerance
+    type: string
+    required: false
+    default: "medium"
+    description: Organization risk tolerance (low, medium, high)
+
+  - name: output_path
+    type: string
+    required: false
+    default: "./threat-model.yaml"
+    description: Path where threat model should be saved
+
+outputs:
+  - name: threat_model
+    type: object
+    description: Complete threat model with threats, risks, and mitigations
+
+  - name: threat_model_file
+    type: string
+    description: Path to generated threat model YAML file
+
+  - name: threat_count
+    type: number
+    description: Total number of threats identified
+
+  - name: high_risk_count
+    type: number
+    description: Number of high-risk threats (CVSS >= 7.0)
+
+  - name: coverage_report
+    type: object
+    description: STRIDE coverage analysis showing threat categories analyzed
+
+dependencies:
+  - PyYAML
+  - jsonschema
+
+status: draft
+
+tags:
+  - security
+  - threat-modeling
+  - stride
+  - risk-assessment
+  - cvss
+  - specialized
+
+artifact_metadata:
+  produces:
+    - type: threat-model
+      description: STRIDE-based threat model with attack vectors, risk scoring (CVSS), and security controls
+      file_pattern: "*.threat-model.yaml"
+      content_type: application/yaml
+      schema: schemas/artifacts/threat-model-schema.json
+
+  consumes:
+    - type: architecture-overview
+      description: System architecture description (optional, enriches threat model)
+      file_pattern: "*.architecture-overview.md"
+      content_type: text/markdown
+
+    - type: data-flow-diagrams
+      description: Data flows to identify threat vectors (optional)
+      file_pattern: "*.data-flow-diagrams.*"
+      content_type: ""
+
+    - type: logical-data-model
+      description: Data structures and sensitive data to protect (optional)
+      file_pattern: "*.logical-data-model.*"
+      content_type: ""
+
+entrypoints:
+  - command: /skill/threat/model/generate
+    handler: threat_model_generate.py
+    runtime: python
+    description: >
+      Generate STRIDE-based threat models with intelligent threat analysis.
+      Applies Microsoft threat modeling methodology to identify security threats,
+      calculate CVSS risk scores, and recommend mitigations.
+    parameters:
+      - name: system_description
+        type: string
+        required: true
+        description: System description for threat modeling
+
+      - name: data_flows
+        type: object
+        required: false
+        description: Data flows between components
+
+      - name: trust_boundaries
+        type: array
+        required: false
+        description: Trust boundaries
+
+      - name: assets
+        type: array
+        required: false
+        description: Critical assets
+
+      - name: frameworks
+        type: array
+        required: false
+        description: Threat frameworks to apply
+
+      - name: risk_tolerance
+        type: string
+        required: false
+        description: Risk tolerance level
+
+      - name: output_path
+        type: string
+        required: false
+        description: Output file path
+
+    permissions:
+      - filesystem:read
+      - filesystem:write
