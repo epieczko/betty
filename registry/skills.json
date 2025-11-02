@@ -2981,6 +2981,104 @@
         }
       ],
       "updated_at": "2025-11-02T14:03:17.571502+00:00"
+    },
+    {
+      "name": "artifact.validate.types",
+      "version": "0.1.0",
+      "description": "Validate that artifact types exist in the Betty Framework registry and return complete metadata for each type. Provides fuzzy matching and suggestions for invalid types using singular/plural detection and Levenshtein distance.\n",
+      "inputs": [
+        {
+          "name": "artifact_types",
+          "type": "array",
+          "required": true,
+          "description": "List of artifact type names to validate (e.g., [\"threat-model\", \"architecture-overview\"])"
+        },
+        {
+          "name": "check_schemas",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether to verify schema files exist on filesystem"
+        },
+        {
+          "name": "suggest_alternatives",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether to suggest similar types for invalid ones"
+        },
+        {
+          "name": "max_suggestions",
+          "type": "number",
+          "required": false,
+          "default": 3,
+          "description": "Maximum number of suggestions per invalid type"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_results",
+          "type": "object",
+          "description": "Validation results for each artifact type with complete metadata"
+        },
+        {
+          "name": "all_valid",
+          "type": "boolean",
+          "description": "Whether all artifact types are valid"
+        },
+        {
+          "name": "invalid_types",
+          "type": "array",
+          "description": "List of artifact types that don't exist in registry"
+        },
+        {
+          "name": "suggestions",
+          "type": "object",
+          "description": "Suggested alternatives for each invalid type (type name \u2192 suggestions)"
+        },
+        {
+          "name": "warnings",
+          "type": "array",
+          "description": "List of warnings (e.g., schema file missing)"
+        }
+      ],
+      "artifact_metadata": {
+        "produces": [
+          {
+            "type": "validation-report",
+            "file_pattern": "*.validation.json",
+            "content_type": "application/json",
+            "schema": "schemas/validation-report.json",
+            "description": "Artifact type validation results with metadata and suggestions"
+          }
+        ],
+        "consumes": []
+      },
+      "entrypoints": [
+        {
+          "command": "/artifact/validate/types",
+          "handler": "artifact_validate_types.py",
+          "runtime": "python",
+          "permissions": [
+            "filesystem:read"
+          ]
+        }
+      ],
+      "status": "active",
+      "tags": [
+        "artifacts",
+        "validation",
+        "registry",
+        "metadata",
+        "quality"
+      ],
+      "dependencies": [
+        "pyyaml",
+        "jsonschema"
+      ],
+      "permissions": [
+        "filesystem:read"
+      ]
     }
   ],
   "content_hash": "42ff68eb9831ce68dcbb6b21f0b0b04348426c07b3a092e654c6a85d9a473fd8"
