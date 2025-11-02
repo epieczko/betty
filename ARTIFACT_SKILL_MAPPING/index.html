@@ -12,7 +12,7 @@
         <meta name="author" content="RiskExec">
       
       
-        <link rel="canonical" href="https://epieczko.github.io/betty/PERFORMANCE_MONITORING/">
+        <link rel="canonical" href="https://epieczko.github.io/betty/ARTIFACT_SKILL_MAPPING/">
       
       
       
@@ -22,7 +22,7 @@
     
     
       
-        <title>Performance Monitoring System - Betty Framework</title>
+        <title>Artifact-to-Skill Mapping - Betty Framework</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#performance-monitoring-system" class="md-skip">
+        <a href="#artifact-to-skill-mapping" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Performance Monitoring System
+              Artifact-to-Skill Mapping
             
           </span>
         </div>
@@ -1253,56 +1253,47 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#implementation" class="md-nav__link">
+  <a href="#verified-mappings" class="md-nav__link">
     <span class="md-ellipsis">
-      Implementation
+      Verified Mappings
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hook-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Hook Configuration
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Hook Configuration">
+    <nav class="md-nav" aria-label="Verified Mappings">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#location" class="md-nav__link">
+  <a href="#threatmodelgenerate" class="md-nav__link">
     <span class="md-ellipsis">
-      Location
+      threat.model.generate
     </span>
   </a>
   
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hooks" class="md-nav__link">
-    <span class="md-ellipsis">
-      Hooks
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Hooks">
+    <nav class="md-nav" aria-label="threat.model.generate">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#pre-tool-hook" class="md-nav__link">
+  <a href="#produces" class="md-nav__link">
     <span class="md-ellipsis">
-      Pre-Tool Hook
+      Produces
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#post-tool-hook" class="md-nav__link">
+  <a href="#consumes-optional" class="md-nav__link">
     <span class="md-ellipsis">
-      Post-Tool Hook
+      Consumes (Optional)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-with-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Agents
     </span>
   </a>
   
@@ -1319,37 +1310,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#data-format" class="md-nav__link">
+  <a href="#universal-skills-work-with-all-artifacts" class="md-nav__link">
     <span class="md-ellipsis">
-      Data Format
+      Universal Skills (Work with All Artifacts)
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Data Format">
+    <nav class="md-nav" aria-label="Universal Skills (Work with All Artifacts)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#csv-structure" class="md-nav__link">
+  <a href="#artifactcreate" class="md-nav__link">
     <span class="md-ellipsis">
-      CSV Structure
+      artifact.create
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#fields" class="md-nav__link">
+  <a href="#artifactvalidate" class="md-nav__link">
     <span class="md-ellipsis">
-      Fields
+      artifact.validate
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#example-data" class="md-nav__link">
+  <a href="#artifactreview" class="md-nav__link">
     <span class="md-ellipsis">
-      Example Data
+      artifact.review
     </span>
   </a>
   
@@ -1361,37 +1352,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
+  <a href="#domain-specific-skills" class="md-nav__link">
     <span class="md-ellipsis">
-      Features
+      Domain-Specific Skills
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Features">
+    <nav class="md-nav" aria-label="Domain-Specific Skills">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-real-time-monitoring" class="md-nav__link">
+  <a href="#api-skills" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Real-time Monitoring
+      API Skills
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-automatic-log-rotation" class="md-nav__link">
+  <a href="#registry-skills" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Automatic Log Rotation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-minimal-performance-impact" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Minimal Performance Impact
+      Registry Skills
     </span>
   </a>
   
@@ -1403,70 +1385,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
+  <a href="#planned-p1-specialized-skills" class="md-nav__link">
     <span class="md-ellipsis">
-      Usage
+      Planned P1 Specialized Skills
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Usage">
+    <nav class="md-nav" aria-label="Planned P1 Specialized Skills">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#view-performance-data" class="md-nav__link">
+  <a href="#compliancematrixgenerate" class="md-nav__link">
     <span class="md-ellipsis">
-      View Performance Data
+      compliance.matrix.generate
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#analyze-performance" class="md-nav__link">
+  <a href="#requirementstracegenerate" class="md-nav__link">
     <span class="md-ellipsis">
-      Analyze Performance
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Analyze Performance">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#calculate-tool-execution-time" class="md-nav__link">
-    <span class="md-ellipsis">
-      Calculate Tool Execution Time
+      requirements.trace.generate
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#find-high-cpu-usage" class="md-nav__link">
+  <a href="#datalineagegenerate" class="md-nav__link">
     <span class="md-ellipsis">
-      Find High CPU Usage
+      data.lineage.generate
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#find-high-memory-usage" class="md-nav__link">
+  <a href="#securitygapanalyze" class="md-nav__link">
     <span class="md-ellipsis">
-      Find High Memory Usage
+      security.gap.analyze
     </span>
   </a>
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-        
           <li class="md-nav__item">
-  <a href="#clear-performance-data" class="md-nav__link">
+  <a href="#compliancegapanalyze" class="md-nav__link">
     <span class="md-ellipsis">
-      Clear Performance Data
+      compliance.gap.analyze
     </span>
   </a>
   
@@ -1478,28 +1445,130 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#analysis-scripts" class="md-nav__link">
+  <a href="#artifact-flow-examples" class="md-nav__link">
     <span class="md-ellipsis">
-      Analysis Scripts
+      Artifact Flow Examples
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Analysis Scripts">
+    <nav class="md-nav" aria-label="Artifact Flow Examples">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#python-analysis-example" class="md-nav__link">
+  <a href="#security-assessment-workflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Python Analysis Example
+      Security Assessment Workflow
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#bash-analysis-example" class="md-nav__link">
+  <a href="#api-development-workflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Bash Analysis Example
+      API Development Workflow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification Process
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-new-artifact-skill-mappings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding New Artifact-Skill Mappings
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Pitfalls
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Pitfalls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#singular-vs-plural" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❌ Singular vs Plural
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generic-vs-specific-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❌ Generic vs Specific Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#format-mismatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❌ Format Mismatch
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Future Enhancements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Future Enhancements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automated-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      Automated Discovery
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artifact-flow-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Artifact Flow Validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-auto-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent Auto-Composition
     </span>
   </a>
   
@@ -1517,164 +1586,14 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Maintenance">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#enabledisable-monitoring" class="md-nav__link">
-    <span class="md-ellipsis">
-      Enable/Disable Monitoring
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#adjust-log-rotation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Adjust Log Rotation
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
-  <a href="#performance-metrics" class="md-nav__link">
+  <a href="#see-also" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance Metrics
+      See Also
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Performance Metrics">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#hook-overhead" class="md-nav__link">
-    <span class="md-ellipsis">
-      Hook Overhead
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#storage" class="md-nav__link">
-    <span class="md-ellipsis">
-      Storage
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      Troubleshooting
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#hook-not-triggering" class="md-nav__link">
-    <span class="md-ellipsis">
-      Hook Not Triggering
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#csv-file-not-created" class="md-nav__link">
-    <span class="md-ellipsis">
-      CSV File Not Created
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#environment-variable-not-available" class="md-nav__link">
-    <span class="md-ellipsis">
-      Environment Variable Not Available
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#log-rotation-not-working" class="md-nav__link">
-    <span class="md-ellipsis">
-      Log Rotation Not Working
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Related Documentation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#future-enhancements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Future Enhancements
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation-details" class="md-nav__link">
-    <span class="md-ellipsis">
-      Implementation Details
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Implementation Details">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#created-using" class="md-nav__link">
-    <span class="md-ellipsis">
-      Created Using
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hook-descriptions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Hook Descriptions
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1697,257 +1616,330 @@
   
 
 
-<h1 id="performance-monitoring-system">Performance Monitoring System<a class="headerlink" href="#performance-monitoring-system" title="Permanent link">&para;</a></h1>
+<h1 id="artifact-to-skill-mapping">Artifact-to-Skill Mapping<a class="headerlink" href="#artifact-to-skill-mapping" title="Permanent link">&para;</a></h1>
+<p><strong>Version</strong>: 1.0.0
+<strong>Last Updated</strong>: 2025-11-02
+<strong>Purpose</strong>: Document which skills produce/consume which artifacts for autonomous agent composition</p>
+<hr />
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>The Performance Monitoring system tracks CPU usage, memory consumption, and execution time for all Claude Code tool operations. This data is logged to a CSV file for analysis and performance optimization.</p>
-<h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
-<p>The system uses two Claude Code hooks created via the <strong>meta.hook</strong> agent:</p>
+<p>This document maps the relationship between <strong>skills</strong> and <strong>artifacts</strong> in Betty Framework. This mapping enables:</p>
 <ol>
-<li><strong>performance-monitor-pre</strong> - Captures metrics before tool execution</li>
-<li><strong>performance-monitor-post</strong> - Captures metrics after tool execution and manages log rotation</li>
+<li><strong>Autonomous Agent Composition</strong>: Agents discover compatible skills based on artifact flow</li>
+<li><strong>Workflow Validation</strong>: Ensure skill chains have compatible inputs/outputs</li>
+<li><strong>Ecosystem Growth</strong>: New skills can be discovered based on artifact types they handle</li>
 </ol>
-<h2 id="hook-configuration">Hook Configuration<a class="headerlink" href="#hook-configuration" title="Permanent link">&para;</a></h2>
-<h3 id="location">Location<a class="headerlink" href="#location" title="Permanent link">&para;</a></h3>
-<p><code>.claude/hooks.yaml</code></p>
-<h3 id="hooks">Hooks<a class="headerlink" href="#hooks" title="Permanent link">&para;</a></h3>
-<h4 id="pre-tool-hook">Pre-Tool Hook<a class="headerlink" href="#pre-tool-hook" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">performance-monitor-pre</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">before-tool-call</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo &quot;$(date +%s.%N),$(ps -o %cpu= -p $$),$(ps -o rss= -p $$),$CLAUDE_TOOL_NAME,start&quot; &gt;&gt; ~/.claude/performance.csv</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Monitor system performance - track CPU, memory usage at tool start</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5000</span>
-</code></pre></div>
-<h4 id="post-tool-hook">Post-Tool Hook<a class="headerlink" href="#post-tool-hook" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">performance-monitor-post</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">after-tool-call</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo &quot;$(date +%s.%N),$(ps -o %cpu= -p $$),$(ps -o rss= -p $$),$CLAUDE_TOOL_NAME,end&quot; &gt;&gt; ~/.claude/performance.csv; if [[ $(wc -l &lt; ~/.claude/performance.csv) -gt 1000 ]]; then tail -n 500 ~/.claude/performance.csv &gt; ~/.claude/performance.csv.tmp &amp;&amp; mv ~/.claude/performance.csv.tmp ~/.claude/performance.csv; fi</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Monitor system performance - track CPU, memory usage at tool end and rotate logs</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5000</span>
-</code></pre></div>
-<h2 id="data-format">Data Format<a class="headerlink" href="#data-format" title="Permanent link">&para;</a></h2>
-<h3 id="csv-structure">CSV Structure<a class="headerlink" href="#csv-structure" title="Permanent link">&para;</a></h3>
-<p>The performance data is logged to <code>~/.claude/performance.csv</code> with the following format:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>timestamp,cpu_percent,memory_rss,tool_name,event
-</code></pre></div>
-<h3 id="fields">Fields<a class="headerlink" href="#fields" title="Permanent link">&para;</a></h3>
+<hr />
+<h2 id="verified-mappings">Verified Mappings<a class="headerlink" href="#verified-mappings" title="Permanent link">&para;</a></h2>
+<h3 id="threatmodelgenerate">threat.model.generate<a class="headerlink" href="#threatmodelgenerate" title="Permanent link">&para;</a></h3>
+<p><strong>Status</strong>: ✅ Fully Verified
+<strong>Created</strong>: 2025-11-02
+<strong>Verification</strong>: All artifact types match registry</p>
+<h4 id="produces">Produces<a class="headerlink" href="#produces" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
-<th>Field</th>
-<th>Description</th>
-<th>Example</th>
+<th>Artifact Type</th>
+<th>File Pattern</th>
+<th>Content Type</th>
+<th>Schema</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>timestamp</code></td>
-<td>Unix timestamp with nanoseconds</td>
-<td><code>1729876543.123456789</code></td>
-</tr>
-<tr>
-<td><code>cpu_percent</code></td>
-<td>CPU usage percentage</td>
-<td><code>45.2</code></td>
-</tr>
-<tr>
-<td><code>memory_rss</code></td>
-<td>Resident Set Size in KB</td>
-<td><code>512340</code></td>
-</tr>
-<tr>
-<td><code>tool_name</code></td>
-<td>Name of the tool being executed</td>
-<td><code>Read</code>, <code>Bash</code>, <code>Edit</code></td>
-</tr>
-<tr>
-<td><code>event</code></td>
-<td>Event type (start/end)</td>
-<td><code>start</code> or <code>end</code></td>
+<td><code>threat-model</code></td>
+<td><code>*.threat-model.yaml</code></td>
+<td><code>application/yaml</code></td>
+<td><code>schemas/artifacts/threat-model-schema.json</code></td>
 </tr>
 </tbody>
 </table>
-<h3 id="example-data">Example Data<a class="headerlink" href="#example-data" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>1729876543.123456789,12.5,256780,Read,start
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>1729876543.234567890,15.3,258920,Read,end
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>1729876543.345678901,8.2,259100,Bash,start
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>1729876543.567890123,22.1,261500,Bash,end
-</code></pre></div>
-<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
-<h3 id="1-real-time-monitoring">1. Real-time Monitoring<a class="headerlink" href="#1-real-time-monitoring" title="Permanent link">&para;</a></h3>
-<p>Metrics are captured before and after each tool execution, providing:
-- <strong>CPU usage</strong> at tool start and end
-- <strong>Memory consumption</strong> at tool start and end
-- <strong>Execution time</strong> (calculated from start/end timestamps)</p>
-<h3 id="2-automatic-log-rotation">2. Automatic Log Rotation<a class="headerlink" href="#2-automatic-log-rotation" title="Permanent link">&para;</a></h3>
-<p>The post-tool hook includes automatic log rotation:
-- Triggers when log exceeds <strong>1000 lines</strong>
-- Keeps the most recent <strong>500 lines</strong>
-- Prevents unbounded log growth</p>
-<h3 id="3-minimal-performance-impact">3. Minimal Performance Impact<a class="headerlink" href="#3-minimal-performance-impact" title="Permanent link">&para;</a></h3>
+<h4 id="consumes-optional">Consumes (Optional)<a class="headerlink" href="#consumes-optional" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Artifact Type</th>
+<th>File Pattern</th>
+<th>Content Type</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>architecture-overview</code></td>
+<td><code>*.architecture-overview.md</code></td>
+<td><code>text/markdown</code></td>
+<td>Enriches threat model with system context</td>
+</tr>
+<tr>
+<td><code>data-flow-diagrams</code></td>
+<td><code>*.data-flow-diagrams.*</code></td>
+<td>``</td>
+<td>Identifies threat vectors in data flows</td>
+</tr>
+<tr>
+<td><code>logical-data-model</code></td>
+<td><code>*.logical-data-model.*</code></td>
+<td>``</td>
+<td>Identifies sensitive data to protect</td>
+</tr>
+</tbody>
+</table>
+<h4 id="integration-with-agents">Integration with Agents<a class="headerlink" href="#integration-with-agents" title="Permanent link">&para;</a></h4>
 <ul>
-<li>Hooks timeout after <strong>5 seconds</strong> to prevent blocking</li>
-<li>Uses lightweight shell commands (<code>ps</code>, <code>date</code>, <code>echo</code>)</li>
-<li>Asynchronous logging to CSV file</li>
+<li><strong>Primary Agent</strong>: <code>security.architect</code></li>
+<li><strong>Workflow</strong>: Used as first step in security assessment workflows</li>
+<li><strong>Downstream Skills</strong>: Output threat-model consumed by <code>compliance.matrix.generate</code> and <code>security.gap.analyze</code></li>
 </ul>
-<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
-<h3 id="view-performance-data">View Performance Data<a class="headerlink" href="#view-performance-data" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># View latest entries</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span><span class="w"> </span>~/.claude/performance.csv
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># View all data</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>cat<span class="w"> </span>~/.claude/performance.csv
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># Count total entries</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>wc<span class="w"> </span>-l<span class="w"> </span>~/.claude/performance.csv
+<hr />
+<h2 id="universal-skills-work-with-all-artifacts">Universal Skills (Work with All Artifacts)<a class="headerlink" href="#universal-skills-work-with-all-artifacts" title="Permanent link">&para;</a></h2>
+<p>These skills work with <strong>any of the 409 registered artifact types</strong>:</p>
+<h3 id="artifactcreate">artifact.create<a class="headerlink" href="#artifactcreate" title="Permanent link">&para;</a></h3>
+<p><strong>Produces</strong>: Any registered artifact type (dynamic based on input)
+<strong>Consumes</strong>: User context/requirements
+<strong>Pattern</strong>: Loads template from <code>templates/{category}/{artifact-type}.{ext}</code>, uses AI to populate</p>
+<h3 id="artifactvalidate">artifact.validate<a class="headerlink" href="#artifactvalidate" title="Permanent link">&para;</a></h3>
+<p><strong>Produces</strong>: <code>validation-report</code>
+<strong>Consumes</strong>: Any artifact type
+<strong>Pattern</strong>: Validates against schema (if exists) and quality criteria</p>
+<h3 id="artifactreview">artifact.review<a class="headerlink" href="#artifactreview" title="Permanent link">&para;</a></h3>
+<p><strong>Produces</strong>: <code>review-report</code>
+<strong>Consumes</strong>: Any artifact type
+<strong>Pattern</strong>: AI-powered quality review against best practices</p>
+<hr />
+<h2 id="domain-specific-skills">Domain-Specific Skills<a class="headerlink" href="#domain-specific-skills" title="Permanent link">&para;</a></h2>
+<h3 id="api-skills">API Skills<a class="headerlink" href="#api-skills" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>Produces</th>
+<th>Consumes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>api.define</code></td>
+<td><code>openapi-spec</code>, <code>asyncapi-spec</code></td>
+<td>User requirements</td>
+</tr>
+<tr>
+<td><code>api.validate</code></td>
+<td><code>validation-report</code></td>
+<td><code>openapi-spec</code>, <code>asyncapi-spec</code></td>
+</tr>
+<tr>
+<td><code>api.generatemodels</code></td>
+<td>Type-safe models (TypeScript, Python, etc.)</td>
+<td><code>openapi-spec</code>, <code>asyncapi-spec</code></td>
+</tr>
+<tr>
+<td><code>api.compatibility</code></td>
+<td><code>api-compatibility-report</code></td>
+<td>Old spec, New spec</td>
+</tr>
+</tbody>
+</table>
+<h3 id="registry-skills">Registry Skills<a class="headerlink" href="#registry-skills" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>Produces</th>
+<th>Consumes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>registry.update</code></td>
+<td>Updated registry</td>
+<td>Skill/Agent manifest</td>
+</tr>
+<tr>
+<td><code>registry.diff</code></td>
+<td><code>diff-report</code></td>
+<td>Current manifest, Registry entry</td>
+</tr>
+<tr>
+<td><code>registry.query</code></td>
+<td>Query results</td>
+<td>Search criteria</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="planned-p1-specialized-skills">Planned P1 Specialized Skills<a class="headerlink" href="#planned-p1-specialized-skills" title="Permanent link">&para;</a></h2>
+<p>These skills are planned but not yet implemented:</p>
+<h3 id="compliancematrixgenerate">compliance.matrix.generate<a class="headerlink" href="#compliancematrixgenerate" title="Permanent link">&para;</a></h3>
+<p><strong>Produces</strong>: <code>compliance-matrix</code>, compliance reports for SOC2/ISO27001/GDPR/HIPAA/PCI-DSS
+<strong>Consumes</strong>: <code>threat-model</code>, existing controls
+<strong>Status</strong>: Pending skill description</p>
+<h3 id="requirementstracegenerate">requirements.trace.generate<a class="headerlink" href="#requirementstracegenerate" title="Permanent link">&para;</a></h3>
+<p><strong>Produces</strong>: <code>requirements-traceability-matrix</code>
+<strong>Consumes</strong>: <code>product-requirements-document</code>, design docs, test plans
+<strong>Status</strong>: Pending skill description</p>
+<h3 id="datalineagegenerate">data.lineage.generate<a class="headerlink" href="#datalineagegenerate" title="Permanent link">&para;</a></h3>
+<p><strong>Produces</strong>: <code>data-lineage-diagram</code>
+<strong>Consumes</strong>: Code, configs, <code>data-flow-diagrams</code>
+<strong>Status</strong>: Pending skill description</p>
+<h3 id="securitygapanalyze">security.gap.analyze<a class="headerlink" href="#securitygapanalyze" title="Permanent link">&para;</a></h3>
+<p><strong>Produces</strong>: <code>security-gap-report</code>
+<strong>Consumes</strong>: <code>threat-model</code>, existing controls
+<strong>Status</strong>: Pending skill description</p>
+<h3 id="compliancegapanalyze">compliance.gap.analyze<a class="headerlink" href="#compliancegapanalyze" title="Permanent link">&para;</a></h3>
+<p><strong>Produces</strong>: <code>compliance-gap-report</code>
+<strong>Consumes</strong>: <code>compliance-matrix</code>, current controls
+<strong>Status</strong>: Pending skill description</p>
+<hr />
+<h2 id="artifact-flow-examples">Artifact Flow Examples<a class="headerlink" href="#artifact-flow-examples" title="Permanent link">&para;</a></h2>
+<h3 id="security-assessment-workflow">Security Assessment Workflow<a class="headerlink" href="#security-assessment-workflow" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>User Request
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    ↓
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>security.architect agent
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    ↓
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>threat.model.generate skill
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    ↓ produces: threat-model
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>compliance.matrix.generate skill (future)
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    ↓ produces: compliance-matrix
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>security.gap.analyze skill (future)
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    ↓ produces: security-gap-report
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>artifact.review skill
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    ↓ produces: review-report
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Complete Security Assessment Package
 </code></pre></div>
-<h3 id="analyze-performance">Analyze Performance<a class="headerlink" href="#analyze-performance" title="Permanent link">&para;</a></h3>
-<h4 id="calculate-tool-execution-time">Calculate Tool Execution Time<a class="headerlink" href="#calculate-tool-execution-time" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Extract start/end pairs for a specific tool</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>grep<span class="w"> </span><span class="s2">&quot;Read&quot;</span><span class="w"> </span>~/.claude/performance.csv<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span>
+<h3 id="api-development-workflow">API Development Workflow<a class="headerlink" href="#api-development-workflow" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>User Request
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    ↓
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>api.designer agent
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    ↓
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>api.define skill
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    ↓ produces: openapi-spec
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>api.validate skill
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    ↓ consumes: openapi-spec, produces: validation-report
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>api.generatemodels skill
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    ↓ consumes: openapi-spec, produces: TypeScript/Python models
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>Complete API Package
 </code></pre></div>
-<h4 id="find-high-cpu-usage">Find High CPU Usage<a class="headerlink" href="#find-high-cpu-usage" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Sort by CPU usage (descending)</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>sort<span class="w"> </span>-t<span class="s1">&#39;,&#39;</span><span class="w"> </span>-k2<span class="w"> </span>-nr<span class="w"> </span>~/.claude/performance.csv<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span>
+<hr />
+<h2 id="verification-process">Verification Process<a class="headerlink" href="#verification-process" title="Permanent link">&para;</a></h2>
+<p>For each skill, verify artifact mapping:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># 1. Check produces artifacts exist in registry</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>jq<span class="w"> </span><span class="s1">&#39;.artifact_types[] | select(.name == &quot;threat-model&quot;)&#39;</span><span class="w"> </span>registry/artifact_types.json
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># 2. Verify file_pattern matches</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># Skill:    *.threat-model.yaml</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># Registry: *.threat-model.yaml ✅</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c1"># 3. Verify content_type matches</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1"># Skill:    application/yaml</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Registry: application/yaml ✅</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="c1"># 4. Verify schema reference (if exists)</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="c1"># Skill:    schemas/artifacts/threat-model-schema.json</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="c1"># Registry: schemas/artifacts/threat-model-schema.json ✅</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="c1"># File:     ls schemas/artifacts/threat-model-schema.json ✅</span>
 </code></pre></div>
-<h4 id="find-high-memory-usage">Find High Memory Usage<a class="headerlink" href="#find-high-memory-usage" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Sort by memory usage (descending)</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>sort<span class="w"> </span>-t<span class="s1">&#39;,&#39;</span><span class="w"> </span>-k3<span class="w"> </span>-nr<span class="w"> </span>~/.claude/performance.csv<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span>
-</code></pre></div>
-<h3 id="clear-performance-data">Clear Performance Data<a class="headerlink" href="#clear-performance-data" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Remove all performance data</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>rm<span class="w"> </span>~/.claude/performance.csv
-</code></pre></div>
-<h2 id="analysis-scripts">Analysis Scripts<a class="headerlink" href="#analysis-scripts" title="Permanent link">&para;</a></h2>
-<h3 id="python-analysis-example">Python Analysis Example<a class="headerlink" href="#python-analysis-example" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1"># Load performance data</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;~/.claude/performance.csv&#39;</span><span class="p">,</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>                 <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="s1">&#39;cpu_percent&#39;</span><span class="p">,</span> <span class="s1">&#39;memory_rss&#39;</span><span class="p">,</span> <span class="s1">&#39;tool_name&#39;</span><span class="p">,</span> <span class="s1">&#39;event&#39;</span><span class="p">])</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># Calculate execution time for each tool</span>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="n">starts</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;event&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;start&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">)</span>
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="n">ends</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;event&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;end&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">)</span>
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="n">execution_times</span> <span class="o">=</span> <span class="n">ends</span><span class="o">.</span><span class="n">index</span> <span class="o">-</span> <span class="n">starts</span><span class="o">.</span><span class="n">index</span>
-<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
-<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="c1"># Group by tool</span>
-<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;tool_name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span>
-<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>    <span class="s1">&#39;cpu_percent&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">],</span>
-<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>    <span class="s1">&#39;memory_rss&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">]</span>
-<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="p">}))</span>
-</code></pre></div>
-<h3 id="bash-analysis-example">Bash Analysis Example<a class="headerlink" href="#bash-analysis-example" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="ch">#!/bin/bash</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="c1"># Calculate average CPU per tool</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="k">for</span><span class="w"> </span>tool<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>cut<span class="w"> </span>-d<span class="s1">&#39;,&#39;</span><span class="w"> </span>-f4<span class="w"> </span>~/.claude/performance.csv<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="nv">avg</span><span class="o">=</span><span class="k">$(</span>grep<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$tool</span><span class="s2">&quot;</span><span class="w"> </span>~/.claude/performance.csv<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">          </span>awk<span class="w"> </span>-F<span class="s1">&#39;,&#39;</span><span class="w"> </span><span class="s1">&#39;{sum+=$2; count++} END {print sum/count}&#39;</span><span class="k">)</span>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$tool</span><span class="s2">: </span><span class="nv">$avg</span><span class="s2">% avg CPU&quot;</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="k">done</span>
-</code></pre></div>
-<h2 id="maintenance">Maintenance<a class="headerlink" href="#maintenance" title="Permanent link">&para;</a></h2>
-<h3 id="enabledisable-monitoring">Enable/Disable Monitoring<a class="headerlink" href="#enabledisable-monitoring" title="Permanent link">&para;</a></h3>
-<p>Edit <code>.claude/hooks.yaml</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Disable monitoring</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">performance-monitor-pre</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-</code></pre></div>
-<p>Or regenerate hooks with updated configuration:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Update hook description</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>vim<span class="w"> </span>examples/hooks/performance_monitor_pre.json
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Regenerate</span>
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>python3<span class="w"> </span>agents/meta.hook/meta_hook.py<span class="w"> </span>examples/hooks/performance_monitor_pre.json
-</code></pre></div>
-<h3 id="adjust-log-rotation">Adjust Log Rotation<a class="headerlink" href="#adjust-log-rotation" title="Permanent link">&para;</a></h3>
-<p>Edit <code>examples/hooks/performance_monitor_post.json</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">{</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;... if [[ $(wc -l &lt; ~/.claude/performance.csv) -gt 2000 ]]; then tail -n 1000 ... fi&quot;</span>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="p">}</span>
-</code></pre></div>
-<p>Then regenerate:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>python3<span class="w"> </span>agents/meta.hook/meta_hook.py<span class="w"> </span>examples/hooks/performance_monitor_post.json
-</code></pre></div>
-<h2 id="performance-metrics">Performance Metrics<a class="headerlink" href="#performance-metrics" title="Permanent link">&para;</a></h2>
-<h3 id="hook-overhead">Hook Overhead<a class="headerlink" href="#hook-overhead" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Pre-tool hook</strong>: ~5-10ms</li>
-<li><strong>Post-tool hook</strong>: ~10-20ms (includes rotation check)</li>
-<li><strong>Total overhead per tool call</strong>: ~15-30ms</li>
-</ul>
-<h3 id="storage">Storage<a class="headerlink" href="#storage" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Average entry size</strong>: ~80 bytes</li>
-<li><strong>1000 entries</strong>: ~80 KB</li>
-<li><strong>After rotation (500 entries)</strong>: ~40 KB</li>
-</ul>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="hook-not-triggering">Hook Not Triggering<a class="headerlink" href="#hook-not-triggering" title="Permanent link">&para;</a></h3>
-<p><strong>Check hook status:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>cat<span class="w"> </span>.claude/hooks.yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;performance-monitor&quot;</span>
+<hr />
+<h2 id="adding-new-artifact-skill-mappings">Adding New Artifact-Skill Mappings<a class="headerlink" href="#adding-new-artifact-skill-mappings" title="Permanent link">&para;</a></h2>
+<p>When creating a new specialized skill:</p>
+<ol>
+<li>
+<p><strong>Check registry for artifact type</strong>:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>jq<span class="w"> </span><span class="s1">&#39;.artifact_types[] | select(.name == &quot;{artifact-type}&quot;)&#39;</span><span class="w"> </span>registry/artifact_types.json
 </code></pre></div></p>
-<p><strong>Verify hooks are enabled:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</li>
+<li>
+<p><strong>If artifact doesn't exist, choose</strong>:</p>
+</li>
+<li>Option A: Use similar existing artifact type</li>
+<li>
+<p>Option B: Create new artifact type (update registry + create schema)</p>
+</li>
+<li>
+<p><strong>Match exactly</strong>:</p>
+</li>
+<li><code>file_pattern</code> must match registry</li>
+<li><code>content_type</code> must match registry</li>
+<li>
+<p><code>schema</code> must reference actual schema file (if exists)</p>
+</li>
+<li>
+<p><strong>Run verification script</strong>:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># See SPECIALIZED_SKILL_CREATION_PATTERN.md Step 3.5</span>
 </code></pre></div></p>
-<h3 id="csv-file-not-created">CSV File Not Created<a class="headerlink" href="#csv-file-not-created" title="Permanent link">&para;</a></h3>
-<p><strong>Check directory permissions:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.claude
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>~/.claude
-</code></pre></div></p>
-<p><strong>Manually test command:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="w"> </span>+%s.%N<span class="k">)</span><span class="s2">,</span><span class="k">$(</span>ps<span class="w"> </span>-o<span class="w"> </span>%cpu<span class="o">=</span><span class="w"> </span>-p<span class="w"> </span><span class="nv">$$</span><span class="k">)</span><span class="s2">,</span><span class="k">$(</span>ps<span class="w"> </span>-o<span class="w"> </span><span class="nv">rss</span><span class="o">=</span><span class="w"> </span>-p<span class="w"> </span><span class="nv">$$</span><span class="k">)</span><span class="s2">,Test,start&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.claude/performance.csv
-</code></pre></div></p>
-<h3 id="environment-variable-not-available">Environment Variable Not Available<a class="headerlink" href="#environment-variable-not-available" title="Permanent link">&para;</a></h3>
-<p>The <code>$CLAUDE_TOOL_NAME</code> variable is set by Claude Code during hook execution. If testing manually, set it:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">CLAUDE_TOOL_NAME</span><span class="o">=</span><span class="s2">&quot;TestTool&quot;</span>
+</li>
+<li>
+<p><strong>Update this document</strong> with the new mapping</p>
+</li>
+</ol>
+<hr />
+<h2 id="common-pitfalls">Common Pitfalls<a class="headerlink" href="#common-pitfalls" title="Permanent link">&para;</a></h2>
+<h3 id="singular-vs-plural">❌ Singular vs Plural<a class="headerlink" href="#singular-vs-plural" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># WRONG</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nt">consumes</span><span class="p">:</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data-flow-diagram</span><span class="w">  </span><span class="c1"># Doesn&#39;t exist!</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># CORRECT</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="nt">consumes</span><span class="p">:</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data-flow-diagrams</span><span class="w">  </span><span class="c1"># Exists in registry</span>
 </code></pre></div>
-<h3 id="log-rotation-not-working">Log Rotation Not Working<a class="headerlink" href="#log-rotation-not-working" title="Permanent link">&para;</a></h3>
-<p><strong>Check file size manually:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>wc<span class="w"> </span>-l<span class="w"> </span>~/.claude/performance.csv
-</code></pre></div></p>
-<p><strong>Test rotation command:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>wc<span class="w"> </span>-l<span class="w"> </span>&lt;<span class="w"> </span>~/.claude/performance.csv<span class="k">)</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">500</span><span class="w"> </span>~/.claude/performance.csv<span class="w"> </span>&gt;<span class="w"> </span>~/.claude/performance.csv.tmp
-<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">    </span>mv<span class="w"> </span>~/.claude/performance.csv.tmp<span class="w"> </span>~/.claude/performance.csv
-<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="k">fi</span>
-</code></pre></div></p>
-<h2 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../agents/meta.hook/README.md">meta.hook Agent</a> - Hook creation system</li>
-<li><a href="https://docs.claude.com/en/docs/claude-code/hooks">Claude Code Hooks</a> - Official hook documentation</li>
-<li><a href="../COMMAND_HOOK_INFRASTRUCTURE/">Command Hook Infrastructure</a> - Betty hook system</li>
-</ul>
+<h3 id="generic-vs-specific-types">❌ Generic vs Specific Types<a class="headerlink" href="#generic-vs-specific-types" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># WRONG</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nt">consumes</span><span class="p">:</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data-model</span><span class="w">  </span><span class="c1"># Too generic, doesn&#39;t exist!</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c1"># CORRECT</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="nt">consumes</span><span class="p">:</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logical-data-model</span><span class="w">  </span><span class="c1"># Specific registered type</span>
+</code></pre></div>
+<h3 id="format-mismatch">❌ Format Mismatch<a class="headerlink" href="#format-mismatch" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Registry says YAML</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nt">produces</span><span class="p">:</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">threat-model</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="nt">file_pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;*.threat-model.md&quot;</span><span class="w">  </span><span class="c1"># WRONG: Should be .yaml</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="nt">content_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;text/markdown&quot;</span><span class="w">      </span><span class="c1"># WRONG: Should be application/yaml</span>
+</code></pre></div>
+<hr />
 <h2 id="future-enhancements">Future Enhancements<a class="headerlink" href="#future-enhancements" title="Permanent link">&para;</a></h2>
+<h3 id="automated-discovery">Automated Discovery<a class="headerlink" href="#automated-discovery" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Planned: artifact.discover skill</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">find_skills_for_artifact</span><span class="p">(</span><span class="n">artifact_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Find all skills that can produce this artifact type.&quot;&quot;&quot;</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="c1"># Query skills registry for artifact_metadata.produces</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">find_consumers_for_artifact</span><span class="p">(</span><span class="n">artifact_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Find all skills that consume this artifact type.&quot;&quot;&quot;</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    <span class="c1"># Query skills registry for artifact_metadata.consumes</span>
+</code></pre></div>
+<h3 id="artifact-flow-validation">Artifact Flow Validation<a class="headerlink" href="#artifact-flow-validation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Planned: workflow.validate enhancement</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">validate_artifact_flow</span><span class="p">(</span><span class="n">workflow</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate that artifact flow is complete (no missing links).&quot;&quot;&quot;</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="c1"># Check each skill&#39;s outputs feed into next skill&#39;s inputs</span>
+</code></pre></div>
+<h3 id="agent-auto-composition">Agent Auto-Composition<a class="headerlink" href="#agent-auto-composition" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Planned: agent.compose enhancement</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">compose_agent_for_artifacts</span><span class="p">(</span><span class="n">required_artifacts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Auto-compose agent from skills based on artifact requirements.&quot;&quot;&quot;</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="c1"># Build skill chain to produce all required artifacts</span>
+</code></pre></div>
+<hr />
+<h2 id="maintenance">Maintenance<a class="headerlink" href="#maintenance" title="Permanent link">&para;</a></h2>
+<p>This document should be updated whenever:</p>
 <ul>
-<li>[ ] Add CSV header row automatically</li>
-<li>[ ] Create analysis dashboard</li>
-<li>[ ] Add performance alerts (CPU/memory thresholds)</li>
-<li>[ ] Export to Prometheus/Grafana format</li>
-<li>[ ] Add tool-specific performance profiles</li>
-<li>[ ] Include tool parameters in logs</li>
-<li>[ ] Add success/failure tracking</li>
+<li>✅ New specialized skill is created</li>
+<li>✅ Artifact type is added/modified in registry</li>
+<li>✅ Skill artifact_metadata is changed</li>
+<li>✅ New artifact flow pattern is established</li>
 </ul>
-<h2 id="implementation-details">Implementation Details<a class="headerlink" href="#implementation-details" title="Permanent link">&para;</a></h2>
-<h3 id="created-using">Created Using<a class="headerlink" href="#created-using" title="Permanent link">&para;</a></h3>
+<p><strong>Last Verified</strong>: 2025-11-02
+<strong>Next Review</strong>: When P1 skills are created</p>
+<hr />
+<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Tool</strong>: meta.hook agent</li>
-<li><strong>Input Files</strong>:</li>
-<li><code>examples/hooks/performance_monitor_pre.json</code></li>
-<li><code>examples/hooks/performance_monitor_post.json</code></li>
-<li><strong>Output</strong>: <code>.claude/hooks.yaml</code></li>
-<li><strong>Date</strong>: 2025-10-25</li>
+<li><a href="../SPECIALIZED_SKILL_CREATION_PATTERN/">SPECIALIZED_SKILL_CREATION_PATTERN.md</a> - How to create skills</li>
+<li><a href="../ARTIFACT_STANDARDS/">ARTIFACT_STANDARDS.md</a> - Artifact type definitions</li>
+<li><a href="../ARTIFACT_PRODUCER_CONSUMER_MAP/">ARTIFACT_PRODUCER_CONSUMER_MAP.md</a> - High-level mapping</li>
 </ul>
-<h3 id="hook-descriptions">Hook Descriptions<a class="headerlink" href="#hook-descriptions" title="Permanent link">&para;</a></h3>
-<p>The hooks were created from JSON descriptions that specify:
-- Event triggers (before-tool-call, after-tool-call)
-- Shell commands for metric collection
-- Timeout and enable settings
-- Human-readable descriptions</p>
-<p>These descriptions can be modified and regenerated at any time using the meta.hook agent.</p>
 
 
 
@@ -1970,7 +1962,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 25, 2025 17:47:25 UTC">October 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 2, 2025 13:40:19 UTC">November 2, 2025</span>
   </span>
 
     
@@ -1980,7 +1972,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 25, 2025 17:47:25 UTC">October 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 2, 2025 13:40:19 UTC">November 2, 2025</span>
   </span>
 
     
