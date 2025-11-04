@@ -1,0 +1,34 @@
+name: seed4j.scaffold
+version: 0.1.0
+description: Scaffolds new Seed4j (formerly JHipster Lite) applications with clean
+  architecture and hexagonal architecture patterns. Helps developers bootstrap Java
+  Spring Boot applications with modular code generation following Test-Driven Development
+  (TDD) principles and hexagonal architecture (ports and adapters pattern).
+inputs:
+- project_name
+- package_name
+- base_path (optional)
+- java_version (optional)
+- spring_boot_version (optional)
+- include_modules (optional)
+- architecture_style (optional)
+outputs:
+- project_structure.json
+- configuration_files.json
+- module_list.json
+- setup_instructions.md
+- scaffold_result.json
+status: active
+permissions:
+- filesystem:read
+- filesystem:write
+entrypoints:
+- command: /seed4j/scaffold
+  handler: seed4j_scaffold.py
+  runtime: python
+  description: Scaffolds new Seed4j (formerly JHipster Lite) applications with clean
+    architecture and hexagonal arc
+artifact_metadata:
+  produces:
+  - type: architecture-overview
+  - type: component-model
