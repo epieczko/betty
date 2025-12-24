@@ -1,5 +1,8 @@
 # Betty Framework
 
+[![Run in Smithery](https://smithery.ai/badge/skills/epieczko)](https://smithery.ai/skills?ns=epieczko&utm_source=github&utm_medium=badge)
+
+
 <div align="center">
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
